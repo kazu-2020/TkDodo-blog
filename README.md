@@ -1,8 +1,6 @@
-# playlist
+# labo-playlist-editor
 
-> My gnarly Nuxt.js project
-
-## Build Setup
+## Build Setup (for Local)
 
 ```bash
 # install dependencies
@@ -19,4 +17,12 @@ $ yarn start
 $ yarn generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Build Setup (for docker-compose)
+
+```bash
+$ docker-compose build
+$ docker-compose up
+$ open http://localhost:8080
+# コンテナ内に入る場合
+$ docker exec -it labo-playlist-editor_frontend_1 sh
+```
