@@ -13,10 +13,10 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+        content: process.env.npm_package_description || '',
+      },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   /*
    ** Customize the progress-bar color
@@ -25,9 +25,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [
-    '@assets/css/main.scss'
-  ],
+  css: ['@assets/css/main.scss'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -39,14 +37,19 @@ export default {
     '@nuxt/typescript-build',
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module',
-    ['@nuxtjs/vuetify', { /* module options */ }]
+    [
+      '@nuxtjs/vuetify',
+      {
+        /* module options */
+      },
+    ],
   ],
   /*
    ** Nuxt.js modules
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
   ],
   /*
    ** Axios module configuration
@@ -54,9 +57,9 @@ export default {
    */
   axios: {},
   /*
-  ** vuetify module configuration
-  ** https://github.com/nuxt-community/vuetify-module
-  */
+   ** vuetify module configuration
+   ** https://github.com/nuxt-community/vuetify-module
+   */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
@@ -67,7 +70,7 @@ export default {
           secondary: colors.grey.darken1,
           accent: colors.shades.black,
           error: colors.red.accent3,
-          },
+        },
         dark: {
           primary: colors.blue.darken2,
           accent: colors.grey.darken3,
@@ -75,10 +78,10 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
-        }
-      }
-    }
+          success: colors.green.accent3,
+        },
+      },
+    },
   },
   /*
    ** Build configuration
@@ -87,6 +90,21 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
-  }
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/,
+        })
+      }
+    },
+  },
+  typescript: {
+    typeCheck: {
+      eslint: true,
+    },
+  },
 }

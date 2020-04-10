@@ -24,15 +24,8 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
+    <v-app-bar :clipped-left="clipped" fixed app>
+      <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
       <v-toolbar-title v-text="title" />
@@ -43,10 +36,7 @@
         <nuxt />
       </v-container>
     </v-content>
-    <v-footer
-      :fixed="fixed"
-      app
-    >
+    <v-footer :fixed="fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -54,7 +44,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       clipped: false,
       drawer: true,
@@ -63,19 +53,19 @@ export default {
         {
           icon: 'mdi-playlist-play',
           title: 'PlayList',
-          to: '/'
+          to: '/',
         },
         {
           icon: 'mdi-vector-rectangle',
           title: 'Decks',
-          to: '/decks'
-        }
+          to: '/decks',
+        },
       ],
       miniVariant: true,
       right: false,
       rightDrawer: false,
-      title: 'Playlisticle'
+      title: 'Playlisticle',
     }
-  }
+  },
 }
 </script>

@@ -26,3 +26,17 @@ $ open http://localhost:8080
 # コンテナ内に入る場合
 $ docker exec -it labo-playlist-editor_frontend_1 sh
 ```
+
+## Lint
+
+prettier による自動コードフォーマットと、
+eslint による, js, vue の Lint、
+stylelint による css, scss の Lint を行っています。
+
+```bash
+# Lint のみ
+$ yarn lint
+
+# Lint + fix
+$ yarn lint --fix
+```
