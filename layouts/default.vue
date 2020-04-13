@@ -10,7 +10,11 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item v-for="(item, index) in playlistItems" :key="index">
+          <v-list-item
+            v-for="(item, index) in playlistItems"
+            :key="index"
+            :to="item.to"
+          >
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -23,7 +27,11 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item v-for="(item, index) in playlistItems" :key="index">
+          <v-list-item
+            v-for="(item, index) in deckItems"
+            :key="index"
+            :to="item.to"
+          >
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -51,21 +59,21 @@ export default {
       playlistItems: [
         {
           title: '一覧',
-          to: '/',
+          to: '/playlists',
         },
         {
           title: '新規作成',
-          to: '/',
+          to: '/playlists/new',
         },
       ],
       deckItems: [
         {
           title: '一覧',
-          to: '/',
+          to: '/decks',
         },
         {
           title: '新規作成',
-          to: '/',
+          to: '/decks/new',
         },
       ],
       miniVariant: true,
