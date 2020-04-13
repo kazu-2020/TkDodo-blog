@@ -1,34 +1,41 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
       <v-toolbar-title v-text="title" />
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn color="transparent" dark v-on="on">
+            <v-icon>mdi-playlist-play</v-icon>
+            プレイリスト
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in playlistItems"
+            :key="index"
+            :to="item.to"
+          >
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn color="transparent" dark v-on="on">
+            <v-icon>mdi-view-grid</v-icon>
+            デッキ
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in deckItems"
+            :key="index"
+            :to="item.to"
+          >
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <v-spacer />
     </v-app-bar>
     <v-content>
@@ -49,22 +56,30 @@ export default {
       clipped: false,
       drawer: true,
       fixed: false,
-      items: [
+      playlistItems: [
         {
-          icon: 'mdi-playlist-play',
-          title: 'PlayList',
-          to: '/',
+          title: '一覧',
+          to: '/playlists',
         },
         {
-          icon: 'mdi-vector-rectangle',
-          title: 'Decks',
+          title: '新規作成',
+          to: '/playlists/new',
+        },
+      ],
+      deckItems: [
+        {
+          title: '一覧',
           to: '/decks',
+        },
+        {
+          title: '新規作成',
+          to: '/decks/new',
         },
       ],
       miniVariant: true,
       right: false,
       rightDrawer: false,
-      title: 'Playlisticle',
+      title: 'PLAYLIST（仮）',
     }
   },
 }
