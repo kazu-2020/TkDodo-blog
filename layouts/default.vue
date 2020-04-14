@@ -4,7 +4,7 @@
       <v-toolbar-title v-text="title" />
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-          <v-btn color="transparent" dark depressed="false" v-on="on">
+          <v-btn color="transparent" dark :depressed="false" v-on="on">
             <v-icon>mdi-playlist-play</v-icon>
             プレイリスト
           </v-btn>
@@ -22,7 +22,7 @@
       <v-btn
         color="transparent"
         dark
-        depressed="false"
+        :depressed="false"
         to="/user_needs"
         v-on="on"
       >
@@ -30,7 +30,7 @@
       </v-btn>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-          <v-btn color="transparent" dark depressed="false" v-on="on">
+          <v-btn color="transparent" dark :depressed="false" v-on="on">
             <v-icon>mdi-view-grid</v-icon>
             デッキ
           </v-btn>
