@@ -1,5 +1,12 @@
 # labo-playlist-editor
 
+https://master.d1l4w6plfgg34u.amplifyapp.com/
+
+```
+ID: Sikmi
+Password: S1kmiNhkLab0
+```
+
 ## Build Setup (for Local)
 
 ```bash
