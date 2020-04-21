@@ -1,6 +1,10 @@
 import colors from 'vuetify/es5/util/colors'
 
+const environment = process.env.NODE_ENV || 'development'
+const envSet = require(`./env.${environment}.js`)
+
 export default {
+  env: envSet,
   mode: 'spa',
   /*
    ** Headers of the page
@@ -59,7 +63,7 @@ export default {
   axios: {},
   proxy: {
     '/api': {
-      target: 'http://localhost:8888',
+      target: envSet.apiBaseUrl,
       pathRewrite: {
         '^/api': '/',
       },
