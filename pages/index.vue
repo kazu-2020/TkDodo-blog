@@ -11,15 +11,13 @@
         </v-card-title>
         <v-card-text>
           <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
             For more information on Vuetify, check out the
             <a href="https://vuetifyjs.com" target="_blank"> documentation </a>
             .
           </p>
+          <div v-for="item in data" :key="item.id">
+            <p>{{ item.body }}</p>
+          </div>
           <p>
             If you have questions, please join the official
             <a href="https://chat.vuetifyjs.com/" target="_blank" title="chat">
@@ -65,14 +63,27 @@
   </v-layout>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 
-export default {
+@Component({
   components: {
-    Logo,
-    VuetifyLogo,
+    Logo: () => import('~/components/Logo.vue'),
+    VuetifyLogo: () => import('~/components/VuetifyLogo.vue'),
   },
-}
+  async asyncData(context) {
+    try {
+      const res = await context.$axios.get('/api')
+      return {
+        data: res.data,
+      }
+    } catch (err) {
+      return context.error({
+        statusCode: err.response.status,
+        message: err.response.statusText + ': ' + err.response.data,
+      })
+    }
+  },
+})
+export default class IndexComponent extends Vue {}
 </script>
