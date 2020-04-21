@@ -65,6 +65,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import axios from 'axios'
 
 @Component({
   components: {
@@ -73,7 +74,7 @@ import { Component, Vue } from 'vue-property-decorator'
   },
   async asyncData(context) {
     try {
-      const res = await context.$axios.get('/api')
+      const res = await axios.get('/api')
       return {
         data: res.data,
       }
