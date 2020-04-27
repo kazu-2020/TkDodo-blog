@@ -1,6 +1,7 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
+      <playlist-item />
       <div class="text-center">
         <logo />
         <vuetify-logo />
@@ -71,6 +72,7 @@ import axios from 'axios'
   components: {
     Logo: () => import('~/components/Logo.vue'),
     VuetifyLogo: () => import('~/components/VuetifyLogo.vue'),
+    PlaylistItem: () => import('~/components/PlaylistItem.vue'),
   },
   async asyncData(context) {
     try {
