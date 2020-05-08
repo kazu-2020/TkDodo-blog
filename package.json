@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/moment": "^1.6.0",
+    "moment": "^2.25.3",
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.5.1"
   },

@@ -20,7 +20,8 @@
         </v-list-item-subtitle>
         <v-list-item-subtitle>
           <v-icon>mdi-update</v-icon>
-          <!-- {{ playlist.updated_at }} 更新 -->
+          {{ formattedDate(playlist.updated_at) }}
+          更新
         </v-list-item-subtitle>
       </v-list-item-content>
       <v-card-actions>
@@ -36,11 +37,16 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import moment from 'moment'
 
 @Component
 export default class PlaylistItem extends Vue {
   @Prop({ type: Object, required: true })
   playlist?: object
+
+  formattedDate(_time: string) {
+    return moment(_time).format('YYYY/MM/DD')
+  }
 }
 </script>
 <style>
