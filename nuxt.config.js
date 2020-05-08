@@ -55,6 +55,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
+    ['@nuxtjs/moment', ['ja']],
   ],
   /*
    ** Axios module configuration
@@ -106,6 +107,7 @@ export default {
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
+        config.devtool = 'inline-cheap-module-source-map'
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,

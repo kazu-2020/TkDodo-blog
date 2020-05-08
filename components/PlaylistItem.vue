@@ -1,32 +1,27 @@
 <template>
-  <v-card class="mx-auto" outlined light>
+  <v-card class="mb-4" outlined light>
     <v-list-item three-line>
       <v-list-item-avatar tile size="240" color="grey" horizontal />
       <v-list-item-content>
         <v-list-item-title class="headline mb-1">
-          おうちで学ぼう!
+          {{ playlist.title }}
         </v-list-item-title>
         <v-list-item-subtitle>
           番組数:
-          <span>
-            8件
-          </span>
+          <span>8件</span>
         </v-list-item-subtitle>
         <v-list-item-subtitle>
           公開期間:
-          <span>
-            2020/01/02 ~ 2021/10/02
-          </span>
+          <span>2020/01/02 ~ 2021/10/02</span>
         </v-list-item-subtitle>
         <v-list-item-subtitle>
           番組総時間:
-          <span>
-            01:11:59
-          </span>
+          <span>01:11:59</span>
         </v-list-item-subtitle>
         <v-list-item-subtitle>
           <v-icon>mdi-update</v-icon>
-          2020/03/01 更新
+          {{ formattedDate(playlist.updated_at) }}
+          更新
         </v-list-item-subtitle>
       </v-list-item-content>
       <v-card-actions>
@@ -41,9 +36,18 @@
   </v-card>
 </template>
 <script lang="ts">
-import { Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import moment from 'moment'
 
-export default class PlaylistItem extends Vue {}
+@Component
+export default class PlaylistItem extends Vue {
+  @Prop({ type: Object, required: true })
+  playlist?: object
+
+  formattedDate(_time: string) {
+    return moment(_time).format('YYYY/MM/DD')
+  }
+}
 </script>
 <style>
 .v-list-item {
