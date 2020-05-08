@@ -63,10 +63,10 @@ export default {
    */
   axios: {},
   proxy: {
-    '/api': {
-      target: envSet.apiBaseUrl,
+    '/api/': {
+      target: process.env.API_BASE_URL || envSet.apiBaseUrl,
       pathRewrite: {
-        '^/api': '/',
+        '^/api/': '/',
       },
     },
   },
