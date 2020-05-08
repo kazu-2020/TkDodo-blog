@@ -1,7 +1,11 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
-      <playlist-item />
+      <playlist-item
+        v-for="(playlist, index) in playlists"
+        :key="index"
+        :playlist="playlist"
+      />
       <div class="text-center">
         <logo />
         <vuetify-logo />
@@ -16,9 +20,6 @@
             <a href="https://vuetifyjs.com" target="_blank"> documentation </a>
             .
           </p>
-          <div v-for="item in data" :key="item.id">
-            <p>{{ item.body }}</p>
-          </div>
           <p>
             If you have questions, please join the official
             <a href="https://chat.vuetifyjs.com/" target="_blank" title="chat">
@@ -66,7 +67,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import axios from 'axios'
 
 @Component({
   components: {
@@ -74,19 +74,16 @@ import axios from 'axios'
     VuetifyLogo: () => import('~/components/VuetifyLogo.vue'),
     PlaylistItem: () => import('~/components/PlaylistItem.vue'),
   },
-  async asyncData(context) {
-    try {
-      const res = await axios.get('/api')
-      return {
-        data: res.data,
-      }
-    } catch (err) {
-      return context.error({
-        statusCode: err.response.status,
-        message: err.response.statusText + ': ' + err.response.data,
-      })
+  async asyncData({ store }) {
+    if (store.getters.playlists.length) {
+      return
     }
+    await store.dispatch('fetchPlaylists')
   },
 })
-export default class IndexComponent extends Vue {}
+export default class IndexComponent extends Vue {
+  get playlists() {
+    return this.$store.state.playlists
+  }
+}
 </script>

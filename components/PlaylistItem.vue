@@ -4,7 +4,7 @@
       <v-list-item-avatar tile size="240" color="grey" horizontal />
       <v-list-item-content>
         <v-list-item-title class="headline mb-1">
-          おうちで学ぼう!
+          {{ playlist.title }}
         </v-list-item-title>
         <v-list-item-subtitle>
           番組数:
@@ -26,7 +26,7 @@
         </v-list-item-subtitle>
         <v-list-item-subtitle>
           <v-icon>mdi-update</v-icon>
-          2020/03/01 更新
+          {{ playlist.updated_at }} 更新
         </v-list-item-subtitle>
       </v-list-item-content>
       <v-card-actions>
@@ -41,9 +41,17 @@
   </v-card>
 </template>
 <script lang="ts">
-import { Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
-export default class PlaylistItem extends Vue {}
+@Component
+export default class PlaylistItem extends Vue {
+  @Prop({ type: Object, required: true })
+  playlist: object = {
+    title: 'Default title',
+  }
+
+  _playlist: Object = this.playlist
+}
 </script>
 <style>
 .v-list-item {
