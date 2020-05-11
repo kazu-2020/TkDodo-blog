@@ -19,14 +19,11 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn color="transparent" dark depressed to="/user_needs" v-on="on">
-        ユーザーニーズ
-      </v-btn>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn color="transparent" dark depressed v-on="on">
             <v-icon>mdi-view-grid</v-icon>
-            デッキ
+            プレイリスティクル
           </v-btn>
         </template>
         <v-list>
@@ -62,7 +59,7 @@ export default {
       playlistItems: [
         {
           title: '一覧',
-          to: '/playlists',
+          to: '/',
         },
         {
           title: '新規作成',
@@ -72,11 +69,11 @@ export default {
       deckItems: [
         {
           title: '一覧',
-          to: '/decks',
+          to: '/playlisticles',
         },
         {
           title: '新規作成',
-          to: '/decks/new',
+          to: '/playlisticles/new',
         },
       ],
       miniVariant: true,

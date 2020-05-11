@@ -7,7 +7,7 @@
       </div>
       <v-card>
         <v-card-title class="headline">
-          Decks#index
+          Playlisticle#index
         </v-card-title>
         <v-card-text>
           <p>
