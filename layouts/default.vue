@@ -14,7 +14,12 @@
             <v-list-item-title>一覧</v-list-item-title>
           </v-list-item>
           <v-list-item>
-            <new-playlist-dialog />
+            <v-list-item-title
+              class="playlist_new"
+              @click="isShowNewPlaylistDialog = true"
+            >
+              新規作成
+            </v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -35,6 +40,10 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <new-playlist-dialog
+        :is-show-dialog="isShowNewPlaylistDialog"
+        @hide-new-playlist-dialog="isShowNewPlaylistDialog = false"
+      />
       <v-spacer />
     </v-app-bar>
     <v-content>
@@ -48,34 +57,33 @@
   </v-app>
 </template>
 
-<script>
-import NewPlaylistDialog from '../components/NewPlaylistDialog'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 
-export default {
+@Component({
   components: {
-    NewPlaylistDialog,
+    NewPlaylistDialog: () => import('~/components/NewPlaylistDialog.vue'),
   },
-  data() {
-    return {
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      playlisticleItems: [
-        {
-          title: '一覧',
-          to: '/playlisticles',
-        },
-        {
-          title: '新規作成',
-          to: '/playlisticles/new',
-        },
-      ],
-      miniVariant: true,
-      right: false,
-      rightDrawer: false,
-      title: 'PLAYLIST（仮）',
-      dialog: false,
-    }
-  },
+})
+export default class LayoutDefault extends Vue {
+  clipped = false
+  drawer = true
+  fixed = false
+  playlisticleItems = [
+    {
+      title: '一覧',
+      to: '/playlisticles',
+    },
+    {
+      title: '新規作成',
+      to: '/playlisticles/new',
+    },
+  ]
+
+  miniVariant = true
+  right = false
+  rightDrawer = false
+  title = 'PLAYLIST（仮）'
+  isShowNewPlaylistDialog = false
 }
 </script>

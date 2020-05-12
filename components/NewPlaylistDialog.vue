@@ -1,14 +1,22 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="600px">
-    <template v-slot:activator="{ on }">
-      <v-list-item-title class="playlist_new" v-on="on">
-        新規作成
-      </v-list-item-title>
-    </template>
+  <v-dialog v-model="isShowDialog" max-width="600px">
     <v-card>
-      <v-card-title>
-        <span class="headline">プレイリストを作成</span>
-      </v-card-title>
+      <v-container>
+        <v-row>
+          <v-col cols="10" sm="10" md="10">
+            <v-card-title>
+              <span class="headline">プレイリストを作成</span>
+            </v-card-title>
+          </v-col>
+          <v-col cols="2" sm="2" md="2">
+            <v-card-actions>
+              <v-btn color="white darken-1" text @click="hideNewPlaylistDialog">
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-col>
+        </v-row>
+      </v-container>
       <v-card-text>
         <v-container>
           <v-row>
@@ -54,12 +62,6 @@
           </v-row>
         </v-container>
       </v-card-text>
-      <v-card-actions>
-        <v-spacer />
-        <v-btn color="white darken-1" text @click="dialog = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </v-card-actions>
     </v-card>
     <v-dialog v-model="loadingDialog" hide-overlay persistent width="300">
       <v-card color="grey darken-3" dark>
@@ -73,14 +75,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 
 @Component
 export default class NewPlaylistDialog extends Vue {
-  dialog = false
   isShowAlert = false
   loadingDialog = false
   title = ''
+
+  @Prop({ type: Boolean, required: false })
+  isShowDialog: boolean = false
 
   submitNewPlaylist() {
     this.loadingDialog = true
@@ -89,13 +93,17 @@ export default class NewPlaylistDialog extends Vue {
         title: this.title,
       },
     })
+    this.subscribeSubmitAction()
+  }
 
+  subscribeSubmitAction() {
     this.$store.subscribeAction({
       after: (action, state) => {
         if (action.type !== 'playlists/createPlaylists') return
 
         if (state.playlists.allItems[0].title === this.title) {
           const playlist = state.playlists.allItems[0]
+          this.initializeNewPlaylistDialog()
           this.$router.push(`/playlists/${playlist.id}`)
         } else {
           this.isShowAlert = true
@@ -105,6 +113,15 @@ export default class NewPlaylistDialog extends Vue {
       },
     })
   }
+
+  initializeNewPlaylistDialog() {
+    this.isShowAlert = false
+    this.title = ''
+    this.hideNewPlaylistDialog()
+  }
+
+  @Emit('hide-new-playlist-dialog')
+  hideNewPlaylistDialog() {}
 }
 </script>
 
