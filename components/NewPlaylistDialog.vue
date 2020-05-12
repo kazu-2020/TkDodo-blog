@@ -94,10 +94,10 @@ export default class NewPlaylistDialog extends Vue {
       after: (action, state) => {
         if (action.type !== 'playlists/createPlaylists') return
 
-        if (state.playlists.allItems[0].title !== this.title) {
-          console.log('Success')
+        if (state.playlists.allItems[0].title === this.title) {
+          const playlist = state.playlists.allItems[0]
+          this.$router.push(`/playlists/${playlist.id}`)
         } else {
-          console.log('Failure')
           this.isShowAlert = true
         }
 
