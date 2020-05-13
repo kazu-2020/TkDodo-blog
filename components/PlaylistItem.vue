@@ -25,7 +25,12 @@
         </v-list-item-subtitle>
       </v-list-item-content>
       <v-card-actions>
-        <v-btn outlined x-small>
+        <v-btn
+          outlined
+          x-small
+          :to="{ name: 'playlists-id', params: { id: playlist.id } }"
+          nuxt
+        >
           <v-icon>mdi-pencil-outline</v-icon>
         </v-btn>
         <v-btn outlined x-small>
