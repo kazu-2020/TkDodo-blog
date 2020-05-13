@@ -10,12 +10,16 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item
-            v-for="(item, index) in playlistItems"
-            :key="index"
-            :to="item.to"
-          >
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item :to="'/'">
+            <v-list-item-title>一覧</v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title
+              class="playlist_new"
+              @click="isShowNewPlaylistDialog = true"
+            >
+              新規作成
+            </v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -28,7 +32,7 @@
         </template>
         <v-list>
           <v-list-item
-            v-for="(item, index) in deckItems"
+            v-for="(item, index) in playlisticleItems"
             :key="index"
             :to="item.to"
           >
@@ -36,6 +40,10 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <new-playlist-dialog
+        :is-show-dialog="isShowNewPlaylistDialog"
+        @hide-new-playlist-dialog="isShowNewPlaylistDialog = false"
+      />
       <v-spacer />
     </v-app-bar>
     <v-content>
@@ -49,38 +57,33 @@
   </v-app>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      playlistItems: [
-        {
-          title: '一覧',
-          to: '/',
-        },
-        {
-          title: '新規作成',
-          to: '/playlists/new',
-        },
-      ],
-      deckItems: [
-        {
-          title: '一覧',
-          to: '/playlisticles',
-        },
-        {
-          title: '新規作成',
-          to: '/playlisticles/new',
-        },
-      ],
-      miniVariant: true,
-      right: false,
-      rightDrawer: false,
-      title: 'PLAYLIST（仮）',
-    }
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component({
+  components: {
+    NewPlaylistDialog: () => import('~/components/NewPlaylistDialog.vue'),
   },
+})
+export default class LayoutDefault extends Vue {
+  clipped = false
+  drawer = true
+  fixed = false
+  playlisticleItems = [
+    {
+      title: '一覧',
+      to: '/playlisticles',
+    },
+    {
+      title: '新規作成',
+      to: '/playlisticles/new',
+    },
+  ]
+
+  miniVariant = true
+  right = false
+  rightDrawer = false
+  title = 'PLAYLIST（仮）'
+  isShowNewPlaylistDialog = false
 }
 </script>

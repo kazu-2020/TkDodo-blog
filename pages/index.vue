@@ -1,5 +1,12 @@
 <template>
-  <v-layout column justify-center align-center>
+  <v-layout column>
+    <v-row>
+      <v-col>
+        <div class="title mb-4">
+          プレイリスト一覧
+        </div>
+      </v-col>
+    </v-row>
     <v-flex xs12 sm8 md6>
       <playlist-item
         v-for="item in playlists"
@@ -18,15 +25,15 @@ import { Component, Vue } from 'vue-property-decorator'
     PlaylistItem: () => import('~/components/PlaylistItem.vue'),
   },
   async asyncData({ store }) {
-    if (store.getters.playlists.length) {
+    if (store.getters['playlists/allItems'].length) {
       return
     }
-    await store.dispatch('fetchPlaylists')
+    await store.dispatch('playlists/fetchPlaylists')
   },
 })
 export default class IndexComponent extends Vue {
   get playlists() {
-    return this.$store.state.playlists
+    return this.$store.state.playlists.allItems
   }
 }
 </script>
