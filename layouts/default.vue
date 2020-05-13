@@ -87,3 +87,9 @@ export default class LayoutDefault extends Vue {
   isShowNewPlaylistDialog = false
 }
 </script>
+
+<style scoped>
+.playlist_new {
+  cursor: pointer;
+}
+</style>

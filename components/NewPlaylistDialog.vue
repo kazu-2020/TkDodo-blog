@@ -124,9 +124,3 @@ export default class NewPlaylistDialog extends Vue {
   hideNewPlaylistDialog() {}
 }
 </script>
-
-<style scoped>
-.playlist_new {
-  cursor: pointer;
-}
-</style>
