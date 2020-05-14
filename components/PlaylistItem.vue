@@ -54,7 +54,7 @@ export default class PlaylistItem extends Vue {
   }
 }
 </script>
-<style>
+<style scoped>
 .v-list-item {
   position: relative;
 }
