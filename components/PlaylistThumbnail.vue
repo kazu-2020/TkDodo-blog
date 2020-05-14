@@ -32,7 +32,9 @@ export default class PlaylistThumbnail extends Vue {
       const fr = new FileReader()
       fr.readAsDataURL(file)
       fr.addEventListener('load', () => {
-        this.uploadImageUrl = fr.result
+        if (fr.result !== null) {
+          this.uploadImageUrl = fr.result.toString()
+        }
       })
     } else {
       this.uploadImageUrl = this.defaultImageUrl

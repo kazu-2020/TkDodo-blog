@@ -24,7 +24,8 @@ import { Component, Vue } from 'vue-property-decorator'
 @Component({
   components: {
     PlaylistThumbnail: () => import('~/components/PlaylistThumbnail.vue'),
-    PlaylistSeriesMetaTabs: () => import('~/components/PlaylistSeriesMetaTabs'),
+    PlaylistSeriesMetaTabs: () =>
+      import('~/components/PlaylistSeriesMetaTabs.vue'),
   },
   async asyncData({ store, params }) {
     if (store.getters['playlists/editingPlaylist']) {
