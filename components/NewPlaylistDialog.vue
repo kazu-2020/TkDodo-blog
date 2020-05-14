@@ -22,7 +22,7 @@
           <v-row>
             <v-col cols="6" sm="12" md="5">
               <v-card class="pa-2" tile>
-                <v-list-item-avatar tile size="200" color="grey" />
+                <playlist-thumbnail />
               </v-card>
             </v-col>
             <v-col cols="6" sm="12" md="6">
@@ -77,7 +77,11 @@
 <script lang="ts">
 import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+  components: {
+    PlaylistThumbnail: () => import('~/components/PlaylistThumbnail.vue'),
+  },
+})
 export default class NewPlaylistDialog extends Vue {
   isShowAlert = false
   loadingDialog = false
@@ -124,9 +128,3 @@ export default class NewPlaylistDialog extends Vue {
   hideNewPlaylistDialog() {}
 }
 </script>
-
-<style scoped>
-.playlist_new {
-  cursor: pointer;
-}
-</style>
