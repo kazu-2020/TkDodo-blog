@@ -12,7 +12,7 @@
         <playlist-thumbnail :url="url" />
       </v-col>
       <v-col lg="8" md="8" sm="12" xs="12">
-        <v-list-item-avatar tile color="white" />
+        <playlist-series-meta-tabs />
       </v-col>
     </v-row>
   </v-layout>
@@ -24,6 +24,7 @@ import { Component, Vue } from 'vue-property-decorator'
 @Component({
   components: {
     PlaylistThumbnail: () => import('~/components/PlaylistThumbnail.vue'),
+    PlaylistSeriesMetaTabs: () => import('~/components/PlaylistSeriesMetaTabs'),
   },
   async asyncData({ store, params }) {
     if (store.getters['playlists/editingPlaylist']) {
