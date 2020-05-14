@@ -2,12 +2,14 @@
   <v-layout column>
     <v-row>
       <v-col>
-        <div class="mb-4 headline">{{ playlist.title }}</div>
+        <div class="mb-4 headline">
+          {{ playlist.title }}
+        </div>
       </v-col>
     </v-row>
     <v-row>
       <v-col lg="4" md="4" sm="12" xs="12">
-        <v-list-item-avatar tile color="grey" />
+        <playlist-thumbnail :url="url" />
       </v-col>
       <v-col lg="8" md="8" sm="12" xs="12">
         <v-list-item-avatar tile color="white" />
@@ -20,6 +22,9 @@
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
+  components: {
+    PlaylistThumbnail: () => import('~/components/PlaylistThumbnail.vue'),
+  },
   async asyncData({ store, params }) {
     if (store.getters['playlists/editingPlaylist']) {
       return
@@ -28,6 +33,9 @@ import { Component, Vue } from 'vue-property-decorator'
   },
 })
 export default class PlaylistIdPageComponent extends Vue {
+  url =
+    'https://pbs.twimg.com/profile_images/1111451081135943680/d1sPJsQf_400x400.png'
+
   get playlist() {
     return this.$store.state.playlists.editingPlaylist
   }
