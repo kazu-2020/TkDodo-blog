@@ -39,5 +39,8 @@ export default {
           commit('setEditingPlaylist', { playlist: response.data })
         )
     },
+    initializeEditingPlaylist({ commit }) {
+      commit('setEditingPlaylist', { playlist: null })
+    },
   },
 }

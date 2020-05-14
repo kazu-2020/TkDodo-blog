@@ -40,5 +40,9 @@ export default class PlaylistIdPageComponent extends Vue {
   get playlist() {
     return this.$store.state.playlists.editingPlaylist
   }
+
+  beforeDestroy() {
+    this.$store.dispatch('playlists/initializeEditingPlaylist')
+  }
 }
 </script>
