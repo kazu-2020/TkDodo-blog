@@ -19,6 +19,7 @@
     "dev-debug": "node --inspect-brk=9229 node_modules/nuxt/bin/nuxt"
   },
   "dependencies": {
+    "@editorjs/editorjs": "^2.17.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/moment": "^1.6.0",
     "moment": "^2.25.3",
