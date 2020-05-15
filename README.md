@@ -1,10 +1,10 @@
 # labo-playlist-editor
 
-https://master.d1l4w6plfgg34u.amplifyapp.com/
+https://master.d1g8sbnehehpms.amplifyapp.com/
 
 ```
-ID: Sikmi
-Password: S1kmiNhkLab0
+ID: aw-editorialhands
+Password: aw-editorialhands-ui
 ```
 
 ## Build Setup (for Local)
