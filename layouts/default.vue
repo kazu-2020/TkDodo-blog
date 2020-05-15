@@ -78,6 +78,10 @@ export default class LayoutDefault extends Vue {
       title: '新規作成',
       to: '/playlisticles/new',
     },
+    {
+      title: 'Sandbox',
+      to: '/playlisticles/sandbox',
+    },
   ]
 
   miniVariant = true
