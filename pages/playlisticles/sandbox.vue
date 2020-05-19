@@ -20,6 +20,7 @@ import InlineCode from '@editorjs/inline-code'
 import LinkTool from '@editorjs/link'
 import Embed from '@editorjs/embed'
 import Table from '@editorjs/table'
+import TvEvent from '~/plugins/editorjs/tv_event.js'
 
 export default {
   data() {
@@ -77,9 +78,21 @@ export default {
             inlineToolbar: true,
             shortcut: 'CMD+ALT+T',
           },
+          tvEvent: {
+            class: TvEvent,
+            inlineToolbar: false,
+            config: {
+              endpoint: 'http://localhost:8888',
+            },
+            shortcut: 'CMD+ALT+V',
+          },
         },
       })
     },
   },
 }
 </script>
+
+<style lang="scss">
+@import '~/assets/css/editorjs/tv_event.scss';
+</style>
