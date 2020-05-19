@@ -1,4 +1,4 @@
 module.exports = {
   apiBaseUrl:
-    'https://estlwxyv3j.execute-api.ap-northeast-1.amazonaws.com/prod/',
+    'https://hi0ovay4z4.execute-api.ap-northeast-1.amazonaws.com/prod/',
 }
