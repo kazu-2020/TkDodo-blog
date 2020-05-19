@@ -83,7 +83,7 @@ export default {
             class: Episode,
             inlineToolbar: false,
             config: {
-              endpoint: 'http://localhost:8888',
+              endpoint: process.env.apiBaseUrl,
             },
             shortcut: 'CMD+ALT+E',
           },
@@ -91,7 +91,7 @@ export default {
             class: TvEvent,
             inlineToolbar: false,
             config: {
-              endpoint: 'http://localhost:8888',
+              endpoint: process.env.apiBaseUrl,
             },
             shortcut: 'CMD+ALT+V',
           },
