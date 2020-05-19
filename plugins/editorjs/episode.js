@@ -1,5 +1,5 @@
 /**
- * @typedef {object} TvEventData
+ * @typedef {object} EpisodeData
  * @description Link Tool's input and output data format
  * @property {string} link — data url
  * @property {metaData} meta — fetched link data
@@ -24,7 +24,7 @@ import ajax from '@codexteam/ajax'
  * Tool may have any data provided by backend, currently are supported by design:
  * title, description, image, url
  */
-export default class TvEvent {
+export default class Episode {
   /**
    * Get Tool toolbox settings
    * icon - Tool icon's SVG
@@ -34,9 +34,9 @@ export default class TvEvent {
    */
   static get toolbox() {
     return {
-      title: 'TvEvent',
+      title: 'Episode',
       icon:
-        '<svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 640 512"><path d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg>',
+        '<svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 640 512"><path d="M592 0H48A48 48 0 0 0 0 48v320a48 48 0 0 0 48 48h240v32H112a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16H352v-32h240a48 48 0 0 0 48-48V48a48 48 0 0 0-48-48zm-16 352H64V64h512z"/></svg>',
     }
   }
 
@@ -50,7 +50,7 @@ export default class TvEvent {
   }
 
   /**
-   * @param {TvEventData} data - previously saved data
+   * @param {EpisodeData} data - previously saved data
    * @param {config} config - user config for Tool
    * @param {object} api - Editor.js API
    */
@@ -72,18 +72,14 @@ export default class TvEvent {
       inputHolder: null,
       linkContent: null,
       linkImage: null,
-      linkSeriesName: null,
       linkTitle: null,
       linkDescription: null,
       linkText: null,
-      linkPlace: null,
-      linkRibon: null,
     }
 
     this._data = {
       link: '',
-      tvEvent: {},
-      tvSeries: {},
+      episode: {},
     }
 
     this.data = data
@@ -105,9 +101,9 @@ export default class TvEvent {
     /**
      * If Tool already has data, render link preview, otherwise insert input
      */
-    if (Object.keys(this.data.tvEvent).length) {
+    if (Object.keys(this.data.episode).length) {
       this.nodes.container.appendChild(this.nodes.linkContent)
-      this.showLinkPreview(this.data.tvEvent, this.data.tvSeries)
+      this.showLinkPreview(this.data.episode)
     } else {
       this.nodes.container.appendChild(this.nodes.inputHolder)
     }
@@ -121,30 +117,29 @@ export default class TvEvent {
    * Return Block data
    * @public
    *
-   * @return {TvEventData}
+   * @return {EpisodeData}
    */
   save() {
-    return this.data.tvEvent
+    return this.data
   }
 
   /**
    * Stores all Tool's data
-   * @param {TvEventData} data
+   * @param {EpisodeData} data
    */
   set data(data) {
     this._data = Object.assign(
       {},
       {
         link: data.link || this._data.link,
-        tvEvent: data.tvEvent || this._data.tvEvent,
-        tvSeries: data.tvSeries || this._data.tvSeries,
+        episode: data.episode || this._data.episode,
       }
     )
   }
 
   /**
    * Return Tool data
-   * @return {TvEventData} data
+   * @return {EpisodeData} data
    */
   get data() {
     return this._data
@@ -162,22 +157,19 @@ export default class TvEvent {
       /**
        * Tool's classes
        */
-      container: 'tv_event',
-      inputEl: 'tv_event__input',
-      inputHolder: 'tv_event__input-holder',
-      inputError: 'tv_event__input-holder--error',
-      linkContent: 'tv_event__content',
-      linkContentRendered: 'tv_event__content--rendered',
-      linkImage: 'tv_event__image',
-      linkTitle: 'tv_event__title',
-      linkSeriesName: 'tv_event__series_name',
-      linkDescription: 'tv_event__description',
-      linkText: 'tv_event__anchor',
-      linkPlace: 'tv_event__place',
-      linkRibon: 'tv_event__ribon',
-      progress: 'tv_event__progress',
-      progressLoading: 'tv_event__progress--loading',
-      progressLoaded: 'tv_event__progress--loaded',
+      container: 'episode',
+      inputEl: 'episode__input',
+      inputHolder: 'episode__input-holder',
+      inputError: 'episode__input-holder--error',
+      linkContent: 'episode__content',
+      linkContentRendered: 'episode__content--rendered',
+      linkImage: 'episode__image',
+      linkTitle: 'episode__title',
+      linkDescription: 'episode__description',
+      linkText: 'episode__anchor',
+      progress: 'episode__progress',
+      progressLoading: 'episode__progress--loading',
+      progressLoaded: 'episode__progress--loaded',
     }
   }
 
@@ -279,10 +271,7 @@ export default class TvEvent {
 
     this.nodes.linkImage = this.make('div', this.CSS.linkImage)
     this.nodes.linkTitle = this.make('div', this.CSS.linkTitle)
-    this.nodes.linkSeriesName = this.make('div', this.CSS.linkSeriesName)
     this.nodes.linkDescription = this.make('p', this.CSS.linkDescription)
-    this.nodes.linkPlace = this.make('div', this.CSS.linkPlace)
-    this.nodes.linkRibon = this.make('div', this.CSS.linkRibon)
     this.nodes.linkText = this.make('span', this.CSS.linkText)
 
     return holder
@@ -292,54 +281,24 @@ export default class TvEvent {
    * Compose link preview from fetched data
    * @param {metaData} meta - link meta data
    */
-  showLinkPreview(tvEvent, tvSeries) {
+  showLinkPreview({ eyecatch, name, description }) {
     this.nodes.container.appendChild(this.nodes.linkContent)
-
-    if (tvEvent.image && tvEvent.image.medium && tvEvent.image.medium.url) {
-      const imageTag = this.make('img')
-
-      imageTag.src = tvEvent.image.medium.url
-      this.nodes.linkImage.appendChild(imageTag)
-
-      if (tvEvent.startDate && tvEvent.endDate) {
-        const dateRangeTag = this.make('div')
-
-        dateRangeTag.textContent =
-          '期間: ' +
-          tvEvent.startDate.substr(0, 10) +
-          ' ~ \n' +
-          tvEvent.endDate.substr(0, 10)
-        this.nodes.linkImage.appendChild(dateRangeTag)
-      }
+    console.log(eyecatch)
+    if (eyecatch && eyecatch.medium && eyecatch.medium.url) {
+      this.nodes.linkImage.style.backgroundImage =
+        'url(' + eyecatch.medium.url + ')'
       this.nodes.linkContent.appendChild(this.nodes.linkImage)
     }
 
-    if (tvSeries.name) {
-      this.nodes.linkSeriesName.textContent = tvSeries.name
-      this.nodes.linkContent.appendChild(this.nodes.linkSeriesName)
-    }
-
-    if (tvEvent.name) {
-      this.nodes.linkTitle.textContent = tvEvent.name
+    if (name) {
+      this.nodes.linkTitle.textContent = name
       this.nodes.linkContent.appendChild(this.nodes.linkTitle)
     }
 
-    if (tvEvent.description) {
-      this.nodes.linkDescription.textContent = tvEvent.description
+    if (description) {
+      this.nodes.linkDescription.textContent = description
       this.nodes.linkContent.appendChild(this.nodes.linkDescription)
     }
-
-    if (tvEvent.location && tvEvent.address) {
-      this.nodes.linkPlace.textContent =
-        tvEvent.location + '（' + tvEvent.address + '）'
-      this.nodes.linkContent.appendChild(this.nodes.linkPlace)
-    }
-
-    const ribonSpan = this.make('span')
-
-    ribonSpan.textContent = 'イベント'
-    this.nodes.linkRibon.appendChild(ribonSpan)
-    this.nodes.linkContent.appendChild(this.nodes.linkRibon)
 
     this.nodes.linkContent.classList.add(this.CSS.linkContentRendered)
     this.nodes.linkContent.setAttribute('href', this.data.link)
@@ -393,7 +352,6 @@ export default class TvEvent {
 
       this.onFetch(response)
     } catch (error) {
-      console.log(error)
       this.fetchingFailed("Haven't received data from server")
     }
   }
@@ -404,25 +362,25 @@ export default class TvEvent {
    */
   onFetch(response) {
     const _response = response.body
-    console.log(_response)
+
     if (!_response || !_response.success) {
       this.fetchingFailed('Can not get this link data, try another')
       return
     }
 
-    const tvEvent = _response.tvEvent
-    const tvSeries = _response.tvSeries
+    const episode = _response.tvEpisode
 
-    this.data = { link: tvEvent.url, tvEvent, tvSeries }
+    this.data = { link: episode.url, episode }
 
-    if (!tvEvent || !tvSeries) {
+    if (!episode) {
       this.fetchingFailed('Wrong response format from server')
       return
     }
 
     this.hideProgress().then(() => {
       this.nodes.inputHolder.remove()
-      this.showLinkPreview(tvEvent, tvSeries)
+      console.log(episode)
+      this.showLinkPreview(episode)
     })
   }
 
