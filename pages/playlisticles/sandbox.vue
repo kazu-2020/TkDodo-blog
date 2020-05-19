@@ -103,6 +103,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/css/editorjs/episode.scss';
-@import '~/assets/css/editorjs/tv_event.scss';
+@import '~/assets/css/editorjs/plugins.scss';
 </style>
