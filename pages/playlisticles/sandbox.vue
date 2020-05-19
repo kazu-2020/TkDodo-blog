@@ -20,6 +20,8 @@ import InlineCode from '@editorjs/inline-code'
 import LinkTool from '@editorjs/link'
 import Embed from '@editorjs/embed'
 import Table from '@editorjs/table'
+import Episode from '~/plugins/editorjs/episode.js'
+import TvEvent from '~/plugins/editorjs/tv_event.js'
 
 export default {
   data() {
@@ -77,9 +79,29 @@ export default {
             inlineToolbar: true,
             shortcut: 'CMD+ALT+T',
           },
+          episode: {
+            class: Episode,
+            inlineToolbar: false,
+            config: {
+              endpoint: process.env.apiBaseUrl,
+            },
+            shortcut: 'CMD+ALT+E',
+          },
+          tvEvent: {
+            class: TvEvent,
+            inlineToolbar: false,
+            config: {
+              endpoint: process.env.apiBaseUrl,
+            },
+            shortcut: 'CMD+ALT+V',
+          },
         },
       })
     },
   },
 }
 </script>
+
+<style lang="scss">
+@import '~/assets/css/editorjs/plugins.scss';
+</style>
