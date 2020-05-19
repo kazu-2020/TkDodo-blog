@@ -1,7 +1,9 @@
 <template>
   <v-app dark>
     <v-app-bar :clipped-left="clipped" fixed app>
-      <v-toolbar-title v-text="title" />
+      <nuxt-link :to="'/'" style="text-decoration: none;" class="white--text">
+        <v-toolbar-title v-text="title" />
+      </nuxt-link>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn color="transparent" dark depressed v-on="on">
