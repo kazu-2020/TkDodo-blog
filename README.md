@@ -1,4 +1,4 @@
-# labo-playlist-editor
+# aw-editorialhands-ui
 
 https://master.d1g8sbnehehpms.amplifyapp.com/
 
