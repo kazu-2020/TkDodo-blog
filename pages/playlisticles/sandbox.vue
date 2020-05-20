@@ -4,7 +4,7 @@
       Editor.js Sandbox
     </div>
     <v-divider class="ma-2" />
-    <draggable element="ul">
+    <draggable element="ul" :animation="500">
       <li
         v-for="section in sections"
         :key="section.id"
