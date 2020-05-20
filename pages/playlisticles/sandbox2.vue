@@ -1,7 +1,7 @@
 <template>
   <div class="editor-sandbox">
     <div class="title">
-      Editor.js Sandbox2
+      Editor.js Sandbox2(アウトライン型)
     </div>
     <v-divider class="ma-2" />
     <v-layout column>

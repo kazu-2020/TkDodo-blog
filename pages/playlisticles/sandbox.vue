@@ -1,7 +1,7 @@
 <template>
   <div class="editor-sandbox">
     <div class="title">
-      Editor.js Sandbox
+      Editor.js Sandbox(ブロック型)
     </div>
     <v-divider class="ma-2" />
     <draggable element="ul" :animation="500">
