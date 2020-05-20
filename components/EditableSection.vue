@@ -1,5 +1,10 @@
 <template>
-  <div :id="editorId" />
+  <div>
+    <div :id="editorId" />
+    <v-btn rounded large color="secondary" @click="dumpSaveData" class="d-none">
+      Save
+    </v-btn>
+  </div>
 </template>
 
 <script>
@@ -24,11 +29,34 @@ export default {
       required: true,
       default: 'editableSection',
     },
+    initialData: {
+      type: Object,
+      required: false,
+      default: () => ({
+        time: 1589951040948,
+        blocks: [
+          {
+            type: 'header',
+            data: {
+              text: 'Section1',
+              level: 2,
+            },
+          },
+          {
+            type: 'paragraph',
+            data: {
+              text: 'Section 1 のテキストです。',
+            },
+          },
+        ],
+      }),
+    },
   },
   data() {
     return {
       editor: {},
       editorId: this.sectionId,
+      editorData: this.initialData,
     }
   },
   mounted() {
@@ -38,6 +66,7 @@ export default {
     doEditor() {
       this.editor = new EditorJS({
         holder: this.editorId,
+        minHeight: 0,
         tools: {
           header: {
             class: Header,
@@ -98,7 +127,18 @@ export default {
             shortcut: 'CMD+ALT+V',
           },
         },
+        data: this.editorData,
       })
+    },
+    dumpSaveData() {
+      this.editor
+        .save()
+        .then(outputData => {
+          console.log('Article data: ', JSON.stringify(outputData))
+        })
+        .catch(error => {
+          console.log('Saving failed: ', error)
+        })
     },
   },
 }
@@ -106,4 +146,9 @@ export default {
 
 <style lang="scss">
 @import '~/assets/css/editorjs/plugins.scss';
+
+.ce-block__content,
+.ce-toolbar__content {
+  max-width: 980px;
+}
 </style>
