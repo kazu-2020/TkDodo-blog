@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :id="editorId" />
-    <v-btn rounded large color="secondary" @click="dumpSaveData" class="d-none">
+    <v-btn rounded large color="secondary" class="d-none" @click="dumpSaveData">
       Save
     </v-btn>
   </div>
@@ -128,17 +128,27 @@ export default {
           },
         },
         data: this.editorData,
+        onChange: () => {
+          this.updateEditorData()
+        },
       })
     },
-    dumpSaveData() {
+    updateEditorData() {
       this.editor
         .save()
         .then(outputData => {
-          console.log('Article data: ', JSON.stringify(outputData))
+          this.editorData = outputData
+          this.$emit('modify-content', {
+            sectionId: this.sectionId,
+            editorData: this.editorData,
+          })
         })
         .catch(error => {
           console.log('Saving failed: ', error)
         })
+    },
+    dumpSaveData() {
+      console.log('Article data: ', JSON.stringify(this.editorData))
     },
   },
 }
