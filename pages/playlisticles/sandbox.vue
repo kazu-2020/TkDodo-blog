@@ -4,104 +4,23 @@
       Editor.js Sandbox
     </div>
     <v-divider class="ma-2" />
-    <div id="codex-editor" />
+    <ul>
+      <li v-for="section in sections" :key="section">
+        <editable-section :section-id="section" />
+      </li>
+    </ul>
   </div>
 </template>
 
-<script>
-import EditorJS from '@editorjs/editorjs'
-import Header from '@editorjs/header'
-import List from '@editorjs/list'
-import Quote from '@editorjs/quote'
-import CodeTool from '@editorjs/code'
-import Marker from '@editorjs/marker'
-import Delimiter from '@editorjs/delimiter'
-import InlineCode from '@editorjs/inline-code'
-import LinkTool from '@editorjs/link'
-import Embed from '@editorjs/embed'
-import Table from '@editorjs/table'
-import Episode from '~/plugins/editorjs/episode.js'
-import TvEvent from '~/plugins/editorjs/tv_event.js'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 
-export default {
-  data() {
-    return {
-      editor: {},
-    }
+@Component({
+  components: {
+    EditableSection: () => import('~/components/EditableSection.vue'),
   },
-  mounted() {
-    this.doEditor()
-  },
-  methods: {
-    doEditor() {
-      this.editor = new EditorJS({
-        holder: 'codex-editor',
-        tools: {
-          header: {
-            class: Header,
-            inlineToolbar: ['link'],
-            config: {
-              placeholder: 'Header',
-            },
-            shortcut: 'CMD+SHIFT+H',
-          },
-          list: {
-            class: List,
-            inlineToolbar: true,
-            shortcut: 'CMD+SHIFT+L',
-          },
-          quote: {
-            class: Quote,
-            inlineToolbar: true,
-            config: {
-              quotePlaceholder: 'Enter a quote',
-              captionPlaceholder: "Quote's author",
-            },
-            shortcut: 'CMD+SHIFT+O',
-          },
-          code: {
-            class: CodeTool,
-            shortcut: 'CMD+SHIFT+C',
-          },
-          marker: {
-            class: Marker,
-            shortcut: 'CMD+SHIFT+M',
-          },
-          delimiter: Delimiter,
-          inlineCode: {
-            class: InlineCode,
-            shortcut: 'CMD+SHIFT+C',
-          },
-          linkTool: LinkTool,
-          embed: Embed,
-          table: {
-            class: Table,
-            inlineToolbar: true,
-            shortcut: 'CMD+ALT+T',
-          },
-          episode: {
-            class: Episode,
-            inlineToolbar: false,
-            config: {
-              endpoint: process.env.apiBaseUrl,
-            },
-            shortcut: 'CMD+ALT+E',
-          },
-          tvEvent: {
-            class: TvEvent,
-            inlineToolbar: false,
-            config: {
-              endpoint: process.env.apiBaseUrl,
-            },
-            shortcut: 'CMD+ALT+V',
-          },
-        },
-      })
-    },
-  },
+})
+export default class SandboxComponent extends Vue {
+  sections = ['editor1', 'editor2', 'editor3']
 }
 </script>
-
-<style lang="scss">
-@import '~/assets/css/editorjs/plugins.scss';
-</style>
