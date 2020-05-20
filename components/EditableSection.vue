@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :id="editorId" />
-    <v-btn rounded large color="secondary" @click="dumpSaveData" class="d-none">
+    <v-btn rounded large color="secondary" class="d-none" @click="dumpSaveData">
       Save
     </v-btn>
   </div>
