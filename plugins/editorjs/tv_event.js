@@ -124,7 +124,7 @@ export default class TvEvent {
    * @return {TvEventData}
    */
   save() {
-    return this.data.tvEvent
+    return this.data
   }
 
   /**
