@@ -8,15 +8,24 @@
       <v-row>
         <v-col xs="12" sm="12" md="4" lg="4">
           <v-list>
-            <v-subheader>Sections</v-subheader>
             <v-list-item-group color="primary">
+              <v-subheader>Header</v-subheader>
+              <v-list-item @click="switchSelectedSection(headerSection)">
+                <v-list-item-icon>
+                  <v-icon v-text="headerSection.icon" />
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="headerSection.text" />
+                </v-list-item-content>
+              </v-list-item>
+              <v-subheader>Sections</v-subheader>
               <draggable
                 animation="500"
                 @start="drag = true"
                 @end="drag = false"
               >
                 <v-list-item
-                  v-for="section in sections"
+                  v-for="section in bodySections"
                   :key="section.id"
                   @click="switchSelectedSection(section)"
                 >
@@ -28,6 +37,15 @@
                   </v-list-item-content>
                 </v-list-item>
               </draggable>
+              <v-subheader>Footer</v-subheader>
+              <v-list-item @click="switchSelectedSection(footerSection)">
+                <v-list-item-icon>
+                  <v-icon v-text="footerSection.icon" />
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="footerSection.text" />
+                </v-list-item-content>
+              </v-list-item>
             </v-list-item-group>
           </v-list>
         </v-col>
@@ -63,7 +81,40 @@ export default {
       selectedSection: null,
       sections: [
         {
+          id: 'header_editor',
+          type: 'header',
+          icon: 'mdi-page-layout-header',
+          text: 'Header',
+          data: {
+            time: 1589951040948,
+            blocks: [
+              {
+                type: 'header',
+                data: {
+                  text: 'Header - 導入',
+                  level: 2,
+                },
+              },
+              {
+                type: 'paragraph',
+                data: {
+                  text:
+                    'Header のテキストです。\nここは記事の導入等を書くエリアであり、表示場所の変更はできません。',
+                },
+              },
+              {
+                type: 'paragraph',
+                data: {
+                  text:
+                    'これから書いていくプレイリスティクルを楽しく読んでもらうため、できるだけ説明を加えましょう！',
+                },
+              },
+            ],
+          },
+        },
+        {
           id: 'editor1',
+          type: 'body',
           icon: 'mdi-drag',
           text: 'Section1',
           data: {
@@ -91,6 +142,7 @@ export default {
         },
         {
           id: 'editor2',
+          type: 'body',
           icon: 'mdi-drag',
           text: 'Section2',
           data: {
@@ -118,6 +170,7 @@ export default {
         },
         {
           id: 'editor3',
+          type: 'body',
           icon: 'mdi-drag',
           text: 'Section3',
           data: {
@@ -139,8 +192,51 @@ export default {
             ],
           },
         },
+        {
+          id: 'footer_editor',
+          type: 'footer',
+          icon: 'mdi-page-layout-footer',
+          text: 'Footer',
+          data: {
+            time: 1589951040948,
+            blocks: [
+              {
+                type: 'header',
+                data: {
+                  text: 'Footer - まとめ',
+                  level: 2,
+                },
+              },
+              {
+                type: 'paragraph',
+                data: {
+                  text:
+                    'Footer のテキストです。\nここは記事のまとめ等を書くエリアであり、表示場所の変更はできません。',
+                },
+              },
+              {
+                type: 'paragraph',
+                data: {
+                  text:
+                    '最後まで読んでいただき、ありがとうございました。この記事で紹介した様々なことが、お役に立ちますように。',
+                },
+              },
+            ],
+          },
+        },
       ],
     }
+  },
+  computed: {
+    headerSection() {
+      return this.sections.filter(s => s.type === 'header')[0]
+    },
+    footerSection() {
+      return this.sections.filter(s => s.type === 'footer')[0]
+    },
+    bodySections() {
+      return this.sections.filter(s => s.type === 'body')
+    },
   },
   methods: {
     switchSelectedSection(section) {
