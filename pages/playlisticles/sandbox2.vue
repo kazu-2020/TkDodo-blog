@@ -64,178 +64,44 @@
 </template>
 
 <script>
+import axios from 'axios'
 import draggable from 'vuedraggable'
 import EditableSection from '~/components/EditableSection.vue'
-
-// APIから取得する用のサンプルデータ
-import episodeSampleJson from '~/assets/json/episode_LR3P5RJ389.json'
-import eventSampleJson from '~/assets/json/event_LR3P5RJ389.json'
 
 export default {
   components: {
     'editable-section': EditableSection,
     draggable,
   },
+  asyncData() {
+    return axios.get('/api/playlisticles/sandbox').then(res => {
+      return { sections: res.data.playlisticle.sections }
+    })
+  },
   data() {
     return {
       selectedSection: null,
-      sections: [
-        {
-          id: 'header_editor',
-          type: 'header',
-          icon: 'mdi-page-layout-header',
-          text: 'Header',
-          data: {
-            time: 1589951040948,
-            blocks: [
-              {
-                type: 'header',
-                data: {
-                  text: 'Header - 導入',
-                  level: 2,
-                },
-              },
-              {
-                type: 'paragraph',
-                data: {
-                  text:
-                    'Header のテキストです。\nここは記事の導入等を書くエリアであり、表示場所の変更はできません。',
-                },
-              },
-              {
-                type: 'paragraph',
-                data: {
-                  text:
-                    'これから書いていくプレイリスティクルを楽しく読んでもらうため、できるだけ説明を加えましょう！',
-                },
-              },
-            ],
-          },
-        },
-        {
-          id: 'editor1',
-          type: 'body',
-          icon: 'mdi-drag',
-          text: 'Section1',
-          data: {
-            time: 1589951040948,
-            blocks: [
-              {
-                type: 'header',
-                data: {
-                  text: 'Section1',
-                  level: 2,
-                },
-              },
-              {
-                type: 'paragraph',
-                data: {
-                  text: 'Section 1 のテキストです。',
-                },
-              },
-              {
-                type: 'episode',
-                data: episodeSampleJson,
-              },
-            ],
-          },
-        },
-        {
-          id: 'editor2',
-          type: 'body',
-          icon: 'mdi-drag',
-          text: 'Section2',
-          data: {
-            time: 1589951040948,
-            blocks: [
-              {
-                type: 'header',
-                data: {
-                  text: 'Section2',
-                  level: 2,
-                },
-              },
-              {
-                type: 'paragraph',
-                data: {
-                  text: 'Section 2 のテキストです。',
-                },
-              },
-              {
-                type: 'tvEvent',
-                data: eventSampleJson,
-              },
-            ],
-          },
-        },
-        {
-          id: 'editor3',
-          type: 'body',
-          icon: 'mdi-drag',
-          text: 'Section3',
-          data: {
-            time: 1589951040948,
-            blocks: [
-              {
-                type: 'header',
-                data: {
-                  text: 'Section3',
-                  level: 2,
-                },
-              },
-              {
-                type: 'paragraph',
-                data: {
-                  text: 'Section 3 のテキストです。',
-                },
-              },
-            ],
-          },
-        },
-        {
-          id: 'footer_editor',
-          type: 'footer',
-          icon: 'mdi-page-layout-footer',
-          text: 'Footer',
-          data: {
-            time: 1589951040948,
-            blocks: [
-              {
-                type: 'header',
-                data: {
-                  text: 'Footer - まとめ',
-                  level: 2,
-                },
-              },
-              {
-                type: 'paragraph',
-                data: {
-                  text:
-                    'Footer のテキストです。\nここは記事のまとめ等を書くエリアであり、表示場所の変更はできません。',
-                },
-              },
-              {
-                type: 'paragraph',
-                data: {
-                  text:
-                    '最後まで読んでいただき、ありがとうございました。この記事で紹介した様々なことが、お役に立ちますように。',
-                },
-              },
-            ],
-          },
-        },
-      ],
+      sections: [],
     }
   },
   computed: {
     headerSection() {
-      return this.sections.filter(s => s.type === 'header')[0]
+      return this.sections.length !== 0
+        ? this.sections.filter(s => s.type === 'header')[0]
+        : undefined
     },
     footerSection() {
-      return this.sections.filter(s => s.type === 'footer')[0]
+      return this.sections.length !== 0
+        ? this.sections.filter(s => s.type === 'footer')[0]
+        : undefined
     },
     bodySections() {
-      return this.sections.filter(s => s.type === 'body')
+      return this.sections.length !== 0
+        ? this.sections.filter(s => s.type === 'body')
+        : undefined
+    },
+    playlisticle() {
+      return this.$store.state.playlisticles.editingPlaylisticle
     },
   },
   methods: {
