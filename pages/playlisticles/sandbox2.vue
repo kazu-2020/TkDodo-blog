@@ -27,7 +27,7 @@
                 <v-list-item
                   v-for="section in bodySections"
                   :key="section.id"
-                  @click="switchSelectedSection(section)"
+                  @click.stop="switchSelectedSection(section)"
                 >
                   <v-list-item-icon>
                     <v-icon v-text="section.icon" />
@@ -35,6 +35,37 @@
                   <v-list-item-content>
                     <v-list-item-title v-text="section.text" />
                   </v-list-item-content>
+                  <div class="text-center">
+                    <v-menu
+                      open-on-hover
+                      top
+                      offset-x
+                      transition="slide-x-transition"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-btn small outlined v-on="on">
+                          Type
+                        </v-btn>
+                      </template>
+                      <v-list>
+                        <div
+                          v-for="(typeItem, index) in typeItems"
+                          :key="index"
+                        >
+                          <v-subheader>{{ typeItem.displayName }}</v-subheader>
+                          <v-list-item
+                            v-for="(item, index2) in typeItem.items"
+                            :key="'item' + index2"
+                            @click="console.log('hoge')"
+                          >
+                            <v-list-item-title>
+                              {{ item.title }}
+                            </v-list-item-title>
+                          </v-list-item>
+                        </div>
+                      </v-list>
+                    </v-menu>
+                  </div>
                 </v-list-item>
               </draggable>
               <v-subheader>Footer</v-subheader>
@@ -82,6 +113,30 @@ export default {
     return {
       selectedSection: null,
       sections: [],
+      typeItems: [
+        {
+          type: 'recipe',
+          displayName: 'レシピ',
+          items: [
+            { title: '肉じゃが' },
+            { title: 'ハンバーグ' },
+            { title: '炊き込みごはん' },
+          ],
+        },
+        {
+          type: 'event',
+          displayName: 'イベント',
+          items: [{ title: '2020年5月28日 - オンライン英会話教室' }],
+        },
+        {
+          type: 'howTo',
+          displayName: 'ハウツー',
+          items: [
+            { title: '英英辞典の上手な引き方' },
+            { title: 'zoomの接続方法' },
+          ],
+        },
+      ],
     }
   },
   computed: {
@@ -124,5 +179,11 @@ li.draggable-handle {
   margin-top: 10px;
   margin-bottom: 10px;
   list-style-type: none;
+}
+
+.v-subheader {
+  height: auto;
+  font-size: 0.7em;
+  padding: 16px 16px 8px 16px;
 }
 </style>
