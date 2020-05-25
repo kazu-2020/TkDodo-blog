@@ -43,7 +43,12 @@
                       transition="slide-x-transition"
                     >
                       <template v-slot:activator="{ on }">
-                        <v-btn small outlined v-on="on">
+                        <v-btn
+                          small
+                          outlined
+                          :disabled="isNotSelectedSection(section)"
+                          v-on="on"
+                        >
                           Type
                         </v-btn>
                       </template>
@@ -56,7 +61,7 @@
                           <v-list-item
                             v-for="(item, index2) in typeItem.items"
                             :key="'item' + index2"
-                            @click="console.log('hoge')"
+                            @click="changeSectionEpisodeType(section)"
                           >
                             <v-list-item-title>
                               {{ item.title }}
@@ -83,7 +88,7 @@
         <v-col xs="12" sm="12" md="8" lg="8">
           <editable-section
             v-if="selectedSection"
-            :key="selectedSection.id"
+            :key="selectedSection.id + selectedSection.data.time"
             :section-id="selectedSection.id"
             :initial-data="selectedSection.data"
             @modify-content="updateSectionData"
@@ -98,6 +103,7 @@
 import axios from 'axios'
 import draggable from 'vuedraggable'
 import EditableSection from '~/components/EditableSection.vue'
+import sampleEventData from '~/assets/json/event_LR3P5RJ389.json'
 
 export default {
   components: {
@@ -158,6 +164,9 @@ export default {
     playlisticle() {
       return this.$store.state.playlisticles.editingPlaylisticle
     },
+    stubTvEventData() {
+      return sampleEventData
+    },
   },
   methods: {
     switchSelectedSection(section) {
@@ -167,6 +176,29 @@ export default {
       this.sections.find(s => s.id === updatedSectionData.sectionId).data =
         updatedSectionData.editorData
       console.log(updatedSectionData.editorData)
+    },
+    changeSectionEpisodeType(section) {
+      if (section === this.selectedSection) {
+        this.replaceToNewSectionData(this.selectedSection, section)
+      }
+
+      this.replaceToNewSectionData(section)
+    },
+    replaceToNewSectionData(targetSection) {
+      targetSection.data.time = Date.now()
+      targetSection.data.blocks.find(b =>
+        this.isEpisodeRelatedBlock(b.type)
+      ).type = 'tvEvent'
+      targetSection.data.blocks.find(b =>
+        this.isEpisodeRelatedBlock(b.type)
+      ).data = this.stubTvEventData
+    },
+    isEpisodeRelatedBlock(type) {
+      return type === 'episode' || type === 'tvEvent'
+    },
+    isNotSelectedSection(section) {
+      console.log(section !== this.selectedSection)
+      return section !== this.selectedSection
     },
   },
 }
