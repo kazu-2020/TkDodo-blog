@@ -105,6 +105,7 @@ import axios from 'axios'
 import draggable from 'vuedraggable'
 import EditableSection from '~/components/EditableSection.vue'
 import sampleEventData from '~/assets/json/event_LR3P5RJ389.json'
+import sampleHowToData from '~/assets/json/howTo_G9218G45GJ.json'
 
 export default {
   components: {
@@ -168,6 +169,9 @@ export default {
     stubTvEventData() {
       return sampleEventData
     },
+    stubHowToData() {
+      return sampleHowToData
+    },
   },
   methods: {
     switchSelectedSection(section) {
@@ -189,13 +193,13 @@ export default {
       targetSection.data.time = Date.now()
       targetSection.data.blocks.find(b =>
         this.isEpisodeRelatedBlock(b.type)
-      ).type = 'tvEvent'
+      ).type = 'howTo'
       targetSection.data.blocks.find(b =>
         this.isEpisodeRelatedBlock(b.type)
-      ).data = this.stubTvEventData
+      ).data = this.stubHowToData
     },
     isEpisodeRelatedBlock(type) {
-      return type === 'episode' || type === 'tvEvent'
+      return type === 'episode' || type === 'tvEvent' || type === 'howTo'
     },
     isNotSelectedSection(section) {
       return section !== this.selectedSection
