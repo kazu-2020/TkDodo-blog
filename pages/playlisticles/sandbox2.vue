@@ -61,7 +61,7 @@
                           <v-list-item
                             v-for="(item, index2) in typeItem.items"
                             :key="'item' + index2"
-                            @click="changeSectionEpisodeType(section)"
+                            @click="changeSectionEpisodeType(section, item)"
                           >
                             <v-list-item-title>
                               {{ item.title }}
@@ -105,6 +105,8 @@ import axios from 'axios'
 import draggable from 'vuedraggable'
 import EditableSection from '~/components/EditableSection.vue'
 import sampleEventData from '~/assets/json/event_LR3P5RJ389.json'
+import sampleHowToData from '~/assets/json/howTo_G9218G45GJ.json'
+import sampleEpisodeData from '~/assets/json/episode_LR3P5RJ389.json'
 
 export default {
   components: {
@@ -122,25 +124,47 @@ export default {
       sections: [],
       typeItems: [
         {
+          type: 'episode',
+          displayName: 'エピソード',
+          items: [
+            {
+              type: 'episode',
+              title: '「しっかり手洗いしよう」',
+              data: sampleEpisodeData,
+            },
+          ],
+        },
+        {
           type: 'recipe',
           displayName: 'レシピ',
           items: [
-            { title: '肉じゃが' },
-            { title: 'ハンバーグ' },
-            { title: '炊き込みごはん' },
+            {
+              type: 'recipe',
+              title: 'オムライス',
+              data: {},
+            },
           ],
         },
         {
           type: 'event',
           displayName: 'イベント',
-          items: [{ title: '2020年5月28日 - オンライン英会話教室' }],
+          items: [
+            {
+              type: 'tvEvent',
+              title: '2020年5月13日 - あわ怪人をやっつけよう',
+              data: sampleEventData,
+            },
+          ],
         },
         {
           type: 'howTo',
           displayName: 'ハウツー',
           items: [
-            { title: '英英辞典の上手な引き方' },
-            { title: 'zoomの接続方法' },
+            {
+              type: 'howTo',
+              title: 'アイスが溶けそう～！myボトルマーカーの作り方',
+              data: sampleHowToData,
+            },
           ],
         },
       ],
@@ -165,9 +189,6 @@ export default {
     playlisticle() {
       return this.$store.state.playlisticles.editingPlaylisticle
     },
-    stubTvEventData() {
-      return sampleEventData
-    },
   },
   methods: {
     switchSelectedSection(section) {
@@ -178,24 +199,24 @@ export default {
         updatedSectionData.editorData
       console.log(updatedSectionData.editorData)
     },
-    changeSectionEpisodeType(section) {
+    changeSectionEpisodeType(section, item) {
       if (section === this.selectedSection) {
-        this.replaceToNewSectionData(this.selectedSection, section)
+        this.replaceToNewSectionData(this.selectedSection, item)
       }
 
-      this.replaceToNewSectionData(section)
+      this.replaceToNewSectionData(section, item)
     },
-    replaceToNewSectionData(targetSection) {
+    replaceToNewSectionData(targetSection, item) {
       targetSection.data.time = Date.now()
       targetSection.data.blocks.find(b =>
         this.isEpisodeRelatedBlock(b.type)
-      ).type = 'tvEvent'
+      ).type = item.type
       targetSection.data.blocks.find(b =>
         this.isEpisodeRelatedBlock(b.type)
-      ).data = this.stubTvEventData
+      ).data = item.data
     },
     isEpisodeRelatedBlock(type) {
-      return type === 'episode' || type === 'tvEvent'
+      return type === 'episode' || type === 'tvEvent' || type === 'howTo'
     },
     isNotSelectedSection(section) {
       return section !== this.selectedSection

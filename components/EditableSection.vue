@@ -21,6 +21,7 @@ import Embed from '@editorjs/embed'
 import Table from '@editorjs/table'
 import Episode from '~/plugins/editorjs/episode.js'
 import TvEvent from '~/plugins/editorjs/tv_event.js'
+import HowTo from '~/plugins/editorjs/howto.js'
 
 export default {
   props: {
@@ -141,6 +142,13 @@ export default {
             },
             shortcut: 'CMD+ALT+V',
           },
+          howTo: {
+            class: HowTo,
+            inlineToolbar: false,
+            config: {
+              endpoint: process.env.apiBaseUrl,
+            },
+          },
         },
         data: this.editorData,
         onChange: () => {
@@ -178,7 +186,8 @@ export default {
 }
 
 .ce-toolbox__button[data-tool='episode'],
-.ce-toolbox__button[data-tool='tvEvent'] {
+.ce-toolbox__button[data-tool='tvEvent'],
+.ce-toolbox__button[data-tool='howTo'] {
   display: none;
 }
 </style>
