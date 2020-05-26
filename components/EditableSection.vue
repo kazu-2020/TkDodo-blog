@@ -51,6 +51,11 @@ export default {
         ],
       }),
     },
+    episodeBlockId: {
+      type: String,
+      required: false,
+      default: 'episode-block-id',
+    },
   },
   data() {
     return {
@@ -58,6 +63,16 @@ export default {
       editorId: this.sectionId,
       editorData: this.initialData,
     }
+  },
+  watch: {
+    episodeBlockId: {
+      handler() {
+        if ('render' in this.editor) {
+          this.editor.render(this.editorData)
+        }
+      },
+      immediate: true,
+    },
   },
   mounted() {
     this.doEditor()

@@ -27,7 +27,7 @@
                 <v-list-item
                   v-for="section in bodySections"
                   :key="section.id"
-                  @click="switchSelectedSection(section)"
+                  @click.stop="switchSelectedSection(section)"
                 >
                   <v-list-item-icon>
                     <v-icon v-text="section.icon" />
@@ -35,6 +35,42 @@
                   <v-list-item-content>
                     <v-list-item-title v-text="section.text" />
                   </v-list-item-content>
+                  <div class="text-center">
+                    <v-menu
+                      open-on-hover
+                      top
+                      offset-x
+                      transition="slide-x-transition"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          small
+                          outlined
+                          :disabled="isNotSelectedSection(section)"
+                          v-on="on"
+                        >
+                          <v-icon>mdi-television</v-icon>
+                        </v-btn>
+                      </template>
+                      <v-list>
+                        <div
+                          v-for="(typeItem, index) in typeItems"
+                          :key="index"
+                        >
+                          <v-subheader>{{ typeItem.displayName }}</v-subheader>
+                          <v-list-item
+                            v-for="(item, index2) in typeItem.items"
+                            :key="'item' + index2"
+                            @click="changeSectionEpisodeType(section)"
+                          >
+                            <v-list-item-title>
+                              {{ item.title }}
+                            </v-list-item-title>
+                          </v-list-item>
+                        </div>
+                      </v-list>
+                    </v-menu>
+                  </div>
                 </v-list-item>
               </draggable>
               <v-subheader>Footer</v-subheader>
@@ -55,6 +91,7 @@
             :key="selectedSection.id"
             :section-id="selectedSection.id"
             :initial-data="selectedSection.data"
+            :episode-block-id="episodeBlockId(selectedSection)"
             @modify-content="updateSectionData"
           />
         </v-col>
@@ -67,6 +104,7 @@
 import axios from 'axios'
 import draggable from 'vuedraggable'
 import EditableSection from '~/components/EditableSection.vue'
+import sampleEventData from '~/assets/json/event_LR3P5RJ389.json'
 
 export default {
   components: {
@@ -82,6 +120,30 @@ export default {
     return {
       selectedSection: null,
       sections: [],
+      typeItems: [
+        {
+          type: 'recipe',
+          displayName: 'レシピ',
+          items: [
+            { title: '肉じゃが' },
+            { title: 'ハンバーグ' },
+            { title: '炊き込みごはん' },
+          ],
+        },
+        {
+          type: 'event',
+          displayName: 'イベント',
+          items: [{ title: '2020年5月28日 - オンライン英会話教室' }],
+        },
+        {
+          type: 'howTo',
+          displayName: 'ハウツー',
+          items: [
+            { title: '英英辞典の上手な引き方' },
+            { title: 'zoomの接続方法' },
+          ],
+        },
+      ],
     }
   },
   computed: {
@@ -103,6 +165,9 @@ export default {
     playlisticle() {
       return this.$store.state.playlisticles.editingPlaylisticle
     },
+    stubTvEventData() {
+      return sampleEventData
+    },
   },
   methods: {
     switchSelectedSection(section) {
@@ -112,6 +177,38 @@ export default {
       this.sections.find(s => s.id === updatedSectionData.sectionId).data =
         updatedSectionData.editorData
       console.log(updatedSectionData.editorData)
+    },
+    changeSectionEpisodeType(section) {
+      if (section === this.selectedSection) {
+        this.replaceToNewSectionData(this.selectedSection, section)
+      }
+
+      this.replaceToNewSectionData(section)
+    },
+    replaceToNewSectionData(targetSection) {
+      targetSection.data.time = Date.now()
+      targetSection.data.blocks.find(b =>
+        this.isEpisodeRelatedBlock(b.type)
+      ).type = 'tvEvent'
+      targetSection.data.blocks.find(b =>
+        this.isEpisodeRelatedBlock(b.type)
+      ).data = this.stubTvEventData
+    },
+    isEpisodeRelatedBlock(type) {
+      return type === 'episode' || type === 'tvEvent'
+    },
+    isNotSelectedSection(section) {
+      return section !== this.selectedSection
+    },
+    episodeBlockId(selectedSection) {
+      const block = selectedSection.data.blocks.find(b =>
+        this.isEpisodeRelatedBlock(b.type)
+      )
+      if (block) {
+        return block.data.link
+      } else {
+        return 'default'
+      }
     },
   },
 }
@@ -124,5 +221,11 @@ li.draggable-handle {
   margin-top: 10px;
   margin-bottom: 10px;
   list-style-type: none;
+}
+
+.v-subheader {
+  height: auto;
+  font-size: 0.7em;
+  padding: 16px 16px 8px 16px;
 }
 </style>
