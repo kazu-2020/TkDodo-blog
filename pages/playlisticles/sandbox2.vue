@@ -49,7 +49,7 @@
                           :disabled="isNotSelectedSection(section)"
                           v-on="on"
                         >
-                          Type
+                          <v-icon>mdi-television</v-icon>
                         </v-btn>
                       </template>
                       <v-list>
@@ -88,9 +88,10 @@
         <v-col xs="12" sm="12" md="8" lg="8">
           <editable-section
             v-if="selectedSection"
-            :key="selectedSection.id + selectedSection.data.time"
+            :key="selectedSection.id"
             :section-id="selectedSection.id"
             :initial-data="selectedSection.data"
+            :episode-block-id="episodeBlockId(selectedSection)"
             @modify-content="updateSectionData"
           />
         </v-col>
@@ -197,8 +198,17 @@ export default {
       return type === 'episode' || type === 'tvEvent'
     },
     isNotSelectedSection(section) {
-      console.log(section !== this.selectedSection)
       return section !== this.selectedSection
+    },
+    episodeBlockId(selectedSection) {
+      const block = selectedSection.data.blocks.find(b =>
+        this.isEpisodeRelatedBlock(b.type)
+      )
+      if (block) {
+        return block.data.link
+      } else {
+        return 'default'
+      }
     },
   },
 }
