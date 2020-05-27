@@ -4,7 +4,13 @@
     <v-btn rounded large color="secondary" class="d-none" @click="dumpSaveData">
       Save
     </v-btn>
-    <v-snackbar v-model="snackBar" color="error" right top timeout="5000">
+    <v-snackbar
+      v-model="snackBar"
+      color="error"
+      right
+      top
+      :timeout="snackBarTimeout"
+    >
       {{ snackBarMessage }}
       <v-btn color="white" text @click="snackBar = false">
         <v-icon>mdi-close</v-icon>
@@ -72,6 +78,7 @@ export default {
       editorData: this.initialData,
       snackBar: false,
       snackBarMessage: '',
+      snackBarTimeout: 5000,
     }
   },
   watch: {
