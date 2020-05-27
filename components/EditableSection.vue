@@ -162,7 +162,13 @@ export default {
         onChange: () => {
           this.updateEditorData()
         },
+        onReady: () => {
+          this.initializeEditor()
+        },
       })
+    },
+    initializeEditor() {
+      this.editor.blocks.insertNewBlock()
     },
     updateEditorData() {
       this.editor
