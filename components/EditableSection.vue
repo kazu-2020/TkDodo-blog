@@ -4,6 +4,18 @@
     <v-btn rounded large color="secondary" class="d-none" @click="dumpSaveData">
       Save
     </v-btn>
+    <v-snackbar
+      v-model="snackBar"
+      color="error"
+      right
+      top
+      :timeout="snackBarTimeout"
+    >
+      {{ snackBarMessage }}
+      <v-btn color="white" text @click="snackBar = false">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -64,6 +76,9 @@ export default {
       editor: {},
       editorId: this.sectionId,
       editorData: this.initialData,
+      snackBar: false,
+      snackBarMessage: '',
+      snackBarTimeout: 5000,
     }
   },
   watch: {
@@ -162,24 +177,55 @@ export default {
         onChange: () => {
           this.updateEditorData()
         },
+        onReady: () => {
+          this.initializeEditor()
+        },
       })
+    },
+    initializeEditor() {
+      this.editor.blocks.insert()
     },
     updateEditorData() {
       this.editor
         .save()
         .then(outputData => {
-          this.editorData = outputData
-          this.$emit('modify-content', {
-            sectionId: this.sectionId,
-            editorData: this.editorData,
-          })
+          if (this.isIncludeEpisodeBlock(outputData)) {
+            this.editorData = outputData
+            this.$emit('modify-content', {
+              sectionId: this.sectionId,
+              editorData: this.editorData,
+            })
+          } else {
+            this.editor.render(this.editorData)
+            throw new Error('エピソード関連のブロックは削除できません')
+          }
         })
         .catch(error => {
           console.log('Saving failed: ', error)
+          this.showErrorMessage(error)
         })
     },
     dumpSaveData() {
       console.log('Article data: ', JSON.stringify(this.editorData))
+    },
+    isIncludeEpisodeBlock(data) {
+      const episodeBlock = data.blocks.find(b =>
+        this.isEpisodeRelatedBlock(b.type)
+      )
+      return episodeBlock !== undefined
+    },
+    // FIXME: Sandbox2.vue のロジックを使うか、mixin にしたい
+    isEpisodeRelatedBlock(type) {
+      return (
+        type === 'episode' ||
+        type === 'tvEvent' ||
+        type === 'howTo' ||
+        type === 'recipe'
+      )
+    },
+    showErrorMessage(message) {
+      this.snackBarMessage = message
+      this.snackBar = true
     },
   },
 }

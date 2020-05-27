@@ -49,7 +49,7 @@
                           :disabled="isNotSelectedSection(section)"
                           v-on="on"
                         >
-                          <v-icon>mdi-television</v-icon>
+                          <v-icon>{{ iconOf(section) }}</v-icon>
                         </v-btn>
                       </template>
                       <v-list>
@@ -57,7 +57,12 @@
                           v-for="(typeItem, index) in typeItems"
                           :key="index"
                         >
-                          <v-subheader>{{ typeItem.displayName }}</v-subheader>
+                          <v-subheader>
+                            <v-icon class="episode_type_icon">
+                              {{ typeItem.icon }}
+                            </v-icon>
+                            {{ typeItem.displayName }}
+                          </v-subheader>
                           <v-list-item
                             v-for="(item, index2) in typeItem.items"
                             :key="'item' + index2"
@@ -127,6 +132,7 @@ export default {
         {
           type: 'episode',
           displayName: 'エピソード',
+          icon: 'mdi-television',
           items: [
             {
               type: 'episode',
@@ -138,6 +144,7 @@ export default {
         {
           type: 'recipe',
           displayName: 'レシピ',
+          icon: 'mdi-silverware-fork-knife',
           items: [
             {
               type: 'recipe',
@@ -147,8 +154,9 @@ export default {
           ],
         },
         {
-          type: 'event',
+          type: 'tvEvent',
           displayName: 'イベント',
+          icon: 'mdi-calendar-month',
           items: [
             {
               type: 'tvEvent',
@@ -160,6 +168,7 @@ export default {
         {
           type: 'howTo',
           displayName: 'ハウツー',
+          icon: 'mdi-hammer-wrench',
           items: [
             {
               type: 'howTo',
@@ -224,6 +233,14 @@ export default {
         type === 'recipe'
       )
     },
+    typeOfEpisodeRelatedBlock(section) {
+      return section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type))
+        .type
+    },
+    iconOf(section) {
+      const sectionType = this.typeOfEpisodeRelatedBlock(section)
+      return this.typeItems.find(item => item.type === sectionType).icon
+    },
     isNotSelectedSection(section) {
       return section !== this.selectedSection
     },
@@ -241,7 +258,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 li.draggable-handle {
   padding-left: 50px;
   border-left: 10px solid white;
@@ -254,5 +271,9 @@ li.draggable-handle {
   height: auto;
   font-size: 0.7em;
   padding: 16px 16px 8px 16px;
+
+  .episode_type_icon {
+    margin-right: 8px;
+  }
 }
 </style>
