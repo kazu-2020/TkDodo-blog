@@ -183,7 +183,7 @@ export default {
       })
     },
     initializeEditor() {
-      this.editor.blocks.insertNewBlock()
+      this.editor.blocks.insert()
     },
     updateEditorData() {
       this.editor
