@@ -107,6 +107,7 @@ import EditableSection from '~/components/EditableSection.vue'
 import sampleEventData from '~/assets/json/event_LR3P5RJ389.json'
 import sampleHowToData from '~/assets/json/howTo_G9218G45GJ.json'
 import sampleEpisodeData from '~/assets/json/episode_LR3P5RJ389.json'
+import sampleRecipeData from '~/assets/json/recipe.json'
 
 export default {
   components: {
@@ -140,8 +141,8 @@ export default {
           items: [
             {
               type: 'recipe',
-              title: 'オムライス',
-              data: {},
+              title: '「新ごぼうで和おかず 新ごぼうのフレッシュきんぴら」',
+              data: sampleRecipeData,
             },
           ],
         },
@@ -216,7 +217,12 @@ export default {
       ).data = item.data
     },
     isEpisodeRelatedBlock(type) {
-      return type === 'episode' || type === 'tvEvent' || type === 'howTo'
+      return (
+        type === 'episode' ||
+        type === 'tvEvent' ||
+        type === 'howTo' ||
+        type === 'recipe'
+      )
     },
     isNotSelectedSection(section) {
       return section !== this.selectedSection

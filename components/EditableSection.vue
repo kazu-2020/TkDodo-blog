@@ -22,6 +22,7 @@ import Table from '@editorjs/table'
 import Episode from '~/plugins/editorjs/episode.js'
 import TvEvent from '~/plugins/editorjs/tv_event.js'
 import HowTo from '~/plugins/editorjs/howto.js'
+import Recipe from '~/plugins/editorjs/recipe.js'
 
 export default {
   props: {
@@ -149,6 +150,13 @@ export default {
               endpoint: process.env.apiBaseUrl,
             },
           },
+          recipe: {
+            class: Recipe,
+            inlineToolbar: false,
+            config: {
+              endpoint: process.env.apiBaseUrl,
+            },
+          },
         },
         data: this.editorData,
         onChange: () => {
@@ -187,7 +195,8 @@ export default {
 
 .ce-toolbox__button[data-tool='episode'],
 .ce-toolbox__button[data-tool='tvEvent'],
-.ce-toolbox__button[data-tool='howTo'] {
+.ce-toolbox__button[data-tool='howTo'],
+.ce-toolbox__button[data-tool='recipe'] {
   display: none;
 }
 </style>
