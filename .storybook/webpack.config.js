@@ -11,7 +11,7 @@ module.exports = async ({ config, mode }) => {
 
   config.module.rules.push({
     test: /\.css/,
-    use: ['style-loader', { loader: 'css-loader', options: { url: false } }],
+    use: [{ loader: 'postcss-loader', options: { url: false } }],
   })
 
   config.module.rules.push({
