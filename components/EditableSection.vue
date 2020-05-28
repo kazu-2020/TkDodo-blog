@@ -70,6 +70,11 @@ export default {
       required: false,
       default: 'episode-block-id',
     },
+    episodeBlockType: {
+      type: String,
+      required: true,
+      default: 'header',
+    },
   },
   data() {
     return {
@@ -189,7 +194,10 @@ export default {
       this.editor
         .save()
         .then(outputData => {
-          if (this.isIncludeEpisodeBlock(outputData)) {
+          if (
+            this.episodeBlockType !== 'body' ||
+            this.isIncludeEpisodeBlock(outputData)
+          ) {
             this.editorData = outputData
             this.$emit('modify-content', {
               sectionId: this.sectionId,
