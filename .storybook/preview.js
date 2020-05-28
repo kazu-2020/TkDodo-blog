@@ -6,7 +6,7 @@ import { action } from '@storybook/addon-actions'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import Vuetify from 'vuetify'
+import Vuetify, { VApp, VContent } from 'vuetify'
 import colors from 'vuetify/es5/util/colors'
 import 'vuetify/dist/vuetify.min.css'
 
@@ -14,6 +14,7 @@ Vue.use(Vuex)
 const vuetifyOptions = {}
 
 Vue.use(Vuetify, {
+  iconfont: 'mdi',
   customVariables: ['~/assets/variables.scss'],
   theme: {
     dark: true,
@@ -57,6 +58,7 @@ function loadStories() {
 configure(loadStories, module)
 addDecorator(() => ({
   vuetify: new Vuetify(vuetifyOptions),
+  components: { VApp, VContent },
   template: `<v-app><v-content><story/></v-content></v-app>`,
 }))
 addDecorator(withKnobs)
