@@ -1,6 +1,7 @@
 import { configure, addDecorator } from '@storybook/vue'
 import { withKnobs } from '@storybook/addon-knobs/vue'
 import { withInfo } from 'storybook-addon-vue-info'
+import { action } from '@storybook/addon-actions'
 
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -34,6 +35,17 @@ Vue.use(Vuetify, {
       },
     },
   },
+})
+
+// nuxt-link を action に送る
+Vue.component('nuxt-link', {
+  props: ['to'],
+  methods: {
+    log() {
+      action('link target')(this.to)
+    },
+  },
+  template: '<a href="#" @click.prevent="log()"><slot>NuxtLink</slot></a>',
 })
 
 // automatically import all files ending in *.stories.js
