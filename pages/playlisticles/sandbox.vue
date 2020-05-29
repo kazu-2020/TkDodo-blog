@@ -108,6 +108,7 @@
               :episode-block-type="section.type"
               @modify-content="updateSectionData"
             />
+            <v-divider />
           </div>
         </v-col>
       </v-row>
