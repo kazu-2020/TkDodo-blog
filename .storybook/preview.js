@@ -6,7 +6,8 @@ import { action } from '@storybook/addon-actions'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import Vuetify, { VApp, VContent } from 'vuetify'
+import Vuetify from 'vuetify'
+import { VApp, VContent } from 'vuetify/lib'
 import colors from 'vuetify/es5/util/colors'
 import 'vuetify/dist/vuetify.min.css'
 
