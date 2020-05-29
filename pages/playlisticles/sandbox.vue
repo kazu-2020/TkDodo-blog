@@ -19,7 +19,7 @@
               <v-subheader>Header</v-subheader>
               <v-list-item
                 v-if="headerSection"
-                @click="jumpToSection(headerSection)"
+                @click="switchSelectedSection(headerSection)"
               >
                 <v-list-item-icon>
                   <v-icon v-text="headerSection.icon" />
@@ -35,11 +35,13 @@
                 animation="500"
                 @start="drag = true"
                 @end="drag = false"
+                @change="onSectionPositonChanged"
               >
                 <v-list-item
                   v-for="section in bodySections"
                   :key="section.id"
-                  @click.stop="jumpToSection(section)"
+                  :class="isNotSelectedSection(section) ? '' : 'highligted'"
+                  @click.stop="switchSelectedSection(section)"
                 >
                   <v-list-item-icon>
                     <v-icon v-text="section.icon" />
@@ -93,7 +95,7 @@
               <v-subheader>Footer</v-subheader>
               <v-list-item
                 v-if="footerSection"
-                @click="jumpToSection(footerSection)"
+                @click="switchSelectedSection(footerSection)"
               >
                 <v-list-item-icon>
                   <v-icon v-text="footerSection.icon" />
@@ -115,6 +117,7 @@
             :episode-block-type="headerSection.type"
             @modify-content="updateHeaderSectionData"
           />
+          <v-divider />
           <div v-for="section in bodySections" :key="section.id">
             <editable-section
               v-if="section"
@@ -243,16 +246,20 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
-    jumpToSection(section) {
-      this.$scrollTo(`#${section.type}-${section.id}`, 700, {
-        easing: [0, 0, 0.1, 1],
-        offset: -75,
-      })
+    switchSelectedSection(section) {
+      this.jumpToSection(section)
+
       if (section.type === 'body') {
         this.selectedSection = this.bodySections.find(s => s.id === section.id)
       } else {
         this.selectedSection = {}
       }
+    },
+    jumpToSection(section) {
+      this.$scrollTo(`#${section.type}-${section.id}`, 700, {
+        easing: [0, 0, 0.1, 1],
+        offset: -75,
+      })
     },
     updateHeaderSectionData(updatedSectionData) {
       this.headerSection.data = updatedSectionData.editorData
@@ -313,6 +320,9 @@ export default {
       this.stickyHeight = window.innerHeight
       console.log(this.stickyHeight)
     },
+    onSectionPositonChanged({ moved }) {
+      this.switchSelectedSection(moved.element)
+    },
   },
 }
 </script>
@@ -339,5 +349,20 @@ li.draggable-handle {
 .v-list.section_outline.stickey {
   position: sticky;
   top: 80px;
+}
+
+.v-item--active.v-list-item--active {
+  background: none;
+  color: white;
+
+  &::before {
+    opacity: 0;
+  }
+}
+
+.v-list-item.highligted {
+  &::before {
+    opacity: 0.28;
+  }
 }
 </style>
