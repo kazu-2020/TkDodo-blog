@@ -13,9 +13,9 @@ storiesOf('Components/Playlist', module).add(
       playlist: {
         type: Object,
         default: object('playlist', {
-          title: 'hoge',
-          updated_at: '2020-05-20 00:00:00',
           id: 1,
+          title: 'プレイリスト1',
+          updated_at: '2020-05-20 00:00:00',
         }),
       },
     },
@@ -23,16 +23,13 @@ storiesOf('Components/Playlist', module).add(
   {
     info: true,
     notes: `
-        # EditableSection
-        [Editor.js](https://editorjs.io/) をラップしたコンポーネントです
+        # PlaylistItem
+        プレイリスト一覧など、プレイリストをリストで表示する際に使うリスト型アイテムです
 
         ## Props
-        * sectionId
-          * string
-            * Editor.js をマウントする HTML ID名の指定をします
-        * initialData
+        * playlist
           * object
-            * 初期表示するデータを指定します
+            * id, title, updated_at を含むデータ
       `,
   }
 )
