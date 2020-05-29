@@ -17,7 +17,7 @@
           >
             <v-list-item-group color="blue-grey lighten-1">
               <v-subheader>Header</v-subheader>
-              <v-list-item @click="switchSelectedSection(headerSection)">
+              <v-list-item @click="jumpToSection(headerSection)">
                 <v-list-item-icon>
                   <v-icon v-text="headerSection.icon" />
                 </v-list-item-icon>
@@ -34,7 +34,7 @@
                 <v-list-item
                   v-for="section in bodySections"
                   :key="section.id"
-                  @click.stop="switchSelectedSection(section)"
+                  @click.stop="jumpToSection(section)"
                 >
                   <v-list-item-icon>
                     <v-icon v-text="section.icon" />
@@ -86,7 +86,7 @@
                 </v-list-item>
               </draggable>
               <v-subheader>Footer</v-subheader>
-              <v-list-item @click="switchSelectedSection(footerSection)">
+              <v-list-item @click="jumpToSection(footerSection)">
                 <v-list-item-icon>
                   <v-icon v-text="footerSection.icon" />
                 </v-list-item-icon>
@@ -225,7 +225,12 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
-    switchSelectedSection(section) {
+    jumpToSection(section) {
+      this.$scrollTo(`#${section.type}-${section.id}`, 700, {
+        easing: [0, 0, 0.1, 1],
+        offset: -75,
+      })
+
       this.selectedSection = this.sections.find(s => s.id === section.id)
     },
     updateSectionData(updatedSectionData) {

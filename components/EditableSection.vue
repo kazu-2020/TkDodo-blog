@@ -79,7 +79,7 @@ export default {
   data() {
     return {
       editor: {},
-      editorId: this.sectionId,
+      editorId: `${this.episodeBlockType}-${this.sectionId}`,
       editorData: this.initialData,
       snackBar: false,
       snackBarMessage: '',
