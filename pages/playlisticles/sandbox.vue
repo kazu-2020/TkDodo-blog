@@ -17,7 +17,10 @@
           >
             <v-list-item-group color="blue-grey lighten-1">
               <v-subheader>Header</v-subheader>
-              <v-list-item @click="jumpToSection(headerSection)">
+              <v-list-item
+                v-if="headerSection"
+                @click="jumpToSection(headerSection)"
+              >
                 <v-list-item-icon>
                   <v-icon v-text="headerSection.icon" />
                 </v-list-item-icon>
@@ -27,6 +30,8 @@
               </v-list-item>
               <v-subheader>Sections</v-subheader>
               <draggable
+                v-if="bodySections"
+                v-model="bodySections"
                 animation="500"
                 @start="drag = true"
                 @end="drag = false"
@@ -86,7 +91,10 @@
                 </v-list-item>
               </draggable>
               <v-subheader>Footer</v-subheader>
-              <v-list-item @click="jumpToSection(footerSection)">
+              <v-list-item
+                v-if="footerSection"
+                @click="jumpToSection(footerSection)"
+              >
                 <v-list-item-icon>
                   <v-icon v-text="footerSection.icon" />
                 </v-list-item-icon>
@@ -98,7 +106,16 @@
           </v-list>
         </v-col>
         <v-col xs="12" sm="12" md="8" lg="8">
-          <div v-for="section in sections" :key="section.id">
+          <editable-section
+            v-if="headerSection"
+            :key="headerSection.id"
+            :section-id="headerSection.id"
+            :initial-data="headerSection.data"
+            :episode-block-id="episodeBlockId(headerSection)"
+            :episode-block-type="headerSection.type"
+            @modify-content="updateHeaderSectionData"
+          />
+          <div v-for="section in bodySections" :key="section.id">
             <editable-section
               v-if="section"
               :key="section.id"
@@ -106,10 +123,19 @@
               :initial-data="section.data"
               :episode-block-id="episodeBlockId(section)"
               :episode-block-type="section.type"
-              @modify-content="updateSectionData"
+              @modify-content="updateBodySectionData"
             />
             <v-divider />
           </div>
+          <editable-section
+            v-if="footerSection"
+            :key="footerSection.id"
+            :section-id="footerSection.id"
+            :initial-data="footerSection.data"
+            :episode-block-id="episodeBlockId(footerSection)"
+            :episode-block-type="footerSection.type"
+            @modify-content="updateFooterSectionData"
+          />
         </v-col>
       </v-row>
     </v-layout>
@@ -131,8 +157,12 @@ export default {
     draggable,
   },
   asyncData() {
-    return axios.get('/api/playlisticles/sandbox').then(res => {
-      return { sections: res.data.playlisticle.sections }
+    return axios.get('/api/playlisticles/sandbox_word').then(res => {
+      return {
+        headerSection: res.data.playlisticle.headerSection,
+        bodySections: res.data.playlisticle.bodySections,
+        footerSection: res.data.playlisticle.footerSection,
+      }
     })
   },
   data() {
@@ -141,7 +171,9 @@ export default {
       stickyMaxHeight: 0,
       stickyClass: '',
       selectedSection: null,
-      sections: [],
+      headerSection: {},
+      bodySections: [],
+      footerSection: {},
       typeItems: [
         {
           type: 'episode',
@@ -195,21 +227,6 @@ export default {
     }
   },
   computed: {
-    headerSection() {
-      return this.sections.length !== 0
-        ? this.sections.filter(s => s.type === 'header')[0]
-        : undefined
-    },
-    footerSection() {
-      return this.sections.length !== 0
-        ? this.sections.filter(s => s.type === 'footer')[0]
-        : undefined
-    },
-    bodySections() {
-      return this.sections.length !== 0
-        ? this.sections.filter(s => s.type === 'body')
-        : undefined
-    },
     playlisticle() {
       return this.$store.state.playlisticles.editingPlaylisticle
     },
@@ -231,19 +248,23 @@ export default {
         easing: [0, 0, 0.1, 1],
         offset: -75,
       })
-
-      this.selectedSection = this.sections.find(s => s.id === section.id)
+      if (section.type === 'body') {
+        this.selectedSection = this.bodySections.find(s => s.id === section.id)
+      } else {
+        this.selectedSection = {}
+      }
     },
-    updateSectionData(updatedSectionData) {
-      this.sections.find(s => s.id === updatedSectionData.sectionId).data =
+    updateHeaderSectionData(updatedSectionData) {
+      this.headerSection.data = updatedSectionData.editorData
+    },
+    updateBodySectionData(updatedSectionData) {
+      this.bodySections.find(s => s.id === updatedSectionData.sectionId).data =
         updatedSectionData.editorData
-      console.log(updatedSectionData.editorData)
+    },
+    updateFooterSectionData(updatedSectionData) {
+      this.footerSection.data = updatedSectionData.editorData
     },
     changeSectionEpisodeType(section, item) {
-      if (section === this.selectedSection) {
-        this.replaceToNewSectionData(this.selectedSection, item)
-      }
-
       this.replaceToNewSectionData(section, item)
     },
     replaceToNewSectionData(targetSection, item) {
@@ -274,8 +295,8 @@ export default {
     isNotSelectedSection(section) {
       return section !== this.selectedSection
     },
-    episodeBlockId(selectedSection) {
-      const block = selectedSection.data.blocks.find(b =>
+    episodeBlockId(section) {
+      const block = section.data.blocks.find(b =>
         this.isEpisodeRelatedBlock(b.type)
       )
       if (block) {
