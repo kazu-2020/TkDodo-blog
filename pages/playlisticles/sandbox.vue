@@ -117,7 +117,7 @@
             :require-episode-block="false"
             @modify-content="updateHeaderSectionData"
           />
-          <v-divider />
+          <v-divider class="mt-10" />
           <div v-for="section in bodySections" :key="section.id">
             <editable-section
               v-if="section"
@@ -128,7 +128,7 @@
               :require-episode-block="true"
               @modify-content="updateBodySectionData"
             />
-            <v-divider />
+            <v-divider class="mt-10" />
           </div>
           <editable-section
             v-if="footerSection"
