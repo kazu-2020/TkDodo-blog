@@ -98,6 +98,7 @@
             :initial-data="selectedSection.data"
             :episode-block-id="episodeBlockId(selectedSection)"
             :episode-block-type="selectedSection.type"
+            :require-episode-block="isRequireEpisodeBlock(selectedSection)"
             @modify-content="updateSectionData"
           />
         </v-col>
@@ -248,6 +249,9 @@ export default {
       } else {
         return 'default'
       }
+    },
+    isRequireEpisodeBlock(selectedSection) {
+      return selectedSection.type === 'body'
     },
   },
 }

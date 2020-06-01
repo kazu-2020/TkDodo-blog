@@ -26,6 +26,11 @@ import editorBlockMixin from '~/components/mixins/editorBlockMixin'
 export default {
   mixins: [editorMixin, editorBlockMixin],
   props: {
+    requireEpisodeBlock: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     sectionId: {
       type: String,
       required: true,
@@ -95,17 +100,17 @@ export default {
         .save()
         .then(outputData => {
           if (
-            this.episodeBlockType !== 'body' ||
-            this.isIncludeEpisodeBlock(outputData)
+            this.requireEpisodeBlock &&
+            !this.isIncludeEpisodeBlock(outputData)
           ) {
+            this.editor.render(this.editorData)
+            throw new Error('エピソード関連のブロックは削除できません')
+          } else {
             this.editorData = outputData
             this.$emit('modify-content', {
               sectionId: this.sectionId,
               editorData: this.editorData,
             })
-          } else {
-            this.editor.render(this.editorData)
-            throw new Error('エピソード関連のブロックは削除できません')
           }
         })
         .catch(error => {

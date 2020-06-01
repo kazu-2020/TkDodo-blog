@@ -115,6 +115,7 @@
             :initial-data="headerSection.data"
             :episode-block-id="episodeBlockId(headerSection)"
             :episode-block-type="headerSection.type"
+            :require-episode-block="false"
             @modify-content="updateHeaderSectionData"
           />
           <v-divider />
@@ -126,6 +127,7 @@
               :initial-data="section.data"
               :episode-block-id="episodeBlockId(section)"
               :episode-block-type="section.type"
+              :require-episode-block="true"
               @modify-content="updateBodySectionData"
             />
             <v-divider />
@@ -137,6 +139,7 @@
             :initial-data="footerSection.data"
             :episode-block-id="episodeBlockId(footerSection)"
             :episode-block-type="footerSection.type"
+            :require-episode-block="false"
             @modify-content="updateFooterSectionData"
           />
         </v-col>
