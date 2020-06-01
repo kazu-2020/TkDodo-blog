@@ -291,7 +291,7 @@ export default class Recipe {
 
   onFetch(response) {
     const _response = response.body
-    console.log(_response)
+
     if (!_response || !_response.success) {
       this.fetchingFailed('Can not get this link data, try another')
       return

@@ -80,7 +80,7 @@
                           <v-list-item
                             v-for="(item, index2) in typeItem.items"
                             :key="'item' + index2"
-                            @click="changeSectionEpisodeType(section, item)"
+                            @click="replaceToSelectedSectionData(section, item)"
                           >
                             <v-list-item-title>
                               {{ item.title }}
@@ -114,7 +114,7 @@
             :section-id="headerSection.id"
             :initial-data="headerSection.data"
             :episode-block-id="episodeBlockId(headerSection)"
-            :episode-block-type="headerSection.type"
+            :require-episode-block="false"
             @modify-content="updateHeaderSectionData"
           />
           <v-divider />
@@ -125,7 +125,7 @@
               :section-id="section.id"
               :initial-data="section.data"
               :episode-block-id="episodeBlockId(section)"
-              :episode-block-type="section.type"
+              :require-episode-block="true"
               @modify-content="updateBodySectionData"
             />
             <v-divider />
@@ -136,7 +136,7 @@
             :section-id="footerSection.id"
             :initial-data="footerSection.data"
             :episode-block-id="episodeBlockId(footerSection)"
-            :episode-block-type="footerSection.type"
+            :require-episode-block="false"
             @modify-content="updateFooterSectionData"
           />
         </v-col>
@@ -153,12 +153,14 @@ import sampleEventData from '~/assets/json/event_LR3P5RJ389.json'
 import sampleHowToData from '~/assets/json/howTo_G9218G45GJ.json'
 import sampleEpisodeData from '~/assets/json/episode_LR3P5RJ389.json'
 import sampleRecipeData from '~/assets/json/recipe.json'
+import editorBlockMixin from '~/components/mixins/editorBlockMixin'
 
 export default {
   components: {
     'editable-section': EditableSection,
     draggable,
   },
+  mixins: [editorBlockMixin],
   asyncData() {
     return axios.get('/api/playlisticles/sandbox_word').then(res => {
       return {
@@ -239,7 +241,6 @@ export default {
     window.addEventListener('resize', this.handleResize)
 
     this.stickyMaxHeight = `max-height: ${window.innerHeight - 200}px;`
-    console.log(this.stick)
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll)
@@ -256,7 +257,7 @@ export default {
       }
     },
     jumpToSection(section) {
-      this.$scrollTo(`#${section.type}-${section.id}`, 700, {
+      this.$scrollTo(`#editor-${section.id}`, 700, {
         easing: [0, 0, 0.1, 1],
         offset: -75,
       })
@@ -271,29 +272,12 @@ export default {
     updateFooterSectionData(updatedSectionData) {
       this.footerSection.data = updatedSectionData.editorData
     },
-    changeSectionEpisodeType(section, item) {
-      this.replaceToNewSectionData(section, item)
-    },
-    replaceToNewSectionData(targetSection, item) {
-      targetSection.data.time = Date.now()
-      targetSection.data.blocks.find(b =>
-        this.isEpisodeRelatedBlock(b.type)
-      ).type = item.type
-      targetSection.data.blocks.find(b =>
-        this.isEpisodeRelatedBlock(b.type)
-      ).data = item.data
-    },
-    isEpisodeRelatedBlock(type) {
-      return (
-        type === 'episode' ||
-        type === 'tvEvent' ||
-        type === 'howTo' ||
-        type === 'recipe'
-      )
-    },
-    typeOfEpisodeRelatedBlock(section) {
-      return section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type))
-        .type
+    replaceToSelectedSectionData(section, item) {
+      section.data.time = Date.now()
+      section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type)).type =
+        item.type
+      section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type)).data =
+        item.data
     },
     iconOf(section) {
       const sectionType = this.typeOfEpisodeRelatedBlock(section)
@@ -302,23 +286,12 @@ export default {
     isNotSelectedSection(section) {
       return section !== this.selectedSection
     },
-    episodeBlockId(section) {
-      const block = section.data.blocks.find(b =>
-        this.isEpisodeRelatedBlock(b.type)
-      )
-      if (block) {
-        return block.data.link
-      } else {
-        return 'default'
-      }
-    },
     handleScroll() {
       this.scrollY = window.scrollY
       this.stickyClass = window.scrollY > 50 ? 'stickey' : ''
     },
     handleResize() {
       this.stickyHeight = window.innerHeight
-      console.log(this.stickyHeight)
     },
     onSectionPositonChanged({ moved }) {
       this.switchSelectedSection(moved.element)

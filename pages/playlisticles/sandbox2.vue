@@ -66,7 +66,7 @@
                           <v-list-item
                             v-for="(item, index2) in typeItem.items"
                             :key="'item' + index2"
-                            @click="changeSectionEpisodeType(section, item)"
+                            @click="replaceToSelectedSectionData(section, item)"
                           >
                             <v-list-item-title>
                               {{ item.title }}
@@ -97,7 +97,7 @@
             :section-id="selectedSection.id"
             :initial-data="selectedSection.data"
             :episode-block-id="episodeBlockId(selectedSection)"
-            :episode-block-type="selectedSection.type"
+            :require-episode-block="isRequireEpisodeBlock(selectedSection)"
             @modify-content="updateSectionData"
           />
         </v-col>
@@ -114,12 +114,14 @@ import sampleEventData from '~/assets/json/event_LR3P5RJ389.json'
 import sampleHowToData from '~/assets/json/howTo_G9218G45GJ.json'
 import sampleEpisodeData from '~/assets/json/episode_LR3P5RJ389.json'
 import sampleRecipeData from '~/assets/json/recipe.json'
+import editorBlockMixin from '~/components/mixins/editorBlockMixin'
 
 export default {
   components: {
     'editable-section': EditableSection,
     draggable,
   },
+  mixins: [editorBlockMixin],
   asyncData() {
     return axios.get('/api/playlisticles/sandbox').then(res => {
       return { sections: res.data.playlisticle.sections }
@@ -208,35 +210,13 @@ export default {
     updateSectionData(updatedSectionData) {
       this.sections.find(s => s.id === updatedSectionData.sectionId).data =
         updatedSectionData.editorData
-      console.log(updatedSectionData.editorData)
     },
-    changeSectionEpisodeType(section, item) {
-      if (section === this.selectedSection) {
-        this.replaceToNewSectionData(this.selectedSection, item)
-      }
-
-      this.replaceToNewSectionData(section, item)
-    },
-    replaceToNewSectionData(targetSection, item) {
-      targetSection.data.time = Date.now()
-      targetSection.data.blocks.find(b =>
-        this.isEpisodeRelatedBlock(b.type)
-      ).type = item.type
-      targetSection.data.blocks.find(b =>
-        this.isEpisodeRelatedBlock(b.type)
-      ).data = item.data
-    },
-    isEpisodeRelatedBlock(type) {
-      return (
-        type === 'episode' ||
-        type === 'tvEvent' ||
-        type === 'howTo' ||
-        type === 'recipe'
-      )
-    },
-    typeOfEpisodeRelatedBlock(section) {
-      return section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type))
-        .type
+    replaceToSelectedSectionData(section, item) {
+      section.data.time = Date.now()
+      section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type)).type =
+        item.type
+      section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type)).data =
+        item.data
     },
     iconOf(section) {
       const sectionType = this.typeOfEpisodeRelatedBlock(section)
@@ -245,15 +225,8 @@ export default {
     isNotSelectedSection(section) {
       return section !== this.selectedSection
     },
-    episodeBlockId(selectedSection) {
-      const block = selectedSection.data.blocks.find(b =>
-        this.isEpisodeRelatedBlock(b.type)
-      )
-      if (block) {
-        return block.data.link
-      } else {
-        return 'default'
-      }
+    isRequireEpisodeBlock(selectedSection) {
+      return selectedSection.type === 'body'
     },
   },
 }

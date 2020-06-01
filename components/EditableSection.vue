@@ -20,24 +20,17 @@
 </template>
 
 <script>
-import EditorJS from '@editorjs/editorjs'
-import Header from '@editorjs/header'
-import List from '@editorjs/list'
-import Quote from '@editorjs/quote'
-import CodeTool from '@editorjs/code'
-import Marker from '@editorjs/marker'
-import Delimiter from '@editorjs/delimiter'
-import InlineCode from '@editorjs/inline-code'
-import LinkTool from '@editorjs/link'
-import Embed from '@editorjs/embed'
-import Table from '@editorjs/table'
-import Episode from '~/plugins/editorjs/episode.js'
-import TvEvent from '~/plugins/editorjs/tv_event.js'
-import HowTo from '~/plugins/editorjs/howto.js'
-import Recipe from '~/plugins/editorjs/recipe.js'
+import editorMixin from '~/components/mixins/editorMixin'
+import editorBlockMixin from '~/components/mixins/editorBlockMixin'
 
 export default {
+  mixins: [editorMixin, editorBlockMixin],
   props: {
+    requireEpisodeBlock: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     sectionId: {
       type: String,
       required: true,
@@ -70,16 +63,11 @@ export default {
       required: false,
       default: 'episode-block-id',
     },
-    episodeBlockType: {
-      type: String,
-      required: true,
-      default: 'header',
-    },
   },
   data() {
     return {
       editor: {},
-      editorId: `${this.episodeBlockType}-${this.sectionId}`,
+      editorId: `editor-${this.sectionId}`,
       editorData: this.initialData,
       snackBar: false,
       snackBarMessage: '',
@@ -87,6 +75,8 @@ export default {
     }
   },
   watch: {
+    // 親コンポーネントがデータを書き換えたときに、このプロパティーも切り替わる
+    // このプロパティーを監視して、自身のデータを再描画する
     episodeBlockId: {
       handler() {
         if ('render' in this.editor) {
@@ -96,116 +86,28 @@ export default {
       immediate: true,
     },
   },
-  mounted() {
-    this.doEditor()
-  },
   methods: {
-    doEditor() {
-      this.editor = new EditorJS({
-        holder: this.editorId,
-        minHeight: 0,
-        tools: {
-          header: {
-            class: Header,
-            inlineToolbar: ['link'],
-            config: {
-              placeholder: 'Header',
-            },
-            shortcut: 'CMD+SHIFT+H',
-          },
-          list: {
-            class: List,
-            inlineToolbar: true,
-            shortcut: 'CMD+SHIFT+L',
-          },
-          quote: {
-            class: Quote,
-            inlineToolbar: true,
-            config: {
-              quotePlaceholder: 'Enter a quote',
-              captionPlaceholder: "Quote's author",
-            },
-            shortcut: 'CMD+SHIFT+O',
-          },
-          code: {
-            class: CodeTool,
-            shortcut: 'CMD+SHIFT+C',
-          },
-          marker: {
-            class: Marker,
-            shortcut: 'CMD+SHIFT+M',
-          },
-          delimiter: Delimiter,
-          inlineCode: {
-            class: InlineCode,
-            shortcut: 'CMD+SHIFT+C',
-          },
-          linkTool: LinkTool,
-          embed: Embed,
-          table: {
-            class: Table,
-            inlineToolbar: true,
-            shortcut: 'CMD+ALT+T',
-          },
-          episode: {
-            class: Episode,
-            inlineToolbar: false,
-            config: {
-              endpoint: process.env.apiBaseUrl,
-            },
-            shortcut: 'CMD+ALT+E',
-          },
-          tvEvent: {
-            class: TvEvent,
-            inlineToolbar: false,
-            config: {
-              endpoint: process.env.apiBaseUrl,
-            },
-            shortcut: 'CMD+ALT+V',
-          },
-          howTo: {
-            class: HowTo,
-            inlineToolbar: false,
-            config: {
-              endpoint: process.env.apiBaseUrl,
-            },
-          },
-          recipe: {
-            class: Recipe,
-            inlineToolbar: false,
-            config: {
-              endpoint: process.env.apiBaseUrl,
-            },
-          },
-        },
-        data: this.editorData,
-        onChange: () => {
-          this.updateEditorData()
-        },
-        onReady: () => {
-          this.initializeEditor()
-        },
-      })
-    },
+    // Call from basicEditorMixin
     initializeEditor() {
       this.editor.blocks.insert()
     },
+    // Call from basicEditorMixin
     updateEditorData() {
       this.editor
         .save()
         .then(outputData => {
           if (
-            this.episodeBlockType !== 'body' ||
-            this.isIncludeEpisodeBlock(outputData)
+            this.requireEpisodeBlock &&
+            !this.isIncludeEpisodeBlock(outputData)
           ) {
+            this.editor.render(this.editorData)
+            throw new Error('エピソード関連のブロックは削除できません')
+          } else {
             this.editorData = outputData
             this.$emit('modify-content', {
               sectionId: this.sectionId,
               editorData: this.editorData,
             })
-          } else {
-            this.editor.render(this.editorData)
-            throw new Error('エピソード関連のブロックは削除できません')
           }
         })
         .catch(error => {
@@ -221,15 +123,6 @@ export default {
         this.isEpisodeRelatedBlock(b.type)
       )
       return episodeBlock !== undefined
-    },
-    // FIXME: Sandbox2.vue のロジックを使うか、mixin にしたい
-    isEpisodeRelatedBlock(type) {
-      return (
-        type === 'episode' ||
-        type === 'tvEvent' ||
-        type === 'howTo' ||
-        type === 'recipe'
-      )
     },
     showErrorMessage(message) {
       this.snackBarMessage = message
