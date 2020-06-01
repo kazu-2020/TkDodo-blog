@@ -153,12 +153,14 @@ import sampleEventData from '~/assets/json/event_LR3P5RJ389.json'
 import sampleHowToData from '~/assets/json/howTo_G9218G45GJ.json'
 import sampleEpisodeData from '~/assets/json/episode_LR3P5RJ389.json'
 import sampleRecipeData from '~/assets/json/recipe.json'
+import editorBlockMixin from '~/components/mixins/editorBlockMixin'
 
 export default {
   components: {
     'editable-section': EditableSection,
     draggable,
   },
+  mixins: [editorBlockMixin],
   asyncData() {
     return axios.get('/api/playlisticles/sandbox_word').then(res => {
       return {
@@ -282,14 +284,6 @@ export default {
       targetSection.data.blocks.find(b =>
         this.isEpisodeRelatedBlock(b.type)
       ).data = item.data
-    },
-    isEpisodeRelatedBlock(type) {
-      return (
-        type === 'episode' ||
-        type === 'tvEvent' ||
-        type === 'howTo' ||
-        type === 'recipe'
-      )
     },
     typeOfEpisodeRelatedBlock(section) {
       return section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type))
