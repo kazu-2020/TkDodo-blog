@@ -24,6 +24,7 @@ const editorMixin = {
     doEditor() {
       this.editor = new EditorJS({
         holder: this.editorId,
+        logLevel: 'WARN',
         minHeight: 0,
         tools: {
           header: {

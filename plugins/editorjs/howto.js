@@ -197,8 +197,6 @@ export default class HowTo {
   }
 
   showLinkPreview(howTo, tvSeries, tvEpisode) {
-    console.log(tvEpisode.name)
-
     this.nodes.container.appendChild(this.nodes.linkContent)
 
     if (howTo.image[0] && howTo.image[0].url) {
@@ -285,7 +283,7 @@ export default class HowTo {
 
   onFetch(response) {
     const _response = response.body
-    console.log(_response)
+
     if (!_response || !_response.success) {
       this.fetchingFailed('Can not get this link data, try another')
       return

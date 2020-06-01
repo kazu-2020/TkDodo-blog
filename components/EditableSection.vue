@@ -75,6 +75,8 @@ export default {
     }
   },
   watch: {
+    // 親コンポーネントがデータを書き換えたときに、このプロパティーも切り替わる
+    // このプロパティーを監視して、自身のデータを再描画する
     episodeBlockId: {
       handler() {
         if ('render' in this.editor) {

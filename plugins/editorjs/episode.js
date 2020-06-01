@@ -284,7 +284,7 @@ export default class Episode {
    */
   showLinkPreview({ eyecatch, name, description }) {
     this.nodes.container.appendChild(this.nodes.linkContent)
-    console.log(eyecatch)
+
     if (eyecatch && eyecatch.medium && eyecatch.medium.url) {
       this.nodes.linkImage.style.backgroundImage =
         'url(' + eyecatch.medium.url + ')'
@@ -380,7 +380,6 @@ export default class Episode {
 
     this.hideProgress().then(() => {
       this.nodes.inputHolder.remove()
-      console.log(episode)
       this.showLinkPreview(episode)
     })
   }
