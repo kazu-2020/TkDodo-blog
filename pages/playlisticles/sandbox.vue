@@ -114,7 +114,6 @@
             :section-id="headerSection.id"
             :initial-data="headerSection.data"
             :episode-block-id="episodeBlockId(headerSection)"
-            :episode-block-type="headerSection.type"
             :require-episode-block="false"
             @modify-content="updateHeaderSectionData"
           />
@@ -126,7 +125,6 @@
               :section-id="section.id"
               :initial-data="section.data"
               :episode-block-id="episodeBlockId(section)"
-              :episode-block-type="section.type"
               :require-episode-block="true"
               @modify-content="updateBodySectionData"
             />
@@ -138,7 +136,6 @@
             :section-id="footerSection.id"
             :initial-data="footerSection.data"
             :episode-block-id="episodeBlockId(footerSection)"
-            :episode-block-type="footerSection.type"
             :require-episode-block="false"
             @modify-content="updateFooterSectionData"
           />
@@ -261,7 +258,7 @@ export default {
       }
     },
     jumpToSection(section) {
-      this.$scrollTo(`#${section.type}-${section.id}`, 700, {
+      this.$scrollTo(`#editor-${section.id}`, 700, {
         easing: [0, 0, 0.1, 1],
         offset: -75,
       })

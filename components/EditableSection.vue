@@ -63,16 +63,11 @@ export default {
       required: false,
       default: 'episode-block-id',
     },
-    episodeBlockType: {
-      type: String,
-      required: true,
-      default: 'header',
-    },
   },
   data() {
     return {
       editor: {},
-      editorId: `${this.episodeBlockType}-${this.sectionId}`,
+      editorId: `editor-${this.sectionId}`,
       editorData: this.initialData,
       snackBar: false,
       snackBarMessage: '',

@@ -97,7 +97,6 @@
             :section-id="selectedSection.id"
             :initial-data="selectedSection.data"
             :episode-block-id="episodeBlockId(selectedSection)"
-            :episode-block-type="selectedSection.type"
             :require-episode-block="isRequireEpisodeBlock(selectedSection)"
             @modify-content="updateSectionData"
           />
