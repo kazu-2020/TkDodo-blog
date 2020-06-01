@@ -81,7 +81,7 @@ export default class LayoutDefault extends Vue {
       to: '/playlisticles/new',
     },
     {
-      title: 'Sandbox(ブロック型)',
+      title: 'Sandbox(Word風)',
       to: '/playlisticles/sandbox',
     },
     {
