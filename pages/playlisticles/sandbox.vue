@@ -113,7 +113,7 @@
             :key="headerSection.id"
             :section-id="headerSection.id"
             :initial-data="headerSection.data"
-            :episode-block-id="episodeBlockId(headerSection)"
+            :episode-block-id="makeEpisodeBlockId(headerSection)"
             :require-episode-block="false"
             @modify-content="updateHeaderSectionData"
           />
@@ -124,7 +124,7 @@
               :key="section.id"
               :section-id="section.id"
               :initial-data="section.data"
-              :episode-block-id="episodeBlockId(section)"
+              :episode-block-id="makeEpisodeBlockId(section)"
               :require-episode-block="true"
               @modify-content="updateBodySectionData"
             />
@@ -135,7 +135,7 @@
             :key="footerSection.id"
             :section-id="footerSection.id"
             :initial-data="footerSection.data"
-            :episode-block-id="episodeBlockId(footerSection)"
+            :episode-block-id="makeEpisodeBlockId(footerSection)"
             :require-episode-block="false"
             @modify-content="updateFooterSectionData"
           />
