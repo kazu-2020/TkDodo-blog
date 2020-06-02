@@ -1,7 +1,7 @@
 <template>
   <div class="editor-sandbox">
     <div class="title">
-      Editor.js Sandbox(Word風)
+      Editor.js Sandbox(Articleを新規作成)
     </div>
     <v-divider class="ma-2" />
     <v-layout column>
@@ -47,9 +47,21 @@
                     <v-icon v-text="section.icon" />
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title v-text="section.text" />
+                    <v-text-field
+                      v-if="!section.text"
+                      label="Outlined"
+                      color="white"
+                      single-line
+                      hide-details
+                      dense
+                      @keydown.enter="saveSectionTitle($event, section)"
+                    />
+                    <v-list-item-title v-else v-text="section.text" />
                   </v-list-item-content>
-                  <div class="text-center">
+                  <div
+                    v-if="isIncludeEpisodeBlock(section)"
+                    class="text-center"
+                  >
                     <v-menu
                       open-on-hover
                       top
@@ -92,6 +104,14 @@
                   </div>
                 </v-list-item>
               </draggable>
+              <v-row>
+                <v-col>
+                  <v-btn block @click="addSection">
+                    <v-icon>mdi-plus</v-icon>
+                    Sectionを追加
+                  </v-btn>
+                </v-col>
+              </v-row>
               <v-subheader>Footer</v-subheader>
               <v-list-item
                 v-if="footerSection"
@@ -113,7 +133,7 @@
             :key="headerSection.id"
             :section-id="headerSection.id"
             :initial-data="headerSection.data"
-            :episode-block-id="episodeBlockId(headerSection)"
+            :episode-block-id="makeEpisodeBlockId(headerSection)"
             :require-episode-block="false"
             @modify-content="updateHeaderSectionData"
           />
@@ -124,8 +144,8 @@
               :key="section.id"
               :section-id="section.id"
               :initial-data="section.data"
-              :episode-block-id="episodeBlockId(section)"
-              :require-episode-block="true"
+              :episode-block-id="makeEpisodeBlockId(section)"
+              :require-episode-block="section.type !== 'article'"
               @modify-content="updateBodySectionData"
             />
             <v-divider class="mt-10" />
@@ -135,7 +155,7 @@
             :key="footerSection.id"
             :section-id="footerSection.id"
             :initial-data="footerSection.data"
-            :episode-block-id="episodeBlockId(footerSection)"
+            :episode-block-id="makeEpisodeBlockId(footerSection)"
             :require-episode-block="false"
             @modify-content="updateFooterSectionData"
           />
@@ -146,7 +166,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import draggable from 'vuedraggable'
 import EditableSection from '~/components/EditableSection.vue'
 import sampleEventData from '~/assets/json/event_LR3P5RJ389.json'
@@ -161,24 +180,49 @@ export default {
     draggable,
   },
   mixins: [editorBlockMixin],
-  asyncData() {
-    return axios.get('/api/playlisticles/sandbox_word').then(res => {
-      return {
-        headerSection: res.data.playlisticle.headerSection,
-        bodySections: res.data.playlisticle.bodySections,
-        footerSection: res.data.playlisticle.footerSection,
-      }
-    })
-  },
   data() {
     return {
       scrollY: 0,
       stickyMaxHeight: 0,
       stickyClass: '',
       selectedSection: null,
-      headerSection: {},
+      headerSection: {
+        id: 'header_editor',
+        type: 'header',
+        icon: 'mdi-page-layout-header',
+        text: 'Header',
+        data: {
+          time: 1591079583,
+          blocks: [
+            {
+              type: 'header',
+              data: {
+                text: 'ヘッダーを入力',
+                level: 2,
+              },
+            },
+          ],
+        },
+      },
       bodySections: [],
-      footerSection: {},
+      footerSection: {
+        id: 'footer_editor',
+        type: 'footer',
+        icon: 'mdi-page-layout-footer',
+        text: 'Footer',
+        data: {
+          time: 1591079583,
+          blocks: [
+            {
+              type: 'header',
+              data: {
+                text: 'フッターを入力',
+                level: 2,
+              },
+            },
+          ],
+        },
+      },
       typeItems: [
         {
           type: 'episode',
@@ -250,7 +294,7 @@ export default {
     switchSelectedSection(section) {
       this.jumpToSection(section)
 
-      if (section.type === 'body') {
+      if (this.isBodySection(section)) {
         this.selectedSection = this.bodySections.find(s => s.id === section.id)
       } else {
         this.selectedSection = {}
@@ -281,6 +325,8 @@ export default {
     },
     iconOf(section) {
       const sectionType = this.typeOfEpisodeRelatedBlock(section)
+      if (!sectionType) return
+
       return this.typeItems.find(item => item.type === sectionType).icon
     },
     isNotSelectedSection(section) {
@@ -295,6 +341,39 @@ export default {
     },
     onSectionPositonChanged({ moved }) {
       this.switchSelectedSection(moved.element)
+    },
+    addSection() {
+      this.bodySections.push({
+        id: `section_${this.bodySections.length + 1}`,
+        type: 'article',
+        icon: 'mdi-drag',
+        text: '',
+        data: {
+          time: Date.now(),
+          blocks: [
+            {
+              type: 'header',
+              data: {
+                text: '見出しを入力',
+                level: 2,
+              },
+            },
+          ],
+        },
+      })
+    },
+    isIncludeEpisodeBlock(section) {
+      const episodeBlock = section.data.blocks.find(b =>
+        this.isEpisodeRelatedBlock(b.type)
+      )
+      return episodeBlock !== undefined
+    },
+    isBodySection(section) {
+      return section.type === 'body' || section.type === 'article'
+    },
+    saveSectionTitle(event, section) {
+      const text = event.target.value
+      section.text = text
     },
   },
 }

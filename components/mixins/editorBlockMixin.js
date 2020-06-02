@@ -11,8 +11,15 @@ const editorBlockMixin = {
       }
     },
     typeOfEpisodeRelatedBlock(section) {
-      return section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type))
-        .type
+      const blocks = section.data.blocks.find(b =>
+        this.isEpisodeRelatedBlock(b.type)
+      )
+
+      if (!blocks) {
+        return
+      }
+
+      return blocks.type
     },
     isEpisodeRelatedBlock(type) {
       return (
