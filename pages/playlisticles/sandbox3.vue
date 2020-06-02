@@ -1,16 +1,26 @@
 <template>
   <div class="editor-sandbox">
     <div class="title">
-      Editor.js Sandbox3(記事単体)
+      Editor.js Sandbox(Word風)
     </div>
     <v-divider class="ma-2" />
     <v-layout column>
       <v-row>
         <v-col xs="12" sm="12" md="4" lg="4">
-          <v-list>
-            <v-list-item-group color="primary">
+          <v-list
+            dense
+            rounded
+            color="grey darken-3"
+            :style="stickyMaxHeight"
+            class="overflow-y-auto section_outline"
+            :class="stickyClass"
+          >
+            <v-list-item-group color="blue-grey lighten-1">
               <v-subheader>Header</v-subheader>
-              <v-list-item @click="switchSelectedSection(headerSection)">
+              <v-list-item
+                v-if="headerSection"
+                @click="switchSelectedSection(headerSection)"
+              >
                 <v-list-item-icon>
                   <v-icon v-text="headerSection.icon" />
                 </v-list-item-icon>
@@ -20,13 +30,17 @@
               </v-list-item>
               <v-subheader>Sections</v-subheader>
               <draggable
+                v-if="bodySections"
+                v-model="bodySections"
                 animation="500"
                 @start="drag = true"
                 @end="drag = false"
+                @change="onSectionPositonChanged"
               >
                 <v-list-item
                   v-for="section in bodySections"
                   :key="section.id"
+                  :class="isNotSelectedSection(section) ? '' : 'highligted'"
                   @click.stop="switchSelectedSection(section)"
                 >
                   <v-list-item-icon>
@@ -52,7 +66,7 @@
                           <v-icon>{{ iconOf(section) }}</v-icon>
                         </v-btn>
                       </template>
-                      <v-list>
+                      <v-list dense rounded color="grey darken-3">
                         <div
                           v-for="(typeItem, index) in typeItems"
                           :key="index"
@@ -66,7 +80,7 @@
                           <v-list-item
                             v-for="(item, index2) in typeItem.items"
                             :key="'item' + index2"
-                            @click="changeSectionEpisodeType(section, item)"
+                            @click="replaceToSelectedSectionData(section, item)"
                           >
                             <v-list-item-title>
                               {{ item.title }}
@@ -79,7 +93,10 @@
                 </v-list-item>
               </draggable>
               <v-subheader>Footer</v-subheader>
-              <v-list-item @click="switchSelectedSection(footerSection)">
+              <v-list-item
+                v-if="footerSection"
+                @click="switchSelectedSection(footerSection)"
+              >
                 <v-list-item-icon>
                   <v-icon v-text="footerSection.icon" />
                 </v-list-item-icon>
@@ -92,13 +109,35 @@
         </v-col>
         <v-col xs="12" sm="12" md="8" lg="8">
           <editable-section
-            v-if="selectedSection"
-            :key="selectedSection.id"
-            :section-id="selectedSection.id"
-            :initial-data="selectedSection.data"
-            :episode-block-id="episodeBlockId(selectedSection)"
-            :episode-block-type="selectedSection.type"
-            @modify-content="updateSectionData"
+            v-if="headerSection"
+            :key="headerSection.id"
+            :section-id="headerSection.id"
+            :initial-data="headerSection.data"
+            :episode-block-id="episodeBlockId(headerSection)"
+            :require-episode-block="false"
+            @modify-content="updateHeaderSectionData"
+          />
+          <v-divider class="mt-10" />
+          <div v-for="section in bodySections" :key="section.id">
+            <editable-section
+              v-if="section"
+              :key="section.id"
+              :section-id="section.id"
+              :initial-data="section.data"
+              :episode-block-id="episodeBlockId(section)"
+              :require-episode-block="true"
+              @modify-content="updateBodySectionData"
+            />
+            <v-divider class="mt-10" />
+          </div>
+          <editable-section
+            v-if="footerSection"
+            :key="footerSection.id"
+            :section-id="footerSection.id"
+            :initial-data="footerSection.data"
+            :episode-block-id="episodeBlockId(footerSection)"
+            :require-episode-block="false"
+            @modify-content="updateFooterSectionData"
           />
         </v-col>
       </v-row>
@@ -114,21 +153,32 @@ import sampleEventData from '~/assets/json/event_LR3P5RJ389.json'
 import sampleHowToData from '~/assets/json/howTo_G9218G45GJ.json'
 import sampleEpisodeData from '~/assets/json/episode_LR3P5RJ389.json'
 import sampleRecipeData from '~/assets/json/recipe.json'
+import editorBlockMixin from '~/components/mixins/editorBlockMixin'
 
 export default {
   components: {
     'editable-section': EditableSection,
     draggable,
   },
+  mixins: [editorBlockMixin],
   asyncData() {
-    return axios.get('/api/playlisticles/sandbox').then(res => {
-      return { sections: res.data.playlisticle.sections }
+    return axios.get('/api/playlisticles/sandbox_word').then(res => {
+      return {
+        headerSection: res.data.playlisticle.headerSection,
+        bodySections: res.data.playlisticle.bodySections,
+        footerSection: res.data.playlisticle.footerSection,
+      }
     })
   },
   data() {
     return {
+      scrollY: 0,
+      stickyMaxHeight: 0,
+      stickyClass: '',
       selectedSection: null,
-      sections: [],
+      headerSection: {},
+      bodySections: [],
+      footerSection: {},
       typeItems: [
         {
           type: 'episode',
@@ -182,61 +232,52 @@ export default {
     }
   },
   computed: {
-    headerSection() {
-      return this.sections.length !== 0
-        ? this.sections.filter(s => s.type === 'header')[0]
-        : undefined
-    },
-    footerSection() {
-      return this.sections.length !== 0
-        ? this.sections.filter(s => s.type === 'footer')[0]
-        : undefined
-    },
-    bodySections() {
-      return this.sections.length !== 0
-        ? this.sections.filter(s => s.type === 'body')
-        : undefined
-    },
     playlisticle() {
       return this.$store.state.playlisticles.editingPlaylisticle
     },
   },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('resize', this.handleResize)
+
+    this.stickyMaxHeight = `max-height: ${window.innerHeight - 200}px;`
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('resize', this.handleResize)
+  },
   methods: {
     switchSelectedSection(section) {
-      this.selectedSection = this.sections.find(s => s.id === section.id)
-    },
-    updateSectionData(updatedSectionData) {
-      this.sections.find(s => s.id === updatedSectionData.sectionId).data =
-        updatedSectionData.editorData
-      console.log(updatedSectionData.editorData)
-    },
-    changeSectionEpisodeType(section, item) {
-      if (section === this.selectedSection) {
-        this.replaceToNewSectionData(this.selectedSection, item)
-      }
+      this.jumpToSection(section)
 
-      this.replaceToNewSectionData(section, item)
+      if (section.type === 'body') {
+        this.selectedSection = this.bodySections.find(s => s.id === section.id)
+      } else {
+        this.selectedSection = {}
+      }
     },
-    replaceToNewSectionData(targetSection, item) {
-      targetSection.data.time = Date.now()
-      targetSection.data.blocks.find(b =>
-        this.isEpisodeRelatedBlock(b.type)
-      ).type = item.type
-      targetSection.data.blocks.find(b =>
-        this.isEpisodeRelatedBlock(b.type)
-      ).data = item.data
+    jumpToSection(section) {
+      this.$scrollTo(`#editor-${section.id}`, 700, {
+        easing: [0, 0, 0.1, 1],
+        offset: -75,
+      })
     },
-    isEpisodeRelatedBlock(type) {
-      return (
-        type === 'episode' ||
-        type === 'tvEvent' ||
-        type === 'howTo' ||
-        type === 'recipe'
-      )
+    updateHeaderSectionData(updatedSectionData) {
+      this.headerSection.data = updatedSectionData.editorData
     },
-    typeOfEpisodeRelatedBlock(section) {
-      return section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type))
-        .type
+    updateBodySectionData(updatedSectionData) {
+      this.bodySections.find(s => s.id === updatedSectionData.sectionId).data =
+        updatedSectionData.editorData
+    },
+    updateFooterSectionData(updatedSectionData) {
+      this.footerSection.data = updatedSectionData.editorData
+    },
+    replaceToSelectedSectionData(section, item) {
+      section.data.time = Date.now()
+      section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type)).type =
+        item.type
+      section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type)).data =
+        item.data
     },
     iconOf(section) {
       const sectionType = this.typeOfEpisodeRelatedBlock(section)
@@ -245,15 +286,15 @@ export default {
     isNotSelectedSection(section) {
       return section !== this.selectedSection
     },
-    episodeBlockId(selectedSection) {
-      const block = selectedSection.data.blocks.find(b =>
-        this.isEpisodeRelatedBlock(b.type)
-      )
-      if (block) {
-        return block.data.link
-      } else {
-        return 'default'
-      }
+    handleScroll() {
+      this.scrollY = window.scrollY
+      this.stickyClass = window.scrollY > 50 ? 'stickey' : ''
+    },
+    handleResize() {
+      this.stickyHeight = window.innerHeight
+    },
+    onSectionPositonChanged({ moved }) {
+      this.switchSelectedSection(moved.element)
     },
   },
 }
@@ -275,6 +316,26 @@ li.draggable-handle {
 
   .episode_type_icon {
     margin-right: 8px;
+  }
+}
+
+.v-list.section_outline.stickey {
+  position: sticky;
+  top: 80px;
+}
+
+.v-item--active.v-list-item--active {
+  background: none;
+  color: white;
+
+  &::before {
+    opacity: 0;
+  }
+}
+
+.v-list-item.highligted {
+  &::before {
+    opacity: 0.28;
   }
 }
 </style>
