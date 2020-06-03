@@ -88,6 +88,10 @@ export default class LayoutDefault extends Vue {
       title: 'Sandbox(アウトライン型)',
       to: '/playlisticles/sandbox2',
     },
+    {
+      title: 'Sandbox(記事単体)',
+      to: '/playlisticles/sandbox3',
+    },
   ]
 
   miniVariant = true
