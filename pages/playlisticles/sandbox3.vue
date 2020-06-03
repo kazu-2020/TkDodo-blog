@@ -46,17 +46,22 @@
                   <v-list-item-icon>
                     <v-icon v-text="section.icon" />
                   </v-list-item-icon>
-                  <v-list-item-content>
+                  <v-list-item-content class="pt-0">
                     <v-text-field
                       v-if="!section.text"
-                      label="Outlined"
+                      label="section名を入力"
                       color="white"
                       single-line
                       hide-details
                       dense
                       @keydown.enter="saveSectionTitle($event, section)"
                     />
-                    <v-list-item-title v-else v-text="section.text" />
+                    <v-list-item-title
+                      v-else
+                      class="pt-1"
+                      style="font-size: 16px;"
+                      v-text="section.text"
+                    />
                   </v-list-item-content>
                   <div
                     v-if="isIncludeEpisodeBlock(section)"
