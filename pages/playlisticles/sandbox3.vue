@@ -48,13 +48,22 @@
                   </v-list-item-icon>
                   <v-list-item-content class="pt-0">
                     <v-text-field
-                      v-if="!section.text"
+                      v-if="section.type === 'article' && !section.text"
                       label="section名を入力"
                       color="white"
                       single-line
                       hide-details
                       dense
-                      @keydown.enter="saveSectionTitle($event, section)"
+                      @keydown.enter="saveArticleSectionTitle($event, section)"
+                    />
+                    <v-text-field
+                      v-else-if="section.type === 'body' && !section.text"
+                      label="EpisodeIDを入力"
+                      color="white"
+                      single-line
+                      hide-details
+                      dense
+                      @keydown.enter="saveEpisodeSectionTitle($event, section)"
                     />
                     <v-list-item-title
                       v-else
@@ -111,9 +120,23 @@
               </draggable>
               <v-row>
                 <v-col>
-                  <v-btn block @click="addSection">
+                  <v-btn
+                    block
+                    style="text-transform: none"
+                    @click="addArticleSection"
+                  >
                     <v-icon>mdi-plus</v-icon>
                     Sectionを追加
+                  </v-btn>
+                </v-col>
+                <v-col>
+                  <v-btn
+                    block
+                    style="text-transform: none"
+                    @click="addEpisodeSection"
+                  >
+                    <v-icon>mdi-plus</v-icon>
+                    EpisodeSectionを追加
                   </v-btn>
                 </v-col>
               </v-row>
@@ -347,11 +370,11 @@ export default {
     onSectionPositonChanged({ moved }) {
       this.switchSelectedSection(moved.element)
     },
-    addSection() {
+    addArticleSection() {
       this.bodySections.push({
         id: `section_${this.bodySections.length + 1}`,
         type: 'article',
-        icon: 'mdi-drag',
+        icon: 'mdi-note-text',
         text: '',
         data: {
           time: Date.now(),
@@ -367,6 +390,18 @@ export default {
         },
       })
     },
+    addEpisodeSection() {
+      this.bodySections.push({
+        id: `section_${this.bodySections.length + 1}`,
+        type: 'body',
+        icon: 'mdi-drag',
+        text: '',
+        data: {
+          time: Date.now(),
+          blocks: [],
+        },
+      })
+    },
     isIncludeEpisodeBlock(section) {
       const episodeBlock = section.data.blocks.find(b =>
         this.isEpisodeRelatedBlock(b.type)
@@ -376,9 +411,17 @@ export default {
     isBodySection(section) {
       return section.type === 'body' || section.type === 'article'
     },
-    saveSectionTitle(event, section) {
+    saveArticleSectionTitle(event, section) {
       const text = event.target.value
       section.text = text
+    },
+    saveEpisodeSectionTitle(event, section) {
+      const text = event.target.value
+      section.text = text
+      section.data.blocks.push({
+        type: 'episode',
+        data: sampleEpisodeData,
+      })
     },
   },
 }
