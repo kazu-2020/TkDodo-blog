@@ -2,6 +2,15 @@
   <div class="editor-sandbox">
     <div class="title">
       Editor.js Sandbox(Word風)
+      <v-btn
+        class="ml-2"
+        @click.stop="isShowPreviewDrawer = !isShowPreviewDrawer"
+      >
+        <v-icon class="mr-2">
+          mdi-eye
+        </v-icon>
+        Preview
+      </v-btn>
     </div>
     <v-divider class="ma-2" />
     <v-layout column>
@@ -142,6 +151,10 @@
         </v-col>
       </v-row>
     </v-layout>
+    <preview-drawer
+      :is-show-drawer="isShowPreviewDrawer"
+      @current-drawer-state="updatePreviewDrawerState"
+    />
   </div>
 </template>
 
@@ -149,6 +162,7 @@
 import axios from 'axios'
 import draggable from 'vuedraggable'
 import EditableSection from '~/components/EditableSection.vue'
+import PreviewDrawer from '~/components/PreviewDrawer.vue'
 import sampleEventData from '~/assets/json/event_LR3P5RJ389.json'
 import sampleHowToData from '~/assets/json/howTo_G9218G45GJ.json'
 import sampleEpisodeData from '~/assets/json/episode_LR3P5RJ389.json'
@@ -158,6 +172,7 @@ import editorBlockMixin from '~/components/mixins/editorBlockMixin'
 export default {
   components: {
     'editable-section': EditableSection,
+    'preview-drawer': PreviewDrawer,
     draggable,
   },
   mixins: [editorBlockMixin],
@@ -172,6 +187,7 @@ export default {
   },
   data() {
     return {
+      isShowPreviewDrawer: false,
       scrollY: 0,
       stickyMaxHeight: 0,
       stickyClass: '',
@@ -295,6 +311,9 @@ export default {
     },
     onSectionPositonChanged({ moved }) {
       this.switchSelectedSection(moved.element)
+    },
+    updatePreviewDrawerState(newVal) {
+      this.isShowPreviewDrawer = newVal
     },
   },
 }
