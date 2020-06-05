@@ -315,6 +315,23 @@ export default {
     updatePreviewDrawerState(newVal) {
       this.isShowPreviewDrawer = newVal
     },
+    combineEditorJson() {
+      const combindedJson = this.headerSection.data
+
+      for (const bodySection of this.bodySections) {
+        for (const block of bodySection.data.blocks) {
+          combindedJson.blocks.push(block)
+        }
+      }
+
+      for (const block of this.footerSection.data.blocks) {
+        combindedJson.blocks.push(block)
+      }
+
+      console.log(combindedJson)
+
+      return combindedJson
+    },
   },
 }
 </script>
