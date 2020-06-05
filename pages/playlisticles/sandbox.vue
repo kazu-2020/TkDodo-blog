@@ -153,6 +153,7 @@
     </v-layout>
     <preview-drawer
       :is-show-drawer="isShowPreviewDrawer"
+      :preview-data="combineEditorJson"
       @current-drawer-state="updatePreviewDrawerState"
     />
   </div>
@@ -251,6 +252,25 @@ export default {
     playlisticle() {
       return this.$store.state.playlisticles.editingPlaylisticle
     },
+    combineEditorJson() {
+      const combindedJson = { time: Date.now(), blocks: [] }
+
+      for (const block of this.headerSection.data.blocks) {
+        combindedJson.blocks.push(block)
+      }
+
+      for (const bodySection of this.bodySections) {
+        for (const block of bodySection.data.blocks) {
+          combindedJson.blocks.push(block)
+        }
+      }
+
+      for (const block of this.footerSection.data.blocks) {
+        combindedJson.blocks.push(block)
+      }
+
+      return combindedJson
+    },
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
@@ -314,23 +334,6 @@ export default {
     },
     updatePreviewDrawerState(newVal) {
       this.isShowPreviewDrawer = newVal
-    },
-    combineEditorJson() {
-      const combindedJson = this.headerSection.data
-
-      for (const bodySection of this.bodySections) {
-        for (const block of bodySection.data.blocks) {
-          combindedJson.blocks.push(block)
-        }
-      }
-
-      for (const block of this.footerSection.data.blocks) {
-        combindedJson.blocks.push(block)
-      }
-
-      console.log(combindedJson)
-
-      return combindedJson
     },
   },
 }

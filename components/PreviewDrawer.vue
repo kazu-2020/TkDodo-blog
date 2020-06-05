@@ -12,6 +12,7 @@ import Vue from 'vue'
 
 export type DataType = {
   drawer: boolean
+  previewJson: object
 }
 
 export default Vue.extend({
@@ -20,10 +21,15 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    previewData: {
+      type: Object,
+      default: () => {},
+    },
   },
   data(): DataType {
     return {
       drawer: this.isShowDrawer,
+      previewJson: this.previewData,
     }
   },
   watch: {
