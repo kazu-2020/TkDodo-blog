@@ -16,12 +16,17 @@
         v-for="(block, index) in previewJson.blocks"
         :key="`${block.type}-${index}`"
       >
-        <Heading v-if="block.type === 'header'" :level="block.data.level">
+        <heading v-if="block.type === 'header'" :level="block.data.level">
           {{ block.data.text }}
-        </Heading>
+        </heading>
         <paragraph
-          v-else-if="block.type == 'paragraph'"
+          v-else-if="block.type === 'paragraph'"
           :text="block.data.text"
+        />
+        <list
+          v-else-if="block.type === 'list'"
+          :list-style="block.data.style"
+          :items="block.data.items"
         />
       </div>
     </div>
@@ -32,16 +37,16 @@
 import Vue from 'vue'
 import Heading from '~/components/EditorBlocks/Heading.vue'
 import Paragraph from '~/components/EditorBlocks/Paragraph.vue'
+import List from '~/components/EditorBlocks/List.vue'
 
 export type DataType = {
   drawer: boolean
   previewJson: object
-  componentNameMap: object
 }
 
 export default Vue.extend({
   name: 'PreviewDrawer',
-  components: { Heading, Paragraph },
+  components: { Heading, Paragraph, List },
   props: {
     isShowDrawer: {
       type: Boolean,
@@ -56,10 +61,6 @@ export default Vue.extend({
     return {
       drawer: this.isShowDrawer,
       previewJson: this.previewData,
-      componentNameMap: {
-        header: 'heading',
-        paragraph: 'paragraph',
-      },
     }
   },
   watch: {
