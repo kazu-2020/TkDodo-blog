@@ -17,7 +17,7 @@
         :key="`${block.type}-${index}`"
       >
         <div v-if="block.type === 'header'">
-          <component :is="componentName" :level="block.data.level">
+          <component :is="componentNameMap.header" :level="block.data.level">
             {{ block.data.text }}
           </component>
         </div>
@@ -33,7 +33,7 @@ import Heading from '~/components/Heading.vue'
 export type DataType = {
   drawer: boolean
   previewJson: object
-  componentName: string
+  componentNameMap: object
 }
 
 export default Vue.extend({
@@ -53,7 +53,9 @@ export default Vue.extend({
     return {
       drawer: this.isShowDrawer,
       previewJson: this.previewData,
-      componentName: 'heading',
+      componentNameMap: {
+        header: 'heading',
+      },
     }
   },
   watch: {
@@ -71,3 +73,10 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style scoped>
+.preview-area {
+  background: white;
+  padding: 20px;
+}
+</style>

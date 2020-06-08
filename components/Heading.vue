@@ -24,3 +24,33 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style scoped>
+h1 {
+  color: #333;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 10px 0 0;
+}
+
+h2 {
+  color: #333;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 10px 0 0;
+}
+
+h3 {
+  color: #333;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 10px 0 0;
+}
+
+h4 {
+  color: #333;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 10px 0 0;
+}
+</style>
