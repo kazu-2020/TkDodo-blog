@@ -62,5 +62,9 @@ addDecorator(() => ({
   components: { VApp, VContent },
   template: `<v-app><v-content><story/></v-content></v-app>`,
 }))
-addDecorator(withKnobs)
+addDecorator(
+  withKnobs({
+    escapeHTML: false,
+  })
+)
 addDecorator(withInfo)
