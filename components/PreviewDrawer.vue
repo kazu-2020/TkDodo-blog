@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Heading from '~/components/Heading.vue'
+import Heading from '~/components/EditorBlocks/Heading.vue'
 
 export type DataType = {
   drawer: boolean
