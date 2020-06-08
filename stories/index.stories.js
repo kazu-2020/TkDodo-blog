@@ -1,2 +1,6 @@
 import './EditableSection.story'
 import './PlaylistItem.story'
+import './EditorBlocks/Heading.story'
+import './EditorBlocks/Paragraph.story'
+import './EditorBlocks/List.story'
+import './EditorBlocks/Delimiter.story'
