@@ -5,7 +5,7 @@
     temporary
     right
     width="600"
-    height="500"
+    height="696"
   >
     <v-list-item>
       <v-list-item-title>Preview</v-list-item-title>
@@ -28,6 +28,7 @@
           :list-style="block.data.style"
           :items="block.data.items"
         />
+        <delimiter v-else-if="block.type == 'delimiter'" />
       </div>
     </div>
   </v-navigation-drawer>
@@ -38,6 +39,7 @@ import Vue from 'vue'
 import Heading from '~/components/EditorBlocks/Heading.vue'
 import Paragraph from '~/components/EditorBlocks/Paragraph.vue'
 import List from '~/components/EditorBlocks/List.vue'
+import Delimiter from '~/components/EditorBlocks/Delimiter.vue'
 
 export type DataType = {
   drawer: boolean
@@ -46,7 +48,7 @@ export type DataType = {
 
 export default Vue.extend({
   name: 'PreviewDrawer',
-  components: { Heading, Paragraph, List },
+  components: { Heading, Paragraph, List, Delimiter },
   props: {
     isShowDrawer: {
       type: Boolean,
