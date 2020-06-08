@@ -16,11 +16,13 @@
         v-for="(block, index) in previewJson.blocks"
         :key="`${block.type}-${index}`"
       >
-        <div v-if="block.type === 'header'">
-          <component :is="componentNameMap.header" :level="block.data.level">
-            {{ block.data.text }}
-          </component>
-        </div>
+        <Heading v-if="block.type === 'header'" :level="block.data.level">
+          {{ block.data.text }}
+        </Heading>
+        <paragraph
+          v-else-if="block.type == 'paragraph'"
+          :text="block.data.text"
+        />
       </div>
     </div>
   </v-navigation-drawer>
@@ -29,6 +31,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import Heading from '~/components/EditorBlocks/Heading.vue'
+import Paragraph from '~/components/EditorBlocks/Paragraph.vue'
 
 export type DataType = {
   drawer: boolean
@@ -38,7 +41,7 @@ export type DataType = {
 
 export default Vue.extend({
   name: 'PreviewDrawer',
-  components: { Heading },
+  components: { Heading, Paragraph },
   props: {
     isShowDrawer: {
       type: Boolean,
@@ -55,6 +58,7 @@ export default Vue.extend({
       previewJson: this.previewData,
       componentNameMap: {
         header: 'heading',
+        paragraph: 'paragraph',
       },
     }
   },
