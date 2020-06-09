@@ -52,6 +52,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
+import { EpisodeData } from '@/types/episode_data'
 
 export default Vue.extend({
   name: 'Episode',
@@ -63,8 +64,10 @@ export default Vue.extend({
   },
   computed: {
     boxTitle() {
-      // FIXME: Episode の型を定義する
-      return this.episode.partOfSeries.name + this.episode.name
+      const seriesName = (this.episode as EpisodeData)?.partOfSeries?.name || ''
+      const episodeName = (this.episode as EpisodeData)?.name || ''
+
+      return seriesName + episodeName
     },
     releasedDateInfo() {
       moment.locale('ja')
