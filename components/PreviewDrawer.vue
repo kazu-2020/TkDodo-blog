@@ -4,7 +4,7 @@
     absolute
     temporary
     right
-    width="600"
+    width="800"
     height="696"
   >
     <v-list-item>
@@ -28,7 +28,11 @@
           :list-style="block.data.style"
           :items="block.data.items"
         />
-        <delimiter v-else-if="block.type == 'delimiter'" />
+        <delimiter v-else-if="block.type === 'delimiter'" />
+        <episode
+          v-else-if="block.type === 'episode'"
+          :episode="block.data.episode"
+        />
       </div>
     </div>
   </v-navigation-drawer>
@@ -40,6 +44,7 @@ import Heading from '~/components/EditorBlocks/Heading.vue'
 import Paragraph from '~/components/EditorBlocks/Paragraph.vue'
 import List from '~/components/EditorBlocks/List.vue'
 import Delimiter from '~/components/EditorBlocks/Delimiter.vue'
+import Episode from '~/components/EditorBlocks/Episode.vue'
 
 export type DataType = {
   drawer: boolean
@@ -48,7 +53,7 @@ export type DataType = {
 
 export default Vue.extend({
   name: 'PreviewDrawer',
-  components: { Heading, Paragraph, List, Delimiter },
+  components: { Heading, Paragraph, List, Delimiter, Episode },
   props: {
     isShowDrawer: {
       type: Boolean,
