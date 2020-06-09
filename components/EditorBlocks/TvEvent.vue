@@ -10,7 +10,7 @@
           {{ seriesData.name }}
         </div>
         <div class="episode-name">
-          {{ seriesData.episodes[0].name }}
+          {{ episodeName }}
         </div>
       </div>
       <div class="event-title">
@@ -57,10 +57,21 @@ export default Vue.extend({
       return (this.eventData as TvEventData).image?.medium?.url || ''
     },
     badgeUrl() {
+      if ((this.seriesData as SeriesData).episodes === undefined) {
+        return ''
+      }
+
       return (
         (this.seriesData as SeriesData).episodes[0]?.detailedRecentEvent
           ?.publishedOn.images?.badgeSmall?.url || ''
       )
+    },
+    episodeName() {
+      if ((this.seriesData as SeriesData).episodes !== undefined) {
+        return (this.seriesData as SeriesData).episodes[0].name
+      } else {
+        return ''
+      }
     },
     eventDate() {
       moment.locale('ja')
@@ -79,7 +90,7 @@ export default Vue.extend({
       return location + ' (' + address + ')'
     },
     seriesColor() {
-      return (this.seriesData as SeriesData).style.primaryLight
+      return (this.seriesData as SeriesData).style?.primaryLight || '#000000'
     },
   },
 })
