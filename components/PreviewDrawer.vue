@@ -33,6 +33,11 @@
           v-else-if="block.type === 'episode'"
           :episode="block.data.episode"
         />
+        <tv-event
+          v-else-if="block.type === 'tvEvent'"
+          :event-data="block.data.tvEvent"
+          :series-data="block.data.tvSeries"
+        />
       </div>
     </div>
   </v-navigation-drawer>
@@ -45,6 +50,7 @@ import Paragraph from '~/components/EditorBlocks/Paragraph.vue'
 import List from '~/components/EditorBlocks/List.vue'
 import Delimiter from '~/components/EditorBlocks/Delimiter.vue'
 import Episode from '~/components/EditorBlocks/Episode.vue'
+import TvEvent from '~/components/EditorBlocks/TvEvent.vue'
 
 export type DataType = {
   drawer: boolean
@@ -53,7 +59,7 @@ export type DataType = {
 
 export default Vue.extend({
   name: 'PreviewDrawer',
-  components: { Heading, Paragraph, List, Delimiter, Episode },
+  components: { Heading, Paragraph, List, Delimiter, Episode, TvEvent },
   props: {
     isShowDrawer: {
       type: Boolean,
