@@ -1,12 +1,4 @@
-export interface ImageObject {
-  url: string
-  width: number
-  height: number
-}
-
-export interface Eyecatch {
-  medium: ImageObject
-}
+import { ImageHash } from './image_hash'
 
 export interface PartOfSeries {
   name: string
@@ -16,20 +8,21 @@ export interface IdentifierGroup {
   shortenedDisplayName: string
 }
 
-export interface PublishOn {
+export interface PublishedOn {
   identifierGroup: IdentifierGroup
+  images: ImageHash
 }
 
 export interface EventData {
   startDate: string
-  publishedOn: PublishOn
+  publishedOn: PublishedOn
 }
 
 export interface EpisodeData {
   name?: string
   description?: string
   url?: string
-  eyecatch?: Eyecatch
+  eyecatch?: ImageHash
   partOfSeries?: PartOfSeries
   detailedRecentEvent?: EventData
 }

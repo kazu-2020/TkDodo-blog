@@ -37,6 +37,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
+import { TvEventData } from '@/types/tv_event_data'
+import { SeriesData } from '@/types/series_data'
 
 export default Vue.extend({
   name: 'TvEvent',
@@ -52,11 +54,13 @@ export default Vue.extend({
   },
   computed: {
     thumbnailUrl() {
-      return this.eventData.image.medium.url
+      return (this.eventData as TvEventData).image?.medium?.url || ''
     },
     badgeUrl() {
-      return this.seriesData.episodes[0].detailedRecentEvent.publishedOn.images
-        .badgeSmall.url
+      return (
+        (this.seriesData as SeriesData).episodes[0]?.detailedRecentEvent
+          ?.publishedOn.images?.badgeSmall?.url || ''
+      )
     },
     eventDate() {
       moment.locale('ja')
@@ -75,7 +79,7 @@ export default Vue.extend({
       return location + ' (' + address + ')'
     },
     seriesColor() {
-      return this.seriesData.style.primaryLight
+      return (this.seriesData as SeriesData).style.primaryLight
     },
   },
 })
