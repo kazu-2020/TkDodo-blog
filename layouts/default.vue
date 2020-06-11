@@ -126,10 +126,22 @@ export default Vue.extend({
       // FIXME: 型定義してあげたい
       return (this as any).$vuetify
     },
+    cookies(): any {
+      // FIXME: 型定義してあげたい
+      return (this as any).$cookies
+    },
   },
   beforeMount() {
-    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    const darkModeOn = darkModeMediaQuery.matches
+    let darkModeOn: boolean = false
+
+    if (this.cookies.get('isDarkMode') !== undefined) {
+      darkModeOn = this.cookies.get('isDarkMode') === 'true'
+    } else {
+      const darkModeMediaQuery = window.matchMedia(
+        '(prefers-color-scheme: dark)'
+      )
+      darkModeOn = darkModeMediaQuery.matches
+    }
 
     this.vuetify.theme.dark = darkModeOn
     this.setModeIcon(darkModeOn)
@@ -138,6 +150,11 @@ export default Vue.extend({
     toggleDarkMode() {
       this.vuetify.theme.dark = !this.vuetify.theme.dark
       this.setModeIcon(this.vuetify.theme.dark)
+      console.log(this.vuetify.theme.dark)
+      this.cookies.set('isDarkMode', this.vuetify.theme.dark, {
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7,
+      })
     },
     setModeIcon(isDark: boolean) {
       if (isDark) {

@@ -56,6 +56,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
     ['@nuxtjs/moment', ['ja']],
+    ['cookie-universal-nuxt', { parseJSON: false }]
   ],
   /*
    ** Axios module configuration
