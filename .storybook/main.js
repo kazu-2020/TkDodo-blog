@@ -7,5 +7,6 @@ module.exports = {
     '@storybook/addon-notes',
     '@storybook/addon-knobs',
     'storybook-addon-vue-info/lib/register',
+    'storybook-dark-mode/register',
   ],
 }
