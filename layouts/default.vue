@@ -1,12 +1,12 @@
 <template>
-  <v-app dark>
+  <v-app>
     <v-app-bar :clipped-left="clipped" fixed app>
       <nuxt-link :to="'/'" style="text-decoration: none;" class="white--text">
         <v-toolbar-title v-text="title" />
       </nuxt-link>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-          <v-btn color="transparent" dark depressed v-on="on">
+          <v-btn color="transparent" depressed v-on="on">
             <v-icon>mdi-playlist-play</v-icon>
             プレイリスト
           </v-btn>
@@ -27,7 +27,7 @@
       </v-menu>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-          <v-btn color="transparent" dark depressed v-on="on">
+          <v-btn color="transparent" depressed v-on="on">
             <v-icon>mdi-view-grid</v-icon>
             プレイリスティクル
           </v-btn>
@@ -47,6 +47,9 @@
         @hide-new-playlist-dialog="isShowNewPlaylistDialog = false"
       />
       <v-spacer />
+      <v-btn @click="toggleDarkMode">
+        <v-icon>{{ modeIcon }}</v-icon>
+      </v-btn>
     </v-app-bar>
     <v-content>
       <v-container>
@@ -60,50 +63,91 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
+import NewPlaylistDialog from '~/components/NewPlaylistDialog.vue'
 
-@Component({
-  components: {
-    NewPlaylistDialog: () => import('~/components/NewPlaylistDialog.vue'),
+interface DataType {
+  clipped: boolean
+  drawer: boolean
+  fixed: boolean
+  playlisticleItems: Array<object>
+  miniVariant: boolean
+  right: boolean
+  rightDrawer: boolean
+  title: string
+  isShowNewPlaylistDialog: boolean
+  modeIcon: string
+}
+
+export default Vue.extend({
+  name: 'LayoutDefault',
+  components: { NewPlaylistDialog },
+  data(): DataType {
+    return {
+      clipped: false,
+      drawer: true,
+      fixed: false,
+      playlisticleItems: [
+        {
+          title: '一覧',
+          to: '/playlisticles',
+        },
+        {
+          title: '新規作成',
+          to: '/playlisticles/new',
+        },
+        {
+          title: 'Sandbox(Word風)',
+          to: '/playlisticles/sandbox',
+        },
+        {
+          title: 'Sandbox(アウトライン型)',
+          to: '/playlisticles/sandbox2',
+        },
+        {
+          title: 'Sandbox(記事単体)',
+          to: '/playlisticles/sandbox3',
+        },
+        {
+          title: 'メタ入力フォーム',
+          to: '/playlisticles/meta',
+        },
+      ],
+      miniVariant: true,
+      right: false,
+      rightDrawer: false,
+      title: 'PLAYLIST（仮）',
+      isShowNewPlaylistDialog: false,
+      modeIcon: 'mdi-brightness-7',
+    }
+  },
+  computed: {
+    vuetify(): any {
+      // FIXME: 型定義してあげたい
+      return (this as any).$vuetify
+    },
+  },
+  beforeMount() {
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const darkModeOn = darkModeMediaQuery.matches
+
+    this.vuetify.theme.dark = darkModeOn
+    this.setModeIcon(darkModeOn)
+  },
+  methods: {
+    toggleDarkMode() {
+      this.vuetify.theme.dark = !this.vuetify.theme.dark
+      this.setModeIcon(this.vuetify.theme.dark)
+    },
+    setModeIcon(isDark: boolean) {
+      if (isDark) {
+        this.modeIcon = 'mdi-brightness-2'
+      } else {
+        this.modeIcon = 'mdi-brightness-7'
+      }
+    },
   },
 })
-export default class LayoutDefault extends Vue {
-  clipped = false
-  drawer = true
-  fixed = false
-  playlisticleItems = [
-    {
-      title: '一覧',
-      to: '/playlisticles',
-    },
-    {
-      title: '新規作成',
-      to: '/playlisticles/new',
-    },
-    {
-      title: 'Sandbox(Word風)',
-      to: '/playlisticles/sandbox',
-    },
-    {
-      title: 'Sandbox(アウトライン型)',
-      to: '/playlisticles/sandbox2',
-    },
-    {
-      title: 'Sandbox(記事単体)',
-      to: '/playlisticles/sandbox3',
-    },
-    {
-      title: 'メタ入力フォーム',
-      to: '/playlisticles/meta',
-    },
-  ]
-
-  miniVariant = true
-  right = false
-  rightDrawer = false
-  title = 'PLAYLIST（仮）'
-  isShowNewPlaylistDialog = false
-}
 </script>
 
 <style scoped>
