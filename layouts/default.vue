@@ -1,7 +1,11 @@
 <template>
   <v-app>
     <v-app-bar :clipped-left="clipped" fixed app>
-      <nuxt-link :to="'/'" style="text-decoration: none;" class="white--text">
+      <nuxt-link
+        :to="'/'"
+        style="text-decoration: none;"
+        class="playlist-title"
+      >
         <v-toolbar-title v-text="title" />
       </nuxt-link>
       <v-menu offset-y>
@@ -167,8 +171,16 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .playlist_new {
   cursor: pointer;
+}
+
+a.playlist-title {
+  color: rgba(0, 0, 0, 0.87);
+
+  .theme--dark & {
+    color: white;
+  }
 }
 </style>
