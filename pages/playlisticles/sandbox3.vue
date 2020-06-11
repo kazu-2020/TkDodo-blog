@@ -10,7 +10,6 @@
           <v-list
             dense
             rounded
-            color="grey darken-3"
             :style="stickyMaxHeight"
             class="overflow-y-auto section_outline"
             :class="stickyClass"
@@ -446,9 +445,17 @@ li.draggable-handle {
   }
 }
 
-.v-list.section_outline.stickey {
-  position: sticky;
-  top: 80px;
+.v-list.section_outline {
+  background-color: #e0e0e0;
+
+  .theme--dark & {
+    background-color: #424242;
+  }
+
+  &.stickey {
+    position: sticky;
+    top: 80px;
+  }
 }
 
 .v-item--active.v-list-item--active {

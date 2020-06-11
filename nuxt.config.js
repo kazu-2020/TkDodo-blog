@@ -56,6 +56,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
     ['@nuxtjs/moment', ['ja']],
+    ['cookie-universal-nuxt', { parseJSON: false }],
   ],
   /*
    ** Axios module configuration
@@ -80,10 +81,13 @@ export default {
       dark: true,
       themes: {
         light: {
-          primary: colors.purple,
-          secondary: colors.grey.darken1,
-          accent: colors.shades.black,
-          error: colors.red.accent3,
+          primary: '#009688',
+          secondary: '#cddc39',
+          accent: '#ff9800',
+          error: '#f44336',
+          warning: '#ff5722',
+          info: '#607d8b',
+          success: '#8bc34',
         },
         dark: {
           primary: colors.blue.darken2,
