@@ -2,6 +2,7 @@ import { configure, addDecorator } from '@storybook/vue'
 import { withKnobs } from '@storybook/addon-knobs/vue'
 import { withInfo } from 'storybook-addon-vue-info'
 import { action } from '@storybook/addon-actions'
+import addons from '@storybook/addons'
 
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -68,3 +69,32 @@ addDecorator(
   })
 )
 addDecorator(withInfo)
+
+const channel = addons.getChannel()
+let _isDark = false
+
+channel.on('DARK_MODE', isDark => {
+  if (isDark) {
+    document.getElementById('app').classList.add('theme--dark')
+    document.getElementById('app').classList.remove('theme--light')
+    _isDark = false
+  } else {
+    document.getElementById('app').classList.remove('theme--dark')
+    document.getElementById('app').classList.add('theme--light')
+    _isDark = true
+  }
+})
+
+channel.on('storyRendered', () => {
+  if (_isDark) {
+    document.getElementById('app').classList.add('theme--dark')
+    document.getElementById('app').classList.remove('theme--light')
+  } else {
+    document.getElementById('app').classList.remove('theme--dark')
+    document.getElementById('app').classList.add('theme--light')
+  }
+})
+
+channel.on('storybookjs/knobs/change', () => {
+  _isDark = document.getElementById('app').classList.contains('theme--dark')
+})
