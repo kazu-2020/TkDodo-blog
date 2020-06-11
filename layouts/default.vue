@@ -92,6 +92,10 @@ export default class LayoutDefault extends Vue {
       title: 'Sandbox(記事単体)',
       to: '/playlisticles/sandbox3',
     },
+    {
+      title: 'メタ入力フォーム',
+      to: '/playlisticles/meta',
+    },
   ]
 
   miniVariant = true
