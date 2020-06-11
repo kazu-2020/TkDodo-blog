@@ -105,10 +105,6 @@ export default Vue.extend({
           to: '/playlisticles/sandbox',
         },
         {
-          title: 'Sandbox(アウトライン型)',
-          to: '/playlisticles/sandbox2',
-        },
-        {
           title: 'Sandbox(記事単体)',
           to: '/playlisticles/sandbox3',
         },
