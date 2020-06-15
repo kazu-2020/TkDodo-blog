@@ -41,10 +41,21 @@
       <v-col cols="12">
         <v-textarea
           name="catch"
-          rows="3"
+          rows="2"
           label="キャッチコピー - Detailed Catch"
           value=""
           hint="プレイリストのキャッチコピーを入力してください"
+          class="px-4"
+        />
+      </v-col>
+      <v-col cols="12">
+        <v-textarea
+          name="catch"
+          rows="3"
+          label="説明 - Description"
+          counter=""
+          value=""
+          hint="プレイリストの説明を入力してください"
           class="px-4"
         />
       </v-col>
