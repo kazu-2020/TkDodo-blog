@@ -36,7 +36,7 @@ export default {
       await axios
         .get(`/api/playlists/${targetId}`)
         .then(response =>
-          commit('setEditingPlaylist', { playlist: response.data })
+          commit('setEditingPlaylist', { playlist: response.data.playlist })
         )
     },
     initializeEditingPlaylist({ commit }) {
