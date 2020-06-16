@@ -15,6 +15,16 @@
         <playlist-series-meta-tabs :playlist="playlist" />
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12">
+        <h3>
+          エピソード選定
+        </h3>
+      </v-col>
+      <v-col cols="12">
+        <playlist-episodes-list :episodes="playlist.items" />
+      </v-col>
+    </v-row>
   </v-layout>
 </template>
 
@@ -22,6 +32,7 @@
 import Vue from 'vue'
 import PlaylistThumbnail from '~/components/PlaylistThumbnail.vue'
 import PlaylistSeriesMetaTabs from '~/components/PlaylistSeriesMetaTabs.vue'
+import PlaylistEpisodesList from '~/components/PlaylistEpisodesList.vue'
 
 interface DataType {
   url: String
@@ -32,6 +43,7 @@ export default Vue.extend({
   components: {
     PlaylistThumbnail,
     PlaylistSeriesMetaTabs,
+    PlaylistEpisodesList,
   },
   async asyncData({ store, params }) {
     if (store.getters['playlists/editingPlaylist']) {
