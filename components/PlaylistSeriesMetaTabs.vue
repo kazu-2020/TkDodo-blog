@@ -12,6 +12,7 @@
       <v-tab>タイムテーブル</v-tab>
       <v-tab>リンク(同一内容)</v-tab>
       <v-tab>関連リンク</v-tab>
+      <v-tab>出演者・関係者</v-tab>
     </v-tabs>
 
     <v-tabs-items v-model="tab">
@@ -32,6 +33,9 @@
       </v-tab-item>
       <v-tab-item>
         <playlist-series-meta-citation :playlist="playlist" />
+      </v-tab-item>
+      <v-tab-item>
+        TODO
       </v-tab-item>
     </v-tabs-items>
   </v-card>
