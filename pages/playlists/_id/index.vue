@@ -3,16 +3,16 @@
     <v-row>
       <v-col>
         <div class="mb-4 headline">
-          {{ playlist.title }}
+          {{ playlist.name }}
         </div>
       </v-col>
     </v-row>
     <v-row>
       <v-col lg="4" md="4" sm="12" xs="12">
-        <playlist-thumbnail :url="url" />
+        <playlist-thumbnail :url="playlist.eyecatch.medium.url" />
       </v-col>
       <v-col lg="8" md="8" sm="12" xs="12">
-        <playlist-series-meta-tabs />
+        <playlist-series-meta-tabs :playlist="playlist" />
       </v-col>
     </v-row>
   </v-layout>

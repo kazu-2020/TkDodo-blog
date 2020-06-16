@@ -39,6 +39,7 @@
     "moment": "^2.25.3",
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.5.1",
+    "v-mask": "^2.2.1",
     "vue-scrollto": "^2.18.1",
     "vuedraggable": "^2.23.2"
   },
