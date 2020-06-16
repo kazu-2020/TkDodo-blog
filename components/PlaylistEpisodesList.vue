@@ -28,7 +28,13 @@
       <tbody>
         <tr v-for="episode in episodes" :key="episode.id">
           <td>
-            <v-btn tile small color="orange" class="delete-button">
+            <v-btn
+              tile
+              small
+              color="orange"
+              class="delete-button"
+              @click="deleteEpisode(episode)"
+            >
               <v-icon>
                 mdi-minus
               </v-icon>
@@ -76,6 +82,9 @@ export default Vue.extend({
   methods: {
     convertReleaseDate(date: any) {
       return moment(date).format('YYYY年M月DD日（ddd）')
+    },
+    deleteEpisode(episode: any) {
+      this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
     },
   },
 })

@@ -20,6 +20,12 @@ export default {
     setEditingPlaylist(state, { playlist }) {
       state.editingPlaylist = playlist
     },
+    deleteEditingPlaylistEpisode(state, episode) {
+      state.editingPlaylist.items.splice(
+        state.editingPlaylist.items.indexOf(episode),
+        1
+      )
+    },
   },
   actions: {
     async fetchPlaylists({ commit }) {
@@ -41,6 +47,9 @@ export default {
     },
     initializeEditingPlaylist({ commit }) {
       commit('setEditingPlaylist', { playlist: null })
+    },
+    deleteEditingPlaylistEpisode({ commit }, episode) {
+      commit('deleteEditingPlaylistEpisode', episode)
     },
   },
 }
