@@ -9,6 +9,7 @@
       <v-tab>基本項目</v-tab>
       <v-tab>詳細</v-tab>
       <v-tab>見た目</v-tab>
+      <v-tab>タイムテーブル</v-tab>
     </v-tabs>
 
     <v-tabs-items v-model="tab">
@@ -21,6 +22,9 @@
       <v-tab-item>
         <playlist-series-meta-visual :playlist="playlist" />
       </v-tab-item>
+      <v-tab-item>
+        <playlist-series-meta-time-table :playlist="playlist" />
+      </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
@@ -30,6 +34,7 @@ import Vue from 'vue'
 import PlaylistSeriesMetaBasicInfo from '~/components/PlaylistSeriesMetaBasicInfo.vue'
 import PlaylistSeriesMetaDetailInfo from '~/components/PlaylistSeriesMetaDetailInfo.vue'
 import PlaylistSeriesMetaVisual from '~/components/PlaylistSeriesMetaVisual.vue'
+import PlaylistSeriesMetaTimeTable from '~/components/PlaylistSeriesMetaTimeTable.vue'
 
 export default Vue.extend({
   name: 'PlaylistSeriesMetaTabs',
@@ -37,6 +42,7 @@ export default Vue.extend({
     PlaylistSeriesMetaBasicInfo,
     PlaylistSeriesMetaDetailInfo,
     PlaylistSeriesMetaVisual,
+    PlaylistSeriesMetaTimeTable,
   },
   props: {
     playlist: {
