@@ -25,7 +25,7 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <draggable v-model="episodes" tag="tbody">
         <tr v-for="episode in episodes" :key="episode.id">
           <td>
             <v-btn
@@ -62,7 +62,7 @@
             </v-chip>
           </td>
         </tr>
-      </tbody>
+      </draggable>
     </template>
   </v-simple-table>
 </template>
@@ -70,9 +70,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
+import draggable from 'vuedraggable'
 
 export default Vue.extend({
   name: 'PlaylistEpisodesList',
+  components: {
+    draggable,
+  },
   props: {
     episodes: {
       type: Array,
