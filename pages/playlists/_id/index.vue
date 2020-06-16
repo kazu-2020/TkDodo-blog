@@ -19,13 +19,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
+import PlaylistThumbnail from '~/components/PlaylistThumbnail.vue'
+import PlaylistSeriesMetaTabs from '~/components/PlaylistSeriesMetaTabs.vue'
 
-@Component({
+interface DataType {
+  url: String
+}
+
+export default Vue.extend({
+  name: 'PlaylistIdIndexComponent',
   components: {
-    PlaylistThumbnail: () => import('~/components/PlaylistThumbnail.vue'),
-    PlaylistSeriesMetaTabs: () =>
-      import('~/components/PlaylistSeriesMetaTabs.vue'),
+    PlaylistThumbnail,
+    PlaylistSeriesMetaTabs,
   },
   async asyncData({ store, params }) {
     if (store.getters['playlists/editingPlaylist']) {
@@ -33,17 +39,19 @@ import { Component, Vue } from 'vue-property-decorator'
     }
     await store.dispatch('playlists/fetchPlaylist', params.id)
   },
-})
-export default class PlaylistIdPageComponent extends Vue {
-  url =
-    'https://pbs.twimg.com/profile_images/1111451081135943680/d1sPJsQf_400x400.png'
-
-  get playlist() {
-    return this.$store.state.playlists.editingPlaylist
-  }
-
+  data(): DataType {
+    return {
+      url:
+        'https://pbs.twimg.com/profile_images/1111451081135943680/d1sPJsQf_400x400.png',
+    }
+  },
+  computed: {
+    playlist() {
+      return this.$store.state.playlists.editingPlaylist
+    },
+  },
   beforeDestroy() {
     this.$store.dispatch('playlists/initializeEditingPlaylist')
-  }
-}
+  },
+})
 </script>
