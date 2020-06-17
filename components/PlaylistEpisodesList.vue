@@ -42,7 +42,8 @@
           </td>
           <td justify="center" align="center">
             <v-img
-              :src="episode.eyecatch.medium.url"
+              :src="eyecatchUrl(episode.eyecatch)"
+              lazy-src="https://placehold.jp/50x28.png"
               width="50"
               class="ma-2 episode-image"
             />
@@ -89,6 +90,13 @@ export default Vue.extend({
     },
     deleteEpisode(episode: any) {
       this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
+    },
+    eyecatchUrl(eyecatch: any) {
+      if (eyecatch !== undefined) {
+        return eyecatch.medium.url
+      } else {
+        return ''
+      }
     },
   },
 })

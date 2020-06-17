@@ -26,6 +26,9 @@ export default {
         1
       )
     },
+    addEditingPlaylistEpisode(state, episode) {
+      state.editingPlaylist.items.push(episode)
+    },
   },
   actions: {
     async fetchPlaylists({ commit }) {
@@ -50,6 +53,9 @@ export default {
     },
     deleteEditingPlaylistEpisode({ commit }, episode) {
       commit('deleteEditingPlaylistEpisode', episode)
+    },
+    addEditingPlaylistEpisode({ commit }, episode) {
+      commit('addEditingPlaylistEpisode', episode)
     },
   },
 }

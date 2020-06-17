@@ -56,7 +56,7 @@
                     small
                     color="orange"
                     class="add-button"
-                    @click="deleteEpisode(episode)"
+                    @click="addEpisode(episode)"
                   >
                     <v-icon>
                       mdi-plus
@@ -144,6 +144,10 @@ export default Vue.extend({
     },
     convertReleaseDate(date: any) {
       return moment(date).format('YYYY年M月DD日（ddd）')
+    },
+    addEpisode(episode: any) {
+      this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
+      this.episodes.splice(this.episodes.indexOf(episode), 1)
     },
   },
 })
