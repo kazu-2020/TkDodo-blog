@@ -20,7 +20,7 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row id="episode-search-result">
       <v-col v-if="episodes.length !== 0" cols="12">
         <v-simple-table>
           <template v-slot:default>
@@ -90,11 +90,11 @@
           </template>
         </v-simple-table>
       </v-col>
-      <v-col v-else-if="isNoEpisode()" cols="12">
-        <p>
+      <v-col v-else-if="isNoResult" cols="12">
+        <v-alert text outlined color="deep-orange" icon="mdi-alert-outline">
           エピソードが見つかりませんでした。 <br />
           他のキーワードや条件でお探しください
-        </p>
+        </v-alert>
       </v-col>
     </v-row>
   </div>
@@ -109,6 +109,7 @@ interface DataType {
   keyword: string
   episodes: Array<object>
   loading: boolean
+  isNoResult: boolean
 }
 
 export default Vue.extend({
@@ -118,21 +119,24 @@ export default Vue.extend({
       keyword: '',
       episodes: [],
       loading: false,
+      isNoResult: false,
     }
   },
   methods: {
-    isNoEpisode() {
-      return this.keyword !== '' && this.episodes.length === 0
-    },
     searchEpisodes() {
       this.loading = true
       axios
         .get(`/api/episodes/search?word=${this.keyword}`)
         .then(res => {
           this.episodes = res.data
+          this.isNoResult = this.episodes.length === 0
         })
         .finally(() => {
           this.loading = false
+          this.$scrollTo('#episode-search-result', 1400, {
+            easing: [0, 0, 0.1, 1],
+            offset: -75,
+          })
         })
     },
     eyecatchUrl(eyecatch: any) {
