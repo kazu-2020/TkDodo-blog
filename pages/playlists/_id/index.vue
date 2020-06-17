@@ -25,6 +25,7 @@
         <playlist-episodes-list :episodes="playlist.items" />
       </v-col>
     </v-row>
+    <playlist-episode-search />
   </v-layout>
 </template>
 
@@ -33,6 +34,7 @@ import Vue from 'vue'
 import PlaylistThumbnail from '~/components/PlaylistThumbnail.vue'
 import PlaylistSeriesMetaTabs from '~/components/PlaylistSeriesMetaTabs.vue'
 import PlaylistEpisodesList from '~/components/PlaylistEpisodesList.vue'
+import PlaylistEpisodeSearch from '~/components/PlaylistEpisodeSearch.vue'
 
 interface DataType {
   url: String
@@ -44,6 +46,7 @@ export default Vue.extend({
     PlaylistThumbnail,
     PlaylistSeriesMetaTabs,
     PlaylistEpisodesList,
+    PlaylistEpisodeSearch,
   },
   async asyncData({ store, params }) {
     if (store.getters['playlists/editingPlaylist']) {
@@ -67,3 +70,11 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.v-input.episode-search.v-text-field.v-text-field--single-line.v-text-field--solo.v-text-field--is-booted.v-text-field--enclosed {
+  .v-text-field__details {
+    display: none;
+  }
+}
+</style>
