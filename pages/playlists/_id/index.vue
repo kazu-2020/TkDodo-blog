@@ -9,7 +9,10 @@
     </v-row>
     <v-row>
       <v-col lg="4" md="4" sm="12" xs="12">
-        <playlist-thumbnail :url="playlist.eyecatch.medium.url" />
+        <playlist-thumbnail
+          :url="playlist.eyecatch.medium.url"
+          disable-input-form
+        />
       </v-col>
       <v-col lg="8" md="8" sm="12" xs="12">
         <playlist-series-meta-tabs :playlist="playlist" />
