@@ -8,7 +8,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import Vuetify from 'vuetify'
-import { VApp, VContent } from 'vuetify/lib'
+import { VApp, VMain } from 'vuetify/lib'
 import colors from 'vuetify/es5/util/colors'
 import 'vuetify/dist/vuetify.min.css'
 
@@ -60,8 +60,8 @@ function loadStories() {
 configure(loadStories, module)
 addDecorator(() => ({
   vuetify: new Vuetify(vuetifyOptions),
-  components: { VApp, VContent },
-  template: `<v-app><v-content><story/></v-content></v-app>`,
+  components: { VApp, VMain },
+  template: `<v-app><v-main><story/></v-main></v-app>`,
 }))
 addDecorator(
   withKnobs({
