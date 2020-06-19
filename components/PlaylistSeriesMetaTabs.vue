@@ -23,7 +23,7 @@
         <playlist-series-meta-visual :playlist="playlist" />
       </v-tab-item>
       <v-tab-item>
-        TODO
+        <playlist-series-meta-act-list :act-list="playlist.actList" />
       </v-tab-item>
     </v-tabs-items>
   </v-card>
@@ -34,6 +34,7 @@ import Vue from 'vue'
 import PlaylistSeriesMetaBasicInfo from '~/components/PlaylistSeriesMetaBasicInfo.vue'
 import PlaylistSeriesMetaDetailInfo from '~/components/PlaylistSeriesMetaDetailInfo.vue'
 import PlaylistSeriesMetaVisual from '~/components/PlaylistSeriesMetaVisual.vue'
+import PlaylistSeriesMetaActList from '~/components/PlaylistSeriesMetaActList.vue'
 
 export default Vue.extend({
   name: 'PlaylistSeriesMetaTabs',
@@ -41,6 +42,7 @@ export default Vue.extend({
     PlaylistSeriesMetaBasicInfo,
     PlaylistSeriesMetaDetailInfo,
     PlaylistSeriesMetaVisual,
+    PlaylistSeriesMetaActList,
   },
   props: {
     playlist: {
