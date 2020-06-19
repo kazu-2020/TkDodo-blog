@@ -1,12 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-col
-      v-for="(act, index) in actList"
-      :key="index"
-      v-col
-      cols="3"
-      align="center"
-    >
+    <v-col v-for="(act, index) in actList" :key="index" cols="3" align="center">
       {{ act }}
     </v-col>
   </v-row>
