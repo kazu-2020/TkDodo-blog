@@ -2,6 +2,7 @@
   <div>
     <v-img :src="uploadImageUrl" class="thumbnail" />
     <v-file-input
+      v-show="!disableInputForm"
       v-model="inputImage"
       accept="image/*"
       label="画像ファイルをアップロードしてください"
@@ -11,36 +12,53 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
 
-@Component
-export default class PlaylistThumbnail extends Vue {
-  @Prop({ type: String, required: false })
-  url?: string
-
-  inputImage = null
-  defaultImageUrl =
-    'https://placehold.jp/9092b0/ffffff/150x150.png?text=No%20image'
-
-  uploadImageUrl = this.url || this.defaultImageUrl
-
-  onImagePicked(file: any) {
-    if (file !== undefined && file !== null) {
-      if (file.name.lastIndexOf('.') <= 0) {
-        return
-      }
-      const fr = new FileReader()
-      fr.readAsDataURL(file)
-      fr.addEventListener('load', () => {
-        if (fr.result !== null) {
-          this.uploadImageUrl = fr.result.toString()
-        }
-      })
-    } else {
-      this.uploadImageUrl = this.defaultImageUrl
-    }
-  }
+interface DataType {
+  inputImage: null
+  uploadImageUrl: String
 }
+
+const defaultImageUrl: String =
+  'https://placehold.jp/9092b0/ffffff/150x150.png?text=No%20image'
+
+export default Vue.extend({
+  name: 'PlaylistThumbnail',
+  props: {
+    url: {
+      type: String,
+      default: `${defaultImageUrl}`,
+    },
+    disableInputForm: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data(): DataType {
+    return {
+      inputImage: null,
+      uploadImageUrl: this.url,
+    }
+  },
+  methods: {
+    onImagePicked(file: any) {
+      if (file !== undefined && file !== null) {
+        if (file.name.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader()
+        fr.readAsDataURL(file)
+        fr.addEventListener('load', () => {
+          if (fr.result !== null) {
+            this.uploadImageUrl = fr.result.toString()
+          }
+        })
+      } else {
+        this.uploadImageUrl = defaultImageUrl
+      }
+    },
+  },
+})
 </script>
 
 <style scoped>

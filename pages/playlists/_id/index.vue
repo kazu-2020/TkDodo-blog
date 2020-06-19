@@ -1,15 +1,40 @@
 <template>
   <v-layout column>
     <v-row>
-      <v-col>
-        <div class="mb-4 headline">
-          {{ playlist.name }}
-        </div>
-      </v-col>
-    </v-row>
-    <v-row>
       <v-col lg="4" md="4" sm="12" xs="12">
-        <playlist-thumbnail :url="playlist.eyecatch.medium.url" />
+        <playlist-thumbnail
+          :url="playlist.eyecatch.medium.url"
+          disable-input-form
+        />
+        <v-row justify="center" align="center">
+          <v-col cols="12">
+            <v-text-field
+              v-model="playlist.name"
+              :rules="playlist.nameRules"
+              label="名前 - Name"
+              required
+            />
+          </v-col>
+        </v-row>
+        <v-row justify="center" align="center">
+          <v-col cols="5" align="right" class="pr-2">
+            プレイリストの公開
+          </v-col>
+          <v-col cols="7">
+            <v-radio-group :mandatory="true" row>
+              <v-radio label="非公開" value="0" checked="true" />
+              <v-radio label="公開" value="1" />
+            </v-radio-group>
+          </v-col>
+        </v-row>
+        <v-row justify="center" align="center">
+          <v-col cols="5" align="right" class="pr-2">
+            ID
+          </v-col>
+          <v-col cols="7" class="pl-2">
+            {{ playlist.id }}
+          </v-col>
+        </v-row>
       </v-col>
       <v-col lg="8" md="8" sm="12" xs="12">
         <playlist-series-meta-tabs :playlist="playlist" />
