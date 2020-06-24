@@ -14,7 +14,7 @@ storiesOf('Components/Playlist', module).add(
         type: Object,
         default: object('playlist', {
           id: 1,
-          title: 'プレイリスト1',
+          name: 'プレイリスト1',
           updated_at: '2020-05-20 00:00:00',
         }),
       },
@@ -29,7 +29,7 @@ storiesOf('Components/Playlist', module).add(
         ## Props
         * playlist
           * object
-            * id, title, updated_at を含むデータ
+            * id, name, updated_at を含むデータ
       `,
   }
 )

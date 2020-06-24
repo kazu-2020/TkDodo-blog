@@ -27,7 +27,7 @@
             </v-col>
             <v-col cols="6" sm="12" md="6">
               <v-text-field
-                v-model="title"
+                v-model="name"
                 label="プレイリスト名 - Name"
                 required
               />
@@ -85,7 +85,7 @@ import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 export default class NewPlaylistDialog extends Vue {
   isShowAlert = false
   loadingDialog = false
-  title = ''
+  name = ''
 
   @Prop({ type: Boolean, required: false })
   isShowDialog: boolean = false
@@ -94,7 +94,7 @@ export default class NewPlaylistDialog extends Vue {
     this.loadingDialog = true
     this.$store.dispatch('playlists/createPlaylists', {
       playlist: {
-        title: this.title,
+        name: this.name,
       },
     })
     this.subscribeSubmitAction()
@@ -105,7 +105,7 @@ export default class NewPlaylistDialog extends Vue {
       after: (action, state) => {
         if (action.type !== 'playlists/createPlaylists') return
 
-        if (state.playlists.allItems[0].title === this.title) {
+        if (state.playlists.allItems[0].name === this.name) {
           const playlist = state.playlists.allItems[0]
           this.initializeNewPlaylistDialog()
           this.$router.push(`/playlists/${playlist.id}`)
@@ -120,7 +120,7 @@ export default class NewPlaylistDialog extends Vue {
 
   initializeNewPlaylistDialog() {
     this.isShowAlert = false
-    this.title = ''
+    this.name = ''
     this.hideNewPlaylistDialog()
   }
 
