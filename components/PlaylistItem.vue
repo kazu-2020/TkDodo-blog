@@ -4,7 +4,7 @@
       <v-list-item-avatar tile size="240" color="grey" horizontal />
       <v-list-item-content>
         <v-list-item-title class="headline mb-1">
-          {{ playlist.title }}
+          {{ playlist.name }}
         </v-list-item-title>
         <v-list-item-subtitle>
           番組数:
