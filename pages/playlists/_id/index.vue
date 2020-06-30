@@ -90,7 +90,9 @@ export default Vue.extend({
     },
   },
   beforeDestroy() {
-    this.$store.dispatch('playlists/initializeEditingPlaylist')
+    // FIXME: ページを離脱したときに、editingPlaylist の初期化する必要がある
+    //        ただし、メタ情報の編集をするときには、初期化したくない！
+    // this.$store.dispatch('playlists/initializeEditingPlaylist')
   },
   methods: {
     eyecatchImageUrl(playlist: any) {

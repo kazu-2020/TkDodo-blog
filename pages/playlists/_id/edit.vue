@@ -435,14 +435,6 @@ export default Vue.extend({
       const form: any = this.$refs.form
       form.validate()
     },
-    reset() {
-      const form: any = this.$refs.form
-      form.reset()
-    },
-    resetValidation() {
-      const form: any = this.$refs.form
-      form.resetValidation()
-    },
     submitEditingPlaylist() {
       const form: any = this.$refs.form
       form.validate()
