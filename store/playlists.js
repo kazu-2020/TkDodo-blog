@@ -29,6 +29,31 @@ export default {
     addEditingPlaylistEpisode(state, episode) {
       state.editingPlaylist.items.push(episode)
     },
+    // メタ編集画面用
+    updateEditingPlaylistName(state, name) {
+      state.editingPlaylist.name = name
+    },
+    updateEditingPlaylistDetailedNameRuby(state, detailedNameRuby) {
+      state.editingPlaylist.detailedNameRuby = detailedNameRuby
+    },
+    updateEditingPlaylistFormatGenre(state, formatGenre) {
+      state.editingPlaylist.formatGenre = formatGenre
+    },
+    updateEditingPlaylistThemeGenre(state, themeGenre) {
+      state.editingPlaylist.themeGenre = themeGenre
+    },
+    updateEditingPlaylistDetailedCatch(state, detailedCatch) {
+      state.editingPlaylist.detailedCatch = detailedCatch
+    },
+    updateEditingPlaylistDescription(state, description) {
+      state.editingPlaylist.description = description
+    },
+    updateEditingPlaylistKeywords(state, keywords) {
+      state.editingPlaylist.keywords = keywords
+    },
+    updateEditingPlaylistHashtag(state, hashtag) {
+      state.editingPlaylist.hashtag = hashtag
+    },
   },
   actions: {
     async fetchPlaylists({ commit }) {
@@ -58,6 +83,31 @@ export default {
     },
     addEditingPlaylistEpisode({ commit }, episode) {
       commit('addEditingPlaylistEpisode', episode)
+    },
+    // メタ編集画面用
+    updateEditingPlaylistName({ commit }, name) {
+      commit('updateEditingPlaylistName', name)
+    },
+    updateEditingPlaylistDetailedNameRuby({ commit }, DetailedNameRuby) {
+      commit('updateEditingPlaylistDetailedNameRuby', DetailedNameRuby)
+    },
+    updateEditingPlaylistFormatGenre({ commit }, formatGenre) {
+      commit('updateEditingPlaylistFormatGenre', formatGenre)
+    },
+    updateEditingPlaylistThemeGenre({ commit }, themeGenre) {
+      commit('updateEditingPlaylistThemeGenre', themeGenre)
+    },
+    updateEditingPlaylistDetailedCatch({ commit }, detailedCatch) {
+      commit('updateEditingPlaylistDetailedCatch', detailedCatch)
+    },
+    updateEditingPlaylistDescription({ commit }, description) {
+      commit('updateEditingPlaylistDescription', description)
+    },
+    updateEditingPlaylistKeywords({ commit }, keywords) {
+      commit('updateEditingPlaylistKeywords', keywords)
+    },
+    updateEditingPlaylistHashtag({ commit }, hashtag) {
+      commit('updateEditingPlaylistHashtag', hashtag)
     },
   },
 }
