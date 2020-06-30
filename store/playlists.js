@@ -78,6 +78,33 @@ export default {
     initializeEditingPlaylist({ commit }) {
       commit('setEditingPlaylist', { playlist: null })
     },
+    async updateEditingPlaylist({ commit, state }) {
+      await axios
+        .post(`/api/playlists/${state.editingPlaylist.id}`, {
+          playlist: {
+            name: state.editingPlaylist.name,
+            detailed_name_ruby: state.editingPlaylist.detailedNameRuby,
+            description: state.editingPlaylist.description,
+            keywords: state.editingPlaylist.keywords,
+            detailed_catch: state.editingPlaylist.detailedCatch,
+            hashtag: state.editingPlaylist.hashtag,
+            format_genre_code: state.editingPlaylist.formatGenreCode,
+            theme_genre_code: state.editingPlaylist.themeGenreCode,
+            selected_palette: state.editingPlaylist.selectedPalette,
+            primary_light_color: state.editingPlaylist.primaryLightColor,
+            primary_dark_color: state.editingPlaylist.primaryDarkColor,
+            text_light_color: state.editingPlaylist.textLightColor,
+            text_dark_color: state.editingPlaylist.textDardColor,
+            link_light_color: state.editingPlaylist.linkLightColor,
+            link_dark_color: state.editingPlaylist.linkDarkColor,
+            reserve_publish_time_at: state.editingPlaylist.reservePublishTimeAt,
+            reserve_finish_time_at: state.editingPlaylist.reserveFinishTimeAt,
+          },
+        })
+        .then(response =>
+          commit('setEditingPlaylist', { playlist: response.data.playlist })
+        )
+    },
     deleteEditingPlaylistEpisode({ commit }, episode) {
       commit('deleteEditingPlaylistEpisode', episode)
     },

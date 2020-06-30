@@ -248,17 +248,9 @@
           :disabled="!valid"
           color="success"
           class="mr-4"
-          @click="validate"
+          @click="submitEditingPlaylist"
         >
-          Validate
-        </v-btn>
-
-        <v-btn color="error" class="mr-4" @click="reset">
-          Reset Form
-        </v-btn>
-
-        <v-btn color="warning" @click="resetValidation">
-          Reset Validation
+          保存する
         </v-btn>
       </v-form>
     </v-col>
@@ -399,6 +391,17 @@ export default Vue.extend({
         )
       },
     },
+    description: {
+      get() {
+        return this.$store.state.playlists.editingPlaylist.description
+      },
+      set(value) {
+        this.$store.dispatch(
+          'playlists/updateEditingPlaylistDescription',
+          value
+        )
+      },
+    },
     keywords: {
       get() {
         return this.$store.state.playlists.editingPlaylist.keywords
@@ -439,6 +442,16 @@ export default Vue.extend({
     resetValidation() {
       const form: any = this.$refs.form
       form.resetValidation()
+    },
+    submitEditingPlaylist() {
+      const form: any = this.$refs.form
+      form.validate()
+
+      if (this.valid) {
+        this.$store.dispatch('playlists/updateEditingPlaylist')
+      } else {
+        console.log('Invalid!!!')
+      }
     },
   },
 })
