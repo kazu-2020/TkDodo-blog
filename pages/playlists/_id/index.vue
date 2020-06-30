@@ -1,43 +1,41 @@
 <template>
   <v-layout column>
     <v-row>
-      <v-col lg="4" md="4" sm="12" xs="12">
-        <playlist-thumbnail
-          :url="playlist.eyecatch.medium.url"
-          disable-input-form
-        />
-        <v-row justify="center" align="center">
-          <v-col cols="12">
-            <v-text-field
-              v-model="playlist.name"
-              :rules="playlist.nameRules"
-              label="名前 - Name"
-              required
-            />
-          </v-col>
-        </v-row>
-        <v-row justify="center" align="center">
-          <v-col cols="5" align="right" class="pr-2">
-            プレイリストの公開
-          </v-col>
-          <v-col cols="7">
-            <v-radio-group :mandatory="true" row>
-              <v-radio label="非公開" value="0" checked="true" />
-              <v-radio label="公開" value="1" />
-            </v-radio-group>
-          </v-col>
-        </v-row>
-        <v-row justify="center" align="center">
-          <v-col cols="5" align="right" class="pr-2">
-            ID
-          </v-col>
-          <v-col cols="7" class="pl-2">
-            {{ playlist.id }}
-          </v-col>
-        </v-row>
-      </v-col>
-      <v-col lg="8" md="8" sm="12" xs="12">
-        <playlist-series-meta-tabs :playlist="playlist" />
+      <v-col cols="12">
+        <v-card :color="headerCardColor()">
+          <v-row>
+            <v-col cols="10" class="d-flex flex-row">
+              <div>
+                <v-avatar class="ma-3" size="125" tile>
+                  <playlist-thumbnail
+                    :url="eyecatchImageUrl(playlist)"
+                    disable-input-form
+                  />
+                </v-avatar>
+              </div>
+              <div>
+                <v-card-title class="headline" v-text="playlist.name" />
+                <v-card-subtitle v-text="playlist.nameRuby" />
+                <v-card-text>
+                  公開状況: 非公開<br />
+                  ID: {{ playlist.id }}<br />
+                  キャッチコピー: {{ playlist.detailedCatch }}<br />
+                  説明: {{ playlist.description }}<br />
+                </v-card-text>
+              </div>
+            </v-col>
+            <v-col cols="2" class="text-right pl-0">
+              <v-btn
+                :color="headerCardButtonColor()"
+                text
+                :to="`/playlists/${playlist.id}/edit`"
+                nuxt
+              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-card>
       </v-col>
     </v-row>
     <v-row>
@@ -57,7 +55,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import PlaylistThumbnail from '~/components/PlaylistThumbnail.vue'
-import PlaylistSeriesMetaTabs from '~/components/PlaylistSeriesMetaTabs.vue'
 import PlaylistEpisodesList from '~/components/PlaylistEpisodesList.vue'
 import PlaylistEpisodeSearch from '~/components/PlaylistEpisodeSearch.vue'
 
@@ -69,7 +66,6 @@ export default Vue.extend({
   name: 'PlaylistIdIndexComponent',
   components: {
     PlaylistThumbnail,
-    PlaylistSeriesMetaTabs,
     PlaylistEpisodesList,
     PlaylistEpisodeSearch,
   },
@@ -89,9 +85,25 @@ export default Vue.extend({
     playlist() {
       return this.$store.state.playlists.editingPlaylist
     },
+    vuetify(): any {
+      return (this as any).$vuetify
+    },
   },
   beforeDestroy() {
     this.$store.dispatch('playlists/initializeEditingPlaylist')
+  },
+  methods: {
+    eyecatchImageUrl(playlist: any) {
+      return (
+        playlist.eyecatch?.medium?.url || 'https://placehold.jp/100x100.png'
+      )
+    },
+    headerCardColor() {
+      return this.vuetify.theme.dark ? '#616161' : '#F5F5F5'
+    },
+    headerCardButtonColor() {
+      return this.vuetify.theme.dark ? '#FFFFFF' : '#000000'
+    },
   },
 })
 </script>

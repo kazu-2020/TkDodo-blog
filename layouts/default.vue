@@ -150,7 +150,7 @@ export default Vue.extend({
     toggleDarkMode() {
       this.vuetify.theme.dark = !this.vuetify.theme.dark
       this.setModeIcon(this.vuetify.theme.dark)
-      console.log(this.vuetify.theme.dark)
+
       this.cookies.set('isDarkMode', this.vuetify.theme.dark, {
         path: '/',
         maxAge: 60 * 60 * 24 * 7,
