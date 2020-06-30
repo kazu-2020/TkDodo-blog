@@ -8,7 +8,7 @@
               <v-card-title>
                 ロゴ
               </v-card-title>
-              <v-img :src="playlist.logo.medium.url" height="100" />
+              <v-img :src="logoImageUrl" height="100" />
             </v-card>
           </v-col>
           <v-col cols="4">
@@ -16,7 +16,7 @@
               <v-card-title>
                 アイキャッチ
               </v-card-title>
-              <v-img :src="playlist.eyecatch.medium.url" height="100" />
+              <v-img :src="eyecatchImageUrl" height="100" />
             </v-card>
           </v-col>
 
@@ -25,7 +25,7 @@
               <v-card-title>
                 ヒーローイメージ
               </v-card-title>
-              <v-img :src="playlist.hero.medium.url" height="100" />
+              <v-img :src="heroImageUrl" height="100" />
             </v-card>
           </v-col>
         </v-row>
@@ -136,6 +136,22 @@ export default Vue.extend({
         borderRadius: menu ? '50%' : '4px',
         transition: 'border-radius 200ms ease-in-out',
       }
+    },
+    logoImageUrl() {
+      return (
+        this.playlist.logo?.medium?.url || 'https://placehold.jp/640x640.png'
+      )
+    },
+    eyecatchImageUrl() {
+      return (
+        this.playlist.eyecatch?.medium?.url ||
+        'https://placehold.jp/640x640.png'
+      )
+    },
+    heroImageUrl() {
+      return (
+        this.playlist.hero?.medium?.url || 'https://placehold.jp/640x640.png'
+      )
     },
   },
   methods: {

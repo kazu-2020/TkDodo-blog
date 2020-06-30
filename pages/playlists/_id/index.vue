@@ -3,7 +3,7 @@
     <v-row>
       <v-col lg="4" md="4" sm="12" xs="12">
         <playlist-thumbnail
-          :url="playlist.eyecatch.medium.url"
+          :url="eyecatchImageUrl(playlist)"
           disable-input-form
         />
         <v-row justify="center" align="center">
@@ -92,6 +92,13 @@ export default Vue.extend({
   },
   beforeDestroy() {
     this.$store.dispatch('playlists/initializeEditingPlaylist')
+  },
+  methods: {
+    eyecatchImageUrl(playlist: any) {
+      return (
+        playlist.eyecatch?.medium?.url || 'https://placehold.jp/640x640.png'
+      )
+    },
   },
 })
 </script>

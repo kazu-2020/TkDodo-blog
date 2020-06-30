@@ -34,7 +34,9 @@ export default {
     async fetchPlaylists({ commit }) {
       await axios
         .get('/api/playlists')
-        .then(response => commit('setPlaylists', { playlists: response.data }))
+        .then(response =>
+          commit('setPlaylists', { playlists: response.data.playlists })
+        )
     },
     async createPlaylists({ commit }, payload) {
       await axios
