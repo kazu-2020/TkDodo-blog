@@ -12,6 +12,7 @@
         v-for="item in playlists"
         :key="item.id"
         :playlist="item"
+        @delete-playlist="deletePlaylist"
       />
     </v-flex>
   </v-layout>
@@ -30,6 +31,15 @@ export default Vue.extend({
   computed: {
     playlists() {
       return this.$store.state.playlists.allItems
+    },
+  },
+  methods: {
+    deletePlaylist(playlist: any) {
+      this.$store.dispatch('loading/startLoading', {
+        success: '削除しました',
+        error: '削除失敗しました',
+      })
+      this.$store.dispatch('playlists/deletePlaylist', playlist)
     },
   },
 })

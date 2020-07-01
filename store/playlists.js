@@ -15,6 +15,9 @@ export default {
     setPlaylist(state, { playlist }) {
       state.allItems.unshift(playlist)
     },
+    removePlaylist(state, playlist) {
+      state.allItems.splice(state.allItems.indexOf(playlist), 1)
+    },
     setEditingPlaylist(state, { playlist }) {
       state.editingPlaylist = playlist
     },
@@ -65,6 +68,17 @@ export default {
       await this.$axios
         .post('/api/playlists', payload)
         .then(response => commit('setPlaylist', { playlist: response.data }))
+    },
+    async deletePlaylist({ commit }, playlist) {
+      await this.$axios
+        .delete(`/api/playlists/${playlist.id}`)
+        .then(response => {
+          console.log('status:', response.status)
+          commit('removePlaylist', playlist)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     async fetchPlaylist({ commit }, targetId) {
       await this.$axios

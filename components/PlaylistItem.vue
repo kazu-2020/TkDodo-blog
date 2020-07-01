@@ -33,7 +33,7 @@
         >
           <v-icon>mdi-pencil-outline</v-icon>
         </v-btn>
-        <v-btn outlined x-small>
+        <v-btn outlined x-small @click="deletePlaylist">
           <v-icon>mdi-delete-outline</v-icon>
         </v-btn>
       </v-card-actions>
@@ -56,6 +56,11 @@ export default Vue.extend({
   methods: {
     formattedDate(_time: string) {
       return moment(_time).format('YYYY/MM/DD')
+    },
+    deletePlaylist() {
+      if (confirm('本当に削除しますか？')) {
+        this.$emit('delete-playlist', this.playlist)
+      }
     },
   },
 })
