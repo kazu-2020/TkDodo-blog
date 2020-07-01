@@ -70,9 +70,6 @@ export default Vue.extend({
     PlaylistEpisodeSearch,
   },
   async asyncData({ store, params }) {
-    if (store.getters['playlists/editingPlaylist']) {
-      return
-    }
     await store.dispatch('playlists/fetchPlaylist', params.id)
   },
   data(): DataType {
