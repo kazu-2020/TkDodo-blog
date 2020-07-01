@@ -113,8 +113,8 @@ export default {
     updateEditingPlaylistName({ commit }, name) {
       commit('updateEditingPlaylistName', name)
     },
-    updateEditingPlaylistDetailedNameRuby({ commit }, DetailedNameRuby) {
-      commit('updateEditingPlaylistDetailedNameRuby', DetailedNameRuby)
+    updateEditingPlaylistDetailedNameRuby({ commit }, detailedNameRuby) {
+      commit('updateEditingPlaylistDetailedNameRuby', detailedNameRuby)
     },
     updateEditingPlaylistFormatGenre({ commit }, formatGenre) {
       commit('updateEditingPlaylistFormatGenre', formatGenre)
