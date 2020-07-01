@@ -18,22 +18,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
+import PlaylistItem from '~/components/PlaylistItem.vue'
 
-@Component({
-  components: {
-    PlaylistItem: () => import('~/components/PlaylistItem.vue'),
-  },
+export default Vue.extend({
+  name: 'PlaylistIndexComponent',
+  components: { PlaylistItem },
   async asyncData({ store }) {
-    if (store.getters['playlists/allItems'].length) {
-      return
-    }
     await store.dispatch('playlists/fetchPlaylists')
   },
+  computed: {
+    playlists() {
+      return this.$store.state.playlists.allItems
+    },
+  },
 })
-export default class IndexComponent extends Vue {
-  get playlists() {
-    return this.$store.state.playlists.allItems
-  }
-}
 </script>
