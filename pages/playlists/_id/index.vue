@@ -70,9 +70,6 @@ export default Vue.extend({
     PlaylistEpisodeSearch,
   },
   async asyncData({ store, params }) {
-    if (store.getters['playlists/editingPlaylist']) {
-      return
-    }
     await store.dispatch('playlists/fetchPlaylist', params.id)
   },
   data(): DataType {
@@ -88,9 +85,6 @@ export default Vue.extend({
     vuetify(): any {
       return (this as any).$vuetify
     },
-  },
-  beforeDestroy() {
-    this.$store.dispatch('playlists/initializeEditingPlaylist')
   },
   methods: {
     eyecatchImageUrl(playlist: any) {

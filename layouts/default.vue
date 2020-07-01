@@ -63,6 +63,32 @@
     <v-footer :fixed="fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
+    <v-dialog v-model="loading" hide-overlay persistent width="300">
+      <v-card>
+        <v-card-text class="pt-2">
+          送信中...
+          <v-progress-linear indeterminate class="mb-0" />
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <v-snackbar
+      v-model="loadingResultSnackBar"
+      :color="snackBarState"
+      right
+      top
+      timeout="5000"
+    >
+      <v-row justify="space-between">
+        <v-col cols="auto" class="pa-2">
+          {{ snackBarMessage }}
+        </v-col>
+        <v-col cols="auto" class="pa-0">
+          <v-btn color="white" text @click="resetLoadingState">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -130,6 +156,24 @@ export default Vue.extend({
       // FIXME: 型定義してあげたい
       return (this as any).$cookies
     },
+    loading(): boolean {
+      return this.$store.state.loading.state === 'loading'
+    },
+    loadingResultSnackBar: {
+      get(): boolean {
+        const loadingState = this.$store.state.loading.state
+        return loadingState === 'success' || loadingState === 'error'
+      },
+      set(): void {
+        this.$store.dispatch('loading/resetLoadingState')
+      },
+    },
+    snackBarState(): string {
+      return this.$store.state.loading.state
+    },
+    snackBarMessage(): string {
+      return this.$store.state.loading.messages[this.snackBarState]
+    },
   },
   beforeMount() {
     let darkModeOn: boolean = false
@@ -162,6 +206,9 @@ export default Vue.extend({
       } else {
         this.modeIcon = 'mdi-brightness-7'
       }
+    },
+    resetLoadingState() {
+      this.$store.dispatch('loading/resetLoadingState')
     },
   },
 })

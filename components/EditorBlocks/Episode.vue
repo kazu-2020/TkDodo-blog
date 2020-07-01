@@ -4,7 +4,7 @@
       <div class="show-panel-inner">
         <div class="show-header-box">
           <div class="show-thumb">
-            <img class="lazy" alt="" :src="episode.eyecatch.medium.url" />
+            <img class="lazy" alt="" :src="episodeEyecatchUrl" />
           </div>
           <div class="show-intro-box">
             <h3 class="show-title">
@@ -86,6 +86,12 @@ export default Vue.extend({
       )
 
       return dateStr + channel + timeStr
+    },
+    episodeEyecatchUrl() {
+      return (
+        (this.episode as EpisodeData).eyecatch?.medium?.url ||
+        'https://placehold.jp/150x150.png'
+      )
     },
   },
 })

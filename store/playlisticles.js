@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 export default {
   namespaced: true,
   state: () => ({
@@ -15,7 +13,7 @@ export default {
   },
   actions: {
     async fetchPlaylisticle({ commit }) {
-      await axios.get('/api/playlisticles/sandbox').then(response =>
+      await this.$axios.get('/api/playlisticles/sandbox').then(response =>
         commit('setEditingPlaylisticle', {
           playlisticle: response.data.playlisticle,
         })
