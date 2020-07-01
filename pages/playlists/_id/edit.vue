@@ -440,6 +440,10 @@ export default Vue.extend({
       form.validate()
 
       if (this.valid) {
+        this.$store.dispatch('loading/startLoading', {
+          success: '保存しました',
+          error: '保存失敗しました',
+        })
         this.$store.dispatch('playlists/updateEditingPlaylist')
       } else {
         console.log('Invalid!!!')
