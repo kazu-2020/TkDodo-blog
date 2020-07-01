@@ -41,18 +41,24 @@
   </v-card>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
 import moment from 'moment'
 
-@Component
-export default class PlaylistItem extends Vue {
-  @Prop({ type: Object, required: true })
-  playlist?: object
-
-  formattedDate(_time: string) {
-    return moment(_time).format('YYYY/MM/DD')
-  }
-}
+export default Vue.extend({
+  name: 'PlaylistItem',
+  props: {
+    playlist: {
+      type: Object,
+      default: () => {},
+      required: true,
+    },
+  },
+  methods: {
+    formattedDate(_time: string) {
+      return moment(_time).format('YYYY/MM/DD')
+    },
+  },
+})
 </script>
 <style scoped>
 .v-list-item {
