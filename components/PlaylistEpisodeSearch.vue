@@ -102,7 +102,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import axios from 'axios'
 import moment from 'moment'
 
 interface DataType {
@@ -125,7 +124,7 @@ export default Vue.extend({
   methods: {
     searchEpisodes() {
       this.loading = true
-      axios
+      this.$axios
         .get(`/api/episodes/search?word=${this.keyword}`)
         .then(res => {
           this.episodes = res.data

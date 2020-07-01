@@ -160,7 +160,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import draggable from 'vuedraggable'
 import EditableSection from '~/components/EditableSection.vue'
 import PreviewDrawer from '~/components/PreviewDrawer.vue'
@@ -177,8 +176,8 @@ export default {
     draggable,
   },
   mixins: [editorBlockMixin],
-  asyncData() {
-    return axios.get('/api/playlisticles/sandbox_word').then(res => {
+  asyncData({ $axios }) {
+    return $axios.get('/api/playlisticles/sandbox_word').then(res => {
       return {
         headerSection: res.data.playlisticle.headerSection,
         bodySections: res.data.playlisticle.bodySections,

@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 export default {
   namespaced: true,
   state: () => ({
@@ -57,19 +55,19 @@ export default {
   },
   actions: {
     async fetchPlaylists({ commit }) {
-      await axios
+      await this.$axios
         .get('/api/playlists')
         .then(response =>
           commit('setPlaylists', { playlists: response.data.playlists })
         )
     },
     async createPlaylists({ commit }, payload) {
-      await axios
+      await this.$axios
         .post('/api/playlists', payload)
         .then(response => commit('setPlaylist', { playlist: response.data }))
     },
     async fetchPlaylist({ commit }, targetId) {
-      await axios
+      await this.$axios
         .get(`/api/playlists/${targetId}`)
         .then(response =>
           commit('setEditingPlaylist', { playlist: response.data.playlist })
@@ -79,7 +77,7 @@ export default {
       commit('setEditingPlaylist', { playlist: null })
     },
     async updateEditingPlaylist({ commit, state }) {
-      await axios
+      await this.$axios
         .post(`/api/playlists/${state.editingPlaylist.id}`, {
           playlist: {
             name: state.editingPlaylist.name,
