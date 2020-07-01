@@ -162,7 +162,6 @@ export default Vue.extend({
     loadingResultSnackBar: {
       get(): boolean {
         const loadingState = this.$store.state.loading.state
-        console.log(loadingState)
         return loadingState === 'success' || loadingState === 'error'
       },
       set(): void {
