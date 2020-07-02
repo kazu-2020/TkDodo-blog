@@ -7,6 +7,9 @@ export default {
   getters: {
     allItems: state => state.allItems,
     editingPlaylist: state => state.editingPlaylist,
+    sameAs(state, getters, rootState, rootGetters) {
+      return rootGetters['sameAs/all']
+    },
   },
   mutations: {
     setPlaylists(state, { playlists }) {
@@ -14,6 +17,9 @@ export default {
     },
     setPlaylist(state, { playlist }) {
       state.allItems.unshift(playlist)
+    },
+    removePlaylist(state, playlist) {
+      state.allItems.splice(state.allItems.indexOf(playlist), 1)
     },
     setEditingPlaylist(state, { playlist }) {
       state.editingPlaylist = playlist
@@ -66,19 +72,28 @@ export default {
         .post('/api/playlists', payload)
         .then(response => commit('setPlaylist', { playlist: response.data }))
     },
+    async deletePlaylist({ commit }, playlist) {
+      await this.$axios
+        .delete(`/api/playlists/${playlist.id}`)
+        .then(response => {
+          console.log('status:', response.status)
+          commit('removePlaylist', playlist)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
     async fetchPlaylist({ commit }, targetId) {
-      await this.$axios
-        .get(`/api/playlists/${targetId}`)
-        .then(response =>
-          commit('setEditingPlaylist', { playlist: response.data.playlist })
-        )
+      await this.$axios.get(`/api/playlists/${targetId}`).then(response => {
+        commit('setEditingPlaylist', { playlist: response.data.playlist })
+        commit('sameAs/updateAll', response.data.playlist.sameAs, {
+          root: true,
+        })
+      })
     },
-    initializeEditingPlaylist({ commit }) {
-      commit('setEditingPlaylist', { playlist: null })
-    },
-    async updateEditingPlaylist({ commit, state }) {
+    async updateEditingPlaylist({ commit, state, getters }) {
       await this.$axios
-        .post(`/api/playlists/${state.editingPlaylist.id}`, {
+        .put(`/api/playlists/${state.editingPlaylist.id}`, {
           playlist: {
             name: state.editingPlaylist.name,
             detailed_name_ruby: state.editingPlaylist.detailedNameRuby,
@@ -97,6 +112,12 @@ export default {
             link_dark_color: state.editingPlaylist.linkDarkColor,
             reserve_publish_time_at: state.editingPlaylist.reservePublishTimeAt,
             reserve_finish_time_at: state.editingPlaylist.reserveFinishTimeAt,
+            same_as_attributes: {
+              id: getters.sameAs.id,
+              name: getters.sameAs.name,
+              url: getters.sameAs.url,
+              _destroy: getters.sameAs._destroy,
+            },
           },
         })
         .then(response =>

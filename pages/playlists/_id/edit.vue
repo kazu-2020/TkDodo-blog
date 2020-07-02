@@ -213,30 +213,30 @@
               リンク(同一内容)<small class="text--secondary"> - SameAs</small>
             </h3>
           </v-col>
-          <v-col cols="12">
-            <v-row v-for="sameAs in playlist.sameAs" :key="sameAs.id">
+          <v-col v-if="!noSameAs()" cols="12">
+            <v-row>
               <v-col cols="5">
                 <v-text-field
-                  v-model="sameAs.name"
+                  v-model="sameAsName"
                   :rules="nameRules"
                   label="名前"
                 />
               </v-col>
               <v-col cols="5">
                 <v-text-field
-                  v-model="sameAs.url"
+                  v-model="sameAsUrl"
                   :rules="nameRules"
                   label="URL"
                 />
               </v-col>
               <v-col cols="1">
-                <v-btn color="error" class="mr-4" @click="removeSameAs(sameAs)">
+                <v-btn color="error" class="mr-4" @click="removeSameAs">
                   削除
                 </v-btn>
               </v-col>
             </v-row>
           </v-col>
-          <v-col cols="12">
+          <v-col v-if="noSameAs()" cols="12">
             <v-btn class="mr-4" @click="addSameAs">
               <v-icon>mdi-plus</v-icon>
               リンク(同一内容)を追加
@@ -418,18 +418,43 @@ export default Vue.extend({
         this.$store.dispatch('playlists/updateEditingPlaylistHashtag', value)
       },
     },
+    sameAs: {
+      get() {
+        return this.$store.state.sameAs
+      },
+    },
+    sameAsName: {
+      get() {
+        return this.$store.state.sameAs.name
+      },
+      set(value) {
+        this.$store.dispatch('sameAs/updateName', value)
+      },
+    },
+    sameAsUrl: {
+      get() {
+        return this.$store.state.sameAs.url
+      },
+      set(value) {
+        this.$store.dispatch('sameAs/updateUrl', value)
+      },
+    },
   },
   methods: {
     addSameAs() {
-      const sameAsList: Array<SameAs> = this.playlist.sameAs
-      sameAsList.push({
-        name: '',
-        url: '',
-      })
+      this.sameAsName = ''
+      this.sameAsUrl = ''
     },
-    removeSameAs(sameAs: SameAs) {
-      const sameAsList: Array<SameAs> = this.playlist.sameAs
-      sameAsList.splice(sameAsList.indexOf(sameAs), 1)
+    removeSameAs() {
+      this.$store.dispatch('sameAs/delete')
+    },
+    noSameAs() {
+      return (
+        (this.sameAs.id === null &&
+          this.sameAs.name === null &&
+          this.sameAs.url === null) ||
+        this.sameAs._destroy === 1
+      )
     },
     validate() {
       const form: any = this.$refs.form
