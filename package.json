@@ -35,6 +35,8 @@
     "@editorjs/table": "^1.2.2",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/moment": "^1.6.0",
+    "@types/chroma-js": "^2.0.0",
+    "chroma-js": "^2.1.0",
     "cookie-universal-nuxt": "^2.1.4",
     "moment": "^2.25.3",
     "nuxt": "^2.0.0",
