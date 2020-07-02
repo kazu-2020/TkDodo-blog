@@ -7,6 +7,9 @@ export default {
   getters: {
     allItems: state => state.allItems,
     editingPlaylist: state => state.editingPlaylist,
+    sameAs(state, getters, rootState, rootGetters) {
+      return rootGetters['sameAs/all']
+    },
   },
   mutations: {
     setPlaylists(state, { playlists }) {
@@ -81,18 +84,16 @@ export default {
         })
     },
     async fetchPlaylist({ commit }, targetId) {
-      await this.$axios
-        .get(`/api/playlists/${targetId}`)
-        .then(response =>
-          commit('setEditingPlaylist', { playlist: response.data.playlist })
-        )
+      await this.$axios.get(`/api/playlists/${targetId}`).then(response => {
+        commit('setEditingPlaylist', { playlist: response.data.playlist })
+        commit('sameAs/updateAll', response.data.playlist.sameAs, {
+          root: true,
+        })
+      })
     },
-    initializeEditingPlaylist({ commit }) {
-      commit('setEditingPlaylist', { playlist: null })
-    },
-    async updateEditingPlaylist({ commit, state }) {
+    async updateEditingPlaylist({ commit, state, getters }) {
       await this.$axios
-        .post(`/api/playlists/${state.editingPlaylist.id}`, {
+        .put(`/api/playlists/${state.editingPlaylist.id}`, {
           playlist: {
             name: state.editingPlaylist.name,
             detailed_name_ruby: state.editingPlaylist.detailedNameRuby,
@@ -111,6 +112,12 @@ export default {
             link_dark_color: state.editingPlaylist.linkDarkColor,
             reserve_publish_time_at: state.editingPlaylist.reservePublishTimeAt,
             reserve_finish_time_at: state.editingPlaylist.reserveFinishTimeAt,
+            same_as_attributes: {
+              id: getters.sameAs.id,
+              name: getters.sameAs.name,
+              url: getters.sameAs.url,
+              _destroy: getters.sameAs._destroy,
+            },
           },
         })
         .then(response =>
