@@ -9,12 +9,12 @@
     <v-col cols="12">
       <v-row>
         <v-col>
-          <v-btn-toggle group mandatory tile>
+          <v-btn-toggle class="btn-group-palettes" group mandatory tile>
             <v-btn
               v-for="(color, index) in colors"
               :key="color"
               :value="`#${color}`"
-              :class="{ 'ml-3': index !== 0 }"
+              :class="[index !== 0 ? 'ml-3' : null, 'btn-palette']"
               :style="{ backgroundColor: `#${color} !important` }"
               elevation="4"
               @click="selectPalette($event)"
@@ -58,9 +58,11 @@
             v-model="pallets.linkDark"
             label="Link dark color"
             class="ma-0 pa-0"
+            :color="pallets.linkDark"
             hide-details
             outlined
             readonly
+            dark
           />
         </v-col>
       </v-row>
@@ -113,8 +115,8 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
-.v-btn-toggle .v-btn {
-  opacity: 1;
+<style lang="scss">
+.btn-palette {
+  opacity: 1 !important;
 }
 </style>
