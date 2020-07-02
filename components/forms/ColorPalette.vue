@@ -70,7 +70,12 @@
 
 <script>
 import Vue from 'vue'
-import { adjustColor } from '@/utils/adjustColor'
+import {
+  adjustPrimaryLightColor,
+  adjustLinkDarkColor,
+  adjustLinkLightColor,
+  adjustPrimaryDarkColor,
+} from '@/utils/adjustColor'
 
 export default Vue.extend({
   data: () => ({
@@ -99,10 +104,10 @@ export default Vue.extend({
     selectPalette(event) {
       const colorHex = event.target.value
 
-      this.pallets.primaryLight = adjustColor(colorHex, '#FAFAFA', 3)
-      this.pallets.linkLight = adjustColor(colorHex, '#FAFAFA', 4.5)
-      this.pallets.primaryDark = adjustColor(colorHex, '#1f1f20', 3)
-      this.pallets.linkDark = adjustColor(colorHex, '#1f1f20', 4.5)
+      this.pallets.primaryLight = adjustPrimaryLightColor(colorHex)
+      this.pallets.linkLight = adjustLinkLightColor(colorHex)
+      this.pallets.primaryDark = adjustPrimaryDarkColor(colorHex)
+      this.pallets.linkDark = adjustLinkDarkColor(colorHex)
     },
   },
 })

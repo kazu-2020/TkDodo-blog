@@ -1,6 +1,6 @@
 import chroma from 'chroma-js'
 
-export function adjustColor(
+function adjustColor(
   baseColor: string,
   bgColor: string,
   contrastRatio: number
@@ -39,4 +39,17 @@ export function adjustColor(
   }
 
   return adjustedColor
+}
+
+export function adjustPrimaryLightColor(baseColor: string): string {
+  return adjustColor(baseColor, '#FAFAFA', 3)
+}
+export function adjustLinkLightColor(baseColor: string): string {
+  return adjustColor(baseColor, '#FAFAFA', 4.5)
+}
+export function adjustPrimaryDarkColor(baseColor: string): string {
+  return adjustColor(baseColor, '#1f1f20', 3)
+}
+export function adjustLinkDarkColor(baseColor: string): string {
+  return adjustColor(baseColor, '#1f1f20', 4.5)
 }
