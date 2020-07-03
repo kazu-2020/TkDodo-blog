@@ -6,15 +6,15 @@
         ここで選んだ色がアクセシビリティに配慮された色に変換されページに反映されます
       </p>
     </v-col>
-    <v-col cols="12" class="colors">
+    <v-col cols="12">
       <v-row>
         <v-col>
-          <v-btn-toggle class="btn-group-palettes" group mandatory tile>
+          <v-btn-toggle class="palettes" group mandatory tile>
             <v-btn
               v-for="(color, index) in colors"
               :key="color"
               :value="`#${color}`"
-              :class="[index !== 0 ? 'ml-3' : null, 'btn-palette']"
+              :class="[index !== 0 ? 'ml-3' : null, 'palette']"
               :style="{ backgroundColor: `#${color} !important` }"
               elevation="4"
               @click="selectPalette($event)"
@@ -22,7 +22,7 @@
           </v-btn-toggle>
         </v-col>
       </v-row>
-      <v-row justify="start" align="center">
+      <v-row justify="start" align="center" class="color-fields">
         <v-col class="shrink color-field">
           <v-text-field
             v-model="pallets.primaryLight"
@@ -120,14 +120,12 @@ import {
 
 export default Vue.extend({
   data: () => ({
-    color: '#FFFFFF',
     pallets: {
       primaryLight: '#FFFFFF',
       primaryDark: '#FFFFFF',
       linkLight: '#FFFFFF',
       linkDark: '#FFFFFF',
     },
-    menu: false,
     colors: [
       'faf100',
       'f6aa00',
@@ -155,10 +153,15 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.btn-palette {
-  opacity: 1 !important;
+.palettes {
+  .palette {
+    opacity: 1 !important;
+  }
+  .v-item--active {
+    border: solid 2px #eeeeee !important;
+  }
 }
-.colors {
+.color-fields {
   .v-input__append-inner {
     margin-top: 14px;
   }
