@@ -10,16 +10,16 @@ export default function({ $axios, store }) {
 
   $axios.onError(err => {
     store.dispatch('loading/failLoading')
-    return Promise.reject(err.response)
+    return Promise.reject(err)
   })
 
   $axios.onRequestError(err => {
     store.dispatch('loading/failLoading')
-    return Promise.reject(err.response)
+    return Promise.reject(err)
   })
 
   $axios.onResponseError(err => {
     store.dispatch('loading/failLoading')
-    return Promise.reject(err.response)
+    return Promise.reject(err)
   })
 }

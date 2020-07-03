@@ -33,7 +33,7 @@
         >
           <v-icon>mdi-pencil-outline</v-icon>
         </v-btn>
-        <v-btn outlined x-small>
+        <v-btn outlined x-small @click="deletePlaylist">
           <v-icon>mdi-delete-outline</v-icon>
         </v-btn>
       </v-card-actions>
@@ -41,18 +41,29 @@
   </v-card>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
 import moment from 'moment'
 
-@Component
-export default class PlaylistItem extends Vue {
-  @Prop({ type: Object, required: true })
-  playlist?: object
-
-  formattedDate(_time: string) {
-    return moment(_time).format('YYYY/MM/DD')
-  }
-}
+export default Vue.extend({
+  name: 'PlaylistItem',
+  props: {
+    playlist: {
+      type: Object,
+      default: () => {},
+      required: true,
+    },
+  },
+  methods: {
+    formattedDate(_time: string) {
+      return moment(_time).format('YYYY/MM/DD')
+    },
+    deletePlaylist() {
+      if (confirm('本当に削除しますか？')) {
+        this.$emit('delete-playlist', this.playlist)
+      }
+    },
+  },
+})
 </script>
 <style scoped>
 .v-list-item {

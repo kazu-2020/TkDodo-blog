@@ -12,28 +12,35 @@
         v-for="item in playlists"
         :key="item.id"
         :playlist="item"
+        @delete-playlist="deletePlaylist"
       />
     </v-flex>
   </v-layout>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
+import PlaylistItem from '~/components/PlaylistItem.vue'
 
-@Component({
-  components: {
-    PlaylistItem: () => import('~/components/PlaylistItem.vue'),
-  },
+export default Vue.extend({
+  name: 'PlaylistIndexComponent',
+  components: { PlaylistItem },
   async asyncData({ store }) {
-    if (store.getters['playlists/allItems'].length) {
-      return
-    }
     await store.dispatch('playlists/fetchPlaylists')
   },
+  computed: {
+    playlists() {
+      return this.$store.state.playlists.allItems
+    },
+  },
+  methods: {
+    deletePlaylist(playlist: any) {
+      this.$store.dispatch('loading/startLoading', {
+        success: '削除しました',
+        error: '削除失敗しました',
+      })
+      this.$store.dispatch('playlists/deletePlaylist', playlist)
+    },
+  },
 })
-export default class IndexComponent extends Vue {
-  get playlists() {
-    return this.$store.state.playlists.allItems
-  }
-}
 </script>
