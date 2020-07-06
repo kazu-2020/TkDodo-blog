@@ -142,7 +142,7 @@ export default Vue.extend({
       miniVariant: true,
       right: false,
       rightDrawer: false,
-      title: 'PLAYLIST（仮）',
+      title: 'EditorialHands',
       isShowNewPlaylistDialog: false,
       modeIcon: 'mdi-brightness-7',
     }
