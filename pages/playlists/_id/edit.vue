@@ -29,22 +29,6 @@
               label="ふりがな - Detailed Name Ruby"
             />
           </v-col>
-          <v-row flex-start>
-            <v-col cols="6" md="3">
-              <v-select
-                v-model="formatGenre"
-                :items="formatGenreLists"
-                label="ジャンル(フォーマット) - Format Genre"
-              />
-            </v-col>
-            <v-col cols="6" md="3">
-              <v-select
-                v-model="themeGenre"
-                :items="themeGenreLists"
-                label="ジャンル(テーマ) - Theme Genre"
-              />
-            </v-col>
-          </v-row>
           <v-col cols="12">
             <v-textarea
               v-model="detailedCatch"
@@ -78,6 +62,22 @@
               hint="タグの先頭に「#」をつけてください。スペース区切りで複数のタグが登録可能です。"
             />
           </v-col>
+          <v-row flex-start>
+            <v-col cols="6" md="3">
+              <v-select
+                v-model="formatGenre"
+                :items="formatGenreLists"
+                label="ジャンル(フォーマット) - Format Genre"
+              />
+            </v-col>
+            <v-col cols="6" md="3">
+              <v-select
+                v-model="themeGenre"
+                :items="themeGenreLists"
+                label="ジャンル(テーマ) - Theme Genre"
+              />
+            </v-col>
+          </v-row>
         </v-row>
 
         <v-row dense class="my-5">
