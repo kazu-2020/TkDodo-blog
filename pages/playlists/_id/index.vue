@@ -45,10 +45,17 @@
         </h3>
       </v-col>
       <v-col cols="12">
-        <playlist-episodes-list :episodes="playlist.items" />
+        <playlist-episodes-list />
       </v-col>
     </v-row>
     <playlist-episode-search />
+    <v-row>
+      <v-col cols="12" align="center">
+        <v-btn color="orange" @click="saveEpisodes">
+          上記の内容で保存する
+        </v-btn>
+      </v-col>
+    </v-row>
   </v-layout>
 </template>
 
@@ -97,6 +104,13 @@ export default Vue.extend({
     },
     headerCardButtonColor() {
       return this.vuetify.theme.dark ? '#FFFFFF' : '#000000'
+    },
+    saveEpisodes() {
+      this.$store.dispatch('loading/startLoading', {
+        success: '正常に保存できました',
+        error: '保存できませんでした',
+      })
+      this.$store.dispatch('playlists/saveEditingPlaylistEpisodes')
     },
   },
 })

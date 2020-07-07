@@ -78,10 +78,14 @@ export default Vue.extend({
   components: {
     draggable,
   },
-  props: {
+  computed: {
     episodes: {
-      type: Array,
-      default: () => [],
+      get(): any[] {
+        return this.$store.state.playlists.editingPlaylist.items
+      },
+      set(value: any) {
+        this.$store.dispatch('playlists/updateEditingPlaylistEpisodes', value)
+      },
     },
   },
   methods: {
