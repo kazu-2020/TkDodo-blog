@@ -75,56 +75,68 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
+import PlaylistThumbnail from '~/components/PlaylistThumbnail.vue'
 
-@Component({
+interface DataType {
+  isShowAlert: boolean
+  loadingDialog: boolean
+  name: string
+}
+
+export default Vue.extend({
+  name: 'NewPlaylistDialog',
   components: {
-    PlaylistThumbnail: () => import('~/components/PlaylistThumbnail.vue'),
+    PlaylistThumbnail,
+  },
+  props: {
+    isShowDialog: {
+      type: Boolean,
+      required: false,
+    },
+  },
+  data(): DataType {
+    return {
+      isShowAlert: false,
+      loadingDialog: false,
+      name: '',
+    }
+  },
+  methods: {
+    submitNewPlaylist() {
+      this.loadingDialog = true
+      this.$store.dispatch('playlists/createPlaylists', {
+        playlist: {
+          name: this.name,
+        },
+      })
+      this.subscribeSubmitAction()
+    },
+    subscribeSubmitAction() {
+      this.$store.subscribeAction({
+        after: (action, state) => {
+          if (action.type !== 'playlists/createPlaylists') return
+
+          if (state.playlists.allItems[0].name === this.name) {
+            const playlist = state.playlists.allItems[0]
+            this.initializeNewPlaylistDialog()
+            this.$router.push(`/playlists/${playlist.id}`)
+          } else {
+            this.isShowAlert = true
+          }
+
+          this.loadingDialog = false
+        },
+      })
+    },
+    initializeNewPlaylistDialog() {
+      this.isShowAlert = false
+      this.name = ''
+      this.hideNewPlaylistDialog()
+    },
+    hideNewPlaylistDialog() {
+      this.$emit('hide-new-playlist-dialog')
+    },
   },
 })
-export default class NewPlaylistDialog extends Vue {
-  isShowAlert = false
-  loadingDialog = false
-  name = ''
-
-  @Prop({ type: Boolean, required: false })
-  isShowDialog: boolean = false
-
-  submitNewPlaylist() {
-    this.loadingDialog = true
-    this.$store.dispatch('playlists/createPlaylists', {
-      playlist: {
-        name: this.name,
-      },
-    })
-    this.subscribeSubmitAction()
-  }
-
-  subscribeSubmitAction() {
-    this.$store.subscribeAction({
-      after: (action, state) => {
-        if (action.type !== 'playlists/createPlaylists') return
-
-        if (state.playlists.allItems[0].name === this.name) {
-          const playlist = state.playlists.allItems[0]
-          this.initializeNewPlaylistDialog()
-          this.$router.push(`/playlists/${playlist.id}`)
-        } else {
-          this.isShowAlert = true
-        }
-
-        this.loadingDialog = false
-      },
-    })
-  }
-
-  initializeNewPlaylistDialog() {
-    this.isShowAlert = false
-    this.name = ''
-    this.hideNewPlaylistDialog()
-  }
-
-  @Emit('hide-new-playlist-dialog')
-  hideNewPlaylistDialog() {}
-}
 </script>
