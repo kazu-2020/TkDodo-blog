@@ -58,6 +58,9 @@ export default {
     updateEditingPlaylistHashtag(state, hashtag) {
       state.editingPlaylist.hashtag = hashtag
     },
+    updateEditingPlaylistEpisodes(state, episodes) {
+      state.editingPlaylist.items = episodes
+    },
   },
   actions: {
     async fetchPlaylists({ commit }) {
@@ -124,6 +127,18 @@ export default {
           commit('setEditingPlaylist', { playlist: response.data.playlist })
         )
     },
+    async saveEditingPlaylistEpisodes({ commit, state }) {
+      await this.$axios
+        .post(
+          `/api/playlists/${state.editingPlaylist.id}/playlist_episodes/bulk_update`,
+          {
+            playlist_episodes: state.editingPlaylist.items,
+          }
+        )
+        .then(response => {
+          commit('updateEditingPlaylistEpisodes', response.data.items)
+        })
+    },
     deleteEditingPlaylistEpisode({ commit }, episode) {
       commit('deleteEditingPlaylistEpisode', episode)
     },
@@ -154,6 +169,9 @@ export default {
     },
     updateEditingPlaylistHashtag({ commit }, hashtag) {
       commit('updateEditingPlaylistHashtag', hashtag)
+    },
+    updateEditingPlaylistEpisodes({ commit }, episodes) {
+      commit('updateEditingPlaylistEpisodes', episodes)
     },
   },
 }
