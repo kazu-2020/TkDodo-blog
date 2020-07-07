@@ -135,11 +135,9 @@ export default {
             playlist_episodes: state.editingPlaylist.items,
           }
         )
-        .then(response =>
-          commit('setEditingPlaylistEpisodes', {
-            episodes: response.data.episodes,
-          })
-        )
+        .then(response => {
+          commit('updateEditingPlaylistEpisodes', response.data.items)
+        })
     },
     deleteEditingPlaylistEpisode({ commit }, episode) {
       commit('deleteEditingPlaylistEpisode', episode)
