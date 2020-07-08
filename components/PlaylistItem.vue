@@ -1,7 +1,9 @@
 <template>
   <v-card class="mb-4" outlined light>
     <v-list-item three-line>
-      <v-list-item-avatar tile size="240" color="grey" horizontal />
+      <v-list-item-avatar tile size="140" horizontal>
+        <v-img :src="dummyImage" />
+      </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="headline mb-1">
           {{ playlist.name }}
@@ -51,6 +53,13 @@ export default Vue.extend({
       type: Object,
       default: () => {},
       required: true,
+    },
+  },
+  computed: {
+    dummyImage() {
+      const logoNumber =
+        Number(moment(this.playlist.dateCreated).format('SS')) % 11
+      return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
     },
   },
   methods: {

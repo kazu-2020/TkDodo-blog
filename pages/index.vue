@@ -7,14 +7,19 @@
         </div>
       </v-col>
     </v-row>
-    <v-flex xs12 sm8 md6>
-      <playlist-item
+    <v-row>
+      <v-col
         v-for="item in playlists"
         :key="item.id"
-        :playlist="item"
-        @delete-playlist="deletePlaylist"
-      />
-    </v-flex>
+        xs="12"
+        sm="12"
+        md="6"
+        lg="6"
+        xl="4"
+      >
+        <playlist-item :playlist="item" @delete-playlist="deletePlaylist" />
+      </v-col>
+    </v-row>
   </v-layout>
 </template>
 
