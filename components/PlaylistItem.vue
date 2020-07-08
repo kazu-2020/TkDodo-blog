@@ -10,7 +10,7 @@
         </v-list-item-title>
         <v-list-item-subtitle>
           番組数:
-          <span>8件</span>
+          <span>{{ playlist.episodeNum }}件</span>
         </v-list-item-subtitle>
         <v-list-item-subtitle>
           公開期間:
@@ -18,7 +18,7 @@
         </v-list-item-subtitle>
         <v-list-item-subtitle>
           番組総時間:
-          <span>01:11:59</span>
+          <span>{{ totalTime }}</span>
         </v-list-item-subtitle>
         <v-list-item-subtitle>
           <v-icon>mdi-update</v-icon>
@@ -60,6 +60,16 @@ export default Vue.extend({
       const logoNumber =
         Number(moment(this.playlist.dateCreated).format('SS')) % 11
       return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
+    },
+    totalTime() {
+      const seconds = this.playlist.totalTime % 60
+      const totalMinutes = (this.playlist.totalTime - seconds) / 60
+      const minutes = totalMinutes % 60
+      const hours = totalMinutes / 60
+
+      return `${('00' + hours).slice(-2)}:${('00' + minutes).slice(-2)}:${(
+        '00' + seconds
+      ).slice(-2)}`
     },
   },
   methods: {
