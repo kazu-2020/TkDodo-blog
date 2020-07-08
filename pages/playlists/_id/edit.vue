@@ -84,8 +84,29 @@
           <v-col cols="12">
             <h3>画像</h3>
           </v-col>
-          <v-col cols="12" sm="6" md="4">
-            <playlist-thumbnail />
+          <v-col cols="2">
+            <v-card tile>
+              <v-card-title>
+                ロゴ
+              </v-card-title>
+              <v-img :src="logoImageUrl" aspect-ratio="1" />
+            </v-card>
+          </v-col>
+          <v-col cols="4">
+            <v-card tile>
+              <v-card-title>
+                アイキャッチ
+              </v-card-title>
+              <v-img :src="eyecatchImageUrl" aspect-ratio="1.777777778" />
+            </v-card>
+          </v-col>
+          <v-col cols="6">
+            <v-card tile>
+              <v-card-title>
+                ヒーローイメージ
+              </v-card-title>
+              <v-img :src="heroImageUrl" aspect-ratio="3" />
+            </v-card>
           </v-col>
         </v-row>
 
@@ -259,7 +280,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import PlaylistThumbnail from '~/components/PlaylistThumbnail.vue'
 
 interface SameAs {
   name: string
@@ -268,9 +288,6 @@ interface SameAs {
 
 export default Vue.extend({
   name: 'PlaylistIdEditComponent',
-  components: {
-    PlaylistThumbnail,
-  },
   async asyncData({ store, params }) {
     if (store.getters['playlists/editingPlaylist']) {
       return
@@ -438,6 +455,24 @@ export default Vue.extend({
       set(value) {
         this.$store.dispatch('sameAs/updateUrl', value)
       },
+    },
+    logoImageUrl(): string {
+      return (
+        this.editingPlaylist.logo?.medium?.url ||
+        'https://placehold.jp/640x640.png'
+      )
+    },
+    eyecatchImageUrl(): string {
+      return (
+        this.editingPlaylist.eyecatch?.medium?.url ||
+        'https://placehold.jp/640x360.png'
+      )
+    },
+    heroImageUrl(): string {
+      return (
+        this.editingPlaylist.hero?.medium?.url ||
+        'https://placehold.jp/1080x360.png'
+      )
     },
   },
   methods: {
