@@ -6,7 +6,11 @@
         style="text-decoration: none;"
         class="playlist-title"
       >
-        <v-toolbar-title v-text="title" />
+        <v-img
+          src="logo.png"
+          srcset="logo.png 1x, logo@2x.png 2x"
+          width="150"
+        />
       </nuxt-link>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
