@@ -360,22 +360,6 @@ export default Vue.extend({
       { value: '096', text: '芸術' },
       { value: '110', text: '福祉全般' },
     ],
-    playlist: {
-      id: null,
-      publish_state: 0,
-      formatGenre: null,
-      themeGenre: null,
-      detailedCatch: null,
-      sameAs: [], // { name, url }
-      hashtags: [], // { name: '' }
-      keywords: [],
-      roles: [],
-      colors: null, // TODO
-      // 公開系
-      publishedStartDate: null,
-      publishedEndDate: null,
-      isPublish: false,
-    },
     color: '#FFFFFF',
     mask: '!#XXXXXXXX',
     menu: false,
