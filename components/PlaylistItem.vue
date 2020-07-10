@@ -131,7 +131,6 @@ export default Vue.extend({
       }
     },
     episodeThumbnailUrl(episode: any) {
-      console.log(this.dummyImage(episode.dateCreated))
       return (
         episode.eyecatch?.medium?.url || this.dummyImage(episode.dateCreated)
       )
