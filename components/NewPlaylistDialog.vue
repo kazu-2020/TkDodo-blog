@@ -146,6 +146,10 @@ export default Vue.extend({
 
           this.loadingDialog = false
         },
+        error: () => {
+          this.loadingDialog = false
+          this.isShowAlert = true
+        },
       })
     },
     initializeNewPlaylistDialog() {

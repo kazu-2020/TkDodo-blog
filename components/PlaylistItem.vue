@@ -104,6 +104,8 @@ export default Vue.extend({
       ).slice(-2)}`
     },
     splittedEpisodes(): any {
+      if (this.playlist.items === undefined) return []
+
       const array = this.playlist.items.slice(0, this.playlist.items.length)
       const result = []
       let index = 0
@@ -116,7 +118,7 @@ export default Vue.extend({
       return result
     },
     isShowArrows(): boolean {
-      return this.playlist.items.length > this.episodePreviewNum
+      return (this.playlist.items?.length || 0) > this.episodePreviewNum
     },
   },
   methods: {
