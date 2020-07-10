@@ -20,27 +20,33 @@
       <v-card-text>
         <v-container>
           <v-row>
-            <v-col cols="6" sm="12" md="5">
-              <v-card class="pa-2" tile>
-                <playlist-thumbnail />
-              </v-card>
-            </v-col>
-            <v-col cols="6" sm="12" md="6">
-              <v-text-field
-                v-model="name"
-                label="プレイリスト名 - Name"
-                required
-              />
-              <v-text-field
-                label="ふりがな - Detailed Series Name Ruby"
-                required
-              />
-              <v-textarea label="説明 - Description" auto-grow />
+            <v-col cols="12">
+              <v-form ref="form" v-model="valid">
+                <v-text-field
+                  v-model="name"
+                  label="プレイリスト名 - Name"
+                  :rules="nameRules"
+                  required
+                />
+                <v-textarea label="説明 - Description" auto-grow />
+                <v-text-field
+                  v-model="seriesId"
+                  label="シリーズID - TVSeries ID"
+                  hint="シリーズプレイリストを作る場合はこちらにIDを入力してください"
+                  persistent-hint
+                />
+              </v-form>
             </v-col>
           </v-row>
           <v-row justify="center" align-content="center">
             <v-col cols="5">
-              <v-btn depressed color="orange" large @click="submitNewPlaylist">
+              <v-btn
+                :disabled="!valid"
+                depressed
+                color="orange"
+                large
+                @click="submitNewPlaylist"
+              >
                 この内容で新規作成する
               </v-btn>
               <small>* 内容は後で変更できます</small>
@@ -76,19 +82,19 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import PlaylistThumbnail from '~/components/PlaylistThumbnail.vue'
 
 interface DataType {
   isShowAlert: boolean
   loadingDialog: boolean
+  valid: boolean
   name: string
+  nameRules: Array<Function>
+  seriesId: string
 }
 
 export default Vue.extend({
   name: 'NewPlaylistDialog',
-  components: {
-    PlaylistThumbnail,
-  },
+  components: {},
   props: {
     isShowDialog: {
       type: Boolean,
@@ -99,18 +105,31 @@ export default Vue.extend({
     return {
       isShowAlert: false,
       loadingDialog: false,
+      valid: false,
       name: '',
+      nameRules: [
+        (v: String) => !!v || 'Name is required',
+        (v: String) =>
+          (v && v.length <= 255) || 'Name must be less than 255 characters',
+      ],
+      seriesId: '',
     }
   },
   methods: {
     submitNewPlaylist() {
-      this.loadingDialog = true
-      this.$store.dispatch('playlists/createPlaylists', {
-        playlist: {
-          name: this.name,
-        },
-      })
-      this.subscribeSubmitAction()
+      const form: any = this.$refs.form
+      form.validate()
+
+      if (this.valid) {
+        this.loadingDialog = true
+        this.$store.dispatch('playlists/createPlaylists', {
+          playlist: {
+            name: this.name,
+            original_series_id: this.seriesId,
+          },
+        })
+        this.subscribeSubmitAction()
+      }
     },
     subscribeSubmitAction() {
       this.$store.subscribeAction({
@@ -136,6 +155,10 @@ export default Vue.extend({
     },
     hideNewPlaylistDialog() {
       this.$emit('hide-new-playlist-dialog')
+    },
+    validate() {
+      const form: any = this.$refs.form
+      form.validate()
     },
   },
 })
