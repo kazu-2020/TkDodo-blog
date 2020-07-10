@@ -6,11 +6,7 @@
         style="text-decoration: none;"
         class="playlist-title"
       >
-        <v-img
-          src="logo.png"
-          srcset="logo.png 1x, logo@2x.png 2x"
-          width="150"
-        />
+        <v-img :src="logoSrc()" :srcset="logoSrcset()" width="150" />
       </nuxt-link>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
@@ -213,6 +209,20 @@ export default Vue.extend({
     },
     resetLoadingState() {
       this.$store.dispatch('loading/resetLoadingState')
+    },
+    logoSrcset(): string {
+      if (this.vuetify.theme.dark) {
+        return 'logo.png 1x, logo@2x.png 2x'
+      } else {
+        return 'logo-black.png 1x, logo-black@2x.png 2x'
+      }
+    },
+    logoSrc(): string {
+      if (this.vuetify.theme.dark) {
+        return 'logo.png'
+      } else {
+        return 'logo-black.png'
+      }
     },
   },
 })
