@@ -97,7 +97,7 @@ export default Vue.extend({
       const seconds = this.playlist.totalTime % 60
       const totalMinutes = (this.playlist.totalTime - seconds) / 60
       const minutes = totalMinutes % 60
-      const hours = totalMinutes / 60
+      const hours = Math.floor(totalMinutes / 60)
 
       return `${('00' + hours).slice(-2)}:${('00' + minutes).slice(-2)}:${(
         '00' + seconds
