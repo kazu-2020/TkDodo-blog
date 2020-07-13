@@ -54,8 +54,7 @@
         </v-col>
       </v-row>
     </v-container>
-
-    <v-expansion-panels>
+    <v-expansion-panels :disabled="playlist.episodeNum === 0">
       <v-expansion-panel>
         <v-expansion-panel-header>
           エピソード ({{ playlist.episodeNum }})
