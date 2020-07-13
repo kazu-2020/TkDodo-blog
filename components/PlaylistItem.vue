@@ -1,41 +1,60 @@
 <template>
-  <v-card class="mb-4" outlined light>
-    <v-list-item three-line>
-      <v-list-item-avatar tile size="140" horizontal>
-        <v-img :src="dummyImage(playlist.dateCreated)" />
-      </v-list-item-avatar>
-      <v-list-item-content>
-        <v-list-item-title class="headline mb-1">
-          {{ playlist.name }}
-        </v-list-item-title>
-        <v-list-item-subtitle>
-          公開期間:
-          <span>2020/01/02 ~ 2021/10/02</span>
-        </v-list-item-subtitle>
-        <v-list-item-subtitle>
-          番組総時間:
-          <span>{{ totalTime }}</span>
-        </v-list-item-subtitle>
-        <v-list-item-subtitle>
-          <v-icon>mdi-update</v-icon>
-          {{ formattedDate(playlist.updated_at) }}
-          更新
-        </v-list-item-subtitle>
-      </v-list-item-content>
-      <v-card-actions>
-        <v-btn
-          outlined
-          x-small
-          :to="{ name: 'playlists-id', params: { id: playlist.id } }"
-          nuxt
-        >
-          <v-icon>mdi-pencil-outline</v-icon>
-        </v-btn>
-        <v-btn outlined x-small @click="deletePlaylist">
-          <v-icon>mdi-delete-outline</v-icon>
-        </v-btn>
-      </v-card-actions>
-    </v-list-item>
+  <v-card class="mx-auto" outlined light>
+    <v-container>
+      <v-row justify="space-between">
+        <v-col cols="auto" class="py-2 pr-0 pl-4">
+          <v-img :src="dummyImage(playlist.dateCreated)" width="140" />
+        </v-col>
+        <v-col class="mr-auto">
+          <v-card-title class="headline mb-1">
+            {{ playlist.name }}
+            <v-chip
+              v-if="playlist.originalSeriesId"
+              class="ma-2"
+              color="secondary"
+              small
+            >
+              SeriesID: {{ playlist.originalSeriesId }}
+            </v-chip>
+          </v-card-title>
+          <v-card-text class="card-list-item">
+            公開期間:
+            <span>2020/01/02 ~ 2021/10/02</span>
+          </v-card-text>
+          <v-card-text class="card-list-item">
+            番組総時間:
+            <span>{{ totalTime }}</span>
+          </v-card-text>
+          <v-card-text class="card-list-item">
+            <v-icon>mdi-update</v-icon>
+            {{ formattedDate(playlist.updated_at) }}
+            更新
+          </v-card-text>
+        </v-col>
+        <v-col cols="auto" class="text-center pl-0">
+          <v-row class="flex-column ma-0 fill-height">
+            <v-col class="px-0 pt-0">
+              <v-btn
+                small
+                icon
+                :to="{ name: 'playlists-id', params: { id: playlist.id } }"
+                nuxt
+              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </v-col>
+            <v-col class="px-0 pt-0">
+              <v-btn small icon @click="deletePlaylist">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </v-col>
+            <v-col />
+            <v-col />
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-container>
+
     <v-expansion-panels>
       <v-expansion-panel>
         <v-expansion-panel-header>
@@ -143,35 +162,15 @@ export default Vue.extend({
 })
 </script>
 <style scoped>
-.v-list-item {
-  position: relative;
+.col.col-auto,
+.col.mr-auto {
+  padding: 0px 16px;
+}
+.v-card__title.headline {
+  padding-top: 8px;
 }
 
-.v-card__actions {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.v-btn:not(.v-btn--round).v-size--x-small {
-  min-width: 0;
-  width: 35px;
-  height: 35px;
-}
-
-.v-application--is-ltr
-  .v-list-item__avatar.v-list-item__avatar--horizontal:first-child {
-  margin-top: 0px;
-  margin-left: -16px;
-  margin-bottom: 0;
-}
-
-.v-avatar.v-list-item__avatar.v-list-item__avatar--horizontal.v-avatar--tile.grey {
-  border-top-left-radius: 3px;
-  -webkit-border-top-left-radius: 3px;
-  -moz-border-radius-topleft: 3px;
-  border-bottom-left-radius: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  -moz-border-radius-bottomleft: 3px;
+.v-card__text.card-list-item {
+  padding-top: 0;
 }
 </style>
