@@ -212,16 +212,16 @@ export default Vue.extend({
     },
     logoSrcset(): string {
       if (this.vuetify.theme.dark) {
-        return 'logo.png 1x, logo@2x.png 2x'
+        return '/logo.png 1x, /logo@2x.png 2x'
       } else {
-        return 'logo-black.png 1x, logo-black@2x.png 2x'
+        return '/logo-black.png 1x, /logo-black@2x.png 2x'
       }
     },
     logoSrc(): string {
       if (this.vuetify.theme.dark) {
-        return 'logo.png'
+        return '/logo.png'
       } else {
-        return 'logo-black.png'
+        return '/logo-black.png'
       }
     },
   },
