@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="isShowDialog" max-width="600px">
+  <v-dialog v-model="isShowDialog" max-width="600px" persistent>
     <v-card>
       <v-container>
         <v-row>
@@ -28,7 +28,11 @@
                   :rules="nameRules"
                   required
                 />
-                <v-textarea label="説明 - Description" auto-grow />
+                <v-textarea
+                  v-model="description"
+                  label="説明 - Description"
+                  auto-grow
+                />
                 <v-text-field
                   v-model="seriesId"
                   label="シリーズID - TVSeries ID"
@@ -59,7 +63,7 @@
                 color="pink"
                 dark
                 border="top"
-                icon="mdi-alert-outline n"
+                icon="mdi-alert-outline"
                 transition="scale-transition"
               >
                 途中でエラーが発生しました。タイトルを確認後、再度お試しください。
@@ -89,6 +93,7 @@ interface DataType {
   valid: boolean
   name: string
   nameRules: Array<Function>
+  description: string
   seriesId: string
 }
 
@@ -107,6 +112,7 @@ export default Vue.extend({
       loadingDialog: false,
       valid: false,
       name: '',
+      description: '',
       nameRules: [
         (v: String) => !!v || 'Name is required',
         (v: String) =>
@@ -125,6 +131,7 @@ export default Vue.extend({
         this.$store.dispatch('playlists/createPlaylists', {
           playlist: {
             name: this.name,
+            description: this.description,
             original_series_id: this.seriesId,
           },
         })
@@ -138,22 +145,23 @@ export default Vue.extend({
 
           if (state.playlists.allItems[0].name === this.name) {
             const playlist = state.playlists.allItems[0]
-            this.initializeNewPlaylistDialog()
+            this.hideNewPlaylistDialog()
             this.$router.push(`/playlists/${playlist.id}`)
-          } else {
-            this.isShowAlert = true
           }
 
           this.loadingDialog = false
         },
+        error: () => {
+          this.loadingDialog = false
+          this.isShowAlert = true
+        },
       })
     },
-    initializeNewPlaylistDialog() {
-      this.isShowAlert = false
-      this.name = ''
-      this.hideNewPlaylistDialog()
-    },
     hideNewPlaylistDialog() {
+      this.isShowAlert = false
+      this.loadingDialog = false
+      this.name = ''
+      this.seriesId = ''
       this.$emit('hide-new-playlist-dialog')
     },
     validate() {

@@ -97,13 +97,15 @@ export default Vue.extend({
       const seconds = this.playlist.totalTime % 60
       const totalMinutes = (this.playlist.totalTime - seconds) / 60
       const minutes = totalMinutes % 60
-      const hours = totalMinutes / 60
+      const hours = Math.floor(totalMinutes / 60)
 
       return `${('00' + hours).slice(-2)}:${('00' + minutes).slice(-2)}:${(
         '00' + seconds
       ).slice(-2)}`
     },
     splittedEpisodes(): any {
+      if (this.playlist.items === undefined) return []
+
       const array = this.playlist.items.slice(0, this.playlist.items.length)
       const result = []
       let index = 0
@@ -116,7 +118,7 @@ export default Vue.extend({
       return result
     },
     isShowArrows(): boolean {
-      return this.playlist.items.length > this.episodePreviewNum
+      return (this.playlist.items?.length || 0) > this.episodePreviewNum
     },
   },
   methods: {
@@ -129,7 +131,6 @@ export default Vue.extend({
       }
     },
     episodeThumbnailUrl(episode: any) {
-      console.log(this.dummyImage(episode.dateCreated))
       return (
         episode.eyecatch?.medium?.url || this.dummyImage(episode.dateCreated)
       )
