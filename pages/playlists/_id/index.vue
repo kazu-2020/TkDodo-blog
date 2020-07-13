@@ -48,7 +48,7 @@
         <playlist-episodes-list />
       </v-col>
     </v-row>
-    <playlist-episode-search />
+    <playlist-episode-search :ignore-episodes="playlist.items" />
     <v-row>
       <v-col cols="12" align="center">
         <v-btn color="orange" @click="saveEpisodes">

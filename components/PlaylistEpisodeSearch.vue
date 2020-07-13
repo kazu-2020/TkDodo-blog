@@ -52,6 +52,7 @@
               <tr v-for="episode in episodes" :key="episode.id">
                 <td>
                   <v-btn
+                    v-if="!shouldIgnoreEpisode(episode)"
                     tile
                     small
                     color="orange"
@@ -62,6 +63,9 @@
                       mdi-plus
                     </v-icon>
                   </v-btn>
+                  <div v-else>
+                    追加済み
+                  </div>
                 </td>
                 <td justify="center" align="center">
                   <v-img
@@ -113,6 +117,13 @@ interface DataType {
 
 export default Vue.extend({
   name: 'PlaylistEpisodeSearch',
+  props: {
+    ignoreEpisodes: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
+  },
   data(): DataType {
     return {
       keyword: '',
@@ -151,6 +162,9 @@ export default Vue.extend({
     addEpisode(episode: any) {
       this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
       this.episodes.splice(this.episodes.indexOf(episode), 1)
+    },
+    shouldIgnoreEpisode(episode: any): boolean {
+      return this.ignoreEpisodes.map((ep: any) => ep.id).includes(episode.id)
     },
   },
 })
