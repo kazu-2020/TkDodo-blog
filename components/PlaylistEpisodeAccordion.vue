@@ -1,17 +1,25 @@
 <template>
   <v-expansion-panels :disabled="playlist.episodeNum === 0">
     <v-expansion-panel>
-      <v-expansion-panel-header>
+      <v-expansion-panel-header @click="fetchEpisodes">
         エピソード ({{ playlist.episodeNum }})
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <v-carousel hide-delimiters height="auto" :show-arrows="isShowArrows">
+        <div v-if="episodes.length === 0" align="center">
+          <v-progress-circular indeterminate color="amber" />
+        </div>
+        <v-carousel
+          v-else
+          hide-delimiters
+          height="auto"
+          :show-arrows="isShowArrows"
+        >
           <v-carousel-item
-            v-for="(episodes, index) in splittedEpisodes"
+            v-for="(_episodes, index) in splittedEpisodes"
             :key="`splittedEpisode${index}`"
           >
             <v-row class="px-4">
-              <v-col v-for="episode in episodes" :key="episode.id" cols="4">
+              <v-col v-for="episode in _episodes" :key="episode.id" cols="4">
                 <v-sheet color="grey" style="position: relative;">
                   <v-img
                     :src="episodeThumbnailUrl(episode)"
@@ -39,6 +47,7 @@ import moment from 'moment'
 
 interface DataType {
   episodePreviewNum: number
+  episodes: object[]
 }
 
 export default Vue.extend({
@@ -52,17 +61,18 @@ export default Vue.extend({
   data(): DataType {
     return {
       episodePreviewNum: 6,
+      episodes: [],
     }
   },
   computed: {
     splittedEpisodes(): any {
-      if (this.playlist.items === undefined) return []
+      if (this.episodes.length === 0) return []
 
-      const array = this.playlist.items.slice(0, this.playlist.items.length)
+      const array = this.episodes.slice(0, this.episodes.length)
       const result = []
       let index = 0
 
-      while (index < this.playlist.items.length) {
+      while (index < this.episodes.length) {
         result.push(array.splice(0, this.episodePreviewNum))
         index = index + this.episodePreviewNum
       }
@@ -70,7 +80,7 @@ export default Vue.extend({
       return result
     },
     isShowArrows(): boolean {
-      return (this.playlist.items?.length || 0) > this.episodePreviewNum
+      return (this.episodes?.length || 0) > this.episodePreviewNum
     },
   },
   methods: {
@@ -82,6 +92,15 @@ export default Vue.extend({
     dummyImage(time: any) {
       const logoNumber = (Number(moment(time).format('DD')) % 10) + 1
       return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
+    },
+    fetchEpisodes() {
+      if (this.episodes.length !== 0) return
+
+      this.$axios
+        .get(`/api/playlists/${this.playlist.id}/playlist_episodes`)
+        .then(res => {
+          this.episodes = res.data.items
+        })
     },
   },
 })
