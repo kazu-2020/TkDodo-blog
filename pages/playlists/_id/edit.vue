@@ -25,7 +25,6 @@
           <v-col cols="12">
             <v-text-field
               v-model="detailedNameRuby"
-              :rules="detailedNameRubyRules"
               label="ふりがな - Detailed Name Ruby"
             />
           </v-col>
@@ -333,13 +332,9 @@ export default Vue.extend({
   data: () => ({
     valid: true,
     nameRules: [
-      (v: String) => !!v || 'Name is required',
+      (v: String) => !!v || '名前は必ず入力してください',
       (v: String) =>
-        (v && v.length <= 255) || 'Name must be less than 255 characters',
-    ],
-    detailedNameRubyRules: [
-      (v: String) =>
-        (v && v.length <= 255) || 'NameRuby must be less than 255 characters',
+        (v && v.length <= 255) || '名前は255文字以下で入力してください',
     ],
     formatGenreLists: [
       { value: '00', text: 'ジャンルレス' },
