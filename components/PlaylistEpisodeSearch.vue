@@ -14,10 +14,46 @@
         />
       </v-col>
       <v-col cols="3" align="right">
-        <v-btn outlined>
-          <v-icon>mdi-plus</v-icon>
-          詳しい条件で探す
-        </v-btn>
+        <v-menu
+          v-model="menu"
+          :close-on-content-click="false"
+          :nudge-width="200"
+          offset-x
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn outlined v-bind="attrs" v-on="on">
+              <v-icon>mdi-plus</v-icon>
+              詳しい条件で探す
+            </v-btn>
+          </template>
+
+          <v-card>
+            <v-list>
+              <v-list-item>
+                <v-list-item-title>並び順</v-list-item-title>
+                <v-btn-toggle v-model="dateOrder">
+                  <v-btn>新しい順</v-btn>
+                  <v-btn>古い順</v-btn>
+                </v-btn-toggle>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>
+                  放送期間外のエピソードを含む
+                </v-list-item-title>
+                <v-switch v-model="ignoreRange" />
+              </v-list-item>
+            </v-list>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn color="secondary" text @click="searchWithDetail">
+                この条件で検索
+              </v-btn>
+              <v-btn text @click="clearSearchPane">
+                検索条件をクリア
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-menu>
       </v-col>
     </v-row>
     <v-row id="episode-search-result">
@@ -113,6 +149,10 @@ interface DataType {
   episodes: Array<object>
   loading: boolean
   isNoResult: boolean
+  menu: boolean
+  dateOrder: number
+  ignoreRange: boolean
+  totalSearchResult: number
 }
 
 export default Vue.extend({
@@ -130,6 +170,10 @@ export default Vue.extend({
       episodes: [],
       loading: false,
       isNoResult: false,
+      menu: false,
+      dateOrder: 0,
+      ignoreRange: true,
+      totalSearchResult: 0,
     }
   },
   methods: {
@@ -138,7 +182,8 @@ export default Vue.extend({
       this.$axios
         .get(`/api/episodes/search?word=${this.keyword}`)
         .then(res => {
-          this.episodes = res.data
+          this.episodes = res.data.items
+          this.totalSearchResult = res.data.total
           this.isNoResult = this.episodes.length === 0
         })
         .finally(() => {
@@ -165,6 +210,14 @@ export default Vue.extend({
     },
     shouldIgnoreEpisode(episode: any): boolean {
       return this.ignoreEpisodes.map((ep: any) => ep.id).includes(episode.id)
+    },
+    searchWithDetail() {
+      this.menu = false
+    },
+    clearSearchPane() {
+      this.menu = false
+      this.keyword = ''
+      this.episodes = []
     },
   },
 })
