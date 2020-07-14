@@ -117,7 +117,12 @@ export default {
         },
       }
 
-      if (getters.sameAs) {
+      if (
+        getters.sameAs.id ||
+        getters.sameAs.name ||
+        getters.sameAs.url ||
+        getters.sameAs._destroy
+      ) {
         Object.assign(body.playlist, {
           same_as_attributes: {
             id: getters.sameAs.id,
