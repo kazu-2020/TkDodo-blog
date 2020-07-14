@@ -14,14 +14,41 @@
                 </v-avatar>
               </div>
               <div>
-                <v-card-title class="headline" v-text="playlist.name" />
-                <v-card-subtitle v-text="playlist.nameRuby" />
-                <v-card-text>
-                  公開状況: 非公開<br />
-                  ID: {{ playlist.id }}<br />
-                  キャッチコピー: {{ playlist.detailedCatch }}<br />
-                  説明: {{ playlist.description }}<br />
-                </v-card-text>
+                <v-card-title class="headline">
+                  {{ playlist.name }}
+                  <v-card-subtitle
+                    v-if="playlist.detailedNameRuby"
+                    class="detailed-name-ruby"
+                  >
+                    ( {{ playlist.detailedNameRuby }} )
+                  </v-card-subtitle>
+                  <div class="chips">
+                    <v-chip class="ma-2" small>
+                      非公開
+                    </v-chip>
+                    <v-chip
+                      class="ma-2"
+                      color="primary"
+                      small
+                      @click="copyPlaylistId"
+                    >
+                      ID: {{ playlist.id }}
+                    </v-chip>
+                    <v-chip
+                      v-if="playlist.originalSeriesId"
+                      class="ma-2"
+                      color="secondary"
+                      small
+                      @click="copySeriesId"
+                    >
+                      SeriesID: {{ playlist.originalSeriesId }}
+                    </v-chip>
+                  </div>
+                </v-card-title>
+                <v-card-subtitle v-if="playlist.detailedCatch">
+                  ~ {{ playlist.detailedCatch }} ~
+                </v-card-subtitle>
+                <v-card-text v-text="playlist.description" />
               </div>
             </v-col>
             <v-col cols="2" class="text-right pl-0">
@@ -56,6 +83,14 @@
         </v-btn>
       </v-col>
     </v-row>
+    <v-snackbar v-model="snackbar" timeout="2000">
+      コピーしました
+      <template v-slot:action="{ attrs }">
+        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+          閉じる
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-layout>
 </template>
 
@@ -66,6 +101,7 @@ import PlaylistEpisodesList from '~/components/PlaylistEpisodesList.vue'
 import PlaylistEpisodeSearch from '~/components/PlaylistEpisodeSearch.vue'
 
 interface DataType {
+  snackbar: boolean
   url: String
 }
 
@@ -81,6 +117,7 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
+      snackbar: false,
       url:
         'https://pbs.twimg.com/profile_images/1111451081135943680/d1sPJsQf_400x400.png',
     }
@@ -112,11 +149,27 @@ export default Vue.extend({
       })
       this.$store.dispatch('playlists/saveEditingPlaylistEpisodes')
     },
+    copyPlaylistId() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(this.playlist.id)
+        this.snackbar = true
+      }
+    },
+    copySeriesId() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(this.playlist.originalSeriesId)
+        this.snackbar = true
+      }
+    },
   },
 })
 </script>
 
 <style lang="scss" scoped>
+.v-card__subtitle.detailed-name-ruby {
+  padding: 8px;
+}
+
 .v-input.episode-search.v-text-field.v-text-field--single-line.v-text-field--solo.v-text-field--is-booted.v-text-field--enclosed {
   .v-text-field__details {
     display: none;
