@@ -10,7 +10,7 @@
           class="episode-search"
           hide-details
           :loading="loading"
-          @keypress.enter="searchEpisodes"
+          @keypress.enter="searchEpisodesWithKeyword"
         />
       </v-col>
       <v-col cols="3" align="right">
@@ -126,7 +126,7 @@
                   </v-chip>
                 </td>
               </tr>
-              <tr v-if="canLoadMoreEpisodes">
+              <tr v-show="canLoadMoreEpisodes()">
                 <td
                   colspan="8"
                   align="center"
@@ -193,13 +193,21 @@ export default Vue.extend({
     }
   },
   methods: {
-    searchEpisodes() {
+    searchEpisodes({
+      clearCurrentEpisodes,
+    }: {
+      clearCurrentEpisodes: boolean
+    }) {
       this.loading = true
       this.$axios
         .get(
           `/api/episodes/search?word=${this.keyword}&offset=${this.episodes.length}`
         )
         .then(res => {
+          if (clearCurrentEpisodes) {
+            this.episodes = []
+          }
+
           this.episodes = this.episodes.concat(res.data.items)
           this.totalSearchResult = res.data.total
           this.isNoResult = this.episodes.length === 0
@@ -213,6 +221,9 @@ export default Vue.extend({
             })
           }
         })
+    },
+    searchEpisodesWithKeyword() {
+      this.searchEpisodes({ clearCurrentEpisodes: true })
     },
     eyecatchUrl(eyecatch: any) {
       if (eyecatch !== undefined) {
@@ -243,7 +254,7 @@ export default Vue.extend({
       return this.episodes.length < this.totalSearchResult
     },
     searchAdditionalEpisodes() {
-      this.searchEpisodes()
+      this.searchEpisodes({ clearCurrentEpisodes: false })
     },
   },
 })
