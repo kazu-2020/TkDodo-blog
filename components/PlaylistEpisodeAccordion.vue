@@ -6,7 +6,10 @@
       </v-expansion-panel-header>
       <v-expansion-panel-content>
         <div v-if="episodes.length === 0" align="center">
-          <v-progress-circular indeterminate color="amber" />
+          <div v-if="isError">
+            エラーが発生しました
+          </div>
+          <v-progress-circular v-else indeterminate color="amber" />
         </div>
         <v-carousel
           v-else
@@ -48,6 +51,7 @@ import moment from 'moment'
 interface DataType {
   episodePreviewNum: number
   episodes: object[]
+  isError: boolean
 }
 
 export default Vue.extend({
@@ -62,6 +66,7 @@ export default Vue.extend({
     return {
       episodePreviewNum: 6,
       episodes: [],
+      isError: false,
     }
   },
   computed: {
@@ -100,6 +105,9 @@ export default Vue.extend({
         .get(`/api/playlists/${this.playlist.id}/playlist_episodes`)
         .then(res => {
           this.episodes = res.data.items
+        })
+        .catch(() => {
+          this.isError = true
         })
     },
   },
