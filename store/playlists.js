@@ -95,34 +95,41 @@ export default {
       })
     },
     async updateEditingPlaylist({ commit, state, getters }) {
-      await this.$axios
-        .put(`/api/playlists/${state.editingPlaylist.id}`, {
-          playlist: {
-            name: state.editingPlaylist.name,
-            detailed_name_ruby: state.editingPlaylist.detailedNameRuby,
-            description: state.editingPlaylist.description,
-            keywords: state.editingPlaylist.keywords,
-            detailed_catch: state.editingPlaylist.detailedCatch,
-            hashtag: state.editingPlaylist.hashtag,
-            format_genre_code: state.editingPlaylist.formatGenre,
-            theme_genre_code: state.editingPlaylist.themeGenre,
-            selected_palette: state.editingPlaylist.selectedPalette,
-            primary_light_color: state.editingPlaylist.primaryLightColor,
-            primary_dark_color: state.editingPlaylist.primaryDarkColor,
-            text_light_color: state.editingPlaylist.textLightColor,
-            text_dark_color: state.editingPlaylist.textDardColor,
-            link_light_color: state.editingPlaylist.linkLightColor,
-            link_dark_color: state.editingPlaylist.linkDarkColor,
-            reserve_publish_time_at: state.editingPlaylist.reservePublishTimeAt,
-            reserve_finish_time_at: state.editingPlaylist.reserveFinishTimeAt,
-            same_as_attributes: {
-              id: getters.sameAs.id,
-              name: getters.sameAs.name,
-              url: getters.sameAs.url,
-              _destroy: getters.sameAs._destroy,
-            },
+      const body = {
+        playlist: {
+          name: state.editingPlaylist.name,
+          detailed_name_ruby: state.editingPlaylist.detailedNameRuby,
+          description: state.editingPlaylist.description,
+          keywords: state.editingPlaylist.keywords,
+          detailed_catch: state.editingPlaylist.detailedCatch,
+          hashtag: state.editingPlaylist.hashtag,
+          format_genre_code: state.editingPlaylist.formatGenre,
+          theme_genre_code: state.editingPlaylist.themeGenre,
+          selected_palette: state.editingPlaylist.selectedPalette,
+          primary_light_color: state.editingPlaylist.primaryLightColor,
+          primary_dark_color: state.editingPlaylist.primaryDarkColor,
+          text_light_color: state.editingPlaylist.textLightColor,
+          text_dark_color: state.editingPlaylist.textDardColor,
+          link_light_color: state.editingPlaylist.linkLightColor,
+          link_dark_color: state.editingPlaylist.linkDarkColor,
+          reserve_publish_time_at: state.editingPlaylist.reservePublishTimeAt,
+          reserve_finish_time_at: state.editingPlaylist.reserveFinishTimeAt,
+        },
+      }
+
+      if (getters.sameAs) {
+        Object.assign(body.playlist, {
+          same_as_attributes: {
+            id: getters.sameAs.id,
+            name: getters.sameAs.name,
+            url: getters.sameAs.url,
+            _destroy: getters.sameAs._destroy,
           },
         })
+      }
+
+      await this.$axios
+        .put(`/api/playlists/${state.editingPlaylist.id}`, body)
         .then(response =>
           commit('setEditingPlaylist', { playlist: response.data.playlist })
         )
