@@ -126,6 +126,22 @@
                   </v-chip>
                 </td>
               </tr>
+              <tr v-if="canLoadMoreEpisodes">
+                <td
+                  colspan="8"
+                  align="center"
+                  class="load-more"
+                  @click="searchAdditionalEpisodes"
+                >
+                  <v-progress-circular
+                    v-if="loading"
+                    indeterminate
+                    color="amber"
+                    class="mr-4"
+                  />
+                  さらに読み込む
+                </td>
+              </tr>
             </tbody>
           </template>
         </v-simple-table>
@@ -180,18 +196,22 @@ export default Vue.extend({
     searchEpisodes() {
       this.loading = true
       this.$axios
-        .get(`/api/episodes/search?word=${this.keyword}`)
+        .get(
+          `/api/episodes/search?word=${this.keyword}&offset=${this.episodes.length}`
+        )
         .then(res => {
-          this.episodes = res.data.items
+          this.episodes = this.episodes.concat(res.data.items)
           this.totalSearchResult = res.data.total
           this.isNoResult = this.episodes.length === 0
         })
         .finally(() => {
           this.loading = false
-          this.$scrollTo('#episode-search-result', 1400, {
-            easing: [0, 0, 0.1, 1],
-            offset: -75,
-          })
+          if (this.episodes.length <= 10) {
+            this.$scrollTo('#episode-search-result', 1400, {
+              easing: [0, 0, 0.1, 1],
+              offset: -75,
+            })
+          }
         })
     },
     eyecatchUrl(eyecatch: any) {
@@ -219,6 +239,12 @@ export default Vue.extend({
       this.keyword = ''
       this.episodes = []
     },
+    canLoadMoreEpisodes(): boolean {
+      return this.episodes.length < this.totalSearchResult
+    },
+    searchAdditionalEpisodes() {
+      this.searchEpisodes()
+    },
   },
 })
 </script>
@@ -231,6 +257,9 @@ export default Vue.extend({
   .add-button.v-btn.v-btn--tile.v-size--small {
     min-width: 0;
     padding: 0 2px;
+  }
+  .load-more {
+    cursor: pointer;
   }
 }
 </style>
