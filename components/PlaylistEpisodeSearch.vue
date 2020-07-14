@@ -31,7 +31,8 @@
             <v-list>
               <v-list-item>
                 <v-list-item-title>並び順</v-list-item-title>
-                <v-btn-toggle v-model="dateOrder">
+                <v-btn-toggle v-model="sortTypeNum">
+                  <v-btn>関連スコア順</v-btn>
                   <v-btn>新しい順</v-btn>
                   <v-btn>古い順</v-btn>
                 </v-btn-toggle>
@@ -166,7 +167,7 @@ interface DataType {
   loading: boolean
   isNoResult: boolean
   menu: boolean
-  dateOrder: number
+  sortTypeNum: number
   ignoreRange: boolean
   totalSearchResult: number
 }
@@ -187,10 +188,24 @@ export default Vue.extend({
       loading: false,
       isNoResult: false,
       menu: false,
-      dateOrder: 0,
+      sortTypeNum: 0,
       ignoreRange: true,
       totalSearchResult: 0,
     }
+  },
+  computed: {
+    sortType(): string {
+      switch (this.sortTypeNum) {
+        case 0:
+          return 'scoreDesc'
+        case 1:
+          return 'dateDesc'
+        case 2:
+          return 'dateAsc'
+        default:
+          return 'scoreDesc'
+      }
+    },
   },
   methods: {
     searchEpisodes({
@@ -201,7 +216,7 @@ export default Vue.extend({
       this.loading = true
       this.$axios
         .get(
-          `/api/episodes/search?word=${this.keyword}&offset=${this.episodes.length}`
+          `/api/episodes/search?word=${this.keyword}&offset=${this.episodes.length}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}`
         )
         .then(res => {
           if (clearCurrentEpisodes) {
@@ -244,6 +259,7 @@ export default Vue.extend({
     },
     searchWithDetail() {
       this.menu = false
+      this.searchEpisodesWithKeyword()
     },
     clearSearchPane() {
       this.menu = false
