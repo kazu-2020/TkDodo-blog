@@ -7,10 +7,7 @@
             <v-col cols="10" class="d-flex flex-row">
               <div>
                 <v-avatar class="ma-3" size="125" tile>
-                  <playlist-thumbnail
-                    :url="eyecatchImageUrl(playlist)"
-                    disable-input-form
-                  />
+                  <v-img :src="eyecatchImageUrl(playlist)" />
                 </v-avatar>
               </div>
               <div>
@@ -96,7 +93,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import PlaylistThumbnail from '~/components/PlaylistThumbnail.vue'
 import PlaylistEpisodesList from '~/components/PlaylistEpisodesList.vue'
 import PlaylistEpisodeSearch from '~/components/PlaylistEpisodeSearch.vue'
 
@@ -108,7 +104,6 @@ interface DataType {
 export default Vue.extend({
   name: 'PlaylistIdIndexComponent',
   components: {
-    PlaylistThumbnail,
     PlaylistEpisodesList,
     PlaylistEpisodeSearch,
   },
