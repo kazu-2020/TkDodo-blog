@@ -3,16 +3,27 @@ name: Test
 on: [push]
 
 jobs:
-  lint-job:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Build the Docker compose
-        run: docker-compose build
-      - name: Yarn install for dev
-        run: docker-compose run frontend yarn install
-      - name: Run Lint
-        run: docker-compose run frontend yarn lint
+  lint:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-yarn
+        with:
+          path: ~/.cache/yarn
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - run: yarn install
+      - run: yarn lint
       - name: action-slack
         uses: 8398a7/action-slack@v3
         with:
