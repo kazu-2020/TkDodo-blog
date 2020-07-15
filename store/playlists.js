@@ -64,6 +64,12 @@ export default {
     updateEditingPlaylistLogo(state, image) {
       state.editingPlaylist.logoImageData = image
     },
+    updateEditingPlaylistEyecatch(state, image) {
+      state.editingPlaylist.eyecatchImageData = image
+    },
+    updateEditingPlaylistHero(state, image) {
+      state.editingPlaylist.heroImageData = image
+    },
   },
   actions: {
     async fetchPlaylists({ commit }) {
@@ -118,35 +124,42 @@ export default {
         reserve_finish_time_at: state.editingPlaylist.reserveFinishTimeAt,
       }
 
+      if (state.editingPlaylist.logoImageData !== undefined) {
+        Object.assign(body, {
+          logo_image: state.editingPlaylist.logoImageData,
+        })
+      }
+      if (state.editingPlaylist.eyecatchImageData !== undefined) {
+        Object.assign(body, {
+          eyecatch_image: state.editingPlaylist.eyecatchImageData,
+        })
+      }
+      if (state.editingPlaylist.heroImageData !== undefined) {
+        Object.assign(body, {
+          hero_image: state.editingPlaylist.heroImageData,
+        })
+      }
+
+      const data = new FormData()
+      for (const key in body) {
+        if (body[key] !== undefined && body[key] !== null) {
+          data.append(`playlist[${key}]`, body[key])
+        }
+      }
+
       if (
         getters.sameAs.id ||
         getters.sameAs.name ||
         getters.sameAs.url ||
         getters.sameAs._destroy
       ) {
-        Object.assign(body, {
-          same_as_attributes: {
-            id: getters.sameAs.id,
-            name: getters.sameAs.name,
-            url: getters.sameAs.url,
-            _destroy: getters.sameAs._destroy,
-          },
-        })
-      }
-
-      const data = new FormData()
-      // const json = JSON.stringify(body)
-
-      // const blob = new Blob([json], {
-      //   type: 'application/json',
-      // })
-
-      // data.append('playlist', blob)
-      // data.append('playlist[name]', state.editingPlaylist.name)
-      // data.append('playlist[logo_image]', state.editingPlaylist.logoImageData)
-
-      for (const key in body) {
-        data.append(`playlist[${key}]`, body[key])
+        data.append('playlist[same_as_attributes][id]', getters.sameAs.id)
+        data.append('playlist[same_as_attributes][name]', getters.sameAs.name)
+        data.append('playlist[same_as_attributes][url]', getters.sameAs.url)
+        data.append(
+          'playlist[same_as_attributes][_destroy]',
+          getters.sameAs._destroy
+        )
       }
 
       await this.$axios
@@ -203,6 +216,12 @@ export default {
     },
     updateEditingPlaylistLogo({ commit }, image) {
       commit('updateEditingPlaylistLogo', image)
+    },
+    updateEditingPlaylistEyecatch({ commit }, image) {
+      commit('updateEditingPlaylistEyecatch', image)
+    },
+    updateEditingPlaylistHero({ commit }, image) {
+      commit('updateEditingPlaylistHero', image)
     },
   },
 }
