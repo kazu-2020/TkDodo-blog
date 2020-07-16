@@ -564,12 +564,24 @@ export default Vue.extend({
             switch (type) {
               case 'logo':
                 this.logoImageData = e.target.result as string
+                this.$store.dispatch(
+                  'playlists/updateEditingPlaylistLogo',
+                  file
+                )
                 break
               case 'eyecatch':
                 this.eyecatchImageData = e.target.result as string
+                this.$store.dispatch(
+                  'playlists/updateEditingPlaylistEyecatch',
+                  file
+                )
                 break
               case 'hero':
                 this.heroImageData = e.target.result as string
+                this.$store.dispatch(
+                  'playlists/updateEditingPlaylistHero',
+                  file
+                )
                 break
             }
           }
