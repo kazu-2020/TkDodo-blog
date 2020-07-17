@@ -3,7 +3,7 @@
     <v-container>
       <v-row justify="space-between">
         <v-col cols="auto" class="py-2 pr-0 pl-4">
-          <v-img :src="eyecatchImageUrl()" width="140" />
+          <v-img :src="logoImageUrl()" width="140" />
         </v-col>
         <v-col class="mr-auto">
           <v-card-title class="headline mb-1">
@@ -108,9 +108,9 @@ export default Vue.extend({
       const logoNumber = (Number(moment(time).format('DD')) % 10) + 1
       return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
     },
-    eyecatchImageUrl() {
+    logoImageUrl() {
       return (
-        this.playlist.eyecatch?.medium?.url ||
+        this.playlist.logo?.medium?.url ||
         this.dummyImage(this.playlist.dateCreated)
       )
     },

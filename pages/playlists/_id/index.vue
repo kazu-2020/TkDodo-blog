@@ -6,7 +6,7 @@
           <v-container>
             <v-row justify="space-between">
               <v-col cols="auto">
-                <v-img :src="eyecatchImageUrl(playlist)" width="140" />
+                <v-img :src="logoImageUrl(playlist)" width="140" />
               </v-col>
               <v-col class="mr-auto">
                 <v-card-title class="headline pt-0">
@@ -137,10 +137,8 @@ export default Vue.extend({
     },
   },
   methods: {
-    eyecatchImageUrl(playlist: any) {
-      return (
-        playlist.eyecatch?.medium?.url || this.dummyImage(playlist.dateCreated)
-      )
+    logoImageUrl(playlist: any) {
+      return playlist.logo?.medium?.url || this.dummyImage(playlist.dateCreated)
     },
     headerCardColor() {
       return this.vuetify.theme.dark ? '#616161' : '#F5F5F5'
