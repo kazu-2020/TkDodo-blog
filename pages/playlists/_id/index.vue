@@ -59,9 +59,35 @@
                     </v-btn>
                   </v-col>
                   <v-col class="px-0 pt-0">
-                    <v-btn :color="headerCardButtonColor()" icon small>
-                      <v-icon>mdi-code-json</v-icon>
-                    </v-btn>
+                    <v-dialog v-model="jsonDialog" width="600px">
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          :color="headerCardButtonColor()"
+                          icon
+                          small
+                          v-bind="attrs"
+                          v-on="on"
+                        >
+                          <v-icon>mdi-code-json</v-icon>
+                        </v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title>
+                          <span class="headline">
+                            {{ `/pl/${playlist.id}.json 出力イメージ` }}
+                          </span>
+                        </v-card-title>
+                        <v-card-text>
+                          ここにJSON が出力されます。（未実装）
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer />
+                          <v-btn text @click="jsonDialog = false">
+                            閉じる
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
                   </v-col>
                   <v-col />
                   <v-col />
@@ -110,6 +136,7 @@ import PlaylistEpisodeSearch from '~/components/PlaylistEpisodeSearch.vue'
 interface DataType {
   snackbar: boolean
   url: String
+  jsonDialog: boolean
 }
 
 export default Vue.extend({
@@ -126,6 +153,7 @@ export default Vue.extend({
       snackbar: false,
       url:
         'https://pbs.twimg.com/profile_images/1111451081135943680/d1sPJsQf_400x400.png',
+      jsonDialog: false,
     }
   },
   computed: {
