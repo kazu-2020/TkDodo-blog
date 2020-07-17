@@ -3,15 +3,13 @@
     <v-row>
       <v-col cols="12">
         <v-card :color="headerCardColor()">
-          <v-row>
-            <v-col cols="10" class="d-flex flex-row">
-              <div>
-                <v-avatar class="ma-3" size="125" tile>
-                  <v-img :src="eyecatchImageUrl(playlist)" />
-                </v-avatar>
-              </div>
-              <div>
-                <v-card-title class="headline">
+          <v-container>
+            <v-row justify="space-between">
+              <v-col cols="auto">
+                <v-img :src="logoImageUrl(playlist)" width="140" />
+              </v-col>
+              <v-col class="mr-auto">
+                <v-card-title class="headline pt-0">
                   {{ playlist.name }}
                   <v-card-subtitle
                     v-if="playlist.detailedNameRuby"
@@ -46,19 +44,57 @@
                   ~ {{ playlist.detailedCatch }} ~
                 </v-card-subtitle>
                 <v-card-text v-text="playlist.description" />
-              </div>
-            </v-col>
-            <v-col cols="2" class="text-right pl-0">
-              <v-btn
-                :color="headerCardButtonColor()"
-                text
-                :to="`/playlists/${playlist.id}/edit`"
-                nuxt
-              >
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
+              </v-col>
+              <v-col cols="auto" class="text-center">
+                <v-row class="flex-column ma-0 fill-height">
+                  <v-col class="px-0 pt-0">
+                    <v-btn
+                      :color="headerCardButtonColor()"
+                      icon
+                      :to="`/playlists/${playlist.id}/edit`"
+                      nuxt
+                      small
+                    >
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                  </v-col>
+                  <v-col class="px-0 pt-0">
+                    <v-dialog v-model="jsonDialog" width="600px">
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          :color="headerCardButtonColor()"
+                          icon
+                          small
+                          v-bind="attrs"
+                          v-on="on"
+                        >
+                          <v-icon>mdi-code-json</v-icon>
+                        </v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title>
+                          <span class="headline">
+                            {{ `/pl/${playlist.id}.json 出力イメージ` }}
+                          </span>
+                        </v-card-title>
+                        <v-card-text>
+                          ここにJSON が出力されます。（未実装）
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer />
+                          <v-btn text @click="jsonDialog = false">
+                            閉じる
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </v-col>
+                  <v-col />
+                  <v-col />
+                </v-row>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-card>
       </v-col>
     </v-row>
@@ -93,12 +129,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import moment from 'moment'
 import PlaylistEpisodesList from '~/components/PlaylistEpisodesList.vue'
 import PlaylistEpisodeSearch from '~/components/PlaylistEpisodeSearch.vue'
 
 interface DataType {
   snackbar: boolean
   url: String
+  jsonDialog: boolean
 }
 
 export default Vue.extend({
@@ -115,6 +153,7 @@ export default Vue.extend({
       snackbar: false,
       url:
         'https://pbs.twimg.com/profile_images/1111451081135943680/d1sPJsQf_400x400.png',
+      jsonDialog: false,
     }
   },
   computed: {
@@ -126,10 +165,8 @@ export default Vue.extend({
     },
   },
   methods: {
-    eyecatchImageUrl(playlist: any) {
-      return (
-        playlist.eyecatch?.medium?.url || 'https://placehold.jp/100x100.png'
-      )
+    logoImageUrl(playlist: any) {
+      return playlist.logo?.medium?.url || this.dummyImage(playlist.dateCreated)
     },
     headerCardColor() {
       return this.vuetify.theme.dark ? '#616161' : '#F5F5F5'
@@ -155,6 +192,10 @@ export default Vue.extend({
         navigator.clipboard.writeText(this.playlist.originalSeriesId)
         this.snackbar = true
       }
+    },
+    dummyImage(time: any) {
+      const logoNumber = (Number(moment(time).format('DD')) % 10) + 1
+      return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
     },
   },
 })
