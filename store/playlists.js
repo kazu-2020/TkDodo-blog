@@ -84,6 +84,11 @@ export default {
         .post('/api/playlists', payload)
         .then(response => commit('setPlaylist', { playlist: response.data }))
     },
+    async createPlaylistFromSeries({ commit }, payload) {
+      await this.$axios
+        .post('/api/playlists/import_from_series', payload)
+        .then(response => commit('setPlaylist', { playlist: response.data }))
+    },
     async deletePlaylist({ commit }, playlist) {
       await this.$axios
         .delete(`/api/playlists/${playlist.id}`)

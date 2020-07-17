@@ -19,12 +19,14 @@
           <v-list-item :to="'/'">
             <v-list-item-title>一覧</v-list-item-title>
           </v-list-item>
-          <v-list-item>
-            <v-list-item-title
-              class="playlist_new"
-              @click="isShowNewPlaylistDialog = true"
-            >
+          <v-list-item @click="isShowNewPlaylistDialog = true">
+            <v-list-item-title class="playlist_new">
               新規作成
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="isShowNewSeriesPlaylistDialog = true">
+            <v-list-item-title>
+              シリーズプレイリスト作成
             </v-list-item-title>
           </v-list-item>
         </v-list>
@@ -49,6 +51,10 @@
       <new-playlist-dialog
         :is-show-dialog="isShowNewPlaylistDialog"
         @hide-new-playlist-dialog="isShowNewPlaylistDialog = false"
+      />
+      <new-series-playlist-dialog
+        :is-show-dialog="isShowNewSeriesPlaylistDialog"
+        @hide-new-series-playlist-dialog="isShowNewSeriesPlaylistDialog = false"
       />
       <v-spacer />
       <v-btn @click="toggleDarkMode">
@@ -95,6 +101,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import NewPlaylistDialog from '~/components/NewPlaylistDialog.vue'
+import NewSeriesPlaylistDialog from '~/components/NewSeriesPlaylistDialog.vue'
 
 interface DataType {
   clipped: boolean
@@ -106,12 +113,16 @@ interface DataType {
   rightDrawer: boolean
   title: string
   isShowNewPlaylistDialog: boolean
+  isShowNewSeriesPlaylistDialog: boolean
   modeIcon: string
 }
 
 export default Vue.extend({
   name: 'LayoutDefault',
-  components: { NewPlaylistDialog },
+  components: {
+    NewPlaylistDialog,
+    NewSeriesPlaylistDialog,
+  },
   data(): DataType {
     return {
       clipped: false,
@@ -144,6 +155,7 @@ export default Vue.extend({
       rightDrawer: false,
       title: 'EditorialHands',
       isShowNewPlaylistDialog: false,
+      isShowNewSeriesPlaylistDialog: false,
       modeIcon: 'mdi-brightness-7',
     }
   },
