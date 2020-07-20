@@ -5,8 +5,8 @@ export default {
     messages: { success: '', error: '' },
   }),
   getters: {
-    state: state => state.state,
-    messages: state => state.messages,
+    state: (state) => state.state,
+    messages: (state) => state.messages,
   },
   mutations: {
     startLoading(state, messages) {

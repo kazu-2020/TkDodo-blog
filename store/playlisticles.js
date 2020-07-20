@@ -4,7 +4,7 @@ export default {
     editingPlaylisticle: null,
   }),
   getters: {
-    editingPlaylisticle: state => state.editingPlaylisticle,
+    editingPlaylisticle: (state) => state.editingPlaylisticle,
   },
   mutations: {
     setEditingPlaylisticle(state, { playlisticle }) {
@@ -13,7 +13,7 @@ export default {
   },
   actions: {
     async fetchPlaylisticle({ commit }) {
-      await this.$axios.get('/api/playlisticles/sandbox').then(response =>
+      await this.$axios.get('/api/playlisticles/sandbox').then((response) =>
         commit('setEditingPlaylisticle', {
           playlisticle: response.data.playlisticle,
         })

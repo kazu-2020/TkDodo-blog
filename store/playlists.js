@@ -5,8 +5,8 @@ export default {
     editingPlaylist: null,
   }),
   getters: {
-    allItems: state => state.allItems,
-    editingPlaylist: state => state.editingPlaylist,
+    allItems: (state) => state.allItems,
+    editingPlaylist: (state) => state.editingPlaylist,
     sameAs(_state, _getters, _rootState, rootGetters) {
       return rootGetters['sameAs/all']
     },
@@ -75,40 +75,40 @@ export default {
     async fetchPlaylists({ commit }) {
       await this.$axios
         .get('/api/playlists')
-        .then(response =>
+        .then((response) =>
           commit('setPlaylists', { playlists: response.data.playlists })
         )
     },
     async fetchD5Playlists({ commit }, area) {
       await this.$axios
         .get(`/api/playlists?area=${area}`)
-        .then(response =>
+        .then((response) =>
           commit('setPlaylists', { playlists: response.data.playlists })
         )
     },
     async createPlaylists({ commit }, payload) {
       await this.$axios
         .post('/api/playlists', payload)
-        .then(response => commit('setPlaylist', { playlist: response.data }))
+        .then((response) => commit('setPlaylist', { playlist: response.data }))
     },
     async createPlaylistFromSeries({ commit }, payload) {
       await this.$axios
         .post('/api/playlists/import_from_series', payload)
-        .then(response => commit('setPlaylist', { playlist: response.data }))
+        .then((response) => commit('setPlaylist', { playlist: response.data }))
     },
     async deletePlaylist({ commit }, playlist) {
       await this.$axios
         .delete(`/api/playlists/${playlist.id}`)
-        .then(response => {
+        .then((response) => {
           console.log('status:', response.status)
           commit('removePlaylist', playlist)
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error)
         })
     },
     async fetchPlaylist({ commit }, targetId) {
-      await this.$axios.get(`/api/playlists/${targetId}`).then(response => {
+      await this.$axios.get(`/api/playlists/${targetId}`).then((response) => {
         commit('setEditingPlaylist', { playlist: response.data.playlist })
         commit('sameAs/updateAll', response.data.playlist.sameAs, {
           root: true,
@@ -176,7 +176,7 @@ export default {
 
       await this.$axios
         .put(`/api/playlists/${state.editingPlaylist.id}`, data)
-        .then(response =>
+        .then((response) =>
           commit('setEditingPlaylist', { playlist: response.data.playlist })
         )
     },
@@ -188,7 +188,7 @@ export default {
             playlist_episodes: state.editingPlaylist.items,
           }
         )
-        .then(response => {
+        .then((response) => {
           commit('updateEditingPlaylistEpisodes', response.data.items)
         })
     },

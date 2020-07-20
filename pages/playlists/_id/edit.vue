@@ -98,7 +98,7 @@
                 ref="logoImageInput"
                 type="file"
                 accept="image/*"
-                style="display:none"
+                style="display: none;"
                 @change="replaceLogoImage"
               />
             </v-card>
@@ -118,7 +118,7 @@
                 ref="eyecatchImageInput"
                 type="file"
                 accept="image/*"
-                style="display:none"
+                style="display: none;"
                 @change="replaceEyecatchImage"
               />
             </v-card>
@@ -138,7 +138,7 @@
                 ref="heroImageInput"
                 type="file"
                 accept="image/*"
-                style="display:none"
+                style="display: none;"
                 @change="replaceHeroImage"
               />
             </v-card>
@@ -559,7 +559,7 @@ export default Vue.extend({
 
       if (file) {
         const reader = new FileReader()
-        reader.onload = e => {
+        reader.onload = (e) => {
           if (e.target !== null) {
             switch (type) {
               case 'logo':

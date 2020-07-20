@@ -29,7 +29,13 @@
                     aspect-ratio="1.33"
                   />
                   <div
-                    style="background-color: black; opacity: .5; position: absolute; bottom: 0; width: 100%;"
+                    style="
+                      background-color: black;
+                      opacity: 0.5;
+                      position: absolute;
+                      bottom: 0;
+                      width: 100%;
+                    "
                     class="pa-1 caption"
                   >
                     {{ episode.partOfSeries.name }}
@@ -103,7 +109,7 @@ export default Vue.extend({
 
       this.$axios
         .get(`/api/playlists/${this.playlist.id}/playlist_episodes`)
-        .then(res => {
+        .then((res) => {
           this.episodes = res.data.items
         })
         .catch(() => {

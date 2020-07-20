@@ -218,7 +218,7 @@ export default Vue.extend({
         .get(
           `/api/episodes/search?word=${this.keyword}&offset=${this.episodes.length}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}`
         )
-        .then(res => {
+        .then((res) => {
           if (clearCurrentEpisodes) {
             this.episodes = []
           }

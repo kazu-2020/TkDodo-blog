@@ -7,11 +7,11 @@ export default {
     _destroy: null,
   }),
   getters: {
-    id: state => state.id,
-    name: state => state.name,
-    url: state => state.url,
-    _destroy: state => state._destroy,
-    all: state => state,
+    id: (state) => state.id,
+    name: (state) => state.name,
+    url: (state) => state.url,
+    _destroy: (state) => state._destroy,
+    all: (state) => state,
   },
   mutations: {
     updateName(state, name) {

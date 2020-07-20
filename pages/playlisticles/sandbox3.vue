@@ -121,7 +121,7 @@
                 <v-col>
                   <v-btn
                     block
-                    style="text-transform: none"
+                    style="text-transform: none;"
                     @click="addArticleSection"
                   >
                     <v-icon>mdi-plus</v-icon>
@@ -131,7 +131,7 @@
                 <v-col>
                   <v-btn
                     block
-                    style="text-transform: none"
+                    style="text-transform: none;"
                     @click="addEpisodeSection"
                   >
                     <v-icon>mdi-plus</v-icon>
@@ -322,7 +322,9 @@ export default {
       this.jumpToSection(section)
 
       if (this.isBodySection(section)) {
-        this.selectedSection = this.bodySections.find(s => s.id === section.id)
+        this.selectedSection = this.bodySections.find(
+          (s) => s.id === section.id
+        )
       } else {
         this.selectedSection = {}
       }
@@ -337,24 +339,25 @@ export default {
       this.headerSection.data = updatedSectionData.editorData
     },
     updateBodySectionData(updatedSectionData) {
-      this.bodySections.find(s => s.id === updatedSectionData.sectionId).data =
-        updatedSectionData.editorData
+      this.bodySections.find(
+        (s) => s.id === updatedSectionData.sectionId
+      ).data = updatedSectionData.editorData
     },
     updateFooterSectionData(updatedSectionData) {
       this.footerSection.data = updatedSectionData.editorData
     },
     replaceToSelectedSectionData(section, item) {
       section.data.time = Date.now()
-      section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type)).type =
+      section.data.blocks.find((b) => this.isEpisodeRelatedBlock(b.type)).type =
         item.type
-      section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type)).data =
+      section.data.blocks.find((b) => this.isEpisodeRelatedBlock(b.type)).data =
         item.data
     },
     iconOf(section) {
       const sectionType = this.typeOfEpisodeRelatedBlock(section)
       if (!sectionType) return
 
-      return this.typeItems.find(item => item.type === sectionType).icon
+      return this.typeItems.find((item) => item.type === sectionType).icon
     },
     isNotSelectedSection(section) {
       return section !== this.selectedSection
@@ -402,7 +405,7 @@ export default {
       })
     },
     isIncludeEpisodeBlock(section) {
-      const episodeBlock = section.data.blocks.find(b =>
+      const episodeBlock = section.data.blocks.find((b) =>
         this.isEpisodeRelatedBlock(b.type)
       )
       return episodeBlock !== undefined
