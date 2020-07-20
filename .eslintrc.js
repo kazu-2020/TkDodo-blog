@@ -1,22 +1,10 @@
 module.exports = {
-  root: true,
-  env: {
-    browser: true,
-    node: true,
-  },
-  parserOptions: {
-    parser: '@typescript-eslint/parser',
-  },
   extends: [
-    '@nuxtjs',
-    'eslint:recommended',
-    // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
-    // より厳しいルールにするには`plugin:vue/strongly-recommended` もしくは `plugin:vue/recommended` に切り替えることを検討してください。
-    'plugin:vue/recommended',
+    '@nuxtjs/eslint-config-typescript',
+    'prettier/vue',
+    'prettier',
     'plugin:prettier/recommended',
   ],
-  // *.vue ファイルを lint にかけるために必要
-  plugins: ['vue', '@typescript-eslint'],
   // ここにカスタムルールを追加します。
   rules: {
     semi: [2, 'never'],
