@@ -7,7 +7,7 @@ export default {
   getters: {
     allItems: state => state.allItems,
     editingPlaylist: state => state.editingPlaylist,
-    sameAs(state, getters, rootState, rootGetters) {
+    sameAs(_state, _getters, _rootState, rootGetters) {
       return rootGetters['sameAs/all']
     },
   },
