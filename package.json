@@ -59,7 +59,6 @@
     "@storybook/addon-viewport": "^5.3.19",
     "@storybook/addons": "^5.3.19",
     "@storybook/vue": "^5.3.19",
-    "@typescript-eslint/parser": "^2.29.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.1.0",
     "babel-preset-vue": "^2.0.2",
