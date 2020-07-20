@@ -48,6 +48,19 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn color="transparent" depressed v-on="on">
+            <v-icon>mdi-access-point</v-icon>
+            r5 プレイリスト
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item :to="'/playlists/tokyo'">
+            <v-list-item-title>東京</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <new-playlist-dialog
         :is-show-dialog="isShowNewPlaylistDialog"
         @hide-new-playlist-dialog="isShowNewPlaylistDialog = false"

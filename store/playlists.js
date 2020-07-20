@@ -79,6 +79,13 @@ export default {
           commit('setPlaylists', { playlists: response.data.playlists })
         )
     },
+    async fetchD5Playlists({ commit }, area) {
+      await this.$axios
+        .get(`/api/playlists?area=${area}`)
+        .then(response =>
+          commit('setPlaylists', { playlists: response.data.playlists })
+        )
+    },
     async createPlaylists({ commit }, payload) {
       await this.$axios
         .post('/api/playlists', payload)
