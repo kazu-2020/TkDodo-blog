@@ -52,10 +52,10 @@
             {{ episode.name }}
           </td>
           <td>{{ episode.id }}</td>
-          <td>{{ episode.partOfSeries.name }}</td>
-          <td>{{ episode.partOfSeries.id }}</td>
+          <td>{{ seriesName(episode) }}</td>
+          <td>{{ seriesId(episode) }}</td>
           <td>
-            {{ convertReleaseDate(episode.releasedEvent.startDate) }}
+            {{ convertReleaseDate(episode.releasedEvent) }}
           </td>
           <td>
             <v-chip class="mx-2" color="pink" label text-color="white">
@@ -78,15 +78,23 @@ export default Vue.extend({
   components: {
     draggable,
   },
-  props: {
+  computed: {
     episodes: {
-      type: Array,
-      default: () => [],
+      get(): any[] {
+        return this.$store.state.playlists.editingPlaylist.items
+      },
+      set(value: any) {
+        this.$store.dispatch('playlists/updateEditingPlaylistEpisodes', value)
+      },
     },
   },
   methods: {
-    convertReleaseDate(date: any) {
-      return moment(date).format('YYYY年M月DD日（ddd）')
+    convertReleaseDate(releasedEvent: any) {
+      if (releasedEvent) {
+        return moment(releasedEvent.startDate).format('YYYY年M月DD日（ddd）')
+      } else {
+        return ''
+      }
     },
     deleteEpisode(episode: any) {
       this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
@@ -97,6 +105,12 @@ export default Vue.extend({
       } else {
         return ''
       }
+    },
+    seriesName(episode: any) {
+      return episode?.partOfSeries?.name || ''
+    },
+    seriesId(episode: any) {
+      return episode?.partOfSeries?.id || ''
     },
   },
 })

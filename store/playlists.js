@@ -7,7 +7,7 @@ export default {
   getters: {
     allItems: state => state.allItems,
     editingPlaylist: state => state.editingPlaylist,
-    sameAs(state, getters, rootState, rootGetters) {
+    sameAs(_state, _getters, _rootState, rootGetters) {
       return rootGetters['sameAs/all']
     },
   },
@@ -58,6 +58,18 @@ export default {
     updateEditingPlaylistHashtag(state, hashtag) {
       state.editingPlaylist.hashtag = hashtag
     },
+    updateEditingPlaylistEpisodes(state, episodes) {
+      state.editingPlaylist.items = episodes
+    },
+    updateEditingPlaylistLogo(state, image) {
+      state.editingPlaylist.logoImageData = image
+    },
+    updateEditingPlaylistEyecatch(state, image) {
+      state.editingPlaylist.eyecatchImageData = image
+    },
+    updateEditingPlaylistHero(state, image) {
+      state.editingPlaylist.heroImageData = image
+    },
   },
   actions: {
     async fetchPlaylists({ commit }) {
@@ -67,9 +79,21 @@ export default {
           commit('setPlaylists', { playlists: response.data.playlists })
         )
     },
+    async fetchD5Playlists({ commit }, area) {
+      await this.$axios
+        .get(`/api/playlists?area=${area}`)
+        .then(response =>
+          commit('setPlaylists', { playlists: response.data.playlists })
+        )
+    },
     async createPlaylists({ commit }, payload) {
       await this.$axios
         .post('/api/playlists', payload)
+        .then(response => commit('setPlaylist', { playlist: response.data }))
+    },
+    async createPlaylistFromSeries({ commit }, payload) {
+      await this.$axios
+        .post('/api/playlists/import_from_series', payload)
         .then(response => commit('setPlaylist', { playlist: response.data }))
     },
     async deletePlaylist({ commit }, playlist) {
@@ -92,37 +116,81 @@ export default {
       })
     },
     async updateEditingPlaylist({ commit, state, getters }) {
-      await this.$axios
-        .put(`/api/playlists/${state.editingPlaylist.id}`, {
-          playlist: {
-            name: state.editingPlaylist.name,
-            detailed_name_ruby: state.editingPlaylist.detailedNameRuby,
-            description: state.editingPlaylist.description,
-            keywords: state.editingPlaylist.keywords,
-            detailed_catch: state.editingPlaylist.detailedCatch,
-            hashtag: state.editingPlaylist.hashtag,
-            format_genre_code: state.editingPlaylist.formatGenre,
-            theme_genre_code: state.editingPlaylist.themeGenre,
-            selected_palette: state.editingPlaylist.selectedPalette,
-            primary_light_color: state.editingPlaylist.primaryLightColor,
-            primary_dark_color: state.editingPlaylist.primaryDarkColor,
-            text_light_color: state.editingPlaylist.textLightColor,
-            text_dark_color: state.editingPlaylist.textDardColor,
-            link_light_color: state.editingPlaylist.linkLightColor,
-            link_dark_color: state.editingPlaylist.linkDarkColor,
-            reserve_publish_time_at: state.editingPlaylist.reservePublishTimeAt,
-            reserve_finish_time_at: state.editingPlaylist.reserveFinishTimeAt,
-            same_as_attributes: {
-              id: getters.sameAs.id,
-              name: getters.sameAs.name,
-              url: getters.sameAs.url,
-              _destroy: getters.sameAs._destroy,
-            },
-          },
+      const body = {
+        name: state.editingPlaylist.name,
+        detailed_name_ruby: state.editingPlaylist.detailedNameRuby,
+        description: state.editingPlaylist.description,
+        keywords: state.editingPlaylist.keywords,
+        detailed_catch: state.editingPlaylist.detailedCatch,
+        hashtag: state.editingPlaylist.hashtag,
+        format_genre_code: state.editingPlaylist.formatGenre,
+        theme_genre_code: state.editingPlaylist.themeGenre,
+        selected_palette: state.editingPlaylist.selectedPalette,
+        primary_light_color: state.editingPlaylist.primaryLightColor,
+        primary_dark_color: state.editingPlaylist.primaryDarkColor,
+        text_light_color: state.editingPlaylist.textLightColor,
+        text_dark_color: state.editingPlaylist.textDardColor,
+        link_light_color: state.editingPlaylist.linkLightColor,
+        link_dark_color: state.editingPlaylist.linkDarkColor,
+        reserve_publish_time_at: state.editingPlaylist.reservePublishTimeAt,
+        reserve_finish_time_at: state.editingPlaylist.reserveFinishTimeAt,
+      }
+
+      if (state.editingPlaylist.logoImageData !== undefined) {
+        Object.assign(body, {
+          logo_image: state.editingPlaylist.logoImageData,
         })
+      }
+      if (state.editingPlaylist.eyecatchImageData !== undefined) {
+        Object.assign(body, {
+          eyecatch_image: state.editingPlaylist.eyecatchImageData,
+        })
+      }
+      if (state.editingPlaylist.heroImageData !== undefined) {
+        Object.assign(body, {
+          hero_image: state.editingPlaylist.heroImageData,
+        })
+      }
+
+      const data = new FormData()
+      for (const key in body) {
+        if (body[key] !== undefined && body[key] !== null) {
+          data.append(`playlist[${key}]`, body[key])
+        }
+      }
+
+      if (
+        getters.sameAs.id ||
+        getters.sameAs.name ||
+        getters.sameAs.url ||
+        getters.sameAs._destroy
+      ) {
+        data.append('playlist[same_as_attributes][id]', getters.sameAs.id)
+        data.append('playlist[same_as_attributes][name]', getters.sameAs.name)
+        data.append('playlist[same_as_attributes][url]', getters.sameAs.url)
+        data.append(
+          'playlist[same_as_attributes][_destroy]',
+          getters.sameAs._destroy
+        )
+      }
+
+      await this.$axios
+        .put(`/api/playlists/${state.editingPlaylist.id}`, data)
         .then(response =>
           commit('setEditingPlaylist', { playlist: response.data.playlist })
         )
+    },
+    async saveEditingPlaylistEpisodes({ commit, state }) {
+      await this.$axios
+        .post(
+          `/api/playlists/${state.editingPlaylist.id}/playlist_episodes/bulk_update`,
+          {
+            playlist_episodes: state.editingPlaylist.items,
+          }
+        )
+        .then(response => {
+          commit('updateEditingPlaylistEpisodes', response.data.items)
+        })
     },
     deleteEditingPlaylistEpisode({ commit }, episode) {
       commit('deleteEditingPlaylistEpisode', episode)
@@ -154,6 +222,18 @@ export default {
     },
     updateEditingPlaylistHashtag({ commit }, hashtag) {
       commit('updateEditingPlaylistHashtag', hashtag)
+    },
+    updateEditingPlaylistEpisodes({ commit }, episodes) {
+      commit('updateEditingPlaylistEpisodes', episodes)
+    },
+    updateEditingPlaylistLogo({ commit }, image) {
+      commit('updateEditingPlaylistLogo', image)
+    },
+    updateEditingPlaylistEyecatch({ commit }, image) {
+      commit('updateEditingPlaylistEyecatch', image)
+    },
+    updateEditingPlaylistHero({ commit }, image) {
+      commit('updateEditingPlaylistHero', image)
     },
   },
 }

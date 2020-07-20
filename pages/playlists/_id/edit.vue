@@ -25,7 +25,6 @@
           <v-col cols="12">
             <v-text-field
               v-model="detailedNameRuby"
-              :rules="detailedNameRubyRules"
               label="ふりがな - Detailed Name Ruby"
             />
           </v-col>
@@ -84,8 +83,65 @@
           <v-col cols="12">
             <h3>画像</h3>
           </v-col>
-          <v-col cols="12" sm="6" md="4">
-            <playlist-thumbnail />
+          <v-col cols="2">
+            <v-card tile>
+              <v-card-title>
+                ロゴ
+              </v-card-title>
+              <v-img
+                :src="logoImageUrl"
+                aspect-ratio="1"
+                @click="selectLogoImageFile"
+              />
+              <input
+                id="logoImageFile"
+                ref="logoImageInput"
+                type="file"
+                accept="image/*"
+                style="display:none"
+                @change="replaceLogoImage"
+              />
+            </v-card>
+          </v-col>
+          <v-col cols="4">
+            <v-card tile>
+              <v-card-title>
+                アイキャッチ
+              </v-card-title>
+              <v-img
+                :src="eyecatchImageUrl"
+                aspect-ratio="1.777777778"
+                @click="selectEyecatchImageFile"
+              />
+              <input
+                id="eyecatchImageFile"
+                ref="eyecatchImageInput"
+                type="file"
+                accept="image/*"
+                style="display:none"
+                @change="replaceEyecatchImage"
+              />
+            </v-card>
+          </v-col>
+          <v-col cols="6">
+            <v-card tile>
+              <v-card-title>
+                ヒーローイメージ
+              </v-card-title>
+              <v-img
+                :src="heroImageUrl"
+                aspect-ratio="3"
+                @click="selectHeroImageFile"
+              />
+              <input
+                id="heroImageFile"
+                ref="heroImageInput"
+                type="file"
+                accept="image/*"
+                style="display:none"
+                @change="replaceHeroImage"
+              />
+            </v-card>
           </v-col>
         </v-row>
 
@@ -259,7 +315,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import PlaylistThumbnail from '~/components/PlaylistThumbnail.vue'
 
 interface SameAs {
   name: string
@@ -268,9 +323,6 @@ interface SameAs {
 
 export default Vue.extend({
   name: 'PlaylistIdEditComponent',
-  components: {
-    PlaylistThumbnail,
-  },
   async asyncData({ store, params }) {
     if (store.getters['playlists/editingPlaylist']) {
       return
@@ -280,13 +332,9 @@ export default Vue.extend({
   data: () => ({
     valid: true,
     nameRules: [
-      (v: String) => !!v || 'Name is required',
+      (v: String) => !!v || '名前は必ず入力してください',
       (v: String) =>
-        (v && v.length <= 255) || 'Name must be less than 255 characters',
-    ],
-    detailedNameRubyRules: [
-      (v: String) =>
-        (v && v.length <= 255) || 'NameRuby must be less than 255 characters',
+        (v && v.length <= 255) || '名前は255文字以下で入力してください',
     ],
     formatGenreLists: [
       { value: '00', text: 'ジャンルレス' },
@@ -307,25 +355,12 @@ export default Vue.extend({
       { value: '096', text: '芸術' },
       { value: '110', text: '福祉全般' },
     ],
-    playlist: {
-      id: null,
-      publish_state: 0,
-      formatGenre: null,
-      themeGenre: null,
-      detailedCatch: null,
-      sameAs: [], // { name, url }
-      hashtags: [], // { name: '' }
-      keywords: [],
-      roles: [],
-      colors: null, // TODO
-      // 公開系
-      publishedStartDate: null,
-      publishedEndDate: null,
-      isPublish: false,
-    },
     color: '#FFFFFF',
     mask: '!#XXXXXXXX',
     menu: false,
+    logoImageData: '',
+    eyecatchImageData: '',
+    heroImageData: '',
   }),
   computed: {
     swatchStyle() {
@@ -439,6 +474,27 @@ export default Vue.extend({
         this.$store.dispatch('sameAs/updateUrl', value)
       },
     },
+    logoImageUrl(): string {
+      return (
+        this.logoImageData ||
+        this.editingPlaylist.logo?.medium?.url ||
+        'https://placehold.jp/640x640.png'
+      )
+    },
+    eyecatchImageUrl(): string {
+      return (
+        this.eyecatchImageData ||
+        this.editingPlaylist.eyecatch?.medium?.url ||
+        'https://placehold.jp/640x360.png'
+      )
+    },
+    heroImageUrl(): string {
+      return (
+        this.heroImageData ||
+        this.editingPlaylist.hero?.medium?.url ||
+        'https://placehold.jp/1080x360.png'
+      )
+    },
   },
   methods: {
     addSameAs() {
@@ -472,6 +528,65 @@ export default Vue.extend({
         this.$store.dispatch('playlists/updateEditingPlaylist')
       } else {
         console.log('Invalid!!!')
+      }
+    },
+    selectLogoImageFile() {
+      ;(this.$refs.logoImageInput as HTMLElement).click()
+    },
+    replaceLogoImage() {
+      const inputElement = this.$refs.logoImageInput as HTMLInputElement
+      this.replaceImage(inputElement, 'logo')
+    },
+    selectEyecatchImageFile() {
+      ;(this.$refs.eyecatchImageInput as HTMLElement).click()
+    },
+    replaceEyecatchImage() {
+      const inputElement = this.$refs.eyecatchImageInput as HTMLInputElement
+      this.replaceImage(inputElement, 'eyecatch')
+    },
+    selectHeroImageFile() {
+      ;(this.$refs.heroImageInput as HTMLElement).click()
+    },
+    replaceHeroImage() {
+      const inputElement = this.$refs.heroImageInput as HTMLInputElement
+      this.replaceImage(inputElement, 'hero')
+    },
+    replaceImage(targetElement: HTMLInputElement, type: string) {
+      if (targetElement.files === null) {
+        return
+      }
+      const file = targetElement.files[0]
+
+      if (file) {
+        const reader = new FileReader()
+        reader.onload = e => {
+          if (e.target !== null) {
+            switch (type) {
+              case 'logo':
+                this.logoImageData = e.target.result as string
+                this.$store.dispatch(
+                  'playlists/updateEditingPlaylistLogo',
+                  file
+                )
+                break
+              case 'eyecatch':
+                this.eyecatchImageData = e.target.result as string
+                this.$store.dispatch(
+                  'playlists/updateEditingPlaylistEyecatch',
+                  file
+                )
+                break
+              case 'hero':
+                this.heroImageData = e.target.result as string
+                this.$store.dispatch(
+                  'playlists/updateEditingPlaylistHero',
+                  file
+                )
+                break
+            }
+          }
+        }
+        reader.readAsDataURL(file)
       }
     },
   },

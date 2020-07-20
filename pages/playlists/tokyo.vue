@@ -1,10 +1,18 @@
 <template>
   <v-layout column>
     <v-row>
-      <v-col>
+      <v-col cols="12">
         <div class="title mb-4">
-          プレイリスト一覧
+          東京デッキ一覧
         </div>
+      </v-col>
+      <v-col cols="12">
+        以下のプレイリストは
+        <code>/d5/pl/130/deck.json</code>
+        で返却されるプレイリストを、EditorialHands
+        のプレイリストへ変換したものです。
+        <br />
+        1時間に一度、内容が最新版へ同期されます。
       </v-col>
     </v-row>
     <v-row>
@@ -31,7 +39,7 @@ export default Vue.extend({
   name: 'PlaylistIndexComponent',
   components: { PlaylistItem },
   async asyncData({ store }) {
-    await store.dispatch('playlists/fetchPlaylists')
+    await store.dispatch('playlists/fetchD5Playlists', '130')
   },
   computed: {
     playlists() {

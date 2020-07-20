@@ -10,14 +10,51 @@
           class="episode-search"
           hide-details
           :loading="loading"
-          @keypress.enter="searchEpisodes"
+          @keypress.enter="searchEpisodesWithKeyword"
         />
       </v-col>
       <v-col cols="3" align="right">
-        <v-btn outlined>
-          <v-icon>mdi-plus</v-icon>
-          詳しい条件で探す
-        </v-btn>
+        <v-menu
+          v-model="menu"
+          :close-on-content-click="false"
+          :nudge-width="200"
+          offset-x
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn outlined v-bind="attrs" v-on="on">
+              <v-icon>mdi-plus</v-icon>
+              詳しい条件で探す
+            </v-btn>
+          </template>
+
+          <v-card>
+            <v-list>
+              <v-list-item>
+                <v-list-item-title>並び順</v-list-item-title>
+                <v-btn-toggle v-model="sortTypeNum">
+                  <v-btn>関連スコア順</v-btn>
+                  <v-btn>新しい順</v-btn>
+                  <v-btn>古い順</v-btn>
+                </v-btn-toggle>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>
+                  放送期間外のエピソードを含む
+                </v-list-item-title>
+                <v-switch v-model="ignoreRange" />
+              </v-list-item>
+            </v-list>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn color="secondary" text @click="searchWithDetail">
+                この条件で検索
+              </v-btn>
+              <v-btn text @click="clearSearchPane">
+                検索条件をクリア
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-menu>
       </v-col>
     </v-row>
     <v-row id="episode-search-result">
@@ -52,6 +89,7 @@
               <tr v-for="episode in episodes" :key="episode.id">
                 <td>
                   <v-btn
+                    v-if="!shouldIgnoreEpisode(episode)"
                     tile
                     small
                     color="orange"
@@ -62,6 +100,9 @@
                       mdi-plus
                     </v-icon>
                   </v-btn>
+                  <div v-else>
+                    追加済み
+                  </div>
                 </td>
                 <td justify="center" align="center">
                   <v-img
@@ -84,6 +125,22 @@
                   <v-chip class="mx-2" color="pink" label text-color="white">
                     公開
                   </v-chip>
+                </td>
+              </tr>
+              <tr v-show="canLoadMoreEpisodes()">
+                <td
+                  colspan="8"
+                  align="center"
+                  class="load-more"
+                  @click="searchAdditionalEpisodes"
+                >
+                  <v-progress-circular
+                    v-if="loading"
+                    indeterminate
+                    color="amber"
+                    class="mr-4"
+                  />
+                  さらに読み込む
                 </td>
               </tr>
             </tbody>
@@ -109,34 +166,79 @@ interface DataType {
   episodes: Array<object>
   loading: boolean
   isNoResult: boolean
+  menu: boolean
+  sortTypeNum: number
+  ignoreRange: boolean
+  totalSearchResult: number
 }
 
 export default Vue.extend({
   name: 'PlaylistEpisodeSearch',
+  props: {
+    ignoreEpisodes: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
+  },
   data(): DataType {
     return {
       keyword: '',
       episodes: [],
       loading: false,
       isNoResult: false,
+      menu: false,
+      sortTypeNum: 0,
+      ignoreRange: true,
+      totalSearchResult: 0,
     }
   },
+  computed: {
+    sortType(): string {
+      switch (this.sortTypeNum) {
+        case 0:
+          return 'scoreDesc'
+        case 1:
+          return 'dateDesc'
+        case 2:
+          return 'dateAsc'
+        default:
+          return 'scoreDesc'
+      }
+    },
+  },
   methods: {
-    searchEpisodes() {
+    searchEpisodes({
+      clearCurrentEpisodes,
+    }: {
+      clearCurrentEpisodes: boolean
+    }) {
       this.loading = true
       this.$axios
-        .get(`/api/episodes/search?word=${this.keyword}`)
+        .get(
+          `/api/episodes/search?word=${this.keyword}&offset=${this.episodes.length}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}`
+        )
         .then(res => {
-          this.episodes = res.data
+          if (clearCurrentEpisodes) {
+            this.episodes = []
+          }
+
+          this.episodes = this.episodes.concat(res.data.items)
+          this.totalSearchResult = res.data.total
           this.isNoResult = this.episodes.length === 0
         })
         .finally(() => {
           this.loading = false
-          this.$scrollTo('#episode-search-result', 1400, {
-            easing: [0, 0, 0.1, 1],
-            offset: -75,
-          })
+          if (this.episodes.length <= 10) {
+            this.$scrollTo('#episode-search-result', 1400, {
+              easing: [0, 0, 0.1, 1],
+              offset: -75,
+            })
+          }
         })
+    },
+    searchEpisodesWithKeyword() {
+      this.searchEpisodes({ clearCurrentEpisodes: true })
     },
     eyecatchUrl(eyecatch: any) {
       if (eyecatch !== undefined) {
@@ -152,6 +254,24 @@ export default Vue.extend({
       this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
       this.episodes.splice(this.episodes.indexOf(episode), 1)
     },
+    shouldIgnoreEpisode(episode: any): boolean {
+      return this.ignoreEpisodes.map((ep: any) => ep.id).includes(episode.id)
+    },
+    searchWithDetail() {
+      this.menu = false
+      this.searchEpisodesWithKeyword()
+    },
+    clearSearchPane() {
+      this.menu = false
+      this.keyword = ''
+      this.episodes = []
+    },
+    canLoadMoreEpisodes(): boolean {
+      return this.episodes.length < this.totalSearchResult
+    },
+    searchAdditionalEpisodes() {
+      this.searchEpisodes({ clearCurrentEpisodes: false })
+    },
   },
 })
 </script>
@@ -164,6 +284,9 @@ export default Vue.extend({
   .add-button.v-btn.v-btn--tile.v-size--small {
     min-width: 0;
     padding: 0 2px;
+  }
+  .load-more {
+    cursor: pointer;
   }
 }
 </style>

@@ -128,9 +128,4 @@ export default {
       plugins: [],
     },
   },
-  typescript: {
-    typeCheck: {
-      eslint: true,
-    },
-  },
 }

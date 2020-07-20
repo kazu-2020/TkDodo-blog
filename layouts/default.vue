@@ -6,7 +6,7 @@
         style="text-decoration: none;"
         class="playlist-title"
       >
-        <v-toolbar-title v-text="title" />
+        <v-img :src="logoSrc()" :srcset="logoSrcset()" width="150" />
       </nuxt-link>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
@@ -19,12 +19,14 @@
           <v-list-item :to="'/'">
             <v-list-item-title>一覧</v-list-item-title>
           </v-list-item>
-          <v-list-item>
-            <v-list-item-title
-              class="playlist_new"
-              @click="isShowNewPlaylistDialog = true"
-            >
+          <v-list-item @click="isShowNewPlaylistDialog = true">
+            <v-list-item-title class="playlist_new">
               新規作成
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="isShowNewSeriesPlaylistDialog = true">
+            <v-list-item-title>
+              シリーズプレイリスト作成
             </v-list-item-title>
           </v-list-item>
         </v-list>
@@ -46,9 +48,26 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn color="transparent" depressed v-on="on">
+            <v-icon>mdi-access-point</v-icon>
+            r5 プレイリスト
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item :to="'/playlists/tokyo'">
+            <v-list-item-title>東京</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <new-playlist-dialog
         :is-show-dialog="isShowNewPlaylistDialog"
         @hide-new-playlist-dialog="isShowNewPlaylistDialog = false"
+      />
+      <new-series-playlist-dialog
+        :is-show-dialog="isShowNewSeriesPlaylistDialog"
+        @hide-new-series-playlist-dialog="isShowNewSeriesPlaylistDialog = false"
       />
       <v-spacer />
       <v-btn @click="toggleDarkMode">
@@ -95,6 +114,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import NewPlaylistDialog from '~/components/NewPlaylistDialog.vue'
+import NewSeriesPlaylistDialog from '~/components/NewSeriesPlaylistDialog.vue'
 
 interface DataType {
   clipped: boolean
@@ -106,12 +126,16 @@ interface DataType {
   rightDrawer: boolean
   title: string
   isShowNewPlaylistDialog: boolean
+  isShowNewSeriesPlaylistDialog: boolean
   modeIcon: string
 }
 
 export default Vue.extend({
   name: 'LayoutDefault',
-  components: { NewPlaylistDialog },
+  components: {
+    NewPlaylistDialog,
+    NewSeriesPlaylistDialog,
+  },
   data(): DataType {
     return {
       clipped: false,
@@ -144,6 +168,7 @@ export default Vue.extend({
       rightDrawer: false,
       title: 'EditorialHands',
       isShowNewPlaylistDialog: false,
+      isShowNewSeriesPlaylistDialog: false,
       modeIcon: 'mdi-brightness-7',
     }
   },
@@ -209,6 +234,20 @@ export default Vue.extend({
     },
     resetLoadingState() {
       this.$store.dispatch('loading/resetLoadingState')
+    },
+    logoSrcset(): string {
+      if (this.vuetify.theme.dark) {
+        return '/logo.png 1x, /logo@2x.png 2x'
+      } else {
+        return '/logo-black.png 1x, /logo-black@2x.png 2x'
+      }
+    },
+    logoSrc(): string {
+      if (this.vuetify.theme.dark) {
+        return '/logo.png'
+      } else {
+        return '/logo-black.png'
+      }
     },
   },
 })
