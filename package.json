@@ -74,7 +74,8 @@
     "storybook-dark-mode": "^0.6.1",
     "style-loader": "^1.2.1",
     "stylelint": "^13.6.1",
-    "stylelint-config-prettier": "^8.0.2"
+    "stylelint-config-prettier": "^8.0.2",
+    "typescript": "^3.9.7"
   },
   "pre-commit": [
     "precommit-msg",
