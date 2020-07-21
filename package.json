@@ -48,6 +48,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.4",
     "@babel/plugin-proposal-decorators": "7.10.4",
+    "@nuxt/types": "^2.13.3",
     "@nuxt/typescript-build": "^2.0.0",
     "@nuxtjs/eslint-config-typescript": "^2.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
