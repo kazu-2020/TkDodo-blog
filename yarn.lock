@@ -8469,6 +8469,14 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
+nuxt-typed-vuex@^0.1.19:
+  version "0.1.19"
+  resolved "https://registry.yarnpkg.com/nuxt-typed-vuex/-/nuxt-typed-vuex-0.1.19.tgz#da474c6c0516019668285f2536544c10ddbe4509"
+  integrity sha512-G5hCiXkJeXG7noD3YoB2MUrXLLqf+VV6lwOvYRa+3L/s2JORBbRSIO+BM8c+ycclVUBcgdexZJjPdlp5iEGUjA==
+  dependencies:
+    normalize-path "^3.0.0"
+    typed-vuex "0.1.19"
+
 nuxt@^2.13.3:
   version "2.13.3"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.13.3.tgz#494f0df34851dfcdbdf4fd092112fa1d4bed1b02"
@@ -12096,6 +12104,11 @@ typed-styles@^0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/typed-styles/-/typed-styles-0.0.7.tgz#93392a008794c4595119ff62dde6809dbc40a3d9"
   integrity sha512-pzP0PWoZUhsECYjABgCGQlRGL1n7tOHsgwYv3oIiEpJwGhFTuty/YNeduxQYzXXa3Ge5BdT6sHYIQYpl4uJ+5Q==
+
+typed-vuex@0.1.19:
+  version "0.1.19"
+  resolved "https://registry.yarnpkg.com/typed-vuex/-/typed-vuex-0.1.19.tgz#81cffcad5e76b55bac562258f48dd56ff64088cf"
+  integrity sha512-ugrJwMEoQNncJA+ziocbaEYnu23m1ekFoRcP+cXg3SPhEqGu4u8/RoRYF4eKycvGKf3YdkRTAXn5czaDWUgrWw==
 
 typedarray-to-buffer@^3.1.5:
   version "3.1.5"

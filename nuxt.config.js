@@ -43,6 +43,7 @@ export default {
    */
   buildModules: [
     '@nuxt/typescript-build',
+    'nuxt-typed-vuex',
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module',
     [
@@ -114,16 +115,17 @@ export default {
      */
     extend(config, ctx) {
       // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
-        config.devtool = 'inline-cheap-module-source-map'
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/,
-        })
-      }
+      // if (ctx.isDev && ctx.isClient) {
+      //   config.devtool = 'inline-cheap-module-source-map'
+      //   config.module.rules.push({
+      //     enforce: 'pre',
+      //     test: /\.(js|vue)$/,
+      //     loader: 'eslint-loader',
+      //     exclude: /(node_modules)/,
+      //   })
+      // }
     },
+    transpile: [/typed-vuex/],
     babel: {
       plugins: [],
     },
