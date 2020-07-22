@@ -146,121 +146,7 @@
         </v-row>
 
         <!-- 色 -->
-        <v-row dense class="my-5">
-          <v-col cols="12">
-            <h3>色 - Color</h3>
-            <p>
-              ここで選んだ色がアクセシビリティに配慮された色に変換されページに反映されます
-            </p>
-          </v-col>
-          <v-col cols="12">
-            <v-row>
-              <v-col cols="12" class="d-flex flex-row">
-                <v-sheet
-                  width="40"
-                  height="40"
-                  elevation="4"
-                  color="#faf100"
-                  class="mr-4"
-                />
-                <v-sheet
-                  width="40"
-                  height="40"
-                  elevation="4"
-                  color="#f6aa00"
-                  class="mr-4"
-                />
-                <v-sheet
-                  width="40"
-                  height="40"
-                  elevation="4"
-                  color="#ff2800"
-                  class="mr-4"
-                />
-                <v-sheet
-                  width="40"
-                  height="40"
-                  elevation="4"
-                  color="#990099"
-                  class="mr-4"
-                />
-                <v-sheet
-                  width="40"
-                  height="40"
-                  elevation="4"
-                  color="#005aff"
-                  class="mr-4"
-                />
-                <v-sheet
-                  width="40"
-                  height="40"
-                  elevation="4"
-                  color="#03af7a"
-                  class="mr-4"
-                />
-                <v-sheet
-                  width="40"
-                  height="40"
-                  elevation="4"
-                  color="#ff8082"
-                  class="mr-4"
-                />
-                <v-sheet
-                  width="40"
-                  height="40"
-                  elevation="4"
-                  color="#4dc4ff"
-                  class="mr-4"
-                />
-                <v-sheet
-                  width="40"
-                  height="40"
-                  elevation="4"
-                  color="#804000"
-                  class="mr-4"
-                />
-                <v-sheet
-                  width="40"
-                  height="40"
-                  elevation="4"
-                  color="#84919e"
-                  class="mr-4"
-                />
-                <v-sheet width="40" height="40" elevation="4" color="white" />
-              </v-col>
-            </v-row>
-            <v-row justify="start" align="center">
-              <v-col class="shrink" style="min-width: 220px;">
-                <v-text-field
-                  v-model="color"
-                  v-mask="mask"
-                  hide-details
-                  class="ma-0 pa-0"
-                  solo
-                >
-                  <template v-slot:append>
-                    <v-menu
-                      v-model="menu"
-                      top
-                      nudge-bottom="105"
-                      nudge-left="16"
-                      :close-on-content-click="false"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <div :style="swatchStyle" v-on="on" />
-                      </template>
-                      <v-card>
-                        <v-card-text class="pa-0">
-                          <v-color-picker v-model="color" flat />
-                        </v-card-text>
-                      </v-card>
-                    </v-menu>
-                  </template>
-                </v-text-field>
-              </v-col>
-            </v-row>
-          </v-col>
-        </v-row>
+        <ColorPalette />
 
         <!-- sameAs -->
         <v-row dense class="my-5">
@@ -315,6 +201,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import ColorPalette from '~/components/forms/ColorPalette.vue'
 
 interface SameAs {
   name: string
@@ -323,6 +210,9 @@ interface SameAs {
 
 export default Vue.extend({
   name: 'PlaylistIdEditComponent',
+  components: {
+    ColorPalette,
+  },
   async asyncData({ store, params }) {
     if ((store as any).$accessor.playlists.editingPlaylist.id) {
       return
