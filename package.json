@@ -19,7 +19,8 @@
     "dev-debug": "node --inspect-brk=9229 node_modules/nuxt/bin/nuxt",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "test": "jest --config jest.config.js spec/**/*.js"
+    "test": "jest --config jest.config.js spec/**/*.js",
+    "test:coverage": "jest --config jest.config.js --coverage spec/**/*.js"
   },
   "dependencies": {
     "@codexteam/ajax": "^4.2.0",
@@ -71,6 +72,8 @@
     "babel-loader": "^8.1.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-vue": "^2.0.2",
+    "codecov": "^3.7.1",
+    "core-js": "2.6.5",
     "cross-env": "^7.0.2",
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
