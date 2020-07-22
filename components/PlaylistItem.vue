@@ -43,7 +43,7 @@
               </v-btn>
             </v-col>
             <v-col class="px-0 pt-0">
-              <v-btn small icon @click="deletePlaylist">
+              <v-btn small icon class="delete_button" @click="deletePlaylist">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </v-col>

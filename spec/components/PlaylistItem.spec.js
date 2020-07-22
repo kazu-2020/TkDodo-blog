@@ -90,4 +90,21 @@ describe('components/PlaylistItem.vue', () => {
       })
     })
   })
+
+  describe('method deletePlaylist', () => {
+    it('プレイリスト削除イベントが発行されること', () => {
+      // Confirm ダイアログをスタブする
+      window.confirm = jest.fn().mockImplementation(() => true)
+
+      const wrapper = mount(PlaylistItem, {
+        stubs: {
+          NuxtLink: RouterLinkStub,
+        },
+        propsData: { playlist: {} },
+      })
+      wrapper.find('.delete_button').trigger('click')
+
+      expect(wrapper.emitted()['delete-playlist'].length).toBe(1)
+    })
+  })
 })
