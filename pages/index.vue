@@ -28,7 +28,7 @@ import Vue from 'vue'
 import PlaylistItem from '~/components/PlaylistItem.vue'
 
 export default Vue.extend({
-  name: 'PlaylistIndexComponent',
+  name: 'PlaylistIndexPage',
   components: { PlaylistItem },
   async asyncData({ store }) {
     await store.dispatch('playlists/fetchPlaylists')
