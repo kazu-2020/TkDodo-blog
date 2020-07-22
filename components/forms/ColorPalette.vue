@@ -19,6 +19,27 @@
               elevation="4"
               @click="selectPalette($event)"
             />
+            <v-menu :close-on-content-click="false" offset-x>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  v-bind="attrs"
+                  :value="`${selectedPaletteColor}`"
+                  class="ml-3"
+                  :style="{
+                    backgroundColor: `${selectedPaletteColor} !important`,
+                  }"
+                  elevation="4"
+                  v-on="on"
+                />
+              </template>
+              <v-color-picker
+                v-model="selectedPaletteColor"
+                mode="hexa"
+                elevation="15"
+                hide-mode-switch
+                @update:color="selectedPicker"
+              />
+            </v-menu>
           </v-btn-toggle>
         </v-col>
       </v-row>
@@ -92,7 +113,6 @@
             hide-details
             outlined
             readonly
-            dark
           >
             <template v-slot:append class="mt-3">
               <v-sheet
@@ -120,6 +140,7 @@ import {
 
 export default Vue.extend({
   data: () => ({
+    selectedPaletteColor: '#FFFFFF',
     pallets: {
       primaryLight: '#FFFFFF',
       primaryDark: '#FFFFFF',
@@ -142,7 +163,12 @@ export default Vue.extend({
   methods: {
     selectPalette(event) {
       const colorHex = event.target.value
-
+      this.setAdjustedColors(colorHex)
+    },
+    selectedPicker(selectedColor) {
+      this.setAdjustedColors(selectedColor.hex)
+    },
+    setAdjustedColors(colorHex) {
       this.pallets.primaryLight = adjustPrimaryLightColor(colorHex)
       this.pallets.linkLight = adjustLinkLightColor(colorHex)
       this.pallets.primaryDark = adjustPrimaryDarkColor(colorHex)
