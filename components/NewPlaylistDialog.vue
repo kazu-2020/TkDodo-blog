@@ -128,7 +128,7 @@ export default Vue.extend({
 
       if (this.valid) {
         this.loadingDialog = true
-        this.$accessor.playlist.createPlaylists({
+        this.$accessor.playlists.createPlaylists({
           playlist: {
             name: this.name,
             description: this.description,
