@@ -21,6 +21,7 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/components/**/*.vue',
     '<rootDir>/pages/**/*.vue',
+    '<rootDir>/store/**/*.ts',
   ],
 
   // The directory where Jest should output its coverage files
@@ -164,10 +165,11 @@ module.exports = {
   transform: {
     '^.+\\.vue$': 'vue-jest',
     '^.+\\.jsx?$': 'babel-jest',
+    '^.+\\.(ts|tsx)$': 'ts-jest',
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ['/node_modules/'],
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!.*typed-vuex/lib)'],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,

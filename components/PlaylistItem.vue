@@ -6,7 +6,7 @@
           <v-img :src="logoImageUrl" width="140" />
         </v-col>
         <v-col class="mr-auto">
-          <v-card-title class="headline mb-1">
+          <v-card-title class="headline mb-1 playlist-title">
             {{ playlist.name }}
             <v-chip
               v-if="playlist.originalSeriesId"

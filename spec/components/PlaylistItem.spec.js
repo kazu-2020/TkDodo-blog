@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { mount, RouterLinkStub } from '@vue/test-utils'
-import PlaylistItem from '../../components/PlaylistItem.vue'
+import PlaylistItem from '~/components/PlaylistItem.vue'
 Vue.use(Vuetify)
 
 describe('components/PlaylistItem.vue', () => {
