@@ -177,7 +177,7 @@ export default {
   },
   mixins: [editorBlockMixin],
   asyncData({ $axios }) {
-    return $axios.get('/api/playlisticles/sandbox_word').then(res => {
+    return $axios.get('/api/playlisticles/sandbox_word').then((res) => {
       return {
         headerSection: res.data.playlisticle.headerSection,
         bodySections: res.data.playlisticle.bodySections,
@@ -267,7 +267,9 @@ export default {
       this.jumpToSection(section)
 
       if (section.type === 'body') {
-        this.selectedSection = this.bodySections.find(s => s.id === section.id)
+        this.selectedSection = this.bodySections.find(
+          (s) => s.id === section.id
+        )
       } else {
         this.selectedSection = {}
       }
@@ -282,22 +284,23 @@ export default {
       this.headerSection.data = updatedSectionData.editorData
     },
     updateBodySectionData(updatedSectionData) {
-      this.bodySections.find(s => s.id === updatedSectionData.sectionId).data =
-        updatedSectionData.editorData
+      this.bodySections.find(
+        (s) => s.id === updatedSectionData.sectionId
+      ).data = updatedSectionData.editorData
     },
     updateFooterSectionData(updatedSectionData) {
       this.footerSection.data = updatedSectionData.editorData
     },
     replaceToSelectedSectionData(section, item) {
       section.data.time = Date.now()
-      section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type)).type =
+      section.data.blocks.find((b) => this.isEpisodeRelatedBlock(b.type)).type =
         item.type
-      section.data.blocks.find(b => this.isEpisodeRelatedBlock(b.type)).data =
+      section.data.blocks.find((b) => this.isEpisodeRelatedBlock(b.type)).data =
         item.data
     },
     iconOf(section) {
       const sectionType = this.typeOfEpisodeRelatedBlock(section)
-      return this.typeItems.find(item => item.type === sectionType).icon
+      return this.typeItems.find((item) => item.type === sectionType).icon
     },
     isNotSelectedSection(section) {
       return section !== this.selectedSection

@@ -43,6 +43,7 @@ export default {
    */
   buildModules: [
     '@nuxt/typescript-build',
+    'nuxt-typed-vuex',
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module',
     [
@@ -113,7 +114,7 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {
-      // Run ESLint on save
+      // Run ESLint on save FIXME: 消しても問題ないか確認する
       if (ctx.isDev && ctx.isClient) {
         config.devtool = 'inline-cheap-module-source-map'
         config.module.rules.push({
@@ -124,8 +125,20 @@ export default {
         })
       }
     },
+    transpile: [/typed-vuex/],
     babel: {
-      plugins: [],
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            targets: {
+              ie: '11',
+            },
+            useBuiltIns: 'usage',
+            corejs: 3,
+          },
+        ],
+      ],
     },
   },
 }

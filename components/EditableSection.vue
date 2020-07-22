@@ -95,7 +95,7 @@ export default {
     updateEditorData() {
       this.editor
         .save()
-        .then(outputData => {
+        .then((outputData) => {
           if (
             this.requireEpisodeBlock &&
             !this.isIncludeEpisodeBlock(outputData)
@@ -110,7 +110,7 @@ export default {
             })
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.log('Saving failed: ', error)
           this.showErrorMessage(error)
         })
@@ -119,7 +119,7 @@ export default {
       console.log('Article data: ', JSON.stringify(this.editorData))
     },
     isIncludeEpisodeBlock(data) {
-      const episodeBlock = data.blocks.find(b =>
+      const episodeBlock = data.blocks.find((b) =>
         this.isEpisodeRelatedBlock(b.type)
       )
       return episodeBlock !== undefined

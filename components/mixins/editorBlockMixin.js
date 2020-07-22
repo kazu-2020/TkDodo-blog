@@ -1,7 +1,7 @@
 const editorBlockMixin = {
   methods: {
     makeEpisodeBlockId(selectedSection) {
-      const block = selectedSection.data.blocks.find(b =>
+      const block = selectedSection.data.blocks.find((b) =>
         this.isEpisodeRelatedBlock(b.type)
       )
       if (block) {
@@ -11,7 +11,7 @@ const editorBlockMixin = {
       }
     },
     typeOfEpisodeRelatedBlock(section) {
-      const blocks = section.data.blocks.find(b =>
+      const blocks = section.data.blocks.find((b) =>
         this.isEpisodeRelatedBlock(b.type)
       )
 

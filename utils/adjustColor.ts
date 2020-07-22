@@ -16,9 +16,7 @@ function adjustColor(
 
     // 調整すべき色のLuminanceよりもベース色のLuminanceが明るい場合（背景色に比べ色が明るすぎる場合）
     if (baseCL > adjustedCL) {
-      adjustedColor = chroma(baseColor)
-        .luminance(adjustedCL)
-        .hex()
+      adjustedColor = chroma(baseColor).luminance(adjustedCL).hex()
     } else {
       adjustedColor = chroma(baseColor).hex()
     }
@@ -30,9 +28,7 @@ function adjustColor(
 
     // 調整すべき色のLuminanceよりもベース色のLuminanceが暗い場合（背景色に比べ色が暗すぎる場合）
     if (baseCL < adjustedCL) {
-      adjustedColor = chroma(baseColor)
-        .luminance(adjustedCL)
-        .hex()
+      adjustedColor = chroma(baseColor).luminance(adjustedCL).hex()
     } else {
       adjustedColor = chroma(baseColor).hex()
     }
