@@ -324,7 +324,7 @@ interface SameAs {
 export default Vue.extend({
   name: 'PlaylistIdEditComponent',
   async asyncData({ store, params }) {
-    if (store.$accessor.playlists.editingPlaylist.id) {
+    if ((store as any).$accessor.playlists.editingPlaylist.id) {
       return
     }
     await store.dispatch('playlists/fetchPlaylist', params.id)
