@@ -1,5 +1,4 @@
 import { getterTree, mutationTree, actionTree } from 'nuxt-typed-vuex'
-
 import { Playlist } from '~/types/plyalist'
 
 export const state = () => ({
@@ -114,16 +113,12 @@ export const actions = actionTree(
           console.log(error)
         })
     },
-    async fetchPlaylist({ commit }, targetId) {
+    async fetchPlaylist({ commit, dispatch }, targetId) {
       await this.$axios.get(`/api/playlists/${targetId}`).then((response) => {
         commit('setEditingPlaylist', { playlist: response.data.playlist })
-        this.app.$accessor.setEditingPlaylist()
-        this.app.$accessor.modules.sameAs.updateAll(
-          response.data.playlist.sameAs,
-          {
-            root: true,
-          }
-        )
+        dispatch('sameAs/updateAll', response.data.playlist.sameAs, {
+          root: true,
+        })
       })
     },
     async updateEditingPlaylist({ commit, state, getters }) {
