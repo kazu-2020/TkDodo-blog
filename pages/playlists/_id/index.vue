@@ -61,7 +61,7 @@
                   <v-col class="px-0 pt-0">
                     <playlist-json-dialog
                       :button-color="headerCardButtonColor"
-                      :playlist="playlist"
+                      :playlist-id="playlist.id"
                     />
                   </v-col>
                   <v-col />

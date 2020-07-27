@@ -1,14 +1,21 @@
 <template>
   <v-dialog v-model="dialog" scrollable width="600px">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn :color="buttonColor" icon small v-bind="attrs" v-on="on">
+      <v-btn
+        :color="buttonColor"
+        icon
+        small
+        v-bind="attrs"
+        class="dialog_button"
+        v-on="on"
+      >
         <v-icon>mdi-code-json</v-icon>
       </v-btn>
     </template>
-    <v-card>
+    <v-card class="playlist_json_dialog">
       <v-card-title>
         <span class="headline">
-          {{ `/pl/${playlist.id}.json 出力イメージ` }}
+          {{ `/pl/${playlistId}.json 出力イメージ` }}
         </span>
       </v-card-title>
       <v-card-text>
@@ -37,13 +44,12 @@ export default Vue.extend({
   props: {
     buttonColor: {
       type: String,
-      required: true,
+      required: false,
       default: '#FFFFFF',
     },
-    playlist: {
-      type: Object,
+    playlistId: {
+      type: String,
       required: true,
-      default: () => {},
     },
   },
   data() {
@@ -56,7 +62,7 @@ export default Vue.extend({
     dialog: {
       handler(newValue) {
         if (newValue && this.playlistJson === null) {
-          this.$axios.get(`/api/playlists/${this.playlist.id}`).then((res) => {
+          this.$axios.get(`/api/playlists/${this.playlistId}`).then((res) => {
             this.playlistJson = res.data.playlist
           })
         }
