@@ -6,7 +6,7 @@
         tile
         small
         color="orange"
-        class="add-button"
+        class="add_button"
         @click="addEpisode(episode)"
       >
         <v-icon>
@@ -46,6 +46,8 @@
 import Vue from 'vue'
 import moment from 'moment'
 
+moment.locale('ja')
+
 export default Vue.extend({
   name: 'EpisodeSearchResultTableRow',
   props: {
@@ -72,8 +74,12 @@ export default Vue.extend({
       }
     },
     releaseDate(): string {
-      const date = this.episode.releasedEvent.startDate
-      return moment(date).format('YYYY年M月DD日（ddd）')
+      const date = this.episode.releasedEvent?.startDate
+      if (date) {
+        return moment(date).format('YYYY年M月DD日（ddd）')
+      } else {
+        return '未設定'
+      }
     },
   },
   methods: {
@@ -89,7 +95,7 @@ export default Vue.extend({
   .v-responsive.v-image.episode-image {
     border-radius: 5px;
   }
-  .add-button.v-btn.v-btn--tile.v-size--small {
+  .add_button.v-btn.v-btn--tile.v-size--small {
     min-width: 0;
     padding: 0 2px;
   }
