@@ -39,21 +39,21 @@
     </v-row>
     <v-row justify="start" align="center" class="color-fields">
       <v-col
-        v-for="(value, key, index) in adjustedColor"
+        v-for="(color, name, index) in adjustedColors"
         :key="index"
         class="shrink color-field"
       >
         <v-text-field
-          v-model="adjustedColor[key]"
+          v-model="adjustedColors[name]"
           label="Primary light color"
           class="ma-0 pa-0"
-          :color="value"
+          :color="color"
           hide-details
           outlined
           readonly
         >
           <template v-slot:append>
-            <v-sheet width="30" height="30" elevation="4" :color="value" />
+            <v-sheet width="30" height="30" elevation="4" :color="color" />
           </template>
         </v-text-field>
       </v-col>
@@ -85,32 +85,66 @@ const PALETTE_BASE_COLORS: Array<String> = [
 ]
 
 export default Vue.extend({
-  data: () => ({
-    selectedPaletteColor: '#FFFFFF',
-    adjustedColor: {
-      primaryLight: '#FFFFFF',
-      primaryDark: '#FFFFFF',
-      linkLight: '#FFFFFF',
-      linkDark: '#FFFFFF',
+  props: {
+    selectedPaletteColor: {
+      type: String,
+      required: false,
+      default: '#FFFFFF',
     },
-  }),
+    primaryLightColor: {
+      type: String,
+      required: false,
+      default: '#FFFFFF',
+    },
+    primaryDarkColor: {
+      type: String,
+      required: false,
+      default: '#FFFFFF',
+    },
+    linkLightColor: {
+      type: String,
+      required: false,
+      default: '#FFFFFF',
+    },
+    linkDarkColor: {
+      type: String,
+      required: false,
+      default: '#FFFFFF',
+    },
+  },
   computed: {
     paletteBaseColors: () => PALETTE_BASE_COLORS,
+    adjustedColors(): Object {
+      return {
+        primaryLight: this.primaryLightColor,
+        primaryDark: this.primaryDarkColor,
+        linkLight: this.linkLightColor,
+        linkDark: this.linkDarkColor,
+      }
+    },
   },
   methods: {
-    selectPalette(event: Event) {
+    selectPalette(event: Event): void {
       if (event.target == null) return
       const element = event.target as HTMLInputElement
-      this.setAdjustedColor(element.value)
+      this.emitAdjustedColors(element.value)
     },
     onUpdatePicker(colorObject: VColorPickerColor) {
-      this.setAdjustedColor(colorObject.hex)
+      this.emitAdjustedColors(colorObject.hex)
     },
-    setAdjustedColor(colorHex: string) {
-      this.adjustedColor.primaryLight = adjustPrimaryLightColor(colorHex)
-      this.adjustedColor.linkLight = adjustLinkLightColor(colorHex)
-      this.adjustedColor.primaryDark = adjustPrimaryDarkColor(colorHex)
-      this.adjustedColor.linkDark = adjustLinkDarkColor(colorHex)
+    emitAdjustedColors(colorHex: string) {
+      this.$emit('update:selectedPaletteColor', colorHex)
+      this.$emit('update:primaryLightColor', adjustPrimaryLightColor(colorHex))
+      this.$emit('update:linkLightColor', adjustLinkLightColor(colorHex))
+      this.$emit('update:primaryDarkColor', adjustPrimaryDarkColor(colorHex))
+      this.$emit('update:linkDarkColor', adjustLinkDarkColor(colorHex))
+      // this.$emit('update:colorPalette', {
+      //   selectedPaletteColor: colorHex,
+      //   primaryLightColor: adjustPrimaryLightColor(colorHex),
+      //   linkLightColor: adjustLinkLightColor(colorHex),
+      //   primaryDarkColor: adjustPrimaryDarkColor(colorHex),
+      //   linkDarkColor: adjustLinkDarkColor(colorHex),
+      // })
     },
   },
 })

@@ -150,10 +150,12 @@
           <v-col cols="12">
             <h3>色 - Color</h3>
             <p class="mb-0">
-              ここで選んだ色がアクセシビリティに配慮された色に変換されページに反映されます
+              ここで選んだ色がアクセシビリティに配慮された色に変換されページに反映されます。
+              <br />
+              一番右側のパレットから自由に色を選択することができます。
             </p>
           </v-col>
-          <ColorPalette />
+          <ColorPalette v-bind.sync="colorPalette" />
         </v-row>
 
         <!-- sameAs -->
@@ -253,25 +255,18 @@ export default Vue.extend({
       { value: '096', text: '芸術' },
       { value: '110', text: '福祉全般' },
     ],
-    color: '#FFFFFF',
-    mask: '!#XXXXXXXX',
-    menu: false,
+    colorPalette: {
+      selectedPaletteColor: '#fbfbfb',
+      primaryLightColor: '#fbfbfb',
+      primaryDarkColor: '#fbfbfb',
+      linkLightColor: '#fbfbfb',
+      linkDarkColor: '#fbfbfb',
+    },
     logoImageData: '',
     eyecatchImageData: '',
     heroImageData: '',
   }),
   computed: {
-    swatchStyle() {
-      const { color, menu } = this
-      return {
-        backgroundColor: color,
-        cursor: 'pointer',
-        height: '30px',
-        width: '30px',
-        borderRadius: menu ? '50%' : '4px',
-        transition: 'border-radius 200ms ease-in-out',
-      }
-    },
     editingPlaylist() {
       return this.$store.state.playlists.editingPlaylist
     },
@@ -393,6 +388,95 @@ export default Vue.extend({
         'https://placehold.jp/1080x360.png'
       )
     },
+    // colorPalette: {
+    //   get() {
+    //     return {
+    //       colors: {
+    //         selectedPaletteColor: this.$store.state.playlists.editingPlaylist
+    //           .selectedPaletteColor,
+    //         primaryLightColor: this.$store.state.playlists.editingPlaylist
+    //           .primaryLightColor,
+    //         primaryDarkColor: this.$store.state.playlists.editingPlaylist
+    //           .primaryDarkColor,
+    //         linkLightColor: this.$store.state.playlists.editingPlaylist
+    //           .linkLightColor,
+    //       },
+    //     }
+    //   },
+    //   set(value) {
+    //     this.$store.dispatch(
+    //       'playlists/updateEditingPlaylistColorPalette',
+    //       value
+    //     )
+    //   },
+    // },
+    // colorPalette(): Object {
+    //   return {
+    //     selectedPaletteColor: this.$store.state.playlists.editingPlaylist
+    //       .selectedPaletteColor,
+    //     primaryLightColor: this.$store.state.playlists.editingPlaylist
+    //       .primaryLightColor,
+    //     primaryDarkColor: this.$store.state.playlists.editingPlaylist
+    //       .primaryDarkColor,
+    //     linkLightColor: this.$store.state.playlists.editingPlaylist
+    //       .linkLightColor,
+    //   }
+    // },
+    selectedPaletteColor: {
+      get() {
+        return this.$store.state.playlists.editingPlaylist.selectedPaletteColor
+      },
+      set(value) {
+        this.$store.dispatch(
+          'playlists/updateEditingPlaylistSelectedPaletteColor',
+          value
+        )
+      },
+    },
+    primaryLightColor: {
+      get() {
+        return this.$store.state.playlists.editingPlaylist.primaryLightColor
+      },
+      set(value) {
+        this.$store.dispatch(
+          'playlists/updateEditingPlaylistPrimaryLightColor',
+          value
+        )
+      },
+    },
+    primaryDarkColor: {
+      get() {
+        return this.$store.state.playlists.editingPlaylist.primaryDarkColor
+      },
+      set(value) {
+        this.$store.dispatch(
+          'playlists/updateEditingPlaylistPrimaryDarkColor',
+          value
+        )
+      },
+    },
+    linkLightColor: {
+      get() {
+        return this.$store.state.playlists.editingPlaylist.linkLightColor
+      },
+      set(value) {
+        this.$store.dispatch(
+          'playlists/updateEditingPlaylistLinkLightColor',
+          value
+        )
+      },
+    },
+    linkDarkColor: {
+      get() {
+        return this.$store.state.playlists.editingPlaylist.linkDarkColor
+      },
+      set(value) {
+        this.$store.dispatch(
+          'playlists/updateEditingPlaylistLinkDarkColor',
+          value
+        )
+      },
+    },
   },
   methods: {
     addSameAs() {
@@ -428,6 +512,10 @@ export default Vue.extend({
         console.log('Invalid!!!')
       }
     },
+    // onUpdateColorPalette(value: Object) {
+    //   console.log('edit.vue#onUpdateColorPalette', value)
+    //   this.$store.dispatch('playlists/updateEditingPlaylistColorPalette', value)
+    // },
     selectLogoImageFile() {
       ;(this.$refs.logoImageInput as HTMLElement).click()
     },
