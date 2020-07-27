@@ -44,83 +44,22 @@
         </v-col>
       </v-row>
       <v-row justify="start" align="center" class="color-fields">
-        <v-col class="shrink color-field">
+        <v-col
+          v-for="(value, key, index) in palette"
+          :key="index"
+          class="shrink color-field"
+        >
           <v-text-field
-            v-model="pallets.primaryLight"
+            v-model="palette[key]"
             label="Primary light color"
             class="ma-0 pa-0"
-            :color="pallets.primaryLight"
+            :color="value"
             hide-details
             outlined
             readonly
           >
             <template v-slot:append>
-              <v-sheet
-                width="30"
-                height="30"
-                elevation="4"
-                :color="pallets.primaryLight"
-              />
-            </template>
-          </v-text-field>
-        </v-col>
-        <v-col class="shrink color-field">
-          <v-text-field
-            v-model="pallets.primaryDark"
-            label="Primary dark color"
-            class="ma-0 pa-0"
-            :color="pallets.primaryDark"
-            hide-details
-            outlined
-            readonly
-          >
-            <template v-slot:append class="mt-3">
-              <v-sheet
-                width="30"
-                height="30"
-                elevation="4"
-                :color="pallets.primaryDark"
-              />
-            </template>
-          </v-text-field>
-        </v-col>
-        <v-col class="shrink color-field">
-          <v-text-field
-            v-model="pallets.linkLight"
-            label="Link light color"
-            class="ma-0 pa-0"
-            :color="pallets.linkLight"
-            hide-details
-            outlined
-            readonly
-          >
-            <template v-slot:append class="mt-3">
-              <v-sheet
-                width="30"
-                height="30"
-                elevation="4"
-                :color="pallets.linkLight"
-              />
-            </template>
-          </v-text-field>
-        </v-col>
-        <v-col class="shrink color-field">
-          <v-text-field
-            v-model="pallets.linkDark"
-            label="Link dark color"
-            class="ma-0 pa-0"
-            :color="pallets.linkDark"
-            hide-details
-            outlined
-            readonly
-          >
-            <template v-slot:append class="mt-3">
-              <v-sheet
-                width="30"
-                height="30"
-                elevation="4"
-                :color="pallets.linkDark"
-              />
+              <v-sheet width="30" height="30" elevation="4" :color="value" />
             </template>
           </v-text-field>
         </v-col>
@@ -141,7 +80,7 @@ import {
 export default Vue.extend({
   data: () => ({
     selectedPaletteColor: '#FFFFFF',
-    pallets: {
+    palette: {
       primaryLight: '#FFFFFF',
       primaryDark: '#FFFFFF',
       linkLight: '#FFFFFF',
@@ -169,10 +108,10 @@ export default Vue.extend({
       this.setAdjustedColors(selectedColor.hex)
     },
     setAdjustedColors(colorHex) {
-      this.pallets.primaryLight = adjustPrimaryLightColor(colorHex)
-      this.pallets.linkLight = adjustLinkLightColor(colorHex)
-      this.pallets.primaryDark = adjustPrimaryDarkColor(colorHex)
-      this.pallets.linkDark = adjustLinkDarkColor(colorHex)
+      this.palette.primaryLight = adjustPrimaryLightColor(colorHex)
+      this.palette.linkLight = adjustLinkLightColor(colorHex)
+      this.palette.primaryDark = adjustPrimaryDarkColor(colorHex)
+      this.palette.linkDark = adjustLinkDarkColor(colorHex)
     },
   },
 })
