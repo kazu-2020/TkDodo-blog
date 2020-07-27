@@ -91,48 +91,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="episode in visibleEpisodeResult" :key="episode.id">
-                <td>
-                  <v-btn
-                    v-if="!shouldIgnoreEpisode(episode)"
-                    tile
-                    small
-                    color="orange"
-                    class="add-button"
-                    @click="addEpisode(episode)"
-                  >
-                    <v-icon>
-                      mdi-plus
-                    </v-icon>
-                  </v-btn>
-                  <div v-else>
-                    追加済み
-                  </div>
-                </td>
-                <td justify="center" align="center">
-                  <v-img
-                    :src="eyecatchUrl(episode.eyecatch)"
-                    lazy-src="https://placehold.jp/50x28.png"
-                    width="50"
-                    class="ma-2 episode-image"
-                  />
-                </td>
-                <td align="left">
-                  {{ episode.name }}
-                </td>
-                <td>{{ episode.id }}</td>
-                <td>{{ episode.partOfSeries.name }}</td>
-                <td>{{ episode.partOfSeries.id }}</td>
-                <td>
-                  {{ convertReleaseDate(episode.releasedEvent.startDate) }}
-                </td>
-                <td>
-                  <v-chip class="mx-2" color="pink" label text-color="white">
-                    公開
-                  </v-chip>
-                </td>
-              </tr>
-              <tr v-show="canLoadMoreEpisodes()">
+              <episode-search-result-table-row
+                v-for="episode in visibleEpisodeResult"
+                :key="episode.id"
+                :episode="episode"
+                :ignore-episodes="ignoreEpisodes"
+                @add-episode="addEpisode"
+              />
+              <tr v-show="canLoadMoreEpisodes">
                 <td
                   colspan="8"
                   align="center"
@@ -164,8 +130,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
 import { EpisodeData } from '@/types/episode_data'
+import EpisodeSearchResultTableRow from '~/components/EpisodeSearchResultTableRow.vue'
 
 interface DataType {
   keyword: string
@@ -181,6 +147,9 @@ interface DataType {
 
 export default Vue.extend({
   name: 'PlaylistEpisodeSearch',
+  components: {
+    EpisodeSearchResultTableRow,
+  },
   props: {
     ignoreEpisodes: {
       type: Array,
@@ -223,6 +192,9 @@ export default Vue.extend({
         return this.episodes
       }
     },
+    canLoadMoreEpisodes(): boolean {
+      return this.episodes.length < this.totalSearchResult
+    },
   },
   methods: {
     searchEpisodes({
@@ -257,22 +229,9 @@ export default Vue.extend({
     searchEpisodesWithKeyword() {
       this.searchEpisodes({ clearCurrentEpisodes: true })
     },
-    eyecatchUrl(eyecatch: any) {
-      if (eyecatch !== undefined) {
-        return eyecatch.medium.url
-      } else {
-        return ''
-      }
-    },
-    convertReleaseDate(date: any) {
-      return moment(date).format('YYYY年M月DD日（ddd）')
-    },
     addEpisode(episode: any) {
       this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
       this.episodes.splice(this.episodes.indexOf(episode), 1)
-    },
-    shouldIgnoreEpisode(episode: any): boolean {
-      return this.ignoreEpisodes.map((ep: any) => ep.id).includes(episode.id)
     },
     searchWithDetail() {
       this.menu = false
@@ -283,9 +242,6 @@ export default Vue.extend({
       this.keyword = ''
       this.episodes = []
     },
-    canLoadMoreEpisodes(): boolean {
-      return this.episodes.length < this.totalSearchResult
-    },
     searchAdditionalEpisodes() {
       this.searchEpisodes({ clearCurrentEpisodes: false })
     },
@@ -295,13 +251,6 @@ export default Vue.extend({
 
 <style lang="scss">
 .episode-search-area {
-  .v-responsive.v-image.episode-image {
-    border-radius: 5px;
-  }
-  .add-button.v-btn.v-btn--tile.v-size--small {
-    min-width: 0;
-    padding: 0 2px;
-  }
   .load-more {
     cursor: pointer;
   }
