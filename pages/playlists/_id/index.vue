@@ -49,7 +49,7 @@
                 <v-row class="flex-column ma-0 fill-height">
                   <v-col class="px-0 pt-0">
                     <v-btn
-                      :color="headerCardButtonColor()"
+                      :color="headerCardButtonColor"
                       icon
                       :to="`/playlists/${playlist.id}/edit`"
                       nuxt
@@ -59,35 +59,10 @@
                     </v-btn>
                   </v-col>
                   <v-col class="px-0 pt-0">
-                    <v-dialog v-model="jsonDialog" width="600px">
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                          :color="headerCardButtonColor()"
-                          icon
-                          small
-                          v-bind="attrs"
-                          v-on="on"
-                        >
-                          <v-icon>mdi-code-json</v-icon>
-                        </v-btn>
-                      </template>
-                      <v-card>
-                        <v-card-title>
-                          <span class="headline">
-                            {{ `/pl/${playlist.id}.json 出力イメージ` }}
-                          </span>
-                        </v-card-title>
-                        <v-card-text>
-                          ここにJSON が出力されます。（未実装）
-                        </v-card-text>
-                        <v-card-actions>
-                          <v-spacer />
-                          <v-btn text @click="jsonDialog = false">
-                            閉じる
-                          </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
+                    <playlist-json-dialog
+                      :button-color="headerCardButtonColor"
+                      :playlist="playlist"
+                    />
                   </v-col>
                   <v-col />
                   <v-col />
@@ -132,6 +107,7 @@ import Vue from 'vue'
 import moment from 'moment'
 import PlaylistEpisodesList from '~/components/PlaylistEpisodesList.vue'
 import PlaylistEpisodeSearch from '~/components/PlaylistEpisodeSearch.vue'
+import PlaylistJsonDialog from '~/components/PlaylistJsonDialog.vue'
 
 interface DataType {
   snackbar: boolean
@@ -144,6 +120,7 @@ export default Vue.extend({
   components: {
     PlaylistEpisodesList,
     PlaylistEpisodeSearch,
+    PlaylistJsonDialog,
   },
   async asyncData({ store, params }) {
     await store.dispatch('playlists/fetchPlaylist', params.id)
@@ -163,6 +140,9 @@ export default Vue.extend({
     vuetify(): any {
       return (this as any).$vuetify
     },
+    headerCardButtonColor(): string {
+      return this.vuetify.theme.dark ? '#FFFFFF' : '#000000'
+    },
   },
   methods: {
     logoImageUrl(playlist: any) {
@@ -170,9 +150,6 @@ export default Vue.extend({
     },
     headerCardColor() {
       return this.vuetify.theme.dark ? '#616161' : '#F5F5F5'
-    },
-    headerCardButtonColor() {
-      return this.vuetify.theme.dark ? '#FFFFFF' : '#000000'
     },
     saveEpisodes() {
       this.$store.dispatch('loading/startLoading', {
