@@ -12,7 +12,10 @@
         </span>
       </v-card-title>
       <v-card-text>
-        {{ playlistJson }}
+        <div v-if="playlistJson === null">
+          読込中...
+        </div>
+        <vue-json-pretty v-else :data="playlistJson" show-length :deep="1" />
       </v-card-text>
       <v-card-actions>
         <v-spacer />
@@ -24,16 +27,13 @@
   </v-dialog>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import Vue from 'vue'
-
-interface DataType {
-  dialog: boolean
-  playlistJson: Object
-}
+import VueJsonPretty from 'vue-json-pretty'
 
 export default Vue.extend({
   name: 'PlaylistJsonDialog',
+  components: { VueJsonPretty },
   props: {
     buttonColor: {
       type: String,
@@ -46,18 +46,18 @@ export default Vue.extend({
       default: () => {},
     },
   },
-  data(): DataType {
+  data() {
     return {
       dialog: false,
-      playlistJson: '',
+      playlistJson: null,
     }
   },
   watch: {
     dialog: {
       handler(newValue) {
-        if (newValue && this.playlistJson === '') {
+        if (newValue && this.playlistJson === null) {
           this.$axios.get(`/api/playlists/${this.playlist.id}`).then((res) => {
-            this.playlistJson = JSON.stringify(res.data.playlist, null, 4)
+            this.playlistJson = res.data.playlist
           })
         }
       },
