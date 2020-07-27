@@ -146,7 +146,15 @@
         </v-row>
 
         <!-- 色 -->
-        <ColorPalette />
+        <v-row dense class="my-5">
+          <v-col cols="12">
+            <h3>色 - Color</h3>
+            <p class="mb-0">
+              ここで選んだ色がアクセシビリティに配慮された色に変換されページに反映されます
+            </p>
+          </v-col>
+          <ColorPalette />
+        </v-row>
 
         <!-- sameAs -->
         <v-row dense class="my-5">
