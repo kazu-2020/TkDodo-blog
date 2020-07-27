@@ -4,7 +4,7 @@
       <v-col>
         <v-btn-toggle class="palettes" group mandatory tile>
           <v-btn
-            v-for="(color, index) in colors"
+            v-for="(color, index) in paletteBaseColors"
             :key="color"
             :value="`#${color}`"
             :class="[index !== 0 ? 'ml-3' : null, 'palette']"
@@ -12,6 +12,7 @@
             elevation="4"
             @click="selectPalette($event)"
           />
+          <!-- pickerで色が自由に選択できるpalette -->
           <v-menu :close-on-content-click="false" offset-x>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -30,7 +31,7 @@
               mode="hexa"
               elevation="15"
               hide-mode-switch
-              @update:color="selectedPicker"
+              @update:color="onUpdatePicker"
             />
           </v-menu>
         </v-btn-toggle>
@@ -38,12 +39,12 @@
     </v-row>
     <v-row justify="start" align="center" class="color-fields">
       <v-col
-        v-for="(value, key, index) in palette"
+        v-for="(value, key, index) in adjustedColor"
         :key="index"
         class="shrink color-field"
       >
         <v-text-field
-          v-model="palette[key]"
+          v-model="adjustedColor[key]"
           label="Primary light color"
           class="ma-0 pa-0"
           :color="value"
@@ -60,8 +61,9 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
+import { VColorPickerColor } from 'vuetify/src/components/VColorPicker/util'
 import {
   adjustPrimaryLightColor,
   adjustLinkDarkColor,
@@ -69,41 +71,46 @@ import {
   adjustPrimaryDarkColor,
 } from '@/utils/adjustColor'
 
+const PALETTE_BASE_COLORS: Array<String> = [
+  'faf100',
+  'f6aa00',
+  'ff2800',
+  '990099',
+  '005aff',
+  '03af7a',
+  'ff8082',
+  '4dc4ff',
+  '804000',
+  '84919e',
+]
+
 export default Vue.extend({
   data: () => ({
     selectedPaletteColor: '#FFFFFF',
-    palette: {
+    adjustedColor: {
       primaryLight: '#FFFFFF',
       primaryDark: '#FFFFFF',
       linkLight: '#FFFFFF',
       linkDark: '#FFFFFF',
     },
-    colors: [
-      'faf100',
-      'f6aa00',
-      'ff2800',
-      '990099',
-      '005aff',
-      '03af7a',
-      'ff8082',
-      '4dc4ff',
-      '804000',
-      '84919e',
-    ],
   }),
+  computed: {
+    paletteBaseColors: () => PALETTE_BASE_COLORS,
+  },
   methods: {
-    selectPalette(event) {
-      const colorHex = event.target.value
-      this.setAdjustedColors(colorHex)
+    selectPalette(event: Event) {
+      if (event.target == null) return
+      const element = event.target as HTMLInputElement
+      this.setAdjustedColor(element.value)
     },
-    selectedPicker(selectedColor) {
-      this.setAdjustedColors(selectedColor.hex)
+    onUpdatePicker(colorObject: VColorPickerColor) {
+      this.setAdjustedColor(colorObject.hex)
     },
-    setAdjustedColors(colorHex) {
-      this.palette.primaryLight = adjustPrimaryLightColor(colorHex)
-      this.palette.linkLight = adjustLinkLightColor(colorHex)
-      this.palette.primaryDark = adjustPrimaryDarkColor(colorHex)
-      this.palette.linkDark = adjustLinkDarkColor(colorHex)
+    setAdjustedColor(colorHex: string) {
+      this.adjustedColor.primaryLight = adjustPrimaryLightColor(colorHex)
+      this.adjustedColor.linkLight = adjustLinkLightColor(colorHex)
+      this.adjustedColor.primaryDark = adjustPrimaryDarkColor(colorHex)
+      this.adjustedColor.linkDark = adjustLinkDarkColor(colorHex)
     },
   },
 })
