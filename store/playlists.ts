@@ -31,7 +31,10 @@ export const mutations = mutationTree(state, {
     state.allItems.splice(state.allItems.indexOf(playlist), 1)
   },
   setEditingPlaylist(state, { playlist }) {
-    state.editingPlaylist = playlist
+    state.editingPlaylist = {
+      ...playlist,
+      selectedPalette: playlist.style.selectedPalette,
+    }
   },
   deleteEditingPlaylistEpisode(state, episode) {
     state.editingPlaylist.items.splice(
@@ -78,6 +81,21 @@ export const mutations = mutationTree(state, {
   },
   updateEditingPlaylistHero(state, image) {
     state.editingPlaylist.heroImageData = image
+  },
+  updateEditingPlaylistSelectedPalette(state, color) {
+    state.editingPlaylist.selectedPalette = color
+  },
+  updateEditingPlaylistPrimaryLightColor(state, color) {
+    state.editingPlaylist.primaryLightColor = color
+  },
+  updateEditingPlaylistPrimaryDarkColor(state, color) {
+    state.editingPlaylist.primaryDarkColor = color
+  },
+  updateEditingPlaylistLinkLightColor(state, color) {
+    state.editingPlaylist.linkLightColor = color
+  },
+  updateEditingPlaylistLinkDarkColor(state, color) {
+    state.editingPlaylist.linkDarkColor = color
   },
 })
 
@@ -246,6 +264,21 @@ export const actions = actionTree(
     },
     updateEditingPlaylistHero({ commit }, image) {
       commit('updateEditingPlaylistHero', image)
+    },
+    updateEditingPlaylistSelectedPalette({ commit }, color) {
+      commit('updateEditingPlaylistSelectedPalette', color)
+    },
+    updateEditingPlaylistPrimaryLightColor({ commit }, color) {
+      commit('updateEditingPlaylistPrimaryLightColor', color)
+    },
+    updateEditingPlaylistPrimaryDarkColor({ commit }, color) {
+      commit('updateEditingPlaylistPrimaryDarkColor', color)
+    },
+    updateEditingPlaylistLinkLightColor({ commit }, color) {
+      commit('updateEditingPlaylistLinkLightColor', color)
+    },
+    updateEditingPlaylistLinkDarkColor({ commit }, color) {
+      commit('updateEditingPlaylistLinkDarkColor', color)
     },
   }
 )
