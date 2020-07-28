@@ -2,13 +2,19 @@
   <div>
     <v-row>
       <v-col>
-        <v-btn-toggle class="palettes" group mandatory tile>
+        <v-btn-toggle
+          v-model="selectedPalette"
+          class="palettes"
+          group
+          mandatory
+          tile
+        >
           <v-btn
             v-for="(color, index) in paletteBaseColors"
-            :key="color"
-            :value="`#${color}`"
-            :class="[index !== 0 ? 'ml-3' : null, 'palette']"
-            :style="{ backgroundColor: `#${color} !important` }"
+            :key="index"
+            :value="`${color}`"
+            :class="[index !== 0 && 'ml-3', 'palette']"
+            :style="{ backgroundColor: `${color} !important` }"
             elevation="4"
             @click="selectPalette($event)"
           />
@@ -17,17 +23,17 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                 v-bind="attrs"
-                :value="`${selectedPaletteColor}`"
+                :value="`${freePaletteColor}`"
                 class="ml-3"
                 :style="{
-                  backgroundColor: `${selectedPaletteColor} !important`,
+                  backgroundColor: `${freePaletteColor} !important`,
                 }"
                 elevation="4"
                 v-on="on"
               />
             </template>
             <v-color-picker
-              v-model="selectedPaletteColor"
+              v-model="freePaletteColor"
               mode="hexa"
               elevation="15"
               hide-mode-switch
@@ -72,16 +78,16 @@ import {
 } from '@/utils/adjustColor'
 
 const PALETTE_BASE_COLORS: Array<String> = [
-  'faf100',
-  'f6aa00',
-  'ff2800',
-  '990099',
-  '005aff',
-  '03af7a',
-  'ff8082',
-  '4dc4ff',
-  '804000',
-  '84919e',
+  '#faf100',
+  '#f6aa00',
+  '#ff2800',
+  '#990099',
+  '#005aff',
+  '#03af7a',
+  '#ff8082',
+  '#4dc4ff',
+  '#804000',
+  '#84919e',
 ]
 
 export default Vue.extend({
@@ -112,6 +118,16 @@ export default Vue.extend({
       default: '#FFFFFF',
     },
   },
+  data() {
+    return {
+      selectedPalette: this.selectedPaletteColor,
+      freePaletteColor: (this as any).isSelectedColorByPalette(
+        this.selectedPaletteColor
+      )
+        ? '#FFFFFF'
+        : this.selectedPaletteColor,
+    }
+  },
   computed: {
     paletteBaseColors: () => PALETTE_BASE_COLORS,
     adjustedColors(): Object {
@@ -135,8 +151,8 @@ export default Vue.extend({
     emitAdjustedColors(colorHex: string) {
       this.$emit('update:selectedPaletteColor', colorHex)
       this.$emit('update:primaryLightColor', adjustPrimaryLightColor(colorHex))
-      this.$emit('update:linkLightColor', adjustLinkLightColor(colorHex))
       this.$emit('update:primaryDarkColor', adjustPrimaryDarkColor(colorHex))
+      this.$emit('update:linkLightColor', adjustLinkLightColor(colorHex))
       this.$emit('update:linkDarkColor', adjustLinkDarkColor(colorHex))
       // this.$emit('update:colorPalette', {
       //   selectedPaletteColor: colorHex,
@@ -145,6 +161,9 @@ export default Vue.extend({
       //   primaryDarkColor: adjustPrimaryDarkColor(colorHex),
       //   linkDarkColor: adjustLinkDarkColor(colorHex),
       // })
+    },
+    isSelectedColorByPalette(color: string): boolean {
+      return PALETTE_BASE_COLORS.includes(color)
     },
   },
 })
