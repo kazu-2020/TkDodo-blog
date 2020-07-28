@@ -1,34 +1,31 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { mount, RouterLinkStub } from '@vue/test-utils'
-import PlaylistItem from '~/components/PlaylistItem.vue'
+import ColorPalette from '~/components/forms/ColorPalette.vue'
 Vue.use(Vuetify)
 
-describe('components/PlaylistItem.vue', () => {
+describe('components/forms/ColorPalette.vue', () => {
   it('Vue instance を作れている', () => {
-    const wrapper = mount(PlaylistItem, {
+    const wrapper = mount(ColorPalette, {
       stubs: {
         NuxtLink: RouterLinkStub,
       },
-      propsData: { playlist: {} },
+      propsData: { selectedPalette: '#005aff' },
     })
     expect(wrapper.vm).toBeTruthy()
   })
 
-  describe('method deletePlaylist', () => {
-    it('プレイリスト削除イベントが発行されること', () => {
-      // Confirm ダイアログをスタブする
-      window.confirm = jest.fn().mockImplementation(() => true)
-
-      const wrapper = mount(PlaylistItem, {
+  describe('Paletteを選択', () => {
+    it('「update:selectedPalette」イベントが発行されること', () => {
+      const wrapper = mount(ColorPalette, {
         stubs: {
           NuxtLink: RouterLinkStub,
         },
-        propsData: { playlist: {} },
+        propsData: { selectedPalette: '#005aff' },
       })
-      wrapper.find('.delete_button').trigger('click')
+      wrapper.find('button.palette').trigger('click')
 
-      expect(wrapper.emitted()['delete-playlist'].length).toBe(1)
+      expect(wrapper.emitted()['update:selectedPalette'].length).toBe(1)
     })
   })
 })
