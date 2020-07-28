@@ -1,13 +1,16 @@
 import { getterTree, mutationTree, actionTree } from 'nuxt-typed-vuex'
 import { Playlist } from '~/types/plyalist'
+import { Pagination } from '~/types/pagination'
 
 export const state = () => ({
   allItems: [] as Array<Playlist>,
+  pagination: { totalPages: 1 } as Pagination,
   editingPlaylist: {} as Playlist,
 })
 
 export const getters = getterTree(state, {
   allItems: (state) => state.allItems,
+  paginate: (state) => state.pagination,
   editingPlaylist: (state) => state.editingPlaylist,
   sameAs(_state, _getters, _rootState, rootGetters) {
     return rootGetters['sameAs/all']
@@ -17,6 +20,9 @@ export const getters = getterTree(state, {
 export const mutations = mutationTree(state, {
   setPlaylists(state, { playlists }) {
     state.allItems = playlists
+  },
+  setPagination(state, { pagination }) {
+    state.pagination = pagination
   },
   setPlaylist(state, { playlist }) {
     state.allItems.unshift(playlist)
@@ -78,19 +84,19 @@ export const mutations = mutationTree(state, {
 export const actions = actionTree(
   { state, getters, mutations },
   {
-    async fetchPlaylists({ commit }) {
-      await this.$axios
-        .get('/api/playlists')
-        .then((response) =>
-          commit('setPlaylists', { playlists: response.data.playlists })
-        )
+    async fetchPlaylists({ commit }, page) {
+      await this.$axios.get(`/api/playlists?page=${page}`).then((response) => {
+        commit('setPlaylists', { playlists: response.data.playlists })
+        commit('setPagination', { pagination: response.data.pagination })
+      })
     },
-    async fetchD5Playlists({ commit }, area) {
+    async fetchD5Playlists({ commit }, payloads) {
       await this.$axios
-        .get(`/api/playlists?area=${area}`)
-        .then((response) =>
+        .get(`/api/playlists?area=${payloads.area}&page=${payloads.page}`)
+        .then((response) => {
           commit('setPlaylists', { playlists: response.data.playlists })
-        )
+          commit('setPagination', { pagination: response.data.pagination })
+        })
     },
     async createPlaylists({ commit }, payload) {
       await this.$axios

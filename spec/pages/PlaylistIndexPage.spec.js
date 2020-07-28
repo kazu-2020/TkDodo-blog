@@ -16,7 +16,9 @@ describe('pages/index.vue', () => {
       },
       mocks: {
         $store: {
-          state: { playlists: { allItems: [playlist] } },
+          state: {
+            playlists: { allItems: [playlist], pagination: { totalPages: 1 } },
+          },
         },
       },
     }
