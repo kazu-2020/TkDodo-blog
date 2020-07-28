@@ -92,7 +92,7 @@ export default {
           error: '#f44336',
           warning: '#ff5722',
           info: '#607d8b',
-          success: '#8bc34',
+          success: '#8bc340',
         },
         dark: {
           primary: colors.blue.darken2,
