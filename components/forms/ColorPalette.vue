@@ -11,7 +11,7 @@
         >
           <v-btn
             v-for="(color, index) in paletteBaseColors"
-            :key="index"
+            :key="`paletteBaseColors-${index}`"
             :value="`${color}`"
             :class="[index !== 0 && 'ml-3', 'palette']"
             :style="{ backgroundColor: `${color} !important` }"
@@ -45,8 +45,8 @@
     </v-row>
     <v-row justify="start" align="center" class="color-fields">
       <v-col
-        v-for="(color, name, index) in adjustedColors"
-        :key="index"
+        v-for="(color, name) in adjustedColors"
+        :key="`adjustedColors-${name}`"
         class="shrink color-field"
       >
         <v-text-field
