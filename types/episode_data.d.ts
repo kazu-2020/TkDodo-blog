@@ -25,4 +25,5 @@ export interface EpisodeData {
   eyecatch?: ImageHash
   partOfSeries?: PartOfSeries
   detailedRecentEvent?: EventData
+  videos?: object[]
 }
