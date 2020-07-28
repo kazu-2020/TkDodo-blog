@@ -155,7 +155,7 @@
               一番右側のパレットから自由に色を選択することができます。
             </p>
           </v-col>
-          <ColorPalette :selected-palette-color.sync="selectedPaletteColor" />
+          <ColorPalette :selected-palette.sync="selectedPalette" />
         </v-row>
 
         <!-- sameAs -->
@@ -213,10 +213,10 @@
 import Vue from 'vue'
 import ColorPalette from '~/components/forms/ColorPalette.vue'
 import {
+  adjustPrimaryDarkColor,
   adjustPrimaryLightColor,
   adjustLinkDarkColor,
   adjustLinkLightColor,
-  adjustPrimaryDarkColor,
 } from '@/utils/adjustColor'
 
 interface SameAs {
@@ -387,13 +387,13 @@ export default Vue.extend({
         'https://placehold.jp/1080x360.png'
       )
     },
-    selectedPaletteColor: {
+    selectedPalette: {
       get() {
-        return this.$store.state.playlists.editingPlaylist.selectedPaletteColor
+        return this.$store.state.playlists.editingPlaylist.selectedPalette
       },
       set(value: string) {
         this.$store.dispatch(
-          'playlists/updateEditingPlaylistSelectedPaletteColor',
+          'playlists/updateEditingPlaylistSelectedPalette',
           value
         )
         this.$store.dispatch(

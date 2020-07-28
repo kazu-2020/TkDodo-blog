@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <v-btn-toggle
-          v-model="localSelectedPaletteColor"
+          v-model="localSelectedPalette"
           class="palettes"
           group
           mandatory
@@ -51,7 +51,7 @@
       >
         <v-text-field
           v-model="adjustedColors[name]"
-          label="Primary light color"
+          :label="name"
           class="ma-0 pa-0"
           :color="color"
           hide-details
@@ -71,10 +71,10 @@
 import Vue from 'vue'
 import { VColorPickerColor } from 'vuetify/src/components/VColorPicker/util'
 import {
+  adjustPrimaryDarkColor,
   adjustPrimaryLightColor,
   adjustLinkDarkColor,
   adjustLinkLightColor,
-  adjustPrimaryDarkColor,
 } from '@/utils/adjustColor'
 
 const PALETTE_BASE_COLORS: Array<String> = [
@@ -92,7 +92,7 @@ const PALETTE_BASE_COLORS: Array<String> = [
 
 export default Vue.extend({
   props: {
-    selectedPaletteColor: {
+    selectedPalette: {
       type: String,
       required: false,
       default: '#FFFFFF',
@@ -103,29 +103,35 @@ export default Vue.extend({
       // NOTE: 「localXXXX」について
       //  state.editingPlaylistの更新後にpropsが渡ってこないためstoreとは別にコンポーネント内で管理している
       // FIXME: state.editingPlaylistの更新の検出が上手くできるようになったら不要になるので修正する
-      localSelectedPaletteColor: this.selectedPaletteColor,
-      localPrimaryLightColor: adjustPrimaryLightColor(
-        this.selectedPaletteColor
-      ),
-      localPrimaryDarkColor: adjustPrimaryDarkColor(this.selectedPaletteColor),
-      localLinkLightColor: adjustLinkLightColor(this.selectedPaletteColor),
-      localLinkDarkColor: adjustLinkDarkColor(this.selectedPaletteColor),
+      localSelectedPalette: this.selectedPalette,
       freePaletteColor: (this as any).isSelectedColorByPalette(
-        this.selectedPaletteColor
+        this.selectedPalette
       )
         ? '#FFFFFF'
-        : this.selectedPaletteColor,
+        : this.selectedPalette,
     }
   },
   computed: {
     paletteBaseColors: () => PALETTE_BASE_COLORS,
     adjustedColors(): Object {
       return {
-        primaryLight: this.localSelectedPaletteColor,
-        primaryDark: this.localPrimaryLightColor,
-        linkLight: this.localPrimaryDarkColor,
-        linkDark: this.localLinkLightColor,
+        primaryLight: this.localPrimaryLightColor,
+        primaryDark: this.localPrimaryDarkColor,
+        linkLight: this.localLinkLightColor,
+        linkDark: this.localLinkDarkColor,
       }
+    },
+    localPrimaryLightColor(): string {
+      return adjustPrimaryLightColor(this.localSelectedPalette)
+    },
+    localPrimaryDarkColor(): string {
+      return adjustPrimaryDarkColor(this.localSelectedPalette)
+    },
+    localLinkLightColor(): string {
+      return adjustLinkLightColor(this.localSelectedPalette)
+    },
+    localLinkDarkColor(): string {
+      return adjustLinkDarkColor(this.localSelectedPalette)
     },
   },
   methods: {
@@ -138,13 +144,8 @@ export default Vue.extend({
       this.emitAdjustedColors(colorObject.hex)
     },
     emitAdjustedColors(colorHex: string) {
-      this.localSelectedPaletteColor = colorHex
-      this.localPrimaryLightColor = adjustPrimaryLightColor(colorHex)
-      this.localPrimaryDarkColor = adjustPrimaryDarkColor(colorHex)
-      this.localLinkLightColor = adjustLinkLightColor(colorHex)
-      this.localLinkDarkColor = adjustLinkDarkColor(colorHex)
-
-      this.$emit('update:selectedPaletteColor', this.localSelectedPaletteColor)
+      this.localSelectedPalette = colorHex
+      this.$emit('update:selectedPalette', this.localSelectedPalette)
     },
     isSelectedColorByPalette(color: string): boolean {
       return PALETTE_BASE_COLORS.includes(color)

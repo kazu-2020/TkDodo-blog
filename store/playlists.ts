@@ -73,8 +73,8 @@ export const mutations = mutationTree(state, {
   updateEditingPlaylistHero(state, image) {
     state.editingPlaylist.heroImageData = image
   },
-  updateEditingPlaylistSelectedPaletteColor(state, color) {
-    state.editingPlaylist.selectedPaletteColor = color
+  updateEditingPlaylistSelectedPalette(state, color) {
+    state.editingPlaylist.selectedPalette = color
   },
   updateEditingPlaylistPrimaryLightColor(state, color) {
     state.editingPlaylist.primaryLightColor = color
@@ -146,7 +146,7 @@ export const actions = actionTree(
         hashtag: state.editingPlaylist.hashtag,
         format_genre_code: state.editingPlaylist.formatGenre,
         theme_genre_code: state.editingPlaylist.themeGenre,
-        selected_palette_color: state.editingPlaylist.selectedPaletteColor,
+        selected_palette: state.editingPlaylist.selectedPalette,
         primary_light_color: state.editingPlaylist.primaryLightColor,
         primary_dark_color: state.editingPlaylist.primaryDarkColor,
         text_light_color: state.editingPlaylist.textLightColor,
@@ -256,8 +256,8 @@ export const actions = actionTree(
     updateEditingPlaylistHero({ commit }, image) {
       commit('updateEditingPlaylistHero', image)
     },
-    updateEditingPlaylistSelectedPaletteColor({ commit }, color) {
-      commit('updateEditingPlaylistSelectedPaletteColor', color)
+    updateEditingPlaylistSelectedPalette({ commit }, color) {
+      commit('updateEditingPlaylistSelectedPalette', color)
     },
     updateEditingPlaylistPrimaryLightColor({ commit }, color) {
       commit('updateEditingPlaylistPrimaryLightColor', color)
