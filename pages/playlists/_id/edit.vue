@@ -1,7 +1,6 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <p>{{ this.selectedPaletteColor || 'nuru' }}</p>
       <nuxt-link :to="`/playlists/${editingPlaylist.id}`">
         ≪ プレイリスト詳細に戻る
       </nuxt-link>
@@ -156,13 +155,7 @@
               一番右側のパレットから自由に色を選択することができます。
             </p>
           </v-col>
-          <ColorPalette
-            :selected-palette-color.sync="selectedPaletteColor"
-            :primary-light-color.sync="primaryLightColor"
-            :primary-dark-color.sync="primaryDarkColor"
-            :link-light-color.sync="linkLightColor"
-            :link-dark-color.sync="linkDarkColor"
-          />
+          <ColorPalette :selected-palette-color.sync="selectedPaletteColor" />
         </v-row>
 
         <!-- sameAs -->
@@ -219,6 +212,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import ColorPalette from '~/components/forms/ColorPalette.vue'
+import {
+  adjustPrimaryLightColor,
+  adjustLinkDarkColor,
+  adjustLinkLightColor,
+  adjustPrimaryDarkColor,
+} from '@/utils/adjustColor'
 
 interface SameAs {
   name: string
@@ -392,54 +391,26 @@ export default Vue.extend({
       get() {
         return this.$store.state.playlists.editingPlaylist.selectedPaletteColor
       },
-      set(value) {
+      set(value: string) {
         this.$store.dispatch(
           'playlists/updateEditingPlaylistSelectedPaletteColor',
           value
         )
-      },
-    },
-    primaryLightColor: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.primaryLightColor
-      },
-      set(value) {
         this.$store.dispatch(
           'playlists/updateEditingPlaylistPrimaryLightColor',
-          value
+          adjustPrimaryLightColor(value)
         )
-      },
-    },
-    primaryDarkColor: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.primaryDarkColor
-      },
-      set(value) {
         this.$store.dispatch(
           'playlists/updateEditingPlaylistPrimaryDarkColor',
-          value
+          adjustPrimaryDarkColor(value)
         )
-      },
-    },
-    linkLightColor: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.linkLightColor
-      },
-      set(value) {
         this.$store.dispatch(
           'playlists/updateEditingPlaylistLinkLightColor',
-          value
+          adjustLinkLightColor(value)
         )
-      },
-    },
-    linkDarkColor: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.linkDarkColor
-      },
-      set(value) {
         this.$store.dispatch(
           'playlists/updateEditingPlaylistLinkDarkColor',
-          value
+          adjustLinkDarkColor(value)
         )
       },
     },

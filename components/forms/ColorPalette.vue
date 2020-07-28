@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <v-btn-toggle
-          v-model="selectedPalette"
+          v-model="localSelectedPaletteColor"
           class="palettes"
           group
           mandatory
@@ -97,34 +97,19 @@ export default Vue.extend({
       required: false,
       default: '#FFFFFF',
     },
-    primaryLightColor: {
-      type: String,
-      required: false,
-      default: '#FFFFFF',
-    },
-    primaryDarkColor: {
-      type: String,
-      required: false,
-      default: '#FFFFFF',
-    },
-    linkLightColor: {
-      type: String,
-      required: false,
-      default: '#FFFFFF',
-    },
-    linkDarkColor: {
-      type: String,
-      required: false,
-      default: '#FFFFFF',
-    },
   },
   data() {
     return {
+      // NOTE: 「localXXXX」について
+      //  state.editingPlaylistの更新後にpropsが渡ってこないためstoreとは別にコンポーネント内で管理している
+      // FIXME: state.editingPlaylistの更新の検出が上手くできるようになったら不要になるので修正する
       localSelectedPaletteColor: this.selectedPaletteColor,
-      localPrimaryLightColor: this.primaryLightColor,
-      localPrimaryDarkColor: this.primaryDarkColor,
-      localLinkLightColor: this.linkLightColor,
-      localLinkDarkColor: this.linkDarkColor,
+      localPrimaryLightColor: adjustPrimaryLightColor(
+        this.selectedPaletteColor
+      ),
+      localPrimaryDarkColor: adjustPrimaryDarkColor(this.selectedPaletteColor),
+      localLinkLightColor: adjustLinkLightColor(this.selectedPaletteColor),
+      localLinkDarkColor: adjustLinkDarkColor(this.selectedPaletteColor),
       freePaletteColor: (this as any).isSelectedColorByPalette(
         this.selectedPaletteColor
       )
@@ -160,18 +145,6 @@ export default Vue.extend({
       this.localLinkDarkColor = adjustLinkDarkColor(colorHex)
 
       this.$emit('update:selectedPaletteColor', this.localSelectedPaletteColor)
-      this.$emit('update:primaryLightColor', this.localPrimaryLightColor)
-      this.$emit('update:primaryDarkColor', this.localPrimaryDarkColor)
-      this.$emit('update:linkLightColor', this.localLinkLightColor)
-      this.$emit('update:linkDarkColor', this.localLinkDarkColor)
-
-      // this.$emit('update:colorPalette', {
-      //   selectedPaletteColor: colorHex,
-      //   primaryLightColor: adjustPrimaryLightColor(colorHex),
-      //   linkLightColor: adjustLinkLightColor(colorHex),
-      //   primaryDarkColor: adjustPrimaryDarkColor(colorHex),
-      //   linkDarkColor: adjustLinkDarkColor(colorHex),
-      // })
     },
     isSelectedColorByPalette(color: string): boolean {
       return PALETTE_BASE_COLORS.includes(color)
