@@ -10,7 +10,7 @@ export interface Playlist {
   hashtag: string
   formatGenre: string
   themeGenre: string
-  selectedPalette: string
+  selectedPaletteColor: string
   primaryLightColor: string
   primaryDarkColor: string
   textLightColor: string

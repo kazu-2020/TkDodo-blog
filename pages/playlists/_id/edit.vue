@@ -1,6 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
+      <p>{{ this.selectedPaletteColor || 'nuru' }}</p>
       <nuxt-link :to="`/playlists/${editingPlaylist.id}`">
         ≪ プレイリスト詳細に戻る
       </nuxt-link>
@@ -155,7 +156,13 @@
               一番右側のパレットから自由に色を選択することができます。
             </p>
           </v-col>
-          <ColorPalette v-bind.sync="colorPalette" />
+          <ColorPalette
+            :selected-palette-color.sync="selectedPaletteColor"
+            :primary-light-color.sync="primaryLightColor"
+            :primary-dark-color.sync="primaryDarkColor"
+            :link-light-color.sync="linkLightColor"
+            :link-dark-color.sync="linkDarkColor"
+          />
         </v-row>
 
         <!-- sameAs -->
@@ -255,13 +262,6 @@ export default Vue.extend({
       { value: '096', text: '芸術' },
       { value: '110', text: '福祉全般' },
     ],
-    colorPalette: {
-      selectedPaletteColor: '#fbfbfb',
-      primaryLightColor: '#fbfbfb',
-      primaryDarkColor: '#fbfbfb',
-      linkLightColor: '#fbfbfb',
-      linkDarkColor: '#fbfbfb',
-    },
     logoImageData: '',
     eyecatchImageData: '',
     heroImageData: '',
@@ -388,40 +388,6 @@ export default Vue.extend({
         'https://placehold.jp/1080x360.png'
       )
     },
-    // colorPalette: {
-    //   get() {
-    //     return {
-    //       colors: {
-    //         selectedPaletteColor: this.$store.state.playlists.editingPlaylist
-    //           .selectedPaletteColor,
-    //         primaryLightColor: this.$store.state.playlists.editingPlaylist
-    //           .primaryLightColor,
-    //         primaryDarkColor: this.$store.state.playlists.editingPlaylist
-    //           .primaryDarkColor,
-    //         linkLightColor: this.$store.state.playlists.editingPlaylist
-    //           .linkLightColor,
-    //       },
-    //     }
-    //   },
-    //   set(value) {
-    //     this.$store.dispatch(
-    //       'playlists/updateEditingPlaylistColorPalette',
-    //       value
-    //     )
-    //   },
-    // },
-    // colorPalette(): Object {
-    //   return {
-    //     selectedPaletteColor: this.$store.state.playlists.editingPlaylist
-    //       .selectedPaletteColor,
-    //     primaryLightColor: this.$store.state.playlists.editingPlaylist
-    //       .primaryLightColor,
-    //     primaryDarkColor: this.$store.state.playlists.editingPlaylist
-    //       .primaryDarkColor,
-    //     linkLightColor: this.$store.state.playlists.editingPlaylist
-    //       .linkLightColor,
-    //   }
-    // },
     selectedPaletteColor: {
       get() {
         return this.$store.state.playlists.editingPlaylist.selectedPaletteColor
@@ -512,10 +478,6 @@ export default Vue.extend({
         console.log('Invalid!!!')
       }
     },
-    // onUpdateColorPalette(value: Object) {
-    //   console.log('edit.vue#onUpdateColorPalette', value)
-    //   this.$store.dispatch('playlists/updateEditingPlaylistColorPalette', value)
-    // },
     selectLogoImageFile() {
       ;(this.$refs.logoImageInput as HTMLElement).click()
     },

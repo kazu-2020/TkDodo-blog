@@ -73,6 +73,21 @@ export const mutations = mutationTree(state, {
   updateEditingPlaylistHero(state, image) {
     state.editingPlaylist.heroImageData = image
   },
+  updateEditingPlaylistSelectedPaletteColor(state, color) {
+    state.editingPlaylist.selectedPaletteColor = color
+  },
+  updateEditingPlaylistPrimaryLightColor(state, color) {
+    state.editingPlaylist.primaryLightColor = color
+  },
+  updateEditingPlaylistPrimaryDarkColor(state, color) {
+    state.editingPlaylist.primaryDarkColor = color
+  },
+  updateEditingPlaylistLinkLightColor(state, color) {
+    state.editingPlaylist.linkLightColor = color
+  },
+  updateEditingPlaylistLinkDarkColor(state, color) {
+    state.editingPlaylist.linkDarkColor = color
+  },
 })
 
 export const actions = actionTree(
@@ -131,7 +146,7 @@ export const actions = actionTree(
         hashtag: state.editingPlaylist.hashtag,
         format_genre_code: state.editingPlaylist.formatGenre,
         theme_genre_code: state.editingPlaylist.themeGenre,
-        selected_palette: state.editingPlaylist.selectedPalette,
+        selected_palette_color: state.editingPlaylist.selectedPaletteColor,
         primary_light_color: state.editingPlaylist.primaryLightColor,
         primary_dark_color: state.editingPlaylist.primaryDarkColor,
         text_light_color: state.editingPlaylist.textLightColor,
@@ -240,6 +255,21 @@ export const actions = actionTree(
     },
     updateEditingPlaylistHero({ commit }, image) {
       commit('updateEditingPlaylistHero', image)
+    },
+    updateEditingPlaylistSelectedPaletteColor({ commit }, color) {
+      commit('updateEditingPlaylistSelectedPaletteColor', color)
+    },
+    updateEditingPlaylistPrimaryLightColor({ commit }, color) {
+      commit('updateEditingPlaylistPrimaryLightColor', color)
+    },
+    updateEditingPlaylistPrimaryDarkColor({ commit }, color) {
+      commit('updateEditingPlaylistPrimaryDarkColor', color)
+    },
+    updateEditingPlaylistLinkLightColor({ commit }, color) {
+      commit('updateEditingPlaylistLinkLightColor', color)
+    },
+    updateEditingPlaylistLinkDarkColor({ commit }, color) {
+      commit('updateEditingPlaylistLinkDarkColor', color)
     },
   }
 )

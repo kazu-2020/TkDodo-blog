@@ -120,7 +120,11 @@ export default Vue.extend({
   },
   data() {
     return {
-      selectedPalette: this.selectedPaletteColor,
+      localSelectedPaletteColor: this.selectedPaletteColor,
+      localPrimaryLightColor: this.primaryLightColor,
+      localPrimaryDarkColor: this.primaryDarkColor,
+      localLinkLightColor: this.linkLightColor,
+      localLinkDarkColor: this.linkDarkColor,
       freePaletteColor: (this as any).isSelectedColorByPalette(
         this.selectedPaletteColor
       )
@@ -132,10 +136,10 @@ export default Vue.extend({
     paletteBaseColors: () => PALETTE_BASE_COLORS,
     adjustedColors(): Object {
       return {
-        primaryLight: this.primaryLightColor,
-        primaryDark: this.primaryDarkColor,
-        linkLight: this.linkLightColor,
-        linkDark: this.linkDarkColor,
+        primaryLight: this.localSelectedPaletteColor,
+        primaryDark: this.localPrimaryLightColor,
+        linkLight: this.localPrimaryDarkColor,
+        linkDark: this.localLinkLightColor,
       }
     },
   },
@@ -149,11 +153,18 @@ export default Vue.extend({
       this.emitAdjustedColors(colorObject.hex)
     },
     emitAdjustedColors(colorHex: string) {
-      this.$emit('update:selectedPaletteColor', colorHex)
-      this.$emit('update:primaryLightColor', adjustPrimaryLightColor(colorHex))
-      this.$emit('update:primaryDarkColor', adjustPrimaryDarkColor(colorHex))
-      this.$emit('update:linkLightColor', adjustLinkLightColor(colorHex))
-      this.$emit('update:linkDarkColor', adjustLinkDarkColor(colorHex))
+      this.localSelectedPaletteColor = colorHex
+      this.localPrimaryLightColor = adjustPrimaryLightColor(colorHex)
+      this.localPrimaryDarkColor = adjustPrimaryDarkColor(colorHex)
+      this.localLinkLightColor = adjustLinkLightColor(colorHex)
+      this.localLinkDarkColor = adjustLinkDarkColor(colorHex)
+
+      this.$emit('update:selectedPaletteColor', this.localSelectedPaletteColor)
+      this.$emit('update:primaryLightColor', this.localPrimaryLightColor)
+      this.$emit('update:primaryDarkColor', this.localPrimaryDarkColor)
+      this.$emit('update:linkLightColor', this.localLinkLightColor)
+      this.$emit('update:linkDarkColor', this.localLinkDarkColor)
+
       // this.$emit('update:colorPalette', {
       //   selectedPaletteColor: colorHex,
       //   primaryLightColor: adjustPrimaryLightColor(colorHex),
