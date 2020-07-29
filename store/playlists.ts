@@ -190,12 +190,13 @@ export const actions = actionTree(
       }
 
       if (
-        getters.sameAs.id ||
         getters.sameAs.name ||
         getters.sameAs.url ||
         getters.sameAs._destroy
       ) {
-        data.append('playlist[same_as_attributes][id]', getters.sameAs.id)
+        if (getters.sameAs.id) {
+          data.append('playlist[same_as_attributes][id]', getters.sameAs.id)
+        }
         data.append('playlist[same_as_attributes][name]', getters.sameAs.name)
         data.append('playlist[same_as_attributes][url]', getters.sameAs.url)
         data.append(

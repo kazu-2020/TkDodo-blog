@@ -109,35 +109,7 @@
               リンク(同一内容)<small class="text--secondary"> - SameAs</small>
             </h3>
           </v-col>
-          <v-col v-if="!noSameAs()" cols="12">
-            <v-row>
-              <v-col cols="5">
-                <v-text-field
-                  v-model="sameAsName"
-                  :rules="nameRules"
-                  label="名前"
-                />
-              </v-col>
-              <v-col cols="5">
-                <v-text-field
-                  v-model="sameAsUrl"
-                  :rules="nameRules"
-                  label="URL"
-                />
-              </v-col>
-              <v-col cols="1">
-                <v-btn color="error" class="mr-4" @click="removeSameAs">
-                  削除
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-col>
-          <v-col v-if="noSameAs()" cols="12">
-            <v-btn class="mr-4" @click="addSameAs">
-              <v-icon>mdi-plus</v-icon>
-              リンク(同一内容)を追加
-            </v-btn>
-          </v-col>
+          <same-as-form :same-as="sameAs" />
         </v-row>
 
         <v-btn
@@ -157,6 +129,7 @@
 import Vue from 'vue'
 import ColorPalette from '~/components/forms/ColorPalette.vue'
 import SeriesImagesForm from '~/components/forms/SeriesImagesForm.vue'
+import SameAsForm from '~/components/forms/SameAsForm.vue'
 import {
   adjustPrimaryDarkColor,
   adjustPrimaryLightColor,
@@ -164,16 +137,12 @@ import {
   adjustLinkLightColor,
 } from '@/utils/adjustColor'
 
-interface SameAs {
-  name: string
-  url: string
-}
-
 export default Vue.extend({
   name: 'PlaylistIdEditComponent',
   components: {
     ColorPalette,
     SeriesImagesForm,
+    SameAsForm,
   },
   async asyncData({ store, params }) {
     if ((store as any).$accessor.playlists.editingPlaylist.id) {
@@ -293,22 +262,6 @@ export default Vue.extend({
         return this.$store.state.sameAs
       },
     },
-    sameAsName: {
-      get() {
-        return this.$store.state.sameAs.name
-      },
-      set(value) {
-        this.$store.dispatch('sameAs/updateName', value)
-      },
-    },
-    sameAsUrl: {
-      get() {
-        return this.$store.state.sameAs.url
-      },
-      set(value) {
-        this.$store.dispatch('sameAs/updateUrl', value)
-      },
-    },
     selectedPalette: {
       get() {
         return this.$store.state.playlists.editingPlaylist.selectedPalette
@@ -338,21 +291,6 @@ export default Vue.extend({
     },
   },
   methods: {
-    addSameAs() {
-      this.sameAsName = ''
-      this.sameAsUrl = ''
-    },
-    removeSameAs() {
-      this.$store.dispatch('sameAs/delete')
-    },
-    noSameAs() {
-      return (
-        (this.sameAs.id === null &&
-          this.sameAs.name === null &&
-          this.sameAs.url === null) ||
-        this.sameAs._destroy === 1
-      )
-    },
     updateSeriesImage(data: any) {
       switch (data.type) {
         case 'logo':
