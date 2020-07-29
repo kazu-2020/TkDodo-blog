@@ -103,7 +103,7 @@ export default Vue.extend({
       // NOTE: 「localXXXX」について
       //  state.editingPlaylistの更新後にpropsが渡ってこないためstoreとは別にコンポーネント内で管理している
       // FIXME: state.editingPlaylistの更新の検出が上手くできるようになったら不要になるので修正する
-      localSelectedPalette: this.selectedPalette,
+      localSelectedPalette: this.selectedPalette || '#FFFFFF',
       freePaletteColor: (this as any).isSelectedColorByPalette(
         this.selectedPalette
       )

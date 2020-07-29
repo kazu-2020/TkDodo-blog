@@ -83,66 +83,10 @@
           <v-col cols="12">
             <h3>画像</h3>
           </v-col>
-          <v-col cols="2">
-            <v-card tile>
-              <v-card-title>
-                ロゴ
-              </v-card-title>
-              <v-img
-                :src="logoImageUrl"
-                aspect-ratio="1"
-                @click="selectLogoImageFile"
-              />
-              <input
-                id="logoImageFile"
-                ref="logoImageInput"
-                type="file"
-                accept="image/*"
-                style="display: none;"
-                @change="replaceLogoImage"
-              />
-            </v-card>
-          </v-col>
-          <v-col cols="4">
-            <v-card tile>
-              <v-card-title>
-                アイキャッチ
-              </v-card-title>
-              <v-img
-                :src="eyecatchImageUrl"
-                aspect-ratio="1.777777778"
-                @click="selectEyecatchImageFile"
-              />
-              <input
-                id="eyecatchImageFile"
-                ref="eyecatchImageInput"
-                type="file"
-                accept="image/*"
-                style="display: none;"
-                @change="replaceEyecatchImage"
-              />
-            </v-card>
-          </v-col>
-          <v-col cols="6">
-            <v-card tile>
-              <v-card-title>
-                ヒーローイメージ
-              </v-card-title>
-              <v-img
-                :src="heroImageUrl"
-                aspect-ratio="3"
-                @click="selectHeroImageFile"
-              />
-              <input
-                id="heroImageFile"
-                ref="heroImageInput"
-                type="file"
-                accept="image/*"
-                style="display: none;"
-                @change="replaceHeroImage"
-              />
-            </v-card>
-          </v-col>
+          <series-images-form
+            :playlist="editingPlaylist"
+            @update-series-image="updateSeriesImage"
+          />
         </v-row>
 
         <!-- 色 -->
@@ -155,7 +99,7 @@
               一番右側のパレットから自由に色を選択することができます。
             </p>
           </v-col>
-          <ColorPalette :selected-palette.sync="selectedPalette" />
+          <color-palette :selected-palette.sync="selectedPalette" />
         </v-row>
 
         <!-- sameAs -->
@@ -212,6 +156,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import ColorPalette from '~/components/forms/ColorPalette.vue'
+import SeriesImagesForm from '~/components/forms/SeriesImagesForm.vue'
 import {
   adjustPrimaryDarkColor,
   adjustPrimaryLightColor,
@@ -228,6 +173,7 @@ export default Vue.extend({
   name: 'PlaylistIdEditComponent',
   components: {
     ColorPalette,
+    SeriesImagesForm,
   },
   async asyncData({ store, params }) {
     if ((store as any).$accessor.playlists.editingPlaylist.id) {
@@ -261,9 +207,6 @@ export default Vue.extend({
       { value: '096', text: '芸術' },
       { value: '110', text: '福祉全般' },
     ],
-    logoImageData: '',
-    eyecatchImageData: '',
-    heroImageData: '',
   }),
   computed: {
     editingPlaylist() {
@@ -366,27 +309,6 @@ export default Vue.extend({
         this.$store.dispatch('sameAs/updateUrl', value)
       },
     },
-    logoImageUrl(): string {
-      return (
-        this.logoImageData ||
-        this.editingPlaylist.logo?.medium?.url ||
-        'https://placehold.jp/640x640.png'
-      )
-    },
-    eyecatchImageUrl(): string {
-      return (
-        this.eyecatchImageData ||
-        this.editingPlaylist.eyecatch?.medium?.url ||
-        'https://placehold.jp/640x360.png'
-      )
-    },
-    heroImageUrl(): string {
-      return (
-        this.heroImageData ||
-        this.editingPlaylist.hero?.medium?.url ||
-        'https://placehold.jp/1080x360.png'
-      )
-    },
     selectedPalette: {
       get() {
         return this.$store.state.playlists.editingPlaylist.selectedPalette
@@ -431,6 +353,22 @@ export default Vue.extend({
         this.sameAs._destroy === 1
       )
     },
+    updateSeriesImage(data: any) {
+      switch (data.type) {
+        case 'logo':
+          this.$store.dispatch('playlists/updateEditingPlaylistLogo', data.file)
+          break
+        case 'eyecatch':
+          this.$store.dispatch(
+            'playlists/updateEditingPlaylistEyecatch',
+            data.file
+          )
+          break
+        case 'hero':
+          this.$store.dispatch('playlists/updateEditingPlaylistHero', data.file)
+          break
+      }
+    },
     validate() {
       const form: any = this.$refs.form
       form.validate()
@@ -447,65 +385,6 @@ export default Vue.extend({
         this.$store.dispatch('playlists/updateEditingPlaylist')
       } else {
         console.log('Invalid!!!')
-      }
-    },
-    selectLogoImageFile() {
-      ;(this.$refs.logoImageInput as HTMLElement).click()
-    },
-    replaceLogoImage() {
-      const inputElement = this.$refs.logoImageInput as HTMLInputElement
-      this.replaceImage(inputElement, 'logo')
-    },
-    selectEyecatchImageFile() {
-      ;(this.$refs.eyecatchImageInput as HTMLElement).click()
-    },
-    replaceEyecatchImage() {
-      const inputElement = this.$refs.eyecatchImageInput as HTMLInputElement
-      this.replaceImage(inputElement, 'eyecatch')
-    },
-    selectHeroImageFile() {
-      ;(this.$refs.heroImageInput as HTMLElement).click()
-    },
-    replaceHeroImage() {
-      const inputElement = this.$refs.heroImageInput as HTMLInputElement
-      this.replaceImage(inputElement, 'hero')
-    },
-    replaceImage(targetElement: HTMLInputElement, type: string) {
-      if (targetElement.files === null) {
-        return
-      }
-      const file = targetElement.files[0]
-
-      if (file) {
-        const reader = new FileReader()
-        reader.onload = (e) => {
-          if (e.target !== null) {
-            switch (type) {
-              case 'logo':
-                this.logoImageData = e.target.result as string
-                this.$store.dispatch(
-                  'playlists/updateEditingPlaylistLogo',
-                  file
-                )
-                break
-              case 'eyecatch':
-                this.eyecatchImageData = e.target.result as string
-                this.$store.dispatch(
-                  'playlists/updateEditingPlaylistEyecatch',
-                  file
-                )
-                break
-              case 'hero':
-                this.heroImageData = e.target.result as string
-                this.$store.dispatch(
-                  'playlists/updateEditingPlaylistHero',
-                  file
-                )
-                break
-            }
-          }
-        }
-        reader.readAsDataURL(file)
       }
     },
   },
