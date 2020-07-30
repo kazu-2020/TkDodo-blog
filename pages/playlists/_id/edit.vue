@@ -269,22 +269,22 @@ export default Vue.extend({
           }
         }
 
-        if (playlist.sameAs.id) {
+        if (playlist.sameAs?.id) {
           data.append(
             'playlist[same_as_attributes][id]',
             playlist.sameAs.id.toString()
           )
         }
-        if (playlist.sameAs.name) {
+        if (playlist.sameAs?.name) {
           data.append(
             'playlist[same_as_attributes][name]',
-            playlist.sameAs.name
+            playlist.sameAs?.name
           )
         }
-        if (playlist.sameAs.url) {
+        if (playlist.sameAs?.url) {
           data.append('playlist[same_as_attributes][url]', playlist.sameAs.url)
         }
-        if (playlist.sameAs._destroy) {
+        if (playlist.sameAs?._destroy) {
           data.append(
             'playlist[same_as_attributes][_destroy]',
             playlist.sameAs._destroy.toString()
