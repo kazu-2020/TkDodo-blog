@@ -1,4 +1,5 @@
 import { EpisodeData } from './episode_data'
+import { SameAs } from './same_as'
 
 export interface Playlist {
   id: string
@@ -23,4 +24,5 @@ export interface Playlist {
   eyecatchImageData: string
   heroImageData: string
   items: Array<EpisodeData>
+  sameAs: SameAs
 }

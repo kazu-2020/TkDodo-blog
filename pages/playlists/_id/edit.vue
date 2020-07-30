@@ -16,7 +16,7 @@
           </v-col>
           <v-col cols="12">
             <v-text-field
-              v-model="name"
+              v-model="editingPlaylist.name"
               :rules="nameRules"
               label="名前 - Name"
               required
@@ -24,13 +24,13 @@
           </v-col>
           <v-col cols="12">
             <v-text-field
-              v-model="detailedNameRuby"
+              v-model="editingPlaylist.detailedNameRuby"
               label="ふりがな - Detailed Name Ruby"
             />
           </v-col>
           <v-col cols="12">
             <v-textarea
-              v-model="detailedCatch"
+              v-model="editingPlaylist.detailedCatch"
               name="catch"
               rows="3"
               label="キャッチコピー - Detailed Catch"
@@ -38,7 +38,7 @@
           </v-col>
           <v-col cols="12">
             <v-textarea
-              v-model="description"
+              v-model="editingPlaylist.description"
               name="catch"
               rows="5"
               label="説明 - Description"
@@ -48,7 +48,7 @@
 
           <v-col cols="12">
             <v-text-field
-              v-model="keywords"
+              v-model="editingPlaylist.keywords"
               label="キーワード - Keywords"
               hint="カンマ（,)区切りで複数のキーワードが登録可能です。"
             />
@@ -56,7 +56,7 @@
 
           <v-col cols="12">
             <v-text-field
-              v-model="hashtag"
+              v-model="editingPlaylist.hashtag"
               label="ハッシュタグ - Hashtag"
               hint="タグの先頭に「#」をつけてください。スペース区切りで複数のタグが登録可能です。"
             />
@@ -64,14 +64,14 @@
           <v-row flex-start>
             <v-col cols="6" md="3">
               <v-select
-                v-model="formatGenre"
+                v-model="editingPlaylist.themeGenre"
                 :items="formatGenreLists"
                 label="ジャンル(フォーマット) - Format Genre"
               />
             </v-col>
             <v-col cols="6" md="3">
               <v-select
-                v-model="themeGenre"
+                v-model="editingPlaylist.themeGenre"
                 :items="themeGenreLists"
                 label="ジャンル(テーマ) - Theme Genre"
               />
@@ -83,66 +83,10 @@
           <v-col cols="12">
             <h3>画像</h3>
           </v-col>
-          <v-col cols="2">
-            <v-card tile>
-              <v-card-title>
-                ロゴ
-              </v-card-title>
-              <v-img
-                :src="logoImageUrl"
-                aspect-ratio="1"
-                @click="selectLogoImageFile"
-              />
-              <input
-                id="logoImageFile"
-                ref="logoImageInput"
-                type="file"
-                accept="image/*"
-                style="display: none;"
-                @change="replaceLogoImage"
-              />
-            </v-card>
-          </v-col>
-          <v-col cols="4">
-            <v-card tile>
-              <v-card-title>
-                アイキャッチ
-              </v-card-title>
-              <v-img
-                :src="eyecatchImageUrl"
-                aspect-ratio="1.777777778"
-                @click="selectEyecatchImageFile"
-              />
-              <input
-                id="eyecatchImageFile"
-                ref="eyecatchImageInput"
-                type="file"
-                accept="image/*"
-                style="display: none;"
-                @change="replaceEyecatchImage"
-              />
-            </v-card>
-          </v-col>
-          <v-col cols="6">
-            <v-card tile>
-              <v-card-title>
-                ヒーローイメージ
-              </v-card-title>
-              <v-img
-                :src="heroImageUrl"
-                aspect-ratio="3"
-                @click="selectHeroImageFile"
-              />
-              <input
-                id="heroImageFile"
-                ref="heroImageInput"
-                type="file"
-                accept="image/*"
-                style="display: none;"
-                @change="replaceHeroImage"
-              />
-            </v-card>
-          </v-col>
+          <series-images-form
+            :playlist="editingPlaylist"
+            @update-series-image="updateSeriesImage"
+          />
         </v-row>
 
         <!-- 色 -->
@@ -155,7 +99,7 @@
               一番右側のパレットから自由に色を選択することができます。
             </p>
           </v-col>
-          <ColorPalette :selected-palette.sync="selectedPalette" />
+          <color-palette :selected-palette.sync="selectedPalette" />
         </v-row>
 
         <!-- sameAs -->
@@ -165,35 +109,7 @@
               リンク(同一内容)<small class="text--secondary"> - SameAs</small>
             </h3>
           </v-col>
-          <v-col v-if="!noSameAs()" cols="12">
-            <v-row>
-              <v-col cols="5">
-                <v-text-field
-                  v-model="sameAsName"
-                  :rules="nameRules"
-                  label="名前"
-                />
-              </v-col>
-              <v-col cols="5">
-                <v-text-field
-                  v-model="sameAsUrl"
-                  :rules="nameRules"
-                  label="URL"
-                />
-              </v-col>
-              <v-col cols="1">
-                <v-btn color="error" class="mr-4" @click="removeSameAs">
-                  削除
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-col>
-          <v-col v-if="noSameAs()" cols="12">
-            <v-btn class="mr-4" @click="addSameAs">
-              <v-icon>mdi-plus</v-icon>
-              リンク(同一内容)を追加
-            </v-btn>
-          </v-col>
+          <same-as-form :same-as.sync="editingPlaylist.sameAs" />
         </v-row>
 
         <v-btn
@@ -212,6 +128,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import ColorPalette from '~/components/forms/ColorPalette.vue'
+import SeriesImagesForm from '~/components/forms/SeriesImagesForm.vue'
+import SameAsForm from '~/components/forms/SameAsForm.vue'
+import { Playlist } from '@/types/plyalist'
 import {
   adjustPrimaryDarkColor,
   adjustPrimaryLightColor,
@@ -219,23 +138,22 @@ import {
   adjustLinkLightColor,
 } from '@/utils/adjustColor'
 
-interface SameAs {
-  name: string
-  url: string
-}
-
 export default Vue.extend({
   name: 'PlaylistIdEditComponent',
   components: {
     ColorPalette,
+    SeriesImagesForm,
+    SameAsForm,
   },
-  async asyncData({ store, params }) {
-    if ((store as any).$accessor.playlists.editingPlaylist.id) {
-      return
-    }
-    await store.dispatch('playlists/fetchPlaylist', params.id)
+  asyncData({ $axios, params }) {
+    return $axios.get(`/api/playlists/${params.id}`).then((res) => {
+      return {
+        editingPlaylist: res.data.playlist,
+      }
+    })
   },
   data: () => ({
+    editingPlaylist: {},
     valid: true,
     nameRules: [
       (v: String) => !!v || '名前は必ず入力してください',
@@ -261,175 +179,39 @@ export default Vue.extend({
       { value: '096', text: '芸術' },
       { value: '110', text: '福祉全般' },
     ],
-    logoImageData: '',
-    eyecatchImageData: '',
-    heroImageData: '',
   }),
   computed: {
-    editingPlaylist() {
-      return this.$store.state.playlists.editingPlaylist
-    },
-    name: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.name
-      },
-      set(value) {
-        this.$store.dispatch('playlists/updateEditingPlaylistName', value)
-      },
-    },
-    detailedNameRuby: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.detailedNameRuby
-      },
-      set(value) {
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistDetailedNameRuby',
-          value
-        )
-      },
-    },
-    formatGenre: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.formatGenre
-      },
-      set(value) {
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistFormatGenre',
-          value
-        )
-      },
-    },
-    themeGenre: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.themeGenre
-      },
-      set(value) {
-        this.$store.dispatch('playlists/updateEditingPlaylistThemeGenre', value)
-      },
-    },
-    detailedCatch: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.detailedCatch
-      },
-      set(value) {
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistDetailedCatch',
-          value
-        )
-      },
-    },
-    description: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.description
-      },
-      set(value) {
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistDescription',
-          value
-        )
-      },
-    },
-    keywords: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.keywords
-      },
-      set(value) {
-        this.$store.dispatch('playlists/updateEditingPlaylistKeywords', value)
-      },
-    },
-    hashtag: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.hashtag
-      },
-      set(value) {
-        this.$store.dispatch('playlists/updateEditingPlaylistHashtag', value)
-      },
-    },
-    sameAs: {
-      get() {
-        return this.$store.state.sameAs
-      },
-    },
-    sameAsName: {
-      get() {
-        return this.$store.state.sameAs.name
-      },
-      set(value) {
-        this.$store.dispatch('sameAs/updateName', value)
-      },
-    },
-    sameAsUrl: {
-      get() {
-        return this.$store.state.sameAs.url
-      },
-      set(value) {
-        this.$store.dispatch('sameAs/updateUrl', value)
-      },
-    },
-    logoImageUrl(): string {
-      return (
-        this.logoImageData ||
-        this.editingPlaylist.logo?.medium?.url ||
-        'https://placehold.jp/640x640.png'
-      )
-    },
-    eyecatchImageUrl(): string {
-      return (
-        this.eyecatchImageData ||
-        this.editingPlaylist.eyecatch?.medium?.url ||
-        'https://placehold.jp/640x360.png'
-      )
-    },
-    heroImageUrl(): string {
-      return (
-        this.heroImageData ||
-        this.editingPlaylist.hero?.medium?.url ||
-        'https://placehold.jp/1080x360.png'
-      )
-    },
     selectedPalette: {
       get() {
-        return this.$store.state.playlists.editingPlaylist.selectedPalette
+        return (this.editingPlaylist as Playlist).selectedPalette
       },
       set(value: string) {
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistSelectedPalette',
-          value
-        )
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistPrimaryLightColor',
-          adjustPrimaryLightColor(value)
-        )
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistPrimaryDarkColor',
-          adjustPrimaryDarkColor(value)
-        )
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistLinkLightColor',
-          adjustLinkLightColor(value)
-        )
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistLinkDarkColor',
-          adjustLinkDarkColor(value)
-        )
+        const playlist = this.editingPlaylist as Playlist
+
+        playlist.selectedPalette = value
+        playlist.primaryLightColor = adjustPrimaryLightColor(value)
+        playlist.primaryDarkColor = adjustPrimaryDarkColor(value)
+        playlist.linkLightColor = adjustLinkLightColor(value)
+        playlist.linkDarkColor = adjustLinkDarkColor(value)
       },
     },
   },
   methods: {
-    addSameAs() {
-      this.sameAsName = ''
-      this.sameAsUrl = ''
-    },
-    removeSameAs() {
-      this.$store.dispatch('sameAs/delete')
-    },
-    noSameAs() {
-      return (
-        (this.sameAs.id === null &&
-          this.sameAs.name === null &&
-          this.sameAs.url === null) ||
-        this.sameAs._destroy === 1
-      )
+    updateSeriesImage(data: any) {
+      switch (data.type) {
+        case 'logo':
+          this.$store.dispatch('playlists/updateEditingPlaylistLogo', data.file)
+          break
+        case 'eyecatch':
+          this.$store.dispatch(
+            'playlists/updateEditingPlaylistEyecatch',
+            data.file
+          )
+          break
+        case 'hero':
+          this.$store.dispatch('playlists/updateEditingPlaylistHero', data.file)
+          break
+      }
     },
     validate() {
       const form: any = this.$refs.form
@@ -444,68 +226,81 @@ export default Vue.extend({
           success: '保存しました',
           error: '保存失敗しました',
         })
-        this.$store.dispatch('playlists/updateEditingPlaylist')
-      } else {
-        console.log('Invalid!!!')
-      }
-    },
-    selectLogoImageFile() {
-      ;(this.$refs.logoImageInput as HTMLElement).click()
-    },
-    replaceLogoImage() {
-      const inputElement = this.$refs.logoImageInput as HTMLInputElement
-      this.replaceImage(inputElement, 'logo')
-    },
-    selectEyecatchImageFile() {
-      ;(this.$refs.eyecatchImageInput as HTMLElement).click()
-    },
-    replaceEyecatchImage() {
-      const inputElement = this.$refs.eyecatchImageInput as HTMLInputElement
-      this.replaceImage(inputElement, 'eyecatch')
-    },
-    selectHeroImageFile() {
-      ;(this.$refs.heroImageInput as HTMLElement).click()
-    },
-    replaceHeroImage() {
-      const inputElement = this.$refs.heroImageInput as HTMLInputElement
-      this.replaceImage(inputElement, 'hero')
-    },
-    replaceImage(targetElement: HTMLInputElement, type: string) {
-      if (targetElement.files === null) {
-        return
-      }
-      const file = targetElement.files[0]
+        const playlist = this.editingPlaylist as Playlist
+        const body: { [key: string]: string } = {
+          name: playlist.name,
+          detailed_name_ruby: playlist.detailedNameRuby,
+          description: playlist.description,
+          keywords: playlist.keywords,
+          detailed_catch: playlist.detailedCatch,
+          hashtag: playlist.hashtag,
+          format_genre_code: playlist.formatGenre,
+          theme_genre_code: playlist.themeGenre,
+          selected_palette: playlist.selectedPalette,
+          primary_light_color: playlist.primaryLightColor,
+          primary_dark_color: playlist.primaryDarkColor,
+          text_light_color: playlist.textLightColor,
+          text_dark_color: playlist.textDarkColor,
+          link_light_color: playlist.linkLightColor,
+          link_dark_color: playlist.linkDarkColor,
+          reserve_publish_time_at: playlist.reservePublishTimeAt,
+          reserve_finish_time_at: playlist.reserveFinishTimeAt,
+        }
 
-      if (file) {
-        const reader = new FileReader()
-        reader.onload = (e) => {
-          if (e.target !== null) {
-            switch (type) {
-              case 'logo':
-                this.logoImageData = e.target.result as string
-                this.$store.dispatch(
-                  'playlists/updateEditingPlaylistLogo',
-                  file
-                )
-                break
-              case 'eyecatch':
-                this.eyecatchImageData = e.target.result as string
-                this.$store.dispatch(
-                  'playlists/updateEditingPlaylistEyecatch',
-                  file
-                )
-                break
-              case 'hero':
-                this.heroImageData = e.target.result as string
-                this.$store.dispatch(
-                  'playlists/updateEditingPlaylistHero',
-                  file
-                )
-                break
-            }
+        if (playlist.logoImageData !== undefined) {
+          Object.assign(body, {
+            logo_image: playlist.logoImageData,
+          })
+        }
+        if (playlist.eyecatchImageData !== undefined) {
+          Object.assign(body, {
+            eyecatch_image: playlist.eyecatchImageData,
+          })
+        }
+        if (playlist.heroImageData !== undefined) {
+          Object.assign(body, {
+            hero_image: playlist.heroImageData,
+          })
+        }
+        const data = new FormData()
+        for (const key in body) {
+          if (body[key] !== undefined && body[key] !== null) {
+            data.append(`playlist[${key}]`, body[key])
           }
         }
-        reader.readAsDataURL(file)
+
+        if (playlist.sameAs.id) {
+          data.append(
+            'playlist[same_as_attributes][id]',
+            playlist.sameAs.id.toString()
+          )
+        }
+        if (playlist.sameAs.name) {
+          data.append(
+            'playlist[same_as_attributes][name]',
+            playlist.sameAs.name
+          )
+        }
+        if (playlist.sameAs.url) {
+          data.append('playlist[same_as_attributes][url]', playlist.sameAs.url)
+        }
+        if (playlist.sameAs._destroy) {
+          data.append(
+            'playlist[same_as_attributes][_destroy]',
+            playlist.sameAs._destroy.toString()
+          )
+        }
+
+        this.$axios
+          .put(`/api/playlists/${playlist.id}`, data)
+          .then((_response) => {
+            this.$store.dispatch('loading/succeedLoading')
+          })
+          .catch((_error) => {
+            this.$store.dispatch('loading/failLoading')
+          })
+      } else {
+        console.log('Invalid!!!')
       }
     },
   },
