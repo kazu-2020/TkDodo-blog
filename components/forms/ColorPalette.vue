@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <v-btn-toggle
-          v-model="localSelectedPalette"
+          value="selectedPalette"
           class="palettes"
           group
           mandatory
@@ -100,10 +100,6 @@ export default Vue.extend({
   },
   data() {
     return {
-      // NOTE: 「localXXXX」について
-      //  state.editingPlaylistの更新後にpropsが渡ってこないためstoreとは別にコンポーネント内で管理している
-      // FIXME: state.editingPlaylistの更新の検出が上手くできるようになったら不要になるので修正する
-      localSelectedPalette: this.selectedPalette || '#FFFFFF',
       freePaletteColor: (this as any).isSelectedColorByPalette(
         this.selectedPalette
       )
@@ -115,23 +111,11 @@ export default Vue.extend({
     paletteBaseColors: () => PALETTE_BASE_COLORS,
     adjustedColors(): Object {
       return {
-        primaryLight: this.localPrimaryLightColor,
-        primaryDark: this.localPrimaryDarkColor,
-        linkLight: this.localLinkLightColor,
-        linkDark: this.localLinkDarkColor,
+        primaryLight: adjustPrimaryLightColor(this.selectedPalette),
+        primaryDark: adjustPrimaryDarkColor(this.selectedPalette),
+        linkLight: adjustLinkLightColor(this.selectedPalette),
+        linkDark: adjustLinkDarkColor(this.selectedPalette),
       }
-    },
-    localPrimaryLightColor(): string {
-      return adjustPrimaryLightColor(this.localSelectedPalette)
-    },
-    localPrimaryDarkColor(): string {
-      return adjustPrimaryDarkColor(this.localSelectedPalette)
-    },
-    localLinkLightColor(): string {
-      return adjustLinkLightColor(this.localSelectedPalette)
-    },
-    localLinkDarkColor(): string {
-      return adjustLinkDarkColor(this.localSelectedPalette)
     },
   },
   methods: {
@@ -144,8 +128,7 @@ export default Vue.extend({
       this.emitAdjustedColors(colorObject.hex)
     },
     emitAdjustedColors(colorHex: string) {
-      this.localSelectedPalette = colorHex
-      this.$emit('update:selectedPalette', this.localSelectedPalette)
+      this.$emit('update:selectedPalette', colorHex)
     },
     isSelectedColorByPalette(color: string): boolean {
       return PALETTE_BASE_COLORS.includes(color)
