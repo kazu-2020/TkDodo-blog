@@ -16,7 +16,7 @@
           </v-col>
           <v-col cols="12">
             <v-text-field
-              v-model="name"
+              v-model="editingPlaylist.name"
               :rules="nameRules"
               label="名前 - Name"
               required
@@ -24,13 +24,13 @@
           </v-col>
           <v-col cols="12">
             <v-text-field
-              v-model="detailedNameRuby"
+              v-model="editingPlaylist.detailedNameRuby"
               label="ふりがな - Detailed Name Ruby"
             />
           </v-col>
           <v-col cols="12">
             <v-textarea
-              v-model="detailedCatch"
+              v-model="editingPlaylist.detailedCatch"
               name="catch"
               rows="3"
               label="キャッチコピー - Detailed Catch"
@@ -38,7 +38,7 @@
           </v-col>
           <v-col cols="12">
             <v-textarea
-              v-model="description"
+              v-model="editingPlaylist.description"
               name="catch"
               rows="5"
               label="説明 - Description"
@@ -48,7 +48,7 @@
 
           <v-col cols="12">
             <v-text-field
-              v-model="keywords"
+              v-model="editingPlaylist.keywords"
               label="キーワード - Keywords"
               hint="カンマ（,)区切りで複数のキーワードが登録可能です。"
             />
@@ -56,7 +56,7 @@
 
           <v-col cols="12">
             <v-text-field
-              v-model="hashtag"
+              v-model="editingPlaylist.hashtag"
               label="ハッシュタグ - Hashtag"
               hint="タグの先頭に「#」をつけてください。スペース区切りで複数のタグが登録可能です。"
             />
@@ -64,14 +64,14 @@
           <v-row flex-start>
             <v-col cols="6" md="3">
               <v-select
-                v-model="formatGenre"
+                v-model="editingPlaylist.themeGenre"
                 :items="formatGenreLists"
                 label="ジャンル(フォーマット) - Format Genre"
               />
             </v-col>
             <v-col cols="6" md="3">
               <v-select
-                v-model="themeGenre"
+                v-model="editingPlaylist.themeGenre"
                 :items="themeGenreLists"
                 label="ジャンル(テーマ) - Theme Genre"
               />
@@ -109,7 +109,7 @@
               リンク(同一内容)<small class="text--secondary"> - SameAs</small>
             </h3>
           </v-col>
-          <same-as-form :same-as="sameAs" />
+          <same-as-form :same-as.sync="editingPlaylist.sameAs" />
         </v-row>
 
         <v-btn
@@ -130,6 +130,7 @@ import Vue from 'vue'
 import ColorPalette from '~/components/forms/ColorPalette.vue'
 import SeriesImagesForm from '~/components/forms/SeriesImagesForm.vue'
 import SameAsForm from '~/components/forms/SameAsForm.vue'
+import { Playlist } from '@/types/plyalist'
 import {
   adjustPrimaryDarkColor,
   adjustPrimaryLightColor,
@@ -144,13 +145,15 @@ export default Vue.extend({
     SeriesImagesForm,
     SameAsForm,
   },
-  async asyncData({ store, params }) {
-    if ((store as any).$accessor.playlists.editingPlaylist.id) {
-      return
-    }
-    await store.dispatch('playlists/fetchPlaylist', params.id)
+  asyncData({ $axios, params }) {
+    return $axios.get(`/api/playlists/${params.id}`).then((res) => {
+      return {
+        editingPlaylist: res.data.playlist,
+      }
+    })
   },
   data: () => ({
+    editingPlaylist: {},
     valid: true,
     nameRules: [
       (v: String) => !!v || '名前は必ず入力してください',
@@ -178,115 +181,18 @@ export default Vue.extend({
     ],
   }),
   computed: {
-    editingPlaylist() {
-      return this.$store.state.playlists.editingPlaylist
-    },
-    name: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.name
-      },
-      set(value) {
-        this.$store.dispatch('playlists/updateEditingPlaylistName', value)
-      },
-    },
-    detailedNameRuby: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.detailedNameRuby
-      },
-      set(value) {
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistDetailedNameRuby',
-          value
-        )
-      },
-    },
-    formatGenre: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.formatGenre
-      },
-      set(value) {
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistFormatGenre',
-          value
-        )
-      },
-    },
-    themeGenre: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.themeGenre
-      },
-      set(value) {
-        this.$store.dispatch('playlists/updateEditingPlaylistThemeGenre', value)
-      },
-    },
-    detailedCatch: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.detailedCatch
-      },
-      set(value) {
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistDetailedCatch',
-          value
-        )
-      },
-    },
-    description: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.description
-      },
-      set(value) {
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistDescription',
-          value
-        )
-      },
-    },
-    keywords: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.keywords
-      },
-      set(value) {
-        this.$store.dispatch('playlists/updateEditingPlaylistKeywords', value)
-      },
-    },
-    hashtag: {
-      get() {
-        return this.$store.state.playlists.editingPlaylist.hashtag
-      },
-      set(value) {
-        this.$store.dispatch('playlists/updateEditingPlaylistHashtag', value)
-      },
-    },
-    sameAs: {
-      get() {
-        return this.$store.state.sameAs
-      },
-    },
     selectedPalette: {
       get() {
-        return this.$store.state.playlists.editingPlaylist.selectedPalette
+        return (this.editingPlaylist as Playlist).selectedPalette
       },
       set(value: string) {
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistSelectedPalette',
-          value
-        )
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistPrimaryLightColor',
-          adjustPrimaryLightColor(value)
-        )
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistPrimaryDarkColor',
-          adjustPrimaryDarkColor(value)
-        )
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistLinkLightColor',
-          adjustLinkLightColor(value)
-        )
-        this.$store.dispatch(
-          'playlists/updateEditingPlaylistLinkDarkColor',
-          adjustLinkDarkColor(value)
-        )
+        const playlist = this.editingPlaylist as Playlist
+
+        playlist.selectedPalette = value
+        playlist.primaryLightColor = adjustPrimaryLightColor(value)
+        playlist.primaryDarkColor = adjustPrimaryDarkColor(value)
+        playlist.linkLightColor = adjustLinkLightColor(value)
+        playlist.linkDarkColor = adjustLinkDarkColor(value)
       },
     },
   },
@@ -320,7 +226,79 @@ export default Vue.extend({
           success: '保存しました',
           error: '保存失敗しました',
         })
-        this.$store.dispatch('playlists/updateEditingPlaylist')
+        const playlist = this.editingPlaylist as Playlist
+        const body: { [key: string]: string } = {
+          name: playlist.name,
+          detailed_name_ruby: playlist.detailedNameRuby,
+          description: playlist.description,
+          keywords: playlist.keywords,
+          detailed_catch: playlist.detailedCatch,
+          hashtag: playlist.hashtag,
+          format_genre_code: playlist.formatGenre,
+          theme_genre_code: playlist.themeGenre,
+          selected_palette: playlist.selectedPalette,
+          primary_light_color: playlist.primaryLightColor,
+          primary_dark_color: playlist.primaryDarkColor,
+          text_light_color: playlist.textLightColor,
+          text_dark_color: playlist.textDarkColor,
+          link_light_color: playlist.linkLightColor,
+          link_dark_color: playlist.linkDarkColor,
+          reserve_publish_time_at: playlist.reservePublishTimeAt,
+          reserve_finish_time_at: playlist.reserveFinishTimeAt,
+        }
+
+        if (playlist.logoImageData !== undefined) {
+          Object.assign(body, {
+            logo_image: playlist.logoImageData,
+          })
+        }
+        if (playlist.eyecatchImageData !== undefined) {
+          Object.assign(body, {
+            eyecatch_image: playlist.eyecatchImageData,
+          })
+        }
+        if (playlist.heroImageData !== undefined) {
+          Object.assign(body, {
+            hero_image: playlist.heroImageData,
+          })
+        }
+        const data = new FormData()
+        for (const key in body) {
+          if (body[key] !== undefined && body[key] !== null) {
+            data.append(`playlist[${key}]`, body[key])
+          }
+        }
+
+        if (playlist.sameAs.id) {
+          data.append(
+            'playlist[same_as_attributes][id]',
+            playlist.sameAs.id.toString()
+          )
+        }
+        if (playlist.sameAs.name) {
+          data.append(
+            'playlist[same_as_attributes][name]',
+            playlist.sameAs.name
+          )
+        }
+        if (playlist.sameAs.url) {
+          data.append('playlist[same_as_attributes][url]', playlist.sameAs.url)
+        }
+        if (playlist.sameAs._destroy) {
+          data.append(
+            'playlist[same_as_attributes][_destroy]',
+            playlist.sameAs._destroy.toString()
+          )
+        }
+
+        this.$axios
+          .put(`/api/playlists/${playlist.id}`, data)
+          .then((_response) => {
+            this.$store.dispatch('loading/succeedLoading')
+          })
+          .catch((_error) => {
+            this.$store.dispatch('loading/failLoading')
+          })
       } else {
         console.log('Invalid!!!')
       }

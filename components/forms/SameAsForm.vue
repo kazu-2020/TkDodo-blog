@@ -39,7 +39,14 @@ export default Vue.extend({
     sameAs: {
       type: Object,
       required: false,
-      default: () => {},
+      default: () => {
+        return {
+          id: null,
+          name: null,
+          url: null,
+          _destroy: 0,
+        } as Object
+      },
     },
   },
   data(): DataType {
@@ -65,7 +72,13 @@ export default Vue.extend({
         return ((this as any).sameAs as SameAs).name
       },
       set(value) {
-        ;(this as any).$store.dispatch('sameAs/updateName', value)
+        const that = this as any
+        that.$emit('update:sameAs', {
+          id: that.sameAs.id,
+          name: value,
+          url: that.sameAs.url,
+          _destroy: 0,
+        })
       },
     },
     sameAsUrl: {
@@ -73,17 +86,34 @@ export default Vue.extend({
         return ((this as any).sameAs as SameAs).url
       },
       set(value) {
-        ;(this as any).$store.dispatch('sameAs/updateUrl', value)
+        const that = this as any
+        that.$emit('update:sameAs', {
+          id: that.sameAs.id,
+          name: that.sameAs.name,
+          url: value,
+          _destroy: 0,
+        })
       },
     },
   },
   methods: {
     addSameAs(): void {
-      ;(this as any).sameAsName = ''
-      ;(this as any).sameAsUrl = ''
+      const that = this as any
+      that.$emit('update:sameAs', {
+        id: that.sameAs.id,
+        name: '',
+        url: '',
+        _destroy: 0,
+      })
     },
     removeSameAs(): void {
-      this.$store.dispatch('sameAs/delete')
+      const that = this as any
+      that.$emit('update:sameAs', {
+        id: that.sameAs.id,
+        name: null,
+        url: null,
+        _destroy: 1,
+      })
     },
   },
 })
