@@ -109,12 +109,15 @@ export default Vue.extend({
   },
   computed: {
     paletteBaseColors: () => PALETTE_BASE_COLORS,
+    currentPalette(): string {
+      return this.selectedPalette || '#FFFFFF'
+    },
     adjustedColors(): Object {
       return {
-        primaryLight: adjustPrimaryLightColor(this.selectedPalette),
-        primaryDark: adjustPrimaryDarkColor(this.selectedPalette),
-        linkLight: adjustLinkLightColor(this.selectedPalette),
-        linkDark: adjustLinkDarkColor(this.selectedPalette),
+        primaryLight: adjustPrimaryLightColor(this.currentPalette),
+        primaryDark: adjustPrimaryDarkColor(this.currentPalette),
+        linkLight: adjustLinkLightColor(this.currentPalette),
+        linkDark: adjustLinkDarkColor(this.currentPalette),
       }
     },
   },
