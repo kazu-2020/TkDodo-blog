@@ -31,10 +31,7 @@ export const mutations = mutationTree(state, {
     state.allItems.splice(state.allItems.indexOf(playlist), 1)
   },
   setEditingPlaylist(state, { playlist }) {
-    state.editingPlaylist = {
-      ...playlist,
-      selectedPalette: playlist.style.selectedPalette,
-    }
+    state.editingPlaylist = playlist
   },
   deleteEditingPlaylistEpisode(state, episode) {
     state.editingPlaylist.items.splice(
