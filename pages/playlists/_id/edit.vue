@@ -139,7 +139,7 @@ import {
 } from '@/utils/adjustColor'
 
 export default Vue.extend({
-  name: 'PlaylistIdEditComponent',
+  name: 'PlaylistIdEditPage',
   components: {
     ColorPalette,
     SeriesImagesForm,
