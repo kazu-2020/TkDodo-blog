@@ -65,7 +65,7 @@ export default {
   ],
   sentry: {
     dsn:
-      process.env.ENV === 'production'
+      process.env.NODE_ENV === 'production'
         ? 'https://8e3ef0cc4bfb455f8e0892ef223aa788@o427938.ingest.sentry.io/5372763'
         : false, // DSNを設定
     config: {
