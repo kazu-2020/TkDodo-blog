@@ -60,6 +60,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
+    '@nuxtjs/sentry',
     ['@nuxtjs/moment', ['ja']],
     ['cookie-universal-nuxt', { parseJSON: false }],
   ],
