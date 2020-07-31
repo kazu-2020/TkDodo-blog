@@ -70,7 +70,7 @@ export default {
         ? 'https://8e3ef0cc4bfb455f8e0892ef223aa788@o427938.ingest.sentry.io/5372763'
         : false, // DSNを設定
     config: {
-      release: `editorialhands@${process.env.VERSION}`,
+      release: `${process.env.VERSION}`,
     },
   },
   /*
