@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "build:amplify": "cross-env NODE_ENV=\"production\" VERSION=$VERSION MODE=ci nuxt build",
     "build:development": "cross-env NODE_ENV=\"development\" nuxt build",
     "build:staging": "cross-env NODE_ENV=\"staging\" nuxt build",
     "build": "nuxt build",
@@ -37,6 +38,7 @@
     "@editorjs/table": "^1.2.2",
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/moment": "^1.6.1",
+    "@nuxtjs/sentry": "^4.3.3",
     "@types/chroma-js": "^2.0.0",
     "chroma-js": "^2.1.0",
     "cookie-universal-nuxt": "^2.1.4",

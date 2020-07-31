@@ -6,7 +6,16 @@ frontend:
         - yarn install
     build:
       commands:
-        - yarn build
+        - SENTRY_PROJECT_NAME="editorialhands"
+        - GIT_REF=$(git describe --always)
+        - SENTRY_RELEASE_VERSION="${SENTRY_PROJECT_NAME}@${GIT_REF}"
+        - yarn build:amplify
+        - curl -sL https://sentry.io/get-cli/ | bash
+        - sentry-cli releases new -p $SENTRY_PROJECT_NAME $SENTRY_RELEASE_VERSION
+        - sentry-cli releases -p $SENTRY_PROJECT_NAME files $SENTRY_RELEASE_VERSION upload-sourcemaps .nuxt/dist/client --rewrite --url-prefix '~/_nuxt/'
+        - sentry-cli releases set-commits --auto $SENTRY_RELEASE_VERSION
+        - sentry-cli releases finalize $SENTRY_RELEASE_VERSION
+        - sentry-cli releases deploys $SENTRY_RELEASE_VERSION new -e production
   artifacts:
     # IMPORTANT - Please verify your build output directory
     baseDirectory: dist/

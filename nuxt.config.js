@@ -63,6 +63,15 @@ export default {
     ['@nuxtjs/moment', ['ja']],
     ['cookie-universal-nuxt', { parseJSON: false }],
   ],
+  sentry: {
+    dsn:
+      process.env.ENV === 'production'
+        ? 'https://8e3ef0cc4bfb455f8e0892ef223aa788@o427938.ingest.sentry.io/5372763'
+        : false, // DSNを設定
+    config: {
+      release: `editorialhands@${process.env.VERSION}`,
+    },
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -123,6 +132,10 @@ export default {
           loader: 'eslint-loader',
           exclude: /(node_modules)/,
         })
+      }
+      // Sentry用のソースマップを作る
+      if (process.env.MODE === 'ci' && ctx.isClient) {
+        config.devtool = 'source-map'
       }
     },
     transpile: [/typed-vuex/],
