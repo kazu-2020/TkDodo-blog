@@ -9,6 +9,7 @@ import InlineCode from '@editorjs/inline-code'
 import LinkTool from '@editorjs/link'
 import Embed from '@editorjs/embed'
 import Table from '@editorjs/table'
+import Undo from 'editorjs-undo'
 
 // Original Plugins
 import Episode from '~/plugins/editorjs/episode.js'
@@ -105,6 +106,7 @@ const editorMixin = {
           this.updateEditorData()
         },
         onReady: () => {
+          new Undo({ editor: this.editor }) // eslint-disable-line no-new
           this.initializeEditor()
         },
       })
