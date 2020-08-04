@@ -41,6 +41,7 @@
             label="公開日時を選んでください"
             :min-date="reserveMinDate"
             :max-date="reserveMaxDate"
+            :dark="isDarkMode"
             :minute-interval="5"
           />
           <v-divider />
@@ -139,6 +140,9 @@ export default {
       const minDate = moment(this.reserveMinDate)
       const maxDate = minDate.add(1, 'year').endOf('day')
       return maxDate.format('YYYY-MM-DDTHH:mm:ss')
+    },
+    isDarkMode() {
+      return this.$vuetify.theme.dark
     },
   },
   methods: {
