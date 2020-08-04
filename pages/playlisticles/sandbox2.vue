@@ -25,6 +25,10 @@
           />
         </v-col>
         <v-col xs="12" sm="12" md="4" lg="4" :class="verticalDivider">
+          <v-btn block color="secondary">
+            <v-icon>mdi-export</v-icon>
+            記事からプレイリストを作成/更新
+          </v-btn>
           <v-overflow-btn
             v-model="saveButton"
             class="my-2"
@@ -54,6 +58,14 @@
             class="my-4"
             :episode="item"
             @add-block="addNewBlock"
+          />
+          <v-text-field
+            v-model="keyword"
+            label="他のエピソードを探す"
+            prepend-inner-icon="mdi-magnify"
+            solo
+            class="episode-search"
+            hide-details
           />
         </v-col>
       </v-row>
