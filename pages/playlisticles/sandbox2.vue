@@ -41,7 +41,7 @@
     <preview-drawer
       key="time"
       :is-show-drawer="isShowPreviewDrawer"
-      :preview-data="combineEditorJson()"
+      :preview-data="article"
       @current-drawer-state="updatePreviewDrawerState"
     />
   </div>
@@ -98,11 +98,6 @@ export default {
   methods: {
     updatePreviewDrawerState(newVal) {
       this.isShowPreviewDrawer = newVal
-    },
-    combineEditorJson() {
-      const combindedJson = { time: Date.now(), blocks: this.article }
-
-      return combindedJson
     },
     addNewBlock(blockData) {
       this.article.blocks.push(blockData)
