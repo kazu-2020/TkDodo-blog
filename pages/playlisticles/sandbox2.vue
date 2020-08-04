@@ -25,6 +25,16 @@
           />
         </v-col>
         <v-col xs="12" sm="12" md="4" lg="4" :class="verticalDivider">
+          <v-overflow-btn
+            v-model="saveButton"
+            class="my-2"
+            :items="saveButtons"
+            label="保存方法を選択してください"
+            segmented
+            background-color="primary"
+            @click="saveArticle"
+          />
+          <v-divider />
           <div class="title py-2">
             <span>{{ playlist.name }}</span> のアイテム一覧
           </div>
@@ -74,6 +84,11 @@ export default {
       selectedSection: null,
       article: {},
       playlist: {},
+      saveButton: null,
+      saveButtons: [
+        { text: '下書きとして保存', callback: () => console.log('list') },
+        { text: '予約公開する', callback: () => console.log('favorite') },
+      ],
     }
   },
   computed: {
@@ -95,6 +110,15 @@ export default {
       }
     },
   },
+  watch: {
+    saveButton: {
+      handler() {
+        if (this.saveButton === '予約公開する') {
+          console.log(this.saveButton)
+        }
+      },
+    },
+  },
   methods: {
     updatePreviewDrawerState(newVal) {
       this.isShowPreviewDrawer = newVal
@@ -102,6 +126,9 @@ export default {
     addNewBlock(blockData) {
       this.article.blocks.push(blockData)
       this.article.time = Date.now()
+    },
+    saveArticle() {
+      console.log(this.saveButton)
     },
   },
 }
