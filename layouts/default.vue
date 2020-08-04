@@ -151,6 +151,10 @@ export default Vue.extend({
           to: '/playlisticles/new',
         },
         {
+          title: 'Sandbox(NArticle)',
+          to: '/playlisticles/sandbox2',
+        },
+        {
           title: 'Sandbox(Word風)',
           to: '/playlisticles/sandbox',
         },
