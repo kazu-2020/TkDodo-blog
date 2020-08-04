@@ -80,7 +80,7 @@
       </v-container>
     </v-main>
     <v-footer :fixed="fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span>&copy; {{ new Date().getFullYear() }} EditorialHands</span>
     </v-footer>
     <v-dialog v-model="loading" hide-overlay persistent width="300">
       <v-card>

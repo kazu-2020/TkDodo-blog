@@ -80,6 +80,7 @@ export default {
     episodeBlockId: {
       handler() {
         if ('render' in this.editor) {
+          this.editorData = this.initialData
           this.editor.render(this.editorData)
         }
       },
