@@ -34,6 +34,15 @@
             background-color="primary"
             @click="saveArticle"
           />
+          <vue-ctk-date-time-picker
+            v-show="saveButton === reservePublishmentButtonTitle"
+            v-model="reservedPublishDateTime"
+            class="pb-8"
+            label="公開日時を選んでください"
+            :min-date="reserveMinDate"
+            :max-date="reserveMaxDate"
+            :minute-interval="5"
+          />
           <v-divider />
           <div class="title py-2">
             <span>{{ playlist.name }}</span> のアイテム一覧
@@ -54,20 +63,27 @@
       :preview-data="article"
       @current-drawer-state="updatePreviewDrawerState"
     />
+    <v-snackbar v-model="snackBar" color="success" right top :timeout="3000">
+      保存しました（ダミーです）
+    </v-snackbar>
   </div>
 </template>
 
 <script>
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
+import moment from 'moment'
 import EditableSection from '~/components/EditableSection.vue'
 import PreviewDrawer from '~/components/PreviewDrawer.vue'
 import editorBlockMixin from '~/components/mixins/editorBlockMixin'
 import EpisodeBlockItem from '~/components/EpisodeBlockItem.vue'
+import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
 
 export default {
   components: {
     'editable-section': EditableSection,
     'preview-drawer': PreviewDrawer,
     'episode-block-item': EpisodeBlockItem,
+    'vue-ctk-date-time-picker': VueCtkDateTimePicker,
   },
   mixins: [editorBlockMixin],
   asyncData({ $axios }) {
@@ -84,11 +100,17 @@ export default {
       selectedSection: null,
       article: {},
       playlist: {},
+      reservePublishmentButtonTitle: '予約公開する',
       saveButton: null,
       saveButtons: [
-        { text: '下書きとして保存', callback: () => console.log('list') },
-        { text: '予約公開する', callback: () => console.log('favorite') },
+        { text: '下書きとして保存', callback: this.saveArticle },
+        {
+          text: '予約公開する',
+          callback: this.saveArticle,
+        },
       ],
+      reservedPublishDateTime: '',
+      snackBar: false,
     }
   },
   computed: {
@@ -109,14 +131,14 @@ export default {
         return Date.now().toString()
       }
     },
-  },
-  watch: {
-    saveButton: {
-      handler() {
-        if (this.saveButton === '予約公開する') {
-          console.log(this.saveButton)
-        }
-      },
+    reserveMinDate() {
+      const minDate = moment()
+      return minDate.format('YYYY-MM-DDTHH:mm:ss')
+    },
+    reserveMaxDate() {
+      const minDate = moment(this.reserveMinDate)
+      const maxDate = minDate.add(1, 'year').endOf('day')
+      return maxDate.format('YYYY-MM-DDTHH:mm:ss')
     },
   },
   methods: {
@@ -128,7 +150,15 @@ export default {
       this.article.time = Date.now()
     },
     saveArticle() {
-      console.log(this.saveButton)
+      if (this.saveArticle === '') return
+      if (
+        this.saveButton === this.reservePublishmentButtonTitle &&
+        this.reservedPublishDateTime === ''
+      ) {
+        alert('予約公開する日付を決めてください')
+        return false
+      }
+      this.snackBar = true
     },
   },
 }
