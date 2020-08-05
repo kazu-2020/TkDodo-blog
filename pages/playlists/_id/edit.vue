@@ -200,16 +200,13 @@ export default Vue.extend({
     updateSeriesImage(data: any) {
       switch (data.type) {
         case 'logo':
-          this.$store.dispatch('playlists/updateEditingPlaylistLogo', data.file)
+          ;(this.editingPlaylist as Playlist).logoImageData = data.file
           break
         case 'eyecatch':
-          this.$store.dispatch(
-            'playlists/updateEditingPlaylistEyecatch',
-            data.file
-          )
+          ;(this.editingPlaylist as Playlist).eyecatchImageData = data.file
           break
         case 'hero':
-          this.$store.dispatch('playlists/updateEditingPlaylistHero', data.file)
+          ;(this.editingPlaylist as Playlist).heroImageData = data.file
           break
       }
     },
