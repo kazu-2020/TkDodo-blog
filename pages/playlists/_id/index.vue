@@ -64,7 +64,17 @@
                       :playlist-id="playlist.id"
                     />
                   </v-col>
-                  <v-col />
+                  <v-col class="px-0 pt-0">
+                    <v-btn
+                      :color="headerCardButtonColor"
+                      icon
+                      :to="`/playlists/${playlist.id}/article`"
+                      nuxt
+                      small
+                    >
+                      <v-icon>mdi-note-text-outline</v-icon>
+                    </v-btn>
+                  </v-col>
                   <v-col />
                 </v-row>
               </v-col>
