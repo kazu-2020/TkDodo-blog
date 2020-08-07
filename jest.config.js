@@ -74,6 +74,7 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
     '^~/(.*)$': '<rootDir>/$1',
+    '^.+\\.(css|scss)$': '<rootDir>/config/CSSStub.js',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
