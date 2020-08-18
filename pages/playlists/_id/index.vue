@@ -115,6 +115,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
+import { Playlist } from '@/types/plyalist'
 import PlaylistEpisodesList from '~/components/PlaylistEpisodesList.vue'
 import PlaylistEpisodeSearch from '~/components/PlaylistEpisodeSearch.vue'
 import PlaylistJsonDialog from '~/components/PlaylistJsonDialog.vue'
@@ -144,14 +145,11 @@ export default Vue.extend({
     }
   },
   computed: {
-    playlist() {
+    playlist(): Playlist {
       return this.$store.state.playlists.editingPlaylist
     },
-    vuetify(): any {
-      return (this as any).$vuetify
-    },
     headerCardButtonColor(): string {
-      return this.vuetify.theme.dark ? '#FFFFFF' : '#000000'
+      return this.$vuetify.theme.dark ? '#FFFFFF' : '#000000'
     },
   },
   methods: {
@@ -159,7 +157,7 @@ export default Vue.extend({
       return playlist.logo?.medium?.url || this.dummyImage(playlist.dateCreated)
     },
     headerCardColor() {
-      return this.vuetify.theme.dark ? '#616161' : '#F5F5F5'
+      return this.$vuetify.theme.dark ? '#616161' : '#F5F5F5'
     },
     saveEpisodes() {
       this.$store.dispatch('loading/startLoading', {
@@ -168,7 +166,7 @@ export default Vue.extend({
       })
       this.$store.dispatch('playlists/saveEditingPlaylistEpisodes')
     },
-    copyPlaylistId() {
+    copyPlaylistId(): void {
       if (navigator.clipboard) {
         navigator.clipboard.writeText(this.playlist.id)
         this.snackbar = true

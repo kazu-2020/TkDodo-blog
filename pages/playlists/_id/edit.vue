@@ -127,9 +127,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import ColorPalette from '~/components/forms/ColorPalette.vue'
-import SeriesImagesForm from '~/components/forms/SeriesImagesForm.vue'
-import SameAsForm from '~/components/forms/SameAsForm.vue'
 import { Playlist } from '@/types/plyalist'
 import {
   adjustPrimaryDarkColor,
@@ -137,6 +134,9 @@ import {
   adjustLinkDarkColor,
   adjustLinkLightColor,
 } from '@/utils/adjustColor'
+import ColorPalette from '~/components/forms/ColorPalette.vue'
+import SeriesImagesForm from '~/components/forms/SeriesImagesForm.vue'
+import SameAsForm from '~/components/forms/SameAsForm.vue'
 
 export default Vue.extend({
   name: 'PlaylistIdEditPage',

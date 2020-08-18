@@ -25,4 +25,5 @@ export interface Playlist {
   heroImageData: string
   items: Array<EpisodeData>
   sameAs: SameAs
+  originalSeriesId: string
 }
