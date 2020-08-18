@@ -1,5 +1,5 @@
 import { getterTree, mutationTree, actionTree } from 'nuxt-typed-vuex'
-import { Playlist } from '~/types/plyalist'
+import { Playlist } from '~/types/playlist'
 import { Pagination } from '~/types/pagination'
 
 export const state = () => ({
