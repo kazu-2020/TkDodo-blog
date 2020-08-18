@@ -1,9 +1,9 @@
 <template>
-  <div class="editor-sandbox">
+  <div>
     <nuxt-link :to="`/playlists/${playlist.id}`">
       ≪ プレイリスト詳細に戻る
     </nuxt-link>
-    <div class="title my-4">
+    <div class="title">
       <div class="playlist-title">
         {{ `${playlistName} の記事編集ページ` }}
       </div>
@@ -24,6 +24,7 @@
           <editable-section
             key="sandbox2"
             section-id="sandbox2"
+            :playlist-id="playlist.id"
             :initial-data="body"
             :episode-block-id="episodeBlockId"
             class="mr-8"
@@ -92,7 +93,7 @@ export default Vue.extend({
       .then((res) => {
         return {
           playlist: res.data.playlist,
-          body: res.data.article.body,
+          body: res.data.article?.body || {},
         }
       })
       .catch((error) => {
@@ -195,3 +196,9 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style scoped>
+.playlist-title {
+  display: inline-block;
+}
+</style>

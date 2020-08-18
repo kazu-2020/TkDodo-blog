@@ -13,7 +13,7 @@
             <div class="show-links">
               <ul>
                 <li>
-                  <a :href="episode.url" title="番組HPのURL">
+                  <a :href="episodeUrl" title="番組HPのURL">
                     <img
                       src="https://www6.nhk.or.jp/nhkpr/img/hp-post-banner.jpg"
                       alt="番組HPのURL"
@@ -89,9 +89,12 @@ export default Vue.extend({
     },
     episodeEyecatchUrl() {
       return (
-        (this.episode as EpisodeData).eyecatch?.medium?.url ||
+        (this.episode as EpisodeData)?.eyecatch?.medium?.url ||
         'https://placehold.jp/150x150.png'
       )
+    },
+    episodeUrl() {
+      return (this.episode as EpisodeData)?.url
     },
   },
 })
