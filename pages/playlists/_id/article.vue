@@ -92,7 +92,7 @@ export default Vue.extend({
       .then((res) => {
         return {
           playlist: res.data.playlist,
-          body: res.data.article.body,
+          body: res.data.article?.body || {},
         }
       })
       .catch((error) => {
