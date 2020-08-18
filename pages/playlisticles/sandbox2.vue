@@ -59,14 +59,6 @@
             :episode="item"
             @add-block="addNewBlock"
           />
-          <v-text-field
-            v-model="keyword"
-            label="他のエピソードを探す"
-            prepend-inner-icon="mdi-magnify"
-            solo
-            class="episode-search"
-            hide-details
-          />
         </v-col>
       </v-row>
     </v-layout>

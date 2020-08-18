@@ -134,6 +134,42 @@
   padding: 0 !important;
 }
 
+.episode__playlist-title {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+
+.episode__playlist-item-thumbnail {
+  display: inline-block;
+  width: 44px;
+  height: 44px;
+  background-size: cover;
+}
+
+.episode__playlist-item {
+  position: relative;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+}
+
+.episode__playlist-item-title {
+  position: absolute;
+  top: 40%;
+  left: 60px;
+  transform: translateY(-50%);
+  display: inline-block;
+}
+
+.episode__playlist-item-button {
+  position: absolute;
+  cursor: pointer;
+  right: 0;
+  top: 25%;
+}
+
 @keyframes link-in {
   from {
     filter: blur(5px);

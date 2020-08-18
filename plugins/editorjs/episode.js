@@ -62,6 +62,7 @@ export default class Episode {
      */
     this.config = {
       endpoint: config.endpoint || '',
+      playlistId: config.playlistId || '',
     }
 
     this.nodes = {
@@ -70,6 +71,8 @@ export default class Episode {
       progress: null,
       input: null,
       inputHolder: null,
+      playlistTitle: null,
+      playlistItemsHolder: null,
       linkContent: null,
       linkImage: null,
       linkTitle: null,
@@ -107,6 +110,7 @@ export default class Episode {
       this.showLinkPreview(this.data.episode)
     } else {
       this.nodes.container.appendChild(this.nodes.inputHolder)
+      this.fetchPlaylist()
     }
 
     this.nodes.wrapper.appendChild(this.nodes.container)
@@ -171,6 +175,12 @@ export default class Episode {
       progress: 'episode__progress',
       progressLoading: 'episode__progress--loading',
       progressLoaded: 'episode__progress--loaded',
+      playlistTitle: 'episode__playlist-title',
+      playlistItems: 'episode__playlist-items',
+      playlistItem: 'episode__playlist-item',
+      playlistItemThumbnail: 'episode__playlist-item-thumbnail',
+      playlistItemTitle: 'episode__playlist-item-title',
+      playlistItemButton: 'episode__playlist-item-button',
     }
   }
 
@@ -185,8 +195,8 @@ export default class Episode {
     this.nodes.input = this.make('div', [this.CSS.input, this.CSS.inputEl], {
       contentEditable: true,
     })
-
-    this.nodes.input.dataset.placeholder = 'Episode ID'
+    this.nodes.input.dataset.placeholder =
+      'https://www.nhk.jp/p/ts/XXXXXXXXXX/episode/te/XXXXXXXXXX/'
 
     this.nodes.input.addEventListener('paste', (event) => {
       this.startFetching(event)
@@ -218,6 +228,70 @@ export default class Episode {
   }
 
   /**
+   * Get the specified playlist
+   */
+  async fetchPlaylist() {
+    if (this.config.playlistId === '') return
+    try {
+      const response = await ajax.get({
+        url: this.config.endpoint + '/playlists/' + this.config.playlistId,
+      })
+
+      this.onFetchPlaylist(response.body)
+    } catch (error) {
+      this.fetchingFailed('プレイリストの取得に失敗しました')
+      console.log(error)
+    }
+  }
+
+  /**
+   * Link data fetching callback
+   * @param {UploadResponseFormat} response
+   */
+  onFetchPlaylist(data) {
+    this.nodes.playlistItemsHolder = this.make('div', this.CSS.playlistItems)
+    const playlistTitle = this.make('div', this.CSS.playlistTitle)
+
+    playlistTitle.textContent = data.playlist.name + 'から選択'
+    this.nodes.playlistItemsHolder.appendChild(playlistTitle)
+
+    for (const item of data.playlist.items) {
+      const playlistItemHolder = this.make('div', this.CSS.playlistItem)
+
+      const episodeTumbnail = this.make('div', this.CSS.playlistItemThumbnail)
+      const imageUrl =
+        item.eyecatch && item.eyecatch.medium
+          ? item.eyecatch.medium.url
+          : 'https://via.placeholder.com/32'
+
+      episodeTumbnail.style.backgroundImage = 'url(' + imageUrl + ')'
+
+      const episodeTitle = this.make('div', this.CSS.playlistItemTitle)
+
+      episodeTitle.textContent = item.name
+
+      const selectEpisodeButton = this.make(
+        'button',
+        this.CSS.playlistItemButton
+      )
+
+      selectEpisodeButton.textContent = '+'
+      selectEpisodeButton.addEventListener('click', (event) => {
+        this.nodes.input.textContent = item.url
+        this.startFetching(event)
+      })
+
+      playlistItemHolder.appendChild(episodeTumbnail)
+      playlistItemHolder.appendChild(episodeTitle)
+      playlistItemHolder.appendChild(selectEpisodeButton)
+
+      this.nodes.playlistItemsHolder.appendChild(playlistItemHolder)
+    }
+
+    this.nodes.inputHolder.appendChild(this.nodes.playlistItemsHolder)
+  }
+
+  /**
    * Activates link data fetching by url
    */
   startFetching(event) {
@@ -228,7 +302,11 @@ export default class Episode {
     }
 
     this.removeErrorStyle()
-    this.fetchLinkData(url)
+
+    const pattern = /\/episode\/te\//
+    const episodeId = url.split(pattern)[1].slice(0, -1)
+
+    this.fetchLinkData(episodeId)
   }
 
   /**
