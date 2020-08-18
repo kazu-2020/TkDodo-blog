@@ -75,7 +75,7 @@ const editorMixin = {
             inlineToolbar: false,
             config: {
               endpoint: process.env.apiBaseUrl,
-              playlistId: 'Q8KKBXZHP1',
+              playlistId: this.playlistId,
             },
             shortcut: 'CMD+ALT+E',
           },

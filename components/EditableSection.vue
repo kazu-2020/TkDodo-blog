@@ -63,6 +63,11 @@ export default {
       required: false,
       default: 'episode-block-id',
     },
+    playlistId: {
+      type: String,
+      required: false,
+      default: '',
+    },
   },
   data() {
     return {

@@ -252,7 +252,7 @@ export default class Episode {
     this.nodes.playlistItemsHolder = this.make('div', this.CSS.playlistItems)
     const playlistTitle = this.make('div', this.CSS.playlistTitle)
 
-    playlistTitle.textContent = data.playlist.name + 'から選択'
+    playlistTitle.textContent = data.playlist.name + 'のプレイリストから選択'
     this.nodes.playlistItemsHolder.appendChild(playlistTitle)
 
     for (const item of data.playlist.items) {
@@ -276,7 +276,7 @@ export default class Episode {
       )
 
       selectEpisodeButton.textContent = '+'
-      selectEpisodeButton.addEventListener('click', (event) => {
+      playlistItemHolder.addEventListener('click', (event) => {
         this.nodes.input.textContent = item.url
         this.startFetching(event)
       })
