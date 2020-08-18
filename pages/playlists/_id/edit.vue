@@ -127,7 +127,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Playlist } from '@/types/plyalist'
+import { Playlist } from '@/types/playlist'
 import {
   adjustPrimaryDarkColor,
   adjustPrimaryLightColor,

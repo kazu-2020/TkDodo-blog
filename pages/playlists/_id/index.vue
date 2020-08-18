@@ -115,7 +115,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
-import { Playlist } from '@/types/plyalist'
+import { Playlist } from '@/types/playlist'
 import PlaylistEpisodesList from '~/components/PlaylistEpisodesList.vue'
 import PlaylistEpisodeSearch from '~/components/PlaylistEpisodeSearch.vue'
 import PlaylistJsonDialog from '~/components/PlaylistJsonDialog.vue'
