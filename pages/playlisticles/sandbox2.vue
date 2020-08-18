@@ -49,16 +49,6 @@
             :minute-interval="5"
           />
           <v-divider />
-          <div class="title py-2">
-            <span>{{ playlist.name }}</span> のアイテム一覧
-          </div>
-          <episode-block-item
-            v-for="item in playlist.items"
-            :key="item.id"
-            class="my-4"
-            :episode="item"
-            @add-block="addNewBlock"
-          />
         </v-col>
       </v-row>
     </v-layout>
@@ -80,14 +70,12 @@ import moment from 'moment'
 import EditableSection from '~/components/EditableSection.vue'
 import PreviewDrawer from '~/components/PreviewDrawer.vue'
 import editorBlockMixin from '~/components/mixins/editorBlockMixin'
-import EpisodeBlockItem from '~/components/EpisodeBlockItem.vue'
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
 
 export default {
   components: {
     'editable-section': EditableSection,
     'preview-drawer': PreviewDrawer,
-    'episode-block-item': EpisodeBlockItem,
     'vue-ctk-date-time-picker': VueCtkDateTimePicker,
   },
   mixins: [editorBlockMixin],
@@ -95,7 +83,6 @@ export default {
     return $axios.get('/api/playlisticles/sandbox2').then((res) => {
       return {
         article: res.data.playlisticle.article,
-        playlist: res.data.playlisticle.playlist,
       }
     })
   },
@@ -104,7 +91,6 @@ export default {
       isShowPreviewDrawer: false,
       selectedSection: null,
       article: {},
-      playlist: {},
       reservePublishmentButtonTitle: '予約公開する',
       saveButton: null,
       saveButtons: [
