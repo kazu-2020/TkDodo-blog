@@ -13,7 +13,7 @@
  * @property {string} description - link's description
  */
 
-// eslint-disable-next-line
+import ajax from '@codexteam/ajax'
 import BlockState from './blockState.js'
 import HTMLElementBuilder from './htmlElementBuilder'
 import TypeSelectBuilder from './typeSelectBuilder.js'
@@ -82,10 +82,12 @@ export default class MulitTypeEpisode {
       series: data.series || {},
       recipe: data.recipe || {},
       howTo: data.howTo || {},
-      selectedType: 'episode',
+      selectedType: data.selectedType || 'none',
     }
 
-    this.blockState = new BlockState(this.api)
+    const initialState =
+      this.data.selectedType === 'none' ? 'input' : 'selected'
+    this.blockState = new BlockState(this.api, initialState)
 
     this.episodeBundle = {}
 
@@ -140,7 +142,17 @@ export default class MulitTypeEpisode {
      * If Tool already has data, render link preview, otherwise insert input
      */
     if (Object.keys(this.data.episode).length) {
-      this.showEpisodeLinkPreview()
+      switch (this.data.selectedType) {
+        case 'episode':
+          this.showEpisodeHowToLinkPreview()
+          break
+        case 'recipe':
+          this.showEpisodeRecipeLinkPreview()
+          break
+        case 'howTo':
+          this.showEpisodeHowToLinkPreview()
+          break
+      }
     } else {
       const inputHolder = new EpisodeSelectBuilder(
         this,
@@ -149,7 +161,6 @@ export default class MulitTypeEpisode {
       ).build(this.onSuccessFetchingEpisode)
 
       this.nodes.container.appendChild(inputHolder)
-      // this.fetchPlaylist();
     }
 
     this.nodes.wrapper.appendChild(this.nodes.container)
@@ -189,14 +200,32 @@ export default class MulitTypeEpisode {
    * Click on the Settings Button
    * @param {string} tune — tune name from this.settings
    */
-  _switchToSelectView() {
+  async _switchToSelectView() {
     if (!this.blockState.canTrasitToState('select')) {
       return
     }
     this.blockState.transitToState('select')
 
     if (Object.keys(this.episodeBundle).length === 0) {
-      // bundle データを取ってくる
+      try {
+        const response = await ajax.get({
+          url:
+            this.config.endpoint +
+            '/episodes/' +
+            this.data.episodeId +
+            '/bundle',
+        })
+
+        this.episodeBundle = response.body
+        this._renderSelectType()
+      } catch (error) {
+        this.api.notifier.show({
+          message: '必要なデータを取得できませんでした',
+          style: 'error',
+        })
+        this.blockState.transitToState('selected')
+        console.log(error)
+      }
     } else {
       this._renderSelectType()
     }
