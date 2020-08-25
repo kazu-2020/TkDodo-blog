@@ -5,9 +5,9 @@ class BlockState {
   /**
    * @param {object} api - Editor.js API
    */
-  constructor(api) {
+  constructor(api, initialState) {
     this.api = api
-    this.state = 'input'
+    this.state = initialState
   }
 
   /**
