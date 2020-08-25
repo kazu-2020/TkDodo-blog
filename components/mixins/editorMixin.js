@@ -12,6 +12,7 @@ import Table from '@editorjs/table'
 import Undo from 'editorjs-undo'
 
 // Original Plugins
+import MultiTypeEpisode from '~/plugins/editorjs/multi_type_episode/index.js'
 import Episode from '~/plugins/editorjs/episode.js'
 import TvEvent from '~/plugins/editorjs/tv_event.js'
 import HowTo from '~/plugins/editorjs/howto.js'
@@ -70,8 +71,8 @@ const editorMixin = {
             inlineToolbar: true,
             shortcut: 'CMD+ALT+T',
           },
-          episode: {
-            class: Episode,
+          multiTypeEpisode: {
+            class: MultiTypeEpisode,
             inlineToolbar: false,
             config: {
               endpoint: process.env.apiBaseUrl,
@@ -79,13 +80,20 @@ const editorMixin = {
             },
             shortcut: 'CMD+ALT+E',
           },
+          episode: {
+            class: Episode,
+            inlineToolbar: false,
+            config: {
+              endpoint: process.env.apiBaseUrl,
+              playlistId: this.playlistId,
+            },
+          },
           tvEvent: {
             class: TvEvent,
             inlineToolbar: false,
             config: {
               endpoint: process.env.apiBaseUrl,
             },
-            shortcut: 'CMD+ALT+V',
           },
           howTo: {
             class: HowTo,
