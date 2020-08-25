@@ -146,6 +146,7 @@ export default {
   max-width: 980px;
 }
 
+.ce-toolbox__button[data-tool='episode'],
 .ce-toolbox__button[data-tool='tvEvent'],
 .ce-toolbox__button[data-tool='howTo'],
 .ce-toolbox__button[data-tool='recipe'] {
