@@ -145,7 +145,7 @@ export default class MulitTypeEpisode {
     if (Object.keys(this.data.episode).length) {
       switch (this.data.selectedType) {
         case 'episode':
-          this.showEpisodeHowToLinkPreview()
+          this.showEpisodeLinkPreview()
           break
         case 'recipe':
           this.showEpisodeRecipeLinkPreview()

@@ -24,6 +24,7 @@ class PreviewBlockBuilder {
       linkContentLeftColumn: 'multi_type_episode__left_column',
       linkContentThumbnail: 'multi_type_episode__thumbnail',
       linkContentThumbnailImage: 'multi_type_episode__thumbnail_image',
+      linkContentnNhkLogoImage: 'multi_type_episode__nhk_logo_image',
       linkContentRightColumn: 'multi_type_episode__right_column',
       linkContentSeriesName: 'multi_type_episode__series_name',
       linkContentEpisodeName: 'multi_type_episode__episode_name',
@@ -59,6 +60,8 @@ class PreviewBlockBuilder {
         'multi_type_episode__event_calendar_year_month',
       linkContentEventCalendarDate: 'multi_type_episode__event_calenar_date',
       linkContentEventDayOfTheWeek: 'multi_type_episode__event_day_of_the_week',
+      linkContentEventCalendarSunday: 'sunday',
+      linkContentEventCalendarSaturday: 'saturday',
       linkContentEventName: 'multi_type_episode__event_name',
       linkContentEventDate: 'multi_type_episode__event_date',
       linkContentEventDateText: 'multi_type_episode__event_date_text',
@@ -108,12 +111,16 @@ class PreviewBlockBuilder {
     thumbnailBlock.appendChild(thumbnailImage)
 
     const nhkLogoBlock = new HTMLElementBuilder('div').build()
-    const nhkLogoImage = new HTMLElementBuilder('img', null, {
-      src:
-        'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/NHK_logo%402x.jpg',
-      width: 68,
-      height: 19,
-    }).build()
+    const nhkLogoImage = new HTMLElementBuilder(
+      'img',
+      this.CSS.linkContentnNhkLogoImage,
+      {
+        src:
+          'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/NHK_logo%402x.jpg',
+        width: 68,
+        height: 19,
+      }
+    ).build()
 
     nhkLogoBlock.appendChild(nhkLogoImage)
     leftColumn.appendChild(nhkLogoBlock)
@@ -168,19 +175,7 @@ class PreviewBlockBuilder {
       this.CSS.linkContentDateText
     ).build()
 
-    const date = moment(this.data.episode.firstBroadcastData).locale('ja', {
-      weekdays: [
-        '日曜日',
-        '月曜日',
-        '火曜日',
-        '水曜日',
-        '木曜日',
-        '金曜日',
-        '土曜日',
-      ],
-      weekdaysShort: ['日', '月', '火', '水', '木', '金', '土'],
-    })
-
+    const date = this.momentWrapper(this.data.episode.firstBroadcastData)
     dateText.textContent = '初回放送日：' + date.format('YYYY年MM月DD日(ddd)')
 
     firstBroadcastDateBlock.appendChild(dateText)
@@ -559,7 +554,9 @@ class PreviewBlockBuilder {
       this.CSS.linkContentEventCalendarYearMonth
     ).build()
 
-    calendarYearMonthBlock.textContent = '2020年8月'
+    const startDate = this.momentWrapper(this.data.event.startDate)
+    const endDate = this.momentWrapper(this.data.event.endDate)
+    calendarYearMonthBlock.textContent = startDate.format('YYYY年MM月')
 
     calendarInnerBlock.appendChild(calendarYearMonthBlock)
 
@@ -567,7 +564,7 @@ class PreviewBlockBuilder {
       'div',
       this.CSS.linkContentEventCalendarDate
     ).build()
-    calendarDate.textContent = '24'
+    calendarDate.textContent = startDate.format('DD')
 
     calendarInnerBlock.appendChild(calendarDate)
 
@@ -575,8 +572,19 @@ class PreviewBlockBuilder {
       'div',
       this.CSS.linkContentEventDayOfTheWeek
     ).build()
-    calendarDayOfTheWeek.textContent = '土曜日'
-
+    calendarDayOfTheWeek.textContent = startDate.format('dddd')
+    switch (startDate.weekday()) {
+      case 0: // Sunday
+        calendarDayOfTheWeek.classList.add(
+          this.CSS.linkContentEventCalendarSunday
+        )
+        break
+      case 6: // Saturday
+        calendarDayOfTheWeek.classList.add(
+          this.CSS.linkContentEventCalendarSaturday
+        )
+        break
+    }
     calendarInnerBlock.appendChild(calendarDayOfTheWeek)
 
     const nhkLogoBlock = new HTMLElementBuilder('div').build()
@@ -637,7 +645,13 @@ class PreviewBlockBuilder {
       'div',
       this.CSS.linkContentEventDateText
     ).build()
-    eventDateText.textContent = '2020年8月1日（土）10:00 ~　8月2日（日）18:00'
+
+    const displayEndDate =
+      startDate.dayOfYear() === endDate.dayOfYear()
+        ? endDate.format('H:mm')
+        : endDate.format('M/D(ddd) H:mm')
+    eventDateText.textContent =
+      startDate.format('YYYY/M/D(ddd) H:mm') + ' ~ ' + displayEndDate
 
     eventDateBlock.appendChild(eventDateText)
 
@@ -666,7 +680,8 @@ class PreviewBlockBuilder {
       this.CSS.linkContentEventLocationText
     ).build()
 
-    locationText.textContent = 'hgoe'
+    locationText.textContent =
+      this.data.event.location + ' (' + this.data.event.address + ')'
 
     locationBlock.appendChild(locationText)
 
@@ -698,6 +713,24 @@ class PreviewBlockBuilder {
    */
   convertCookingTime(cookingTime) {
     return cookingTime.replace('PT', '').replace('M', '分')
+  }
+
+  /**
+   * 日時を扱う moment のインスタンスを作るメソッド
+   */
+  momentWrapper(date) {
+    return moment(date).locale('ja', {
+      weekdays: [
+        '日曜日',
+        '月曜日',
+        '火曜日',
+        '水曜日',
+        '木曜日',
+        '金曜日',
+        '土曜日',
+      ],
+      weekdaysShort: ['日', '月', '火', '水', '木', '金', '土'],
+    })
   }
 }
 

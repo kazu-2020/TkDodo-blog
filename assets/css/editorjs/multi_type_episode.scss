@@ -91,6 +91,7 @@
 .multi_type_episode__left_column {
   display: table-cell;
   padding-right: 16px;
+  position: relative;
 }
 
 .multi_type_episode__thumbnail {
@@ -99,6 +100,11 @@
 
 .multi_type_episode__thumbnail_image {
   border-radius: 5px;
+}
+
+.multi_type_episode__nhk_logo_image {
+  position: absolute;
+  bottom: 0;
 }
 
 .multi_type_episode__right_column {
