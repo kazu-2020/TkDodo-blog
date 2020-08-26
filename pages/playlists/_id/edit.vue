@@ -112,6 +112,19 @@
           <same-as-form :same-as.sync="editingPlaylist.sameAs" />
         </v-row>
 
+        <v-row dense class="my-5">
+          <v-col cols="12">
+            <h3>短縮URL<small class="text--secondary"> - Alias Id</small></h3>
+          </v-col>
+          <v-col cols="12" sm="6" md="3">
+            <v-text-field
+              v-model="editingPlaylist.aliasId"
+              :rules="aliasIdRules"
+              hint="半角英数字、「-」「_」が利用できます"
+            />
+          </v-col>
+        </v-row>
+
         <v-btn
           :disabled="!valid"
           color="success"
@@ -159,6 +172,11 @@ export default Vue.extend({
       (v: String) => !!v || '名前は必ず入力してください',
       (v: String) =>
         (v && v.length <= 255) || '名前は255文字以下で入力してください',
+    ],
+    aliasIdRules: [
+      (v: string) =>
+        /^[\s]*[-_a-zA-Z\d]*[\s]*$/.test(v) ||
+        '短縮URLに利用できない文字が入力されています',
     ],
     formatGenreLists: [
       { value: '00', text: 'ジャンルレス' },
@@ -242,6 +260,7 @@ export default Vue.extend({
           link_dark_color: playlist.linkDarkColor,
           reserve_publish_time_at: playlist.reservePublishTimeAt,
           reserve_finish_time_at: playlist.reserveFinishTimeAt,
+          alias_id: playlist.aliasId,
         }
 
         if (playlist.logoImageData !== undefined) {
