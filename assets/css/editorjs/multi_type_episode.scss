@@ -117,7 +117,8 @@
 
 .multi_type_episode__episode_name,
 .multi_type_episode__recipe_name,
-.multi_type_episode__how_to_name {
+.multi_type_episode__how_to_name,
+.multi_type_episode__event_name {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 4px;
@@ -132,7 +133,9 @@
 
 .multi_type_episode__date_text,
 .multi_type_episode__cooking_time_text,
-.multi_type_episode__how_to_section_name_text {
+.multi_type_episode__how_to_section_name_text,
+.multi_type_episode__event_location_text,
+.multi_type_episode__event_date_text {
   position: relative;
   top: -3px;
   display: inline-block;
@@ -199,6 +202,63 @@
   font-size: 12px;
   font-weight: bold;
   text-decoration: none !important;
+}
+
+.multi_type_episode__event_calendar {
+  margin-bottom: 16px;
+}
+
+.multi_type_episode__event_calendar_inner {
+  border-radius: 5px;
+  border: 1px solid #707070;
+  width: 139px;
+  height: 123px;
+}
+
+.multi_type_episode__event_calendar_year_month {
+  background-color: #999999;
+  color: white;
+  border-bottom: 1px solid #707070;
+  font-size: 12px;
+  text-align: center;
+  padding: 9px;
+}
+
+.multi_type_episode__event_calenar_date {
+  font-size: 40px;
+  font-weight: bold;
+  // padding: 16px 16px 12px;
+  text-align: center;
+}
+
+.multi_type_episode__event_day_of_the_week {
+  font-size: 10px;
+  text-align: center;
+
+  &.saturday {
+    color: blue;
+  }
+
+  &.sunday {
+    color: #E72400;
+  }
+}
+
+.multi_type_episode__event_name {
+  min-height: 43px;
+}
+
+.multi_type_episode__event_date {
+  position: relative;
+  display: inline-block;
+}
+
+.multi_type_episode__event_location {
+  position: relative;
+}
+
+.multi_type_episode__event_pin_icon {
+  padding-top: 4px;
 }
 
 .multi_type_episode__anchor {

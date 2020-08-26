@@ -52,6 +52,19 @@ class PreviewBlockBuilder {
         'multi_type_episode__how_to_step_icon_background',
       linkContentHowToStepNumber: 'multi_type_episode__how_to_step_number',
       linkContentHowToStepName: 'multi_type_episode__how_to_step_name',
+      // event
+      linkContentEventCalendar: 'multi_type_episode__event_calendar',
+      linkContentEventCalendarInner: 'multi_type_episode__event_calendar_inner',
+      linkContentEventCalendarYearMonth:
+        'multi_type_episode__event_calendar_year_month',
+      linkContentEventCalendarDate: 'multi_type_episode__event_calenar_date',
+      linkContentEventDayOfTheWeek: 'multi_type_episode__event_day_of_the_week',
+      linkContentEventName: 'multi_type_episode__event_name',
+      linkContentEventDate: 'multi_type_episode__event_date',
+      linkContentEventDateText: 'multi_type_episode__event_date_text',
+      linkContentEventLocation: 'multi_type_episode__event_location',
+      linkContentEventPinIcon: 'multi_type_episode__event_pin_icon',
+      linkContentEventLocationText: 'multi_type_episode__event_location_text',
     }
   }
 
@@ -488,6 +501,174 @@ class PreviewBlockBuilder {
 
       stepsBlock.appendChild(stepBlock)
     }
+
+    const seeMoreInfoBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentSeeMoreInfo
+    ).build()
+
+    rightColumn.appendChild(seeMoreInfoBlock)
+
+    const detailButton = new HTMLElementBuilder(
+      'a',
+      this.CSS.linkContentDetailButton,
+      {
+        target: '_blank',
+        href: this.data.link,
+      }
+    ).build()
+
+    detailButton.textContent = '詳しく見る'
+
+    seeMoreInfoBlock.appendChild(detailButton)
+
+    return holder
+  }
+
+  /**
+   * イベントのプレビューブロックを生成
+   */
+  buildEventBlock() {
+    const holder = new HTMLElementBuilder('div', this.CSS.linkContent).build()
+
+    holder.classList.add(this.CSS.linkContentInner)
+
+    const leftColumn = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentLeftColumn
+    ).build()
+
+    holder.appendChild(leftColumn)
+
+    const calendarBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventCalendar
+    ).build()
+
+    leftColumn.appendChild(calendarBlock)
+
+    const calendarInnerBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventCalendarInner
+    ).build()
+
+    calendarBlock.appendChild(calendarInnerBlock)
+
+    const calendarYearMonthBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventCalendarYearMonth
+    ).build()
+
+    calendarYearMonthBlock.textContent = '2020年8月'
+
+    calendarInnerBlock.appendChild(calendarYearMonthBlock)
+
+    const calendarDate = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventCalendarDate
+    ).build()
+    calendarDate.textContent = '24'
+
+    calendarInnerBlock.appendChild(calendarDate)
+
+    const calendarDayOfTheWeek = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventDayOfTheWeek
+    ).build()
+    calendarDayOfTheWeek.textContent = '土曜日'
+
+    calendarInnerBlock.appendChild(calendarDayOfTheWeek)
+
+    const nhkLogoBlock = new HTMLElementBuilder('div').build()
+    const nhkLogoImage = new HTMLElementBuilder('img', null, {
+      src:
+        'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/NHK_logo%402x.jpg',
+      width: 68,
+      height: 19,
+    }).build()
+
+    nhkLogoBlock.appendChild(nhkLogoImage)
+    leftColumn.appendChild(nhkLogoBlock)
+
+    const rightColumn = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentRightColumn
+    ).build()
+
+    holder.appendChild(rightColumn)
+
+    const seriesName = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentSeriesName
+    ).build()
+
+    seriesName.textContent = this.data.series.name
+    rightColumn.appendChild(seriesName)
+
+    const eventName = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventName
+    ).build()
+
+    eventName.textContent = this.data.event.name
+
+    rightColumn.appendChild(eventName)
+
+    const eventDateBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventDate
+    ).build()
+    rightColumn.appendChild(eventDateBlock)
+
+    const calendarIcon = new HTMLElementBuilder(
+      'img',
+      this.CSS.linkContentCalendarIcon,
+      {
+        src:
+          'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/calendar_icon%402x.jpg',
+        width: 15,
+        height: 17,
+      }
+    ).build()
+
+    eventDateBlock.appendChild(calendarIcon)
+
+    const eventDateText = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventDateText
+    ).build()
+    eventDateText.textContent = '2020年8月1日（土）10:00 ~　8月2日（日）18:00'
+
+    eventDateBlock.appendChild(eventDateText)
+
+    const locationBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventLocation
+    ).build()
+
+    rightColumn.appendChild(locationBlock)
+
+    const pinIcon = new HTMLElementBuilder(
+      'img',
+      this.CSS.linkContentEventPinIcon,
+      {
+        src:
+          'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/pin_icon%402x.jpg',
+        width: 13,
+        height: 20,
+      }
+    ).build()
+
+    locationBlock.appendChild(pinIcon)
+
+    const locationText = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventLocationText
+    ).build()
+
+    locationText.textContent = 'hgoe'
+
+    locationBlock.appendChild(locationText)
 
     const seeMoreInfoBlock = new HTMLElementBuilder(
       'div',
