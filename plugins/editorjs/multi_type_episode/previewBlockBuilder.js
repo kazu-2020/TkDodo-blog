@@ -20,10 +20,6 @@ class PreviewBlockBuilder {
   get CSS() {
     return {
       linkContent: 'multi_type_episode__content',
-      linkImage: 'multi_type_episode__image',
-      linkTitle: 'multi_type_episode__title',
-      linkDescription: 'multi_type_episode__description',
-      // new
       linkContentInner: 'multi_type_episode__content_inner',
       linkContentLeftColumn: 'multi_type_episode__left_column',
       linkContentThumbnail: 'multi_type_episode__thumbnail',

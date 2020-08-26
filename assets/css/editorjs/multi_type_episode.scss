@@ -201,34 +201,6 @@
   text-decoration: none !important;
 }
 
-.multi_type_episode__image {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin: 0 0 0 30px;
-  width: 65px;
-  height: 65px;
-  border-radius: 3px;
-  float: right;
-}
-
-.multi_type_episode__title {
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.5em;
-  margin: 0 0 10px 0;
-}
-
-.multi_type_episode__description {
-  margin: 0 0 20px 0;
-  font-size: 15px;
-  line-height: 1.55em;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
 .multi_type_episode__anchor {
   display: block;
   font-size: 15px;
