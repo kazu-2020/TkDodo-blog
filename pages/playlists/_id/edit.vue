@@ -121,6 +121,7 @@
               v-model="editingPlaylist.aliasId"
               :rules="aliasIdRules"
               hint="半角英数字、「-」「_」が利用できます"
+              maxlength="255"
             />
           </v-col>
         </v-row>
@@ -169,14 +170,16 @@ export default Vue.extend({
     editingPlaylist: {},
     valid: true,
     nameRules: [
-      (v: String) => !!v || '名前は必ず入力してください',
-      (v: String) =>
+      (v: string) => !!v || '名前は必ず入力してください',
+      (v: string) =>
         (v && v.length <= 255) || '名前は255文字以下で入力してください',
     ],
     aliasIdRules: [
       (v: string) =>
         /^[\s]*[-_a-zA-Z\d]*[\s]*$/.test(v) ||
         '短縮URLに利用できない文字が入力されています',
+      (v: string) =>
+        (v && v.length <= 255) || '短縮URLは255文字以下で入力してください',
     ],
     formatGenreLists: [
       { value: '00', text: 'ジャンルレス' },
