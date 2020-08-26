@@ -91,6 +91,7 @@
 .multi_type_episode__left_column {
   display: table-cell;
   padding-right: 16px;
+  position: relative;
 }
 
 .multi_type_episode__thumbnail {
@@ -99,6 +100,11 @@
 
 .multi_type_episode__thumbnail_image {
   border-radius: 5px;
+}
+
+.multi_type_episode__nhk_logo_image {
+  position: absolute;
+  bottom: 0;
 }
 
 .multi_type_episode__right_column {
@@ -117,7 +123,8 @@
 
 .multi_type_episode__episode_name,
 .multi_type_episode__recipe_name,
-.multi_type_episode__how_to_name {
+.multi_type_episode__how_to_name,
+.multi_type_episode__event_name {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 4px;
@@ -132,7 +139,9 @@
 
 .multi_type_episode__date_text,
 .multi_type_episode__cooking_time_text,
-.multi_type_episode__how_to_section_name_text {
+.multi_type_episode__how_to_section_name_text,
+.multi_type_episode__event_location_text,
+.multi_type_episode__event_date_text {
   position: relative;
   top: -3px;
   display: inline-block;
@@ -201,32 +210,60 @@
   text-decoration: none !important;
 }
 
-.multi_type_episode__image {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin: 0 0 0 30px;
-  width: 65px;
-  height: 65px;
-  border-radius: 3px;
-  float: right;
+.multi_type_episode__event_calendar {
+  margin-bottom: 16px;
 }
 
-.multi_type_episode__title {
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.5em;
-  margin: 0 0 10px 0;
+.multi_type_episode__event_calendar_inner {
+  border-radius: 5px;
+  border: 1px solid #707070;
+  width: 139px;
+  height: 123px;
 }
 
-.multi_type_episode__description {
-  margin: 0 0 20px 0;
-  font-size: 15px;
-  line-height: 1.55em;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.multi_type_episode__event_calendar_year_month {
+  background-color: #999999;
+  color: white;
+  border-bottom: 1px solid #707070;
+  font-size: 12px;
+  text-align: center;
+  padding: 9px;
+}
+
+.multi_type_episode__event_calenar_date {
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.multi_type_episode__event_day_of_the_week {
+  font-size: 10px;
+  text-align: center;
+
+  &.saturday {
+    color: blue;
+  }
+
+  &.sunday {
+    color: #E72400;
+  }
+}
+
+.multi_type_episode__event_name {
+  min-height: 43px;
+}
+
+.multi_type_episode__event_date {
+  position: relative;
+  display: inline-block;
+}
+
+.multi_type_episode__event_location {
+  position: relative;
+}
+
+.multi_type_episode__event_pin_icon {
+  padding-top: 4px;
 }
 
 .multi_type_episode__anchor {

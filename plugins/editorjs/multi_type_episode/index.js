@@ -82,6 +82,7 @@ export default class MulitTypeEpisode {
       series: data.series || {},
       recipe: data.recipe || {},
       howTo: data.howTo || {},
+      event: data.event || {},
       selectedType: data.selectedType || 'none',
     }
 
@@ -144,13 +145,16 @@ export default class MulitTypeEpisode {
     if (Object.keys(this.data.episode).length) {
       switch (this.data.selectedType) {
         case 'episode':
-          this.showEpisodeHowToLinkPreview()
+          this.showEpisodeLinkPreview()
           break
         case 'recipe':
           this.showEpisodeRecipeLinkPreview()
           break
         case 'howTo':
           this.showEpisodeHowToLinkPreview()
+          break
+        case 'event':
+          this.showEpisodeEventLinkPreview()
           break
       }
     } else {
@@ -241,7 +245,8 @@ export default class MulitTypeEpisode {
     const node = builder.build(
       this._switchToEpisodeBlock,
       this._switchToRecipeBlock,
-      this._switchToHowToBlock
+      this._switchToHowToBlock,
+      this._switchToEventBlock
     )
 
     this.nodes.container.appendChild(node)
@@ -260,6 +265,7 @@ export default class MulitTypeEpisode {
       },
       recipe: {},
       howTo: {},
+      event: {},
       episodeId: episode.id,
       selectedType: 'episode',
     })
@@ -273,6 +279,7 @@ export default class MulitTypeEpisode {
     that.data = Object.assign(that.data, {
       link: recipe.url,
       howTo: {},
+      event: {},
       recipe,
       selectedType: 'recipe',
     })
@@ -287,10 +294,25 @@ export default class MulitTypeEpisode {
     that.data = Object.assign(that.data, {
       link: howTo.url,
       recipe: {},
+      event: {},
       howTo,
       selectedType: 'howTo',
     })
     that.showEpisodeHowToLinkPreview()
+  }
+
+  /**
+   * イベントブロックへの切り替え処理
+   */
+  _switchToEventBlock(that, event) {
+    that.data = Object.assign(that.data, {
+      link: event.url,
+      recipe: {},
+      howTo: {},
+      event,
+      selectedType: 'event',
+    })
+    that.showEpisodeEventLinkPreview()
   }
 
   /**
@@ -355,5 +377,14 @@ export default class MulitTypeEpisode {
     const previewBlockHolder = new PreviewBlockBuilder(this, this.data)
 
     this.nodes.container.appendChild(previewBlockHolder.buildHowToBlock())
+  }
+
+  /**
+   * イベントブロックを表示
+   */
+  showEpisodeEventLinkPreview() {
+    const previewBlockHolder = new PreviewBlockBuilder(this, this.data)
+
+    this.nodes.container.appendChild(previewBlockHolder.buildEventBlock())
   }
 }

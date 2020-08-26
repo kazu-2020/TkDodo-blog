@@ -33,11 +33,17 @@ class TypeSelectBuilder {
   /**
    * マークアップを生成するメソッド
    */
-  build(selectEpisodeButtonFn, selectRecipeButtonFn, selectHowToButtonFn) {
+  build(
+    selectEpisodeButtonFn,
+    selectRecipeButtonFn,
+    selectHowToButtonFn,
+    selectEventButtonFn
+  ) {
     this._showTypeSelectorHeader()
     this._showEpisodeItem(selectEpisodeButtonFn)
     this._showRecipeItems(selectRecipeButtonFn)
     this._showHowToItems(selectHowToButtonFn)
+    this._showEventItems(selectEventButtonFn)
 
     return this.nodes.typeSelectHolder
   }
@@ -153,7 +159,6 @@ class TypeSelectBuilder {
       recipeItem.appendChild(selectRecipeButton)
 
       this.nodes.typeSelectHolder.appendChild(recipeItem)
-      // this.nodes.container.appendChild(this.nodes.typeSelectHolder);
     }
   }
 
@@ -205,7 +210,57 @@ class TypeSelectBuilder {
       howToItem.appendChild(selectHowToButton)
 
       this.nodes.typeSelectHolder.appendChild(howToItem)
-      // this.nodes.container.appendChild(this.nodes.typeSelectHolder);
+    }
+  }
+
+  /**
+   * イベントへタイプ変更するDOM群を構築
+   */
+  _showEventItems(selectEventButtonFn) {
+    const events = this.data.events
+
+    if (events.length === 0) return
+
+    for (const event of events) {
+      const eventItem = new HTMLElementBuilder(
+        'div',
+        this.CSS.playlistItem
+      ).build()
+      const eventThumbnail = new HTMLElementBuilder(
+        'div',
+        this.CSS.playlistItemThumbnail
+      ).build()
+      const imageUrl =
+        event.image && event.image.medium
+          ? event.image.medium.url
+          : 'https://via.placeholder.com/32'
+
+      eventThumbnail.style.backgroundImage = 'url(' + imageUrl + ')'
+
+      const eventTitle = new HTMLElementBuilder(
+        'div',
+        this.CSS.playlistItemTitle
+      ).build()
+
+      eventTitle.textContent = '[Ev]' + event.name
+
+      const selectEventButton = new HTMLElementBuilder(
+        'button',
+        this.CSS.playlistItemButton
+      ).build()
+
+      selectEventButton.textContent = '選択'
+
+      eventItem.addEventListener('click', (_event) => {
+        this.nodes.typeSelectHolder.remove()
+        selectEventButtonFn(this.context, event)
+      })
+
+      eventItem.appendChild(eventThumbnail)
+      eventItem.appendChild(eventTitle)
+      eventItem.appendChild(selectEventButton)
+
+      this.nodes.typeSelectHolder.appendChild(eventItem)
     }
   }
 }

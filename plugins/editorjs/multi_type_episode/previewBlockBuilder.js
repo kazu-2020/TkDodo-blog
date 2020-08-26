@@ -20,14 +20,11 @@ class PreviewBlockBuilder {
   get CSS() {
     return {
       linkContent: 'multi_type_episode__content',
-      linkImage: 'multi_type_episode__image',
-      linkTitle: 'multi_type_episode__title',
-      linkDescription: 'multi_type_episode__description',
-      // new
       linkContentInner: 'multi_type_episode__content_inner',
       linkContentLeftColumn: 'multi_type_episode__left_column',
       linkContentThumbnail: 'multi_type_episode__thumbnail',
       linkContentThumbnailImage: 'multi_type_episode__thumbnail_image',
+      linkContentnNhkLogoImage: 'multi_type_episode__nhk_logo_image',
       linkContentRightColumn: 'multi_type_episode__right_column',
       linkContentSeriesName: 'multi_type_episode__series_name',
       linkContentEpisodeName: 'multi_type_episode__episode_name',
@@ -56,6 +53,21 @@ class PreviewBlockBuilder {
         'multi_type_episode__how_to_step_icon_background',
       linkContentHowToStepNumber: 'multi_type_episode__how_to_step_number',
       linkContentHowToStepName: 'multi_type_episode__how_to_step_name',
+      // event
+      linkContentEventCalendar: 'multi_type_episode__event_calendar',
+      linkContentEventCalendarInner: 'multi_type_episode__event_calendar_inner',
+      linkContentEventCalendarYearMonth:
+        'multi_type_episode__event_calendar_year_month',
+      linkContentEventCalendarDate: 'multi_type_episode__event_calenar_date',
+      linkContentEventDayOfTheWeek: 'multi_type_episode__event_day_of_the_week',
+      linkContentEventCalendarSunday: 'sunday',
+      linkContentEventCalendarSaturday: 'saturday',
+      linkContentEventName: 'multi_type_episode__event_name',
+      linkContentEventDate: 'multi_type_episode__event_date',
+      linkContentEventDateText: 'multi_type_episode__event_date_text',
+      linkContentEventLocation: 'multi_type_episode__event_location',
+      linkContentEventPinIcon: 'multi_type_episode__event_pin_icon',
+      linkContentEventLocationText: 'multi_type_episode__event_location_text',
     }
   }
 
@@ -99,12 +111,16 @@ class PreviewBlockBuilder {
     thumbnailBlock.appendChild(thumbnailImage)
 
     const nhkLogoBlock = new HTMLElementBuilder('div').build()
-    const nhkLogoImage = new HTMLElementBuilder('img', null, {
-      src:
-        'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/NHK_logo%402x.jpg',
-      width: 68,
-      height: 19,
-    }).build()
+    const nhkLogoImage = new HTMLElementBuilder(
+      'img',
+      this.CSS.linkContentnNhkLogoImage,
+      {
+        src:
+          'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/NHK_logo%402x.jpg',
+        width: 68,
+        height: 19,
+      }
+    ).build()
 
     nhkLogoBlock.appendChild(nhkLogoImage)
     leftColumn.appendChild(nhkLogoBlock)
@@ -159,19 +175,7 @@ class PreviewBlockBuilder {
       this.CSS.linkContentDateText
     ).build()
 
-    const date = moment(this.data.episode.firstBroadcastData).locale('ja', {
-      weekdays: [
-        '日曜日',
-        '月曜日',
-        '火曜日',
-        '水曜日',
-        '木曜日',
-        '金曜日',
-        '土曜日',
-      ],
-      weekdaysShort: ['日', '月', '火', '水', '木', '金', '土'],
-    })
-
+    const date = this.momentWrapper(this.data.episode.firstBroadcastData)
     dateText.textContent = '初回放送日：' + date.format('YYYY年MM月DD日(ddd)')
 
     firstBroadcastDateBlock.appendChild(dateText)
@@ -517,10 +521,216 @@ class PreviewBlockBuilder {
   }
 
   /**
+   * イベントのプレビューブロックを生成
+   */
+  buildEventBlock() {
+    const holder = new HTMLElementBuilder('div', this.CSS.linkContent).build()
+
+    holder.classList.add(this.CSS.linkContentInner)
+
+    const leftColumn = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentLeftColumn
+    ).build()
+
+    holder.appendChild(leftColumn)
+
+    const calendarBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventCalendar
+    ).build()
+
+    leftColumn.appendChild(calendarBlock)
+
+    const calendarInnerBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventCalendarInner
+    ).build()
+
+    calendarBlock.appendChild(calendarInnerBlock)
+
+    const calendarYearMonthBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventCalendarYearMonth
+    ).build()
+
+    const startDate = this.momentWrapper(this.data.event.startDate)
+    const endDate = this.momentWrapper(this.data.event.endDate)
+    calendarYearMonthBlock.textContent = startDate.format('YYYY年MM月')
+
+    calendarInnerBlock.appendChild(calendarYearMonthBlock)
+
+    const calendarDate = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventCalendarDate
+    ).build()
+    calendarDate.textContent = startDate.format('DD')
+
+    calendarInnerBlock.appendChild(calendarDate)
+
+    const calendarDayOfTheWeek = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventDayOfTheWeek
+    ).build()
+    calendarDayOfTheWeek.textContent = startDate.format('dddd')
+    switch (startDate.weekday()) {
+      case 0: // Sunday
+        calendarDayOfTheWeek.classList.add(
+          this.CSS.linkContentEventCalendarSunday
+        )
+        break
+      case 6: // Saturday
+        calendarDayOfTheWeek.classList.add(
+          this.CSS.linkContentEventCalendarSaturday
+        )
+        break
+    }
+    calendarInnerBlock.appendChild(calendarDayOfTheWeek)
+
+    const nhkLogoBlock = new HTMLElementBuilder('div').build()
+    const nhkLogoImage = new HTMLElementBuilder('img', null, {
+      src:
+        'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/NHK_logo%402x.jpg',
+      width: 68,
+      height: 19,
+    }).build()
+
+    nhkLogoBlock.appendChild(nhkLogoImage)
+    leftColumn.appendChild(nhkLogoBlock)
+
+    const rightColumn = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentRightColumn
+    ).build()
+
+    holder.appendChild(rightColumn)
+
+    const seriesName = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentSeriesName
+    ).build()
+
+    seriesName.textContent = this.data.series.name
+    rightColumn.appendChild(seriesName)
+
+    const eventName = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventName
+    ).build()
+
+    eventName.textContent = this.data.event.name
+
+    rightColumn.appendChild(eventName)
+
+    const eventDateBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventDate
+    ).build()
+    rightColumn.appendChild(eventDateBlock)
+
+    const calendarIcon = new HTMLElementBuilder(
+      'img',
+      this.CSS.linkContentCalendarIcon,
+      {
+        src:
+          'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/calendar_icon%402x.jpg',
+        width: 15,
+        height: 17,
+      }
+    ).build()
+
+    eventDateBlock.appendChild(calendarIcon)
+
+    const eventDateText = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventDateText
+    ).build()
+
+    const displayEndDate =
+      startDate.dayOfYear() === endDate.dayOfYear()
+        ? endDate.format('H:mm')
+        : endDate.format('M/D(ddd) H:mm')
+    eventDateText.textContent =
+      startDate.format('YYYY/M/D(ddd) H:mm') + ' ~ ' + displayEndDate
+
+    eventDateBlock.appendChild(eventDateText)
+
+    const locationBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventLocation
+    ).build()
+
+    rightColumn.appendChild(locationBlock)
+
+    const pinIcon = new HTMLElementBuilder(
+      'img',
+      this.CSS.linkContentEventPinIcon,
+      {
+        src:
+          'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/pin_icon%402x.jpg',
+        width: 13,
+        height: 20,
+      }
+    ).build()
+
+    locationBlock.appendChild(pinIcon)
+
+    const locationText = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEventLocationText
+    ).build()
+
+    locationText.textContent =
+      this.data.event.location + ' (' + this.data.event.address + ')'
+
+    locationBlock.appendChild(locationText)
+
+    const seeMoreInfoBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentSeeMoreInfo
+    ).build()
+
+    rightColumn.appendChild(seeMoreInfoBlock)
+
+    const detailButton = new HTMLElementBuilder(
+      'a',
+      this.CSS.linkContentDetailButton,
+      {
+        target: '_blank',
+        href: this.data.link,
+      }
+    ).build()
+
+    detailButton.textContent = '詳しく見る'
+
+    seeMoreInfoBlock.appendChild(detailButton)
+
+    return holder
+  }
+
+  /**
    * 調理時間を読める形に変換
    */
   convertCookingTime(cookingTime) {
     return cookingTime.replace('PT', '').replace('M', '分')
+  }
+
+  /**
+   * 日時を扱う moment のインスタンスを作るメソッド
+   */
+  momentWrapper(date) {
+    return moment(date).locale('ja', {
+      weekdays: [
+        '日曜日',
+        '月曜日',
+        '火曜日',
+        '水曜日',
+        '木曜日',
+        '金曜日',
+        '土曜日',
+      ],
+      weekdaysShort: ['日', '月', '火', '水', '木', '金', '土'],
+    })
   }
 }
 
