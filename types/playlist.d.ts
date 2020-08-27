@@ -26,4 +26,5 @@ export interface Playlist {
   items: Array<EpisodeData>
   sameAs: SameAs
   originalSeriesId: string
+  aliasId: string
 }
