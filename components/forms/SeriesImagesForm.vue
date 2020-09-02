@@ -1,15 +1,9 @@
 <template>
   <v-row>
-    <v-col cols="2">
-      <v-card tile>
-        <v-card-title>
-          ロゴ
-        </v-card-title>
-        <v-img
-          :src="logoImageUrl"
-          aspect-ratio="1"
-          @click="selectLogoImageFile"
-        />
+    <v-col cols="auto">
+      <label class="text--secondary">ロゴ - Logo</label>
+      <v-card tile height="140" width="140">
+        <v-img :src="logoImageUrl" @click="selectLogoImageFile" />
         <input
           id="logoImageFile"
           ref="logoImageInput"
@@ -20,16 +14,10 @@
         />
       </v-card>
     </v-col>
-    <v-col cols="4">
-      <v-card tile>
-        <v-card-title>
-          アイキャッチ
-        </v-card-title>
-        <v-img
-          :src="eyecatchImageUrl"
-          aspect-ratio="1.777777778"
-          @click="selectEyecatchImageFile"
-        />
+    <v-col cols="auto">
+      <label class="text--secondary">アイキャッチ - Eyecatch</label>
+      <v-card tile height="140" width="249">
+        <v-img :src="eyecatchImageUrl" @click="selectEyecatchImageFile" />
         <input
           id="eyecatchImageFile"
           ref="eyecatchImageInput"
@@ -40,16 +28,10 @@
         />
       </v-card>
     </v-col>
-    <v-col cols="6">
-      <v-card tile>
-        <v-card-title>
-          ヒーローイメージ
-        </v-card-title>
-        <v-img
-          :src="heroImageUrl"
-          aspect-ratio="3"
-          @click="selectHeroImageFile"
-        />
+    <v-col cols="auto">
+      <label class="text--secondary">ヒーロー - Hero</label>
+      <v-card tile height="140" width="420">
+        <v-img :src="heroImageUrl" @click="selectHeroImageFile" />
         <input
           id="heroImageFile"
           ref="heroImageInput"
