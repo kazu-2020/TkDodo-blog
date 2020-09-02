@@ -18,9 +18,7 @@
                     ( {{ playlist.detailedNameRuby }} )
                   </v-card-subtitle>
                   <div class="chips">
-                    <v-chip class="ma-2" small>
-                      非公開
-                    </v-chip>
+                    <v-chip class="ma-2" small> 非公開 </v-chip>
                     <v-chip
                       class="ma-2"
                       color="primary"
@@ -85,9 +83,7 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <h3>
-          エピソード選定
-        </h3>
+        <h3>エピソード選定</h3>
       </v-col>
       <v-col cols="12">
         <playlist-episodes-list />

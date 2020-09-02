@@ -5,9 +5,7 @@
         <v-row>
           <v-col cols="10" sm="10" md="10">
             <v-card-title>
-              <span class="headline">
-                シリーズからプレイリスト作成
-              </span>
+              <span class="headline"> シリーズからプレイリスト作成 </span>
             </v-card-title>
           </v-col>
           <v-col cols="2" sm="2" md="2">

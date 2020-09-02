@@ -18,15 +18,11 @@
       </div>
       <div class="event-detail">
         <div class="event-date">
-          <v-icon class="event-date-icon">
-            mdi-calendar-check
-          </v-icon>
+          <v-icon class="event-date-icon"> mdi-calendar-check </v-icon>
           {{ eventDate }}
         </div>
         <div class="event-place">
-          <v-icon class="event-place-icon">
-            mdi-map-marker
-          </v-icon>
+          <v-icon class="event-place-icon"> mdi-map-marker </v-icon>
           {{ location }}
         </div>
       </div>

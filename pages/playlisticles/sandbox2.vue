@@ -6,9 +6,7 @@
         class="ml-2"
         @click.stop="isShowPreviewDrawer = !isShowPreviewDrawer"
       >
-        <v-icon class="mr-2">
-          mdi-eye
-        </v-icon>
+        <v-icon class="mr-2"> mdi-eye </v-icon>
         Preview
       </v-btn>
     </div>
