@@ -2,45 +2,81 @@
   <v-row>
     <v-col cols="auto">
       <label class="text--secondary">ロゴ - Logo</label>
-      <v-card tile height="140" width="140">
-        <v-img :src="logoImageUrl" @click="selectLogoImageFile" />
-        <input
-          id="logoImageFile"
-          ref="logoImageInput"
-          type="file"
-          accept="image/*"
-          style="display: none;"
-          @change="replaceLogoImage"
-        />
-      </v-card>
+      <v-hover v-slot:default="{ hover }">
+        <v-card tile height="140" width="140">
+          <v-img :src="logoImageUrl" @click="selectLogoImageFile">
+            <v-expand-transition>
+              <div
+                v-if="hover"
+                class="d-flex black darken-2 v-card--reveal white--text"
+                style="height: 140px;"
+              >
+                画像を編集
+              </div>
+            </v-expand-transition>
+          </v-img>
+          <input
+            id="logoImageFile"
+            ref="logoImageInput"
+            type="file"
+            accept="image/*"
+            style="display: none;"
+            @change="replaceLogoImage"
+          />
+        </v-card>
+      </v-hover>
     </v-col>
     <v-col cols="auto">
       <label class="text--secondary">アイキャッチ - Eyecatch</label>
-      <v-card tile height="140" width="249">
-        <v-img :src="eyecatchImageUrl" @click="selectEyecatchImageFile" />
-        <input
-          id="eyecatchImageFile"
-          ref="eyecatchImageInput"
-          type="file"
-          accept="image/*"
-          style="display: none;"
-          @change="replaceEyecatchImage"
-        />
-      </v-card>
+      <v-hover v-slot:default="{ hover }">
+        <v-card tile height="140" width="249">
+          <v-img :src="eyecatchImageUrl" @click="selectEyecatchImageFile">
+            <v-expand-transition>
+              <div
+                v-if="hover"
+                class="d-flex black darken-2 v-card--reveal white--text"
+                style="height: 140px;"
+              >
+                画像を編集
+              </div>
+            </v-expand-transition>
+          </v-img>
+          <input
+            id="eyecatchImageFile"
+            ref="eyecatchImageInput"
+            type="file"
+            accept="image/*"
+            style="display: none;"
+            @change="replaceEyecatchImage"
+          />
+        </v-card>
+      </v-hover>
     </v-col>
     <v-col cols="auto">
       <label class="text--secondary">ヒーロー - Hero</label>
-      <v-card tile height="140" width="420">
-        <v-img :src="heroImageUrl" @click="selectHeroImageFile" />
-        <input
-          id="heroImageFile"
-          ref="heroImageInput"
-          type="file"
-          accept="image/*"
-          style="display: none;"
-          @change="replaceHeroImage"
-        />
-      </v-card>
+      <v-hover v-slot:default="{ hover }">
+        <v-card tile height="140" width="420">
+          <v-img :src="heroImageUrl" @click="selectHeroImageFile">
+            <v-expand-transition>
+              <div
+                v-if="hover"
+                class="d-flex black darken-2 v-card--reveal white--text"
+                style="height: 140px;"
+              >
+                画像を編集
+              </div>
+            </v-expand-transition>
+          </v-img>
+          <input
+            id="heroImageFile"
+            ref="heroImageInput"
+            type="file"
+            accept="image/*"
+            style="display: none;"
+            @change="replaceHeroImage"
+          />
+        </v-card>
+      </v-hover>
     </v-col>
   </v-row>
 </template>
@@ -147,3 +183,14 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style scoped>
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  opacity: 0.8;
+  position: absolute;
+  width: 100%;
+}
+</style>
