@@ -2,14 +2,10 @@
   <v-layout column>
     <v-row>
       <v-col cols="12">
-        <div class="title mb-4">
-          プレイリスティクル一覧
-        </div>
+        <div class="title mb-4">プレイリスティクル一覧</div>
       </v-col>
       <v-col cols="12">
-        <v-alert outlined type="warning">
-          開発中です
-        </v-alert>
+        <v-alert outlined type="warning"> 開発中です </v-alert>
       </v-col>
     </v-row>
   </v-layout>

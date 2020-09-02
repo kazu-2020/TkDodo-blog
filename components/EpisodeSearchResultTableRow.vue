@@ -9,13 +9,9 @@
         class="add_button"
         @click="addEpisode(episode)"
       >
-        <v-icon>
-          mdi-plus
-        </v-icon>
+        <v-icon> mdi-plus </v-icon>
       </v-btn>
-      <div v-else>
-        追加済み
-      </div>
+      <div v-else>追加済み</div>
     </td>
     <td justify="center" align="center">
       <v-img
@@ -35,9 +31,7 @@
       {{ releaseDate }}
     </td>
     <td>
-      <v-chip class="mx-2" color="pink" label text-color="white">
-        公開
-      </v-chip>
+      <v-chip class="mx-2" color="pink" label text-color="white"> 公開 </v-chip>
     </td>
   </tr>
 </template>

@@ -21,9 +21,7 @@
           {{ recipeDescription }}
         </div>
         <div class="recipe-cooking-time">
-          <v-icon class="recipe-cooking-time-icon">
-            mdi-alarm
-          </v-icon>
+          <v-icon class="recipe-cooking-time-icon"> mdi-alarm </v-icon>
           <div class="recipe-cooking-time-value">
             {{ cookingTime }}
           </div>

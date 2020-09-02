@@ -34,9 +34,7 @@
         </div>
         <div class="show-info">
           <h4>出演者ほか</h4>
-          <p>
-            -
-          </p>
+          <p>-</p>
         </div>
         <div class="show-info">
           <h4>内容</h4>

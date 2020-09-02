@@ -54,9 +54,7 @@
               <v-btn color="secondary" text @click="searchWithDetail">
                 この条件で検索
               </v-btn>
-              <v-btn text @click="clearSearchPane">
-                検索条件をクリア
-              </v-btn>
+              <v-btn text @click="clearSearchPane"> 検索条件をクリア </v-btn>
             </v-card-actions>
           </v-card>
         </v-menu>
@@ -69,25 +67,13 @@
             <thead>
               <tr>
                 <th />
-                <th class="text-left">
-                  エピソード
-                </th>
+                <th class="text-left">エピソード</th>
                 <th />
-                <th class="text-left">
-                  エピソードID
-                </th>
-                <th class="text-left">
-                  シリーズ名
-                </th>
-                <th class="text-left">
-                  シリーズID
-                </th>
-                <th class="text-left">
-                  直近放送日
-                </th>
-                <th class="text-left">
-                  公開状況
-                </th>
+                <th class="text-left">エピソードID</th>
+                <th class="text-left">シリーズ名</th>
+                <th class="text-left">シリーズID</th>
+                <th class="text-left">直近放送日</th>
+                <th class="text-left">公開状況</th>
               </tr>
             </thead>
             <tbody>

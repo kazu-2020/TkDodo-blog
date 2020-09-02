@@ -9,7 +9,7 @@
               <div
                 v-if="hover"
                 class="d-flex black darken-2 v-card--reveal white--text"
-                style="height: 140px;"
+                style="height: 140px"
               >
                 画像を編集
               </div>
@@ -20,7 +20,7 @@
             ref="logoImageInput"
             type="file"
             accept="image/*"
-            style="display: none;"
+            style="display: none"
             @change="replaceLogoImage"
           />
         </v-card>
@@ -35,7 +35,7 @@
               <div
                 v-if="hover"
                 class="d-flex black darken-2 v-card--reveal white--text"
-                style="height: 140px;"
+                style="height: 140px"
               >
                 画像を編集
               </div>
@@ -46,7 +46,7 @@
             ref="eyecatchImageInput"
             type="file"
             accept="image/*"
-            style="display: none;"
+            style="display: none"
             @change="replaceEyecatchImage"
           />
         </v-card>
@@ -61,7 +61,7 @@
               <div
                 v-if="hover"
                 class="d-flex black darken-2 v-card--reveal white--text"
-                style="height: 140px;"
+                style="height: 140px"
               >
                 画像を編集
               </div>
@@ -72,7 +72,7 @@
             ref="heroImageInput"
             type="file"
             accept="image/*"
-            style="display: none;"
+            style="display: none"
             @change="replaceHeroImage"
           />
         </v-card>

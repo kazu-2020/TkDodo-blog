@@ -1,8 +1,6 @@
 <template>
   <div class="editor-sandbox">
-    <div class="title">
-      Editor.js Sandbox(Articleを新規作成)
-    </div>
+    <div class="title">Editor.js Sandbox(Articleを新規作成)</div>
     <v-divider class="ma-2" />
     <v-layout column>
       <v-row>
@@ -67,7 +65,7 @@
                     <v-list-item-title
                       v-else
                       class="pt-1"
-                      style="font-size: 16px;"
+                      style="font-size: 16px"
                       v-text="section.text"
                     />
                   </v-list-item-content>
@@ -121,7 +119,7 @@
                 <v-col>
                   <v-btn
                     block
-                    style="text-transform: none;"
+                    style="text-transform: none"
                     @click="addArticleSection"
                   >
                     <v-icon>mdi-plus</v-icon>
@@ -131,7 +129,7 @@
                 <v-col>
                   <v-btn
                     block
-                    style="text-transform: none;"
+                    style="text-transform: none"
                     @click="addEpisodeSection"
                   >
                     <v-icon>mdi-plus</v-icon>

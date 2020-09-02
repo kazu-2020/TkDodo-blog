@@ -2,14 +2,10 @@
   <v-layout column>
     <v-row>
       <v-col cols="12">
-        <div class="title mb-4">
-          必ずエラーになるページ
-        </div>
+        <div class="title mb-4">必ずエラーになるページ</div>
       </v-col>
       <v-col cols="12">
-        <v-alert outlined type="warning">
-          Sentry 試験用
-        </v-alert>
+        <v-alert outlined type="warning"> Sentry 試験用 </v-alert>
       </v-col>
     </v-row>
   </v-layout>

@@ -1,11 +1,7 @@
 <template>
   <v-app>
     <v-app-bar :clipped-left="clipped" fixed app>
-      <nuxt-link
-        :to="'/'"
-        style="text-decoration: none;"
-        class="playlist-title"
-      >
+      <nuxt-link :to="'/'" style="text-decoration: none" class="playlist-title">
         <v-img :src="logoSrc()" :srcset="logoSrcset()" width="150" />
       </nuxt-link>
       <v-menu offset-y>
@@ -25,9 +21,7 @@
             </v-list-item-title>
           </v-list-item>
           <v-list-item @click="isShowNewSeriesPlaylistDialog = true">
-            <v-list-item-title>
-              シリーズプレイリスト作成
-            </v-list-item-title>
+            <v-list-item-title> シリーズプレイリスト作成 </v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>

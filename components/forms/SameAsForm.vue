@@ -9,9 +9,7 @@
           <v-text-field v-model="sameAsUrl" :rules="urlRules" label="URL" />
         </v-col>
         <v-col cols="1">
-          <v-btn color="error" class="mr-4" @click="removeSameAs">
-            削除
-          </v-btn>
+          <v-btn color="error" class="mr-4" @click="removeSameAs"> 削除 </v-btn>
         </v-col>
       </v-row>
     </v-col>

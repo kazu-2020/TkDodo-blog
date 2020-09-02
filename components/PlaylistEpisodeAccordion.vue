@@ -6,9 +6,7 @@
       </v-expansion-panel-header>
       <v-expansion-panel-content>
         <div v-if="episodes.length === 0" align="center">
-          <div v-if="isError">
-            エラーが発生しました
-          </div>
+          <div v-if="isError">エラーが発生しました</div>
           <v-progress-circular v-else indeterminate color="amber" />
         </div>
         <v-carousel
@@ -23,7 +21,7 @@
           >
             <v-row class="px-4">
               <v-col v-for="episode in _episodes" :key="episode.id" cols="4">
-                <v-sheet color="grey" style="position: relative;">
+                <v-sheet color="grey" style="position: relative">
                   <v-img
                     :src="episodeThumbnailUrl(episode)"
                     aspect-ratio="1.33"

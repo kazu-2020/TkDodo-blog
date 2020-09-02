@@ -19,16 +19,12 @@
         </span>
       </v-card-title>
       <v-card-text>
-        <div v-if="playlistJson === null">
-          読込中...
-        </div>
+        <div v-if="playlistJson === null">読込中...</div>
         <vue-json-pretty v-else :data="playlistJson" show-length :deep="1" />
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn text @click="dialog = false">
-          閉じる
-        </v-btn>
+        <v-btn text @click="dialog = false"> 閉じる </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
