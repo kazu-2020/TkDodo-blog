@@ -178,8 +178,10 @@ export default Vue.extend({
       (v: string) =>
         /^[\s]*[-_a-zA-Z\d]*[\s]*$/.test(v) ||
         '短縮URLに利用できない文字が入力されています',
-      (v: string) =>
-        (v && v.length <= 255) || '短縮URLは255文字以下で入力してください',
+      (v: string) => {
+        if (v == null) return true
+        return v.length <= 255 || '短縮URLは255文字以下で入力してください'
+      },
     ],
     formatGenreLists: [
       { value: '00', text: 'ジャンルレス' },
