@@ -15,7 +15,7 @@
                   <span>編集</span>
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn class="red--text mt-3">
+                <v-btn class="red--text mt-3" @click="clearLogoImage">
                   <span>削除</span>
                   <v-icon>mdi-delete</v-icon>
                 </v-btn>
@@ -132,27 +132,32 @@ export default Vue.extend({
       return (
         this.logoImageData ||
         this.playlist.logo?.medium?.url ||
-        'https://placehold.jp/640x640.png'
+        'https://placehold.jp/640x640.png?text=1:1'
       )
     },
     eyecatchImageUrl(): string {
       return (
         this.eyecatchImageData ||
         this.playlist.eyecatch?.medium?.url ||
-        'https://placehold.jp/640x360.png'
+        'https://placehold.jp/640x360.png?text=16:9'
       )
     },
     heroImageUrl(): string {
       return (
         this.heroImageData ||
         this.playlist.hero?.medium?.url ||
-        'https://placehold.jp/1080x360.png'
+        'https://placehold.jp/1080x360.png?text=3:1'
       )
     },
   },
   methods: {
     selectLogoImageFile() {
       ;(this.$refs.logoImageInput as HTMLElement).click()
+    },
+    clearLogoImage() {
+      this.logoImageData = 'https://placehold.jp/640x640.png?text=1:1'
+      this.$emit('update-series-image', { type: 'logo', file: null })
+      console.log(this.logoImageData)
     },
     replaceLogoImage() {
       const inputElement = this.$refs.logoImageInput as HTMLInputElement
