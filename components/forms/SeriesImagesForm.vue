@@ -4,14 +4,17 @@
       <label class="text--secondary">ロゴ - Logo</label>
       <v-hover v-slot:default="{ hover }">
         <v-card tile height="140" width="140">
-          <v-img :src="logoImageUrl" @click="selectLogoImageFile">
+          <v-img :src="logoImageUrl">
             <v-expand-transition>
               <div
                 v-if="hover"
-                class="d-flex black darken-2 v-card--reveal white--text"
+                class="d-flex black v-card--reveal white--text"
                 style="height: 140px"
               >
-                画像を編集
+                <v-btn @click="selectLogoImageFile">
+                  <span>編集</span>
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
               </div>
             </v-expand-transition>
           </v-img>
@@ -30,14 +33,17 @@
       <label class="text--secondary">アイキャッチ - Eyecatch</label>
       <v-hover v-slot:default="{ hover }">
         <v-card tile height="140" width="249">
-          <v-img :src="eyecatchImageUrl" @click="selectEyecatchImageFile">
+          <v-img :src="eyecatchImageUrl">
             <v-expand-transition>
               <div
                 v-if="hover"
-                class="d-flex black darken-2 v-card--reveal white--text"
+                class="d-flex black v-card--reveal white--text"
                 style="height: 140px"
               >
-                画像を編集
+                <v-btn @click="selectEyecatchImageFile">
+                  <span>編集</span>
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
               </div>
             </v-expand-transition>
           </v-img>
@@ -56,14 +62,17 @@
       <label class="text--secondary">ヒーロー - Hero</label>
       <v-hover v-slot:default="{ hover }">
         <v-card tile height="140" width="420">
-          <v-img :src="heroImageUrl" @click="selectHeroImageFile">
+          <v-img :src="heroImageUrl">
             <v-expand-transition>
               <div
                 v-if="hover"
-                class="d-flex black darken-2 v-card--reveal white--text"
+                class="d-flex black v-card--reveal white--text"
                 style="height: 140px"
               >
-                画像を編集
+                <v-btn @click="selectHeroImageFile">
+                  <span>編集</span>
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
               </div>
             </v-expand-transition>
           </v-img>
