@@ -8,12 +8,16 @@
             <v-expand-transition>
               <div
                 v-if="hover"
-                class="d-flex black v-card--reveal white--text"
+                class="d-flex flex-column black v-card--reveal white--text"
                 style="height: 140px"
               >
                 <v-btn @click="selectLogoImageFile">
                   <span>編集</span>
                   <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+                <v-btn class="red--text mt-3">
+                  <span>削除</span>
+                  <v-icon>mdi-delete</v-icon>
                 </v-btn>
               </div>
             </v-expand-transition>
@@ -37,12 +41,16 @@
             <v-expand-transition>
               <div
                 v-if="hover"
-                class="d-flex black v-card--reveal white--text"
+                class="d-flex flex-column black v-card--reveal white--text"
                 style="height: 140px"
               >
                 <v-btn @click="selectEyecatchImageFile">
                   <span>編集</span>
                   <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+                <v-btn class="red--text mt-3">
+                  <span>削除</span>
+                  <v-icon>mdi-delete</v-icon>
                 </v-btn>
               </div>
             </v-expand-transition>
@@ -66,12 +74,16 @@
             <v-expand-transition>
               <div
                 v-if="hover"
-                class="d-flex black v-card--reveal white--text"
+                class="d-flex flex-column black v-card--reveal white--text"
                 style="height: 140px"
               >
                 <v-btn @click="selectHeroImageFile">
                   <span>編集</span>
                   <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+                <v-btn class="red--text mt-3">
+                  <span>削除</span>
+                  <v-icon>mdi-delete</v-icon>
                 </v-btn>
               </div>
             </v-expand-transition>
@@ -198,7 +210,7 @@ export default Vue.extend({
   align-items: center;
   bottom: 0;
   justify-content: center;
-  opacity: 0.8;
+  opacity: 0.9;
   position: absolute;
   width: 100%;
 }
