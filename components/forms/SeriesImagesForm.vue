@@ -206,6 +206,7 @@ export default Vue.extend({
       this.isRemoveHeroImage = false
     },
     removeHeroImage() {
+      this.isRemoveHeroImage = true
       this.$emit('remove-series-image', 'hero')
     },
     replaceImage(targetElement: HTMLInputElement, type: string) {
