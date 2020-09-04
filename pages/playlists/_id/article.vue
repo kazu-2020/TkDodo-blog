@@ -19,15 +19,9 @@
     <v-layout column>
       <v-row>
         <v-col xs="12" sm="12" md="8" lg="8">
-          <editable-section
-            key="sandbox2"
-            section-id="sandbox2"
-            :playlist-id="playlist.id"
-            :initial-data="body"
-            :episode-block-id="episodeBlockId"
-            class="mr-8"
-            @modify-content="setCurrentContent"
-          />
+          <h3>ヘッダー</h3>
+          <v-textarea v-model="header" outlined auto-grow />
+          <hr />
         </v-col>
         <v-col xs="12" sm="12" md="4" lg="4" :class="verticalDivider">
           <v-btn block color="secondary">
@@ -53,6 +47,24 @@
             :dark="isDarkMode"
             :minute-interval="5"
           />
+        </v-col>
+        <v-col xs="12" sm="12" md="8" lg="8">
+          <h3>記事本文</h3>
+          <editable-section
+            key="sandbox2"
+            section-id="sandbox2"
+            :playlist-id="playlist.id"
+            :initial-data="body"
+            :episode-block-id="episodeBlockId"
+            class="mr-8 mb-8"
+            @modify-content="setCurrentContent"
+          />
+          <hr />
+        </v-col>
+        <v-col xs="12" sm="12" md="8" lg="8">
+          <h3>フッター</h3>
+          <v-textarea v-model="footer" outlined auto-grow />
+          <hr />
         </v-col>
       </v-row>
     </v-layout>
@@ -85,20 +97,22 @@ export default Vue.extend({
     'vue-ctk-date-time-picker': VueCtkDateTimePicker,
   },
   mixins: [editorBlockMixin],
-  asyncData({ $axios, params }) {
+  asyncData({ $axios, params, app }) {
     return $axios
       .get(`/api/playlists/${params.id}/playlist_articles`)
       .then((res) => {
         return {
           playlist: res.data.playlist,
           body: res.data.article?.body || {},
-        }
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          return {
-            body: {},
-          }
+          draftBody: res.data.article?.body || {},
+          header:
+            res.data.article?.header ||
+            app.$cookies.get('articleHeaderText') ||
+            '',
+          footer:
+            res.data.article?.footer ||
+            app.$cookies.get('articleFooterText') ||
+            '',
         }
       })
   },
@@ -106,6 +120,8 @@ export default Vue.extend({
     return {
       body: {},
       draftBody: {},
+      header: this.$cookies.get('articleHeaderText') || '',
+      footer: this.$cookies.get('articleFooterText') || '',
       playlist: {},
       isShowPreviewDrawer: false,
       reservePublishmentButtonTitle: '予約公開する',
@@ -152,6 +168,26 @@ export default Vue.extend({
       return this.$vuetify.theme.dark
     },
   },
+  watch: {
+    header: {
+      handler() {
+        this.$cookies.set('articleHeaderText', this.header, {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 30,
+        })
+      },
+      immediate: true,
+    },
+    footer: {
+      handler() {
+        this.$cookies.set('articleFooterText', this.footer, {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 30,
+        })
+      },
+      immediate: true,
+    },
+  },
   methods: {
     updatePreviewDrawerState(newVal) {
       this.isShowPreviewDrawer = newVal
@@ -178,10 +214,15 @@ export default Vue.extend({
         error: '保存失敗しました',
       })
 
+      const headerText = this.header === '' ? null : this.header
+      const footerText = this.footer === '' ? null : this.footer
+
       this.$axios
         .post(`/api/playlists/${this.playlist.id}/playlist_articles`, {
           playlist_article: {
+            header: headerText,
             body: JSON.stringify(this.draftBody),
+            footer: footerText,
           },
         })
         .then((_response) => {

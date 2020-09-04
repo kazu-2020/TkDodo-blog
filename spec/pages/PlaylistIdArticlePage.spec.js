@@ -24,6 +24,10 @@ describe('pages/playlists/article.vue', () => {
             t: (val) => val,
           },
         },
+        $cookies: {
+          get: () => '',
+          set: (val) => val,
+        },
       },
       vuetify: new Vuetify(),
     }
