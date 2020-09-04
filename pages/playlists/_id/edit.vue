@@ -86,6 +86,7 @@
           <series-images-form
             :playlist="editingPlaylist"
             @update-series-image="updateSeriesImage"
+            @remove-series-image="removeSeriesImage"
           />
         </v-row>
 
@@ -222,20 +223,36 @@ export default Vue.extend({
     },
   },
   methods: {
-    updateSeriesImage(data: any) {
-      console.log('updateSeriesImage')
+    updateSeriesImage(data: { type: string; file: string }) {
       switch (data.type) {
         case 'logo':
           this.editingPlaylist.logoImageData = data.file
-          this.editingPlaylist.removeLogoImage = data.file == null
+          this.editingPlaylist.removeLogoImage = false
           break
         case 'eyecatch':
           this.editingPlaylist.eyecatchImageData = data.file
-          this.editingPlaylist.removeEyecatchImage = data.file == null
+          this.editingPlaylist.removeEyecatchImage = false
           break
         case 'hero':
           this.editingPlaylist.heroImageData = data.file
-          this.editingPlaylist.removeHeroImage = data.file == null
+          this.editingPlaylist.removeHeroImage = false
+          break
+      }
+    },
+    removeSeriesImage(type: string) {
+      console.log('removeSeriesImage', type)
+      switch (type) {
+        case 'logo':
+          this.editingPlaylist.logoImageData = ''
+          this.editingPlaylist.removeLogoImage = true
+          break
+        case 'eyecatch':
+          this.editingPlaylist.eyecatchImageData = ''
+          this.editingPlaylist.removeEyecatchImage = true
+          break
+        case 'hero':
+          this.editingPlaylist.heroImageData = ''
+          this.editingPlaylist.removeHeroImage = true
           break
       }
     },

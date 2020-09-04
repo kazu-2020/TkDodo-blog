@@ -109,6 +109,9 @@ interface DataType {
   logoImageData: string
   eyecatchImageData: string
   heroImageData: string
+  isRemoveLogoImage: boolean
+  isRemoveEyecatchImage: boolean
+  isRemoveHeroImage: boolean
 }
 
 const defaultLogoImageUrl = 'https://placehold.jp/140x140.png?text=1x1'
@@ -129,13 +132,15 @@ export default Vue.extend({
       logoImageData: '',
       eyecatchImageData: '',
       heroImageData: '',
+      isRemoveLogoImage: false,
+      isRemoveEyecatchImage: false,
+      isRemoveHeroImage: false,
     }
   },
   computed: {
     logoImageUrl(): string {
       console.log('logoImageUrl')
-      console.log(this.playlist.removeLogoImage)
-      if (this.playlist.removeLogoImage) {
+      if (this.isRemoveLogoImage) {
         return defaultLogoImageUrl
       }
 
@@ -147,8 +152,7 @@ export default Vue.extend({
     },
     eyecatchImageUrl(): string {
       console.log('eyecatchImageUrl')
-      console.log(this.playlist.removeEyecatchImage)
-      if (this.playlist.removeEyecatchImage) {
+      if (this.isRemoveEyecatchImage) {
         return defaultEyecatchImageUrl
       }
 
@@ -160,8 +164,7 @@ export default Vue.extend({
     },
     heroImageUrl(): string {
       console.log('heroImageUrl')
-      console.log(this.playlist.removeHeroImage)
-      if (this.playlist.removeHeroImage) {
+      if (this.isRemoveHeroImage) {
         return defaultHeroImageUrl
       }
 
@@ -179,10 +182,11 @@ export default Vue.extend({
     replaceLogoImage() {
       const inputElement = this.$refs.logoImageInput as HTMLInputElement
       this.replaceImage(inputElement, 'logo')
+      this.isRemoveLogoImage = false
     },
     removeLogoImage() {
-      this.logoImageData = null
-      this.$emit('update-series-image', { type: 'logo', file: null })
+      this.isRemoveLogoImage = true
+      this.$emit('remove-series-image', 'logo')
     },
     selectEyecatchImageFile() {
       ;(this.$refs.eyecatchImageInput as HTMLElement).click()
@@ -190,10 +194,11 @@ export default Vue.extend({
     replaceEyecatchImage() {
       const inputElement = this.$refs.eyecatchImageInput as HTMLInputElement
       this.replaceImage(inputElement, 'eyecatch')
+      this.isRemoveEyecatchImage = false
     },
     removeEyecatchImage() {
-      this.eyecatchImageData = null
-      this.$emit('update-series-image', { type: 'eyecatch', file: null })
+      this.isRemoveEyecatchImage = true
+      this.$emit('remove-series-image', 'eyecatch')
     },
     selectHeroImageFile() {
       ;(this.$refs.heroImageInput as HTMLElement).click()
@@ -201,10 +206,10 @@ export default Vue.extend({
     replaceHeroImage() {
       const inputElement = this.$refs.heroImageInput as HTMLInputElement
       this.replaceImage(inputElement, 'hero')
+      this.isRemoveHeroImage = false
     },
     removeHeroImage() {
-      this.heroImageData = null
-      this.$emit('update-series-image', { type: 'hero', file: null })
+      this.$emit('remove-series-image', 'hero')
     },
     replaceImage(targetElement: HTMLInputElement, type: string) {
       if (targetElement.files === null) {
