@@ -23,6 +23,9 @@ export interface Playlist {
   logoImageData: string
   eyecatchImageData: string
   heroImageData: string
+  removeLogoImage: boolean
+  removeEyecatchImage: boolean
+  removeHeroImage: boolean
   items: Array<EpisodeData>
   sameAs: SameAs
   originalSeriesId: string

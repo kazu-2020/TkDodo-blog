@@ -152,6 +152,8 @@ import ColorPalette from '~/components/forms/ColorPalette.vue'
 import SeriesImagesForm from '~/components/forms/SeriesImagesForm.vue'
 import SameAsForm from '~/components/forms/SameAsForm.vue'
 
+const editingPlaylist = {} as Playlist
+
 export default Vue.extend({
   name: 'PlaylistIdEditPage',
   components: {
@@ -167,7 +169,7 @@ export default Vue.extend({
     })
   },
   data: () => ({
-    editingPlaylist: {},
+    editingPlaylist,
     valid: true,
     nameRules: [
       (v: string) => !!v || '名前は必ず入力してください',
@@ -206,10 +208,10 @@ export default Vue.extend({
   computed: {
     selectedPalette: {
       get() {
-        return (this.editingPlaylist as Playlist).selectedPalette
+        return this.editingPlaylist.selectedPalette
       },
       set(value: string) {
-        const playlist = this.editingPlaylist as Playlist
+        const playlist = this.editingPlaylist
 
         playlist.selectedPalette = value
         playlist.primaryLightColor = adjustPrimaryLightColor(value)
@@ -221,15 +223,19 @@ export default Vue.extend({
   },
   methods: {
     updateSeriesImage(data: any) {
+      console.log('updateSeriesImage')
       switch (data.type) {
         case 'logo':
-          ;(this.editingPlaylist as Playlist).logoImageData = data.file
+          this.editingPlaylist.logoImageData = data.file
+          this.editingPlaylist.removeLogoImage = data.file == null
           break
         case 'eyecatch':
-          ;(this.editingPlaylist as Playlist).eyecatchImageData = data.file
+          this.editingPlaylist.eyecatchImageData = data.file
+          this.editingPlaylist.removeEyecatchImage = data.file == null
           break
         case 'hero':
-          ;(this.editingPlaylist as Playlist).heroImageData = data.file
+          this.editingPlaylist.heroImageData = data.file
+          this.editingPlaylist.removeHeroImage = data.file == null
           break
       }
     },
@@ -246,7 +252,7 @@ export default Vue.extend({
           success: '保存しました',
           error: '保存失敗しました',
         })
-        const playlist = this.editingPlaylist as Playlist
+        const playlist = this.editingPlaylist
         const body: { [key: string]: string } = {
           name: playlist.name,
           detailed_name_ruby: playlist.detailedNameRuby,
@@ -266,26 +272,29 @@ export default Vue.extend({
           reserve_publish_time_at: playlist.reservePublishTimeAt,
           reserve_finish_time_at: playlist.reserveFinishTimeAt,
           alias_id: playlist.aliasId,
+          remove_logo_image: playlist.removeLogoImage?.toString(),
+          remove_eyecatch_image: playlist.removeEyecatchImage?.toString(),
+          remove_hero_image: playlist.removeHeroImage?.toString(),
         }
 
-        if (playlist.logoImageData !== undefined) {
+        if (playlist.logoImageData) {
           Object.assign(body, {
             logo_image: playlist.logoImageData,
           })
         }
-        if (playlist.eyecatchImageData !== undefined) {
+        if (playlist.eyecatchImageData) {
           Object.assign(body, {
             eyecatch_image: playlist.eyecatchImageData,
           })
         }
-        if (playlist.heroImageData !== undefined) {
+        if (playlist.heroImageData) {
           Object.assign(body, {
             hero_image: playlist.heroImageData,
           })
         }
         const data = new FormData()
         for (const key in body) {
-          if (body[key] !== undefined && body[key] !== null) {
+          if (body[key] != null) {
             data.append(`playlist[${key}]`, body[key])
           }
         }
