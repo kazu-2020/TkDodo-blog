@@ -240,7 +240,6 @@ export default Vue.extend({
       }
     },
     removeSeriesImage(type: string) {
-      console.log('removeSeriesImage', type)
       switch (type) {
         case 'logo':
           this.editingPlaylist.logoImageData = ''

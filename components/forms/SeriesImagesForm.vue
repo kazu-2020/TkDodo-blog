@@ -139,7 +139,6 @@ export default Vue.extend({
   },
   computed: {
     logoImageUrl(): string {
-      console.log('logoImageUrl')
       if (this.isRemoveLogoImage) {
         return defaultLogoImageUrl
       }
@@ -151,7 +150,6 @@ export default Vue.extend({
       )
     },
     eyecatchImageUrl(): string {
-      console.log('eyecatchImageUrl')
       if (this.isRemoveEyecatchImage) {
         return defaultEyecatchImageUrl
       }
@@ -163,7 +161,6 @@ export default Vue.extend({
       )
     },
     heroImageUrl(): string {
-      console.log('heroImageUrl')
       if (this.isRemoveHeroImage) {
         return defaultHeroImageUrl
       }
