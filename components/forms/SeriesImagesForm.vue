@@ -3,15 +3,22 @@
     <v-col cols="auto">
       <label class="text--secondary">ロゴ - Logo</label>
       <v-hover v-slot:default="{ hover }">
-        <v-card tile height="140" width="140">
-          <v-img :src="logoImageUrl" @click="selectLogoImageFile">
+        <v-card tile width="140" height="140">
+          <v-img :src="logoImageUrl">
             <v-expand-transition>
               <div
                 v-if="hover"
-                class="d-flex black darken-2 v-card--reveal white--text"
+                class="d-flex flex-column black v-card--reveal white--text"
                 style="height: 140px"
               >
-                画像を編集
+                <v-btn @click="selectLogoImageFile">
+                  <span>編集</span>
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+                <v-btn class="red--text mt-3" @click="removeLogoImage">
+                  <span>削除</span>
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
               </div>
             </v-expand-transition>
           </v-img>
@@ -29,15 +36,22 @@
     <v-col cols="auto">
       <label class="text--secondary">アイキャッチ - Eyecatch</label>
       <v-hover v-slot:default="{ hover }">
-        <v-card tile height="140" width="249">
-          <v-img :src="eyecatchImageUrl" @click="selectEyecatchImageFile">
+        <v-card tile width="249" height="140">
+          <v-img :src="eyecatchImageUrl">
             <v-expand-transition>
               <div
                 v-if="hover"
-                class="d-flex black darken-2 v-card--reveal white--text"
+                class="d-flex flex-column black v-card--reveal white--text"
                 style="height: 140px"
               >
-                画像を編集
+                <v-btn @click="selectEyecatchImageFile">
+                  <span>編集</span>
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+                <v-btn class="red--text mt-3" @click="removeEyecatchImage">
+                  <span>削除</span>
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
               </div>
             </v-expand-transition>
           </v-img>
@@ -55,15 +69,22 @@
     <v-col cols="auto">
       <label class="text--secondary">ヒーロー - Hero</label>
       <v-hover v-slot:default="{ hover }">
-        <v-card tile height="140" width="420">
-          <v-img :src="heroImageUrl" @click="selectHeroImageFile">
+        <v-card tile width="420" height="140">
+          <v-img :src="heroImageUrl">
             <v-expand-transition>
               <div
                 v-if="hover"
-                class="d-flex black darken-2 v-card--reveal white--text"
+                class="d-flex flex-column black v-card--reveal white--text"
                 style="height: 140px"
               >
-                画像を編集
+                <v-btn @click="selectHeroImageFile">
+                  <span>編集</span>
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+                <v-btn class="red--text mt-3" @click="removeHeroImage">
+                  <span>削除</span>
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
               </div>
             </v-expand-transition>
           </v-img>
@@ -85,10 +106,17 @@
 import Vue from 'vue'
 
 interface DataType {
-  logoImageData: string | null
-  eyecatchImageData: string | null
-  heroImageData: string | null
+  logoImageData: string
+  eyecatchImageData: string
+  heroImageData: string
+  isRemoveLogoImage: boolean
+  isRemoveEyecatchImage: boolean
+  isRemoveHeroImage: boolean
 }
+
+const defaultLogoImageUrl = 'https://placehold.jp/140x140.png?text=1x1'
+const defaultEyecatchImageUrl = 'https://placehold.jp/249x140.png?text=16x9'
+const defaultHeroImageUrl = 'https://placehold.jp/420x140.png?text=3x1'
 
 export default Vue.extend({
   name: 'SeriesImagesForm',
@@ -101,31 +129,46 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
-      logoImageData: null,
-      eyecatchImageData: null,
-      heroImageData: null,
+      logoImageData: '',
+      eyecatchImageData: '',
+      heroImageData: '',
+      isRemoveLogoImage: false,
+      isRemoveEyecatchImage: false,
+      isRemoveHeroImage: false,
     }
   },
   computed: {
     logoImageUrl(): string {
+      if (this.isRemoveLogoImage) {
+        return defaultLogoImageUrl
+      }
+
       return (
         this.logoImageData ||
         this.playlist.logo?.medium?.url ||
-        'https://placehold.jp/640x640.png'
+        defaultLogoImageUrl
       )
     },
     eyecatchImageUrl(): string {
+      if (this.isRemoveEyecatchImage) {
+        return defaultEyecatchImageUrl
+      }
+
       return (
         this.eyecatchImageData ||
         this.playlist.eyecatch?.medium?.url ||
-        'https://placehold.jp/640x360.png'
+        defaultEyecatchImageUrl
       )
     },
     heroImageUrl(): string {
+      if (this.isRemoveHeroImage) {
+        return defaultHeroImageUrl
+      }
+
       return (
         this.heroImageData ||
         this.playlist.hero?.medium?.url ||
-        'https://placehold.jp/1080x360.png'
+        defaultHeroImageUrl
       )
     },
   },
@@ -136,6 +179,11 @@ export default Vue.extend({
     replaceLogoImage() {
       const inputElement = this.$refs.logoImageInput as HTMLInputElement
       this.replaceImage(inputElement, 'logo')
+      this.isRemoveLogoImage = false
+    },
+    removeLogoImage() {
+      this.isRemoveLogoImage = true
+      this.$emit('remove-series-image', 'logo')
     },
     selectEyecatchImageFile() {
       ;(this.$refs.eyecatchImageInput as HTMLElement).click()
@@ -143,6 +191,11 @@ export default Vue.extend({
     replaceEyecatchImage() {
       const inputElement = this.$refs.eyecatchImageInput as HTMLInputElement
       this.replaceImage(inputElement, 'eyecatch')
+      this.isRemoveEyecatchImage = false
+    },
+    removeEyecatchImage() {
+      this.isRemoveEyecatchImage = true
+      this.$emit('remove-series-image', 'eyecatch')
     },
     selectHeroImageFile() {
       ;(this.$refs.heroImageInput as HTMLElement).click()
@@ -150,6 +203,11 @@ export default Vue.extend({
     replaceHeroImage() {
       const inputElement = this.$refs.heroImageInput as HTMLInputElement
       this.replaceImage(inputElement, 'hero')
+      this.isRemoveHeroImage = false
+    },
+    removeHeroImage() {
+      this.isRemoveHeroImage = true
+      this.$emit('remove-series-image', 'hero')
     },
     replaceImage(targetElement: HTMLInputElement, type: string) {
       if (targetElement.files === null) {
@@ -189,7 +247,7 @@ export default Vue.extend({
   align-items: center;
   bottom: 0;
   justify-content: center;
-  opacity: 0.8;
+  opacity: 0.9;
   position: absolute;
   width: 100%;
 }
