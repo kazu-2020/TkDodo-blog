@@ -38,7 +38,7 @@
     "@editorjs/table": "^1.2.2",
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/moment": "^1.6.1",
-    "@nuxtjs/sentry": "^4.3.3",
+    "@nuxtjs/sentry": "^4.3.4",
     "@types/chroma-js": "^2.0.0",
     "chroma-js": "^2.1.0",
     "cookie-universal-nuxt": "^2.1.4",
