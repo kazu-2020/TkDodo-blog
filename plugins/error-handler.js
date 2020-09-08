@@ -1,16 +1,20 @@
 import Vue from 'vue'
 
 export default (context, _inject) => {
-  Vue.config.errorHandler = (error, vm, info) => {
-    handler(error, vm, info)
+  Vue.config.errorHandler = (error, _vm, _info) => {
+    const message = error.stack
+    errorHandler(message)
   }
 
   window.addEventListener('error', (event) => {
-    handler2(event.error)
+    const message = event.error.stack
+    errorHandler(message)
   })
 
-  window.addEventListener('unhandlerejection', (event) => {
-    handler2(event.reason)
+  window.addEventListener('unhandledrejection', (event) => {
+    const message =
+      'Unhandled Rejection at: Promise' + event.p + 'reason:' + event.reason
+    errorHandler(message)
   })
 
   context.$axios.onError((error) => {
@@ -22,17 +26,15 @@ export default (context, _inject) => {
       case 502:
       case 503:
       case 504:
-        console.log(error)
-        console.log(error.request.responseURL)
+        errorHandler(`${error.request.responseURL}\n${error.stack}`)
         break
     }
   })
 
-  function handler(error, _vm, _info) {
-    console.log(error)
-  }
-
-  function handler2(error) {
-    console.log(error)
+  function errorHandler(message) {
+    const data = {
+      text: message,
+    }
+    context.$axios.post('/api/slack/incoming_webhook', JSON.stringify(data))
   }
 }
