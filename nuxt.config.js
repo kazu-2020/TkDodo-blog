@@ -37,6 +37,7 @@ export default {
     '~/plugins/vue-scrollto.js',
     '~/plugins/vue-the-mask.js',
     '~/plugins/axios.js',
+    '~/plugins/error-handler.js',
   ],
   /*
    ** Nuxt.js dev-modules
