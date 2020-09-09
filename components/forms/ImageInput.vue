@@ -27,11 +27,19 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
+
 interface DataType {
   isDragOver: boolean
 }
 
-export default {
+export default Vue.extend({
+  props: {
+    value: {
+      type: Object,
+      required: true,
+    },
+  },
   data(): DataType {
     return {
       isDragOver: false,
@@ -39,19 +47,19 @@ export default {
   },
   computed: {
     image: {
-      set(value) {
+      set(value: HTMLImageElement) {
         this.$emit('input', value)
       },
-      get() {
+      get(): HTMLImageElement {
         return this.value
       },
     },
   },
   methods: {
-    onDrag(type) {
+    onDrag(type: string) {
       this.isDragOver = type === 'over'
     },
-    onDrop(event) {
+    onDrop(event: any) {
       this.isDragOver = false
       const files = event.dataTransfer.files
       if (files.length !== 1 || files[0].type.indexOf('image') !== 0) {
@@ -59,25 +67,25 @@ export default {
       }
       this.readImage(files[0])
     },
-    onChange(event) {
+    onChange(event: any) {
       const files = event.target.files
       if (files.length !== 1 || files[0].type.indexOf('image') !== 0) {
         return
       }
       this.readImage(files[0])
     },
-    readImage(file) {
+    readImage(file: File) {
       const reader = new FileReader()
       reader.onload = this.loadImage
       reader.readAsDataURL(file)
     },
-    loadImage(e) {
+    loadImage(e: any) {
       const image = new Image()
       image.src = e.target.result
       this.image = image
     },
   },
-}
+})
 </script>
 
 <style scoped lang="scss">

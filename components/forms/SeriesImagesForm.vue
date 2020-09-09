@@ -28,7 +28,6 @@
             type="file"
             accept="image/*"
             style="display: none"
-            @change="replaceLogoImage"
           />
         </v-card>
       </v-hover>
@@ -61,7 +60,6 @@
             type="file"
             accept="image/*"
             style="display: none"
-            @change="replaceEyecatchImage"
           />
         </v-card>
       </v-hover>
@@ -94,7 +92,6 @@
             type="file"
             accept="image/*"
             style="display: none"
-            @change="replaceHeroImage"
           />
         </v-card>
       </v-hover>
@@ -213,78 +210,37 @@ export default Vue.extend({
       this.trimmingImageType = ''
       this.isShowTrimmingImageDialog = false
     },
-    replaceLogoImage() {
-      const inputElement = this.$refs.logoImageInput as HTMLInputElement
-      this.replaceImage(inputElement, 'logo')
-      this.isRemoveLogoImage = false
-    },
     removeLogoImage() {
       this.isRemoveLogoImage = true
       this.$emit('remove-series-image', 'logo')
     },
-    replaceEyecatchImage() {
-      const inputElement = this.$refs.eyecatchImageInput as HTMLInputElement
-      this.replaceImage(inputElement, 'eyecatch')
-      this.isRemoveEyecatchImage = false
-    },
     removeEyecatchImage() {
       this.isRemoveEyecatchImage = true
       this.$emit('remove-series-image', 'eyecatch')
-    },
-    replaceHeroImage() {
-      const inputElement = this.$refs.heroImageInput as HTMLInputElement
-      this.replaceImage(inputElement, 'hero')
-      this.isRemoveHeroImage = false
     },
     removeHeroImage() {
       this.isRemoveHeroImage = true
       this.$emit('remove-series-image', 'hero')
     },
     trimmedImage(value: string) {
-      if (this.trimmingImageType === 'logo') {
-        this.logoImageData = value
-        this.$emit('update-series-image', { type: 'logo', file: value }) // TODO: リネーム
-      } else if (this.trimmingImageType === 'eyecatch') {
-        this.eyecatchImageData = value
-        this.replaceEyecatchImage()
-        this.$emit('update-series-image', { type: 'eyecatch', file: value }) // TODO: リネーム
-      } else if (this.trimmingImageType === 'hero') {
-        this.heroImageData = value
-        this.replaceHeroImage()
-        this.$emit('update-series-image', { type: 'hero', file: value }) // TODO: リネーム
+      switch (this.trimmingImageType) {
+        case 'logo':
+          this.logoImageData = value
+          this.isRemoveLogoImage = false
+          break
+        case 'eyecatch':
+          this.eyecatchImageData = value
+          this.isRemoveEyecatchImage = false
+          break
+        case 'hero':
+          this.heroImageData = value
+          this.isRemoveHeroImage = false
+          break
       }
-    },
-    replaceImage(targetElement: HTMLInputElement, type: string) {
-      console.log(targetElement)
-      console.log(targetElement.src)
-      console.log(targetElement.files)
-      if (targetElement.files === null) {
-        return
-      }
-      const file = targetElement.files[0]
-
-      if (file) {
-        const reader = new FileReader()
-        reader.onload = (e) => {
-          if (e.target !== null) {
-            switch (type) {
-              case 'logo':
-                this.logoImageData = e.target.result as string
-                this.$emit('update-series-image', { type, file })
-                break
-              case 'eyecatch':
-                this.eyecatchImageData = e.target.result as string
-                this.$emit('update-series-image', { type, file })
-                break
-              case 'hero':
-                this.heroImageData = e.target.result as string
-                this.$emit('update-series-image', { type, file })
-                break
-            }
-          }
-        }
-        reader.readAsDataURL(file)
-      }
+      this.$emit('update-series-image', {
+        type: this.trimmingImageType,
+        file: value,
+      })
     },
   },
 })

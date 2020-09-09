@@ -95,7 +95,7 @@
                 <img
                   alt=""
                   :src="trimmingImgSrc"
-                  style="max-height: 400px; width: 100%; object-fit: contain"
+                  style="max-height: 400px; width: 852px; object-fit: contain"
                 />
               </v-col>
             </v-row>
@@ -112,6 +112,8 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
+
 import VueCropper from 'vue-cropperjs'
 import 'cropperjs/dist/cropper.css'
 
@@ -119,10 +121,12 @@ import CropperUtil from '@/utils/cropperUtil'
 import ImageInput from './ImageInput.vue'
 
 interface DataType {
-  imgSrc: string
+  image: HTMLImageElement
+  trimmingImgSrc: string
+  step: number
 }
 
-export default {
+export default Vue.extend({
   components: {
     VueCropper,
     ImageInput,
@@ -143,104 +147,62 @@ export default {
       default: 1,
     },
   },
-  data() {
+  data(): DataType {
     return {
-      image: {},
-      cropper: null,
+      image: {} as HTMLImageElement,
       trimmingImgSrc: '',
       step: 1,
-      // FIXME: 不要かも
-      isEnter: false,
-      isDragOver: false,
     }
   },
   computed: {
-    aspectRatio() {
+    aspectRatio(): number {
       return this.aspectRatioDenominator / this.aspectRatioNumerator
     },
-    adjustedHeight() {
-      const adjustedSize = this.adjustedSize()
-      console.log(adjustedSize[0])
+    adjustedHeight(): number {
+      const adjustedSize: number[] = this.adjustedSize()
       return adjustedSize[0]
     },
-    adjustedWidth() {
-      const adjustedSize = this.adjustedSize()
-      console.log(adjustedSize[1])
+    adjustedWidth(): number {
+      const adjustedSize: number[] = this.adjustedSize()
       return adjustedSize[1]
     },
   },
   methods: {
-    hideTrimmingImageDialog() {
-      this.isShowAlert = false
-      this.loadingDialog = false
-      this.name = ''
-      this.seriesId = ''
+    hideTrimmingImageDialog(): void {
       this.step = 1
-      this.image = {}
+      this.image = {} as HTMLImageElement
       this.$emit('hide-trimming-image-dialog')
-    },
-    allowedFileType(file) {
-      return !(
-        file.type !== 'image/jpg' &&
-        file.type !== 'image/jpeg' &&
-        file.type !== 'image/png'
-      )
-    },
-    setImage(step, e) {
-      const file = e.target.files[0] || e.dataTransfer.files[0]
-      if (!this.allowedFileType(file)) {
-        return
-      }
-
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        this.imgSrc = event.target.result
-        if (step === 2) {
-          this.$refs.cropper.replace(event.target.result)
-        }
-      }
-
-      reader.readAsDataURL(file)
-
-      // TODO: ボタンのdisabledを外す
     },
     adjustedSize(): number[] {
       return CropperUtil.getAdjustedSize(this.image.height, this.image.width)
     },
-    setCropperImage() {
+    setCropperImage(): void {
       this.step = 3
-      this.trimmingImgSrc = this.$refs.cropper.getCroppedCanvas().toDataURL()
+      const cropper = this.$refs.cropper as any
+      this.trimmingImgSrc = cropper
+        .getCroppedCanvas()
+        .toDataURL(this.getMimeTypeFromBase64())
     },
-    clopping() {
-      this.$refs.cropper.getCroppedCanvas()
+    clearImage(): void {
+      this.image = {} as HTMLImageElement
     },
-    clearImage() {
-      this.image = {}
+    getMimeTypeFromBase64(): string | null {
+      const regex = /^data:(.*\/.*);base64,/gm
+      const result = regex.exec(this.image.src)
+      if (!result) return null
+
+      return result[1]
     },
-    complete() {
-      // const mimeType = 'image/jpeg'
-      // const compressPreviewBlob = await CropperUtil.compress(
-      //   CropperUtil.toBlob(this.trimmingImgSrc, mimeType),
-      //   mimeType,
-      //   640
-      // )
-      // const compressPreviewUrl = URL.createObjectURL(compressPreviewBlob)
-      // this.trimmingImgSrc = compressPreviewUrl
+    complete(): void {
       this.$emit('trimmed-image', this.trimmingImgSrc)
       this.hideTrimmingImageDialog()
     },
   },
-}
+})
 </script>
 
 <style scoped lang="scss">
 .v-stepper {
   background: #1e1e1e;
 }
-//.img-area {
-//  height: 400px;
-//  width: 1120px;
-//  margin: 10px;
-//  object-fit: contain;
-//}
 </style>
