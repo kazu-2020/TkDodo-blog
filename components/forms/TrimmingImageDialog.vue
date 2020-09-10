@@ -127,6 +127,7 @@ interface DataType {
 }
 
 export default Vue.extend({
+  name: 'TrimmingImageDialog',
   components: {
     VueCropper,
     ImageInput,

@@ -34,6 +34,7 @@ interface DataType {
 }
 
 export default Vue.extend({
+  name: 'ImageInput',
   props: {
     value: {
       type: Object,
