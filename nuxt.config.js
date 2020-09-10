@@ -60,11 +60,31 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
     '@nuxtjs/proxy',
     '@nuxtjs/sentry',
     ['@nuxtjs/moment', ['ja']],
     ['cookie-universal-nuxt', { parseJSON: false }],
   ],
+  auth: {
+    redirect: {
+      login: '/auth/sandbox', // User will be redirected to this path if login is required.
+      logout: '/auth/sandbox', // User will be redirected to this path if after logout, current route is protected.
+      callback: '/auth/callback', // User will be redirected to this path by the identity provider after login.
+      home: '/auth/sandbox', // User will be redirect to this path after login.
+    },
+    strategies: {
+      local: false,
+      auth0: {
+        domain: envSet.AUTH0_DOMAIN,
+        client_id: envSet.AUTH0_CLIENT_ID,
+        userinfo_endpoint: false,
+        audience: envSet.AUTH0_AUDIENCE,
+        response_type: 'token id_token',
+        token_key: 'id_token',
+      },
+    },
+  },
   sentry: {
     dsn:
       process.env.NODE_ENV === 'production'
