@@ -11,7 +11,7 @@
                 class="d-flex flex-column black v-card--reveal white--text"
                 style="height: 140px"
               >
-                <v-btn @click="selectLogoImageFile">
+                <v-btn @click="openDialog('logo')">
                   <span>編集</span>
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
@@ -28,7 +28,6 @@
             type="file"
             accept="image/*"
             style="display: none"
-            @change="replaceLogoImage"
           />
         </v-card>
       </v-hover>
@@ -44,7 +43,7 @@
                 class="d-flex flex-column black v-card--reveal white--text"
                 style="height: 140px"
               >
-                <v-btn @click="selectEyecatchImageFile">
+                <v-btn @click="openDialog('eyecatch')">
                   <span>編集</span>
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
@@ -61,7 +60,6 @@
             type="file"
             accept="image/*"
             style="display: none"
-            @change="replaceEyecatchImage"
           />
         </v-card>
       </v-hover>
@@ -77,7 +75,7 @@
                 class="d-flex flex-column black v-card--reveal white--text"
                 style="height: 140px"
               >
-                <v-btn @click="selectHeroImageFile">
+                <v-btn @click="openDialog('hero')">
                   <span>編集</span>
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
@@ -94,16 +92,26 @@
             type="file"
             accept="image/*"
             style="display: none"
-            @change="replaceHeroImage"
           />
         </v-card>
       </v-hover>
+    </v-col>
+    <v-col>
+      <TrimmingImageDialog
+        :is-show-dialog="isShowTrimmingImageDialog"
+        :aspect-ratio-denominator="aspectRatioDenominator"
+        :aspect-ratio-numerator="aspectRatioNumerator"
+        @hide-trimming-image-dialog="closeDialog"
+        @trimmed-image="trimmedImage($event)"
+        @trimmingImgSrc="trimmingImgSrc = $event"
+      />
     </v-col>
   </v-row>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import TrimmingImageDialog from '~/components/forms/TrimmingImageDialog.vue'
 
 interface DataType {
   logoImageData: string
@@ -112,6 +120,10 @@ interface DataType {
   isRemoveLogoImage: boolean
   isRemoveEyecatchImage: boolean
   isRemoveHeroImage: boolean
+  isShowTrimmingImageDialog: boolean
+  trimmingImageType: string
+  aspectRatioDenominator: number
+  aspectRatioNumerator: number
 }
 
 const defaultLogoImageUrl = 'https://placehold.jp/140x140.png?text=1x1'
@@ -120,6 +132,7 @@ const defaultHeroImageUrl = 'https://placehold.jp/420x140.png?text=3x1'
 
 export default Vue.extend({
   name: 'SeriesImagesForm',
+  components: { TrimmingImageDialog },
   props: {
     playlist: {
       type: Object,
@@ -135,6 +148,10 @@ export default Vue.extend({
       isRemoveLogoImage: false,
       isRemoveEyecatchImage: false,
       isRemoveHeroImage: false,
+      isShowTrimmingImageDialog: false,
+      trimmingImageType: '',
+      aspectRatioDenominator: 0,
+      aspectRatioNumerator: 0,
     }
   },
   computed: {
@@ -173,70 +190,57 @@ export default Vue.extend({
     },
   },
   methods: {
-    selectLogoImageFile() {
-      ;(this.$refs.logoImageInput as HTMLElement).click()
+    openDialog(type: string) {
+      this.trimmingImageType = type
+
+      if (this.trimmingImageType === 'logo') {
+        this.aspectRatioDenominator = 1
+        this.aspectRatioNumerator = 1
+      } else if (this.trimmingImageType === 'eyecatch') {
+        this.aspectRatioDenominator = 16
+        this.aspectRatioNumerator = 9
+      } else if (this.trimmingImageType === 'hero') {
+        this.aspectRatioDenominator = 3
+        this.aspectRatioNumerator = 1
+      }
+
+      this.isShowTrimmingImageDialog = true
     },
-    replaceLogoImage() {
-      const inputElement = this.$refs.logoImageInput as HTMLInputElement
-      this.replaceImage(inputElement, 'logo')
-      this.isRemoveLogoImage = false
+    closeDialog() {
+      this.trimmingImageType = ''
+      this.isShowTrimmingImageDialog = false
     },
     removeLogoImage() {
       this.isRemoveLogoImage = true
       this.$emit('remove-series-image', 'logo')
     },
-    selectEyecatchImageFile() {
-      ;(this.$refs.eyecatchImageInput as HTMLElement).click()
-    },
-    replaceEyecatchImage() {
-      const inputElement = this.$refs.eyecatchImageInput as HTMLInputElement
-      this.replaceImage(inputElement, 'eyecatch')
-      this.isRemoveEyecatchImage = false
-    },
     removeEyecatchImage() {
       this.isRemoveEyecatchImage = true
       this.$emit('remove-series-image', 'eyecatch')
-    },
-    selectHeroImageFile() {
-      ;(this.$refs.heroImageInput as HTMLElement).click()
-    },
-    replaceHeroImage() {
-      const inputElement = this.$refs.heroImageInput as HTMLInputElement
-      this.replaceImage(inputElement, 'hero')
-      this.isRemoveHeroImage = false
     },
     removeHeroImage() {
       this.isRemoveHeroImage = true
       this.$emit('remove-series-image', 'hero')
     },
-    replaceImage(targetElement: HTMLInputElement, type: string) {
-      if (targetElement.files === null) {
-        return
+    trimmedImage(value: string) {
+      switch (this.trimmingImageType) {
+        case 'logo':
+          this.logoImageData = value
+          this.isRemoveLogoImage = false
+          break
+        case 'eyecatch':
+          this.eyecatchImageData = value
+          this.isRemoveEyecatchImage = false
+          break
+        case 'hero':
+          this.heroImageData = value
+          this.isRemoveHeroImage = false
+          break
       }
-      const file = targetElement.files[0]
-
-      if (file) {
-        const reader = new FileReader()
-        reader.onload = (e) => {
-          if (e.target !== null) {
-            switch (type) {
-              case 'logo':
-                this.logoImageData = e.target.result as string
-                this.$emit('update-series-image', { type, file })
-                break
-              case 'eyecatch':
-                this.eyecatchImageData = e.target.result as string
-                this.$emit('update-series-image', { type, file })
-                break
-              case 'hero':
-                this.heroImageData = e.target.result as string
-                this.$emit('update-series-image', { type, file })
-                break
-            }
-          }
-        }
-        reader.readAsDataURL(file)
-      }
+      this.$emit('update-series-image', {
+        type: this.trimmingImageType,
+        file: value,
+      })
     },
   },
 })
