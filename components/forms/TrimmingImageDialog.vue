@@ -36,6 +36,9 @@
         <v-stepper-items>
           <v-stepper-content step="1">
             <v-row justify="center" align-content="center">
+              <v-col cols="12">
+                <span>使用したい画像をアップロードしてください。</span>
+              </v-col>
               <v-col v-if="!image.src" cols="12">
                 <image-input v-model="image" />
               </v-col>
@@ -59,6 +62,9 @@
 
           <v-stepper-content step="2">
             <v-row justify="center" align-content="center">
+              <v-col cols="12">
+                <span>使用したい範囲を選択してください。</span>
+              </v-col>
               <v-col v-if="step === 2 && image.src" cols="auto">
                 <vue-cropper
                   ref="cropper"
@@ -99,12 +105,27 @@
 
           <v-stepper-content step="3">
             <v-row justify="center" align-content="center">
+              <v-col cols="12">
+                <span>生成される画像を確認してください。</span>
+              </v-col>
               <v-col v-if="trimmingImgSrc" cols="auto">
                 <img
                   alt=""
                   :src="trimmingImgSrc"
                   style="max-height: 400px; width: 852px; object-fit: contain"
                 />
+              </v-col>
+              <v-col cols="12" class="text-center">
+                <p>この画像をもとに下記サイズの画像を生成します。</p>
+                <ul class="will-create-size-list">
+                  <li
+                    v-for="text in willCreateSizeTexts()"
+                    :key="text"
+                    class=""
+                  >
+                    {{ text }}
+                  </li>
+                </ul>
               </v-col>
             </v-row>
 
@@ -147,17 +168,19 @@ export default Vue.extend({
   props: {
     isShowDialog: {
       type: Boolean,
-      required: false,
+      required: true,
     },
     aspectRatioDenominator: {
       type: Number,
-      required: false,
-      default: 1,
+      required: true,
     },
     aspectRatioNumerator: {
       type: Number,
-      required: false,
-      default: 1,
+      required: true,
+    },
+    trimmingImageType: {
+      type: String,
+      required: true,
     },
   },
   data(): DataType {
@@ -190,11 +213,10 @@ export default Vue.extend({
       return CropperUtil.getAdjustedSize(this.image.height, this.image.width)
     },
     setCropperImage(): void {
-      this.step = 3
-      const cropper = this.$refs.cropper as any
-      this.trimmingImgSrc = cropper
+      this.trimmingImgSrc = (this.$refs.cropper as any)
         .getCroppedCanvas()
         .toDataURL(this.getMimeTypeFromBase64())
+      this.step = 3
     },
     clearImage(): void {
       this.image = {} as HTMLImageElement
@@ -210,6 +232,21 @@ export default Vue.extend({
       this.$emit('trimmed-image', this.trimmingImgSrc)
       this.hideTrimmingImageDialog()
     },
+    willCreateSizeTexts(): string[] | undefined {
+      switch (this.trimmingImageType) {
+        case 'logo':
+          return ['縦1,080 ✕ 横1,080px', '縦640 ✕ 横640px', '縦200 ✕ 横200px']
+        case 'eyecatch':
+          return [
+            '縦1,080 ✕ 横1,920px',
+            '縦720 ✕ 横1,280px',
+            '縦522 ✕ 横928px',
+            '縦360 ✕ 横640px',
+          ]
+        case 'hero':
+          return ['縦640 ✕ 横1,920px', '縦360 ✕ 横1080px']
+      }
+    },
   },
 })
 </script>
@@ -220,5 +257,8 @@ export default Vue.extend({
 }
 .v-stepper__header {
   box-shadow: none;
+}
+ul.will-create-size-list {
+  list-style: none;
 }
 </style>
