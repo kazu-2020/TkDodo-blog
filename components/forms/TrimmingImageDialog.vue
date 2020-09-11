@@ -48,8 +48,12 @@
               </v-col>
             </v-row>
             <v-row v-if="image.src" justify="center">
-              <v-btn @click="clearImage">画像を変更する</v-btn>
-              <v-btn color="primary" @click="step = 2">次へ</v-btn>
+              <v-btn @click="clearImage">
+                <v-icon left>mdi-cancel</v-icon>画像を変更する
+              </v-btn>
+              <v-btn class="ml-5" color="primary" @click="step = 2">
+                次へ<v-icon right>mdi-chevron-right</v-icon>
+              </v-btn>
             </v-row>
           </v-stepper-content>
 
@@ -84,8 +88,12 @@
             </v-row>
 
             <v-row justify="center">
-              <v-btn @click="step = 1">戻る</v-btn>
-              <v-btn color="primary" @click="setCropperImage">次へ</v-btn>
+              <v-btn @click="step = 1">
+                <v-icon left>mdi-chevron-left</v-icon>戻る
+              </v-btn>
+              <v-btn class="ml-5" color="primary" @click="setCropperImage">
+                次へ<v-icon right>mdi-chevron-right</v-icon>
+              </v-btn>
             </v-row>
           </v-stepper-content>
 
@@ -101,8 +109,12 @@
             </v-row>
 
             <v-row justify="center">
-              <v-btn @click="step = 2">戻る</v-btn>
-              <v-btn color="primary" @click="complete">決定</v-btn>
+              <v-btn large @click="step = 2">
+                <v-icon left>mdi-chevron-left</v-icon>戻る
+              </v-btn>
+              <v-btn large class="ml-5" color="success" @click="complete">
+                <v-icon left>mdi-check</v-icon>決定
+              </v-btn>
             </v-row>
           </v-stepper-content>
         </v-stepper-items>
