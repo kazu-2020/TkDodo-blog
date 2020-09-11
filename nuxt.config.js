@@ -5,7 +5,7 @@ const envSet = require(`./env.${environment}.js`)
 
 export default {
   env: envSet,
-  mode: 'spa',
+  ssr: false,
   /*
    ** Headers of the page
    */
