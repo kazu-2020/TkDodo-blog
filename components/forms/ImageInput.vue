@@ -63,10 +63,19 @@ export default Vue.extend({
     onDrop(event: any) {
       this.isDragOver = false
       const files = event.dataTransfer.files
-      if (files.length !== 1 || files[0].type.indexOf('image') !== 0) {
+      if (files.length !== 1) {
         return
       }
-      this.readImage(files[0])
+      const file = files[0]
+      if (!this.isAllowedFileType(file)) {
+        alert('対応形式のファイルを選択してください')
+        return
+      }
+      if (!this.isAllowedFileSize(file)) {
+        alert('ファイルが大きすぎます（上限10MB）')
+        return
+      }
+      this.readImage(file)
     },
     onChange(event: any) {
       const files = event.target.files
@@ -84,6 +93,17 @@ export default Vue.extend({
       const image = new Image()
       image.src = e.target.result
       this.image = image
+    },
+    isAllowedFileType(file: File): boolean {
+      return (
+        file.type === 'image/jpg' ||
+        file.type === 'image/jpeg' ||
+        file.type === 'image/png'
+      )
+    },
+    isAllowedFileSize(file: File): boolean {
+      const _10MB = 10000000
+      return file.size < _10MB
     },
   },
 })
