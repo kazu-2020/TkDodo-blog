@@ -206,4 +206,7 @@ export default Vue.extend({
 .v-stepper {
   background: #1e1e1e;
 }
+.v-stepper__header {
+  box-shadow: none;
+}
 </style>
