@@ -24,7 +24,7 @@ describe('pages/index.vue', () => {
     }
 
     const wrapper = mount(PlaylistIndexPage, options)
-    expect(wrapper.find('.title').text()).toBe('プレイリスト一覧.')
+    expect(wrapper.find('.title').text()).toBe('プレイリスト一覧')
     expect(wrapper.find('.playlist-title').text()).toBe('プレイリスト1')
   })
 })
