@@ -36,9 +36,14 @@ interface DataType {
 export default Vue.extend({
   name: 'ImageInput',
   props: {
-    value: {
+    image: {
       type: Object,
       required: true,
+    },
+    fileType: {
+      type: String,
+      required: false,
+      default: '',
     },
   },
   data(): DataType {
@@ -47,12 +52,20 @@ export default Vue.extend({
     }
   },
   computed: {
-    image: {
+    inputImage: {
       set(value: HTMLImageElement) {
-        this.$emit('input', value)
+        this.$emit('update:image', value)
       },
       get(): HTMLImageElement {
-        return this.value
+        return this.image
+      },
+    },
+    inputFileType: {
+      set(value: string) {
+        this.$emit('update:fileType', value)
+      },
+      get(): string {
+        return this.fileType
       },
     },
   },
@@ -75,6 +88,7 @@ export default Vue.extend({
         alert('ファイルが大きすぎます（上限10MB）')
         return
       }
+      this.inputFileType = file.type
       this.readImage(file)
     },
     onChange(event: any) {
@@ -92,7 +106,7 @@ export default Vue.extend({
     loadImage(e: any) {
       const image = new Image()
       image.src = e.target.result
-      this.image = image
+      this.inputImage = image
     },
     isAllowedFileType(file: File): boolean {
       return (

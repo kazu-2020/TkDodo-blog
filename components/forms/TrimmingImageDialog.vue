@@ -40,7 +40,7 @@
                 <span>使用したい画像をアップロードしてください。</span>
               </v-col>
               <v-col v-if="!image.src" cols="12">
-                <image-input v-model="image" />
+                <image-input :image.sync="image" :file-type.sync="fileType" />
               </v-col>
               <v-col v-if="image.src" cols="auto">
                 <img
@@ -155,6 +155,7 @@ import ImageInput from './ImageInput.vue'
 
 interface DataType {
   image: HTMLImageElement
+  fileType: string
   trimmingImgSrc: string
   step: number
 }
@@ -186,6 +187,7 @@ export default Vue.extend({
   data(): DataType {
     return {
       image: {} as HTMLImageElement,
+      fileType: '',
       trimmingImgSrc: '',
       step: 1,
     }
@@ -215,18 +217,12 @@ export default Vue.extend({
     setCropperImage(): void {
       this.trimmingImgSrc = (this.$refs.cropper as any)
         .getCroppedCanvas()
-        .toDataURL(this.getMimeTypeFromBase64())
+        .toDataURL(this.fileType)
       this.step = 3
     },
     clearImage(): void {
       this.image = {} as HTMLImageElement
-    },
-    getMimeTypeFromBase64(): string | null {
-      const regex = /^data:(.*\/.*);base64,/gm
-      const result = regex.exec(this.image.src)
-      if (!result) return null
-
-      return result[1]
+      this.fileType = ''
     },
     complete(): void {
       this.$emit('trimmed-image', this.trimmingImgSrc)
