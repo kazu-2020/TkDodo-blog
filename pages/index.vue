@@ -2,7 +2,7 @@
   <v-layout column>
     <v-row>
       <v-col>
-        <div class="title mb-4">プレイリスト一覧</div>
+        <div class="title mb-4">プレイリスト一覧.</div>
       </v-col>
     </v-row>
     <v-row v-if="totalPages > 1">

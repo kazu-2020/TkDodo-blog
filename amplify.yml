@@ -6,11 +6,12 @@ frontend:
         - yarn install
     build:
       commands:
-        - export SENTRY_PROJECT_NAME="editorialhands"
-        - export GIT_REF=$(git describe --always)
-        - export SENTRY_RELEASE_VERSION="${SENTRY_PROJECT_NAME}@${GIT_REF}"
-        - VERSION=$SENTRY_RELEASE_VERSION yarn build:amplify
-        - if [ "${AWS_BRANCH}" = "master" ]; then ./bin/release_sentry.sh ; fi
+        - amplify publish
+        # - export SENTRY_PROJECT_NAME="editorialhands"
+        # - export GIT_REF=$(git describe --always)
+        # - export SENTRY_RELEASE_VERSION="${SENTRY_PROJECT_NAME}@${GIT_REF}"
+        # - VERSION=$SENTRY_RELEASE_VERSION yarn build:amplify
+        # - if [ "${AWS_BRANCH}" = "master" ]; then ./bin/release_sentry.sh ; fi
   artifacts:
     # IMPORTANT - Please verify your build output directory
     baseDirectory: dist/
