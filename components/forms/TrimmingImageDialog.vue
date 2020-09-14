@@ -216,7 +216,10 @@ export default Vue.extend({
     },
     setCropperImage(): void {
       this.trimmingImgSrc = (this.$refs.cropper as any)
-        .getCroppedCanvas()
+        .getCroppedCanvas({
+          maxWidth: 2880,
+          maxHeight: 2880,
+        })
         .toDataURL(this.fileType)
       this.step = 3
     },
