@@ -101,6 +101,7 @@
         :is-show-dialog="isShowTrimmingImageDialog"
         :aspect-ratio-denominator="aspectRatioDenominator"
         :aspect-ratio-numerator="aspectRatioNumerator"
+        :trimming-image-type="trimmingImageType"
         @hide-trimming-image-dialog="closeDialog"
         @trimmed-image="trimmedImage($event)"
         @trimmingImgSrc="trimmingImgSrc = $event"

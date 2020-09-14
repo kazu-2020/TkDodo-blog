@@ -36,8 +36,11 @@
         <v-stepper-items>
           <v-stepper-content step="1">
             <v-row justify="center" align-content="center">
+              <v-col cols="12">
+                <span>使用したい画像をアップロードしてください。</span>
+              </v-col>
               <v-col v-if="!image.src" cols="12">
-                <image-input v-model="image" />
+                <image-input :image.sync="image" :file-type.sync="fileType" />
               </v-col>
               <v-col v-if="image.src" cols="auto">
                 <img
@@ -48,13 +51,20 @@
               </v-col>
             </v-row>
             <v-row v-if="image.src" justify="center">
-              <v-btn @click="clearImage">画像を変更する</v-btn>
-              <v-btn color="primary" @click="step = 2">次へ</v-btn>
+              <v-btn @click="clearImage">
+                <v-icon left>mdi-cancel</v-icon>画像を変更する
+              </v-btn>
+              <v-btn class="ml-5" color="primary" @click="step = 2">
+                次へ<v-icon right>mdi-chevron-right</v-icon>
+              </v-btn>
             </v-row>
           </v-stepper-content>
 
           <v-stepper-content step="2">
             <v-row justify="center" align-content="center">
+              <v-col cols="12">
+                <span>使用したい範囲を選択してください。</span>
+              </v-col>
               <v-col v-if="step === 2 && image.src" cols="auto">
                 <vue-cropper
                   ref="cropper"
@@ -84,13 +94,20 @@
             </v-row>
 
             <v-row justify="center">
-              <v-btn @click="step = 1">戻る</v-btn>
-              <v-btn color="primary" @click="setCropperImage">次へ</v-btn>
+              <v-btn @click="step = 1">
+                <v-icon left>mdi-chevron-left</v-icon>戻る
+              </v-btn>
+              <v-btn class="ml-5" color="primary" @click="setCropperImage">
+                次へ<v-icon right>mdi-chevron-right</v-icon>
+              </v-btn>
             </v-row>
           </v-stepper-content>
 
           <v-stepper-content step="3">
             <v-row justify="center" align-content="center">
+              <v-col cols="12">
+                <span>生成される画像を確認してください。</span>
+              </v-col>
               <v-col v-if="trimmingImgSrc" cols="auto">
                 <img
                   alt=""
@@ -98,11 +115,27 @@
                   style="max-height: 400px; width: 852px; object-fit: contain"
                 />
               </v-col>
+              <v-col cols="12" class="text-center">
+                <p>この画像をもとに下記サイズの画像を生成します。</p>
+                <ul class="will-create-size-list">
+                  <li
+                    v-for="text in willCreateSizeTexts()"
+                    :key="text"
+                    class=""
+                  >
+                    {{ text }}
+                  </li>
+                </ul>
+              </v-col>
             </v-row>
 
             <v-row justify="center">
-              <v-btn @click="step = 2">戻る</v-btn>
-              <v-btn color="primary" @click="complete">決定</v-btn>
+              <v-btn large @click="step = 2">
+                <v-icon left>mdi-chevron-left</v-icon>戻る
+              </v-btn>
+              <v-btn large class="ml-5" color="success" @click="complete">
+                <v-icon left>mdi-check</v-icon>決定
+              </v-btn>
             </v-row>
           </v-stepper-content>
         </v-stepper-items>
@@ -122,6 +155,7 @@ import ImageInput from './ImageInput.vue'
 
 interface DataType {
   image: HTMLImageElement
+  fileType: string
   trimmingImgSrc: string
   step: number
 }
@@ -135,22 +169,25 @@ export default Vue.extend({
   props: {
     isShowDialog: {
       type: Boolean,
-      required: false,
+      required: true,
     },
     aspectRatioDenominator: {
       type: Number,
-      required: false,
-      default: 1,
+      required: true,
     },
     aspectRatioNumerator: {
       type: Number,
-      required: false,
-      default: 1,
+      required: true,
+    },
+    trimmingImageType: {
+      type: String,
+      required: true,
     },
   },
   data(): DataType {
     return {
       image: {} as HTMLImageElement,
+      fileType: '',
       trimmingImgSrc: '',
       step: 1,
     }
@@ -178,25 +215,36 @@ export default Vue.extend({
       return CropperUtil.getAdjustedSize(this.image.height, this.image.width)
     },
     setCropperImage(): void {
+      this.trimmingImgSrc = (this.$refs.cropper as any)
+        .getCroppedCanvas({
+          maxWidth: 2880,
+          maxHeight: 2880,
+        })
+        .toDataURL(this.fileType)
       this.step = 3
-      const cropper = this.$refs.cropper as any
-      this.trimmingImgSrc = cropper
-        .getCroppedCanvas()
-        .toDataURL(this.getMimeTypeFromBase64())
     },
     clearImage(): void {
       this.image = {} as HTMLImageElement
-    },
-    getMimeTypeFromBase64(): string | null {
-      const regex = /^data:(.*\/.*);base64,/gm
-      const result = regex.exec(this.image.src)
-      if (!result) return null
-
-      return result[1]
+      this.fileType = ''
     },
     complete(): void {
       this.$emit('trimmed-image', this.trimmingImgSrc)
       this.hideTrimmingImageDialog()
+    },
+    willCreateSizeTexts(): string[] | undefined {
+      switch (this.trimmingImageType) {
+        case 'logo':
+          return ['縦1,080 ✕ 横1,080px', '縦640 ✕ 横640px', '縦200 ✕ 横200px']
+        case 'eyecatch':
+          return [
+            '縦1,080 ✕ 横1,920px',
+            '縦720 ✕ 横1,280px',
+            '縦522 ✕ 横928px',
+            '縦360 ✕ 横640px',
+          ]
+        case 'hero':
+          return ['縦640 ✕ 横1,920px', '縦360 ✕ 横1080px']
+      }
     },
   },
 })
@@ -205,5 +253,11 @@ export default Vue.extend({
 <style scoped lang="scss">
 .v-stepper {
   background: #1e1e1e;
+}
+.v-stepper__header {
+  box-shadow: none;
+}
+ul.will-create-size-list {
+  list-style: none;
 }
 </style>

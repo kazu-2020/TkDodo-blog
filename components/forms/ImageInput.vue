@@ -36,9 +36,14 @@ interface DataType {
 export default Vue.extend({
   name: 'ImageInput',
   props: {
-    value: {
+    image: {
       type: Object,
       required: true,
+    },
+    fileType: {
+      type: String,
+      required: false,
+      default: '',
     },
   },
   data(): DataType {
@@ -47,12 +52,20 @@ export default Vue.extend({
     }
   },
   computed: {
-    image: {
+    inputImage: {
       set(value: HTMLImageElement) {
-        this.$emit('input', value)
+        this.$emit('update:image', value)
       },
       get(): HTMLImageElement {
-        return this.value
+        return this.image
+      },
+    },
+    inputFileType: {
+      set(value: string) {
+        this.$emit('update:fileType', value)
+      },
+      get(): string {
+        return this.fileType
       },
     },
   },
@@ -63,10 +76,20 @@ export default Vue.extend({
     onDrop(event: any) {
       this.isDragOver = false
       const files = event.dataTransfer.files
-      if (files.length !== 1 || files[0].type.indexOf('image') !== 0) {
+      if (files.length !== 1) {
         return
       }
-      this.readImage(files[0])
+      const file = files[0]
+      if (!this.isAllowedFileType(file)) {
+        alert('対応形式のファイルを選択してください')
+        return
+      }
+      if (!this.isAllowedFileSize(file)) {
+        alert('ファイルが大きすぎます（上限10MB）')
+        return
+      }
+      this.inputFileType = file.type
+      this.readImage(file)
     },
     onChange(event: any) {
       const files = event.target.files
@@ -83,7 +106,18 @@ export default Vue.extend({
     loadImage(e: any) {
       const image = new Image()
       image.src = e.target.result
-      this.image = image
+      this.inputImage = image
+    },
+    isAllowedFileType(file: File): boolean {
+      return (
+        file.type === 'image/jpg' ||
+        file.type === 'image/jpeg' ||
+        file.type === 'image/png'
+      )
+    },
+    isAllowedFileSize(file: File): boolean {
+      const _10MB = 10000000
+      return file.size < _10MB
     },
   },
 })
