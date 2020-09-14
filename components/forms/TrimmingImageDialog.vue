@@ -66,29 +66,12 @@
                 <span>使用したい範囲を選択してください。</span>
               </v-col>
               <v-col v-if="step === 2 && image.src" cols="auto">
-                <vue-cropper
+                <cropper
                   ref="cropper"
-                  drag-mode="crop"
-                  class="img-area"
-                  :aspect-ratio="aspectRatio"
-                  :src="image.src"
-                  :view-mode="3"
-                  :zoomable="false"
-                  :movable="false"
-                  :guides="false"
-                  :min-crop-box-height="20"
-                  :min-crop-box-width="20"
-                  :auto-crop-area="1"
-                  :max-container-height="adjustedHeight"
-                  :max-container-width="adjustedWidth"
-                  :img-style="{
-                    width: adjustedWidth + 'px',
-                    height: adjustedHeight + 'px',
-                  }"
-                  :container-style="{
-                    width: adjustedWidth + 'px',
-                    height: adjustedHeight + 'px',
-                  }"
+                  :image="image"
+                  :mime-type="fileType"
+                  :aspect-ratio-denominator="aspectRatioDenominator"
+                  :aspect-ratio-numerator="aspectRatioNumerator"
                 />
               </v-col>
             </v-row>
@@ -147,11 +130,8 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import VueCropper from 'vue-cropperjs'
-import 'cropperjs/dist/cropper.css'
-
-import CropperUtil from '@/utils/cropperUtil'
 import ImageInput from './ImageInput.vue'
+import Cropper from './Cropper.vue'
 
 interface DataType {
   image: HTMLImageElement
@@ -163,7 +143,7 @@ interface DataType {
 export default Vue.extend({
   name: 'TrimmingImageDialog',
   components: {
-    VueCropper,
+    Cropper,
     ImageInput,
   },
   props: {
@@ -192,27 +172,11 @@ export default Vue.extend({
       step: 1,
     }
   },
-  computed: {
-    aspectRatio(): number {
-      return this.aspectRatioDenominator / this.aspectRatioNumerator
-    },
-    adjustedHeight(): number {
-      const adjustedSize: number[] = this.adjustedSize()
-      return adjustedSize[0]
-    },
-    adjustedWidth(): number {
-      const adjustedSize: number[] = this.adjustedSize()
-      return adjustedSize[1]
-    },
-  },
   methods: {
     hideTrimmingImageDialog(): void {
       this.step = 1
       this.image = {} as HTMLImageElement
       this.$emit('hide-trimming-image-dialog')
-    },
-    adjustedSize(): number[] {
-      return CropperUtil.getAdjustedSize(this.image.height, this.image.width)
     },
     setCropperImage(): void {
       this.trimmingImgSrc = (this.$refs.cropper as any)
