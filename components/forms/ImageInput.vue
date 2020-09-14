@@ -6,7 +6,7 @@
       @dragleave="onDrag('leave')"
       @drop.prevent="onDrop"
     >
-      <input type="file" title @change="onChange" />
+      <input type="file" accept="image/*" title @change="onChange" />
       <div class="d-flex justify-center">
         <v-icon v-if="!isDragOver" color="grey darken-2" size="75"
           >mdi-cloud-upload-outline</v-icon
