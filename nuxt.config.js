@@ -61,7 +61,6 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/sentry',
     ['@nuxtjs/moment', ['ja']],
     ['cookie-universal-nuxt', { parseJSON: false }],
   ],
@@ -82,15 +81,6 @@ export default {
         response_type: 'token id_token',
         token_key: 'id_token',
       },
-    },
-  },
-  sentry: {
-    dsn:
-      process.env.NODE_ENV === 'production'
-        ? 'https://8e3ef0cc4bfb455f8e0892ef223aa788@o427938.ingest.sentry.io/5372763'
-        : false, // DSNを設定
-    config: {
-      release: `${process.env.VERSION}`,
     },
   },
   /*
