@@ -12,6 +12,9 @@ frontend:
         - export SENTRY_RELEASE_VERSION="${SENTRY_PROJECT_NAME}@${GIT_REF}"
         - VERSION=$SENTRY_RELEASE_VERSION yarn build:amplify
         - if [ "${AWS_BRANCH}" = "master" ]; then ./bin/release_sentry.sh ; fi
+        - export API_URL=$API_URL
+        - export SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+        - export SENTRY_ORG=$SENTRY_ORG
         - amplify publish --invalidateCloudFront -- yes
   artifacts:
     # IMPORTANT - Please verify your build output directory
