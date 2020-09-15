@@ -191,7 +191,7 @@ export default Vue.extend({
       this.loading = true
       this.$axios
         .get(
-          `/api/episodes/search?word=${this.keyword}&offset=${this.episodes.length}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}`
+          `/episodes/search?word=${this.keyword}&offset=${this.episodes.length}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}`
         )
         .then((res) => {
           if (clearCurrentEpisodes) {

@@ -18,7 +18,7 @@ export const actions = actionTree(
   { state, getters, mutations },
   {
     async fetchPlaylisticle({ commit }) {
-      await this.$axios.get('/api/playlisticles/sandbox').then((response) =>
+      await this.$axios.get('/playlisticles/sandbox').then((response) =>
         commit('setEditingPlaylisticle', {
           playlisticle: response.data.playlisticle,
         })

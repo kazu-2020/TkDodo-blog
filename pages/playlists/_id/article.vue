@@ -99,7 +99,7 @@ export default Vue.extend({
   mixins: [editorBlockMixin],
   asyncData({ $axios, params, app }) {
     return $axios
-      .get(`/api/playlists/${params.id}/playlist_articles`)
+      .get(`/playlists/${params.id}/playlist_articles`)
       .then((res) => {
         return {
           playlist: res.data.playlist,
@@ -218,7 +218,7 @@ export default Vue.extend({
       const footerText = this.footer === '' ? null : this.footer
 
       this.$axios
-        .post(`/api/playlists/${this.playlist.id}/playlist_articles`, {
+        .post(`/playlists/${this.playlist.id}/playlist_articles`, {
           playlist_article: {
             header: headerText,
             body: JSON.stringify(this.draftBody),

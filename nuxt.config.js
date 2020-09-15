@@ -61,7 +61,6 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/proxy',
     '@nuxtjs/sentry',
     ['@nuxtjs/moment', ['ja']],
     ['cookie-universal-nuxt', { parseJSON: false }],
@@ -98,14 +97,8 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
-  proxy: {
-    '/api/': {
-      target: process.env.API_BASE_URL || envSet.apiBaseUrl,
-      pathRewrite: {
-        '^/api/': '/',
-      },
-    },
+  axios: {
+    baseURL: process.env.API_BASE_URL || envSet.apiBaseUrl,
   },
   /*
    ** vuetify module configuration
