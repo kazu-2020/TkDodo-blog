@@ -80,12 +80,7 @@ export default Vue.extend({
         return
       }
       const file = files[0]
-      if (!this.isAllowedFileType(file)) {
-        alert('対応形式のファイルを選択してください')
-        return
-      }
-      if (!this.isAllowedFileSize(file)) {
-        alert('ファイルが大きすぎます（上限10MB）')
+      if (!this.validate(file)) {
         return
       }
       this.inputFileType = file.type
@@ -93,10 +88,15 @@ export default Vue.extend({
     },
     onChange(event: any) {
       const files = event.target.files
-      if (files.length !== 1 || files[0].type.indexOf('image') !== 0) {
+      if (files.length !== 1) {
         return
       }
-      this.readImage(files[0])
+      const file = files[0]
+      if (!this.validate(file)) {
+        return
+      }
+      this.inputFileType = file.type
+      this.readImage(file)
     },
     readImage(file: File) {
       const reader = new FileReader()
@@ -107,6 +107,17 @@ export default Vue.extend({
       const image = new Image()
       image.src = e.target.result
       this.inputImage = image
+    },
+    validate(file: File): boolean {
+      if (!this.isAllowedFileType(file)) {
+        alert('対応形式のファイルを選択してください')
+        return false
+      }
+      if (!this.isAllowedFileSize(file)) {
+        alert('ファイルが大きすぎます（上限10MB）')
+        return false
+      }
+      return true
     },
     isAllowedFileType(file: File): boolean {
       return (
