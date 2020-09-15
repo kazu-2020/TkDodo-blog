@@ -1,0 +1,17 @@
+{
+  "providers": [
+    "awscloudformation"
+  ],
+  "projectName": "aweditorialhandsui",
+  "version": "3.0",
+  "frontend": "javascript",
+  "javascript": {
+    "framework": "vue",
+    "config": {
+      "SourceDir": "/",
+      "DistributionDir": "dist",
+      "BuildCommand": "yarn build:amplify",
+      "StartCommand": "yarn start"
+    }
+  }
+}

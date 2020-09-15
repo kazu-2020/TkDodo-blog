@@ -4,6 +4,7 @@ frontend:
     preBuild:
       commands:
         - yarn install
+        - amplify init --amplify "{\"envName\":\"dev\"}" --yes
     build:
       commands:
         - export SENTRY_PROJECT_NAME="editorialhands"
@@ -11,6 +12,7 @@ frontend:
         - export SENTRY_RELEASE_VERSION="${SENTRY_PROJECT_NAME}@${GIT_REF}"
         - VERSION=$SENTRY_RELEASE_VERSION yarn build:amplify
         - if [ "${AWS_BRANCH}" = "master" ]; then ./bin/release_sentry.sh ; fi
+        - amplify publish --invalidateCloudFront -- yes
   artifacts:
     # IMPORTANT - Please verify your build output directory
     baseDirectory: dist/
