@@ -1,5 +1,10 @@
 <template>
   <v-row>
+    <v-col cols="12">
+      <v-btn @click="openDialog('bulk')">
+        <v-icon left>mdi-pencil</v-icon>画像を一括編集
+      </v-btn>
+    </v-col>
     <v-col cols="auto">
       <label class="text--secondary">ロゴ - Logo</label>
       <v-hover v-slot:default="{ hover }">
@@ -103,8 +108,9 @@
         :aspect-ratio-numerator="aspectRatioNumerator"
         :trimming-image-type="trimmingImageType"
         @hide-trimming-image-dialog="closeDialog"
-        @trimmed-image="trimmedImage($event)"
-        @trimmingImgSrc="trimmingImgSrc = $event"
+        @trimmed-logo-image="trimmedLogoImage($event)"
+        @trimmed-eyecatch-image="trimmedEyecatchImage($event)"
+        @trimmed-hero-image="trimmedHeroImage($event)"
       />
     </v-col>
   </v-row>
@@ -223,25 +229,20 @@ export default Vue.extend({
       this.isRemoveHeroImage = true
       this.$emit('remove-series-image', 'hero')
     },
-    trimmedImage(value: string) {
-      switch (this.trimmingImageType) {
-        case 'logo':
-          this.logoImageData = value
-          this.isRemoveLogoImage = false
-          break
-        case 'eyecatch':
-          this.eyecatchImageData = value
-          this.isRemoveEyecatchImage = false
-          break
-        case 'hero':
-          this.heroImageData = value
-          this.isRemoveHeroImage = false
-          break
-      }
-      this.$emit('update-series-image', {
-        type: this.trimmingImageType,
-        file: value,
-      })
+    trimmedLogoImage(value: string) {
+      this.logoImageData = value
+      this.isRemoveLogoImage = false
+      this.$emit('update-series-image', { type: 'logo', file: value })
+    },
+    trimmedEyecatchImage(value: string) {
+      this.eyecatchImageData = value
+      this.isRemoveEyecatchImage = false
+      this.$emit('update-series-image', { type: 'eyecatch', file: value })
+    },
+    trimmedHeroImage(value: string) {
+      this.heroImageData = value
+      this.isRemoveHeroImage = false
+      this.$emit('update-series-image', { type: 'hero', file: value })
     },
   },
 })

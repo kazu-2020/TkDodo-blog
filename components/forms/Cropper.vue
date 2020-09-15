@@ -22,6 +22,7 @@
       width: adjustedWidth + 'px',
       height: adjustedHeight + 'px',
     }"
+    @ready="onReady"
   />
 </template>
 
@@ -76,8 +77,14 @@ export default Vue.extend({
     },
   },
   methods: {
+    cropper(): any {
+      return this.$refs.cropper
+    },
     getCroppedCanvas(options?: CroppedCanvasOptions): HTMLCanvasElement {
       return (this.$refs.cropper as any).getCroppedCanvas(options)
+    },
+    onReady() {
+      this.$emit('ready')
     },
   },
 })

@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="isShowDialog" class="mx-auto" persistent max-width="900px">
+  <v-dialog v-model="isShowDialog" class="mx-auto" persistent max-width="920px">
     <v-card>
       <v-container class="pb-0">
         <v-row align="center" no-gutters>
@@ -65,7 +65,10 @@
               <v-col cols="12">
                 <span>使用したい範囲を選択してください。</span>
               </v-col>
-              <v-col v-if="step === 2 && image.src" cols="auto">
+              <v-col
+                v-if="trimmingImageType !== 'bulk' && isStep2Ready"
+                cols="auto"
+              >
                 <cropper
                   ref="cropper"
                   :image="image"
@@ -73,6 +76,53 @@
                   :aspect-ratio-denominator="aspectRatioDenominator"
                   :aspect-ratio-numerator="aspectRatioNumerator"
                 />
+              </v-col>
+              <v-col
+                v-if="trimmingImageType === 'bulk' && isStep2Ready"
+                cols="auto"
+              >
+                <v-row>
+                  <v-btn large @click="croppingType = 'logo'"> ロゴ </v-btn>
+                  <v-btn large @click="croppingType = 'eyecatch'">
+                    アイキャッチ
+                  </v-btn>
+                  <v-btn large @click="croppingType = 'hero'"> ヒーロー </v-btn>
+                </v-row>
+                <v-row>
+                  <v-col v-show="croppingType === 'logo'">
+                    <h3>logo</h3>
+                    <cropper
+                      ref="cropperLogo"
+                      :image="image"
+                      :mime-type="fileType"
+                      :aspect-ratio-denominator="1"
+                      :aspect-ratio-numerator="1"
+                      @ready="onReadyCropperLogo"
+                    />
+                  </v-col>
+                  <v-col v-show="croppingType === 'eyecatch'">
+                    <h3>eyecatch</h3>
+                    <cropper
+                      ref="cropperEyecatch"
+                      :image="image"
+                      :mime-type="fileType"
+                      :aspect-ratio-denominator="16"
+                      :aspect-ratio-numerator="9"
+                      @ready="onReadyCropperEyecatch"
+                    />
+                  </v-col>
+                  <v-col v-show="croppingType === 'hero'">
+                    <h3>hero</h3>
+                    <cropper
+                      ref="cropperHero"
+                      :image="image"
+                      :mime-type="fileType"
+                      :aspect-ratio-denominator="3"
+                      :aspect-ratio-numerator="1"
+                      @ready="onReadyCropperHero"
+                    />
+                  </v-col>
+                </v-row>
               </v-col>
             </v-row>
 
@@ -91,24 +141,125 @@
               <v-col cols="12">
                 <span>生成される画像を確認してください。</span>
               </v-col>
-              <v-col v-if="trimmingImgSrc" cols="auto">
-                <img
-                  alt=""
-                  :src="trimmingImgSrc"
-                  style="max-height: 400px; width: 852px; object-fit: contain"
-                />
-              </v-col>
-              <v-col cols="12" class="text-center">
-                <p>この画像をもとに下記サイズの画像を生成します。</p>
-                <ul class="will-create-size-list">
-                  <li
-                    v-for="text in willCreateSizeTexts()"
-                    :key="text"
-                    class=""
-                  >
-                    {{ text }}
-                  </li>
-                </ul>
+              <v-col v-if="isTrimmedImageReady">
+                <v-row v-if="trimmingImageType !== 'bulk'">
+                  <v-col cols="auto">
+                    <img
+                      alt=""
+                      :src="trimmedImage"
+                      style="
+                        max-height: 400px;
+                        width: 852px;
+                        object-fit: contain;
+                      "
+                    />
+                  </v-col>
+                  <v-col cols="12" class="text-center">
+                    <p>この画像をもとに下記サイズの画像を生成します。</p>
+                    <ul class="will-create-size-list">
+                      <li
+                        v-for="text in willCreateSizeTexts(trimmingImageType)"
+                        :key="text"
+                        class=""
+                      >
+                        {{ text }}
+                      </li>
+                    </ul>
+                  </v-col>
+                </v-row>
+                <!-- 一括-->
+                <v-row v-if="trimmingImageType === 'bulk'">
+                  <v-col cols="auto">
+                    <v-row>
+                      <v-col>
+                        <span class="text-subtitle-1">ロゴ (1:1)</span>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col>
+                        <v-img
+                          :src="trimmedLogoImage"
+                          width="140"
+                          height="140"
+                          contain
+                          class="grey darken-4"
+                        />
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col>
+                        <ul class="will-create-size-list pl-0">
+                          <li
+                            v-for="text in willCreateSizeTexts('logo')"
+                            :key="text"
+                          >
+                            {{ text }}
+                          </li>
+                        </ul>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                  <v-col cols="auto">
+                    <v-row>
+                      <v-col>
+                        <span class="text-subtitle-1">アイキャッチ (16:9)</span>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col>
+                        <v-img
+                          :src="trimmedEyecatchImage"
+                          width="249"
+                          height="140"
+                          contain
+                          class="grey darken-4"
+                        />
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col>
+                        <ul class="will-create-size-list pl-0">
+                          <li
+                            v-for="text in willCreateSizeTexts('eyecatch')"
+                            :key="text"
+                          >
+                            {{ text }}
+                          </li>
+                        </ul>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                  <v-col cols="auto">
+                    <v-row>
+                      <v-col>
+                        <span class="text-subtitle-1">ヒーロー (3:1)</span>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col>
+                        <v-img
+                          :src="trimmedHeroImage"
+                          width="420"
+                          height="140"
+                          contain
+                          class="grey darken-4"
+                        />
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col>
+                        <ul class="will-create-size-list pl-0">
+                          <li
+                            v-for="text in willCreateSizeTexts('hero')"
+                            :key="text"
+                          >
+                            {{ text }}
+                          </li>
+                        </ul>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                </v-row>
               </v-col>
             </v-row>
 
@@ -136,8 +287,11 @@ import Cropper from './Cropper.vue'
 interface DataType {
   image: HTMLImageElement
   fileType: string
-  trimmingImgSrc: string
+  trimmedLogoImage: string
+  trimmedEyecatchImage: string
+  trimmedHeroImage: string
   step: number
+  croppingType: string
 }
 
 export default Vue.extend({
@@ -168,9 +322,47 @@ export default Vue.extend({
     return {
       image: {} as HTMLImageElement,
       fileType: '',
-      trimmingImgSrc: '',
+      trimmedLogoImage: '',
+      trimmedEyecatchImage: '',
+      trimmedHeroImage: '',
       step: 1,
+      croppingType: 'logo',
     }
+  },
+  computed: {
+    trimmedImage(): string {
+      switch (this.trimmingImageType) {
+        case 'logo':
+          return this.trimmedLogoImage
+        case 'eyecatch':
+          return this.trimmedEyecatchImage
+        case 'hero':
+          return this.trimmedHeroImage
+        default:
+          return ''
+      }
+    },
+    isStep2Ready(): boolean {
+      return this.step === 2 && !!this.image.src
+    },
+    isTrimmedImageReady(): boolean {
+      switch (this.trimmingImageType) {
+        case 'logo':
+          return !!this.trimmedLogoImage
+        case 'eyecatch':
+          return !!this.trimmedEyecatchImage
+        case 'hero':
+          return !!this.trimmedHeroImage
+        case 'bulk':
+          return (
+            !!this.trimmedLogoImage &&
+            !!this.trimmedEyecatchImage &&
+            !!this.trimmedHeroImage
+          )
+        default:
+          return false
+      }
+    },
   },
   methods: {
     hideTrimmingImageDialog(): void {
@@ -179,24 +371,69 @@ export default Vue.extend({
       this.$emit('hide-trimming-image-dialog')
     },
     setCropperImage(): void {
-      this.trimmingImgSrc = (this.$refs.cropper as any)
-        .getCroppedCanvas({
-          maxWidth: 2880,
-          maxHeight: 2880,
-        })
-        .toDataURL(this.fileType)
+      const croppedCanvasOptions = {
+        maxWidth: 2880,
+        maxHeight: 2880,
+      }
+
+      switch (this.trimmingImageType) {
+        case 'logo':
+          this.trimmedLogoImage = (this.$refs.cropper as any)
+            .getCroppedCanvas(croppedCanvasOptions)
+            .toDataURL(this.fileType)
+          break
+        case 'eyecatch':
+          this.trimmedEyecatchImage = (this.$refs.cropper as any)
+            .getCroppedCanvas(croppedCanvasOptions)
+            .toDataURL(this.fileType)
+          break
+        case 'hero':
+          this.trimmedHeroImage = (this.$refs.cropper as any)
+            .getCroppedCanvas(croppedCanvasOptions)
+            .toDataURL(this.fileType)
+          break
+        case 'bulk':
+          this.trimmedLogoImage = (this.$refs.cropperLogo as any)
+            .getCroppedCanvas(croppedCanvasOptions)
+            .toDataURL(this.fileType)
+          this.trimmedEyecatchImage = (this.$refs.cropperEyecatch as any)
+            .getCroppedCanvas(croppedCanvasOptions)
+            .toDataURL(this.fileType)
+          this.trimmedHeroImage = (this.$refs.cropperHero as any)
+            .getCroppedCanvas(croppedCanvasOptions)
+            .toDataURL(this.fileType)
+          break
+      }
       this.step = 3
     },
     clearImage(): void {
       this.image = {} as HTMLImageElement
+      this.trimmedLogoImage = ''
+      this.trimmedEyecatchImage = ''
+      this.trimmedHeroImage = ''
       this.fileType = ''
     },
     complete(): void {
-      this.$emit('trimmed-image', this.trimmingImgSrc)
+      switch (this.trimmingImageType) {
+        case 'logo':
+          this.$emit('trimmed-logo-image', this.trimmedLogoImage)
+          break
+        case 'eyecatch':
+          this.$emit('trimmed-eyecatch-image', this.trimmedEyecatchImage)
+          break
+        case 'hero':
+          this.$emit('trimmed-hero-image', this.trimmedHeroImage)
+          break
+        case 'bulk':
+          this.$emit('trimmed-logo-image', this.trimmedLogoImage)
+          this.$emit('trimmed-eyecatch-image', this.trimmedEyecatchImage)
+          this.$emit('trimmed-hero-image', this.trimmedHeroImage)
+          break
+      }
       this.hideTrimmingImageDialog()
     },
-    willCreateSizeTexts(): string[] | undefined {
-      switch (this.trimmingImageType) {
+    willCreateSizeTexts(type: string): string[] | undefined {
+      switch (type) {
         case 'logo':
           return ['縦1,080 ✕ 横1,080px', '縦640 ✕ 横640px', '縦200 ✕ 横200px']
         case 'eyecatch':
@@ -209,6 +446,15 @@ export default Vue.extend({
         case 'hero':
           return ['縦640 ✕ 横1,920px', '縦360 ✕ 横1080px']
       }
+    },
+    onReadyCropperLogo(): void {
+      console.log('onReadyCropperLogo')
+    },
+    onReadyCropperEyecatch(): void {
+      console.log('onReadyCropperEyecatch')
+    },
+    onReadyCropperHero(): void {
+      console.log('onReadyCropperHero')
     },
   },
 })
