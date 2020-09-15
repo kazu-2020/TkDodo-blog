@@ -37,6 +37,6 @@ export default (context, _inject) => {
     const data = {
       text: message,
     }
-    context.$axios.post('/api/slack/incoming_webhook', JSON.stringify(data))
+    context.$axios.post('/slack/incoming_webhook', JSON.stringify(data))
   }
 }

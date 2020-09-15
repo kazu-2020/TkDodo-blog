@@ -106,7 +106,7 @@ export default Vue.extend({
       if (this.episodes.length !== 0) return
 
       this.$axios
-        .get(`/api/playlists/${this.playlist.id}/playlist_episodes`)
+        .get(`/playlists/${this.playlist.id}/playlist_episodes`)
         .then((res) => {
           this.episodes = res.data.items
         })
