@@ -76,10 +76,7 @@
                   :trimming-image-type="trimmingImageType"
                 />
               </v-col>
-              <v-col
-                v-if="trimmingImageType === 'bulk' && isStep2Ready"
-                cols="auto"
-              >
+              <v-col v-if="isBulk && isStep2Ready" cols="auto">
                 <v-row justify="center">
                   <v-col cols="auto">
                     <span class="text-subtitle-1">ロゴ (1:1)</span>
@@ -343,7 +340,7 @@ export default Vue.extend({
   methods: {
     hideTrimmingImageDialog(): void {
       this.step = 1
-      this.image = {} as HTMLImageElement
+      this.clearImage()
       this.$emit('hide-trimming-image-dialog')
     },
     setCropperImage(): void {
