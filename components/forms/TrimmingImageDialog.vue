@@ -65,10 +65,7 @@
               <v-col cols="12">
                 <span>使用したい範囲を選択してください。</span>
               </v-col>
-              <v-col
-                v-if="trimmingImageType !== 'bulk' && isStep2Ready"
-                cols="auto"
-              >
+              <v-col v-if="!isBulk && isStep2Ready" cols="auto">
                 <cropper
                   ref="cropper"
                   :image="image"
@@ -125,7 +122,7 @@
                 <span>生成される画像を確認してください。</span>
               </v-col>
               <v-col v-if="isTrimmedImageReady">
-                <v-row v-if="trimmingImageType !== 'bulk'">
+                <v-row v-if="!isBulk">
                   <v-col cols="auto">
                     <img
                       alt=""
@@ -151,7 +148,7 @@
                   </v-col>
                 </v-row>
                 <!-- 一括-->
-                <v-row v-if="trimmingImageType === 'bulk'">
+                <v-row v-if="isBulk">
                   <v-col cols="auto">
                     <v-row>
                       <v-col>
@@ -314,6 +311,9 @@ export default Vue.extend({
         default:
           return ''
       }
+    },
+    isBulk(): boolean {
+      return this.trimmingImageType === 'bulk'
     },
     isStep2Ready(): boolean {
       return this.step === 2 && !!this.image.src
