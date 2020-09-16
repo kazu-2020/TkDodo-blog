@@ -104,8 +104,6 @@
     <v-col>
       <TrimmingImageDialog
         :is-show-dialog="isShowTrimmingImageDialog"
-        :aspect-ratio-denominator="aspectRatioDenominator"
-        :aspect-ratio-numerator="aspectRatioNumerator"
         :trimming-image-type="trimmingImageType"
         @hide-trimming-image-dialog="closeDialog"
         @trimmed-logo-image="trimmedLogoImage($event)"
@@ -129,8 +127,6 @@ interface DataType {
   isRemoveHeroImage: boolean
   isShowTrimmingImageDialog: boolean
   trimmingImageType: string
-  aspectRatioDenominator: number
-  aspectRatioNumerator: number
 }
 
 const defaultLogoImageUrl = 'https://placehold.jp/140x140.png?text=1x1'
@@ -157,8 +153,6 @@ export default Vue.extend({
       isRemoveHeroImage: false,
       isShowTrimmingImageDialog: false,
       trimmingImageType: '',
-      aspectRatioDenominator: 0,
-      aspectRatioNumerator: 0,
     }
   },
   computed: {
@@ -199,18 +193,6 @@ export default Vue.extend({
   methods: {
     openDialog(type: string) {
       this.trimmingImageType = type
-
-      if (this.trimmingImageType === 'logo') {
-        this.aspectRatioDenominator = 1
-        this.aspectRatioNumerator = 1
-      } else if (this.trimmingImageType === 'eyecatch') {
-        this.aspectRatioDenominator = 16
-        this.aspectRatioNumerator = 9
-      } else if (this.trimmingImageType === 'hero') {
-        this.aspectRatioDenominator = 3
-        this.aspectRatioNumerator = 1
-      }
-
       this.isShowTrimmingImageDialog = true
     },
     closeDialog() {

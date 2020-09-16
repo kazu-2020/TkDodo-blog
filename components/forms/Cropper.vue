@@ -39,12 +39,8 @@ export default Vue.extend({
     VueCropper,
   },
   props: {
-    aspectRatioDenominator: {
-      type: Number,
-      required: true,
-    },
-    aspectRatioNumerator: {
-      type: Number,
+    trimmingImageType: {
+      type: String,
       required: true,
     },
     image: {
@@ -73,6 +69,29 @@ export default Vue.extend({
         this.image.width
       )
       return adjustedSize[1]
+    },
+    aspectRatioDenominator(): number {
+      switch (this.trimmingImageType) {
+        case 'logo':
+          return 1
+        case 'eyecatch':
+          return 16
+        case 'hero':
+          return 3
+        default:
+          return 0
+      }
+    },
+    aspectRatioNumerator(): number {
+      switch (this.trimmingImageType) {
+        case 'logo':
+        case 'hero':
+          return 1
+        case 'eyecatch':
+          return 9
+        default:
+          return 0
+      }
     },
   },
   methods: {

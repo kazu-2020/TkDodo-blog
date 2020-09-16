@@ -73,8 +73,7 @@
                   ref="cropper"
                   :image="image"
                   :mime-type="fileType"
-                  :aspect-ratio-denominator="aspectRatioDenominator"
-                  :aspect-ratio-numerator="aspectRatioNumerator"
+                  :trimming-image-type="trimmingImageType"
                 />
               </v-col>
               <v-col
@@ -88,8 +87,7 @@
                       ref="cropperLogo"
                       :image="image"
                       :mime-type="fileType"
-                      :aspect-ratio-denominator="1"
-                      :aspect-ratio-numerator="1"
+                      :trimming-image-type="'logo'"
                     />
                   </v-col>
                   <v-col cols="auto">
@@ -98,8 +96,7 @@
                       ref="cropperEyecatch"
                       :image="image"
                       :mime-type="fileType"
-                      :aspect-ratio-denominator="16"
-                      :aspect-ratio-numerator="9"
+                      :trimming-image-type="'eyecatch'"
                     />
                   </v-col>
                   <v-col cols="auto">
@@ -108,8 +105,7 @@
                       ref="cropperHero"
                       :image="image"
                       :mime-type="fileType"
-                      :aspect-ratio-denominator="3"
-                      :aspect-ratio-numerator="1"
+                      :trimming-image-type="'hero'"
                     />
                   </v-col>
                 </v-row>
@@ -292,14 +288,6 @@ export default Vue.extend({
   props: {
     isShowDialog: {
       type: Boolean,
-      required: true,
-    },
-    aspectRatioDenominator: {
-      type: Number,
-      required: true,
-    },
-    aspectRatioNumerator: {
-      type: Number,
       required: true,
     },
     trimmingImageType: {
