@@ -22,13 +22,13 @@
       </v-container>
       <v-stepper v-model="step" alt-labels>
         <v-stepper-header :elevation="0">
-          <v-stepper-step :complete="step > 1" step="1"
-            >画像アップロード</v-stepper-step
-          >
+          <v-stepper-step :complete="step > 1" step="1">
+            画像アップロード
+          </v-stepper-step>
           <v-divider />
-          <v-stepper-step :complete="step > 2" step="2"
-            >範囲選択</v-stepper-step
-          >
+          <v-stepper-step :complete="step > 2" step="2">
+            範囲選択
+          </v-stepper-step>
           <v-divider />
           <v-stepper-step step="3">確認</v-stepper-step>
         </v-stepper-header>
