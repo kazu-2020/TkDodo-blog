@@ -81,45 +81,35 @@
                 v-if="trimmingImageType === 'bulk' && isStep2Ready"
                 cols="auto"
               >
-                <v-row>
-                  <v-btn large @click="croppingType = 'logo'"> ロゴ </v-btn>
-                  <v-btn large @click="croppingType = 'eyecatch'">
-                    アイキャッチ
-                  </v-btn>
-                  <v-btn large @click="croppingType = 'hero'"> ヒーロー </v-btn>
-                </v-row>
-                <v-row>
-                  <v-col v-show="croppingType === 'logo'">
-                    <h3>logo</h3>
+                <v-row justify="center">
+                  <v-col cols="auto">
+                    <span class="text-subtitle-1">ロゴ (1:1)</span>
                     <cropper
                       ref="cropperLogo"
                       :image="image"
                       :mime-type="fileType"
                       :aspect-ratio-denominator="1"
                       :aspect-ratio-numerator="1"
-                      @ready="onReadyCropperLogo"
                     />
                   </v-col>
-                  <v-col v-show="croppingType === 'eyecatch'">
-                    <h3>eyecatch</h3>
+                  <v-col cols="auto">
+                    <span class="text-subtitle-1">アイキャッチ (16:9)</span>
                     <cropper
                       ref="cropperEyecatch"
                       :image="image"
                       :mime-type="fileType"
                       :aspect-ratio-denominator="16"
                       :aspect-ratio-numerator="9"
-                      @ready="onReadyCropperEyecatch"
                     />
                   </v-col>
-                  <v-col v-show="croppingType === 'hero'">
-                    <h3>hero</h3>
+                  <v-col cols="auto">
+                    <span class="text-subtitle-1">ヒーロー (3:1)</span>
                     <cropper
                       ref="cropperHero"
                       :image="image"
                       :mime-type="fileType"
                       :aspect-ratio-denominator="3"
                       :aspect-ratio-numerator="1"
-                      @ready="onReadyCropperHero"
                     />
                   </v-col>
                 </v-row>
@@ -291,7 +281,6 @@ interface DataType {
   trimmedEyecatchImage: string
   trimmedHeroImage: string
   step: number
-  croppingType: string
 }
 
 export default Vue.extend({
@@ -326,7 +315,6 @@ export default Vue.extend({
       trimmedEyecatchImage: '',
       trimmedHeroImage: '',
       step: 1,
-      croppingType: 'logo',
     }
   },
   computed: {
@@ -446,15 +434,6 @@ export default Vue.extend({
         case 'hero':
           return ['縦640 ✕ 横1,920px', '縦360 ✕ 横1080px']
       }
-    },
-    onReadyCropperLogo(): void {
-      console.log('onReadyCropperLogo')
-    },
-    onReadyCropperEyecatch(): void {
-      console.log('onReadyCropperEyecatch')
-    },
-    onReadyCropperHero(): void {
-      console.log('onReadyCropperHero')
     },
   },
 })
