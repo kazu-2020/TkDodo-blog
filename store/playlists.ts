@@ -51,14 +51,14 @@ export const actions = actionTree(
   { state, getters, mutations },
   {
     async fetchPlaylists({ commit }, page) {
-      await this.$axios.get(`/api/playlists?page=${page}`).then((response) => {
+      await this.$axios.get(`/playlists?page=${page}`).then((response) => {
         commit('setPlaylists', { playlists: response.data.playlists })
         commit('setPagination', { pagination: response.data.pagination })
       })
     },
     async fetchD5Playlists({ commit }, payloads) {
       await this.$axios
-        .get(`/api/playlists?area=${payloads.area}&page=${payloads.page}`)
+        .get(`/playlists?area=${payloads.area}&page=${payloads.page}`)
         .then((response) => {
           commit('setPlaylists', { playlists: response.data.playlists })
           commit('setPagination', { pagination: response.data.pagination })
@@ -66,17 +66,17 @@ export const actions = actionTree(
     },
     async createPlaylists({ commit }, payload) {
       await this.$axios
-        .post('/api/playlists', payload)
+        .post('/playlists', payload)
         .then((response) => commit('setPlaylist', { playlist: response.data }))
     },
     async createPlaylistFromSeries({ commit }, payload) {
       await this.$axios
-        .post('/api/playlists/import_from_series', payload)
+        .post('/playlists/import_from_series', payload)
         .then((response) => commit('setPlaylist', { playlist: response.data }))
     },
     async deletePlaylist({ commit }, playlist) {
       await this.$axios
-        .delete(`/api/playlists/${playlist.id}`)
+        .delete(`/playlists/${playlist.id}`)
         .then((response) => {
           console.log('status:', response.status)
           commit('removePlaylist', playlist)
@@ -86,7 +86,7 @@ export const actions = actionTree(
         })
     },
     async fetchPlaylist({ commit, dispatch }, targetId) {
-      await this.$axios.get(`/api/playlists/${targetId}`).then((response) => {
+      await this.$axios.get(`/playlists/${targetId}`).then((response) => {
         commit('setEditingPlaylist', { playlist: response.data.playlist })
         dispatch('sameAs/updateAll', response.data.playlist.sameAs, {
           root: true,
@@ -96,7 +96,7 @@ export const actions = actionTree(
     async saveEditingPlaylistEpisodes({ commit, state }) {
       await this.$axios
         .post(
-          `/api/playlists/${state.editingPlaylist.id}/playlist_episodes/bulk_update`,
+          `/playlists/${state.editingPlaylist.id}/playlist_episodes/bulk_update`,
           {
             playlist_episodes: state.editingPlaylist.items,
           }
