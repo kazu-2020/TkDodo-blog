@@ -43,11 +43,7 @@
                 <image-input :image.sync="image" :file-type.sync="fileType" />
               </v-col>
               <v-col v-if="image.src" cols="auto">
-                <img
-                  alt=""
-                  :src="image.src"
-                  style="height: 400px; object-fit: contain"
-                />
+                <v-img :src="image.src" height="400" contain />
               </v-col>
             </v-row>
             <v-row v-if="image.src" justify="center">
@@ -124,14 +120,11 @@
               <v-col v-if="isTrimmedImageReady">
                 <v-row v-if="!isBulk">
                   <v-col cols="auto">
-                    <img
-                      alt=""
+                    <v-img
                       :src="trimmedImage"
-                      style="
-                        max-height: 400px;
-                        width: 852px;
-                        object-fit: contain;
-                      "
+                      width="852"
+                      max-height="400"
+                      contain
                     />
                   </v-col>
                   <v-col cols="12" class="text-center">
