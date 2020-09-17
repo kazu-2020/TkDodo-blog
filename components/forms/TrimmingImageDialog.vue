@@ -36,21 +36,48 @@
         <v-stepper-items>
           <v-stepper-content step="1">
             <v-row justify="center" align-content="center">
-              <v-col cols="12">
+              <v-col cols="6">
                 <span>使用したい画像をアップロードしてください。</span>
               </v-col>
-              <v-col v-if="!image.src" cols="12">
-                <image-input :image.sync="image" :file-type.sync="fileType" />
+              <v-col v-if="!isBulk" cols="6">
+                <v-select
+                  :items="[
+                    {
+                      value: 'dominant',
+                      text: '背景を画像から抽出した色で埋める',
+                    },
+                    {
+                      value: 'black',
+                      text: '背景を黒で埋める',
+                    },
+                    {
+                      value: 'white',
+                      text: '背景を白で埋める',
+                    },
+                  ]"
+                  label="トリミング不可の画像は選択"
+                  dense
+                  outlined
+                  clearable
+                  @change="filledImageType = $event"
+                />
               </v-col>
-              <v-col v-if="image.src" cols="auto">
-                <v-img :src="image.src" height="400" contain />
+
+              <v-col v-if="!inputImage.src" cols="12">
+                <image-input
+                  :image.sync="inputImage"
+                  :file-type.sync="fileType"
+                />
+              </v-col>
+              <v-col v-if="inputImage.src" cols="auto">
+                <v-img :src="inputImage.src" height="400" contain />
               </v-col>
             </v-row>
-            <v-row v-if="image.src" justify="center">
+            <v-row v-if="inputImage.src" justify="center">
               <v-btn @click="clearImage">
                 <v-icon left>mdi-cancel</v-icon>画像を変更する
               </v-btn>
-              <v-btn class="ml-5" color="primary" @click="step = 2">
+              <v-btn class="ml-5" color="primary" @click="toStep2">
                 次へ<v-icon right>mdi-chevron-right</v-icon>
               </v-btn>
             </v-row>
@@ -254,16 +281,19 @@
 <script lang="ts">
 import Vue from 'vue'
 
+import { createFilledBgImage } from '../../utils/dominantBackgroundColorUtil'
 import ImageInput from './ImageInput.vue'
 import Cropper from './Cropper.vue'
 
 interface DataType {
+  inputImage: HTMLImageElement
   image: HTMLImageElement
   fileType: string
   trimmedLogoImage: string
   trimmedEyecatchImage: string
   trimmedHeroImage: string
   step: number
+  filledImageType: string
 }
 
 export default Vue.extend({
@@ -284,12 +314,14 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
+      inputImage: {} as HTMLImageElement,
       image: {} as HTMLImageElement,
       fileType: '',
       trimmedLogoImage: '',
       trimmedEyecatchImage: '',
       trimmedHeroImage: '',
       step: 1,
+      filledImageType: '',
     }
   },
   computed: {
@@ -336,6 +368,32 @@ export default Vue.extend({
       this.clearImage()
       this.$emit('hide-trimming-image-dialog')
     },
+    async toStep2() {
+      this.image = new Image()
+      this.image.src = this.inputImage.src
+
+      if (this.filledImageType) {
+        let ratio: number[] = []
+        switch (this.trimmingImageType) {
+          case 'logo':
+            ratio = [1, 1]
+            break
+          case 'eyecatch':
+            ratio = [16, 9]
+            break
+          case 'hero':
+            ratio = [3, 1]
+            break
+        }
+        this.image.src = await createFilledBgImage(
+          this.image,
+          this.fileType,
+          ratio,
+          this.filledImageType
+        )
+      }
+      this.step = 2
+    },
     setCropperImage(): void {
       const croppedCanvasOptions = {
         maxWidth: 2880,
@@ -378,6 +436,7 @@ export default Vue.extend({
       this.trimmedEyecatchImage = ''
       this.trimmedHeroImage = ''
       this.fileType = ''
+      this.filledImageType = ''
     },
     complete(): void {
       switch (this.trimmingImageType) {
