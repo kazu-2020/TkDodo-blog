@@ -65,14 +65,14 @@
             <v-col cols="6" md="3">
               <v-select
                 v-model="editingPlaylist.themeGenre"
-                :items="formatGenreLists"
+                :items="formatGenreList"
                 label="ジャンル(フォーマット) - Format Genre"
               />
             </v-col>
             <v-col cols="6" md="3">
               <v-select
                 v-model="editingPlaylist.themeGenre"
-                :items="themeGenreLists"
+                :items="themeGenreList"
                 label="ジャンル(テーマ) - Theme Genre"
               />
             </v-col>
@@ -186,7 +186,7 @@ export default Vue.extend({
         return v.length <= 255 || '短縮URLは255文字以下で入力してください'
       },
     ],
-    formatGenreLists: [
+    formatGenreList: [
       { value: '00', text: 'ジャンルレス' },
       { value: '01', text: '報道' },
       { value: '02', text: 'ドキュメンタリー' },
@@ -197,7 +197,7 @@ export default Vue.extend({
       { value: '08', text: 'PR・お知らせ' },
       { value: '09', text: '講座' },
     ],
-    themeGenreLists: [
+    themeGenreList: [
       { value: '020', text: 'スポーツ全般' },
       { value: '070', text: '音楽全般' },
       { value: '092', text: '自然' },
