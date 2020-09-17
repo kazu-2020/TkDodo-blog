@@ -2,9 +2,13 @@
   <v-card class="mx-auto" outlined light>
     <v-container>
       <v-row justify="space-between">
-        <v-col cols="auto" class="py-2 pr-0 pl-4">
-          <v-img :src="logoImageUrl" width="140" />
-        </v-col>
+        <div class="py-2 pr-0 pl-4 playlist_logo_block">
+          <v-img
+            :src="logoImageUrl"
+            class="playlist_logo_image"
+            aspect-ratio="1"
+          />
+        </div>
         <v-col class="mr-auto">
           <v-card-title class="headline mb-1 playlist-title">
             {{ playlist.name }}
@@ -126,11 +130,20 @@ export default Vue.extend({
 .col.mr-auto {
   padding: 0px 16px;
 }
+
 .v-card__title.headline {
   padding-top: 8px;
 }
 
 .v-card__text.card-list-item {
   padding-top: 0;
+}
+
+.playlist_logo_block {
+  width: 30%;
+}
+
+.playlist_logo_image {
+  width: 100%;
 }
 </style>
