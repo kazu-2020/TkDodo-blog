@@ -107,7 +107,7 @@ export default Vue.extend({
      */
     getAdjustedSize(height: number, width: number): number[] {
       let adjustedHeight = 400 // 基本の高さ
-      const maxWidth = 1120 // 最大画像幅
+      const maxWidth = 852 // 最大画像幅
       let evenWidth: number = width // 偶数にした幅を代入するための変数
 
       if (width % 2 !== 0) {

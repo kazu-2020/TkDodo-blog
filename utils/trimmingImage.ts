@@ -9,7 +9,7 @@ function getDominantColor(imageElement: HTMLImageElement, colorSpec: string) {
   return colorThief.getColor(imageElement)
 }
 
-export async function createFilledBgImage(
+export async function createFilledBackgroundImageSrc(
   imageElement: HTMLImageElement,
   mimeType: string,
   aspectRatio: number[],
@@ -47,6 +47,5 @@ export async function createFilledBgImage(
   const dh = imageHeight * scale // 描画イメージの縦幅
 
   context.drawImage(image, dx, dy, dw, dh)
-  // canvas.toBlob((blob) => resolve(blob), mimeType, 1)
   return canvas.toDataURL(mimeType)
 }

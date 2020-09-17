@@ -41,20 +41,8 @@
               </v-col>
               <v-col v-if="!isBulk" cols="6">
                 <v-select
-                  :items="[
-                    {
-                      value: 'dominant',
-                      text: '背景を画像から抽出した色で埋める',
-                    },
-                    {
-                      value: 'black',
-                      text: '背景を黒で埋める',
-                    },
-                    {
-                      value: 'white',
-                      text: '背景を白で埋める',
-                    },
-                  ]"
+                  ref="filledImageTypeSelect"
+                  :items="filledImageTypeList"
                   label="トリミング不可の画像は選択"
                   dense
                   outlined
@@ -281,9 +269,9 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import { createFilledBgImage } from '../../utils/dominantBackgroundColorUtil'
 import ImageInput from './ImageInput.vue'
 import Cropper from './Cropper.vue'
+import { createFilledBackgroundImageSrc } from '~/utils/trimmingImage'
 
 interface DataType {
   inputImage: HTMLImageElement
@@ -322,6 +310,20 @@ export default Vue.extend({
       trimmedHeroImage: '',
       step: 1,
       filledImageType: '',
+      filledImageTypeList: [
+        {
+          value: 'dominant',
+          text: '背景を画像から抽出した色で埋める',
+        },
+        {
+          value: 'black',
+          text: '背景を黒で埋める',
+        },
+        {
+          value: 'white',
+          text: '背景を白で埋める',
+        },
+      ],
     }
   },
   computed: {
@@ -373,24 +375,7 @@ export default Vue.extend({
       this.image.src = this.inputImage.src
 
       if (this.filledImageType) {
-        let ratio: number[] = []
-        switch (this.trimmingImageType) {
-          case 'logo':
-            ratio = [1, 1]
-            break
-          case 'eyecatch':
-            ratio = [16, 9]
-            break
-          case 'hero':
-            ratio = [3, 1]
-            break
-        }
-        this.image.src = await createFilledBgImage(
-          this.image,
-          this.fileType,
-          ratio,
-          this.filledImageType
-        )
+        await this.fillImageBackground()
       }
       this.step = 2
     },
@@ -431,12 +416,14 @@ export default Vue.extend({
       this.step = 3
     },
     clearImage(): void {
+      this.inputImage = {} as HTMLImageElement
       this.image = {} as HTMLImageElement
       this.trimmedLogoImage = ''
       this.trimmedEyecatchImage = ''
       this.trimmedHeroImage = ''
       this.fileType = ''
       this.filledImageType = ''
+      this.$refs.filledImageTypeSelect.reset()
     },
     complete(): void {
       switch (this.trimmingImageType) {
@@ -471,6 +458,26 @@ export default Vue.extend({
         case 'hero':
           return ['縦640 ✕ 横1,920px', '縦360 ✕ 横1080px']
       }
+    },
+    async fillImageBackground(): Promise<void> {
+      let ratio: number[] = []
+      switch (this.trimmingImageType) {
+        case 'logo':
+          ratio = [1, 1]
+          break
+        case 'eyecatch':
+          ratio = [16, 9]
+          break
+        case 'hero':
+          ratio = [3, 1]
+          break
+      }
+      this.image.src = await createFilledBackgroundImageSrc(
+        this.image,
+        this.fileType,
+        ratio,
+        this.filledImageType
+      )
     },
   },
 })
