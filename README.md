@@ -1,11 +1,6 @@
 # aw-editorialhands-ui
 
-https://master.d1g8sbnehehpms.amplifyapp.com/
-
-```
-ID: aw-editorialhands
-Password: aw-editorialhands-ui
-```
+https://dev-eh.nr.nhk.jp/
 
 ## Build Setup (for Local)
 

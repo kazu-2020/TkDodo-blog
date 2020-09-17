@@ -58,7 +58,7 @@ export default Vue.extend({
     dialog: {
       handler(newValue) {
         if (newValue && this.playlistJson === null) {
-          this.$axios.get(`/api/playlists/${this.playlistId}`).then((res) => {
+          this.$axios.get(`/playlists/${this.playlistId}`).then((res) => {
             this.playlistJson = res.data.playlist
           })
         }

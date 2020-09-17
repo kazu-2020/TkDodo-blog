@@ -163,7 +163,7 @@ export default Vue.extend({
     SameAsForm,
   },
   asyncData({ $axios, params }) {
-    return $axios.get(`/api/playlists/${params.id}`).then((res) => {
+    return $axios.get(`/playlists/${params.id}`).then((res) => {
       return {
         editingPlaylist: res.data.playlist,
       }
@@ -338,7 +338,7 @@ export default Vue.extend({
         }
 
         this.$axios
-          .put(`/api/playlists/${playlist.id}`, data)
+          .put(`/playlists/${playlist.id}`, data)
           .then((_response) => {
             this.$store.dispatch('loading/succeedLoading')
           })

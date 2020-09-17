@@ -18,16 +18,18 @@ export default (context, _inject) => {
   })
 
   context.$axios.onError((error) => {
-    switch (error.response.status) {
-      case 400:
-      case 401:
-      case 403:
-      case 500:
-      case 502:
-      case 503:
-      case 504:
-        errorHandler(`${error.request.responseURL}\n${error.stack}`)
-        break
+    if (error.response) {
+      switch (error.response?.status) {
+        case 400:
+        case 401:
+        case 403:
+        case 500:
+        case 502:
+        case 503:
+        case 504:
+          errorHandler(`${error.request.responseURL}\n${error.stack}`)
+          break
+      }
     }
   })
 
@@ -35,6 +37,6 @@ export default (context, _inject) => {
     const data = {
       text: message,
     }
-    context.$axios.post('/api/slack/incoming_webhook', JSON.stringify(data))
+    context.$axios.post('/slack/incoming_webhook', JSON.stringify(data))
   }
 }

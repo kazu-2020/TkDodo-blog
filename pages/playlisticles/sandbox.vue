@@ -175,7 +175,7 @@ export default {
   },
   mixins: [editorBlockMixin],
   asyncData({ $axios }) {
-    return $axios.get('/api/playlisticles/sandbox_word').then((res) => {
+    return $axios.get('/playlisticles/sandbox_word').then((res) => {
       return {
         headerSection: res.data.playlisticle.headerSection,
         bodySections: res.data.playlisticle.bodySections,

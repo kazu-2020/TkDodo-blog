@@ -78,7 +78,7 @@ export default {
   },
   mixins: [editorBlockMixin],
   asyncData({ $axios }) {
-    return $axios.get('/api/playlisticles/sandbox2').then((res) => {
+    return $axios.get('/playlisticles/sandbox2').then((res) => {
       return {
         article: res.data.playlisticle.article,
       }
