@@ -22,13 +22,13 @@
       </v-container>
       <v-stepper v-model="step" alt-labels>
         <v-stepper-header :elevation="0">
-          <v-stepper-step :complete="step > 1" step="1"
-            >画像アップロード</v-stepper-step
-          >
+          <v-stepper-step :complete="step > 1" step="1">
+            画像アップロード
+          </v-stepper-step>
           <v-divider />
-          <v-stepper-step :complete="step > 2" step="2"
-            >範囲選択</v-stepper-step
-          >
+          <v-stepper-step :complete="step > 2" step="2">
+            範囲選択
+          </v-stepper-step>
           <v-divider />
           <v-stepper-step step="3">確認</v-stepper-step>
         </v-stepper-header>
@@ -36,25 +36,36 @@
         <v-stepper-items>
           <v-stepper-content step="1">
             <v-row justify="center" align-content="center">
-              <v-col cols="12">
+              <v-col cols="6">
                 <span>使用したい画像をアップロードしてください。</span>
               </v-col>
-              <v-col v-if="!image.src" cols="12">
-                <image-input :image.sync="image" :file-type.sync="fileType" />
-              </v-col>
-              <v-col v-if="image.src" cols="auto">
-                <img
-                  alt=""
-                  :src="image.src"
-                  style="height: 400px; object-fit: contain"
+              <v-col v-if="!isBulk" cols="6">
+                <v-select
+                  ref="filledImageTypeSelect"
+                  :items="filledImageTypeList"
+                  label="トリミング不可の画像は選択"
+                  dense
+                  outlined
+                  clearable
+                  @change="filledImageType = $event"
                 />
               </v-col>
+
+              <v-col v-if="!inputImage.src" cols="12">
+                <image-input
+                  :image.sync="inputImage"
+                  :file-type.sync="fileType"
+                />
+              </v-col>
+              <v-col v-if="inputImage.src" cols="auto">
+                <v-img :src="inputImage.src" height="400" contain />
+              </v-col>
             </v-row>
-            <v-row v-if="image.src" justify="center">
+            <v-row v-if="inputImage.src" justify="center">
               <v-btn @click="clearImage">
                 <v-icon left>mdi-cancel</v-icon>画像を変更する
               </v-btn>
-              <v-btn class="ml-5" color="primary" @click="step = 2">
+              <v-btn class="ml-5" color="primary" @click="toStep2">
                 次へ<v-icon right>mdi-chevron-right</v-icon>
               </v-btn>
             </v-row>
@@ -65,10 +76,7 @@
               <v-col cols="12">
                 <span>使用したい範囲を選択してください。</span>
               </v-col>
-              <v-col
-                v-if="trimmingImageType !== 'bulk' && isStep2Ready"
-                cols="auto"
-              >
+              <v-col v-if="!isBulk && isStep2Ready" cols="auto">
                 <cropper
                   ref="cropper"
                   :image="image"
@@ -76,10 +84,7 @@
                   :trimming-image-type="trimmingImageType"
                 />
               </v-col>
-              <v-col
-                v-if="trimmingImageType === 'bulk' && isStep2Ready"
-                cols="auto"
-              >
+              <v-col v-if="isBulk && isStep2Ready" cols="auto">
                 <v-row justify="center">
                   <v-col cols="auto">
                     <span class="text-subtitle-1">ロゴ (1:1)</span>
@@ -128,16 +133,13 @@
                 <span>生成される画像を確認してください。</span>
               </v-col>
               <v-col v-if="isTrimmedImageReady">
-                <v-row v-if="trimmingImageType !== 'bulk'">
+                <v-row v-if="!isBulk">
                   <v-col cols="auto">
-                    <img
-                      alt=""
+                    <v-img
                       :src="trimmedImage"
-                      style="
-                        max-height: 400px;
-                        width: 852px;
-                        object-fit: contain;
-                      "
+                      width="852"
+                      max-height="400"
+                      contain
                     />
                   </v-col>
                   <v-col cols="12" class="text-center">
@@ -154,7 +156,7 @@
                   </v-col>
                 </v-row>
                 <!-- 一括-->
-                <v-row v-if="trimmingImageType === 'bulk'">
+                <v-row v-if="isBulk">
                   <v-col cols="auto">
                     <v-row>
                       <v-col>
@@ -269,14 +271,17 @@ import Vue from 'vue'
 
 import ImageInput from './ImageInput.vue'
 import Cropper from './Cropper.vue'
+import { createFilledBackgroundImageSrc } from '~/utils/trimmingImage'
 
 interface DataType {
+  inputImage: HTMLImageElement
   image: HTMLImageElement
   fileType: string
   trimmedLogoImage: string
   trimmedEyecatchImage: string
   trimmedHeroImage: string
   step: number
+  filledImageType: string
 }
 
 export default Vue.extend({
@@ -297,12 +302,28 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
+      inputImage: {} as HTMLImageElement,
       image: {} as HTMLImageElement,
       fileType: '',
       trimmedLogoImage: '',
       trimmedEyecatchImage: '',
       trimmedHeroImage: '',
       step: 1,
+      filledImageType: '',
+      filledImageTypeList: [
+        {
+          value: 'dominant',
+          text: '背景を画像から抽出した色で埋める',
+        },
+        {
+          value: 'black',
+          text: '背景を黒で埋める',
+        },
+        {
+          value: 'white',
+          text: '背景を白で埋める',
+        },
+      ],
     }
   },
   computed: {
@@ -317,6 +338,9 @@ export default Vue.extend({
         default:
           return ''
       }
+    },
+    isBulk(): boolean {
+      return this.trimmingImageType === 'bulk'
     },
     isStep2Ready(): boolean {
       return this.step === 2 && !!this.image.src
@@ -343,8 +367,17 @@ export default Vue.extend({
   methods: {
     hideTrimmingImageDialog(): void {
       this.step = 1
-      this.image = {} as HTMLImageElement
+      this.clearImage()
       this.$emit('hide-trimming-image-dialog')
+    },
+    async toStep2() {
+      this.image = new Image()
+      this.image.src = this.inputImage.src
+
+      if (this.filledImageType) {
+        await this.fillImageBackground()
+      }
+      this.step = 2
     },
     setCropperImage(): void {
       const croppedCanvasOptions = {
@@ -383,11 +416,14 @@ export default Vue.extend({
       this.step = 3
     },
     clearImage(): void {
+      this.inputImage = {} as HTMLImageElement
       this.image = {} as HTMLImageElement
       this.trimmedLogoImage = ''
       this.trimmedEyecatchImage = ''
       this.trimmedHeroImage = ''
       this.fileType = ''
+      this.filledImageType = ''
+      this.$refs.filledImageTypeSelect.reset()
     },
     complete(): void {
       switch (this.trimmingImageType) {
@@ -422,6 +458,26 @@ export default Vue.extend({
         case 'hero':
           return ['縦640 ✕ 横1,920px', '縦360 ✕ 横1080px']
       }
+    },
+    async fillImageBackground(): Promise<void> {
+      let ratio: number[] = []
+      switch (this.trimmingImageType) {
+        case 'logo':
+          ratio = [1, 1]
+          break
+        case 'eyecatch':
+          ratio = [16, 9]
+          break
+        case 'hero':
+          ratio = [3, 1]
+          break
+      }
+      this.image.src = await createFilledBackgroundImageSrc(
+        this.image,
+        this.fileType,
+        ratio,
+        this.filledImageType
+      )
     },
   },
 })
