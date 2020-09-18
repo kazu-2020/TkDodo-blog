@@ -65,7 +65,7 @@
             <v-col cols="6" md="3">
               <v-select
                 v-model="editingPlaylist.formatGenre"
-                :items="formatGenreLists"
+                :items="formatGenreList"
                 label="ジャンル(フォーマット) - Format Genre"
               />
             </v-col>
