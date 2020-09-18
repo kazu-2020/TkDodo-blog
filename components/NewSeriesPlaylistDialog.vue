@@ -26,6 +26,7 @@
                   v-model="seriesId"
                   :rules="seriesIdRules"
                   label="シリーズID - TVSeries ID"
+                  @keydown.enter="submitNewSeriesPlaylist"
                 />
               </v-form>
             </v-col>
