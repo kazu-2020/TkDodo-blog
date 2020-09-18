@@ -64,8 +64,8 @@
           <v-row flex-start>
             <v-col cols="6" md="3">
               <v-select
-                v-model="editingPlaylist.themeGenre"
-                :items="formatGenreList"
+                v-model="editingPlaylist.formatGenre"
+                :items="formatGenreLists"
                 label="ジャンル(フォーマット) - Format Genre"
               />
             </v-col>
