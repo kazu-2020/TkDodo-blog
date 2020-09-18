@@ -27,6 +27,7 @@
                   label="プレイリスト名 - Name"
                   :rules="nameRules"
                   required
+                  @keydown.enter="triggerSubmitNewPlaylist"
                 />
                 <v-textarea
                   v-model="description"
@@ -114,6 +115,11 @@ export default Vue.extend({
     }
   },
   methods: {
+    triggerSubmitNewPlaylist(event: KeyboardEvent) {
+      // 日本語入力中のエンターキーでは何もしない
+      if (event.keyCode !== 13) return
+      this.submitNewPlaylist()
+    },
     submitNewPlaylist() {
       const form: any = this.$refs.form
       form.validate()
