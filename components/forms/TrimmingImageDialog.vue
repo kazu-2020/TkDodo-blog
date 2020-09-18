@@ -282,6 +282,7 @@ interface DataType {
   trimmedHeroImage: string
   step: number
   filledImageType: string
+  filledImageTypeList: Array<Object>
 }
 
 export default Vue.extend({
@@ -422,8 +423,7 @@ export default Vue.extend({
       this.trimmedEyecatchImage = ''
       this.trimmedHeroImage = ''
       this.fileType = ''
-      this.filledImageType = ''
-      this.$refs.filledImageTypeSelect.reset()
+      this.filledImageType = (this.$refs.filledImageTypeSelect as any).reset()
     },
     complete(): void {
       switch (this.trimmingImageType) {
