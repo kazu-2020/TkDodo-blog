@@ -27,17 +27,12 @@
                   label="プレイリスト名 - Name"
                   :rules="nameRules"
                   required
+                  @keydown.enter="triggerSubmitNewPlaylist"
                 />
                 <v-textarea
                   v-model="description"
                   label="説明 - Description"
                   auto-grow
-                />
-                <v-text-field
-                  v-model="seriesId"
-                  label="シリーズID - TVSeries ID"
-                  hint="シリーズプレイリストを作る場合はこちらにIDを入力してください"
-                  persistent-hint
                 />
               </v-form>
             </v-col>
@@ -94,7 +89,6 @@ interface DataType {
   name: string
   nameRules: Array<Function>
   description: string
-  seriesId: string
 }
 
 export default Vue.extend({
@@ -118,10 +112,14 @@ export default Vue.extend({
         (v: String) =>
           (v && v.length <= 255) || 'Name must be less than 255 characters',
       ],
-      seriesId: '',
     }
   },
   methods: {
+    triggerSubmitNewPlaylist(event: KeyboardEvent) {
+      // 日本語入力中のエンターキーでは何もしない
+      if (event.keyCode !== 13) return
+      this.submitNewPlaylist()
+    },
     submitNewPlaylist() {
       const form: any = this.$refs.form
       form.validate()
@@ -132,7 +130,6 @@ export default Vue.extend({
           playlist: {
             name: this.name,
             description: this.description,
-            original_series_id: this.seriesId,
           },
         })
         this.subscribeSubmitAction()
@@ -161,7 +158,6 @@ export default Vue.extend({
       this.isShowAlert = false
       this.loadingDialog = false
       this.name = ''
-      this.seriesId = ''
       this.$emit('hide-new-playlist-dialog')
     },
     validate() {
