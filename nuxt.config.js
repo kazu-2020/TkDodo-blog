@@ -107,6 +107,7 @@ export default {
           warning: '#ff5722',
           info: '#607d8b',
           success: '#8bc340',
+          text: '#000',
         },
         dark: {
           primary: colors.blue.darken2,
@@ -116,6 +117,7 @@ export default {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
+          text: '#FFF',
         },
       },
     },
