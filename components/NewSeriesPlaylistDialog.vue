@@ -10,7 +10,7 @@
           </v-col>
           <v-col cols="2" sm="2" md="2">
             <v-card-actions>
-              <v-btn color="white darken-1" text @click="hideNewPlaylistDialog">
+              <v-btn color="text" text @click="hideNewPlaylistDialog">
                 <v-icon>mdi-close</v-icon>
               </v-btn>
             </v-card-actions>
