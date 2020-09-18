@@ -423,7 +423,7 @@ export default Vue.extend({
       this.trimmedEyecatchImage = ''
       this.trimmedHeroImage = ''
       this.fileType = ''
-      this.filledImageType = (this.$refs.filledImageTypeSelect as any).reset()
+      this.filledImageType = (this.$refs.filledImageTypeSelect as any)?.reset()
     },
     complete(): void {
       switch (this.trimmingImageType) {

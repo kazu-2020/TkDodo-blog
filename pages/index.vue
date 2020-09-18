@@ -22,7 +22,7 @@
       <v-col
         v-for="item in playlists"
         :key="item.id"
-        xs="12"
+        cols="12"
         sm="12"
         md="6"
         lg="6"
