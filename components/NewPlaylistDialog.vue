@@ -33,12 +33,6 @@
                   label="説明 - Description"
                   auto-grow
                 />
-                <v-text-field
-                  v-model="seriesId"
-                  label="シリーズID - TVSeries ID"
-                  hint="シリーズプレイリストを作る場合はこちらにIDを入力してください"
-                  persistent-hint
-                />
               </v-form>
             </v-col>
           </v-row>
@@ -94,7 +88,6 @@ interface DataType {
   name: string
   nameRules: Array<Function>
   description: string
-  seriesId: string
 }
 
 export default Vue.extend({
@@ -118,7 +111,6 @@ export default Vue.extend({
         (v: String) =>
           (v && v.length <= 255) || 'Name must be less than 255 characters',
       ],
-      seriesId: '',
     }
   },
   methods: {
@@ -132,7 +124,6 @@ export default Vue.extend({
           playlist: {
             name: this.name,
             description: this.description,
-            original_series_id: this.seriesId,
           },
         })
         this.subscribeSubmitAction()
@@ -161,7 +152,6 @@ export default Vue.extend({
       this.isShowAlert = false
       this.loadingDialog = false
       this.name = ''
-      this.seriesId = ''
       this.$emit('hide-new-playlist-dialog')
     },
     validate() {
