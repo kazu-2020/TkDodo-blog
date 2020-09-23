@@ -32,23 +32,6 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn color="transparent" depressed v-on="on">
-            <v-icon>mdi-view-grid</v-icon>
-            プレイリスティクル
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item
-            v-for="(item, index) in playlisticleItems"
-            :key="index"
-            :to="item.to"
-          >
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      <v-menu offset-y>
-        <template v-slot:activator="{ on }">
-          <v-btn color="transparent" depressed v-on="on">
             <v-icon>mdi-access-point</v-icon>
             r5 プレイリスト
           </v-btn>
@@ -114,7 +97,6 @@ interface DataType {
   clipped: boolean
   drawer: boolean
   fixed: boolean
-  playlisticleItems: Array<object>
   miniVariant: boolean
   right: boolean
   rightDrawer: boolean
@@ -135,28 +117,6 @@ export default Vue.extend({
       clipped: false,
       drawer: true,
       fixed: false,
-      playlisticleItems: [
-        {
-          title: '一覧',
-          to: '/playlisticles',
-        },
-        {
-          title: '新規作成',
-          to: '/playlisticles/new',
-        },
-        {
-          title: 'Sandbox(NArticle)',
-          to: '/playlisticles/sandbox2',
-        },
-        {
-          title: 'Sandbox(Word風)',
-          to: '/playlisticles/sandbox',
-        },
-        {
-          title: 'Sandbox(記事単体)',
-          to: '/playlisticles/sandbox3',
-        },
-      ],
       miniVariant: true,
       right: false,
       rightDrawer: false,
