@@ -10,7 +10,7 @@
           </v-col>
           <v-col cols="1">
             <v-btn
-              color="white darken-1"
+              color="text"
               class="float-right"
               text
               @click="hideTrimmingImageDialog"
@@ -23,14 +23,20 @@
       <v-stepper v-model="step" alt-labels>
         <v-stepper-header :elevation="0">
           <v-stepper-step :complete="step > 1" step="1">
-            画像アップロード
+            <div class="step_label">
+              画像
+              <br />
+              アップロード
+            </div>
           </v-stepper-step>
           <v-divider />
           <v-stepper-step :complete="step > 2" step="2">
-            範囲選択
+            <div class="step_label">範囲選択</div>
           </v-stepper-step>
           <v-divider />
-          <v-stepper-step step="3">確認</v-stepper-step>
+          <v-stepper-step step="3"
+            ><div class="step_label">確認</div></v-stepper-step
+          >
         </v-stepper-header>
 
         <v-stepper-items>
@@ -484,9 +490,10 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-.v-stepper {
-  background: #1e1e1e;
+.step_label {
+  text-align: center;
 }
+
 .v-stepper__header {
   box-shadow: none;
 }
