@@ -361,10 +361,6 @@ li.draggable-handle {
 .v-list.section_outline {
   background-color: #e0e0e0;
 
-  .theme--dark & {
-    background-color: #424242;
-  }
-
   &.stickey {
     position: sticky;
     top: 80px;

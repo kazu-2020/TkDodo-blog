@@ -22,7 +22,7 @@
             class="mr-8"
           />
         </v-col>
-        <v-col xs="12" sm="12" md="4" lg="4" :class="verticalDivider">
+        <v-col xs="12" sm="12" md="4" lg="4" class="vertical_divider">
           <v-btn block color="secondary">
             <v-icon>mdi-export</v-icon>
             記事からプレイリストを作成/更新
@@ -43,7 +43,6 @@
             label="公開日時を選んでください"
             :min-date="reserveMinDate"
             :max-date="reserveMaxDate"
-            :dark="isDarkMode"
             :minute-interval="5"
           />
           <v-divider />
@@ -106,13 +105,6 @@ export default {
     playlisticle() {
       return this.$store.state.playlisticles.editingPlaylisticle
     },
-    verticalDivider() {
-      if (this.$vuetify.theme.dark) {
-        return 'vertical_divider dark'
-      } else {
-        return 'vertical_divider'
-      }
-    },
     episodeBlockId() {
       if (this.article?.time) {
         return this.article.time.toString()
@@ -128,9 +120,6 @@ export default {
       const minDate = moment(this.reserveMinDate)
       const maxDate = minDate.add(1, 'year').endOf('day')
       return maxDate.format('YYYY-MM-DDTHH:mm:ss')
-    },
-    isDarkMode() {
-      return this.$vuetify.theme.dark
     },
   },
   methods: {
@@ -159,9 +148,5 @@ export default {
 <style scoped lang="scss">
 .vertical_divider {
   border-left: 1px solid rgba(0, 0, 0, 0.12);
-
-  &.dark {
-    border-left: 1px solid rgba(255, 255, 255, 0.12);
-  }
 }
 </style>

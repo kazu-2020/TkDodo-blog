@@ -2,7 +2,11 @@
   <v-app>
     <v-app-bar :clipped-left="clipped" fixed app>
       <nuxt-link :to="'/'" style="text-decoration: none" class="playlist-title">
-        <v-img :src="logoSrc()" :srcset="logoSrcset()" width="150" />
+        <v-img
+          src="/logo-black.png"
+          srcset="/logo-black.png 1x, /logo-black@2x.png 2x"
+          width="150"
+        />
       </nuxt-link>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
@@ -63,10 +67,6 @@
         :is-show-dialog="isShowNewSeriesPlaylistDialog"
         @hide-new-series-playlist-dialog="isShowNewSeriesPlaylistDialog = false"
       />
-      <v-spacer />
-      <v-btn @click="toggleDarkMode">
-        <v-icon>{{ modeIcon }}</v-icon>
-      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -171,10 +171,6 @@ export default Vue.extend({
       // FIXME: 型定義してあげたい
       return (this as any).$vuetify
     },
-    cookies(): any {
-      // FIXME: 型定義してあげたい
-      return (this as any).$cookies
-    },
     loading(): boolean {
       return this.$store.state.loading.state === 'loading'
     },
@@ -194,54 +190,9 @@ export default Vue.extend({
       return this.$store.state.loading.messages[this.snackBarState]
     },
   },
-  beforeMount() {
-    let darkModeOn: boolean = false
-
-    if (this.cookies.get('isDarkMode') !== undefined) {
-      darkModeOn = this.cookies.get('isDarkMode') === 'true'
-    } else {
-      const darkModeMediaQuery = window.matchMedia(
-        '(prefers-color-scheme: dark)'
-      )
-      darkModeOn = darkModeMediaQuery.matches
-    }
-
-    this.vuetify.theme.dark = darkModeOn
-    this.setModeIcon(darkModeOn)
-  },
   methods: {
-    toggleDarkMode() {
-      this.vuetify.theme.dark = !this.vuetify.theme.dark
-      this.setModeIcon(this.vuetify.theme.dark)
-
-      this.cookies.set('isDarkMode', this.vuetify.theme.dark, {
-        path: '/',
-        maxAge: 60 * 60 * 24 * 7,
-      })
-    },
-    setModeIcon(isDark: boolean) {
-      if (isDark) {
-        this.modeIcon = 'mdi-brightness-2'
-      } else {
-        this.modeIcon = 'mdi-brightness-7'
-      }
-    },
     resetLoadingState() {
       this.$store.dispatch('loading/resetLoadingState')
-    },
-    logoSrcset(): string {
-      if (this.vuetify.theme.dark) {
-        return '/logo.png 1x, /logo@2x.png 2x'
-      } else {
-        return '/logo-black.png 1x, /logo-black@2x.png 2x'
-      }
-    },
-    logoSrc(): string {
-      if (this.vuetify.theme.dark) {
-        return '/logo.png'
-      } else {
-        return '/logo-black.png'
-      }
     },
   },
 })
@@ -254,9 +205,5 @@ export default Vue.extend({
 
 a.playlist-title {
   color: rgba(0, 0, 0, 0.87);
-
-  .theme--dark & {
-    color: white;
-  }
 }
 </style>

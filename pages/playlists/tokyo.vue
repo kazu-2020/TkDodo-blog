@@ -27,15 +27,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col
-        v-for="item in playlists"
-        :key="item.id"
-        xs="12"
-        sm="12"
-        md="6"
-        lg="6"
-        xl="4"
-      >
+      <v-col v-for="item in playlists" :key="item.id" cols="12">
         <playlist-item :playlist="item" @delete-playlist="deletePlaylist" />
       </v-col>
     </v-row>

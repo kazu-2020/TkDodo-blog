@@ -2,7 +2,7 @@
   <v-layout column>
     <v-row>
       <v-col cols="12">
-        <v-card :color="headerCardColor()">
+        <v-card color="#F5F5F5">
           <v-container>
             <v-row justify="space-between">
               <v-col cols="auto">
@@ -47,7 +47,7 @@
                 <v-row class="flex-column ma-0 fill-height">
                   <v-col class="px-0 pt-0">
                     <v-btn
-                      :color="headerCardButtonColor"
+                      color="#000000"
                       icon
                       :to="`/playlists/${playlist.id}/edit`"
                       nuxt
@@ -58,13 +58,13 @@
                   </v-col>
                   <v-col class="px-0 pt-0">
                     <playlist-json-dialog
-                      :button-color="headerCardButtonColor"
+                      button-color="#000000"
                       :playlist-id="playlist.id"
                     />
                   </v-col>
                   <v-col class="px-0 pt-0">
                     <v-btn
-                      :color="headerCardButtonColor"
+                      color="#000000"
                       icon
                       :to="`/playlists/${playlist.id}/article`"
                       nuxt
@@ -144,16 +144,10 @@ export default Vue.extend({
     playlist(): Playlist {
       return this.$store.state.playlists.editingPlaylist
     },
-    headerCardButtonColor(): string {
-      return this.$vuetify.theme.dark ? '#FFFFFF' : '#000000'
-    },
   },
   methods: {
     logoImageUrl(playlist: any) {
       return playlist.logo?.medium?.url || this.dummyImage(playlist.dateCreated)
-    },
-    headerCardColor() {
-      return this.$vuetify.theme.dark ? '#616161' : '#F5F5F5'
     },
     saveEpisodes() {
       this.$store.dispatch('loading/startLoading', {
