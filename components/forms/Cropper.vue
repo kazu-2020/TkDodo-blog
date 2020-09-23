@@ -4,6 +4,7 @@
     drag-mode="crop"
     class="img-area"
     :aspect-ratio="aspectRatio"
+    :highlight="false"
     :src="image.src"
     :view-mode="3"
     :zoomable="false"
@@ -128,3 +129,9 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style lang="scss">
+.cropper-bg {
+  background-repeat: repeat;
+}
+</style>
