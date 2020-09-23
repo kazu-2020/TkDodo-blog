@@ -20,6 +20,9 @@ describe('pages/index.vue', () => {
             playlists: { allItems: [playlist], pagination: { totalPages: 1 } },
           },
         },
+        $axios: {
+          get: () => Promise.resolve({ data: { items: [] } }),
+        },
       },
     }
 
