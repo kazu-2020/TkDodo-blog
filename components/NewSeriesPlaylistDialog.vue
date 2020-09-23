@@ -49,10 +49,10 @@
               <v-alert
                 :value="isShowAlert"
                 color="pink"
-                dark
                 border="top"
                 icon="mdi-alert-outline"
                 transition="scale-transition"
+                text="white"
               >
                 途中でエラーが発生しました。シリーズIDを確認してください
               </v-alert>
@@ -62,10 +62,10 @@
       </v-card-text>
     </v-card>
     <v-dialog v-model="loadingDialog" hide-overlay persistent width="300">
-      <v-card color="grey darken-3" dark>
+      <v-card>
         <v-card-text>
           作成中...
-          <v-progress-linear indeterminate color="white" class="mb-0" />
+          <v-progress-linear indeterminate class="mb-0" />
         </v-card-text>
       </v-card>
     </v-dialog>

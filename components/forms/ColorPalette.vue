@@ -160,9 +160,4 @@ export default Vue.extend({
     min-width: 180px;
   }
 }
-
-.v-color-picker__input > input {
-  /* FIXME: vuetifyのv-color-pickerのinputの文字色がdark mode時も黒なのでどちらでも可視できる色を設定 */
-  color: gray;
-}
 </style>
