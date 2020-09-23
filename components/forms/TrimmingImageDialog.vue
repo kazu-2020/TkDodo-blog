@@ -41,7 +41,7 @@
 
         <v-stepper-items>
           <v-stepper-content step="1">
-            <v-row justify="center" align-content="center">
+            <v-row>
               <v-col cols="6">
                 <span>使用したい画像をアップロードしてください。</span>
               </v-col>
@@ -63,8 +63,18 @@
                   :file-type.sync="fileType"
                 />
               </v-col>
-              <v-col v-if="inputImage.src" cols="auto">
-                <v-img :src="inputImage.src" height="400" contain />
+              <v-col v-if="inputImage.src" cols="12">
+                <v-row justify="center">
+                  <v-col cols="auto">
+                    <img
+                      alt=""
+                      :src="inputImage.src"
+                      height="400"
+                      style="object-fit: contain"
+                      class="bg-pattern-checker"
+                    />
+                  </v-col>
+                </v-row>
               </v-col>
             </v-row>
             <v-row v-if="inputImage.src" justify="center">
@@ -145,6 +155,7 @@
                       :src="trimmedImage"
                       width="852"
                       max-height="400"
+                      class="bg-pattern-checker"
                       contain
                     />
                   </v-col>
@@ -176,7 +187,7 @@
                           width="140"
                           height="140"
                           contain
-                          class="grey darken-4"
+                          class="grey darken-4 bg-pattern-checker"
                         />
                       </v-col>
                     </v-row>
@@ -206,7 +217,7 @@
                           width="249"
                           height="140"
                           contain
-                          class="grey darken-4"
+                          class="grey darken-4 bg-pattern-checker"
                         />
                       </v-col>
                     </v-row>
@@ -236,7 +247,7 @@
                           width="420"
                           height="140"
                           contain
-                          class="grey darken-4"
+                          class="grey darken-4 bg-pattern-checker"
                         />
                       </v-col>
                     </v-row>
@@ -499,5 +510,11 @@ export default Vue.extend({
 }
 ul.will-create-size-list {
   list-style: none;
+}
+
+.bg-pattern-checker {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC');
+  background-color: #ffffff;
+  background-repeat: repeat;
 }
 </style>
