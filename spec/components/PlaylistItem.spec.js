@@ -10,6 +10,11 @@ describe('components/PlaylistItem.vue', () => {
       stubs: {
         NuxtLink: RouterLinkStub,
       },
+      mocks: {
+        $axios: {
+          get: () => Promise.resolve({ data: { items: [] } }),
+        },
+      },
       propsData: { playlist: {} },
     })
     expect(wrapper.vm).toBeTruthy()
@@ -21,6 +26,11 @@ describe('components/PlaylistItem.vue', () => {
         stubs: {
           NuxtLink: RouterLinkStub,
         },
+        mocks: {
+          $axios: {
+            get: () => Promise.resolve({ data: { items: [] } }),
+          },
+        },
         propsData: { playlist: { totalTime: 5715 } },
       })
       expect(wrapper.vm.totalTime).toBe('01:35:15')
@@ -30,6 +40,11 @@ describe('components/PlaylistItem.vue', () => {
       const wrapper = mount(PlaylistItem, {
         stubs: {
           NuxtLink: RouterLinkStub,
+        },
+        mocks: {
+          $axios: {
+            get: () => Promise.resolve({ data: { items: [] } }),
+          },
         },
         propsData: { playlist: {} },
       })
@@ -43,6 +58,11 @@ describe('components/PlaylistItem.vue', () => {
         const wrapper = mount(PlaylistItem, {
           stubs: {
             NuxtLink: RouterLinkStub,
+          },
+          mocks: {
+            $axios: {
+              get: () => Promise.resolve({ data: { items: [] } }),
+            },
           },
           propsData: { playlist: {} },
         })
@@ -59,6 +79,11 @@ describe('components/PlaylistItem.vue', () => {
           stubs: {
             NuxtLink: RouterLinkStub,
           },
+          mocks: {
+            $axios: {
+              get: () => Promise.resolve({ data: { items: [] } }),
+            },
+          },
           propsData: { playlist: { logo: { medium: { url: logoUrl } } } },
         })
         expect(wrapper.vm.logoImageUrl).toBe(logoUrl)
@@ -73,6 +98,11 @@ describe('components/PlaylistItem.vue', () => {
           stubs: {
             NuxtLink: RouterLinkStub,
           },
+          mocks: {
+            $axios: {
+              get: () => Promise.resolve({ data: { items: [] } }),
+            },
+          },
           propsData: { playlist: {} },
         })
         expect(wrapper.vm.dummyImage).toBe('/dummy/default1/default1-logo.png')
@@ -83,6 +113,11 @@ describe('components/PlaylistItem.vue', () => {
         const wrapper = mount(PlaylistItem, {
           stubs: {
             NuxtLink: RouterLinkStub,
+          },
+          mocks: {
+            $axios: {
+              get: () => Promise.resolve({ data: { items: [] } }),
+            },
           },
           propsData: { playlist: { dateCreated: '2020-07-21 00:00:00' } },
         })
@@ -99,6 +134,11 @@ describe('components/PlaylistItem.vue', () => {
       const wrapper = mount(PlaylistItem, {
         stubs: {
           NuxtLink: RouterLinkStub,
+        },
+        mocks: {
+          $axios: {
+            get: () => Promise.resolve({ data: { items: [] } }),
+          },
         },
         propsData: { playlist: {} },
       })
