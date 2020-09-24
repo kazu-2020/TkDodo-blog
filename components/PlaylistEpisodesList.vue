@@ -10,7 +10,7 @@
           <th class="text-left">シリーズ名</th>
           <th class="text-left">シリーズID</th>
           <th class="text-left">直近放送日</th>
-          <th class="text-left">公開状況</th>
+          <th class="text-left">視聴可能</th>
         </tr>
       </thead>
       <draggable v-model="episodes" tag="tbody">
@@ -45,7 +45,7 @@
           </td>
           <td>
             <v-chip class="mx-2" color="pink" label text-color="white">
-              公開
+              視聴可
             </v-chip>
           </td>
         </tr>
