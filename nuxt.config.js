@@ -24,8 +24,8 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'preload',
-        as: 'font',
-        href: 'http://fonts.googleapis.com/earlyaccess/notosansjp.css',
+        as: 'style',
+        href: 'https://fonts.googleapis.com/earlyaccess/notosansjp.css',
       },
     ],
   },
