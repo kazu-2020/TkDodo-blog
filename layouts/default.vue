@@ -6,12 +6,13 @@
           src="/logo-black.png"
           srcset="/logo-black.png 1x, /logo-black@2x.png 2x"
           width="150"
+          class="mr-5 ml-1"
         />
       </nuxt-link>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-          <v-btn color="transparent" depressed v-on="on">
-            <v-icon>mdi-playlist-play</v-icon>
+          <v-btn color="transparent" depressed tile height="64" v-on="on">
+            <v-icon class="mr-3">mdi-playlist-play</v-icon>
             プレイリスト
           </v-btn>
         </template>
@@ -31,8 +32,8 @@
       </v-menu>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-          <v-btn color="transparent" depressed v-on="on">
-            <v-icon>mdi-access-point</v-icon>
+          <v-btn color="transparent" depressed tile height="64" v-on="on">
+            <v-icon class="mr-3">mdi-access-point</v-icon>
             r5 プレイリスト
           </v-btn>
         </template>
