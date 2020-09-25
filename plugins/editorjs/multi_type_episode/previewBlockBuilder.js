@@ -115,8 +115,7 @@ class PreviewBlockBuilder {
       'img',
       this.CSS.linkContentnNhkLogoImage,
       {
-        src:
-          'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/NHK_logo%402x.jpg',
+        src: '/NHK_logo%402x.jpg',
         width: 68,
         height: 19,
       }
@@ -161,8 +160,7 @@ class PreviewBlockBuilder {
       'img',
       this.CSS.linkContentCalendarIcon,
       {
-        src:
-          'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/calendar_icon%402x.jpg',
+        src: '/calendar_icon%402x.jpg',
         width: 15,
         height: 17,
       }
@@ -253,8 +251,7 @@ class PreviewBlockBuilder {
 
     const nhkLogoBlock = new HTMLElementBuilder('div').build()
     const nhkLogoImage = new HTMLElementBuilder('img', null, {
-      src:
-        'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/NHK_logo%402x.jpg',
+      src: '/NHK_logo%402x.jpg',
       width: 68,
       height: 19,
     }).build()
@@ -299,8 +296,7 @@ class PreviewBlockBuilder {
       'img',
       this.CSS.linkContentAlarmIcon,
       {
-        src:
-          'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/alarm_icon%402x.jpg',
+        src: '/alarm_icon%402x.jpg',
         width: 15,
         height: 17,
       }
@@ -395,8 +391,7 @@ class PreviewBlockBuilder {
 
     const nhkLogoBlock = new HTMLElementBuilder('div').build()
     const nhkLogoImage = new HTMLElementBuilder('img', null, {
-      src:
-        'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/NHK_logo%402x.jpg',
+      src: '/NHK_logo%402x.jpg',
       width: 68,
       height: 19,
     }).build()
@@ -441,8 +436,7 @@ class PreviewBlockBuilder {
       'img',
       this.CSS.linkContentHowToStepIcon,
       {
-        src:
-          'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/step_icon%402x.jpg',
+        src: '/step_icon%402x.jpg',
         width: 15,
         height: 17,
       }
@@ -589,8 +583,7 @@ class PreviewBlockBuilder {
 
     const nhkLogoBlock = new HTMLElementBuilder('div').build()
     const nhkLogoImage = new HTMLElementBuilder('img', null, {
-      src:
-        'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/NHK_logo%402x.jpg',
+      src: '/NHK_logo%402x.jpg',
       width: 68,
       height: 19,
     }).build()
@@ -632,8 +625,7 @@ class PreviewBlockBuilder {
       'img',
       this.CSS.linkContentCalendarIcon,
       {
-        src:
-          'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/calendar_icon%402x.jpg',
+        src: '/calendar_icon%402x.jpg',
         width: 15,
         height: 17,
       }
@@ -666,8 +658,7 @@ class PreviewBlockBuilder {
       'img',
       this.CSS.linkContentEventPinIcon,
       {
-        src:
-          'https://aw-editorialhands-prod-s3bucket-1p11j035iddh1.s3.ap-northeast-1.amazonaws.com/shrine/development/assets/images/pin_icon%402x.jpg',
+        src: '/pin_icon%402x.jpg',
         width: 13,
         height: 20,
       }
