@@ -1,0 +1,109 @@
+<template>
+  <div>
+    <v-sheet color="grey lighten-3" rounded class="pb-2 mb-1">
+      <iconed-title
+        icon="mdi-content-save"
+        title="記事を保存する"
+        class="ma-4 pt-4"
+      />
+      <hr class="title_divider" />
+      <v-sheet color="white" class="ma-4 pa-4" rounded>
+        <v-btn
+          block
+          rounded
+          outlined
+          class="mb-4"
+          color="pink darken-3"
+          @click.stop="clickPreviewButton"
+        >
+          プレビューを見る
+        </v-btn>
+
+        <v-btn
+          block
+          rounded
+          class="mb-4 white--text"
+          color="pink darken-3"
+          @click.stop="clickSaveButton"
+        >
+          この内容で保存する
+        </v-btn>
+
+        <hr class="button_divider" />
+
+        <v-btn block text class="delete_button mt-2" @click="notifyDummy">
+          <v-icon small>mdi-delete</v-icon>
+          <div class="delete_button_title">削除する</div>
+        </v-btn>
+      </v-sheet>
+    </v-sheet>
+    <v-sheet color="grey lighten-3" rounded class="pb-1">
+      <iconed-title
+        icon="mdi-key"
+        title="記事の公開設定をする"
+        class="ma-4 pt-4"
+      />
+      <hr class="title_divider" />
+      <v-sheet color="white" class="ma-4 pa-4" rounded>
+        <div class="mb-4">
+          現在の設定:
+          <v-chip label color="grey lighten-1">非公開</v-chip>
+        </div>
+        <v-btn
+          block
+          rounded
+          class="mb-4 white--text"
+          color="light-blue darken-3"
+          @click.stop="notifyDummy"
+        >
+          公開する
+        </v-btn>
+      </v-sheet>
+    </v-sheet>
+  </div>
+</template>
+
+<script lang="js">
+import Vue from 'vue'
+import IconedTitle from '~/components/molecules/IconedTitle.vue'
+
+export default Vue.extend({
+  name: 'ArticleSideBar',
+  components: {
+    IconedTitle,
+  },
+  methods: {
+    clickPreviewButton() {
+      this.$emit('click-preview-button')
+    },
+    clickSaveButton() {
+      this.$emit('click-save-button')
+    },
+    notifyDummy() {
+      this.$emit('notify-dummy')
+    }
+  }
+})
+</script>
+
+<style scoped>
+.title_divider {
+  border: none;
+  border-top: solid 2px #bdbdbd;
+  height: 1px;
+}
+
+.button_divider {
+  border: none;
+  border-top: solid 1px #bdbdbd;
+  height: 1px;
+}
+
+.delete_button_title {
+  text-decoration: underline;
+}
+
+.delete_button {
+  color: #757575;
+}
+</style>

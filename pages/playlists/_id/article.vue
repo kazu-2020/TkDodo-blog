@@ -43,35 +43,10 @@
           </v-col>
         </v-col>
         <v-col xs="12" sm="12" md="4" lg="4" class="vertical_divider">
-          <v-btn
-            block
-            class="my-2"
-            @click.stop="isShowPreviewDrawer = !isShowPreviewDrawer"
-          >
-            <v-icon class="mr-2"> mdi-eye </v-icon>
-            Preview
-          </v-btn>
-          <v-btn block color="secondary" @click="notifyDummy">
-            <v-icon>mdi-export</v-icon>
-            記事からプレイリストを作成/更新
-          </v-btn>
-          <v-overflow-btn
-            v-model="saveButton"
-            class="my-2"
-            :items="saveButtons"
-            label="保存方法を選択してください"
-            segmented
-            background-color="primary"
-            @click="saveArticle"
-          />
-          <vue-ctk-date-time-picker
-            v-show="saveButton === reservePublishmentButtonTitle"
-            v-model="reservedPublishDateTime"
-            class="pb-8"
-            label="公開日時を選んでください"
-            :min-date="reserveMinDate"
-            :max-date="reserveMaxDate"
-            :minute-interval="5"
+          <article-side-bar
+            @click-preview-button="togglePreviewState"
+            @notify-dummy="notifyDummy"
+            @click-save-button="saveAsDraft"
           />
         </v-col>
       </v-row>
@@ -90,20 +65,19 @@
 
 <script>
 import Vue from 'vue'
-import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
 import moment from 'moment'
+import ArticleSideBar from '~/components/organisms/ArticleSideBar.vue'
 import EditableSection from '~/components/EditableSection.vue'
 import PageTitle from '~/components/molecules/PageTitle.vue'
 import PreviewDrawer from '~/components/PreviewDrawer.vue'
 import editorBlockMixin from '~/components/mixins/editorBlockMixin'
-import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
 
 export default Vue.extend({
   name: 'PlaylistIdArticlePage',
   components: {
+    'article-side-bar': ArticleSideBar,
     'editable-section': EditableSection,
     'preview-drawer': PreviewDrawer,
-    'vue-ctk-date-time-picker': VueCtkDateTimePicker,
     'page-title': PageTitle,
   },
   mixins: [editorBlockMixin],
@@ -123,8 +97,12 @@ export default Vue.extend({
             res.data.article?.footer ||
             app.$cookies.get('articleFooterText') ||
             '',
-          isShowHeader: res.data.article?.header !== undefined,
-          isShowFooter: res.data.article?.footer !== undefined,
+          isShowHeader:
+            res.data.article?.header !== undefined &&
+            res.data.article?.header !== null,
+          isShowFooter:
+            res.data.article?.footer !== undefined &&
+            res.data.article?.footer !== null,
         }
       })
   },
@@ -136,16 +114,6 @@ export default Vue.extend({
       footer: this.$cookies.get('articleFooterText') || '',
       playlist: {},
       isShowPreviewDrawer: false,
-      reservePublishmentButtonTitle: '予約公開する',
-      saveButton: null,
-      saveButtons: [
-        { text: '下書きとして保存', callback: this.saveAsDraft },
-        {
-          text: '予約公開する',
-          callback: this.saveArticle,
-        },
-      ],
-      reservedPublishDateTime: '',
       snackBar: false,
       snackBarMessage: '',
       isShowHeader: false,
@@ -206,20 +174,6 @@ export default Vue.extend({
     setCurrentContent(payload) {
       this.draftBody = payload.editorData
     },
-    saveArticle() {
-      if (this.saveButton === '') return false
-      if (
-        this.saveButton === this.reservePublishmentButtonTitle &&
-        this.reservedPublishDateTime === ''
-      ) {
-        alert('予約公開する日付を決めてください')
-        return false
-      }
-
-      this.snackBar = true
-      this.snackBarMessage = '保存しました（ダミーです）'
-      return true
-    },
     saveAsDraft() {
       this.$store.dispatch('loading/startLoading', {
         success: '保存しました',
@@ -253,6 +207,9 @@ export default Vue.extend({
     },
     addFooter() {
       this.isShowFooter = true
+    },
+    togglePreviewState() {
+      this.isShowPreviewDrawer = !this.isShowPreviewDrawer
     },
   },
 })
