@@ -1,16 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <div class="title_block">
-        <v-btn icon class="back_button" @click="pageBack">
-          <v-icon>mdi-keyboard-backspace</v-icon>
-        </v-btn>
-        <div class="title_area">
-          <div class="title mb-4">
-            <h2>メタ情報の編集</h2>
-          </div>
-        </div>
-      </div>
+      <page-title page-title="メタ情報の編集" />
       <v-form ref="form" v-model="valid" class="ml-5">
         <v-row dense>
           <v-col cols="12">
@@ -152,6 +143,7 @@ import {
   adjustLinkLightColor,
 } from '@/utils/adjustColor'
 import ColorPalette from '~/components/forms/ColorPalette.vue'
+import PageTitle from '~/components/molecules/PageTitle.vue'
 import SeriesImagesForm from '~/components/forms/SeriesImagesForm.vue'
 import SameAsForm from '~/components/forms/SameAsForm.vue'
 
@@ -161,6 +153,7 @@ export default Vue.extend({
   name: 'PlaylistIdEditPage',
   components: {
     ColorPalette,
+    PageTitle,
     SeriesImagesForm,
     SameAsForm,
   },
@@ -351,29 +344,6 @@ export default Vue.extend({
         console.log('Invalid!!!')
       }
     },
-    pageBack() {
-      this.$router.back()
-    },
   },
 })
 </script>
-
-<style scoped>
-.title_block {
-  display: table;
-  position: relative;
-}
-
-.back_button {
-  display: table-cell;
-  position: absolute;
-  top: 0;
-}
-
-.title_area {
-  display: table-cell;
-  position: relative;
-  left: 40px;
-  top: 4px;
-}
-</style>

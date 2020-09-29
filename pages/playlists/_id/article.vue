@@ -1,13 +1,6 @@
 <template>
   <div>
-    <nuxt-link :to="`/playlists/${playlist.id}`">
-      ≪ プレイリスト詳細に戻る
-    </nuxt-link>
-    <div class="title">
-      <div class="playlist-title">
-        {{ `${playlistName} の記事編集ページ` }}
-      </div>
-    </div>
+    <page-title :page-title="`${playlistName} の記事編集ページ`" class="mt-4" />
     <v-divider class="ma-2" />
     <v-layout column>
       <v-row>
@@ -85,6 +78,7 @@ import Vue from 'vue'
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
 import moment from 'moment'
 import EditableSection from '~/components/EditableSection.vue'
+import PageTitle from '~/components/molecules/PageTitle.vue'
 import PreviewDrawer from '~/components/PreviewDrawer.vue'
 import editorBlockMixin from '~/components/mixins/editorBlockMixin'
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
@@ -95,6 +89,7 @@ export default Vue.extend({
     'editable-section': EditableSection,
     'preview-drawer': PreviewDrawer,
     'vue-ctk-date-time-picker': VueCtkDateTimePicker,
+    'page-title': PageTitle,
   },
   mixins: [editorBlockMixin],
   asyncData({ $axios, params, app }) {
