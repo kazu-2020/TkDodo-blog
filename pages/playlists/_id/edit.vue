@@ -1,13 +1,15 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <nuxt-link :to="`/playlists/${editingPlaylist.id}`">
-        ≪ プレイリスト詳細に戻る
-      </nuxt-link>
-    </v-col>
-    <v-col cols="12">
-      <div class="title mb-4">
-        <h2>メタ情報の編集</h2>
+      <div class="title_block">
+        <v-btn icon class="back_button" @click="pageBack">
+          <v-icon>mdi-keyboard-backspace</v-icon>
+        </v-btn>
+        <div class="title_area">
+          <div class="title mb-4">
+            <h2>メタ情報の編集</h2>
+          </div>
+        </div>
       </div>
       <v-form ref="form" v-model="valid" class="ml-5">
         <v-row dense>
@@ -349,6 +351,29 @@ export default Vue.extend({
         console.log('Invalid!!!')
       }
     },
+    pageBack() {
+      this.$router.back()
+    },
   },
 })
 </script>
+
+<style scoped>
+.title_block {
+  display: table;
+  position: relative;
+}
+
+.back_button {
+  display: table-cell;
+  position: absolute;
+  top: 0;
+}
+
+.title_area {
+  display: table-cell;
+  position: relative;
+  left: 40px;
+  top: 4px;
+}
+</style>
