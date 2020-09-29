@@ -18,7 +18,7 @@
             <v-icon class="mr-2"> mdi-eye </v-icon>
             Preview
           </v-btn>
-          <v-btn block color="secondary">
+          <v-btn block color="secondary" @click="notifyDummy">
             <v-icon>mdi-export</v-icon>
             記事からプレイリストを作成/更新
           </v-btn>
@@ -67,8 +67,8 @@
       :preview-data="body"
       @current-drawer-state="updatePreviewDrawerState"
     />
-    <v-snackbar v-model="snackBar" color="success" right top :timeout="3000">
-      保存しました（ダミーです）
+    <v-snackbar v-model="snackBar" right top :timeout="3000">
+      {{ snackBarMessage }}
     </v-snackbar>
   </div>
 </template>
@@ -130,6 +130,7 @@ export default Vue.extend({
       ],
       reservedPublishDateTime: '',
       snackBar: false,
+      snackBarMessage: '',
     }
   },
   computed: {
@@ -191,6 +192,7 @@ export default Vue.extend({
       }
 
       this.snackBar = true
+      this.snackBarMessage = '保存しました（ダミーです）'
       return true
     },
     saveAsDraft() {
@@ -216,6 +218,10 @@ export default Vue.extend({
         .catch((_error) => {
           this.$store.dispatch('loading/failLoading')
         })
+    },
+    notifyDummy() {
+      this.snackBar = true
+      this.snackBarMessage = 'この機能は実装中です'
     },
   },
 })
