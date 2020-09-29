@@ -5,9 +5,42 @@
     <v-layout column>
       <v-row>
         <v-col xs="12" sm="12" md="8" lg="8">
-          <h3>ヘッダー</h3>
-          <v-textarea v-model="header" outlined auto-grow />
-          <hr />
+          <v-col>
+            <div v-if="isShowHeader">
+              <h3 class="mb-4">ヘッダー</h3>
+              <v-textarea v-model="header" outlined auto-grow />
+            </div>
+            <div v-else>
+              <v-btn block text class="mb-4 pa-4" @click="addHeader"
+                >ヘッダーを入力</v-btn
+              >
+            </div>
+            <hr />
+          </v-col>
+          <v-col>
+            <h3>記事本文</h3>
+            <editable-section
+              key="sandbox2"
+              section-id="sandbox2"
+              :playlist-id="playlist.id"
+              :initial-data="body"
+              :episode-block-id="episodeBlockId"
+              class="mr-8 mb-8"
+              @modify-content="setCurrentContent"
+            />
+            <hr />
+          </v-col>
+          <v-col>
+            <div v-if="isShowFooter">
+              <h3 class="mb-4">フッター</h3>
+              <v-textarea v-model="footer" outlined auto-grow />
+            </div>
+            <div v-else>
+              <v-btn block text class="mb-4 pa-4" @click="addFooter"
+                >フッターを入力</v-btn
+              >
+            </div>
+          </v-col>
         </v-col>
         <v-col xs="12" sm="12" md="4" lg="4" class="vertical_divider">
           <v-btn
@@ -40,24 +73,6 @@
             :max-date="reserveMaxDate"
             :minute-interval="5"
           />
-        </v-col>
-        <v-col xs="12" sm="12" md="8" lg="8">
-          <h3>記事本文</h3>
-          <editable-section
-            key="sandbox2"
-            section-id="sandbox2"
-            :playlist-id="playlist.id"
-            :initial-data="body"
-            :episode-block-id="episodeBlockId"
-            class="mr-8 mb-8"
-            @modify-content="setCurrentContent"
-          />
-          <hr />
-        </v-col>
-        <v-col xs="12" sm="12" md="8" lg="8">
-          <h3>フッター</h3>
-          <v-textarea v-model="footer" outlined auto-grow />
-          <hr />
         </v-col>
       </v-row>
     </v-layout>
@@ -108,6 +123,8 @@ export default Vue.extend({
             res.data.article?.footer ||
             app.$cookies.get('articleFooterText') ||
             '',
+          isShowHeader: res.data.article?.header !== undefined,
+          isShowFooter: res.data.article?.footer !== undefined,
         }
       })
   },
@@ -131,6 +148,8 @@ export default Vue.extend({
       reservedPublishDateTime: '',
       snackBar: false,
       snackBarMessage: '',
+      isShowHeader: false,
+      isShowFooter: false,
     }
   },
   computed: {
@@ -152,6 +171,12 @@ export default Vue.extend({
       const minDate = moment(this.reserveMinDate)
       const maxDate = minDate.add(1, 'year').endOf('day')
       return maxDate.format('YYYY-MM-DDTHH:mm:ss')
+    },
+    shouldSaveHeader() {
+      return this.isShowHeader && this.header !== ''
+    },
+    shouldSaveFooter() {
+      return this.isShowFooter && this.footer !== ''
     },
   },
   watch: {
@@ -201,8 +226,8 @@ export default Vue.extend({
         error: '保存失敗しました',
       })
 
-      const headerText = this.header === '' ? null : this.header
-      const footerText = this.footer === '' ? null : this.footer
+      const headerText = this.shouldSaveHeader ? this.header : null
+      const footerText = this.shouldSaveFooter ? this.footer : null
 
       this.$axios
         .post(`/playlists/${this.playlist.id}/playlist_articles`, {
@@ -222,6 +247,12 @@ export default Vue.extend({
     notifyDummy() {
       this.snackBar = true
       this.snackBarMessage = 'この機能は実装中です'
+    },
+    addHeader() {
+      this.isShowHeader = true
+    },
+    addFooter() {
+      this.isShowFooter = true
     },
   },
 })
