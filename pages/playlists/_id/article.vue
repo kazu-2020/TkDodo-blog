@@ -7,13 +7,6 @@
       <div class="playlist-title">
         {{ `${playlistName} の記事編集ページ` }}
       </div>
-      <v-btn
-        class="ml-2"
-        @click.stop="isShowPreviewDrawer = !isShowPreviewDrawer"
-      >
-        <v-icon class="mr-2"> mdi-eye </v-icon>
-        Preview
-      </v-btn>
     </div>
     <v-divider class="ma-2" />
     <v-layout column>
@@ -24,6 +17,14 @@
           <hr />
         </v-col>
         <v-col xs="12" sm="12" md="4" lg="4" class="vertical_divider">
+          <v-btn
+            block
+            class="my-2"
+            @click.stop="isShowPreviewDrawer = !isShowPreviewDrawer"
+          >
+            <v-icon class="mr-2"> mdi-eye </v-icon>
+            Preview
+          </v-btn>
           <v-btn block color="secondary">
             <v-icon>mdi-export</v-icon>
             記事からプレイリストを作成/更新
