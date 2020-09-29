@@ -15,7 +15,7 @@
                 >ヘッダーを入力</v-btn
               >
             </div>
-            <hr />
+            <hr class="dotted_hr" />
           </v-col>
           <v-col>
             <h3>記事本文</h3>
@@ -28,7 +28,7 @@
               class="mr-8 mb-8"
               @modify-content="setCurrentContent"
             />
-            <hr />
+            <hr class="dotted_hr" />
           </v-col>
           <v-col>
             <div v-if="isShowFooter">
@@ -261,5 +261,12 @@ export default Vue.extend({
 <style scoped>
 .playlist-title {
   display: inline-block;
+}
+
+.dotted_hr {
+  border: none;
+  border-top: dashed 1px #cccccc;
+  height: 1px;
+  color: #ffffff;
 }
 </style>
