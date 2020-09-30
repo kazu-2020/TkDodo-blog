@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import editorMixin from '~/components/mixins/editorMixin'
-import editorBlockMixin from '~/components/mixins/editorBlockMixin'
+import editorMixin from '~/components/common/editorMixin'
+import editorBlockMixin from '~/components/common/editorBlockMixin'
 
 export default {
   mixins: [editorMixin, editorBlockMixin],

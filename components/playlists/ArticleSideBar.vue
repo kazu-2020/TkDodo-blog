@@ -65,7 +65,7 @@
 
 <script lang="js">
 import Vue from 'vue'
-import IconedTitle from '~/components/molecules/IconedTitle.vue'
+import IconedTitle from '~/components/common/IconedTitle.vue'
 
 export default Vue.extend({
   name: 'ArticleSideBar',

@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { mount } from '@vue/test-utils'
-import EpisodeSearchResultTableRow from '~/components/EpisodeSearchResultTableRow.vue'
+import EpisodeSearchResultTableRow from '~/components/playlists/EpisodeSearchResultTableRow.vue'
 
 Vue.use(Vuetify)
 
-describe('components/EpisodeSearchResultTableRow.vue', () => {
+describe('components/playlists/EpisodeSearchResultTableRow.vue', () => {
   const mountFunction = (options) => {
     return mount(EpisodeSearchResultTableRow, {
       ...options,

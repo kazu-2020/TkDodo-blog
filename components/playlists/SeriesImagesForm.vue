@@ -116,7 +116,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import TrimmingImageDialog from '~/components/forms/TrimmingImageDialog.vue'
+import TrimmingImageDialog from '~/components/playlists/TrimmingImageDialog.vue'
 
 interface DataType {
   logoImageData: string

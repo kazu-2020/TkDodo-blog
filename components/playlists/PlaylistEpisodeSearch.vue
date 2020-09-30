@@ -117,7 +117,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { EpisodeData } from '@/types/episode_data'
-import EpisodeSearchResultTableRow from '~/components/EpisodeSearchResultTableRow.vue'
+import EpisodeSearchResultTableRow from '~/components/playlists/EpisodeSearchResultTableRow.vue'
 
 interface DataType {
   keyword: string

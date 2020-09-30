@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { mount, RouterLinkStub } from '@vue/test-utils'
-import PlaylistItem from '~/components/PlaylistItem.vue'
+import PlaylistItem from '~/components/common/PlaylistItem.vue'
 Vue.use(Vuetify)
 
-describe('components/PlaylistItem.vue', () => {
+describe('components/common/PlaylistItem.vue', () => {
   it('Vue instance を作れている', () => {
     const wrapper = mount(PlaylistItem, {
       stubs: {

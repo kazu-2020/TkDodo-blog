@@ -61,15 +61,15 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Heading from '~/components/EditorBlocks/Heading.vue'
-import Paragraph from '~/components/EditorBlocks/Paragraph.vue'
-import List from '~/components/EditorBlocks/List.vue'
-import Delimiter from '~/components/EditorBlocks/Delimiter.vue'
-import Quote from '~/components/EditorBlocks/Quote.vue'
-import Episode from '~/components/EditorBlocks/Episode.vue'
-import TvEvent from '~/components/EditorBlocks/TvEvent.vue'
-import Recipe from '~/components/EditorBlocks/Recipe.vue'
-import HowTo from '~/components/EditorBlocks/HowTo.vue'
+import Heading from '~/components/common/Heading.vue'
+import Paragraph from '~/components/common/Paragraph.vue'
+import List from '~/components/common/List.vue'
+import Delimiter from '~/components/common/Delimiter.vue'
+import Quote from '~/components/common/Quote.vue'
+import Episode from '~/components/common/Episode.vue'
+import TvEvent from '~/components/common/TvEvent.vue'
+import Recipe from '~/components/common/Recipe.vue'
+import HowTo from '~/components/common/HowTo.vue'
 
 export type DataType = {
   drawer: boolean

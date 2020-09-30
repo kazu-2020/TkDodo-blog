@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import PlaylistItem from '~/components/PlaylistItem.vue'
+import PlaylistItem from '~/components/common/PlaylistItem.vue'
 
 interface DataType {
   page: number

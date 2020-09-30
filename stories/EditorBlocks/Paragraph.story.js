@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/vue'
 import { text } from '@storybook/addon-knobs/vue'
-import Paragraph from '@/components/EditorBlocks/Paragraph.vue'
+import Paragraph from '@/components/common/Paragraph.vue'
 
-storiesOf('Components/EditorBlocks', module).add(
+storiesOf('components/common', module).add(
   'Paragraph',
   () => ({
     components: { Paragraph },

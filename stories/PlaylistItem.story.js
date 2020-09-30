@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/vue'
 import { object } from '@storybook/addon-knobs/vue'
-import PlaylistItem from '@/components/PlaylistItem.vue'
+import PlaylistItem from '@/components/common/PlaylistItem.vue'
 
 storiesOf('Components/Playlist', module).add(
   'PlaylistItem',

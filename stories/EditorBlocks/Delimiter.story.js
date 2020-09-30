@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/vue'
-import Delimiter from '@/components/EditorBlocks/Delimiter.vue'
+import Delimiter from '@/components/common/Delimiter.vue'
 
-storiesOf('Components/EditorBlocks', module).add(
+storiesOf('components/common', module).add(
   'Delimiter',
   () => ({
     components: { Delimiter },
