@@ -1,14 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <nuxt-link :to="`/playlists/${editingPlaylist.id}`">
-        ≪ プレイリスト詳細に戻る
-      </nuxt-link>
-    </v-col>
-    <v-col cols="12">
-      <div class="title mb-4">
-        <h2>メタ情報の編集</h2>
-      </div>
+      <page-title page-title="メタ情報の編集" />
       <v-form ref="form" v-model="valid" class="ml-5">
         <v-row dense>
           <v-col cols="12">
@@ -150,6 +143,7 @@ import {
   adjustLinkLightColor,
 } from '@/utils/adjustColor'
 import ColorPalette from '~/components/forms/ColorPalette.vue'
+import PageTitle from '~/components/molecules/PageTitle.vue'
 import SeriesImagesForm from '~/components/forms/SeriesImagesForm.vue'
 import SameAsForm from '~/components/forms/SameAsForm.vue'
 
@@ -159,6 +153,7 @@ export default Vue.extend({
   name: 'PlaylistIdEditPage',
   components: {
     ColorPalette,
+    PageTitle,
     SeriesImagesForm,
     SameAsForm,
   },

@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import { shallowMount, RouterLinkStub, createLocalVue } from '@vue/test-utils'
+import { mount, RouterLinkStub, createLocalVue } from '@vue/test-utils'
 import PlaylistIdArticlePage from '~/pages/playlists/_id/article.vue'
+import StubComponent from '~/spec/fixture/StubComponent.vue'
 
 Vue.use(Vuetify)
 
@@ -17,6 +18,7 @@ describe('pages/playlists/article.vue', () => {
       localVue,
       stubs: {
         NuxtLink: RouterLinkStub,
+        'editable-section': StubComponent,
       },
       mocks: {
         $vuetify: {
@@ -32,10 +34,10 @@ describe('pages/playlists/article.vue', () => {
       vuetify: new Vuetify(),
     }
 
-    const wrapper = shallowMount(PlaylistIdArticlePage, options)
+    const wrapper = mount(PlaylistIdArticlePage, options)
     wrapper.setData({ playlist })
     wrapper.vm.$nextTick(() => {
-      expect(wrapper.find('.playlist-title').text()).toBe(
+      expect(wrapper.find('.title').text()).toBe(
         'プレイリスト1 の記事編集ページ'
       )
       done()
