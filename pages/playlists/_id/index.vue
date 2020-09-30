@@ -128,9 +128,9 @@
 import Vue from 'vue'
 import moment from 'moment'
 import { Playlist } from '@/types/playlist'
-import PlaylistEpisodesList from '~/components/PlaylistEpisodesList.vue'
-import PlaylistEpisodeSearch from '~/components/PlaylistEpisodeSearch.vue'
-import PlaylistJsonDialog from '~/components/PlaylistJsonDialog.vue'
+import PlaylistEpisodesList from '~/components/playlists/PlaylistEpisodesList.vue'
+import PlaylistEpisodeSearch from '~/components/playlists/PlaylistEpisodeSearch.vue'
+import PlaylistJsonDialog from '~/components/playlists/PlaylistJsonDialog.vue'
 
 interface DataType {
   snackbar: boolean

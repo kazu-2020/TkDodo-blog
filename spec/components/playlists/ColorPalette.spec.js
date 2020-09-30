@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { mount, RouterLinkStub } from '@vue/test-utils'
-import ColorPalette from '~/components/forms/ColorPalette.vue'
+import ColorPalette from '~/components/playlists/ColorPalette.vue'
 Vue.use(Vuetify)
 
-describe('components/forms/ColorPalette.vue', () => {
+describe('components/playlists/ColorPalette.vue', () => {
   it('Vue instance を作れている', () => {
     const wrapper = mount(ColorPalette, {
       stubs: {

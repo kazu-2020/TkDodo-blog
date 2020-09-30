@@ -88,7 +88,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
-import PlaylistEpisodesCarousel from '~/components/PlaylistEpisodesCarousel.vue'
+import PlaylistEpisodesCarousel from '~/components/common/PlaylistEpisodesCarousel.vue'
 
 interface DataType {
   episodePreviewNum: number

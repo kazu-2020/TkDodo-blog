@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/vue'
 import { select, array } from '@storybook/addon-knobs/vue'
-import List from '@/components/EditorBlocks/List.vue'
+import List from '@/components/common/List.vue'
 
-storiesOf('Components/EditorBlocks', module).add(
+storiesOf('components/common', module).add(
   'List',
   () => ({
     components: { List },

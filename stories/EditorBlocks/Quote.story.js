@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/vue'
 import { text, select } from '@storybook/addon-knobs/vue'
-import Quote from '@/components/EditorBlocks/Quote.vue'
+import Quote from '@/components/common/Quote.vue'
 
-storiesOf('Components/EditorBlocks', module).add(
+storiesOf('components/common', module).add(
   'Quote',
   () => ({
     components: { Quote },

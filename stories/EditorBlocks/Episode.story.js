@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/vue'
 import { object } from '@storybook/addon-knobs/vue'
-import Episode from '@/components/EditorBlocks/Episode.vue'
+import Episode from '@/components/common/Episode.vue'
 
-storiesOf('Components/EditorBlocks', module).add(
+storiesOf('components/common', module).add(
   'Episode',
   () => ({
     components: { Episode },

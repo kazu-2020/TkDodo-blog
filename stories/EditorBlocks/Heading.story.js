@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/vue'
 import { text, number } from '@storybook/addon-knobs/vue'
-import Heading from '@/components/EditorBlocks/Heading.vue'
+import Heading from '@/components/common/Heading.vue'
 
-storiesOf('Components/EditorBlocks', module).add(
+storiesOf('components/common', module).add(
   'Heading',
   () => ({
     components: { Heading },

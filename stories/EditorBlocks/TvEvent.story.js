@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/vue'
 import { object } from '@storybook/addon-knobs/vue'
-import TvEvent from '@/components/EditorBlocks/TvEvent.vue'
+import TvEvent from '@/components/common/TvEvent.vue'
 
-storiesOf('Components/EditorBlocks', module).add(
+storiesOf('components/common', module).add(
   'TvEvent',
   () => ({
     components: { TvEvent },

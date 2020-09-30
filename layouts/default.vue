@@ -91,8 +91,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import NewPlaylistDialog from '~/components/NewPlaylistDialog.vue'
-import NewSeriesPlaylistDialog from '~/components/NewSeriesPlaylistDialog.vue'
+import NewPlaylistDialog from '~/components/common/NewPlaylistDialog.vue'
+import NewSeriesPlaylistDialog from '~/components/common/NewSeriesPlaylistDialog.vue'
 
 interface DataType {
   clipped: boolean

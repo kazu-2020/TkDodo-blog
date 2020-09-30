@@ -66,11 +66,11 @@
 <script>
 import Vue from 'vue'
 import moment from 'moment'
-import ArticleSideBar from '~/components/organisms/ArticleSideBar.vue'
-import EditableSection from '~/components/EditableSection.vue'
-import PageTitle from '~/components/molecules/PageTitle.vue'
-import PreviewDrawer from '~/components/PreviewDrawer.vue'
-import editorBlockMixin from '~/components/mixins/editorBlockMixin'
+import ArticleSideBar from '~/components/playlists/ArticleSideBar.vue'
+import EditableSection from '~/components/common/EditableSection.vue'
+import PageTitle from '~/components/common/PageTitle.vue'
+import PreviewDrawer from '~/components/common/PreviewDrawer.vue'
+import editorBlockMixin from '~/components/common/editorBlockMixin'
 
 export default Vue.extend({
   name: 'PlaylistIdArticlePage',

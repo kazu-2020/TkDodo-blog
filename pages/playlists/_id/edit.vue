@@ -142,10 +142,10 @@ import {
   adjustLinkDarkColor,
   adjustLinkLightColor,
 } from '@/utils/adjustColor'
-import ColorPalette from '~/components/forms/ColorPalette.vue'
-import PageTitle from '~/components/molecules/PageTitle.vue'
-import SeriesImagesForm from '~/components/forms/SeriesImagesForm.vue'
-import SameAsForm from '~/components/forms/SameAsForm.vue'
+import ColorPalette from '~/components/playlists/ColorPalette.vue'
+import PageTitle from '~/components/common/PageTitle.vue'
+import SeriesImagesForm from '~/components/playlists/SeriesImagesForm.vue'
+import SameAsForm from '~/components/playlists/SameAsForm.vue'
 
 const editingPlaylist = {} as Playlist
 

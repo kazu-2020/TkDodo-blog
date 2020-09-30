@@ -192,12 +192,12 @@
 
 <script>
 import draggable from 'vuedraggable'
-import EditableSection from '~/components/EditableSection.vue'
+import EditableSection from '~/components/common/EditableSection.vue'
 import sampleEventData from '~/assets/json/event_LR3P5RJ389.json'
 import sampleHowToData from '~/assets/json/howTo_G9218G45GJ.json'
 import sampleEpisodeData from '~/assets/json/episode_LR3P5RJ389.json'
 import sampleRecipeData from '~/assets/json/recipe.json'
-import editorBlockMixin from '~/components/mixins/editorBlockMixin'
+import editorBlockMixin from '~/components/common/editorBlockMixin'
 
 export default {
   components: {

@@ -64,9 +64,9 @@
 <script>
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
 import moment from 'moment'
-import EditableSection from '~/components/EditableSection.vue'
-import PreviewDrawer from '~/components/PreviewDrawer.vue'
-import editorBlockMixin from '~/components/mixins/editorBlockMixin'
+import EditableSection from '~/components/common/EditableSection.vue'
+import PreviewDrawer from '~/components/common/PreviewDrawer.vue'
+import editorBlockMixin from '~/components/common/editorBlockMixin'
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
 
 export default {

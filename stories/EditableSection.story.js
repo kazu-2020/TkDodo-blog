@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/vue'
 import { text, object } from '@storybook/addon-knobs/vue'
-import EditableSection from '@/components/EditableSection.vue'
+import EditableSection from '@/components/common/EditableSection.vue'
 
 storiesOf('Components/Editor', module).add(
   'EditableSection',
