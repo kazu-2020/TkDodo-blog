@@ -44,19 +44,38 @@
         <v-col cols="auto" class="text-center pl-0 pt-4">
           <v-row class="flex-column ma-0 fill-height">
             <v-col class="px-0 pt-0">
-              <v-btn
-                small
-                icon
-                :to="{ name: 'playlists-id', params: { id: playlist.id } }"
-                nuxt
-              >
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    small
+                    icon
+                    v-bind="attrs"
+                    :to="{ name: 'playlists-id', params: { id: playlist.id } }"
+                    nuxt
+                    v-on="on"
+                  >
+                    <v-icon>mdi-pencil</v-icon>
+                  </v-btn>
+                </template>
+                <span>編集する</span>
+              </v-tooltip>
             </v-col>
             <v-col class="px-0 pt-0">
-              <v-btn small icon class="delete_button" @click="deletePlaylist">
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    small
+                    icon
+                    v-bind="attrs"
+                    class="delete_button"
+                    v-on="on"
+                    @click="deletePlaylist"
+                  >
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </template>
+                <span>削除する</span>
+              </v-tooltip>
             </v-col>
             <v-col />
             <v-col />

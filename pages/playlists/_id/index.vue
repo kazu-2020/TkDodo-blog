@@ -46,32 +46,48 @@
               <v-col cols="auto" class="text-center">
                 <v-row class="flex-column ma-0 fill-height">
                   <v-col class="px-0 pt-0">
-                    <v-btn
-                      color="#000000"
-                      icon
-                      :to="`/playlists/${playlist.id}/edit`"
-                      nuxt
-                      small
-                    >
-                      <v-icon>mdi-pencil</v-icon>
-                    </v-btn>
+                    <v-tooltip left>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          color="#000000"
+                          icon
+                          v-bind="attrs"
+                          :to="`/playlists/${playlist.id}/edit`"
+                          nuxt
+                          small
+                          v-on="on"
+                        >
+                          <v-icon>mdi-pencil</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>メタを編集する</span>
+                    </v-tooltip>
+                  </v-col>
+                  <v-col class="px-0 pt-0">
+                    <v-tooltip left>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          color="#000000"
+                          icon
+                          v-bind="attrs"
+                          :to="`/playlists/${playlist.id}/article`"
+                          nuxt
+                          small
+                          v-on="on"
+                        >
+                          <v-icon>mdi-note-text-outline</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>記事を編集する</span>
+                    </v-tooltip>
                   </v-col>
                   <v-col class="px-0 pt-0">
                     <playlist-json-dialog
                       button-color="#000000"
                       :playlist-id="playlist.id"
+                      v-bind="attrs"
+                      v-on="on"
                     />
-                  </v-col>
-                  <v-col class="px-0 pt-0">
-                    <v-btn
-                      color="#000000"
-                      icon
-                      :to="`/playlists/${playlist.id}/article`"
-                      nuxt
-                      small
-                    >
-                      <v-icon>mdi-note-text-outline</v-icon>
-                    </v-btn>
                   </v-col>
                   <v-col />
                 </v-row>
