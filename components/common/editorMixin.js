@@ -10,6 +10,13 @@ import MultiTypeEpisode from '~/plugins/editorjs/multi_type_episode/index.js'
 
 import { i18n } from '~/plugins/editorjs/i18n.js'
 
+class DefaultUnorderedList extends List {
+  constructor(params) {
+    params.data.style = 'unordered'
+    super(params)
+  }
+}
+
 const editorMixin = {
   mounted() {
     this.doEditor()
@@ -31,10 +38,15 @@ const editorMixin = {
             inlineToolbar: true,
           },
           list: {
-            class: List,
+            class: DefaultUnorderedList,
             inlineToolbar: true,
           },
-          linkTool: LinkTool,
+          linkTool: {
+            class: LinkTool,
+            config: {
+              endpoint: process.env.apiBaseUrl + '/editor/fetch_link',
+            },
+          },
           embed: Embed,
           multiTypeEpisode: {
             class: MultiTypeEpisode,
