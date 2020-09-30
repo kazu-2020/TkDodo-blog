@@ -1,22 +1,12 @@
 import EditorJS from '@editorjs/editorjs'
 import Header from '@editorjs/header'
 import List from '@editorjs/list'
-import Quote from '@editorjs/quote'
-import CodeTool from '@editorjs/code'
-import Marker from '@editorjs/marker'
-import Delimiter from '@editorjs/delimiter'
-import InlineCode from '@editorjs/inline-code'
 import LinkTool from '@editorjs/link'
 import Embed from '@editorjs/embed'
-import Table from '@editorjs/table'
 import Undo from 'editorjs-undo'
 
 // Original Plugins
 import MultiTypeEpisode from '~/plugins/editorjs/multi_type_episode/index.js'
-import Episode from '~/plugins/editorjs/episode.js'
-import TvEvent from '~/plugins/editorjs/tv_event.js'
-import HowTo from '~/plugins/editorjs/howto.js'
-import Recipe from '~/plugins/editorjs/recipe.js'
 
 const editorMixin = {
   mounted() {
@@ -31,46 +21,20 @@ const editorMixin = {
         tools: {
           header: {
             class: Header,
-            inlineToolbar: ['link'],
             config: {
-              placeholder: 'Header',
+              placeholder: '見出しを入力してください',
+              levels: [2],
+              defaultLevel: 2,
             },
-            shortcut: 'CMD+SHIFT+H',
+            inlineToolbar: true,
           },
           list: {
             class: List,
             inlineToolbar: true,
             shortcut: 'CMD+SHIFT+L',
           },
-          quote: {
-            class: Quote,
-            inlineToolbar: true,
-            config: {
-              quotePlaceholder: 'Enter a quote',
-              captionPlaceholder: "Quote's author",
-            },
-            shortcut: 'CMD+SHIFT+O',
-          },
-          code: {
-            class: CodeTool,
-            shortcut: 'CMD+SHIFT+C',
-          },
-          marker: {
-            class: Marker,
-            shortcut: 'CMD+SHIFT+M',
-          },
-          delimiter: Delimiter,
-          inlineCode: {
-            class: InlineCode,
-            shortcut: 'CMD+SHIFT+C',
-          },
           linkTool: LinkTool,
           embed: Embed,
-          table: {
-            class: Table,
-            inlineToolbar: true,
-            shortcut: 'CMD+ALT+T',
-          },
           multiTypeEpisode: {
             class: MultiTypeEpisode,
             inlineToolbar: false,
@@ -79,35 +43,6 @@ const editorMixin = {
               playlistId: this.playlistId,
             },
             shortcut: 'CMD+ALT+E',
-          },
-          episode: {
-            class: Episode,
-            inlineToolbar: false,
-            config: {
-              endpoint: process.env.apiBaseUrl,
-              playlistId: this.playlistId,
-            },
-          },
-          tvEvent: {
-            class: TvEvent,
-            inlineToolbar: false,
-            config: {
-              endpoint: process.env.apiBaseUrl,
-            },
-          },
-          howTo: {
-            class: HowTo,
-            inlineToolbar: false,
-            config: {
-              endpoint: process.env.apiBaseUrl,
-            },
-          },
-          recipe: {
-            class: Recipe,
-            inlineToolbar: false,
-            config: {
-              endpoint: process.env.apiBaseUrl,
-            },
           },
         },
         data: this.editorData,
