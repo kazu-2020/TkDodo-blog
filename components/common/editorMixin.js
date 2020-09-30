@@ -8,6 +8,8 @@ import Undo from 'editorjs-undo'
 // Original Plugins
 import MultiTypeEpisode from '~/plugins/editorjs/multi_type_episode/index.js'
 
+import { i18n } from '~/plugins/editorjs/i18n.js'
+
 const editorMixin = {
   mounted() {
     this.doEditor()
@@ -31,7 +33,6 @@ const editorMixin = {
           list: {
             class: List,
             inlineToolbar: true,
-            shortcut: 'CMD+SHIFT+L',
           },
           linkTool: LinkTool,
           embed: Embed,
@@ -42,10 +43,10 @@ const editorMixin = {
               endpoint: process.env.apiBaseUrl,
               playlistId: this.playlistId,
             },
-            shortcut: 'CMD+ALT+E',
           },
         },
         data: this.editorData,
+        i18n,
         onChange: () => {
           this.updateEditorData()
         },
