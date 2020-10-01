@@ -64,7 +64,23 @@ const editorMixin = {
               endpoint: process.env.apiBaseUrl + '/editor/fetch_link',
             },
           },
-          embed: Embed,
+          embed: {
+            class: Embed,
+            config: {
+              services: {
+                dokos: {
+                  regex: /https?:\/\/movie-a.nhk.or.jp\/(movie.*)\/\?.*v=([^/?&]*).*/,
+                  embedUrl:
+                    'https://movie-a.nhk.or.jp/<%= remote_id %>&type=video',
+                  html:
+                    '<iframe frameborder="0" scrolling="no" align="middle" height="360" width="640" allowtransparency="true" allowfullscreen></iframe>',
+                  height: 360,
+                  width: 640,
+                  id: (ids) => ids.join('/?v='), // movie_stg/?v=<%= remote_id %>
+                },
+              },
+            },
+          },
           multiTypeEpisode: {
             class: MultiTypeEpisode,
             inlineToolbar: false,
