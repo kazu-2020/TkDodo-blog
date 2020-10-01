@@ -26,6 +26,8 @@
               :initial-data="body"
               :episode-block-id="episodeBlockId"
               class="mr-8 mb-8"
+              :image-by-file-endpoint="imageByFileEndpoint"
+              :image-by-url-endpoint="imageByUrlEndpoint"
               @modify-content="setCurrentContent"
             />
             <hr class="dotted_hr" />
@@ -145,6 +147,12 @@ export default Vue.extend({
     },
     shouldSaveFooter() {
       return this.isShowFooter && this.footer !== ''
+    },
+    imageByUrlEndpoint() {
+      return `/playlists/${this.playlist.id}/playlist_articles/upload_image_by_url`
+    },
+    imageByFileEndpoint() {
+      return `/playlists/${this.playlist.id}/playlist_articles/upload_image_by_file`
     },
   },
   watch: {

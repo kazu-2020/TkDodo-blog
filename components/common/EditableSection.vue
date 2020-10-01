@@ -58,6 +58,14 @@ export default {
         ],
       }),
     },
+    imageByFileEndpoint: {
+      type: String,
+      required: true,
+    },
+    imageByUrlEndpoint: {
+      type: String,
+      required: true,
+    },
     episodeBlockId: {
       type: String,
       required: false,
