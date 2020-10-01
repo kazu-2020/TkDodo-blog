@@ -28,13 +28,6 @@
           :list-style="block.data.style"
           :items="block.data.items"
         />
-        <quote
-          v-else-if="block.type === 'quote'"
-          :text="block.data.text"
-          :caption="block.data.caption"
-          :alignment="block.data.alignment"
-        />
-        <delimiter v-else-if="block.type === 'delimiter'" />
         <episode
           v-else-if="block.type === 'episode'"
           :episode="block.data.episode"
@@ -64,8 +57,6 @@ import Vue from 'vue'
 import Heading from '~/components/common/Heading.vue'
 import Paragraph from '~/components/common/Paragraph.vue'
 import List from '~/components/common/List.vue'
-import Delimiter from '~/components/common/Delimiter.vue'
-import Quote from '~/components/common/Quote.vue'
 import Episode from '~/components/common/Episode.vue'
 import TvEvent from '~/components/common/TvEvent.vue'
 import Recipe from '~/components/common/Recipe.vue'
@@ -82,8 +73,6 @@ export default Vue.extend({
     Heading,
     Paragraph,
     List,
-    Delimiter,
-    Quote,
     Episode,
     TvEvent,
     Recipe,
