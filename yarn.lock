@@ -959,17 +959,17 @@
   resolved "https://registry.yarnpkg.com/@editorjs/image/-/image-2.6.0.tgz#269d8dceebbb5fe667f9152188c425ba8b1c300f"
   integrity sha512-lX4Pz9cW3gGFzlmYLRAsBXTiqUG/MRG7NK4QVU+n/VnUWPU1e791eiIpgRLHfpPj6Maaw5a+GRut90D5EdXtqg==
 
-"@editorjs/link@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/link/-/link-2.3.0.tgz#c256bbce422217d83b14e8bca9dcdb6ff7e7053b"
-  integrity sha512-zzhFcDMMFoHon5V5z0t6NoGWiqm9yWGI6dNBncWsvrJA0RXEU9/O1hQT1EWc/JBdCdhtXPxwBsDiBPD7L/LDMQ==
+"@editorjs/link@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@editorjs/link/-/link-2.2.1.tgz#48db7a7bb8c467f84bee298d6c738abe8c8408a7"
+  integrity sha512-t1Usd/IYmEX/JFY/wBiFENPjycaBqQYlk/pjFKnz99kR+aXRMldgnUuD+D+I5ea5lKigyz9tCLzJ3s0aEuZBCw==
   dependencies:
     "@babel/runtime" "^7.10.2"
 
-"@editorjs/list@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/list/-/list-1.6.0.tgz#6e59030ec577b3a0e88b37db118992a8f405eb9a"
-  integrity sha512-2oJ3Nj3lDcIKS6GcrHYHzUUabIjg7zlXTYXQWdEWXevbnM0/fq+4psyI/AYtqbaa3jN+bycPBIW4OG3zD+3d5A==
+"@editorjs/list@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@editorjs/list/-/list-1.5.0.tgz#8675c82caa25f50744a4b072a7911163ce26bd74"
+  integrity sha512-LzZuJwJ2HxCkuaPrp3zYdQGvMC8dzXjewqWEBZ9mpq0fVwBAse4o9QB2mWvJxZ93UtLqQE7f9vrbHotG2uW9Qg==
 
 "@emotion/cache@^10.0.27", "@emotion/cache@^10.0.9":
   version "10.0.29"
@@ -10771,14 +10771,13 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
-nuxt-typed-vuex@^0.1.22:
-  version "0.1.22"
-  resolved "https://registry.yarnpkg.com/nuxt-typed-vuex/-/nuxt-typed-vuex-0.1.22.tgz#aff07cc39985146a75e8b40678fe0f2011d1a561"
-  integrity sha512-2X7/BSbN/tlBfVi5BR3unHTpVOnxxfiltR+E8XLdhlK9KHgSOWyDbnqFtxB5VAXA9efgTFlCq9UwG1xby+ubXQ==
+nuxt-typed-vuex@^0.1.21:
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/nuxt-typed-vuex/-/nuxt-typed-vuex-0.1.21.tgz#3c5f2ee9270d1526fb71d49caca7029a0f75312c"
+  integrity sha512-8lAIOzA0ltBQqSxQXvRz06zdMqPlbAE2KrMD/S9pkO59n5qLHClTXb6pZx0r3huSOoxD7BBFB9uvHG77jmQ9ng==
   dependencies:
-    consola "^2.15.0"
     normalize-path "^3.0.0"
-    typed-vuex "0.1.22"
+    typed-vuex "0.1.21"
 
 nuxt@^2.14.6:
   version "2.14.6"
@@ -14742,10 +14741,10 @@ ts-dedent@^1.1.0:
   resolved "https://registry.yarnpkg.com/ts-dedent/-/ts-dedent-1.1.1.tgz#68fad040d7dbd53a90f545b450702340e17d18f3"
   integrity sha512-UGTRZu1evMw4uTPyYF66/KFd22XiU+jMaIuHrkIHQ2GivAXVlLV0v/vHrpOuTRf9BmpNHi/SO7Vd0rLu0y57jg==
 
-ts-jest@^26.4.1:
-  version "26.4.1"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.4.1.tgz#08ec0d3fc2c3a39e4a46eae5610b69fafa6babd0"
-  integrity sha512-F4aFq01aS6mnAAa0DljNmKr/Kk9y4HVZ1m6/rtJ0ED56cuxINGq3Q9eVAh+z5vcYKe5qnTMvv90vE8vUMFxomg==
+ts-jest@^26.4.0:
+  version "26.4.0"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.4.0.tgz#903c7827f3d3bc33efc2f91be294b164400c32e3"
+  integrity sha512-ofBzoCqf6Nv/PoWb/ByV3VNKy2KJSikamOBxvR3E6eVdIw10GwAXoyvMWXXjZJK2s6S27ZE8fI+JBTnGaovl6Q==
   dependencies:
     "@types/jest" "26.x"
     bs-logger "0.x"
@@ -14891,10 +14890,10 @@ typed-styles@^0.0.7:
   resolved "https://registry.yarnpkg.com/typed-styles/-/typed-styles-0.0.7.tgz#93392a008794c4595119ff62dde6809dbc40a3d9"
   integrity sha512-pzP0PWoZUhsECYjABgCGQlRGL1n7tOHsgwYv3oIiEpJwGhFTuty/YNeduxQYzXXa3Ge5BdT6sHYIQYpl4uJ+5Q==
 
-typed-vuex@0.1.22:
-  version "0.1.22"
-  resolved "https://registry.yarnpkg.com/typed-vuex/-/typed-vuex-0.1.22.tgz#e35a896fa7d76b37904041d38c55037b70ccf240"
-  integrity sha512-WJkYbLX9DbnjVnSKS1LNrqEXB6gbRCfk2qExAA+wa1RGQAURZpdSQ/A33YkgfQbzNitJbgR0qzjE7jclSWC6Ag==
+typed-vuex@0.1.21:
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/typed-vuex/-/typed-vuex-0.1.21.tgz#87d5abb804509d10ac0b12638fcddebc8469c2e6"
+  integrity sha512-8XWjS4E/DFXiFfBLQBsdNzXbLdA1rl1lZVsOgnZ7f6UMk/DE9GhyIc7RZPjQnt47d/RVR0QhtGMehfGt3tKbTg==
 
 typedarray-to-buffer@^3.1.5:
   version "3.1.5"
@@ -15406,10 +15405,10 @@ vue-jest@^3.0.7:
     tsconfig "^7.0.0"
     vue-template-es2015-compiler "^1.6.0"
 
-vue-json-pretty@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/vue-json-pretty/-/vue-json-pretty-1.7.0.tgz#ee0b09c0b4194862860dc9bddc0459e7b39463ab"
-  integrity sha512-NWBrkqKlIB2qqFO4itTnZSh7bAbE26BHc4T4QfQtQGhJ0A+mCbVKR6BKzas4qajn8bCaGkFGRnNuOVwNRKq2GQ==
+vue-json-pretty@^1.6.7:
+  version "1.6.7"
+  resolved "https://registry.yarnpkg.com/vue-json-pretty/-/vue-json-pretty-1.6.7.tgz#7dbc0d50d7b30f2ad99dade6541cd57479ff3725"
+  integrity sha512-M7fGSj6yQxl9x3n4cViD5OUUXeXeIfjVfnOQOH+T95qo4wz2BzthBDZzRsKKsf9W5YIFbC1ZWkw50j9cPxxs9w==
 
 vue-loader@^15.9.3:
   version "15.9.3"
