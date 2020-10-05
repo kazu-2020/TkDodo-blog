@@ -40,11 +40,12 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['@assets/css/main.scss'],
+  css: ['@assets/css/main.scss', 'vue-json-pretty/lib/styles.css'],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
+    '~/plugins/vue-json-pretty',
     '~/plugins/vue-scrollto.js',
     '~/plugins/vue-the-mask.js',
     '~/plugins/axios.js',
