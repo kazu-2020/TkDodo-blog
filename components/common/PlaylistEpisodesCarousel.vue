@@ -24,7 +24,12 @@
         :key="`splittedEpisode${index}`"
       >
         <v-row class="px-4">
-          <v-col v-for="episode in _episodes" :key="episode.id" cols="3">
+          <v-col
+            v-for="episode in _episodes"
+            :key="episode.id"
+            cols="3"
+            class="py-0"
+          >
             <v-sheet color="grey" style="position: relative">
               <v-img :src="episodeThumbnailUrl(episode)" aspect-ratio="1.33" />
               <div
@@ -67,7 +72,7 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
-      episodePreviewNum: 8,
+      episodePreviewNum: 4,
       episodes: [],
       isError: false,
       isFetched: false,
