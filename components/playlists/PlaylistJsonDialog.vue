@@ -32,11 +32,9 @@
 
 <script lang="js">
 import Vue from 'vue'
-import VueJsonPretty from 'vue-json-pretty'
 
 export default Vue.extend({
   name: 'PlaylistJsonDialog',
-  components: { VueJsonPretty },
   props: {
     buttonColor: {
       type: String,
