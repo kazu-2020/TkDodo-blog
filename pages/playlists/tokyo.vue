@@ -27,7 +27,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col v-for="item in playlists" :key="item.id" cols="12">
+      <v-col v-for="item in playlists" :key="item.id" cols="12" class="py-2">
         <playlist-item :playlist="item" @delete-playlist="deletePlaylist" />
       </v-col>
     </v-row>
