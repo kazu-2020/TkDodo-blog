@@ -32,6 +32,9 @@ const editorMixin = {
         logLevel: 'WARN',
         minHeight: 0,
         tools: {
+          paragraph: {
+            inlineToolbar: ['bold', 'italic'],
+          },
           header: {
             class: Header,
             config: {
@@ -39,7 +42,7 @@ const editorMixin = {
               levels: [2],
               defaultLevel: 2,
             },
-            inlineToolbar: true,
+            inlineToolbar: ['bold', 'italic'],
           },
           image: {
             class: ImageTool,
@@ -56,7 +59,7 @@ const editorMixin = {
           },
           list: {
             class: DefaultUnorderedList,
-            inlineToolbar: true,
+            inlineToolbar: ['bold', 'italic'],
           },
           linkTool: {
             class: LinkTool,
