@@ -347,7 +347,7 @@ export default Vue.extend({
 
         if (playlist.hashtag) {
           for (const hash of playlist.hashtag) {
-            data.append('playlist[hashtag][]', hash)
+            data.append('playlist[hashtags][]', hash)
           }
         }
 
