@@ -40,19 +40,50 @@
           </v-col>
 
           <v-col cols="12">
-            <v-text-field
+            <v-combobox
               v-model="editingPlaylist.keywords"
+              :items="[]"
+              hide-selected
               label="キーワード - Keywords"
-              hint="カンマ（,)区切りで複数のキーワードが登録可能です。"
-            />
+              multiple
+              persistent-hint
+              small-chips
+            >
+              <template v-slot:selection="{ attrs, item, parent, selected }">
+                <v-chip v-bind="attrs" :input-value="selected" label small>
+                  <span class="pr-2">
+                    {{ item }}
+                  </span>
+                  <v-icon small @click="parent.selectItem(item)"
+                    >mdi-close</v-icon
+                  >
+                </v-chip>
+              </template>
+            </v-combobox>
           </v-col>
 
           <v-col cols="12">
-            <v-text-field
+            <v-combobox
               v-model="editingPlaylist.hashtag"
+              :items="[]"
+              hide-selected
               label="ハッシュタグ - Hashtag"
-              hint="タグの先頭に「#」をつけてください。スペース区切りで複数のタグが登録可能です。"
-            />
+              hint="タグの先頭に「#」をつけてください。"
+              multiple
+              persistent-hint
+              small-chips
+            >
+              <template v-slot:selection="{ attrs, item, parent, selected }">
+                <v-chip v-bind="attrs" :input-value="selected" label small>
+                  <span class="pr-2">
+                    {{ item }}
+                  </span>
+                  <v-icon small @click="parent.selectItem(item)"
+                    >mdi-close</v-icon
+                  >
+                </v-chip>
+              </template>
+            </v-combobox>
           </v-col>
           <v-row flex-start>
             <v-col cols="6" md="3">
@@ -268,9 +299,7 @@ export default Vue.extend({
           name: playlist.name,
           detailed_name_ruby: playlist.detailedNameRuby,
           description: playlist.description,
-          keywords: playlist.keywords,
           detailed_catch: playlist.detailedCatch,
-          hashtag: playlist.hashtag,
           format_genre_code: playlist.formatGenre,
           theme_genre_code: playlist.themeGenre,
           selected_palette: playlist.selectedPalette,
@@ -307,6 +336,18 @@ export default Vue.extend({
         for (const key in body) {
           if (body[key] != null) {
             data.append(`playlist[${key}]`, body[key])
+          }
+        }
+
+        if (playlist.keywords) {
+          for (const keyword of playlist.keywords) {
+            data.append('playlist[keywords][]', keyword)
+          }
+        }
+
+        if (playlist.hashtag) {
+          for (const hash of playlist.hashtag) {
+            data.append('playlist[hashtag][]', hash)
           }
         }
 
