@@ -121,12 +121,12 @@ export default Vue.extend({
       return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
     },
     lastUpdateDate(): string {
-      return this.formattedDate(this.playlist.updated_at)
+      return this.formattedDate(this.playlist.dateModified)
     },
   },
   methods: {
     formattedDate(_time: string): string {
-      return moment(_time).format('YYYY/MM/DD')
+      return moment(_time).format('YYYY/MM/DD hh:mm')
     },
     deletePlaylist(): void {
       if (confirm('本当に削除しますか？')) {
