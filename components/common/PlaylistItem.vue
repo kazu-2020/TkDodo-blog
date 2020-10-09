@@ -13,7 +13,11 @@
             </v-col>
             <v-col class="mr-auto" cols="10">
               <v-card-title class="title mb-1 playlist-title">
-                {{ playlist.name }}
+                <nuxt-link
+                  :to="{ name: 'playlists-id', params: { id: playlist.id } }"
+                >
+                  {{ playlist.name }}
+                </nuxt-link>
               </v-card-title>
               <v-card-text class="card-list-item pb-1">
                 番組総時間:
