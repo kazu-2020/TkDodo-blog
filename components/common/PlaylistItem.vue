@@ -13,7 +13,11 @@
             </v-col>
             <v-col class="mr-auto" cols="10">
               <v-card-title class="title mb-1 playlist-title">
-                {{ playlist.name }}
+                <nuxt-link
+                  :to="{ name: 'playlists-id', params: { id: playlist.id } }"
+                >
+                  {{ playlist.name }}
+                </nuxt-link>
               </v-card-title>
               <v-card-text class="card-list-item pb-1">
                 番組総時間:
@@ -121,12 +125,12 @@ export default Vue.extend({
       return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
     },
     lastUpdateDate(): string {
-      return this.formattedDate(this.playlist.updated_at)
+      return this.formattedDate(this.playlist.dateModified)
     },
   },
   methods: {
     formattedDate(_time: string): string {
-      return moment(_time).format('YYYY/MM/DD')
+      return moment(_time).format('YYYY/MM/DD hh:mm')
     },
     deletePlaylist(): void {
       if (confirm('本当に削除しますか？')) {

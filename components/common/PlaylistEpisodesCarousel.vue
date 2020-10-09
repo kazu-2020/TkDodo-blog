@@ -30,20 +30,7 @@
             cols="3"
             class="py-0"
           >
-            <v-sheet color="grey" style="position: relative">
-              <v-img :src="episodeThumbnailUrl(episode)" aspect-ratio="1.33" />
-              <div
-                style="
-                  background: rgba(0, 0, 0, 0.6);
-                  position: absolute;
-                  bottom: 0;
-                  width: 100%;
-                "
-                class="pa-1 caption"
-              >
-                {{ episode.partOfSeries.name }}
-              </div>
-            </v-sheet>
+            <playlist-episode-thumbnail :episode="episode" />
           </v-col>
         </v-row>
       </v-carousel-item>
@@ -53,7 +40,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
+import PlaylistEpisodeThumbnail from '~/components/common/PlaylistEpisodeThumbnail.vue'
 
 interface DataType {
   episodePreviewNum: number
@@ -64,6 +51,9 @@ interface DataType {
 
 export default Vue.extend({
   name: 'PlaylistEpisodesCarousel',
+  components: {
+    PlaylistEpisodeThumbnail,
+  },
   props: {
     playlist: {
       type: Object,
@@ -101,15 +91,6 @@ export default Vue.extend({
     this.fetchEpisodes()
   },
   methods: {
-    episodeThumbnailUrl(episode: any) {
-      return (
-        episode.eyecatch?.medium?.url || this.dummyImage(episode.dateCreated)
-      )
-    },
-    dummyImage(time: any) {
-      const logoNumber = (Number(moment(time).format('DD')) % 10) + 1
-      return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
-    },
     fetchEpisodes() {
       if (this.episodes.length !== 0) return
 
