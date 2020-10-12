@@ -236,9 +236,9 @@ export default Vue.extend({
 }
 </style>
 
-<style>
+<style lang="scss">
 .ce-toolbar__actions {
-  left: -20px;
+  left: -25px;
   top: 10px;
 }
 
@@ -248,6 +248,12 @@ export default Vue.extend({
 }
 
 .ce-toolbar__plus {
-  left: -50px;
+  left: -55px;
+}
+
+.ce-block--focused {
+  .ce-block__content {
+    background-color: #f7f7f7;
+  }
 }
 </style>
