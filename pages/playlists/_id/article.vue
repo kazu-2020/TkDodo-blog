@@ -235,3 +235,19 @@ export default Vue.extend({
   color: #ffffff;
 }
 </style>
+
+<style>
+.ce-toolbar__actions {
+  left: -20px;
+  top: 10px;
+}
+
+.ce-settings {
+  left: -1px;
+  right: auto;
+}
+
+.ce-toolbar__plus {
+  left: -50px;
+}
+</style>
