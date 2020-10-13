@@ -169,6 +169,14 @@ export default class MultiTypeEpisode {
 
     this.nodes.wrapper.appendChild(this.nodes.container)
 
+    // FIXME: 下のブロックの先頭でBackspaceした時に消えちゃう問題へのHackな対応
+    // 前のブロックにinput要素がない状態でBackspaceをすると前のブロックは消されてしまう
+    // see https://github.com/codex-team/editor.js/blob/d5f23aa31ce87ee367d1fdb17e89597d711d65c7/src/components/modules/blockEvents.ts#L291
+    const input = document.createElement('input')
+    input.value = 'dummy'
+    input.setAttribute('style', 'display: none;')
+    this.nodes.wrapper.appendChild(input)
+
     return this.nodes.wrapper
   }
 
