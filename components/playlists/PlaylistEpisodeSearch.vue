@@ -124,6 +124,7 @@ interface DataType {
   episodes: Array<object>
   loading: boolean
   isNoResult: boolean
+  searchOffset: number
   menu: boolean
   sortTypeNum: number
   ignoreRange: boolean
@@ -149,6 +150,7 @@ export default Vue.extend({
       episodes: [],
       loading: false,
       isNoResult: false,
+      searchOffset: 0,
       menu: false,
       sortTypeNum: 0,
       ignoreRange: true,
@@ -179,7 +181,7 @@ export default Vue.extend({
       }
     },
     canLoadMoreEpisodes(): boolean {
-      return this.episodes.length < this.totalSearchResult
+      return this.searchOffset < this.totalSearchResult
     },
   },
   methods: {
@@ -189,22 +191,25 @@ export default Vue.extend({
       clearCurrentEpisodes: boolean
     }) {
       this.loading = true
+      const pageSize = 10
+
+      if (clearCurrentEpisodes) {
+        this.episodes = []
+        this.searchOffset = 0
+      }
       this.$axios
         .get(
-          `/episodes/search?word=${this.keyword}&offset=${this.episodes.length}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}`
+          `/episodes/search?word=${this.keyword}&offset=${this.searchOffset}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}&size=${pageSize}`
         )
         .then((res) => {
-          if (clearCurrentEpisodes) {
-            this.episodes = []
-          }
-
           this.episodes = this.episodes.concat(res.data.items)
           this.totalSearchResult = res.data.total
-          this.isNoResult = this.episodes.length === 0
+          this.isNoResult = this.totalSearchResult === 0
+          this.searchOffset += pageSize
         })
         .finally(() => {
           this.loading = false
-          if (this.episodes.length <= 10) {
+          if (this.episodes.length <= pageSize) {
             this.$scrollTo('#episode-search-result', 1400, {
               easing: [0, 0, 0.1, 1],
               offset: -75,
