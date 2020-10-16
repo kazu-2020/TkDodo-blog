@@ -130,7 +130,7 @@ export default Vue.extend({
   },
   methods: {
     formattedDate(_time: string): string {
-      return moment(_time).format('YYYY/MM/DD hh:mm')
+      return moment(_time).format('YYYY/MM/DD HH:mm')
     },
     deletePlaylist(): void {
       if (confirm('本当に削除しますか？')) {
