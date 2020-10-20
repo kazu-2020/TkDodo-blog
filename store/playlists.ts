@@ -96,9 +96,9 @@ export const actions = actionTree(
     async saveEditingPlaylistEpisodes({ commit, state }) {
       await this.$axios
         .post(
-          `/playlists/${state.editingPlaylist.id}/playlist_episodes/bulk_update`,
+          `/playlists/${state.editingPlaylist.id}/playlist_items/bulk_update`,
           {
-            playlist_episodes: state.editingPlaylist.items,
+            playlist_items: state.editingPlaylist.items,
           }
         )
         .then((response) => {
