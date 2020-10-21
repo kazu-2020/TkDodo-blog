@@ -84,29 +84,27 @@ export default Vue.extend({
   },
   mixins: [editorBlockMixin],
   asyncData({ $axios, params, app }) {
-    return $axios
-      .get(`/playlists/${params.id}/playlist_articles`)
-      .then((res) => {
-        return {
-          playlist: res.data.playlist,
-          body: res.data.article?.body || {},
-          draftBody: res.data.article?.body || {},
-          header:
-            res.data.article?.header ||
-            app.$cookies.get('articleHeaderText') ||
-            '',
-          footer:
-            res.data.article?.footer ||
-            app.$cookies.get('articleFooterText') ||
-            '',
-          isShowHeader:
-            res.data.article?.header !== undefined &&
-            res.data.article?.header !== null,
-          isShowFooter:
-            res.data.article?.footer !== undefined &&
-            res.data.article?.footer !== null,
-        }
-      })
+    return $axios.get(`/playlists/${params.id}`).then((res) => {
+      return {
+        playlist: res.data.playlist,
+        body: res.data.playlist.article?.body || {},
+        draftBody: res.data.playlist.article?.body || {},
+        header:
+          res.data.playlist.article?.header ||
+          app.$cookies.get('articleHeaderText') ||
+          '',
+        footer:
+          res.data.playlist.article?.footer ||
+          app.$cookies.get('articleFooterText') ||
+          '',
+        isShowHeader:
+          res.data.playlist.article?.header !== undefined &&
+          res.data.playlist.article?.header !== null,
+        isShowFooter:
+          res.data.playlist.article?.footer !== undefined &&
+          res.data.playlist.article?.footer !== null,
+      }
+    })
   },
   data() {
     return {
@@ -149,10 +147,10 @@ export default Vue.extend({
       return this.isShowFooter && this.footer !== ''
     },
     imageByUrlEndpoint() {
-      return `/playlists/${this.playlist.id}/playlist_articles/upload_image_by_url`
+      return `/playlists/${this.playlist.id}/upload_article_image_by_url`
     },
     imageByFileEndpoint() {
-      return `/playlists/${this.playlist.id}/playlist_articles/upload_image_by_file`
+      return `/playlists/${this.playlist.id}/upload_article_image_by_file`
     },
   },
   watch: {
@@ -192,11 +190,11 @@ export default Vue.extend({
       const footerText = this.shouldSaveFooter ? this.footer : null
 
       this.$axios
-        .post(`/playlists/${this.playlist.id}/playlist_articles`, {
-          playlist_article: {
-            header: headerText,
-            body: JSON.stringify(this.draftBody),
-            footer: footerText,
+        .post(`/playlists/${this.playlist.id}`, {
+          playlist: {
+            marked_header: headerText,
+            editor_data: JSON.stringify(this.draftBody),
+            marked_footer: footerText,
           },
         })
         .then((_response) => {
