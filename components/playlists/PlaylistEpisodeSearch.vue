@@ -153,7 +153,7 @@ export default Vue.extend({
       searchOffset: 0,
       menu: false,
       sortTypeNum: 0,
-      ignoreRange: true,
+      ignoreRange: false,
       onlyEpisodeWithVideo: false,
       totalSearchResult: 0,
     }
