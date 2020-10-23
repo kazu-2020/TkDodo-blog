@@ -15,9 +15,9 @@
       </v-col>
       <v-col cols="8" align="right" class="search_detail">
         <v-switch
-          v-model="onlyEpisodeWithVideo"
-          label="ビデオ有りエピソードのみ"
-          class="video_filter"
+          v-model="ignoreRange"
+          label="放送期間外のエピソードを含む"
+          class="ignore_range"
         />
         <v-menu
           v-model="menu"
@@ -41,12 +41,6 @@
                   <v-btn>新しい順</v-btn>
                   <v-btn>古い順</v-btn>
                 </v-btn-toggle>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-title>
-                  放送期間外のエピソードを含む
-                </v-list-item-title>
-                <v-switch v-model="ignoreRange" />
               </v-list-item>
             </v-list>
             <v-card-actions>
@@ -116,7 +110,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { EpisodeData } from '@/types/episode_data'
 import EpisodeSearchResultTableRow from '~/components/playlists/EpisodeSearchResultTableRow.vue'
 
 interface DataType {
@@ -128,7 +121,6 @@ interface DataType {
   menu: boolean
   sortTypeNum: number
   ignoreRange: boolean
-  onlyEpisodeWithVideo: boolean
   totalSearchResult: number
 }
 
@@ -154,7 +146,6 @@ export default Vue.extend({
       menu: false,
       sortTypeNum: 0,
       ignoreRange: false,
-      onlyEpisodeWithVideo: false,
       totalSearchResult: 0,
     }
   },
@@ -169,15 +160,6 @@ export default Vue.extend({
           return 'dateAsc'
         default:
           return 'scoreDesc'
-      }
-    },
-    visibleEpisodeResult(): object[] {
-      if (this.onlyEpisodeWithVideo) {
-        return this.episodes.filter((value: EpisodeData, _index, _array) => {
-          return (value.videos || []).length > 0
-        })
-      } else {
-        return this.episodes
       }
     },
     canLoadMoreEpisodes(): boolean {
@@ -251,13 +233,13 @@ export default Vue.extend({
   position: relative;
 }
 
-.v-input.video_filter.v-input--selection-controls.v-input--switch {
+.v-input.ignore_range.v-input--selection-controls.v-input--switch {
   position: absolute;
-  top: 16px;
+  top: 12px;
   right: 192px;
   margin-top: 0;
   margin-right: 16px;
   display: inline-block;
-  width: 240px;
+  width: 280px;
 }
 </style>
