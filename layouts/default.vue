@@ -25,6 +25,11 @@
               新規作成
             </v-list-item-title>
           </v-list-item>
+          <v-list-item @click="isShowNewPlaylistDialog2 = true">
+            <v-list-item-title class="playlist_new">
+              新規作成2
+            </v-list-item-title>
+          </v-list-item>
           <v-list-item @click="isShowNewSeriesPlaylistDialog = true">
             <v-list-item-title> シリーズプレイリスト作成 </v-list-item-title>
           </v-list-item>
@@ -50,6 +55,10 @@
       <new-series-playlist-dialog
         :is-show-dialog="isShowNewSeriesPlaylistDialog"
         @hide-new-series-playlist-dialog="isShowNewSeriesPlaylistDialog = false"
+      />
+      <new-playlist-dialog-2
+        :is-show-dialog="isShowNewPlaylistDialog2"
+        @hide-new-playlist-dialog2="isShowNewPlaylistDialog2 = false"
       />
     </v-app-bar>
     <v-main>
@@ -93,6 +102,7 @@
 import Vue from 'vue'
 import NewPlaylistDialog from '~/components/common/NewPlaylistDialog.vue'
 import NewSeriesPlaylistDialog from '~/components/common/NewSeriesPlaylistDialog.vue'
+import NewPlaylistDialog2 from '~/components/common/NewPlaylistDialog2.vue'
 
 interface DataType {
   clipped: boolean
@@ -103,6 +113,7 @@ interface DataType {
   rightDrawer: boolean
   title: string
   isShowNewPlaylistDialog: boolean
+  isShowNewPlaylistDialog2: boolean
   isShowNewSeriesPlaylistDialog: boolean
   modeIcon: string
 }
@@ -112,6 +123,7 @@ export default Vue.extend({
   components: {
     NewPlaylistDialog,
     NewSeriesPlaylistDialog,
+    NewPlaylistDialog2,
   },
   data(): DataType {
     return {
@@ -123,6 +135,7 @@ export default Vue.extend({
       rightDrawer: false,
       title: 'EditorialHands',
       isShowNewPlaylistDialog: false,
+      isShowNewPlaylistDialog2: false,
       isShowNewSeriesPlaylistDialog: false,
       modeIcon: 'mdi-brightness-7',
     }
