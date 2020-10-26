@@ -77,8 +77,8 @@ export default Vue.extend({
       this.hideNewPlaylistDialog()
     },
     moveToNewArticlePage() {
-      console.log('article')
       this.hideNewPlaylistDialog()
+      this.$router.push(`/playlists/newArticle`)
     },
   },
 })
