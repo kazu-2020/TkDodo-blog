@@ -102,10 +102,17 @@
         <h3>エピソード選定</h3>
       </v-col>
       <v-col cols="12">
-        <playlist-episodes-list />
+        <playlist-episodes-list
+          :episodes="playlistItems"
+          @update-episodes="updateEpisodes"
+          @delete-episode="deleteEpisode"
+        />
       </v-col>
     </v-row>
-    <playlist-episode-search :ignore-episodes="playlist.items" />
+    <playlist-episode-search
+      :ignore-episodes="playlistItems"
+      @add-episode="addEpisode"
+    />
     <v-row>
       <v-col cols="12" align="center">
         <v-btn color="orange" @click="saveEpisodes">
@@ -160,6 +167,9 @@ export default Vue.extend({
     playlist(): Playlist {
       return this.$store.state.playlists.editingPlaylist
     },
+    playlistItems(): Array<any> {
+      return this.$store.state.playlists.editingPlaylist.items
+    },
   },
   methods: {
     logoImageUrl(playlist: any) {
@@ -187,6 +197,15 @@ export default Vue.extend({
     dummyImage(time: any) {
       const logoNumber = (Number(moment(time).format('DD')) % 10) + 1
       return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
+    },
+    updateEpisodes(episodes: any) {
+      this.$store.dispatch('playlists/updateEditingPlaylistEpisodes', episodes)
+    },
+    addEpisode(episode: any) {
+      this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
+    },
+    deleteEpisode(episode: any) {
+      this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
     },
   },
 })

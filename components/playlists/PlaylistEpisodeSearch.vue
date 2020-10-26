@@ -203,8 +203,8 @@ export default Vue.extend({
       this.searchEpisodes({ clearCurrentEpisodes: true })
     },
     addEpisode(episode: any) {
-      this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
       this.episodes.splice(this.episodes.indexOf(episode), 1)
+      this.$emit('add-episode', episode)
     },
     searchWithDetail() {
       this.menu = false

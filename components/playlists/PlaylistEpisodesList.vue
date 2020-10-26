@@ -13,35 +13,35 @@
           <th class="text-left">視聴可能</th>
         </tr>
       </thead>
-      <draggable v-model="episodes" tag="tbody">
-        <tr v-for="episode in episodes" :key="episode.id">
+      <draggable v-model="items" tag="tbody">
+        <tr v-for="item in items" :key="item.id">
           <td>
             <v-btn
               tile
               small
               color="orange"
               class="delete-button"
-              @click="deleteEpisode(episode)"
+              @click="deleteEpisode(item)"
             >
               <v-icon> mdi-minus </v-icon>
             </v-btn>
           </td>
           <td justify="center" align="center">
             <v-img
-              :src="eyecatchUrl(episode.eyecatch)"
+              :src="eyecatchUrl(item.eyecatch)"
               lazy-src="https://placehold.jp/50x28.png"
               width="50"
               class="ma-2 episode-image"
             />
           </td>
           <td align="left">
-            {{ episode.name }}
+            {{ item.name }}
           </td>
-          <td>{{ episode.id }}</td>
-          <td>{{ seriesName(episode) }}</td>
-          <td>{{ seriesId(episode) }}</td>
+          <td>{{ item.id }}</td>
+          <td>{{ seriesName(item) }}</td>
+          <td>{{ seriesId(item) }}</td>
           <td>
-            {{ convertReleaseDate(episode.releasedEvent) }}
+            {{ convertReleaseDate(item.releasedEvent) }}
           </td>
           <td>
             <v-chip class="mx-2" color="pink" label text-color="white">
@@ -64,13 +64,20 @@ export default Vue.extend({
   components: {
     draggable,
   },
-  computed: {
+  props: {
     episodes: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
+  },
+  computed: {
+    items: {
       get(): any[] {
-        return this.$store.state.playlists.editingPlaylist.items
+        return this.episodes
       },
       set(value: any) {
-        this.$store.dispatch('playlists/updateEditingPlaylistEpisodes', value)
+        this.$emit('update-episodes', value)
       },
     },
   },
@@ -83,7 +90,7 @@ export default Vue.extend({
       }
     },
     deleteEpisode(episode: any) {
-      this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
+      this.$emit('delete-episode', episode)
     },
     eyecatchUrl(eyecatch: any) {
       if (eyecatch !== undefined) {
