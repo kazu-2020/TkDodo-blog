@@ -246,7 +246,7 @@ export default Vue.extend({
 }
 
 .ce-toolbar__plus {
-  left: -55px;
+  left: -55px !important;
 }
 
 .ce-block--focused {
