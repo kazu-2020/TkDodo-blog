@@ -16,7 +16,7 @@
       <v-col cols="8" align="right" class="search_detail">
         <v-switch
           v-model="ignoreRange"
-          label="放送期間外のエピソードを含む"
+          label="公開範囲外のエピソードを含む"
           class="ignore_range"
         />
         <v-menu
