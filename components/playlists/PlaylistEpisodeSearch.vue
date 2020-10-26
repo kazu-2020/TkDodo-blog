@@ -72,7 +72,7 @@
             </thead>
             <tbody>
               <episode-search-result-table-row
-                v-for="episode in visibleEpisodeResult"
+                v-for="episode in episodes"
                 :key="episode.id"
                 :episode="episode"
                 :ignore-episodes="ignoreEpisodes"
