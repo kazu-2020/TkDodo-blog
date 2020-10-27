@@ -27,7 +27,7 @@
           </v-list-item>
           <v-list-item @click="isShowNewPlaylistDialog2 = true">
             <v-list-item-title class="playlist_new">
-              新規作成2
+              新規作成(β)
             </v-list-item-title>
           </v-list-item>
           <v-list-item @click="isShowNewSeriesPlaylistDialog = true">

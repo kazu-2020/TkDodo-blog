@@ -5,7 +5,7 @@
         <v-row>
           <v-col cols="10" sm="10" md="10">
             <v-card-title>
-              <span class="headline">新規作成</span>
+              <span class="headline">プレイリストの新規作成</span>
             </v-card-title>
           </v-col>
           <v-col cols="2" sm="2" md="2">
@@ -20,20 +20,26 @@
           <v-col cols="1" />
           <v-col cols="5">
             <div class="rounded_border_button" @click="moveToNewPlaylistPage">
-              <div class="type_icon">
-                <v-icon>mdi-playlist-plus</v-icon>
+              <div class="content">
+                <div class="type_icon">
+                  <v-icon>mdi-playlist-plus</v-icon>
+                </div>
+                <br />
+                <p class="type_description">
+                  エピソードリストから<br />新規作成
+                </p>
               </div>
-              <br />
-              <p class="type_description">プレイリストから新規作成</p>
             </div>
           </v-col>
           <v-col cols="5">
             <div class="rounded_border_button" @click="moveToNewArticlePage">
-              <div class="type_icon">
-                <v-icon>mdi-note-text-outline</v-icon>
+              <div class="content">
+                <div class="type_icon">
+                  <v-icon>mdi-note-text-outline</v-icon>
+                </div>
+                <br />
+                <p class="type_description short">記事から新規作成</p>
               </div>
-              <br />
-              <p class="type_description">記事から新規作成</p>
             </div>
           </v-col>
           <v-col cols="1" />
@@ -90,15 +96,31 @@ export default Vue.extend({
   border: thin solid rgba(0, 0, 0, 0.12);
   cursor: pointer;
   transition: all 0.4s ease-in-out;
+  position: relative;
+  width: 100%;
+
+  &:before {
+    content: '';
+    display: block;
+    padding-top: 75%;
+  }
 
   &:hover {
     box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.12);
+  }
+
+  .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
 }
 
 .type_icon {
   text-align: center;
-  margin-top: 12px;
+  margin-top: 20px;
 
   i {
     font-size: 3em;
@@ -107,5 +129,9 @@ export default Vue.extend({
 
 .type_description {
   text-align: center;
+
+  &.short {
+    margin-top: 16px;
+  }
 }
 </style>
