@@ -40,6 +40,17 @@
         </v-col>
       </v-row>
     </v-layout>
+    <v-snackbar v-model="snackBar" right top :timeout="3000" color="pink">
+      {{ snackBarMessage }}
+    </v-snackbar>
+    <v-dialog v-model="loadingDialog" hide-overlay persistent width="300">
+      <v-card>
+        <v-card-text>
+          作成中...
+          <v-progress-linear indeterminate class="mb-0" />
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -55,6 +66,9 @@ interface DataType {
   name: string
   nameRules: Array<Function>
   items: Array<any>
+  loadingDialog: boolean
+  snackBar: boolean
+  snackBarMessage: string
 }
 
 export default Vue.extend({
@@ -74,14 +88,63 @@ export default Vue.extend({
           (v && v.length <= 255) || 'Name must be less than 255 characters',
       ],
       items: [],
+      loadingDialog: false,
+      snackBar: false,
+      snackBarMessage: '',
     }
+  },
+  computed: {
+    itemsParam(): Array<object> {
+      return this.items.map((v) => {
+        return {
+          episode_id: v.id,
+        }
+      })
+    },
   },
   methods: {
     saveEpisodes() {
-      // this.$store.dispatch('loading/startLoading', {
-      //   success: '正常に保存できました',
-      //   error: '保存できませんでした',
-      // })
+      this.validate()
+
+      if (!this.valid) {
+        this.snackBar = true
+        this.snackBarMessage = 'プレイリストのタイトルを入力してください'
+        return
+      }
+
+      this.$store.dispatch('loading/startLoading', {
+        success: '保存しました',
+        error: '保存失敗しました',
+      })
+      this.loadingDialog = true
+
+      this.$accessor.playlists.createPlaylists({
+        playlist: {
+          name: this.name,
+          playlist_items_attributes: this.itemsParam,
+        },
+      })
+      this.subscribeSubmitAction()
+    },
+    subscribeSubmitAction() {
+      this.$store.subscribeAction({
+        after: (action, state) => {
+          if (action.type !== 'playlists/createPlaylists') return
+
+          if (state.playlists.allItems[0].name === this.name) {
+            const playlist = state.playlists.allItems[0]
+
+            this.$router.push(`/playlists/${playlist.id}`)
+            this.$store.dispatch('loading/succeedLoading')
+          }
+
+          this.loadingDialog = false
+        },
+        error: () => {
+          this.$store.dispatch('loading/failLoading')
+          this.loadingDialog = false
+        },
+      })
     },
     updateEpisodes(episodes: any) {
       this.items = episodes
@@ -91,6 +154,13 @@ export default Vue.extend({
     },
     deleteEpisode(episode: any) {
       this.items.splice(this.items.indexOf(episode), 1)
+    },
+    unfocusTextForm() {
+      // noop
+    },
+    validate() {
+      const form = this.$refs.form as any
+      form.validate()
     },
   },
 })
