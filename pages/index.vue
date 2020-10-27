@@ -1,8 +1,17 @@
 <template>
   <v-layout column>
-    <v-row>
-      <v-col>
+    <v-row justify="space-between">
+      <v-col cols="4">
         <div class="title mb-4">プレイリスト一覧</div>
+      </v-col>
+      <v-col cols="2" justify="center" align-content="center">
+        <div>
+          <v-switch
+            v-model="articleMode"
+            label="記事モード"
+            class="pt-0 mt-0 text-right"
+          />
+        </div>
       </v-col>
     </v-row>
     <v-row v-if="totalPages > 1">
@@ -18,7 +27,19 @@
         </div>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row v-if="articleMode">
+      <v-col
+        v-for="item in playlists"
+        :key="item.id"
+        cols="4"
+        sm="12"
+        md="6"
+        class="py-1"
+      >
+        <article-item :playlist="item" @delete-playlist="deletePlaylist" />
+      </v-col>
+    </v-row>
+    <v-row v-else>
       <v-col v-for="item in playlists" :key="item.id" cols="12" class="py-1">
         <playlist-item :playlist="item" @delete-playlist="deletePlaylist" />
       </v-col>
@@ -42,15 +63,17 @@
 <script lang="ts">
 import Vue from 'vue'
 import PlaylistItem from '~/components/common/PlaylistItem.vue'
+import ArticleItem from '~/components/playlists/ArticleItem.vue'
 
 interface DataType {
   page: number
   totalVisiblePagination: number
+  articleMode: boolean
 }
 
 export default Vue.extend({
   name: 'PlaylistIndexPage',
-  components: { PlaylistItem },
+  components: { PlaylistItem, ArticleItem },
   async asyncData({ store }) {
     await store.dispatch('playlists/fetchPlaylists', 1)
   },
@@ -58,6 +81,7 @@ export default Vue.extend({
     return {
       page: 1,
       totalVisiblePagination: 9,
+      articleMode: false,
     }
   },
   computed: {
