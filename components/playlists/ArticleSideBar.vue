@@ -31,13 +31,19 @@
 
         <hr class="button_divider" />
 
-        <v-btn block text class="delete_button mt-2" @click="notifyDummy">
+        <v-btn
+          v-show="isPresisted"
+          block
+          text
+          class="delete_button mt-2"
+          @click="notifyDummy"
+        >
           <v-icon small>mdi-delete</v-icon>
           <div class="delete_button_title">削除する</div>
         </v-btn>
       </v-sheet>
     </v-sheet>
-    <v-sheet color="grey lighten-3" rounded class="pb-1">
+    <v-sheet v-show="isPresisted" color="grey lighten-3" rounded class="pb-1">
       <iconed-title
         icon="mdi-key"
         title="記事の公開設定をする"
@@ -71,6 +77,17 @@ export default Vue.extend({
   name: 'ArticleSideBar',
   components: {
     IconedTitle,
+  },
+  props: {
+    saveAsNewPlaylist: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    isPresisted() {
+      return !this.saveAsNewPlaylist
+    }
   },
   methods: {
     clickPreviewButton() {
