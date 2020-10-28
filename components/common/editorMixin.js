@@ -2,12 +2,12 @@ import EditorJS from '@editorjs/editorjs'
 import Header from '@editorjs/header'
 import ImageTool from '@editorjs/image'
 import List from '@editorjs/list'
-import LinkTool from '@editorjs/link'
 import Embed from '@editorjs/embed'
 import Undo from 'editorjs-undo'
 
 // Original Plugins
 import MultiTypeEpisode from '~/plugins/editorjs/multi_type_episode/index.js'
+import DescriptionLinkTool from '~/plugins/editorjs/description_link_tool'
 
 import { i18n } from '~/plugins/editorjs/i18n.js'
 
@@ -62,7 +62,7 @@ const editorMixin = {
             inlineToolbar: ['bold', 'italic'],
           },
           linkTool: {
-            class: LinkTool,
+            class: DescriptionLinkTool,
             config: {
               endpoint: process.env.apiBaseUrl + '/editor/fetch_link',
             },
