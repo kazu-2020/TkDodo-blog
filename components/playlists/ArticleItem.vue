@@ -18,6 +18,7 @@
             </nuxt-link>
           </v-card-title>
           <v-card-text v-if="isArticlePresent" class="article_outline">
+            <!-- eslint-disable-next-line vue/no-v-html -->
             <p v-html="articleOutline" />
           </v-card-text>
           <v-card-text v-else>
