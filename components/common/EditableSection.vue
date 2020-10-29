@@ -26,11 +26,6 @@ import editorBlockMixin from '~/components/common/editorBlockMixin'
 export default {
   mixins: [editorMixin, editorBlockMixin],
   props: {
-    requireEpisodeBlock: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
     sectionId: {
       type: String,
       required: true,
@@ -110,19 +105,12 @@ export default {
       this.editor
         .save()
         .then((outputData) => {
-          if (
-            this.requireEpisodeBlock &&
-            !this.isIncludeEpisodeBlock(outputData)
-          ) {
-            this.editor.render(this.editorData)
-            throw new Error('エピソード関連のブロックは削除できません')
-          } else {
-            this.editorData = this.prune(outputData)
-            this.$emit('modify-content', {
-              sectionId: this.sectionId,
-              editorData: this.editorData,
-            })
-          }
+          this.prune(outputData)
+          this.editorData = outputData
+          this.$emit('modify-content', {
+            sectionId: this.sectionId,
+            editorData: this.editorData,
+          })
         })
         .catch((error) => {
           console.log('Saving failed: ', error)
