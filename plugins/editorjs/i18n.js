@@ -36,14 +36,13 @@ export const i18n = {
       MultiTypeEpisode: 'エピソードブロック',
     },
     tools: {
-      link: {
+      linkTool: {
         Link: 'リンクを入力してください',
         'Add a link': 'リンクを追加',
         "Couldn't fetch the link data": 'データが取得できませんでした。',
         'Wrong response format from the server':
           '誤ったフォーマットのレスポンスです',
-        "Couldn't get this link data, try the other one":
-          '許可されていないドメインもしくは不正なURLです。',
+        "Couldn't get this link data, try the other one": '不正なURLです。',
       },
       stub: {
         'The block can not be displayed correctly.': '',

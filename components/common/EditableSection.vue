@@ -117,7 +117,7 @@ export default {
             this.editor.render(this.editorData)
             throw new Error('エピソード関連のブロックは削除できません')
           } else {
-            this.editorData = outputData
+            this.editorData = this.prune(outputData)
             this.$emit('modify-content', {
               sectionId: this.sectionId,
               editorData: this.editorData,
@@ -141,6 +141,24 @@ export default {
     showErrorMessage(message) {
       this.snackBarMessage = message
       this.snackBar = true
+    },
+    prune(outputData) {
+      if (!outputData.blocks) return
+
+      // metaキー内が空の場合に親クラス内のrender処理が意図しない動作をするのでdescriptionキーを設定する
+      const addEmptyDescription = (block) => {
+        if (block.type === 'linkTool' && !Object.keys(block.data.meta).length) {
+          block.data.meta.description = ''
+        }
+        return block
+      }
+      // linkキーが空のblockは保存しないように
+      const emptyLinkFilter = (block) =>
+        !(block.type === 'linkTool' && block.data.link === '')
+
+      outputData.blocks = outputData.blocks
+        .map(addEmptyDescription)
+        .filter(emptyLinkFilter)
     },
   },
 }
