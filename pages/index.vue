@@ -1,10 +1,10 @@
 <template>
   <v-layout column>
     <v-row justify="space-between">
-      <v-col cols="4">
+      <v-col cols="6">
         <div class="title mb-4">プレイリスト一覧</div>
       </v-col>
-      <v-col cols="2" justify="center" align-content="center">
+      <v-col cols="2" justify="center" align-content="right">
         <div>
           <v-switch
             v-model="articleMode"
@@ -27,20 +27,13 @@
         </div>
       </v-col>
     </v-row>
-    <v-row v-if="articleMode">
-      <v-col
-        v-for="item in playlists"
-        :key="item.id"
-        cols="4"
-        sm="12"
-        md="6"
-        class="py-1"
-      >
+    <v-row v-if="articleMode" justify="center">
+      <v-col v-for="item in playlists" :key="item.id" cols="9" class="py-1">
         <article-item :playlist="item" @delete-playlist="deletePlaylist" />
       </v-col>
     </v-row>
-    <v-row v-else>
-      <v-col v-for="item in playlists" :key="item.id" cols="12" class="py-1">
+    <v-row v-else justify="center">
+      <v-col v-for="item in playlists" :key="item.id" cols="9" class="py-1">
         <playlist-item :playlist="item" @delete-playlist="deletePlaylist" />
       </v-col>
     </v-row>

@@ -27,7 +27,7 @@
           <v-col
             v-for="episode in _episodes"
             :key="episode.id"
-            cols="3"
+            cols="4"
             class="py-0"
           >
             <playlist-episode-thumbnail :episode="episode" />
@@ -62,7 +62,7 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
-      episodePreviewNum: 4,
+      episodePreviewNum: 3,
       episodes: [],
       isError: false,
       isFetched: false,
