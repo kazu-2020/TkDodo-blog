@@ -109,10 +109,6 @@
         />
       </v-col>
     </v-row>
-    <playlist-episode-search
-      :ignore-episodes="playlistItems"
-      @add-episode="addEpisode"
-    />
     <v-row>
       <v-col cols="12" align="center">
         <v-btn color="orange" @click="saveEpisodes">
@@ -120,6 +116,10 @@
         </v-btn>
       </v-col>
     </v-row>
+    <playlist-episode-search
+      :ignore-episodes="playlistItems"
+      @add-episode="addEpisode"
+    />
     <v-snackbar v-model="snackbar" timeout="2000">
       コピーしました
       <template v-slot:action="{ attrs }">
