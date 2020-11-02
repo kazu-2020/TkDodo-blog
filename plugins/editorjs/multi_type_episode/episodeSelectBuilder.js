@@ -210,7 +210,7 @@ class EpisodeSelectBuilder {
       const imageUrl =
         item.eyecatch && item.eyecatch.medium
           ? item.eyecatch.medium.url
-          : 'https://via.placeholder.com/32'
+          : 'https://via.placeholder.com/78x44'
 
       episodeTumbnail.style.backgroundImage = 'url(' + imageUrl + ')'
 
