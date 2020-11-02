@@ -39,6 +39,7 @@ class EpisodeSelectBuilder {
       playlistItem: 'multi_type_episode__playlist-item',
       playlistItemThumbnail: 'multi_type_episode__playlist-item-thumbnail',
       playlistItemTitle: 'multi_type_episode__playlist-item-title',
+      playlistItemSeriesName: 'multi_type_episode__playlist-item-series-name',
       playlistItemButton: 'multi_type_episode__playlist-item-button',
     }
   }
@@ -210,7 +211,7 @@ class EpisodeSelectBuilder {
       const imageUrl =
         item.eyecatch && item.eyecatch.medium
           ? item.eyecatch.medium.url
-          : 'https://via.placeholder.com/32'
+          : 'https://via.placeholder.com/78x44'
 
       episodeTumbnail.style.backgroundImage = 'url(' + imageUrl + ')'
 
@@ -220,6 +221,14 @@ class EpisodeSelectBuilder {
       ).build()
 
       episodeTitle.textContent = item.name
+
+      const seriesName = new HTMLElementBuilder(
+        'div',
+        this.CSS.playlistItemSeriesName
+      ).build()
+
+      seriesName.textContent = item.partOfSeries.name
+      episodeTitle.appendChild(seriesName)
 
       const selectEpisodeButton = new HTMLElementBuilder(
         'button',

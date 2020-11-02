@@ -283,7 +283,7 @@
 
 .multi_type_episode__playlist-item-thumbnail {
   display: inline-block;
-  width: 44px;
+  width: 78px;
   height: 44px;
   background-size: cover;
 }
@@ -296,16 +296,23 @@
   cursor: pointer;
 
   &:hover {
-    background-color: #ccc;
+    background-color: #f5f5f5;
   }
 }
 
 .multi_type_episode__playlist-item-title {
   position: absolute;
   top: 50%;
-  left: 60px;
+  left: 90px;
   transform: translateY(-50%);
   display: inline-block;
+}
+
+.multi_type_episode__playlist-item-series-name {
+  display: inline-block;
+  color: #696969;
+  font-size: 12px;
+  padding-left: 20px;
 }
 
 .multi_type_episode__playlist-item-button {
