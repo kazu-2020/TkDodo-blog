@@ -192,6 +192,9 @@ export default Vue.extend({
       immediate: true,
     },
   },
+  mounted() {
+    this.isShowDialog = this.$route.query.showDialog === '1'
+  },
   methods: {
     updatePreviewDrawerState(newVal) {
       this.isShowPreviewDrawer = newVal
@@ -216,7 +219,8 @@ export default Vue.extend({
             marked_footer: footerText,
           },
         })
-        .then((_response) => {
+        .then((response) => {
+          this.playlist = response.data.playlist
           if (this.diffEpisodeItems.length === 0) {
             this.$store.dispatch('loading/succeedLoading')
           } else {
