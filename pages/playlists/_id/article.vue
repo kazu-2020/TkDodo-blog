@@ -162,8 +162,8 @@ export default Vue.extend({
       return `/playlists/${this.playlist.id}/upload_article_image_by_file`
     },
     diffEpisodeItems() {
-      const playlistItems = this.playlist.items
-      const articleItems = this.playlist.article.containsEpisodes
+      const playlistItems = this.playlist.items || []
+      const articleItems = this.playlist.article?.containsEpisodes || []
 
       const diffItems = articleItems.filter(
         (v) => !playlistItems.map((x) => x.id).includes(v.id)
