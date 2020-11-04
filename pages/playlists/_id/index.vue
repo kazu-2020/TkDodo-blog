@@ -126,7 +126,12 @@
         <v-expansion-panels>
           <v-expansion-panel>
             <v-expansion-panel-header
-              >プレイリストに保存されていない記事エピソードがあります</v-expansion-panel-header
+              ><div>
+                プレイリストに保存されていない記事エピソードが
+                <span class="diff_episodes_count"
+                  >{{ diffEpisodeItems.length }}件</span
+                >あります
+              </div></v-expansion-panel-header
             >
             <v-expansion-panel-content>
               <v-simple-table>
@@ -279,6 +284,10 @@ export default Vue.extend({
   .v-text-field__details {
     display: none;
   }
+}
+
+span.diff_episodes_count {
+  font-weight: bold;
 }
 </style>
 
