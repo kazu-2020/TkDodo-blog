@@ -62,6 +62,12 @@
     <v-snackbar v-model="snackBar" right top :timeout="3000">
       {{ snackBarMessage }}
     </v-snackbar>
+    <article-saved-dialog
+      :is-show-dialog="isShowDialog"
+      :playlist="playlist"
+      :diff-items="diffEpisodeItems"
+      @hide-new-playlist-dialog="isShowDialog = false"
+    />
   </div>
 </template>
 
@@ -73,14 +79,16 @@ import EditableSection from '~/components/common/EditableSection.vue'
 import PageTitle from '~/components/common/PageTitle.vue'
 import PreviewDrawer from '~/components/common/PreviewDrawer.vue'
 import editorBlockMixin from '~/components/common/editorBlockMixin'
+import ArticleSavedDialog from '~/components/playlists/ArticleSavedDialog.vue'
 
 export default Vue.extend({
   name: 'PlaylistIdArticlePage',
   components: {
-    'article-side-bar': ArticleSideBar,
-    'editable-section': EditableSection,
-    'preview-drawer': PreviewDrawer,
-    'page-title': PageTitle,
+    ArticleSavedDialog,
+    ArticleSideBar,
+    EditableSection,
+    PreviewDrawer,
+    PageTitle,
   },
   mixins: [editorBlockMixin],
   asyncData({ $axios, params, app }) {
@@ -118,6 +126,7 @@ export default Vue.extend({
       snackBarMessage: '',
       isShowHeader: false,
       isShowFooter: false,
+      isShowDialog: false,
     }
   },
   computed: {
@@ -152,6 +161,16 @@ export default Vue.extend({
     imageByFileEndpoint() {
       return `/playlists/${this.playlist.id}/upload_article_image_by_file`
     },
+    diffEpisodeItems() {
+      const playlistItems = this.playlist.items || []
+      const articleItems = this.playlist.article?.containsEpisodes || []
+
+      const diffItems = articleItems.filter(
+        (v) => !playlistItems.map((x) => x.id).includes(v.id)
+      )
+
+      return diffItems
+    },
   },
   watch: {
     header: {
@@ -172,6 +191,9 @@ export default Vue.extend({
       },
       immediate: true,
     },
+  },
+  mounted() {
+    this.isShowDialog = this.$route.query.showDialog === '1'
   },
   methods: {
     updatePreviewDrawerState(newVal) {
@@ -197,8 +219,14 @@ export default Vue.extend({
             marked_footer: footerText,
           },
         })
-        .then((_response) => {
-          this.$store.dispatch('loading/succeedLoading')
+        .then((response) => {
+          this.playlist = response.data.playlist
+          if (this.diffEpisodeItems.length === 0) {
+            this.$store.dispatch('loading/succeedLoading')
+          } else {
+            this.$store.dispatch('loading/resetLoadingState')
+            this.isShowDialog = true
+          }
         })
         .catch((_error) => {
           this.$store.dispatch('loading/failLoading')

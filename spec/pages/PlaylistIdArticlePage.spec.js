@@ -13,6 +13,9 @@ describe('pages/playlists/article.vue', () => {
     const playlist = {
       id: 'XXXXXXXX',
       name: 'プレイリスト1',
+      article: {
+        containsEpisodes: [],
+      },
     }
     const options = {
       localVue,
@@ -29,6 +32,9 @@ describe('pages/playlists/article.vue', () => {
         $cookies: {
           get: () => '',
           set: (val) => val,
+        },
+        $route: {
+          query: () => {},
         },
       },
       vuetify: new Vuetify(),

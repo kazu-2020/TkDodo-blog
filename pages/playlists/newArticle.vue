@@ -225,8 +225,8 @@ export default Vue.extend({
           if (state.playlists.allItems[0].name === this.name) {
             const playlist = state.playlists.allItems[0]
 
-            this.$router.push(`/playlists/${playlist.id}/article`)
-            this.$store.dispatch('loading/succeedLoading')
+            this.$router.push(`/playlists/${playlist.id}/article?showDialog=1`)
+            this.$store.dispatch('loading/resetLoadingState')
           }
 
           this.loadingDialog = false

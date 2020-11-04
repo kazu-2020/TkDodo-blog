@@ -116,6 +116,54 @@
         </v-btn>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12">
+        <v-divider />
+      </v-col>
+    </v-row>
+    <v-row v-show="diffEpisodeItems.length !== 0" class="article_epidoes">
+      <v-col cols="12">
+        <v-expansion-panels>
+          <v-expansion-panel>
+            <v-expansion-panel-header
+              ><div>
+                プレイリストに保存されていない記事エピソードが
+                <span class="diff_episodes_count"
+                  >{{ diffEpisodeItems.length }}件</span
+                >あります
+              </div></v-expansion-panel-header
+            >
+            <v-expansion-panel-content>
+              <v-simple-table>
+                <template v-slot:default>
+                  <thead>
+                    <tr>
+                      <th />
+                      <th class="text-left">エピソード</th>
+                      <th />
+                      <th class="text-left">エピソードID</th>
+                      <th class="text-left">シリーズ名</th>
+                      <th class="text-left">シリーズID</th>
+                      <th class="text-left">直近放送日</th>
+                      <th class="text-left">視聴可能</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <episode-search-result-table-row
+                      v-for="episode in diffEpisodeItems"
+                      :key="episode.id"
+                      :episode="episode"
+                      :ignore-episodes="playlistItems"
+                      @add-episode="addEpisode"
+                    />
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-col>
+    </v-row>
     <playlist-episode-search
       :ignore-episodes="playlistItems"
       @add-episode="addEpisode"
@@ -137,6 +185,7 @@ import moment from 'moment'
 import { Playlist } from '@/types/playlist'
 import PlaylistEpisodesList from '~/components/playlists/PlaylistEpisodesList.vue'
 import PlaylistEpisodeSearch from '~/components/playlists/PlaylistEpisodeSearch.vue'
+import EpisodeSearchResultTableRow from '~/components/playlists/EpisodeSearchResultTableRow.vue'
 import PlaylistJsonDialog from '~/components/playlists/PlaylistJsonDialog.vue'
 
 interface DataType {
@@ -148,6 +197,7 @@ interface DataType {
 export default Vue.extend({
   name: 'PlaylistIdIndexComponent',
   components: {
+    EpisodeSearchResultTableRow,
     PlaylistEpisodesList,
     PlaylistEpisodeSearch,
     PlaylistJsonDialog,
@@ -167,8 +217,22 @@ export default Vue.extend({
     playlist(): Playlist {
       return this.$store.state.playlists.editingPlaylist
     },
-    playlistItems(): Array<any> {
+    playlistItems(): Array<Object> {
       return this.$store.state.playlists.editingPlaylist.items
+    },
+    articleEpisodes(): Array<Object> {
+      return this.$store.state.playlists.editingPlaylist.article
+        .containsEpisodes
+    },
+    diffEpisodeItems(): Array<Object> {
+      const playlistItems = (this as any).playlistItems
+      const articleItems = (this as any).articleEpisodes
+
+      const diffItems = articleItems.filter(
+        (v: any) => !playlistItems.map((x: any) => x.id).includes(v.id)
+      )
+
+      return diffItems
     },
   },
   methods: {
@@ -220,5 +284,15 @@ export default Vue.extend({
   .v-text-field__details {
     display: none;
   }
+}
+
+span.diff_episodes_count {
+  font-weight: bold;
+}
+</style>
+
+<style lang="scss">
+.article_epidoes .v-expansion-panel-content__wrap {
+  padding: 0 0 16px;
 }
 </style>

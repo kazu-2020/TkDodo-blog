@@ -67,7 +67,7 @@
                 <th class="text-left">シリーズ名</th>
                 <th class="text-left">シリーズID</th>
                 <th class="text-left">直近放送日</th>
-                <th class="text-left">公開状況</th>
+                <th class="text-left">視聴可能</th>
               </tr>
             </thead>
             <tbody>

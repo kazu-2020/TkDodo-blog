@@ -1,5 +1,5 @@
 <template>
-  <tr>
+  <tr class="result_row">
     <td>
       <v-btn
         v-if="!shouldIgnoreEpisode"
@@ -31,7 +31,7 @@
       {{ releaseDate }}
     </td>
     <td>
-      <v-chip class="mx-2" color="pink" label text-color="white"> 公開 </v-chip>
+      <v-chip class="mx-2" color="pink" label text-color="white">視聴可</v-chip>
     </td>
   </tr>
 </template>
@@ -85,7 +85,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.episode-search-area {
+.result_row {
   .v-responsive.v-image.episode-image {
     border-radius: 5px;
   }
