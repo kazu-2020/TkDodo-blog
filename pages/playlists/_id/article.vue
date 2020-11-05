@@ -12,8 +12,8 @@
             </div>
             <div v-else>
               <v-btn block text class="mb-4 pa-4" @click="addHeader"
-                >ヘッダーを入力</v-btn
-              >
+                >ヘッダーを入力
+              </v-btn>
             </div>
             <hr class="dotted_hr" />
           </v-col>
@@ -39,8 +39,8 @@
             </div>
             <div v-else>
               <v-btn block text class="mb-4 pa-4" @click="addFooter"
-                >フッターを入力</v-btn
-              >
+                >フッターを入力
+              </v-btn>
             </div>
           </v-col>
         </v-col>
@@ -80,6 +80,7 @@ import PageTitle from '~/components/common/PageTitle.vue'
 import PreviewDrawer from '~/components/common/PreviewDrawer.vue'
 import editorBlockMixin from '~/components/common/editorBlockMixin'
 import ArticleSavedDialog from '~/components/playlists/ArticleSavedDialog.vue'
+import unloadAlertMixin from '~/components/common/unloadAlertMixin'
 
 export default Vue.extend({
   name: 'PlaylistIdArticlePage',
@@ -90,7 +91,7 @@ export default Vue.extend({
     PreviewDrawer,
     PageTitle,
   },
-  mixins: [editorBlockMixin],
+  mixins: [editorBlockMixin, unloadAlertMixin],
   asyncData({ $axios, params, app }) {
     return $axios.get(`/playlists/${params.id}`).then((res) => {
       return {
@@ -173,24 +174,44 @@ export default Vue.extend({
     },
   },
   watch: {
-    header: {
-      handler() {
-        this.$cookies.set('articleHeaderText', this.header, {
-          path: '/',
-          maxAge: 60 * 60 * 24 * 30,
-        })
+    header: [
+      {
+        handler() {
+          this.$cookies.set('articleHeaderText', this.header, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 30,
+          })
+        },
+        immediate: true,
       },
-      immediate: true,
-    },
-    footer: {
-      handler() {
-        this.$cookies.set('articleFooterText', this.footer, {
-          path: '/',
-          maxAge: 60 * 60 * 24 * 30,
-        })
+      {
+        handler() {
+          this.isShowUnloadAlert = true
+        },
       },
-      immediate: true,
+    ],
+    draftBody: {
+      handler() {
+        this.isShowUnloadAlert = true
+      },
+      deep: true,
     },
+    footer: [
+      {
+        handler() {
+          this.$cookies.set('articleFooterText', this.footer, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 30,
+          })
+        },
+        immediate: true,
+      },
+      {
+        handler() {
+          this.isShowUnloadAlert = true
+        },
+      },
+    ],
   },
   mounted() {
     this.isShowDialog = this.$route.query.showDialog === '1'
@@ -203,6 +224,7 @@ export default Vue.extend({
       this.draftBody = payload.editorData
     },
     saveAsDraft() {
+      this.isShowUnloadAlert = false
       this.$store.dispatch('loading/startLoading', {
         success: '保存しました',
         error: '保存失敗しました',

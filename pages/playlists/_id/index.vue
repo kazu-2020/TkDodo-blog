@@ -187,6 +187,7 @@ import PlaylistEpisodesList from '~/components/playlists/PlaylistEpisodesList.vu
 import PlaylistEpisodeSearch from '~/components/playlists/PlaylistEpisodeSearch.vue'
 import EpisodeSearchResultTableRow from '~/components/playlists/EpisodeSearchResultTableRow.vue'
 import PlaylistJsonDialog from '~/components/playlists/PlaylistJsonDialog.vue'
+import unloadAlertMixin from '~/components/common/unloadAlertMixin'
 
 interface DataType {
   snackbar: boolean
@@ -202,6 +203,7 @@ export default Vue.extend({
     PlaylistEpisodeSearch,
     PlaylistJsonDialog,
   },
+  mixins: [unloadAlertMixin],
   async asyncData({ store, params }) {
     await store.dispatch('playlists/fetchPlaylist', params.id)
   },
@@ -240,6 +242,7 @@ export default Vue.extend({
       return playlist.logo?.medium?.url || this.dummyImage(playlist.dateCreated)
     },
     saveEpisodes() {
+      this.isShowUnloadAlert = false
       this.$store.dispatch('loading/startLoading', {
         success: '正常に保存できました',
         error: '保存できませんでした',
@@ -266,9 +269,11 @@ export default Vue.extend({
       this.$store.dispatch('playlists/updateEditingPlaylistEpisodes', episodes)
     },
     addEpisode(episode: any) {
+      this.isShowUnloadAlert = true
       this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
     },
     deleteEpisode(episode: any) {
+      this.isShowUnloadAlert = true
       this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
     },
   },
