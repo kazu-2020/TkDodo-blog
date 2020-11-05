@@ -177,6 +177,7 @@ import ColorPalette from '~/components/playlists/ColorPalette.vue'
 import PageTitle from '~/components/common/PageTitle.vue'
 import SeriesImagesForm from '~/components/playlists/SeriesImagesForm.vue'
 import SameAsForm from '~/components/playlists/SameAsForm.vue'
+import unloadAlertMixin from '~/components/common/unloadAlertMixin'
 
 const editingPlaylist = {} as Playlist
 
@@ -188,6 +189,7 @@ export default Vue.extend({
     SeriesImagesForm,
     SameAsForm,
   },
+  mixins: [unloadAlertMixin],
   asyncData({ $axios, params }) {
     return $axios.get(`/playlists/${params.id}`).then((res) => {
       return {
@@ -248,6 +250,14 @@ export default Vue.extend({
       },
     },
   },
+  watch: {
+    editingPlaylist: {
+      handler() {
+        this.isShowUnloadAlert = true
+      },
+      deep: true,
+    },
+  },
   methods: {
     updateSeriesImage(data: { type: string; file: string }) {
       switch (data.type) {
@@ -286,6 +296,7 @@ export default Vue.extend({
       form.validate()
     },
     submitEditingPlaylist() {
+      this.isShowUnloadAlert = false
       const form: any = this.$refs.form
       form.validate()
 
