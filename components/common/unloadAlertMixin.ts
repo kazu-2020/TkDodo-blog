@@ -1,11 +1,14 @@
+import Vue from 'vue'
+
 const message = '編集中の情報は保存されません。よろしいですか？'
 
-const confirmUnload = function (event) {
+const confirmUnload = function (event: any) {
   event.preventDefault()
   event.returnValue = message
 }
 
-export default {
+export default Vue.extend({
+  name: 'UnloadAlertMixin',
   data() {
     return {
       isShowUnloadAlert: false,
@@ -19,11 +22,19 @@ export default {
   beforeDestroy() {
     window.removeEventListener('beforeunload', confirmUnload)
   },
-  beforeRouteLeave(_to, _from, next) {
-    let canMove = true
-    if (this.isShowUnloadAlert) {
-      canMove = window.confirm(message)
-    }
-    next(canMove)
+  methods: {
+    notShowUnloadAlert(): void {
+      this.isShowUnloadAlert = false
+    },
+    showUnloadAlert(): void {
+      this.isShowUnloadAlert = true
+    },
   },
-}
+  beforeRouteLeave(_to, _from, next) {
+    if (this.isShowUnloadAlert && !window.confirm(message)) {
+      next(false)
+    } else {
+      next()
+    }
+  },
+})
