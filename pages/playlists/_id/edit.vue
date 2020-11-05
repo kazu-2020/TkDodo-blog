@@ -173,11 +173,11 @@ import {
   adjustLinkDarkColor,
   adjustLinkLightColor,
 } from '@/utils/adjustColor'
+import unloadAlertMixin from '~/components/common/unloadAlertMixin.ts'
 import ColorPalette from '~/components/playlists/ColorPalette.vue'
 import PageTitle from '~/components/common/PageTitle.vue'
 import SeriesImagesForm from '~/components/playlists/SeriesImagesForm.vue'
 import SameAsForm from '~/components/playlists/SameAsForm.vue'
-import unloadAlertMixin from '~/components/common/unloadAlertMixin'
 
 const editingPlaylist = {} as Playlist
 
@@ -197,47 +197,49 @@ export default Vue.extend({
       }
     })
   },
-  data: () => ({
-    editingPlaylist,
-    valid: true,
-    nameRules: [
-      (v: string) => !!v || '名前は必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 255) || '名前は255文字以下で入力してください',
-    ],
-    aliasIdRules: [
-      (v: string) =>
-        /^[\s]*[-_a-zA-Z\d]*[\s]*$/.test(v) ||
-        '短縮URLに利用できない文字が入力されています',
-      (v: string) => {
-        if (v == null) return true
-        return v.length <= 255 || '短縮URLは255文字以下で入力してください'
-      },
-    ],
-    formatGenreList: [
-      { value: '00', text: 'ジャンルレス' },
-      { value: '01', text: '報道' },
-      { value: '02', text: 'ドキュメンタリー' },
-      { value: '03', text: 'ドラマ' },
-      { value: '04', text: 'アニメ' },
-      { value: '05', text: 'バラエティ' },
-      { value: '06', text: '映画' },
-      { value: '08', text: 'PR・お知らせ' },
-      { value: '09', text: '講座' },
-    ],
-    themeGenreList: [
-      { value: '020', text: 'スポーツ全般' },
-      { value: '070', text: '音楽全般' },
-      { value: '092', text: '自然' },
-      { value: '093', text: '科学' },
-      { value: '096', text: '芸術' },
-      { value: '110', text: '福祉全般' },
-    ],
-  }),
+  data() {
+    return {
+      editingPlaylist,
+      valid: true,
+      nameRules: [
+        (v: string) => !!v || '名前は必ず入力してください',
+        (v: string) =>
+          (v && v.length <= 255) || '名前は255文字以下で入力してください',
+      ],
+      aliasIdRules: [
+        (v: string) =>
+          /^[\s]*[-_a-zA-Z\d]*[\s]*$/.test(v) ||
+          '短縮URLに利用できない文字が入力されています',
+        (v: string) => {
+          if (v == null) return true
+          return v.length <= 255 || '短縮URLは255文字以下で入力してください'
+        },
+      ],
+      formatGenreList: [
+        { value: '00', text: 'ジャンルレス' },
+        { value: '01', text: '報道' },
+        { value: '02', text: 'ドキュメンタリー' },
+        { value: '03', text: 'ドラマ' },
+        { value: '04', text: 'アニメ' },
+        { value: '05', text: 'バラエティ' },
+        { value: '06', text: '映画' },
+        { value: '08', text: 'PR・お知らせ' },
+        { value: '09', text: '講座' },
+      ],
+      themeGenreList: [
+        { value: '020', text: 'スポーツ全般' },
+        { value: '070', text: '音楽全般' },
+        { value: '092', text: '自然' },
+        { value: '093', text: '科学' },
+        { value: '096', text: '芸術' },
+        { value: '110', text: '福祉全般' },
+      ],
+    }
+  },
   computed: {
     selectedPalette: {
       get() {
-        return this.editingPlaylist.selectedPalette
+        return (this as any).editingPlaylist.selectedPalette
       },
       set(value: string) {
         const playlist = this.editingPlaylist
@@ -253,7 +255,7 @@ export default Vue.extend({
   watch: {
     editingPlaylist: {
       handler() {
-        this.isShowUnloadAlert = true
+        ;(this as any).showUnloadAlert()
       },
       deep: true,
     },
@@ -296,7 +298,7 @@ export default Vue.extend({
       form.validate()
     },
     submitEditingPlaylist() {
-      this.isShowUnloadAlert = false
+      ;(this as any).notShowUnloadAlert()
       const form: any = this.$refs.form
       form.validate()
 
