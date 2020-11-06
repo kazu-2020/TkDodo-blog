@@ -6,12 +6,12 @@
           <v-col cols="6">
             <div class="title mb-4">プレイリスト一覧</div>
           </v-col>
-          <v-col cols="2" justify="center" align-content="right">
-            <div>
+          <v-col cols="2">
+            <div class="mode_switch_block">
               <v-switch
                 v-model="articleMode"
                 label="記事モード"
-                class="pt-0 mt-0 text-right"
+                class="mode_switch"
               />
             </div>
           </v-col>
@@ -107,3 +107,14 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.mode_switch_block {
+  position: relative;
+}
+
+.mode_switch {
+  position: absolute;
+  right: 0;
+}
+</style>
