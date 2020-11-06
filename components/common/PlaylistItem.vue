@@ -12,9 +12,10 @@
               />
             </v-col>
             <v-col class="mr-auto pl-1" cols="9">
-              <v-card-title class="title mb-1 playlist-title">
+              <v-card-title class="title mb-1">
                 <nuxt-link
                   :to="{ name: 'playlists-id', params: { id: playlist.id } }"
+                  class="playlist-title"
                 >
                   {{ playlist.name }}
                 </nuxt-link>
