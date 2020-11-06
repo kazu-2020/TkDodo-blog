@@ -1,80 +1,74 @@
 <template>
   <v-card class="mx-auto" outlined light>
     <v-container>
-      <v-row>
-        <v-col cols="2" class="pt-2 pb-0 pr-0">
-          <v-img
-            :src="logoImageUrl"
-            class="playlist_logo_image"
-            aspect-ratio="1"
-          />
-        </v-col>
-        <v-col class="mr-auto pt-0" cols="8" xs="2" sm="6" md="7">
-          <v-card-title class="title mb-1">
-            <nuxt-link
-              :to="{ name: 'playlists-id', params: { id: playlist.id } }"
-            >
-              {{ playlist.name }}
-            </nuxt-link>
-          </v-card-title>
-          <v-card-text v-if="isArticlePresent" class="article_outline">
-            <!-- eslint-disable-next-line vue/no-v-html -->
-            <p v-html="articleOutline" />
-          </v-card-text>
-          <v-card-text v-else>
-            <div class="no_article">
-              <v-icon>mdi-note-outline</v-icon>
-              <p class="no_article_text">記事はまだありません</p>
-            </div>
-          </v-card-text>
+      <v-row class="px-4">
+        <v-col class="playlist_logo_block py-0">
+          <v-row>
+            <v-col cols="2" sm="3" xs="5" class="pa-0 pl-1 pb-1 mt-1 pr-4">
+              <v-img
+                :src="logoImageUrl"
+                class="playlist_logo_image"
+                aspect-ratio="1"
+              />
+            </v-col>
+            <v-col class="mr-auto pl-0 pt-0 information" cols="9" sm="8" xs="5">
+              <v-card-title class="title mb-1 pl-0">
+                <nuxt-link
+                  :to="{ name: 'playlists-id', params: { id: playlist.id } }"
+                >
+                  {{ playlist.name }}
+                </nuxt-link>
+                <v-chip class="ma-2" small>下書き</v-chip>
+              </v-card-title>
+              <v-card-text
+                v-if="isArticlePresent"
+                class="article_outline hidden-sm-and-down pl-0"
+              >
+                <!-- eslint-disable-next-line vue/no-v-html -->
+                <p v-html="articleOutline" />
+              </v-card-text>
+              <v-card-text v-else>
+                <div class="no_article">
+                  <p class="no_article_text">記事はまだありません</p>
+                </div>
+              </v-card-text>
+              <v-card-text class="card_list_item pb-1 d-inline-block pl-0">
+                <div class="last_updated_at d-inline">
+                  <v-icon>mdi-update</v-icon>
+                  {{ lastUpdateDate }} 更新
+                </div>
+                <div class="episodes_count d-inline ml-5">
+                  <v-icon>mdi-monitor</v-icon>
+                  エピソード数： {{ playlist.itemNum }}
+                </div>
+              </v-card-text>
+            </v-col>
+          </v-row>
         </v-col>
         <v-col class="text-center pl-0 pt-0" cols="auto">
-          <v-row class="hidden-xs-only">
-            <v-col>
-              {{ lastUpdateDate }}
-              <br />
-              更新
-            </v-col>
-          </v-row>
-          <v-row class="hidden-xs-only">
-            <v-col>Ep数: {{ playlist.itemNum }}</v-col>
-          </v-row>
           <v-row>
             <v-col>
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    small
-                    icon
-                    v-bind="attrs"
-                    :to="{ name: 'playlists-id', params: { id: playlist.id } }"
-                    nuxt
-                    v-on="on"
-                  >
-                    <v-icon>mdi-pencil</v-icon>
-                  </v-btn>
-                </template>
-                <span>編集する</span>
-              </v-tooltip>
+              <v-btn
+                :to="{
+                  name: 'playlists-id-article',
+                  params: { id: playlist.id },
+                }"
+                nuxt
+                depressed
+                color="orange"
+                class="edit_button"
+              >
+                <v-icon left>mdi-pencil</v-icon>
+                編集する
+              </v-btn>
             </v-col>
           </v-row>
           <v-row>
             <v-col>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    small
-                    icon
-                    v-bind="attrs"
-                    class="delete_button"
-                    v-on="on"
-                    @click="deletePlaylist"
-                  >
-                    <v-icon>mdi-delete</v-icon>
-                  </v-btn>
-                </template>
-                <span>削除する</span>
-              </v-tooltip>
+              <v-btn class="delete_button" outlined @click="deletePlaylist">
+                <v-icon left>mdi-delete</v-icon>
+                削除する
+              </v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -140,6 +134,8 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .playlist_logo_image {
   width: 100%;
+  max-width: 160px;
+  border-radius: 4px;
 }
 
 .v-card__title.title {
@@ -147,23 +143,11 @@ export default Vue.extend({
   padding-bottom: 0;
 }
 
-.article_preview {
-  overflow: scroll;
-  height: 160px;
-  width: 100%;
-}
-
 .no_article {
-  text-align: center;
-  height: 150px;
-
-  i {
-    padding-top: 32px;
-    font-size: 4em;
-  }
+  height: 100px;
 
   .no_article_text {
-    padding-top: 20px;
+    padding-top: 5px;
   }
 }
 
@@ -178,31 +162,60 @@ export default Vue.extend({
   background: white;
   position: relative;
   width: 100%;
-  height: 180px;
+  max-height: 90px;
   overflow: hidden;
   text-align: justify;
 }
+
+@media only screen and (min-width: 960px) and (max-width: 1264px) {
+  .article_outline {
+    max-height: 50px;
+  }
+}
+
 .article_outline:before,
 .article_outline:after {
   position: absolute;
 }
+
 .article_outline:before {
   content: '…';
   bottom: 0;
   right: 0;
 }
+
 .article_outline:after {
   content: '';
   height: 100%;
   width: 100%;
   background: white;
 }
-</style>
 
-<style lang="scss">
-.article_preview {
-  p img {
-    width: 100%;
+.last_updated_at,
+.episodes_count {
+  color: #4f4f4f;
+}
+
+.edit_button {
+  color: white;
+}
+
+.delete_button {
+  color: #4f4f4f;
+}
+
+.information {
+  position: relative;
+}
+
+.card_list_item {
+  position: absolute;
+  bottom: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .card_list_item {
+    position: relative;
   }
 }
 </style>
