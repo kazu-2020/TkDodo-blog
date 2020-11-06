@@ -1,17 +1,17 @@
 <template>
   <v-card class="mx-auto" outlined light>
     <v-container>
-      <v-row>
-        <v-col class="py-0 pr-0 pl-4 playlist_logo_block">
+      <v-row class="px-4">
+        <v-col class="playlist_logo_block py-0">
           <v-row>
-            <v-col cols="2" class="pt-2 pb-0 pr-0">
+            <v-col cols="3" class="pa-0 pl-1 pb-1 mt-1">
               <v-img
                 :src="logoImageUrl"
                 class="playlist_logo_image"
                 aspect-ratio="1"
               />
             </v-col>
-            <v-col class="mr-auto" cols="10">
+            <v-col class="mr-auto pl-1" cols="9">
               <v-card-title class="title mb-1 playlist-title">
                 <nuxt-link
                   :to="{ name: 'playlists-id', params: { id: playlist.id } }"
@@ -33,7 +33,7 @@
         <v-col class="hidden-md-and-down pa-0" cols="6">
           <playlist-episodes-carousel :playlist="playlist" />
         </v-col>
-        <v-col cols="auto" class="text-center pl-0 pt-0">
+        <v-col cols="auto" class="text-center px-0 pt-0">
           <v-row class="flex-column ma-0 fill-height">
             <v-col class="px-0 pt-0">
               <v-tooltip top>
@@ -51,15 +51,14 @@
                 </template>
                 <span>編集する</span>
               </v-tooltip>
-            </v-col>
-            <v-col class="px-0 pt-0">
+              <br />
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     small
                     icon
                     v-bind="attrs"
-                    class="delete_button"
+                    class="delete_button mt-2"
                     v-on="on"
                     @click="deletePlaylist"
                   >
@@ -161,5 +160,6 @@ export default Vue.extend({
 
 .playlist_logo_image {
   width: 100%;
+  border-radius: 4px;
 }
 </style>

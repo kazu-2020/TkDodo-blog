@@ -1,17 +1,21 @@
 <template>
   <v-layout column>
-    <v-row justify="space-between">
-      <v-col cols="6">
-        <div class="title mb-4">プレイリスト一覧</div>
-      </v-col>
-      <v-col cols="2" justify="center" align-content="right">
-        <div>
-          <v-switch
-            v-model="articleMode"
-            label="記事モード"
-            class="pt-0 mt-0 text-right"
-          />
-        </div>
+    <v-row justify="center">
+      <v-col cols="11">
+        <v-row justify="space-between">
+          <v-col cols="6">
+            <div class="title mb-4">プレイリスト一覧</div>
+          </v-col>
+          <v-col cols="2" justify="center" align-content="right">
+            <div>
+              <v-switch
+                v-model="articleMode"
+                label="記事モード"
+                class="pt-0 mt-0 text-right"
+              />
+            </div>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
     <v-row v-if="totalPages > 1">
@@ -28,12 +32,12 @@
       </v-col>
     </v-row>
     <v-row v-if="articleMode" justify="center">
-      <v-col v-for="item in playlists" :key="item.id" cols="9" class="py-1">
+      <v-col v-for="item in playlists" :key="item.id" cols="11" class="py-1">
         <article-item :playlist="item" @delete-playlist="deletePlaylist" />
       </v-col>
     </v-row>
     <v-row v-else justify="center">
-      <v-col v-for="item in playlists" :key="item.id" cols="9" class="py-1">
+      <v-col v-for="item in playlists" :key="item.id" cols="11" class="py-1">
         <playlist-item :playlist="item" @delete-playlist="deletePlaylist" />
       </v-col>
     </v-row>

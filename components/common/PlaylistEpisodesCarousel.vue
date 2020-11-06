@@ -1,5 +1,5 @@
 <template>
-  <div class="height-100">
+  <div class="height-100 pt-1">
     <div v-if="episodes.length === 0" align="center" class="height-100">
       <v-container fill-height fluid>
         <v-row v-if="isError" align="center" justify="center"
