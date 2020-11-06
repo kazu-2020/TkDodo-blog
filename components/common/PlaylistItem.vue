@@ -18,6 +18,7 @@
                 >
                   {{ playlist.name }}
                 </nuxt-link>
+                <v-chip class="ma-2" small>下書き</v-chip>
               </v-card-title>
               <v-card-text class="card-list-item pb-1">
                 番組総時間:
