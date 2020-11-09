@@ -136,6 +136,15 @@
           </v-col>
           <same-as-form :same-as.sync="editingPlaylist.sameAs" />
         </v-row>
+        <!-- citations -->
+        <v-row dense class="my-5">
+          <v-col cols="12">
+            <h3>
+              関連リンク<small class="text--secondary"> - Citation</small>
+            </h3>
+          </v-col>
+          <citations-form :citations.sync="editingPlaylist.citations" />
+        </v-row>
 
         <v-row dense class="my-5">
           <v-col cols="12">
@@ -178,6 +187,7 @@ import ColorPalette from '~/components/playlists/ColorPalette.vue'
 import PageTitle from '~/components/common/PageTitle.vue'
 import SeriesImagesForm from '~/components/playlists/SeriesImagesForm.vue'
 import SameAsForm from '~/components/playlists/SameAsForm.vue'
+import CitationsForm from '~/components/playlists/CitationsForm.vue'
 
 const editingPlaylist = {} as Playlist
 
@@ -185,6 +195,7 @@ export default Vue.extend({
   name: 'PlaylistIdEditPage',
   components: {
     ColorPalette,
+    CitationsForm,
     PageTitle,
     SeriesImagesForm,
     SameAsForm,
@@ -384,6 +395,27 @@ export default Vue.extend({
             'playlist[same_as_attributes][_destroy]',
             playlist.sameAs._destroy.toString()
           )
+        }
+
+        for (const citation of playlist.citations) {
+          if (citation.id) {
+            data.append(
+              'playlist[citations_attributes][][id]',
+              citation.id.toString()
+            )
+          }
+          if (citation.name) {
+            data.append('playlist[citations_attributes][][name]', citation.name)
+          }
+          if (citation.url) {
+            data.append('playlist[citations_attributes][][url]', citation.url)
+          }
+          if (citation._destroy) {
+            data.append(
+              'playlist[citations_attributes][][_destroy]',
+              citation._destroy.toString()
+            )
+          }
         }
 
         this.$axios

@@ -1,5 +1,6 @@
 import { EpisodeData } from './episode_data'
 import { SameAs } from './same_as'
+import { Citation } from './citation'
 
 export interface Playlist {
   id: string
@@ -28,6 +29,7 @@ export interface Playlist {
   removeHeroImage: boolean
   items: Array<EpisodeData>
   sameAs: SameAs
+  citations: Array<Citation>
   originalSeriesId: string
   aliasId: string
 }
