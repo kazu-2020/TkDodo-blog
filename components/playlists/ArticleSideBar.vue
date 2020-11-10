@@ -2,6 +2,31 @@
   <div>
     <v-sheet color="grey lighten-3" rounded class="pb-2 mb-1">
       <iconed-title
+        icon="mdi-account-edit"
+        title="編集者情報の入力"
+        class="ma-4 pt-4"
+      />
+      <hr class="title_divider" />
+      <v-sheet color="white" class="ma-4 pa-4" rounded>
+        <v-form ref="form" v-model="valid">
+          <h4>著者情報</h4>
+          <v-radio-group
+            v-model="editableAuthorType"
+            row
+            mandatory
+            hide-details
+          >
+            <v-radio label="個人" value="Person" />
+            <v-radio label="グループ" value="Organization" />
+          </v-radio-group>
+          <v-text-field v-model="editableAuthorName" :rules="[required]" />
+          <h4>提供者</h4>
+          <v-text-field v-model="editablePublisher" :rules="[required]" />
+        </v-form>
+      </v-sheet>
+    </v-sheet>
+    <v-sheet color="grey lighten-3" rounded class="pb-2 mb-1">
+      <iconed-title
         icon="mdi-content-save"
         title="記事を保存する"
         class="ma-4 pt-4"
@@ -24,6 +49,7 @@
           rounded
           class="mb-4 white--text"
           color="pink darken-3"
+          :disabled="!valid"
           @click.stop="clickSaveButton"
         >
           この内容で保存する
@@ -83,11 +109,59 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    authorType: {
+      type: String,
+      required: true,
+      default: 'Organization'
+    },
+    authorName: {
+      type: String,
+      required: true,
+      default: 'デジタルラボ',
+    },
+    publisher: {
+      type: String,
+      required: true,
+      default: 'NHK',
+    },
+  },
+  data() {
+    return {
+      required: value => !!value || "必ず入力してください",
+      valid: true,
+    }
   },
   computed: {
     isPresisted() {
       return !this.saveAsNewPlaylist
-    }
+    },
+    editableAuthorName: {
+      get() {
+        return this.authorName
+      },
+      set(value) {
+        this.$emit('update:author-name', value)
+        this.valid = this.$refs.form.validate()
+      },
+    },
+    editableAuthorType: {
+      get() {
+        return this.authorType
+      },
+      set(value) {
+        this.$emit('update:author-type', value)
+        this.valid = this.$refs.form.validate()
+      },
+    },
+    editablePublisher: {
+      get() {
+        return this.publisher
+      },
+      set(value) {
+        this.$emit('update:publisher', value)
+        this.valid = this.$refs.form.validate()
+      },
+    },
   },
   methods: {
     clickPreviewButton() {
@@ -98,7 +172,7 @@ export default Vue.extend({
     },
     notifyDummy() {
       this.$emit('notify-dummy')
-    }
+    },
   }
 })
 </script>
