@@ -58,6 +58,9 @@
         <v-col xs="12" sm="12" md="4" lg="4" class="vertical_divider">
           <article-side-bar
             :save-as-new-playlist="true"
+            :author-name.sync="authorName"
+            :author-type.sync="authorType"
+            :publisher.sync="publisher"
             @click-preview-button="togglePreviewState"
             @notify-dummy="notifyDummy"
             @click-save-button="save"
@@ -121,6 +124,9 @@ export default Vue.extend({
       isShowHeader: false,
       isShowFooter: false,
       loadingDialog: false,
+      authorType: 'Organization',
+      authorName: 'デジタルラボ',
+      publisher: 'NHK',
     }
   },
   computed: {
@@ -212,6 +218,9 @@ export default Vue.extend({
             marked_header: headerText,
             editor_data: JSON.stringify(this.draftBody),
             marked_footer: footerText,
+            author_type: this.authorType,
+            author_name: this.authorName,
+            publisher: this.publisher,
           },
         })
         this.subscribeSubmitAction()
@@ -224,8 +233,15 @@ export default Vue.extend({
 
           if (state.playlists.allItems[0].name === this.name) {
             const playlist = state.playlists.allItems[0]
-
-            this.$router.push(`/playlists/${playlist.id}/article?showDialog=1`)
+            const shouldShowDialog =
+              playlist.article.containsEpisodes.length !== 0
+            if (shouldShowDialog) {
+              this.$router.push(
+                `/playlists/${playlist.id}/article?showDialog=1`
+              )
+            } else {
+              this.$router.push(`/playlists/${playlist.id}/article`)
+            }
             this.$store.dispatch('loading/resetLoadingState')
           }
 

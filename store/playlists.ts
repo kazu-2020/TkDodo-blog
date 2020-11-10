@@ -67,7 +67,9 @@ export const actions = actionTree(
     async createPlaylists({ commit }, payload) {
       await this.$axios
         .post('/playlists', payload)
-        .then((response) => commit('setPlaylist', { playlist: response.data }))
+        .then((response) =>
+          commit('setPlaylist', { playlist: response.data.playlist })
+        )
     },
     async createPlaylistFromSeries({ commit }, payload) {
       await this.$axios
