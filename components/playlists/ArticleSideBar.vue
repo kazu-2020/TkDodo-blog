@@ -9,18 +9,14 @@
       <hr class="title_divider" />
       <v-sheet color="white" class="ma-4 pa-4" rounded>
         <v-form ref="form" v-model="valid">
-          <h4>著者情報</h4>
-          <v-radio-group
-            v-model="editableAuthorType"
-            row
-            mandatory
-            hide-details
-          >
-            <v-radio label="個人" value="Person" />
-            <v-radio label="グループ" value="Organization" />
+          <h4>著者 <small class="text--secondary"> - Author</small></h4>
+          <v-radio-group v-model="editableAuthorType" mandatory>
+            <v-radio label="個人(Person)" value="Person" />
+            <v-radio label="グループ(Organization)" value="Organization" />
           </v-radio-group>
+          <h4>著者名 <small class="text--secondary"> - Author Name</small></h4>
           <v-text-field v-model="editableAuthorName" :rules="[required]" />
-          <h4>提供者</h4>
+          <h4>発行者 <small class="text--secondary"> - Publisher</small></h4>
           <v-text-field v-model="editablePublisher" :rules="[required]" />
         </v-form>
       </v-sheet>
