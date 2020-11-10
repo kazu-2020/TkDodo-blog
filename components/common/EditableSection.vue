@@ -116,6 +116,11 @@ export default {
           console.log('Saving failed: ', error)
           this.showErrorMessage(error)
         })
+        .finally(() => {
+          if (this.editor.blocks.getBlocksCount() < 1) {
+            this.editor.blocks.insert()
+          }
+        })
     },
     dumpSaveData() {
       console.log('Article data: ', JSON.stringify(this.editorData))
