@@ -1,7 +1,7 @@
 <template>
   <v-sheet
     color="grey"
-    style="position: relative"
+    style="position: relative; border-radius: 4px; overflow: hidden"
     @mouseenter="showSeriesName"
     @mouseleave="hideSeriesName"
   >
