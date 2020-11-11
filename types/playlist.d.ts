@@ -32,4 +32,6 @@ export interface Playlist {
   citations: Array<Citation>
   originalSeriesId: string
   aliasId: string
+  actor: Array<Object>
+  contributor: Array<Object>
 }
