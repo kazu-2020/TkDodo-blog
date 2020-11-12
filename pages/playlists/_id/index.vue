@@ -6,7 +6,12 @@
           <v-container>
             <v-row justify="space-between">
               <v-col cols="auto">
-                <v-img :src="logoImageUrl(playlist)" width="140" />
+                <v-img
+                  :src="logoImageUrl(playlist)"
+                  width="140"
+                  style="border-radius: 4px; overflow: hidden"
+                  class="pt-1"
+                />
               </v-col>
               <v-col class="mr-auto">
                 <v-card-title class="headline pt-0">
@@ -42,6 +47,34 @@
                   ~ {{ playlist.detailedCatch }} ~
                 </v-card-subtitle>
                 <v-card-text v-text="playlist.description" />
+              </v-col>
+              <v-col
+                v-if="hasActorsOrContributors"
+                cols="auto"
+                style="width: 240px"
+              >
+                <v-tooltip
+                  v-for="(data, index) in actorsAndContributors"
+                  :key="`actor-contributor-${index}`"
+                  bottom
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-img
+                      :src="actorContributorImageUrl(data)"
+                      width="30"
+                      v-bind="attrs"
+                      style="
+                        border-radius: 15px;
+                        overflow: hidden;
+                        display: inline-block;
+                        margin-right: 10px;
+                        margin-bottom: 16px;
+                      "
+                      v-on="on"
+                    />
+                  </template>
+                  <span>{{ actorContributorName(data) }}</span>
+                </v-tooltip>
               </v-col>
               <v-col cols="auto" class="text-center">
                 <v-row class="flex-column ma-0 fill-height">
@@ -236,6 +269,15 @@ export default Vue.extend({
 
       return diffItems
     },
+    actorsAndContributors(): Array<Object> {
+      const actors = this.playlist.actor || []
+      const contributors = this.playlist.contributor || []
+
+      return actors.concat(contributors).slice(0, 10)
+    },
+    hasActorsOrContributors(): boolean {
+      return this.actorsAndContributors.length !== 0
+    },
   },
   methods: {
     logoImageUrl(playlist: any) {
@@ -275,6 +317,16 @@ export default Vue.extend({
     deleteEpisode(episode: any) {
       ;(this as any).showUnloadAlert()
       this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
+    },
+    actorContributorName(data: any): string {
+      return data.person?.name || data.organization?.name || ''
+    },
+    actorContributorImageUrl(data: any): string {
+      return (
+        data.person?.image?.small?.url ||
+        data.organization?.image?.small?.url ||
+        ''
+      )
     },
   },
 })

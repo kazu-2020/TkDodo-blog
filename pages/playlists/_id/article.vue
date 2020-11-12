@@ -46,6 +46,9 @@
         </v-col>
         <v-col xs="12" sm="12" md="4" lg="4" class="vertical_divider">
           <article-side-bar
+            :author-name.sync="authorName"
+            :author-type.sync="authorType"
+            :publisher.sync="publisher"
             @click-preview-button="togglePreviewState"
             @notify-dummy="notifyDummy"
             @click-save-button="saveAsDraft"
@@ -94,6 +97,16 @@ export default Vue.extend({
   mixins: [editorBlockMixin, unloadAlertMixin],
   asyncData({ $axios, params, app }) {
     return $axios.get(`/playlists/${params.id}`).then((res) => {
+      const authorName = res.data.playlist.article?.authorName
+        ? res.data.playlist.article?.authorName
+        : 'デジタルラボ'
+      const authorType = res.data.playlist.article?.authorType
+        ? res.data.playlist.article?.authorType
+        : 'Organization'
+      const publisher = res.data.playlist.article?.publisher
+        ? res.data.playlist.article?.publisher
+        : 'NHK'
+
       return {
         playlist: res.data.playlist,
         body: res.data.playlist.article?.body || {},
@@ -112,6 +125,9 @@ export default Vue.extend({
         isShowFooter:
           res.data.playlist.article?.footer !== undefined &&
           res.data.playlist.article?.footer !== null,
+        authorName,
+        authorType,
+        publisher,
       }
     })
   },
@@ -128,6 +144,9 @@ export default Vue.extend({
       isShowHeader: false,
       isShowFooter: false,
       isShowDialog: false,
+      authorType: undefined,
+      authorName: undefined,
+      publisher: undefined,
     }
   },
   computed: {
@@ -239,6 +258,9 @@ export default Vue.extend({
             marked_header: headerText,
             editor_data: JSON.stringify(this.draftBody),
             marked_footer: footerText,
+            author_type: this.authorType,
+            author_name: this.authorName,
+            publisher: this.publisher,
           },
         })
         .then((response) => {
