@@ -159,6 +159,9 @@ export default {
 .ce-toolbar__content {
   max-width: 980px;
 }
+.ce-block__content {
+  margin: 0 20px;
+}
 
 .ce-toolbox__button[data-tool='episode'],
 .ce-toolbox__button[data-tool='tvEvent'],

@@ -36,7 +36,7 @@
               section-id="sandbox2"
               :initial-data="body"
               :episode-block-id="episodeBlockId"
-              class="mr-8 mb-8"
+              class="mb-8"
               :image-by-file-endpoint="imageByFileEndpoint"
               :image-by-url-endpoint="imageByUrlEndpoint"
               @modify-content="setCurrentContent"
