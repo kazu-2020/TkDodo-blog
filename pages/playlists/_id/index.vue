@@ -51,7 +51,8 @@
               <v-col
                 v-if="hasActorsOrContributors"
                 cols="auto"
-                style="width: 240px"
+                style="width: 230px"
+                class="hidden-sm-and-down"
               >
                 <v-tooltip
                   v-for="(data, index) in actorsAndContributors"
@@ -61,16 +62,18 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-img
                       :src="actorContributorImageUrl(data)"
-                      width="30"
+                      width="40"
                       v-bind="attrs"
                       style="
-                        border-radius: 15px;
+                        border-radius: 20px;
                         overflow: hidden;
                         display: inline-block;
                         margin-right: 10px;
                         margin-bottom: 16px;
+                        cursor: pointer;
                       "
                       v-on="on"
+                      @click="fillSearchBox(data)"
                     />
                   </template>
                   <span>{{ actorContributorName(data) }}</span>
@@ -199,6 +202,8 @@
     </v-row>
     <playlist-episode-search
       :ignore-episodes="playlistItems"
+      :keywords.sync="keywords"
+      :search-trigger-count="searchTriggerCount"
       @add-episode="addEpisode"
     />
     <v-snackbar v-model="snackbar" timeout="2000">
@@ -226,6 +231,8 @@ interface DataType {
   snackbar: boolean
   url: String
   jsonDialog: boolean
+  keywords: String
+  searchTriggerCount: number
 }
 
 export default Vue.extend({
@@ -246,6 +253,8 @@ export default Vue.extend({
       url:
         'https://pbs.twimg.com/profile_images/1111451081135943680/d1sPJsQf_400x400.png',
       jsonDialog: false,
+      keywords: '',
+      searchTriggerCount: 0,
     }
   },
   computed: {
@@ -273,7 +282,9 @@ export default Vue.extend({
       const actors = this.playlist.actor || []
       const contributors = this.playlist.contributor || []
 
-      return actors.concat(contributors).slice(0, 10)
+      return actors
+        .concat(contributors.concat(actors.concat(contributors)))
+        .slice(0, 12)
     },
     hasActorsOrContributors(): boolean {
       return this.actorsAndContributors.length !== 0
@@ -327,6 +338,10 @@ export default Vue.extend({
         data.organization?.image?.small?.url ||
         ''
       )
+    },
+    fillSearchBox(data: any): void {
+      this.keywords = this.actorContributorName(data)
+      this.searchTriggerCount++
     },
   },
 })
