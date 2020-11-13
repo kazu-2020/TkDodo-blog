@@ -274,4 +274,29 @@ export default Vue.extend({
     background-color: #f7f7f7;
   }
 }
+
+.link-tool__warning__message {
+  font-size: 12px;
+  color: red;
+}
+
+.link-tool__input-description {
+  margin-top: 10px;
+}
+
+.link-tool__input-description[contentEditable='true'][data-placeholder]::before {
+  position: absolute !important;
+  content: attr(data-placeholder);
+  color: #707684;
+  font-weight: normal;
+  display: none;
+}
+
+.link-tool__input-description[contentEditable='true'][data-placeholder]:empty::before {
+  display: block;
+}
+
+.link-tool__input-description[contentEditable='true'][data-placeholder]:empty:focus::before {
+  display: none;
+}
 </style>

@@ -120,6 +120,11 @@ export default class DescriptionLinkTool extends LinkTool {
     return this.nodes.warningWrapper
   }
 
+  showLinkPreview({ image, title, description }) {
+    super.showLinkPreview({ image, title, description })
+    this.nodes.linkText.textContent = this.data.link
+  }
+
   allowDomain(link) {
     const domains = ['nhk.jp', 'nhk.or.jp', 'www.nhk-ondemand.jp']
     const url = new URL(link)
