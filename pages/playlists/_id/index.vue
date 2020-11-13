@@ -51,7 +51,8 @@
               <v-col
                 v-if="hasActorsOrContributors"
                 cols="auto"
-                style="width: 240px"
+                style="width: 230px"
+                class="hidden-sm-and-down"
               >
                 <v-tooltip
                   v-for="(data, index) in actorsAndContributors"
@@ -59,18 +60,25 @@
                   bottom
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-img
-                      :src="actorContributorImageUrl(data)"
-                      width="30"
+                    <div
+                      v-if="noActorContributorImage(data)"
+                      class="actor_contributor_badge"
                       v-bind="attrs"
-                      style="
-                        border-radius: 15px;
-                        overflow: hidden;
-                        display: inline-block;
-                        margin-right: 10px;
-                        margin-bottom: 16px;
-                      "
                       v-on="on"
+                      @click="fillSearchBox(data)"
+                    >
+                      <div class="actor_contributor_badge_inner">
+                        {{ actorContributorName(data).slice(0, 1) }}
+                      </div>
+                    </div>
+                    <v-img
+                      v-else
+                      :src="actorContributorImageUrl(data)"
+                      width="40"
+                      v-bind="attrs"
+                      class="actor_contributor_badge"
+                      v-on="on"
+                      @click="fillSearchBox(data)"
                     />
                   </template>
                   <span>{{ actorContributorName(data) }}</span>
@@ -199,6 +207,8 @@
     </v-row>
     <playlist-episode-search
       :ignore-episodes="playlistItems"
+      :keywords.sync="keywords"
+      :search-trigger-count="searchTriggerCount"
       @add-episode="addEpisode"
     />
     <v-snackbar v-model="snackbar" timeout="2000">
@@ -226,6 +236,8 @@ interface DataType {
   snackbar: boolean
   url: String
   jsonDialog: boolean
+  keywords: String
+  searchTriggerCount: number
 }
 
 export default Vue.extend({
@@ -246,6 +258,8 @@ export default Vue.extend({
       url:
         'https://pbs.twimg.com/profile_images/1111451081135943680/d1sPJsQf_400x400.png',
       jsonDialog: false,
+      keywords: '',
+      searchTriggerCount: 0,
     }
   },
   computed: {
@@ -273,7 +287,7 @@ export default Vue.extend({
       const actors = this.playlist.actor || []
       const contributors = this.playlist.contributor || []
 
-      return actors.concat(contributors).slice(0, 10)
+      return actors.concat(contributors).slice(0, 12)
     },
     hasActorsOrContributors(): boolean {
       return this.actorsAndContributors.length !== 0
@@ -328,6 +342,13 @@ export default Vue.extend({
         ''
       )
     },
+    noActorContributorImage(data: any): boolean {
+      return this.actorContributorImageUrl(data) === ''
+    },
+    fillSearchBox(data: any): void {
+      this.keywords = this.actorContributorName(data)
+      this.searchTriggerCount++
+    },
   },
 })
 </script>
@@ -345,6 +366,28 @@ export default Vue.extend({
 
 span.diff_episodes_count {
   font-weight: bold;
+}
+
+.actor_contributor_badge {
+  border-radius: 20px;
+  overflow: hidden;
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  background-color: #546e7a;
+  width: 40px;
+  height: 40px;
+  position: relative;
+
+  .actor_contributor_badge_inner {
+    display: inline-block;
+    position: relative;
+    top: 6px;
+    left: 12px;
+    color: white;
+    font-weight: bold;
+  }
 }
 </style>
 

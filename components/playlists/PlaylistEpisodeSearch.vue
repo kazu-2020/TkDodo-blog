@@ -3,7 +3,7 @@
     <v-row justify="end">
       <v-col cols="12" class="mt-8">
         <v-text-field
-          v-model="keyword"
+          v-model="editingKeywords"
           label="エピソードを検索する"
           prepend-inner-icon="mdi-magnify"
           solo
@@ -113,7 +113,6 @@ import Vue from 'vue'
 import EpisodeSearchResultTableRow from '~/components/playlists/EpisodeSearchResultTableRow.vue'
 
 interface DataType {
-  keyword: string
   episodes: Array<object>
   loading: boolean
   isNoResult: boolean
@@ -135,10 +134,19 @@ export default Vue.extend({
       required: false,
       default: () => [],
     },
+    keywords: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    searchTriggerCount: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
   },
   data(): DataType {
     return {
-      keyword: '',
       episodes: [],
       loading: false,
       isNoResult: false,
@@ -165,6 +173,23 @@ export default Vue.extend({
     canLoadMoreEpisodes(): boolean {
       return this.searchOffset < this.totalSearchResult
     },
+    editingKeywords: {
+      get() {
+        return this.keywords
+      },
+      set(value) {
+        this.$emit('update:keywords', value)
+      },
+    },
+  },
+  watch: {
+    searchTriggerCount: {
+      handler(newVal: Number) {
+        if (newVal === 0) return
+        this.searchEpisodesWithKeyword()
+      },
+      immediate: true,
+    },
   },
   methods: {
     searchEpisodes({
@@ -181,7 +206,7 @@ export default Vue.extend({
       }
       this.$axios
         .get(
-          `/episodes/search?word=${this.keyword}&offset=${this.searchOffset}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}&size=${pageSize}`
+          `/episodes/search?word=${this.editingKeywords}&offset=${this.searchOffset}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}&size=${pageSize}`
         )
         .then((res) => {
           this.episodes = this.episodes.concat(res.data.items)
@@ -212,7 +237,7 @@ export default Vue.extend({
     },
     clearSearchPane() {
       this.menu = false
-      this.keyword = ''
+      this.editingKeywords = ''
       this.episodes = []
     },
     searchAdditionalEpisodes() {
