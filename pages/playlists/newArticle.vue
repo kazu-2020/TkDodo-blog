@@ -144,12 +144,10 @@ export default Vue.extend({
       return this.isShowFooter && this.footer !== ''
     },
     imageByUrlEndpoint() {
-      return ''
-      // return `/playlists/${this.playlist.id}/upload_article_image_by_url`
+      return '/playlists/upload_article_image_by_url'
     },
     imageByFileEndpoint() {
-      return ''
-      // return `/playlists/${this.playlist.id}/upload_article_image_by_file`
+      return '/playlists/upload_article_image_by_file'
     },
   },
   watch: {
