@@ -17,7 +17,14 @@
           <h4>著者名 <small class="text--secondary"> - Author Name</small></h4>
           <v-text-field v-model="editableAuthorName" :rules="[required]" />
           <h4>発行者 <small class="text--secondary"> - Publisher</small></h4>
-          <v-text-field v-model="editablePublisher" :rules="[required]" />
+          <v-radio-group v-model="editablePublisherType" mandatory>
+            <v-radio label="個人(Person)" value="Person" />
+            <v-radio label="グループ(Organization)" value="Organization" />
+          </v-radio-group>
+          <h4>
+            発行者名 <small class="text--secondary"> - Publisher Name</small>
+          </h4>
+          <v-text-field v-model="editablePublisherName" :rules="[required]" />
         </v-form>
       </v-sheet>
     </v-sheet>
@@ -115,11 +122,16 @@ export default Vue.extend({
       required: true,
       default: 'デジタルラボ',
     },
-    publisher: {
+    publisherName: {
       type: String,
       required: true,
       default: 'NHK',
     },
+    publisherType: {
+      type: String,
+      required: true,
+      default: 'Organization',
+    }
   },
   data() {
     return {
@@ -149,14 +161,23 @@ export default Vue.extend({
         this.valid = this.$refs.form.validate()
       },
     },
-    editablePublisher: {
+    editablePublisherName: {
       get() {
-        return this.publisher
+        return this.publisherName
       },
       set(value) {
-        this.$emit('update:publisher', value)
+        this.$emit('update:publisher-name', value)
         this.valid = this.$refs.form.validate()
       },
+    },
+    editablePublisherType: {
+      get() {
+        return this.publisherType
+      },
+      set(value) {
+        this.$emit('update:publisher-type', value)
+        this.valid = this.$refs.form.validate()
+      }
     },
   },
   methods: {

@@ -60,7 +60,8 @@
             :save-as-new-playlist="true"
             :author-name.sync="authorName"
             :author-type.sync="authorType"
-            :publisher.sync="publisher"
+            :publisher-name.sync="publisherName"
+            :publisher-type.sync="publisherType"
             @click-preview-button="togglePreviewState"
             @notify-dummy="notifyDummy"
             @click-save-button="save"
@@ -126,7 +127,8 @@ export default Vue.extend({
       loadingDialog: false,
       authorType: 'Organization',
       authorName: 'デジタルラボ',
-      publisher: 'NHK',
+      publisherType: 'Organization',
+      publisherName: 'NHK',
     }
   },
   computed: {
@@ -218,7 +220,8 @@ export default Vue.extend({
             marked_footer: footerText,
             author_type: this.authorType,
             author_name: this.authorName,
-            publisher: this.publisher,
+            publisher_type: this.publisherType,
+            publisher_name: this.publisherName,
           },
         })
         this.subscribeSubmitAction()
