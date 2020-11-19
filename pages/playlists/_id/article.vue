@@ -48,7 +48,8 @@
           <article-side-bar
             :author-name.sync="authorName"
             :author-type.sync="authorType"
-            :publisher.sync="publisher"
+            :publisher-name.sync="publisherName"
+            :publisher-type.sync="publisherType"
             @click-preview-button="togglePreviewState"
             @notify-dummy="notifyDummy"
             @click-save-button="saveAsDraft"
@@ -103,9 +104,12 @@ export default Vue.extend({
       const authorType = res.data.playlist.article?.authorType
         ? res.data.playlist.article?.authorType
         : 'Organization'
-      const publisher = res.data.playlist.article?.publisher
-        ? res.data.playlist.article?.publisher
+      const publisherName = res.data.playlist.article?.publisherName
+        ? res.data.playlist.article?.publisherName
         : 'NHK'
+      const publisherType = res.data.playlist.article?.publisherType
+        ? res.data.playlist.article?.publisherType
+        : 'Organization'
 
       return {
         playlist: res.data.playlist,
@@ -127,7 +131,8 @@ export default Vue.extend({
           res.data.playlist.article?.footer !== null,
         authorName,
         authorType,
-        publisher,
+        publisherName,
+        publisherType,
       }
     })
   },
@@ -146,7 +151,8 @@ export default Vue.extend({
       isShowDialog: false,
       authorType: undefined,
       authorName: undefined,
-      publisher: undefined,
+      publisherName: undefined,
+      publisherType: undefined,
     }
   },
   computed: {
@@ -260,7 +266,8 @@ export default Vue.extend({
             marked_footer: footerText,
             author_type: this.authorType,
             author_name: this.authorName,
-            publisher: this.publisher,
+            publisher_name: this.publisherName,
+            publisher_type: this.publisherType,
           },
         })
         .then((response) => {
