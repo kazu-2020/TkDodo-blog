@@ -168,6 +168,12 @@ export default {
   margin: 0 20px;
 }
 
+@media screen and (min-width: 1904px) {
+  .ce-block__content {
+    margin: 0 100px;
+  }
+}
+
 .ce-toolbox__button[data-tool='episode'],
 .ce-toolbox__button[data-tool='tvEvent'],
 .ce-toolbox__button[data-tool='howTo'],
