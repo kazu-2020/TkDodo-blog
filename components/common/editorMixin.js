@@ -193,7 +193,8 @@ const editorMixin = {
     },
     postImage(endpoint, file) {
       const formData = new FormData()
-      formData.append('image', file)
+      // API 側で ASCII-8BIT のファイル名を受け取れないため、この時点でファイル名を固定する
+      formData.append('image', file, 'new_image')
       return this.$axios
         .post(endpoint, formData, {
           headers: {
