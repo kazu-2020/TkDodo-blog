@@ -39,7 +39,7 @@
           <v-row class="flex-column ma-0 fill-height">
             <v-col class="px-0 pt-0">
               <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
+                <template #activator="{ on, attrs }">
                   <v-btn
                     small
                     icon
@@ -55,7 +55,7 @@
               </v-tooltip>
               <br />
               <v-tooltip bottom>
-                <template v-slot:activator="{ on, attrs }">
+                <template #activator="{ on, attrs }">
                   <v-btn
                     small
                     icon

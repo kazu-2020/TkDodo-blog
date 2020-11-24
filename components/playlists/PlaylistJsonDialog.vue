@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" scrollable width="600px">
-    <template v-slot:activator="{ on, attrs }">
+    <template #activator="{ on, attrs }">
       <v-btn
         :color="buttonColor"
         icon

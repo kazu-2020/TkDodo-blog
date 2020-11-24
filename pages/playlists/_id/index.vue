@@ -59,7 +59,7 @@
                   :key="`actor-contributor-${index}`"
                   bottom
                 >
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <div
                       v-if="noActorContributorImage(data)"
                       class="actor_contributor_badge"
@@ -88,7 +88,7 @@
                 <v-row class="flex-column ma-0 fill-height">
                   <v-col class="px-0 pt-0">
                     <v-tooltip left>
-                      <template v-slot:activator="{ on, attrs }">
+                      <template #activator="{ on, attrs }">
                         <v-btn
                           color="#000000"
                           icon
@@ -106,7 +106,7 @@
                   </v-col>
                   <v-col class="px-0 pt-0">
                     <v-tooltip left>
-                      <template v-slot:activator="{ on, attrs }">
+                      <template #activator="{ on, attrs }">
                         <v-btn
                           color="#000000"
                           icon
@@ -176,7 +176,7 @@
             >
             <v-expansion-panel-content>
               <v-simple-table>
-                <template v-slot:default>
+                <template #default>
                   <thead>
                     <tr>
                       <th />
@@ -213,7 +213,7 @@
     />
     <v-snackbar v-model="snackbar" timeout="2000">
       コピーしました
-      <template v-slot:action="{ attrs }">
+      <template #action="{ attrs }">
         <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
           閉じる
         </v-btn>

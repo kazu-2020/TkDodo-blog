@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="isShowDialog" class="mx-auto" persistent max-width="920px">
+  <v-dialog v-model="isShow" class="mx-auto" persistent max-width="920px">
     <v-card>
       <v-container class="pb-0">
         <v-row align="center" no-gutters>
@@ -300,6 +300,7 @@ interface DataType {
   step: number
   filledImageType: string
   filledImageTypeList: Array<Object>
+  isShow: boolean
 }
 
 export default Vue.extend({
@@ -342,6 +343,7 @@ export default Vue.extend({
           text: '背景を白で埋める',
         },
       ],
+      isShow: false,
     }
   },
   computed: {
@@ -382,8 +384,17 @@ export default Vue.extend({
       }
     },
   },
+  watch: {
+    isShowDialog: {
+      handler(newVal: boolean) {
+        this.isShow = newVal
+      },
+      immediate: true,
+    },
+  },
   methods: {
     hideTrimmingImageDialog(): void {
+      this.isShow = false
       this.step = 1
       this.clearImage()
       this.$emit('hide-trimming-image-dialog')

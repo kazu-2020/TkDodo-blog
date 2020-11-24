@@ -9,6 +9,13 @@ const confirmUnload = function (event: any) {
 
 export default Vue.extend({
   name: 'UnloadAlertMixin',
+  beforeRouteLeave(_to, _from, next) {
+    if (this.isShowUnloadAlert && !window.confirm(message)) {
+      next(false)
+    } else {
+      next()
+    }
+  },
   data() {
     return {
       isShowUnloadAlert: false,
@@ -29,12 +36,5 @@ export default Vue.extend({
     showUnloadAlert(): void {
       this.isShowUnloadAlert = true
     },
-  },
-  beforeRouteLeave(_to, _from, next) {
-    if (this.isShowUnloadAlert && !window.confirm(message)) {
-      next(false)
-    } else {
-      next()
-    }
   },
 })

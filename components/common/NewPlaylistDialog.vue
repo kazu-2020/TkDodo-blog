@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="isShowDialog" max-width="600px" persistent>
+  <v-dialog v-model="isShow" max-width="600px" persistent>
     <v-card>
       <v-container>
         <v-row>
@@ -53,7 +53,7 @@
 import Vue from 'vue'
 
 interface DataType {
-  isShowAlert: boolean
+  isShow: boolean
   loadingDialog: boolean
 }
 
@@ -68,13 +68,21 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
-      isShowAlert: false,
+      isShow: false,
       loadingDialog: false,
     }
   },
+  watch: {
+    isShowDialog: {
+      handler(newVal: boolean) {
+        this.isShow = newVal
+      },
+      immediate: true,
+    },
+  },
   methods: {
     hideNewPlaylistDialog() {
-      this.isShowAlert = false
+      this.isShow = false
       this.loadingDialog = false
       this.$emit('hide-new-playlist-dialog')
     },
