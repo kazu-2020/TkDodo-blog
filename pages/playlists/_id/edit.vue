@@ -49,7 +49,7 @@
               persistent-hint
               small-chips
             >
-              <template v-slot:selection="{ attrs, item, parent, selected }">
+              <template #selection="{ attrs, item, parent, selected }">
                 <v-chip v-bind="attrs" :input-value="selected" label small>
                   <span class="pr-2">
                     {{ item }}
@@ -73,7 +73,7 @@
               persistent-hint
               small-chips
             >
-              <template v-slot:selection="{ attrs, item, parent, selected }">
+              <template #selection="{ attrs, item, parent, selected }">
                 <v-chip v-bind="attrs" :input-value="selected" label small>
                   <span class="pr-2">
                     {{ item }}

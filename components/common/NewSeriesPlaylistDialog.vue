@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="isShowDialog" max-width="600px" persistent>
+  <v-dialog v-model="isShow" max-width="600px" persistent>
     <v-card>
       <v-container>
         <v-row>
@@ -76,6 +76,7 @@
 import Vue from 'vue'
 
 interface DataType {
+  isShow: boolean
   isShowAlert: boolean
   loadingDialog: boolean
   valid: boolean
@@ -94,12 +95,21 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
+      isShow: false,
       isShowAlert: false,
       loadingDialog: false,
       valid: false,
       seriesId: '',
       seriesIdRules: [(v: string) => !!v || 'シリーズIDを入力してください'],
     }
+  },
+  watch: {
+    isShowDialog: {
+      handler(newVal: boolean) {
+        this.isShow = newVal
+      },
+      immediate: true,
+    },
   },
   methods: {
     submitNewSeriesPlaylist() {
@@ -138,6 +148,7 @@ export default Vue.extend({
       })
     },
     hideNewPlaylistDialog() {
+      this.isShow = false
       this.isShowAlert = false
       this.loadingDialog = false
       this.seriesId = ''

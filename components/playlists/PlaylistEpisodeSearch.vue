@@ -25,7 +25,7 @@
           :nudge-width="200"
           offset-x
         >
-          <template v-slot:activator="{ on, attrs }">
+          <template #activator="{ on, attrs }">
             <v-btn outlined v-bind="attrs" v-on="on">
               <v-icon>mdi-plus</v-icon>
               詳しい条件で探す
@@ -57,7 +57,7 @@
     <v-row id="episode-search-result">
       <v-col v-if="episodes.length !== 0" cols="12">
         <v-simple-table>
-          <template v-slot:default>
+          <template #default>
             <thead>
               <tr>
                 <th />

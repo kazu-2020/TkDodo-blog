@@ -7,7 +7,7 @@
     </v-col>
     <v-col cols="auto">
       <label class="text--secondary">ロゴ - Logo</label>
-      <v-hover v-slot:default="{ hover }">
+      <v-hover v-slot="{ hover }">
         <v-card tile width="140" height="140">
           <v-img :src="logoImageUrl">
             <v-expand-transition>
@@ -39,7 +39,7 @@
     </v-col>
     <v-col cols="auto">
       <label class="text--secondary">アイキャッチ - Eyecatch</label>
-      <v-hover v-slot:default="{ hover }">
+      <v-hover v-slot="{ hover }">
         <v-card tile width="249" height="140">
           <v-img :src="eyecatchImageUrl">
             <v-expand-transition>
@@ -71,7 +71,7 @@
     </v-col>
     <v-col cols="auto">
       <label class="text--secondary">ヒーロー - Hero</label>
-      <v-hover v-slot:default="{ hover }">
+      <v-hover v-slot="{ hover }">
         <v-card tile width="420" height="140">
           <v-img :src="heroImageUrl">
             <v-expand-transition>

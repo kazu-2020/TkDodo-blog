@@ -10,7 +10,7 @@
         />
       </nuxt-link>
       <v-menu offset-y>
-        <template v-slot:activator="{ on }">
+        <template #activator="{ on }">
           <v-btn color="transparent" depressed tile height="64" v-on="on">
             <v-icon class="mr-3">mdi-playlist-play</v-icon>
             プレイリスト
@@ -31,7 +31,7 @@
         </v-list>
       </v-menu>
       <v-menu offset-y>
-        <template v-slot:activator="{ on }">
+        <template #activator="{ on }">
           <v-btn color="transparent" depressed tile height="64" v-on="on">
             <v-icon class="mr-3">mdi-access-point</v-icon>
             r5 プレイリスト

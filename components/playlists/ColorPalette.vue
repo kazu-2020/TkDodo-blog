@@ -20,7 +20,7 @@
           />
           <!-- pickerで色が自由に選択できるpalette -->
           <v-menu :close-on-content-click="false" offset-x>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 v-bind="attrs"
                 :value="`${freePaletteColor}`"
@@ -58,7 +58,7 @@
           outlined
           readonly
         >
-          <template v-slot:append>
+          <template #append>
             <v-sheet width="30" height="30" elevation="4" :color="color" />
           </template>
         </v-text-field>

@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="isShowDialog" max-width="750px" persistent>
+  <v-dialog v-model="isShow" max-width="750px" persistent>
     <v-card>
       <v-container>
         <v-row justify="end">
@@ -56,6 +56,10 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 
+interface DataType {
+  isShow: boolean
+}
+
 export default Vue.extend({
   name: 'ArticleSavedDialog',
   props: {
@@ -74,6 +78,11 @@ export default Vue.extend({
       required: true,
       default: () => [],
     },
+  },
+  data(): DataType {
+    return {
+      isShow: false,
+    }
   },
   computed: {
     playlistUrl(): string {
@@ -95,8 +104,17 @@ export default Vue.extend({
       }
     },
   },
+  watch: {
+    isShowDialog: {
+      handler(newVal: boolean) {
+        this.isShow = newVal
+      },
+      immediate: true,
+    },
+  },
   methods: {
     hideDialog() {
+      this.isShow = false
       this.$emit('hide-new-playlist-dialog')
     },
   },
