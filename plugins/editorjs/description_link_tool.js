@@ -86,6 +86,24 @@ export default class DescriptionLinkTool extends LinkTool {
     this.nodes.inputDescription.dataset.placeholder =
       'リンク先を説明するテキストを入力してください'
 
+    if (!this.readOnly) {
+      this.nodes.inputDescription.addEventListener('input', (event) => {
+        this.data.meta.description = event.target.textContent
+
+        if (this.data.meta.description) {
+          this.nodes.linkContent.insertBefore(
+            this.nodes.linkDescription,
+            this.nodes.linkText
+          )
+          this.nodes.linkDescription.textContent = this.data.meta.description
+        } else {
+          this.nodes.linkContent.removeChild(this.nodes.linkDescription)
+        }
+
+        this.nodes.linkContent.classList.add(this.CSS.linkContentRendered)
+      })
+    }
+
     if (!this.allowDomain(this.data.link)) {
       this.nodes.linkContent.appendChild(this.makeWarningMessage())
     }

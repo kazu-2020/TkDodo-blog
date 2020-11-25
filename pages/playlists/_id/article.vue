@@ -339,17 +339,8 @@ export default Vue.extend({
   color: red;
 }
 
-.link-tool__anchor {
-  font-size: 18px;
-  color: #333;
-}
-
-.link-tool__content--rendered {
-  border-radius: 6px 6px 0 0;
-}
-
 .link-tool__input-description {
-  border-radius: 0 0 6px 6px;
+  margin-top: 10px;
 }
 
 .link-tool__input-description[contentEditable='true'][data-placeholder]::before {
