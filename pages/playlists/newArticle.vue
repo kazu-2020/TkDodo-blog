@@ -24,8 +24,8 @@
             </div>
             <div v-else>
               <v-btn block text class="mb-4 pa-4" @click="addHeader"
-                >ヘッダーを入力</v-btn
-              >
+                >ヘッダーを入力
+              </v-btn>
             </div>
             <hr class="dotted_hr" />
           </v-col>
@@ -50,8 +50,8 @@
             </div>
             <div v-else>
               <v-btn block text class="mb-4 pa-4" @click="addFooter"
-                >フッターを入力</v-btn
-              >
+                >フッターを入力
+              </v-btn>
             </div>
           </v-col>
         </v-col>
@@ -297,8 +297,22 @@ export default Vue.extend({
   color: red;
 }
 
+.link-tool__anchor {
+  font-size: 18px;
+  color: #333;
+  overflow-wrap: break-word;
+}
+
+.link-tool__content--rendered {
+  border-radius: 6px 6px 0 0;
+}
+
+.link-tool__description {
+  display: none;
+}
+
 .link-tool__input-description {
-  margin-top: 10px;
+  border-radius: 0 0 6px 6px;
 }
 
 .link-tool__input-description[contentEditable='true'][data-placeholder]::before {
