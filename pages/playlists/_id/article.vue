@@ -342,10 +342,15 @@ export default Vue.extend({
 .link-tool__anchor {
   font-size: 18px;
   color: #333;
+  overflow-wrap: break-word;
 }
 
 .link-tool__content--rendered {
   border-radius: 6px 6px 0 0;
+}
+
+.link-tool__description {
+  display: none;
 }
 
 .link-tool__input-description {
