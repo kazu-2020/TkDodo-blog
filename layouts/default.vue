@@ -53,7 +53,7 @@
       />
     </v-app-bar>
     <v-main :class="{ 'ivory-background': shouldIvoryBackground }">
-      <v-container>
+      <v-container fluid class="px-10">
         <nuxt />
       </v-container>
     </v-main>
