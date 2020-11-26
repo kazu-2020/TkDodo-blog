@@ -46,7 +46,7 @@ export default Vue.extend({
   border-top: 19px solid transparent;
   border-bottom: 17px solid transparent;
   border-left: 19px solid #cecece;
-  z-index: 4;
+  z-index: 2;
 }
 
 .arrow-steps .step:after {
@@ -59,7 +59,7 @@ export default Vue.extend({
   border-top: 19px solid transparent;
   border-bottom: 17px solid transparent;
   border-left: 19px solid white;
-  z-index: 5;
+  z-index: 3;
 }
 
 .arrow-steps .current.step:after {

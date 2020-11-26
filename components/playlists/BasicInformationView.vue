@@ -40,12 +40,7 @@
       >
         {{ playlist.description }}
       </v-col>
-      <v-col
-        v-if="hasActorsOrContributors"
-        cols="auto"
-        style="width: 230px"
-        class="hidden-sm-and-down"
-      >
+      <v-col v-if="hasActorsOrContributors" cols="auto">
         <v-tooltip
           v-for="(data, index) in actorsAndContributors"
           :key="`actor-contributor-${index}`"

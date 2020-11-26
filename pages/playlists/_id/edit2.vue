@@ -26,6 +26,29 @@
       <v-col cols="3" class="preview-container">
         <div class="preview-container-inner mt-1 pa-2">
           <basic-information-view :playlist="playlist" />
+          <v-col cols="12">
+            <v-list dense>
+              <v-list-item
+                v-for="item in playlistItems"
+                :key="item.id"
+                class="px-0"
+              >
+                <v-list-item-icon class="mr-1">
+                  <v-img
+                    :src="eyecatchUrl(item)"
+                    lazy-src="https://placehold.jp/50x28.png"
+                    width="50"
+                    class="episode-image"
+                  />
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="item.name" />
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-col>
+          <v-divider />
+          article
         </div>
       </v-col>
     </v-row>
@@ -63,6 +86,13 @@ export default Vue.extend({
     },
     deleteEpisode() {
       // noop
+    },
+    eyecatchUrl(item: any): string {
+      if (item.eyecatch !== undefined) {
+        return item.eyecatch.medium.url
+      } else {
+        return ''
+      }
     },
   },
 })
