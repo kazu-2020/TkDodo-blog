@@ -30,6 +30,7 @@
       </v-row>
       <playlist-episode-search
         :ignore-episodes="items"
+        :keywords.sync="keywords"
         @add-episode="addEpisode"
       />
       <v-row>
@@ -66,6 +67,7 @@ interface DataType {
   name: string
   nameRules: Array<Function>
   items: Array<any>
+  keywords: string
   loadingDialog: boolean
   snackBar: boolean
   snackBarMessage: string
@@ -88,6 +90,7 @@ export default Vue.extend({
           (v && v.length <= 255) || 'Name must be less than 255 characters',
       ],
       items: [],
+      keywords: '',
       loadingDialog: false,
       snackBar: false,
       snackBarMessage: '',
