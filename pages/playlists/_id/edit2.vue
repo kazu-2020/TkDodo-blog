@@ -2,7 +2,7 @@
   <v-layout column style="position: relative">
     <v-row style="position: relative" class="mt-4">
       <v-col cols="auto">
-        <playlist-stepper />
+        <playlist-stepper :current="currentTab" @change-tab="changeTab" />
       </v-col>
       <v-col cols="auto">
         <v-btn
@@ -118,10 +118,12 @@ import PlaylistEpisodesList from '~/components/playlists/PlaylistEpisodesList.vu
 import PlaylistEpisodeSearch from '~/components/playlists/PlaylistEpisodeSearch.vue'
 import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
+import { PlaylistTab } from '~/models/definitions'
 
 interface DataType {
   keywords: string
   searchTriggerCount: number
+  currentTab: PlaylistTab
 }
 
 export default Vue.extend({
@@ -139,6 +141,7 @@ export default Vue.extend({
     return {
       keywords: '',
       searchTriggerCount: 0,
+      currentTab: PlaylistTab.list,
     }
   },
   computed: {
@@ -176,6 +179,9 @@ export default Vue.extend({
       } else {
         return ''
       }
+    },
+    changeTab(nextTab: PlaylistTab) {
+      this.currentTab = nextTab
     },
   },
 })

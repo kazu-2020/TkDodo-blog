@@ -1,18 +1,56 @@
 <template>
   <div class="step-wrapper">
     <div class="arrow-steps clearfix">
-      <div class="step current"><span>リスト (NItemList)</span></div>
-      <div class="step"><span>記事 (NArticle)</span></div>
-      <div class="step"><span>基本情報(NSeries)</span></div>
+      <div class="step" :class="{ current: isList }" @click="changeTab('list')">
+        <span>リスト (NItemList)</span>
+      </div>
+      <div
+        class="step"
+        :class="{ current: isArticle }"
+        @click="changeTab('article')"
+      >
+        <span>記事 (NArticle)</span>
+      </div>
+      <div
+        class="step"
+        :class="{ current: isSeries }"
+        @click="changeTab('series')"
+      >
+        <span>基本情報(NSeries)</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
+import { PlaylistTab } from '~/models/definitions'
 
 export default Vue.extend({
   name: 'PlaylistStepper',
+  props: {
+    current: {
+      type: String as PropType<PlaylistTab>,
+      default: PlaylistTab.list,
+      required: false,
+    },
+  },
+  computed: {
+    isList() {
+      return this.current === PlaylistTab.list
+    },
+    isArticle() {
+      return this.current === PlaylistTab.article
+    },
+    isSeries() {
+      return this.current === PlaylistTab.series
+    },
+  },
+  methods: {
+    changeTab(nextTab: PlaylistTab) {
+      this.$emit('change-tab', nextTab)
+    },
+  },
 })
 </script>
 
@@ -27,7 +65,7 @@ export default Vue.extend({
   font-size: 14px;
   text-align: center;
   color: #000;
-  cursor: default;
+  cursor: pointer;
   padding: 7px 10px 8px 30px;
   min-width: 180px;
   float: left;
