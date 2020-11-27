@@ -15,70 +15,19 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="9" class="list-item-container mt-4">
-        <h2>リスト</h2>
-        <v-row>
-          <v-col cols="12">
-            <playlist-episodes-list
-              :episodes="playlistItems"
-              @delete-episode="deleteEpisode"
-            />
-          </v-col>
-        </v-row>
-        <v-row v-show="diffEpisodeItems.length !== 0" class="article_epidoes">
-          <v-col cols="12">
-            <v-expansion-panels>
-              <v-expansion-panel>
-                <v-expansion-panel-header
-                  ><div>
-                    プレイリストに保存されていない記事エピソードが
-                    <span class="diff_episodes_count"
-                      >{{ diffEpisodeItems.length }}件</span
-                    >あります
-                  </div></v-expansion-panel-header
-                >
-                <v-expansion-panel-content>
-                  <v-simple-table>
-                    <template #default>
-                      <thead>
-                        <tr>
-                          <th />
-                          <th class="text-left">エピソード</th>
-                          <th />
-                          <th class="text-left">エピソードID</th>
-                          <th class="text-left">シリーズ名</th>
-                          <th class="text-left">シリーズID</th>
-                          <th class="text-left">直近放送日</th>
-                          <th class="text-left">視聴可能</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <episode-search-result-table-row
-                          v-for="episode in diffEpisodeItems"
-                          :key="episode.id"
-                          :episode="episode"
-                          :ignore-episodes="playlistItems"
-                          @add-episode="addEpisode"
-                        />
-                      </tbody>
-                    </template>
-                  </v-simple-table>
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12">
-            <playlist-episode-search
-              :ignore-episodes="playlistItems"
-              :keywords.sync="keywords"
-              :search-trigger-count="searchTriggerCount"
-              @add-episode="addEpisode"
-            />
-          </v-col>
-        </v-row>
+      <v-col v-if="isListEditing" cols="9" class="list-item-container mt-4">
+        <list-edit-tab />
       </v-col>
+      <v-col
+        v-else-if="isArticleEditing"
+        cols="9"
+        class="article-container mt-4"
+      />
+      <v-col
+        v-else-if="isSeriesEditing"
+        cols="9"
+        class="series-container mt-4"
+      />
       <v-col cols="3" class="preview-container">
         <div class="preview-container-inner mt-1 pa-2">
           <basic-information-view :playlist="playlist" />
@@ -114,15 +63,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Playlist } from '@/types/playlist'
-import PlaylistEpisodesList from '~/components/playlists/PlaylistEpisodesList.vue'
-import PlaylistEpisodeSearch from '~/components/playlists/PlaylistEpisodeSearch.vue'
+import ListEditTab from '~/components/playlists/ListEditTab.vue'
 import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
 import { PlaylistTab } from '~/models/definitions'
 
 interface DataType {
-  keywords: string
-  searchTriggerCount: number
   currentTab: PlaylistTab
 }
 
@@ -130,8 +76,7 @@ export default Vue.extend({
   name: 'PlaylistIdEdit2Page',
   components: {
     BasicInformationView,
-    PlaylistEpisodesList,
-    PlaylistEpisodeSearch,
+    ListEditTab,
     PlaylistStepper,
   },
   async asyncData({ store, params }) {
@@ -139,8 +84,6 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
-      keywords: '',
-      searchTriggerCount: 0,
       currentTab: PlaylistTab.list,
     }
   },
@@ -151,28 +94,17 @@ export default Vue.extend({
     playlistItems(): Array<Object> {
       return this.$store.state.playlists.editingPlaylist.items
     },
+    isListEditing(): boolean {
+      return this.currentTab === PlaylistTab.list
+    },
+    isArticleEditing(): boolean {
+      return this.currentTab === PlaylistTab.article
+    },
+    isSeriesEditing(): boolean {
+      return this.currentTab === PlaylistTab.series
+    },
   },
   methods: {
-    addEpisode(episode: any) {
-      this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
-    },
-    deleteEpisode(episode: any) {
-      this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
-    },
-    articleEpisodes(): Array<Object> {
-      return this.$store.state.playlists.editingPlaylist.article
-        .containsEpisodes
-    },
-    diffEpisodeItems(): Array<Object> {
-      const playlistItems = (this as any).playlistItems
-      const articleItems = (this as any).articleEpisodes
-
-      const diffItems = articleItems.filter(
-        (v: any) => !playlistItems.map((x: any) => x.id).includes(v.id)
-      )
-
-      return diffItems
-    },
     eyecatchUrl(item: any): string {
       if (item.eyecatch !== undefined) {
         return item.eyecatch.medium.url
@@ -193,7 +125,9 @@ export default Vue.extend({
   width: 140px;
 }
 
-.list-item-container {
+.list-item-container,
+.article-container,
+.series-container {
   background-color: white;
   border-radius: 6px;
 }
