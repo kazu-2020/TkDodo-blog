@@ -23,11 +23,9 @@
         cols="9"
         class="article-container mt-4"
       />
-      <v-col
-        v-else-if="isSeriesEditing"
-        cols="9"
-        class="series-container mt-4"
-      />
+      <v-col v-else-if="isSeriesEditing" cols="9" class="series-container mt-4">
+        <series-meta-edit-tab :playlist="playlist" />
+      </v-col>
       <v-col cols="3" class="preview-container">
         <div class="preview-container-inner mt-1 pa-2">
           <basic-information-view :playlist="playlist" />
@@ -66,6 +64,7 @@ import { Playlist } from '@/types/playlist'
 import ListEditTab from '~/components/playlists/ListEditTab.vue'
 import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
+import SeriesMetaEditTab from '~/components/playlists/SeriesMetaEditTab.vue'
 import { PlaylistTab } from '~/models/definitions'
 
 interface DataType {
@@ -78,13 +77,14 @@ export default Vue.extend({
     BasicInformationView,
     ListEditTab,
     PlaylistStepper,
+    SeriesMetaEditTab,
   },
   async asyncData({ store, params }) {
     await store.dispatch('playlists/fetchPlaylist', params.id)
   },
   data(): DataType {
     return {
-      currentTab: PlaylistTab.list,
+      currentTab: PlaylistTab.series,
     }
   },
   computed: {
