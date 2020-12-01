@@ -53,7 +53,9 @@
             </v-list>
           </v-col>
           <v-divider />
-          article
+          <v-col cols="12">
+            {{ playlist.article.plainBody }}
+          </v-col>
         </div>
       </v-col>
     </v-row>
