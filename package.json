@@ -38,7 +38,6 @@
     "chroma-js": "^2.1.0",
     "colorthief": "^2.3.2",
     "cookie-universal-nuxt": "^2.1.4",
-    "editorjs-undo": "^0.1.4",
     "moment": "^2.29.1",
     "nuxt": "^2.14.7",
     "nuxt-typed-vuex": "^0.1.22",
