@@ -45,6 +45,21 @@ export const mutations = mutationTree(state, {
   updateEditingPlaylistEpisodes(state, episodes) {
     state.editingPlaylist.items = episodes
   },
+  updateEditingPlaylistArticleBody(state, body) {
+    ;(state.editingPlaylist as any).article.body = body
+  },
+  updateAuthorType(state, authorType) {
+    ;(state.editingPlaylist as any).article.authorType = authorType
+  },
+  updateAuthorName(state, authorName) {
+    ;(state.editingPlaylist as any).article.authorName = authorName
+  },
+  updatePublisherType(state, publisherType) {
+    ;(state.editingPlaylist as any).article.publisherType = publisherType
+  },
+  updatePublisherName(state, publisherName) {
+    ;(state.editingPlaylist as any).article.publisherName = publisherName
+  },
 })
 
 export const actions = actionTree(
@@ -115,6 +130,21 @@ export const actions = actionTree(
     },
     updateEditingPlaylistEpisodes({ commit }, episodes) {
       commit('updateEditingPlaylistEpisodes', episodes)
+    },
+    updateArticleBody({ commit }, body) {
+      commit('updateEditingPlaylistArticleBody', body)
+    },
+    updateAuthorType({ commit }, newAuthorType) {
+      commit('updateAuthorType', newAuthorType)
+    },
+    updateAuthorName({ commit }, newAuthorName) {
+      commit('updateAuthorName', newAuthorName)
+    },
+    updatePublisherType({ commit }, newPublisherType) {
+      commit('updatePublisherType', newPublisherType)
+    },
+    updatePublisherName({ commit }, newPublisherName) {
+      commit('updatePublisherName', newPublisherName)
     },
   }
 )

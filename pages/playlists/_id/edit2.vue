@@ -22,7 +22,15 @@
         v-else-if="isArticleEditing"
         cols="9"
         class="article-container mt-4"
-      />
+      >
+        <article-edit-tab
+          :playlist="playlist"
+          @update-article-body="updateArticleBody"
+          @update-author-type="updateAuthorType"
+          @update-author-name="updateAuthorName"
+          @update-publisher-type="updatePublisherType"
+          @update-publisher-name="updatePublisherName"
+      /></v-col>
       <v-col v-else-if="isSeriesEditing" cols="9" class="series-container mt-4">
         <series-meta-edit-tab :playlist="playlist" />
       </v-col>
@@ -61,6 +69,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Playlist } from '@/types/playlist'
+import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
 import ListEditTab from '~/components/playlists/ListEditTab.vue'
 import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
@@ -74,6 +83,7 @@ interface DataType {
 export default Vue.extend({
   name: 'PlaylistIdEdit2Page',
   components: {
+    ArticleEditTab,
     BasicInformationView,
     ListEditTab,
     PlaylistStepper,
@@ -84,7 +94,7 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
-      currentTab: PlaylistTab.series,
+      currentTab: PlaylistTab.article,
     }
   },
   computed: {
@@ -114,6 +124,21 @@ export default Vue.extend({
     },
     changeTab(nextTab: PlaylistTab) {
       this.currentTab = nextTab
+    },
+    updateArticleBody(body: any) {
+      this.$store.dispatch('playlists/updateArticleBody', body)
+    },
+    updateAuthorType(newAuthorType: string) {
+      this.$store.dispatch('playlists/updateAuthorType', newAuthorType)
+    },
+    updateAuthorName(newAuthorName: string) {
+      this.$store.dispatch('playlists/updateAuthorName', newAuthorName)
+    },
+    updatePublisherType(newPublisherType: string) {
+      this.$store.dispatch('playlists/updatePublisherType', newPublisherType)
+    },
+    updatePublisherName(newPublisherName: string) {
+      this.$store.dispatch('playlists/updatePublisherName', newPublisherName)
     },
   },
 })
