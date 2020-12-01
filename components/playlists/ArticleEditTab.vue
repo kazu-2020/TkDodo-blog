@@ -95,22 +95,13 @@ export default Vue.extend({
   },
   data() {
     return {
-      body: this.playlist.article.body,
+      article: this.playlist.article,
+      body: undefined,
       draftBody: {},
-      header:
-        this.playlist.article.header ||
-        this.$cookies.get('articleHeaderText') ||
-        '',
-      footer:
-        this.playlist.article.footer ||
-        this.$cookies.get('articleFooterText') ||
-        '',
-      isShowHeader:
-        this.playlist.article.header !== undefined &&
-        this.playlist.article.header !== null,
-      isShowFooter:
-        this.playlist.article.footer !== undefined &&
-        this.playlist.article.footer !== null,
+      header: undefined,
+      footer: undefined,
+      isShowHeader: undefined,
+      isShowFooter: undefined,
       authorType: this.playlist.article.authorType || 'Organization',
       authorName: this.playlist.article.authorName || 'デジタルラボ',
       publisherName: this.playlist.article.publisherName || 'NHK',
@@ -154,27 +145,52 @@ export default Vue.extend({
     },
   },
   watch: {
+    playlist: {
+      handler(newVal) {
+        this.article = newVal.article
+        this.body = newVal.article.body
+        this.header =
+          this.playlist.article.header ||
+          this.$cookies.get('articleHeaderText') ||
+          ''
+        this.footer =
+          this.playlist.article.footer ||
+          this.$cookies.get('articleFooterText') ||
+          ''
+        this.isShowHeader =
+          this.playlist.article.header !== undefined &&
+          this.playlist.article.header !== null
+        this.isShowFooter =
+          this.playlist.article.footer !== undefined &&
+          this.playlist.article.footer !== null
+      },
+      immediate: true,
+    },
     authorType: {
       handler(newVal) {
-        this.$emit('update-author-type', newVal)
+        this.article.authorType = newVal
+        this.$emit('update-article', this.article)
       },
       immediate: true,
     },
     authorName: {
       handler(newVal) {
-        this.$emit('update-author-name', newVal)
+        this.article.authorName = newVal
+        this.$emit('update-article', this.article)
       },
       immediate: true,
     },
     publisherType: {
       handler(newVal) {
-        this.$emit('update-publisher-type', newVal)
+        this.article.publisherType = newVal
+        this.$emit('update-article', this.article)
       },
       immediate: true,
     },
     publisherName: {
       handler(newVal) {
-        this.$emit('update-publisher-name', newVal)
+        this.article.publisherName = newVal
+        this.$emit('update-article', this.article)
       },
       immediate: true,
     },
@@ -185,7 +201,9 @@ export default Vue.extend({
             path: '/',
             maxAge: 60 * 60 * 24 * 30,
           })
-          this.$emit('update')
+          const headerText = this.shouldSaveHeader ? this.header : null
+          this.article.header = headerText
+          this.$emit('update-article', this.article)
         },
         immediate: true,
       },
@@ -197,6 +215,9 @@ export default Vue.extend({
             path: '/',
             maxAge: 60 * 60 * 24 * 30,
           })
+          const footerText = this.shouldSaveFooter ? this.footer : null
+          this.article.footer = footerText
+          this.$emit('update-article', this.article)
         },
         immediate: true,
       },
@@ -210,7 +231,8 @@ export default Vue.extend({
       this.isShowFooter = true
     },
     setCurrentContent(payload) {
-      this.$emit('update-article-body', payload.editorData)
+      this.article.body = payload.editorData
+      this.$emit('update-article', this.article)
     },
   },
 })
