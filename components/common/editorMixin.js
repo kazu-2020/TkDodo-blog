@@ -3,7 +3,6 @@ import Header from '@editorjs/header'
 import ImageTool from '@editorjs/image'
 import List from '@editorjs/list'
 import Embed from '@editorjs/embed'
-import Undo from 'editorjs-undo'
 
 // Original Plugins
 import MultiTypeEpisode from '~/plugins/editorjs/multi_type_episode/index.js'
@@ -99,7 +98,6 @@ const editorMixin = {
           this.updateEditorData()
         },
         onReady: () => {
-          new Undo({ editor: this.editor }) // eslint-disable-line no-new
           this.initializeEditor()
         },
       })
