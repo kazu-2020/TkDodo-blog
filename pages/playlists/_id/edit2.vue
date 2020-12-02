@@ -94,7 +94,7 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
-      currentTab: PlaylistTab.series,
+      currentTab: PlaylistTab.list,
     }
   },
   computed: {
