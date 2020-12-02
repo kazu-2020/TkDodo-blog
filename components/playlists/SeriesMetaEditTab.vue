@@ -132,7 +132,7 @@
                 リンク(同一内容)<small class="text--secondary"> - SameAs</small>
               </h3>
             </v-col>
-            <same-as-form :same-as.sync="editingPlaylist.sameAs" />
+            <same-as-form :same-as.sync="sameAs" />
           </v-row>
           <!-- citations -->
           <v-row dense class="my-5">
@@ -194,6 +194,7 @@ interface DataType {
   linkLightColor: string
   linkDarkColor: string
   aliasId: string
+  sameAs: Object
   editingPlaylist: Playlist
   valid: boolean
   nameRules: Function[]
@@ -235,6 +236,12 @@ export default Vue.extend({
       primaryDarkColor: this.playlist.primaryDarkColor || '',
       linkLightColor: this.playlist.linkLightColor || '',
       linkDarkColor: this.playlist.linkDarkColor || '',
+      sameAs: this.playlist.sameAs || {
+        id: null,
+        name: null,
+        url: null,
+        _destroy: 0,
+      },
       aliasId: this.playlist.aliasId || '',
       valid: true,
       nameRules: [
@@ -288,6 +295,7 @@ export default Vue.extend({
         this.primaryDarkColor = newVal.primaryDarkColor
         this.linkLightColor = newVal.linkLightColor
         this.linkDarkColor = newVal.linkDarkColor
+        this.sameAs = newVal.sameAs
         this.aliasId = newVal.aliasId
       },
       deep: true,
@@ -353,6 +361,13 @@ export default Vue.extend({
       handler(newVal) {
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, { themeGenre: newVal })
+        this.$emit('update-series', playlist)
+      },
+    },
+    sameAs: {
+      handler(newVal) {
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, { sameAs: newVal })
         this.$emit('update-series', playlist)
       },
     },
