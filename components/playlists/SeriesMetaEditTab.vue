@@ -188,6 +188,11 @@ interface DataType {
   hashtag: string[]
   formatGenre: string
   themeGenre: string
+  selectedPalette: string
+  primaryLightColor: string
+  primaryDarkColor: string
+  linkLightColor: string
+  linkDarkColor: string
   aliasId: string
   editingPlaylist: Playlist
   valid: boolean
@@ -225,6 +230,11 @@ export default Vue.extend({
       hashtag: this.playlist.hashtag || [],
       formatGenre: this.playlist.formatGenre || '',
       themeGenre: this.playlist.themeGenre || '',
+      selectedPalette: this.playlist.selectedPalette || '',
+      primaryLightColor: this.playlist.primaryLightColor || '',
+      primaryDarkColor: this.playlist.primaryDarkColor || '',
+      linkLightColor: this.playlist.linkLightColor || '',
+      linkDarkColor: this.playlist.linkDarkColor || '',
       aliasId: this.playlist.aliasId || '',
       valid: true,
       nameRules: [
@@ -262,22 +272,6 @@ export default Vue.extend({
       ],
     }
   },
-  computed: {
-    selectedPalette: {
-      get() {
-        return (this as any).editingPlaylist.selectedPalette
-      },
-      set(value: string) {
-        const playlist = this.editingPlaylist
-
-        playlist.selectedPalette = value
-        playlist.primaryLightColor = adjustPrimaryLightColor(value)
-        playlist.primaryDarkColor = adjustPrimaryDarkColor(value)
-        playlist.linkLightColor = adjustLinkLightColor(value)
-        playlist.linkDarkColor = adjustLinkDarkColor(value)
-      },
-    },
-  },
   watch: {
     playlist: {
       handler(newVal) {
@@ -289,6 +283,11 @@ export default Vue.extend({
         this.hashtag = newVal.hashtag
         this.formatGenre = newVal.formatGenre
         this.themeGenre = newVal.themeGenre
+        this.selectedPalette = newVal.selectedPalette
+        this.primaryLightColor = newVal.primaryLightColor
+        this.primaryDarkColor = newVal.primaryDarkColor
+        this.linkLightColor = newVal.linkLightColor
+        this.linkDarkColor = newVal.linkDarkColor
         this.aliasId = newVal.aliasId
       },
       deep: true,
@@ -361,6 +360,24 @@ export default Vue.extend({
       handler(newVal) {
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, { aliasId: newVal })
+        this.$emit('update-series', playlist)
+      },
+    },
+    selectedPalette: {
+      handler(newVal) {
+        this.primaryLightColor = adjustPrimaryLightColor(newVal)
+        this.primaryDarkColor = adjustPrimaryDarkColor(newVal)
+        this.linkLightColor = adjustLinkLightColor(newVal)
+        this.linkDarkColor = adjustLinkDarkColor(newVal)
+
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, {
+          selectedPalette: newVal,
+          primaryLightColor: this.primaryLightColor,
+          primaryDarkColor: this.primaryDarkColor,
+          linkLightColor: this.linkLightColor,
+          linkDarkColor: this.linkDarkColor,
+        })
         this.$emit('update-series', playlist)
       },
     },
