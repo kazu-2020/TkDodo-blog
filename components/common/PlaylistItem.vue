@@ -69,6 +69,26 @@
                 </template>
                 <span>削除する</span>
               </v-tooltip>
+              <br />
+              <v-tooltip bottom>
+                <template #activator="{ on, attrs }">
+                  <v-btn
+                    small
+                    icon
+                    v-bind="attrs"
+                    class="edit2_button mt-2"
+                    nuxt
+                    :to="{
+                      name: 'playlists-id-edit2',
+                      params: { id: playlist.id },
+                    }"
+                    v-on="on"
+                  >
+                    <v-icon>mdi-flask-round-bottom</v-icon>
+                  </v-btn>
+                </template>
+                <span>編集する(試用版)</span>
+              </v-tooltip>
             </v-col>
           </v-row>
         </v-col>
