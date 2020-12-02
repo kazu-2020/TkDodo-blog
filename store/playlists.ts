@@ -39,6 +39,9 @@ export const mutations = mutationTree(state, {
       1
     )
   },
+  updateEditingPlaylist(state, playlist) {
+    state.editingPlaylist = playlist
+  },
   addEditingPlaylistEpisode(state, episode) {
     state.editingPlaylist.items.push(episode)
   },
@@ -118,6 +121,9 @@ export const actions = actionTree(
     },
     addEditingPlaylistEpisode({ commit }, episode) {
       commit('addEditingPlaylistEpisode', episode)
+    },
+    updateEditingPlaylist({ commit }, playlist) {
+      commit('updateEditingPlaylist', playlist)
     },
     updateEditingPlaylistEpisodes({ commit }, episodes) {
       commit('updateEditingPlaylistEpisodes', episodes)

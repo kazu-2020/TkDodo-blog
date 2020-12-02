@@ -7,7 +7,7 @@
           <v-row dense>
             <v-col cols="12">
               <v-text-field
-                v-model="editingPlaylist.name"
+                v-model="name"
                 :rules="nameRules"
                 label="名前 - Name"
                 required
@@ -15,13 +15,13 @@
             </v-col>
             <v-col cols="12">
               <v-text-field
-                v-model="editingPlaylist.detailedNameRuby"
+                v-model="detailedNameRuby"
                 label="ふりがな - Detailed Name Ruby"
               />
             </v-col>
             <v-col cols="12">
               <v-textarea
-                v-model="editingPlaylist.detailedCatch"
+                v-model="detailedCatch"
                 name="catch"
                 rows="3"
                 label="キャッチコピー - Detailed Catch"
@@ -29,7 +29,7 @@
             </v-col>
             <v-col cols="12">
               <v-textarea
-                v-model="editingPlaylist.description"
+                v-model="description"
                 name="catch"
                 rows="5"
                 label="説明 - Description"
@@ -39,7 +39,7 @@
 
             <v-col cols="12">
               <v-combobox
-                v-model="editingPlaylist.keywords"
+                v-model="keywords"
                 :items="[]"
                 hide-selected
                 label="キーワード - Keywords"
@@ -62,7 +62,7 @@
 
             <v-col cols="12">
               <v-combobox
-                v-model="editingPlaylist.hashtag"
+                v-model="hashtag"
                 :items="[]"
                 hide-selected
                 label="ハッシュタグ - Hashtag"
@@ -86,14 +86,14 @@
             <v-row flex-start>
               <v-col cols="6" md="3">
                 <v-select
-                  v-model="editingPlaylist.formatGenre"
+                  v-model="formatGenre"
                   :items="formatGenreList"
                   label="ジャンル(フォーマット) - Format Genre"
                 />
               </v-col>
               <v-col cols="6" md="3">
                 <v-select
-                  v-model="editingPlaylist.themeGenre"
+                  v-model="themeGenre"
                   :items="themeGenreList"
                   label="ジャンル(テーマ) - Theme Genre"
                 />
@@ -150,7 +150,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="3">
               <v-text-field
-                v-model="editingPlaylist.aliasId"
+                v-model="aliasId"
                 :rules="aliasIdRules"
                 hint="半角英数字、「-」「_」が利用できます"
                 maxlength="255"
@@ -164,7 +164,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
+import Vue from 'vue'
 
 import { Playlist } from '@/types/playlist'
 import {
@@ -180,6 +180,15 @@ import SameAsForm from '~/components/playlists/SameAsForm.vue'
 import CitationsForm from '~/components/playlists/CitationsForm.vue'
 
 interface DataType {
+  name: string
+  detailedNameRuby: string
+  detailedCatch: string
+  description: string
+  keywords: string[]
+  hashtag: string[]
+  formatGenre: string
+  themeGenre: string
+  aliasId: string
   editingPlaylist: Playlist
   valid: boolean
   nameRules: Function[]
@@ -199,7 +208,7 @@ export default Vue.extend({
   mixins: [unloadAlertMixin],
   props: {
     playlist: {
-      type: Object as PropType<Playlist>,
+      type: Object,
       required: true,
       default: () => {},
     },
@@ -208,6 +217,15 @@ export default Vue.extend({
     const editingPlaylist = {} as Playlist
     return {
       editingPlaylist: this.playlist || editingPlaylist,
+      name: this.playlist.name || '',
+      detailedNameRuby: this.playlist.detailedNameRuby || '',
+      detailedCatch: this.playlist.detailedCatch || '',
+      description: this.playlist.description || '',
+      keywords: this.playlist.keywords || [],
+      hashtag: this.playlist.hashtag || [],
+      formatGenre: this.playlist.formatGenre || '',
+      themeGenre: this.playlist.themeGenre || '',
+      aliasId: this.playlist.aliasId || '',
       valid: true,
       nameRules: [
         (v: string) => !!v || '名前は必ず入力してください',
@@ -261,11 +279,90 @@ export default Vue.extend({
     },
   },
   watch: {
-    editingPlaylist: {
-      handler() {
-        ;(this as any).showUnloadAlert()
+    playlist: {
+      handler(newVal) {
+        this.name = newVal.name
+        this.detailedNameRuby = newVal.detailedNameRuby
+        this.detailedCatch = newVal.detailedCatch
+        this.description = newVal.description
+        this.keywords = newVal.keywords
+        this.hashtag = newVal.hashtag
+        this.formatGenre = newVal.formatGenre
+        this.themeGenre = newVal.themeGenre
+        this.aliasId = newVal.aliasId
       },
       deep: true,
+    },
+    name: {
+      handler(newVal) {
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, { name: newVal })
+        this.$emit('update-series', playlist)
+      },
+    },
+    detailedNameRuby: {
+      handler(newVal) {
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, {
+          detailedNameRuby: newVal,
+        })
+        this.$emit('update-series', playlist)
+      },
+    },
+    detailedCatch: {
+      handler(newVal) {
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, {
+          detailedCatch: newVal,
+        })
+        this.$emit('update-series', playlist)
+      },
+    },
+    description: {
+      handler(newVal) {
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, {
+          description: newVal,
+        })
+        this.$emit('update-series', playlist)
+      },
+    },
+    keywords: {
+      handler(newVal) {
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, { keywords: newVal })
+        this.$emit('update-series', playlist)
+      },
+    },
+    hashtag: {
+      handler(newVal) {
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, { hashtag: newVal })
+        this.$emit('update-series', playlist)
+      },
+    },
+    formatGenre: {
+      handler(newVal) {
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, {
+          formatGenre: newVal,
+        })
+        this.$emit('update-series', playlist)
+      },
+    },
+    themeGenre: {
+      handler(newVal) {
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, { themeGenre: newVal })
+        this.$emit('update-series', playlist)
+      },
+    },
+    aliasId: {
+      handler(newVal) {
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, { aliasId: newVal })
+        this.$emit('update-series', playlist)
+      },
     },
   },
   methods: {

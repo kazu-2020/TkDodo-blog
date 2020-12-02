@@ -168,29 +168,37 @@ export default Vue.extend({
     },
     authorType: {
       handler(newVal) {
-        this.article.authorType = newVal
-        this.$emit('update-article', this.article)
+        const originalArticle = Object.assign({}, this.article)
+        const article = Object.assign(originalArticle, { authorType: newVal })
+        this.$emit('update-article', article)
       },
       immediate: true,
     },
     authorName: {
       handler(newVal) {
-        this.article.authorName = newVal
-        this.$emit('update-article', this.article)
+        const originalArticle = Object.assign({}, this.article)
+        const article = Object.assign(originalArticle, { authorName: newVal })
+        this.$emit('update-article', article)
       },
       immediate: true,
     },
     publisherType: {
       handler(newVal) {
-        this.article.publisherType = newVal
-        this.$emit('update-article', this.article)
+        const originalArticle = Object.assign({}, this.article)
+        const article = Object.assign(originalArticle, {
+          publisherType: newVal,
+        })
+        this.$emit('update-article', article)
       },
       immediate: true,
     },
     publisherName: {
       handler(newVal) {
-        this.article.publisherName = newVal
-        this.$emit('update-article', this.article)
+        const originalArticle = Object.assign({}, this.article)
+        const article = Object.assign(originalArticle, {
+          publisherName: newVal,
+        })
+        this.$emit('update-article', article)
       },
       immediate: true,
     },
@@ -201,9 +209,10 @@ export default Vue.extend({
             path: '/',
             maxAge: 60 * 60 * 24 * 30,
           })
+          const originalArticle = Object.assign({}, this.article)
           const headerText = this.shouldSaveHeader ? this.header : null
-          this.article.header = headerText
-          this.$emit('update-article', this.article)
+          const article = Object.assign(originalArticle, { header: headerText })
+          this.$emit('update-article', article)
         },
         immediate: true,
       },
@@ -215,9 +224,10 @@ export default Vue.extend({
             path: '/',
             maxAge: 60 * 60 * 24 * 30,
           })
+          const originalArticle = Object.assign({}, this.article)
           const footerText = this.shouldSaveFooter ? this.footer : null
-          this.article.footer = footerText
-          this.$emit('update-article', this.article)
+          const article = Object.assign(originalArticle, { footer: footerText })
+          this.$emit('update-article', article)
         },
         immediate: true,
       },
@@ -231,8 +241,11 @@ export default Vue.extend({
       this.isShowFooter = true
     },
     setCurrentContent(payload) {
-      this.article.body = payload.editorData
-      this.$emit('update-article', this.article)
+      const originalArticle = Object.assign({}, this.article)
+      const article = Object.assign(originalArticle, {
+        body: payload.editorData,
+      })
+      this.$emit('update-article', article)
     },
   },
 })
