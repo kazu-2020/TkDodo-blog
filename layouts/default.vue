@@ -52,8 +52,8 @@
         @hide-new-series-playlist-dialog="isShowNewSeriesPlaylistDialog = false"
       />
     </v-app-bar>
-    <v-main>
-      <v-container>
+    <v-main :class="{ 'ivory-background': shouldIvoryBackground }">
+      <v-container fluid class="px-10">
         <nuxt />
       </v-container>
     </v-main>
@@ -150,6 +150,9 @@ export default Vue.extend({
     snackBarMessage(): string {
       return this.$store.state.loading.messages[this.snackBarState]
     },
+    shouldIvoryBackground() {
+      return this.$route.name === 'playlists-id-edit2'
+    },
   },
   methods: {
     resetLoadingState() {
@@ -166,5 +169,9 @@ export default Vue.extend({
 
 a.playlist-title {
   color: rgba(0, 0, 0, 0.87);
+}
+
+.v-main.ivory-background {
+  background-color: #f3f3f3;
 }
 </style>

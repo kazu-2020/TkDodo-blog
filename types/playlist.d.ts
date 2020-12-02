@@ -1,6 +1,7 @@
 import { EpisodeData } from './episode_data'
 import { SameAs } from './same_as'
 import { Citation } from './citation'
+import { Article } from './article'
 
 export interface Playlist {
   id: string
@@ -34,4 +35,5 @@ export interface Playlist {
   aliasId: string
   actor: Array<Object>
   contributor: Array<Object>
+  article: Article
 }
