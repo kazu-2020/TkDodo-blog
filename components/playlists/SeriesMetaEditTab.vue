@@ -106,7 +106,7 @@
               <h3>画像</h3>
             </v-col>
             <series-images-form
-              :playlist="editingPlaylist"
+              :playlist="playlist"
               @update-series-image="updateSeriesImage"
               @remove-series-image="removeSeriesImage"
             />
@@ -165,8 +165,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-
-import { Playlist } from '@/types/playlist'
 import {
   adjustPrimaryDarkColor,
   adjustPrimaryLightColor,
@@ -196,7 +194,6 @@ interface DataType {
   aliasId: string
   sameAs: Object
   citations: Object[]
-  editingPlaylist: Playlist
   valid: boolean
   nameRules: Function[]
   aliasIdRules: Function[]
@@ -221,9 +218,7 @@ export default Vue.extend({
     },
   },
   data(): DataType {
-    const editingPlaylist = {} as Playlist
     return {
-      editingPlaylist: this.playlist || editingPlaylist,
       name: this.playlist.name || '',
       detailedNameRuby: this.playlist.detailedNameRuby || '',
       detailedCatch: this.playlist.detailedCatch || '',
@@ -409,34 +404,68 @@ export default Vue.extend({
   },
   methods: {
     updateSeriesImage(data: { type: string; file: string }) {
+      const originalPlaylist = Object.assign({}, (this as any).playlist)
+
       switch (data.type) {
         case 'logo':
-          this.editingPlaylist.logoImageData = data.file
-          this.editingPlaylist.removeLogoImage = false
+          this.$emit(
+            'update-series',
+            Object.assign(originalPlaylist, {
+              logoImageData: data.file,
+              removeLogoImage: false,
+            })
+          )
           break
         case 'eyecatch':
-          this.editingPlaylist.eyecatchImageData = data.file
-          this.editingPlaylist.removeEyecatchImage = false
+          this.$emit(
+            'update-series',
+            Object.assign(originalPlaylist, {
+              eyecatchImageData: data.file,
+              removeEyecatchImage: false,
+            })
+          )
           break
         case 'hero':
-          this.editingPlaylist.heroImageData = data.file
-          this.editingPlaylist.removeHeroImage = false
+          this.$emit(
+            'update-series',
+            Object.assign(originalPlaylist, {
+              heroImageData: data.file,
+              removeHeroImage: false,
+            })
+          )
           break
       }
     },
     removeSeriesImage(type: string) {
+      const originalPlaylist = Object.assign({}, (this as any).playlist)
+
       switch (type) {
         case 'logo':
-          this.editingPlaylist.logoImageData = ''
-          this.editingPlaylist.removeLogoImage = true
+          this.$emit(
+            'update-series',
+            Object.assign(originalPlaylist, {
+              logoImageData: '',
+              removeLogoImage: true,
+            })
+          )
           break
         case 'eyecatch':
-          this.editingPlaylist.eyecatchImageData = ''
-          this.editingPlaylist.removeEyecatchImage = true
+          this.$emit(
+            'update-series',
+            Object.assign(originalPlaylist, {
+              eyecatchImageData: '',
+              removeEyecatchImage: true,
+            })
+          )
           break
         case 'hero':
-          this.editingPlaylist.heroImageData = ''
-          this.editingPlaylist.removeHeroImage = true
+          this.$emit(
+            'update-series',
+            Object.assign(originalPlaylist, {
+              heroImageData: '',
+              removeHeroImage: true,
+            })
+          )
           break
       }
     },
