@@ -43,25 +43,25 @@ export default Vue.extend({
     addCitation(): void {
       this.$emit(
         'update:citations',
-        this.citations.concat([{ name: '', url: '', _destroy: 0 }])
+        this.citations.slice().concat([{ name: '', url: '', _destroy: 0 }])
       )
     },
     removeCitation(citation: any): void {
-      const newCitations = this.citations
+      const newCitations = this.citations.slice()
       newCitations.splice(citation.citationIndex, 1, citation)
 
       const that = this as any
       that.$emit('update:citations', newCitations)
     },
     updateName(citation: any): void {
-      const newCitations = this.citations
+      const newCitations = this.citations.slice()
       newCitations.splice(citation.citationIndex, 1, citation)
 
       const that = this as any
       that.$emit('update:citations', newCitations)
     },
     updateUrl(citation: any): void {
-      const newCitations = this.citations
+      const newCitations = this.citations.slice()
       newCitations.splice(citation.citationIndex, 1, citation)
 
       const that = this as any

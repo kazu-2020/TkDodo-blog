@@ -141,7 +141,7 @@
                 関連リンク<small class="text--secondary"> - Citation</small>
               </h3>
             </v-col>
-            <citations-form :citations.sync="editingPlaylist.citations" />
+            <citations-form :citations.sync="citations" />
           </v-row>
 
           <v-row dense class="my-5">
@@ -195,6 +195,7 @@ interface DataType {
   linkDarkColor: string
   aliasId: string
   sameAs: Object
+  citations: Object[]
   editingPlaylist: Playlist
   valid: boolean
   nameRules: Function[]
@@ -242,6 +243,7 @@ export default Vue.extend({
         url: null,
         _destroy: 0,
       },
+      citations: this.playlist.citations || [],
       aliasId: this.playlist.aliasId || '',
       valid: true,
       nameRules: [
@@ -296,6 +298,7 @@ export default Vue.extend({
         this.linkLightColor = newVal.linkLightColor
         this.linkDarkColor = newVal.linkDarkColor
         this.sameAs = newVal.sameAs
+        this.citations = newVal.citations
         this.aliasId = newVal.aliasId
       },
       deep: true,
@@ -368,6 +371,13 @@ export default Vue.extend({
       handler(newVal) {
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, { sameAs: newVal })
+        this.$emit('update-series', playlist)
+      },
+    },
+    citations: {
+      handler(newVal) {
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, { citations: newVal })
         this.$emit('update-series', playlist)
       },
     },
