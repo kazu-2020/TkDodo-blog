@@ -23,6 +23,10 @@ describe('pages/index.vue', () => {
         $axios: {
           get: () => Promise.resolve({ data: { items: [] } }),
         },
+        $cookies: {
+          get: () => '',
+          set: (val) => val,
+        },
       },
     }
 
