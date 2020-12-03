@@ -78,7 +78,7 @@ export default Vue.extend({
     return {
       page: 1,
       totalVisiblePagination: 9,
-      articleMode: false,
+      articleMode: (this as any).$cookies.get('articleMode'),
     }
   },
   computed: {
@@ -93,6 +93,14 @@ export default Vue.extend({
     page: {
       handler(newValue) {
         this.$store.dispatch('playlists/fetchPlaylists', newValue)
+      },
+    },
+    articleMode: {
+      handler(newValue) {
+        ;(this as any).$cookies.set('articleMode', newValue, {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 30,
+        })
       },
     },
   },
