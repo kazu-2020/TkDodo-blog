@@ -6,6 +6,7 @@
           <th />
           <th class="text-left">エピソード</th>
           <th />
+          <th class="text-left">再生時間</th>
           <th class="text-left">エピソードID</th>
           <th class="text-left">シリーズ名</th>
           <th class="text-left">シリーズID</th>
@@ -37,6 +38,7 @@
           <td align="left">
             {{ item.name }}
           </td>
+          <td>{{ totalTime(item) }}</td>
           <td>{{ item.id }}</td>
           <td>{{ seriesName(item) }}</td>
           <td>{{ seriesId(item) }}</td>
@@ -104,6 +106,21 @@ export default Vue.extend({
     },
     seriesId(episode: any) {
       return episode?.partOfSeries?.id || ''
+    },
+    totalTime(episode: any) {
+      if (episode.detailedRecentEvent === undefined) return '--:--:--'
+      const startDate = moment(episode.detailedRecentEvent.startDate)
+      const endDate = moment(episode.detailedRecentEvent.endDate)
+      const totalSecond = endDate.diff(startDate) / 1000
+
+      const seconds = totalSecond % 60
+      const totalMinutes = (totalSecond - seconds) / 60
+      const minutes = totalMinutes % 60
+      const hours = Math.floor(totalMinutes / 60)
+
+      return `${('00' + hours).slice(-2)}:${('00' + minutes).slice(-2)}:${(
+        '00' + seconds
+      ).slice(-2)}`
     },
   },
 })
