@@ -78,7 +78,7 @@ export default Vue.extend({
     return {
       page: 1,
       totalVisiblePagination: 9,
-      articleMode: (this as any).$cookies.get('articleMode'),
+      articleMode: (this as any).$cookies.get('articleMode') === 'true',
     }
   },
   computed: {
