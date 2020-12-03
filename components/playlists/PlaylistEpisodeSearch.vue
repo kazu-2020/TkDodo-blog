@@ -63,6 +63,7 @@
                 <th />
                 <th class="text-left">エピソード</th>
                 <th />
+                <th class="text-left">再生時間</th>
                 <th class="text-left">エピソードID</th>
                 <th class="text-left">シリーズ名</th>
                 <th class="text-left">シリーズID</th>

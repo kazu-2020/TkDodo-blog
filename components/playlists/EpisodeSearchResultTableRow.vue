@@ -24,6 +24,7 @@
     <td align="left">
       {{ episode.name }}
     </td>
+    <td>{{ totalTime(episode) }}</td>
     <td>{{ episode.id }}</td>
     <td>{{ episode.partOfSeries.name }}</td>
     <td>{{ episode.partOfSeries.id }}</td>
@@ -79,6 +80,21 @@ export default Vue.extend({
   methods: {
     addEpisode(episode: any): void {
       this.$emit('add-episode', episode)
+    },
+    totalTime(episode: any) {
+      if (episode.detailedRecentEvent === undefined) return '--:--:--'
+      const startDate = moment(episode.detailedRecentEvent.startDate)
+      const endDate = moment(episode.detailedRecentEvent.endDate)
+      const totalSecond = endDate.diff(startDate) / 1000
+
+      const seconds = totalSecond % 60
+      const totalMinutes = (totalSecond - seconds) / 60
+      const minutes = totalMinutes % 60
+      const hours = Math.floor(totalMinutes / 60)
+
+      return `${('00' + hours).slice(-2)}:${('00' + minutes).slice(-2)}:${(
+        '00' + seconds
+      ).slice(-2)}`
     },
   },
 })
