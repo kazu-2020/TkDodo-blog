@@ -1,9 +1,6 @@
 <template>
   <div>
     <h2>リスト</h2>
-    <p style="font-size: 12px">
-      ※ 保存ボタンを押しても、リストの内容は更新されません。現在対応中です。
-    </p>
     <v-row>
       <v-col cols="12">
         <playlist-episodes-list

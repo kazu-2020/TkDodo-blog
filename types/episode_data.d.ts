@@ -19,6 +19,7 @@ export interface EventData {
 }
 
 export interface EpisodeData {
+  id?: string
   name?: string
   description?: string
   url?: string
