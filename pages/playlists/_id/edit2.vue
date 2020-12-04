@@ -1,27 +1,28 @@
 <template>
   <v-layout column style="position: relative">
-    <v-row style="position: relative" class="mt-4">
-      <v-col cols="auto">
-        <playlist-stepper
-          :current="currentTab"
-          :article-tab-validation="isValidArticleTab"
-          :series-tab-validation="isValidSeriesTab"
-          @change-tab="changeTab"
-        />
-      </v-col>
-      <v-col cols="auto">
-        <v-btn
-          color="orange"
-          class="save-button"
-          elevation="0"
-          style="position: absolute; right: 0"
-          :disabled="preventSaveButton"
-          @click="save"
-          >保存する</v-btn
-        >
-      </v-col>
-    </v-row>
-    <v-row>
+    <div class="fixed-row-wrapper">
+      <v-row class="fixed-row">
+        <v-col cols="auto">
+          <playlist-stepper
+            :current="currentTab"
+            :article-tab-validation="isValidArticleTab"
+            :series-tab-validation="isValidSeriesTab"
+            @change-tab="changeTab"
+          />
+        </v-col>
+        <v-col cols="auto">
+          <v-btn
+            color="orange"
+            class="save-button"
+            elevation="0"
+            :disabled="preventSaveButton"
+            @click="save"
+            >保存する</v-btn
+          >
+        </v-col>
+      </v-row>
+    </div>
+    <v-row style="padding-top: 80px">
       <v-col v-show="isListEditing" cols="9" class="list-item-container mt-4">
         <list-edit-tab />
       </v-col>
@@ -284,9 +285,24 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.fixed-row-wrapper {
+  position: absolute;
+  top: -12px;
+}
+
+.fixed-row {
+  position: fixed;
+  width: 100%;
+  z-index: 4;
+  background-color: #f3f3f3;
+  padding-top: 20px;
+}
+
 .save-button {
   color: white;
   width: 140px;
+  position: absolute;
+  right: 6%;
 }
 
 .list-item-container,
