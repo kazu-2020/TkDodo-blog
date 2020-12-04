@@ -177,9 +177,19 @@ export default Vue.extend({
         })
       }
       const data = new FormData()
+
+      // このパラメーターを有効にすることで、Playlists#update でエピソードの更新もできるようにする
+      data.append('enable_list_update', '1')
+
       for (const key in body) {
         if (body[key] !== null && body[key] !== undefined) {
           data.append(`playlist[${key}]`, body[key] as string)
+        }
+      }
+
+      if (this.playlist.items.length > 0) {
+        for (const item of this.playlist.items) {
+          data.append('playlist[items][]', item.id as string)
         }
       }
 
