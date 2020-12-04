@@ -232,6 +232,11 @@ export default Vue.extend({
         immediate: true,
       },
     ],
+    valid: {
+      handler(newValue) {
+        this.$emit('update-validation', newValue)
+      },
+    },
   },
   methods: {
     addHeader() {
