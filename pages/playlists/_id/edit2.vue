@@ -2,7 +2,12 @@
   <v-layout column style="position: relative">
     <v-row style="position: relative" class="mt-4">
       <v-col cols="auto">
-        <playlist-stepper :current="currentTab" @change-tab="changeTab" />
+        <playlist-stepper
+          :current="currentTab"
+          :article-tab-validation="isValidArticleTab"
+          :series-tab-validation="isValidSeriesTab"
+          @change-tab="changeTab"
+        />
       </v-col>
       <v-col cols="auto">
         <v-btn
@@ -10,26 +15,27 @@
           class="save-button"
           elevation="0"
           style="position: absolute; right: 0"
+          :disabled="preventSaveButton"
           @click="save"
           >保存する</v-btn
         >
       </v-col>
     </v-row>
     <v-row>
-      <v-col v-if="isListEditing" cols="9" class="list-item-container mt-4">
+      <v-col v-show="isListEditing" cols="9" class="list-item-container mt-4">
         <list-edit-tab />
       </v-col>
-      <v-col
-        v-else-if="isArticleEditing"
-        cols="9"
-        class="article-container mt-4"
-      >
-        <article-edit-tab :playlist="playlist" @update-article="updateArticle"
+      <v-col v-show="isArticleEditing" cols="9" class="article-container mt-4">
+        <article-edit-tab
+          :playlist="playlist"
+          @update-article="updateArticle"
+          @update-validation="updateArticleTabValidation"
       /></v-col>
-      <v-col v-else-if="isSeriesEditing" cols="9" class="series-container mt-4">
+      <v-col v-show="isSeriesEditing" cols="9" class="series-container mt-4">
         <series-meta-edit-tab
           :playlist="playlist"
           @update-series="updateSeries"
+          @update-validation="updateSeriesTabValidation"
         />
       </v-col>
       <v-col cols="3" class="preview-container">
@@ -78,6 +84,8 @@ import { PlaylistTab } from '~/models/definitions'
 
 interface DataType {
   currentTab: PlaylistTab
+  isValidArticleTab: boolean
+  isValidSeriesTab: boolean
 }
 
 export default Vue.extend({
@@ -95,6 +103,8 @@ export default Vue.extend({
   data(): DataType {
     return {
       currentTab: PlaylistTab.list,
+      isValidArticleTab: true,
+      isValidSeriesTab: true,
     }
   },
   computed: {
@@ -113,6 +123,9 @@ export default Vue.extend({
     isSeriesEditing(): boolean {
       return this.currentTab === PlaylistTab.series
     },
+    preventSaveButton(): boolean {
+      return !this.isValidArticleTab || !this.isValidSeriesTab
+    },
   },
   methods: {
     eyecatchUrl(item: any): string {
@@ -130,6 +143,12 @@ export default Vue.extend({
     },
     updateSeries(playlist: any) {
       this.$store.dispatch('playlists/updateEditingPlaylist', playlist)
+    },
+    updateArticleTabValidation(valid: boolean) {
+      this.isValidArticleTab = valid
+    },
+    updateSeriesTabValidation(valid: boolean) {
+      this.isValidSeriesTab = valid
     },
     save() {
       const body: { [key: string]: string | undefined } = {

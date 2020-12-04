@@ -401,6 +401,11 @@ export default Vue.extend({
         this.$emit('update-series', playlist)
       },
     },
+    valid: {
+      handler(newValue) {
+        this.$emit('update-validation', newValue)
+      },
+    },
   },
   methods: {
     updateSeriesImage(data: { type: string; file: string }) {
