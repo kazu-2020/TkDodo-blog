@@ -1,7 +1,7 @@
 <template>
   <v-layout column style="position: relative">
     <div class="fixed-row-wrapper">
-      <v-row class="fixed-row">
+      <v-row class="fixed-row" justify="space-between" style="width: 95%">
         <v-col cols="auto">
           <playlist-stepper
             :current="currentTab"
@@ -332,8 +332,6 @@ export default Vue.extend({
 .save-button {
   color: white;
   width: 140px;
-  position: absolute;
-  right: 6%;
 }
 
 .list-item-container,
