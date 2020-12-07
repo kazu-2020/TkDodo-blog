@@ -35,7 +35,7 @@
         sm="12"
         class="list-item-container mt-4"
       >
-        <list-edit-tab />
+        <list-edit-tab @update-episodes-list="updateEpisodeList" />
       </v-col>
       <v-col
         v-show="isArticleEditing"
@@ -112,6 +112,7 @@ import BasicInformationView from '~/components/playlists/BasicInformationView.vu
 import HorizontalBasicInformationView from '~/components/playlists/HorizontalBasicInformationView.vue'
 import SeriesMetaEditTab from '~/components/playlists/SeriesMetaEditTab.vue'
 import { PlaylistTab } from '~/models/definitions'
+import unloadAlertMixin from '~/components/common/unloadAlertMixin.ts'
 
 interface DataType {
   currentTab: PlaylistTab
@@ -129,6 +130,7 @@ export default Vue.extend({
     PlaylistStepper,
     SeriesMetaEditTab,
   },
+  mixins: [unloadAlertMixin],
   async asyncData({ store, params }) {
     await store.dispatch('playlists/fetchPlaylist', params.id)
   },
@@ -159,6 +161,9 @@ export default Vue.extend({
       return !this.isValidArticleTab || !this.isValidSeriesTab
     },
   },
+  mounted() {
+    ;(this as any).notShowUnloadAlert()
+  },
   methods: {
     eyecatchUrl(item: any): string {
       if (item.eyecatch !== undefined) {
@@ -170,10 +175,20 @@ export default Vue.extend({
     changeTab(nextTab: PlaylistTab) {
       this.currentTab = nextTab
     },
+    updateEpisodeList() {
+      if (this.currentTab !== PlaylistTab.list) return
+      ;(this as any).showUnloadAlert()
+    },
     updateArticle(article: any) {
+      if (this.currentTab === PlaylistTab.article) {
+        ;(this as any).showUnloadAlert()
+      }
       this.$store.dispatch('playlists/updateArticle', article)
     },
     updateSeries(playlist: any) {
+      if (this.currentTab === PlaylistTab.series) {
+        ;(this as any).showUnloadAlert()
+      }
       this.$store.dispatch('playlists/updateEditingPlaylist', playlist)
     },
     updateArticleTabValidation(valid: boolean) {
@@ -306,6 +321,7 @@ export default Vue.extend({
         .put(`/playlists/${this.playlist.id}`, data)
         .then((_response) => {
           this.$store.dispatch('loading/succeedLoading')
+          ;(this as any).notShowUnloadAlert()
         })
         .catch((_error) => {
           this.$store.dispatch('loading/failLoading')

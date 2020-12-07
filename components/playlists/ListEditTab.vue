@@ -98,9 +98,11 @@ export default Vue.extend({
   },
   methods: {
     addEpisode(episode: any) {
+      this.$emit('update-episodes-list')
       this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
     },
     deleteEpisode(episode: any) {
+      this.$emit('update-episodes-list')
       this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
     },
     articleEpisodes(): Array<Object> {
