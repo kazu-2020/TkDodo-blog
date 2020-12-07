@@ -32,11 +32,9 @@ export default Vue.extend({
   methods: {
     notShowUnloadAlert(): void {
       this.isShowUnloadAlert = false
-      window.removeEventListener('beforeunload', confirmUnload)
     },
     showUnloadAlert(): void {
       this.isShowUnloadAlert = true
-      window.addEventListener('beforeunload', confirmUnload)
     },
   },
 })

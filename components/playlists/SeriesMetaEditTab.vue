@@ -171,6 +171,7 @@ import {
   adjustLinkDarkColor,
   adjustLinkLightColor,
 } from '@/utils/adjustColor'
+import unloadAlertMixin from '~/components/common/unloadAlertMixin.ts'
 import ColorPalette from '~/components/playlists/ColorPalette.vue'
 import SeriesImagesForm from '~/components/playlists/SeriesImagesForm.vue'
 import SameAsForm from '~/components/playlists/SameAsForm.vue'
@@ -208,6 +209,7 @@ export default Vue.extend({
     SeriesImagesForm,
     SameAsForm,
   },
+  mixins: [unloadAlertMixin],
   props: {
     playlist: {
       type: Object,
