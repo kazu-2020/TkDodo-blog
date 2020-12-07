@@ -6,6 +6,7 @@
         <playlist-episodes-list
           :episodes="playlistItems"
           @delete-episode="deleteEpisode"
+          @update-episodes="updateEpisodes"
         />
       </v-col>
     </v-row>
@@ -125,6 +126,10 @@ export default Vue.extend({
       } else {
         return ''
       }
+    },
+    updateEpisodes(episodes: any) {
+      this.$emit('update-episodes-list')
+      this.$store.dispatch('playlists/updateEditingPlaylistEpisodes', episodes)
     },
   },
 })
