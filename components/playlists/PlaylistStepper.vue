@@ -9,6 +9,9 @@
         :class="{ current: isArticle }"
         @click="changeTab('article')"
       >
+        <v-icon v-if="!articleTabValidation" color="#AB0000"
+          >mdi-information</v-icon
+        >
         <span>記事 (NArticle)</span>
       </div>
       <div
@@ -16,6 +19,9 @@
         :class="{ current: isSeries }"
         @click="changeTab('series')"
       >
+        <v-icon v-if="!seriesTabValidation" color="#AB0000"
+          >mdi-information</v-icon
+        >
         <span>基本情報(NSeries)</span>
       </div>
     </div>
@@ -33,6 +39,16 @@ export default Vue.extend({
       type: String as PropType<PlaylistTab>,
       default: PlaylistTab.list,
       required: false,
+    },
+    articleTabValidation: {
+      type: Boolean,
+      default: true,
+      required: true,
+    },
+    seriesTabValidation: {
+      type: Boolean,
+      default: true,
+      required: true,
     },
   },
   computed: {
@@ -66,12 +82,13 @@ export default Vue.extend({
   text-align: center;
   color: #000;
   cursor: pointer;
-  padding: 7px 10px 8px 30px;
+  padding: 10px 10px 8px 30px;
   min-width: 180px;
   float: left;
   position: relative;
   background-color: white;
   border: 1px solid #cecece;
+  height: 44px;
 }
 
 .arrow-steps .step:before {
@@ -81,8 +98,8 @@ export default Vue.extend({
   right: -21px;
   width: 0;
   height: 0;
-  border-top: 19px solid transparent;
-  border-bottom: 17px solid transparent;
+  border-top: 22px solid transparent;
+  border-bottom: 20px solid transparent;
   border-left: 19px solid #cecece;
   z-index: 2;
 }
@@ -94,8 +111,8 @@ export default Vue.extend({
   right: -19px;
   width: 0;
   height: 0;
-  border-top: 19px solid transparent;
-  border-bottom: 17px solid transparent;
+  border-top: 22px solid transparent;
+  border-bottom: 20px solid transparent;
   border-left: 19px solid white;
   z-index: 3;
 }
@@ -110,15 +127,15 @@ export default Vue.extend({
 
 .arrow-steps .step:last-child:before {
   right: -22px;
-  border-top: 20px solid transparent;
-  border-bottom: 17px solid transparent;
+  border-top: 22px solid transparent;
+  border-bottom: 21px solid transparent;
   border-left: 20px solid #cecece;
 }
 
 .arrow-steps .step:last-child:after {
   right: -20px;
-  border-top: 20px solid transparent;
-  border-bottom: 17px solid transparent;
+  border-top: 22px solid transparent;
+  border-bottom: 21px solid transparent;
   border-left: 20px solid white;
 }
 

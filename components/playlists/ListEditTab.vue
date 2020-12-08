@@ -1,14 +1,12 @@
 <template>
   <div>
     <h2>リスト</h2>
-    <p style="font-size: 12px">
-      ※ 保存ボタンを押しても、リストの内容は更新されません。現在対応中です。
-    </p>
     <v-row>
       <v-col cols="12">
         <playlist-episodes-list
           :episodes="playlistItems"
           @delete-episode="deleteEpisode"
+          @update-episodes="updateEpisodes"
         />
       </v-col>
     </v-row>
@@ -101,9 +99,11 @@ export default Vue.extend({
   },
   methods: {
     addEpisode(episode: any) {
+      this.$emit('update-episodes-list')
       this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
     },
     deleteEpisode(episode: any) {
+      this.$emit('update-episodes-list')
       this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
     },
     articleEpisodes(): Array<Object> {
@@ -126,6 +126,10 @@ export default Vue.extend({
       } else {
         return ''
       }
+    },
+    updateEpisodes(episodes: any) {
+      this.$emit('update-episodes-list')
+      this.$store.dispatch('playlists/updateEditingPlaylistEpisodes', episodes)
     },
   },
 })
