@@ -78,7 +78,7 @@
     </v-col>
     <v-col cols="2" md="2" sm="4" xs="12">
       <div style="word-wrap: break-word; font-size: 14px">
-        {{ playlist.article.plainBody.slice(0, 50) }}
+        {{ plainBody }}
       </div>
     </v-col>
     <v-snackbar v-model="snackbar" timeout="2000">
@@ -126,6 +126,9 @@ export default Vue.extend({
     },
     playlistItems(): Array<Object> {
       return this.$store.state.playlists.editingPlaylist.items.slice(0, 4)
+    },
+    plainBody(): string {
+      return this.playlist?.article?.plainBody?.slice(0, 50) || ''
     },
   },
   methods: {
