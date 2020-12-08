@@ -1,7 +1,7 @@
 <template>
   <v-layout column style="position: relative">
     <div class="fixed-row-wrapper">
-      <v-row class="fixed-row">
+      <v-row class="fixed-row" justify="space-between" style="width: 95%">
         <v-col cols="auto">
           <playlist-stepper
             :current="currentTab"
@@ -23,23 +23,50 @@
       </v-row>
     </div>
     <v-row style="padding-top: 80px">
-      <v-col v-show="isListEditing" cols="9" class="list-item-container mt-4">
-        <list-edit-tab />
+      <v-col cols="12" class="hidden-lg-and-up preview-container">
+        <horizontal-basic-information-view :playlist="playlist" />
       </v-col>
-      <v-col v-show="isArticleEditing" cols="9" class="article-container mt-4">
+      <v-col
+        v-show="isListEditing"
+        cols="9"
+        lg="9"
+        xl="9"
+        md="12"
+        sm="12"
+        class="list-item-container mt-4"
+      >
+        <list-edit-tab @update-episodes-list="updateEpisodeList" />
+      </v-col>
+      <v-col
+        v-show="isArticleEditing"
+        cols="9"
+        lg="9"
+        xl="9"
+        md="12"
+        sm="12"
+        class="article-container mt-4"
+      >
         <article-edit-tab
           :playlist="playlist"
           @update-article="updateArticle"
           @update-validation="updateArticleTabValidation"
       /></v-col>
-      <v-col v-show="isSeriesEditing" cols="9" class="series-container mt-4">
+      <v-col
+        v-show="isSeriesEditing"
+        cols="9"
+        lg="9"
+        xl="9"
+        md="12"
+        sm="12"
+        class="series-container mt-4"
+      >
         <series-meta-edit-tab
           :playlist="playlist"
           @update-series="updateSeries"
           @update-validation="updateSeriesTabValidation"
         />
       </v-col>
-      <v-col cols="3" class="preview-container">
+      <v-col cols="3" class="preview-container hidden-md-and-down">
         <div class="preview-container-inner mt-1 pa-2">
           <basic-information-view :playlist="playlist" />
           <v-col cols="12">
@@ -65,7 +92,9 @@
           </v-col>
           <v-divider />
           <v-col cols="12">
-            {{ playlist.article.plainBody }}
+            <div style="word-wrap: break-word; font-size: 14px">
+              {{ playlist.article.plainBody }}
+            </div>
           </v-col>
         </div>
       </v-col>
@@ -80,8 +109,10 @@ import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
 import ListEditTab from '~/components/playlists/ListEditTab.vue'
 import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
+import HorizontalBasicInformationView from '~/components/playlists/HorizontalBasicInformationView.vue'
 import SeriesMetaEditTab from '~/components/playlists/SeriesMetaEditTab.vue'
 import { PlaylistTab } from '~/models/definitions'
+import unloadAlertMixin from '~/components/common/unloadAlertMixin.ts'
 
 interface DataType {
   currentTab: PlaylistTab
@@ -94,10 +125,12 @@ export default Vue.extend({
   components: {
     ArticleEditTab,
     BasicInformationView,
+    HorizontalBasicInformationView,
     ListEditTab,
     PlaylistStepper,
     SeriesMetaEditTab,
   },
+  mixins: [unloadAlertMixin],
   async asyncData({ store, params }) {
     await store.dispatch('playlists/fetchPlaylist', params.id)
   },
@@ -128,6 +161,9 @@ export default Vue.extend({
       return !this.isValidArticleTab || !this.isValidSeriesTab
     },
   },
+  mounted() {
+    ;(this as any).notShowUnloadAlert()
+  },
   methods: {
     eyecatchUrl(item: any): string {
       if (item.eyecatch !== undefined) {
@@ -139,10 +175,20 @@ export default Vue.extend({
     changeTab(nextTab: PlaylistTab) {
       this.currentTab = nextTab
     },
+    updateEpisodeList() {
+      if (this.currentTab !== PlaylistTab.list) return
+      ;(this as any).showUnloadAlert()
+    },
     updateArticle(article: any) {
+      if (this.currentTab === PlaylistTab.article) {
+        ;(this as any).showUnloadAlert()
+      }
       this.$store.dispatch('playlists/updateArticle', article)
     },
     updateSeries(playlist: any) {
+      if (this.currentTab === PlaylistTab.series) {
+        ;(this as any).showUnloadAlert()
+      }
       this.$store.dispatch('playlists/updateEditingPlaylist', playlist)
     },
     updateArticleTabValidation(valid: boolean) {
@@ -275,6 +321,7 @@ export default Vue.extend({
         .put(`/playlists/${this.playlist.id}`, data)
         .then((_response) => {
           this.$store.dispatch('loading/succeedLoading')
+          ;(this as any).notShowUnloadAlert()
         })
         .catch((_error) => {
           this.$store.dispatch('loading/failLoading')
@@ -301,8 +348,6 @@ export default Vue.extend({
 .save-button {
   color: white;
   width: 140px;
-  position: absolute;
-  right: 6%;
 }
 
 .list-item-container,
