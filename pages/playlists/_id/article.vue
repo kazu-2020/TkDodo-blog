@@ -316,6 +316,7 @@ export default Vue.extend({
 <style lang="scss">
 .ce-toolbar__actions {
   left: -25px;
+  right: unset;
   top: 10px;
 }
 
