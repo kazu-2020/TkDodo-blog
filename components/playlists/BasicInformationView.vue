@@ -94,7 +94,7 @@ export default Vue.extend({
   props: {
     playlist: {
       type: Object,
-      required: true,
+      required: false,
       default: () => {},
     },
   },
