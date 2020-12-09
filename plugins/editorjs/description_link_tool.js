@@ -125,6 +125,23 @@ export default class DescriptionLinkTool extends LinkTool {
     this.nodes.linkText.textContent = this.data.link
   }
 
+  /**
+   * @override
+   */
+  prepareLinkPreview() {
+    const holder = super.prepareLinkPreview()
+    holder.addEventListener('click', this.onClick)
+
+    return holder
+  }
+
+  onClick(e) {
+    if (!confirm(`${this.href} を別タブで開きます。よろしいですか？`)) {
+      e.preventDefault()
+    }
+    return false
+  }
+
   allowDomain(link) {
     const domains = ['nhk.jp', 'nhk.or.jp', 'www.nhk-ondemand.jp']
     const url = new URL(link)
