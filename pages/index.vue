@@ -78,9 +78,9 @@
       <v-list-item
         v-for="item in selectedPlaylistItems"
         :key="item.id"
-        class="px-6"
+        class="px-6 episode_list"
       >
-        <v-list-item-icon class="mr-1">
+        <v-list-item-icon class="mr-1 my-1">
           <v-img
             :src="eyecatchUrl(item)"
             lazy-src="https://placehold.jp/50x28.png"
@@ -89,12 +89,12 @@
           />
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title v-text="item.name" />
+          <v-list-item-title style="font-size: 14px" v-text="item.name" />
         </v-list-item-content>
       </v-list-item>
-      <v-divider />
+      <v-divider class="mt-4" />
       <v-list-item>
-        <div style="word-wrap: break-word; font-size: 14px">
+        <div class="article_preview">
           {{ selectedPlaylistArticle }}
         </div>
       </v-list-item>
@@ -298,11 +298,23 @@ export default Vue.extend({
   right: 0;
 }
 
+.episode_list {
+  min-height: 30px;
+}
+
 .edit_button {
   color: white;
 }
 
 .delete_button {
   color: #4f4f4f;
+}
+
+.article_preview {
+  word-wrap: break-word;
+  font-size: 14px;
+  width: 100%;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 </style>
