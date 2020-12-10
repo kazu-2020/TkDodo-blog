@@ -96,6 +96,15 @@
               {{ playlist.article.plainBody }}
             </div>
           </v-col>
+          <v-divider />
+          <v-col cols="2">
+            <playlist-json-dialog
+              button-color="#000000"
+              :playlist-id="playlist.id"
+              v-bind="attrs"
+              v-on="on"
+            />
+          </v-col>
         </div>
       </v-col>
     </v-row>
@@ -107,6 +116,7 @@ import Vue from 'vue'
 import { Playlist } from '@/types/playlist'
 import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
 import ListEditTab from '~/components/playlists/ListEditTab.vue'
+import PlaylistJsonDialog from '~/components/playlists/PlaylistJsonDialog.vue'
 import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
 import HorizontalBasicInformationView from '~/components/playlists/HorizontalBasicInformationView.vue'
@@ -127,6 +137,7 @@ export default Vue.extend({
     BasicInformationView,
     HorizontalBasicInformationView,
     ListEditTab,
+    PlaylistJsonDialog,
     PlaylistStepper,
     SeriesMetaEditTab,
   },
