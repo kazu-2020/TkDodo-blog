@@ -5,20 +5,20 @@
   >
     <v-row>
       <v-col cols="6" class="pr-0">
-        <h2 class="playlist-title">{{ playlist.name }}</h2>
+        <h2 class="playlist-title">{{ playlistName }}</h2>
         <div class="chips">
           <v-chip class="my-1" small> 非公開 </v-chip>
           <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
-            ID: {{ playlist.id.slice(0, 8) + '...' }}
+            ID: {{ omittedPlaylisitId }}
           </v-chip>
           <v-chip
-            v-if="playlist.originalSeriesId"
+            v-if="playlistSeriesId"
             class="my-1"
             color="secondary"
             small
             @click="copySeriesId"
           >
-            SeriesID: {{ playlist.originalSeriesId }}
+            SeriesID: {{ playlistSeriesId }}
           </v-chip>
         </div>
       </v-col>
@@ -29,16 +29,16 @@
           style="border-radius: 4px; overflow: hidden; margin: 0 auto"
         />
       </v-col>
-      <v-col v-if="playlist.detailedCatch" cols="12" class="body-2 py-2">
-        - {{ playlist.detailedCatch }} -
+      <v-col v-if="playlistDetailedCatch" cols="12" class="body-2 py-2">
+        - {{ playlistDetailedCatch }} -
       </v-col>
       <v-col
-        v-if="playlist.description"
+        v-if="playlistDescription"
         cols="12"
         class="body-2 py-2"
         style="word-wrap: break-word"
       >
-        {{ playlist.description }}
+        {{ playlistDescription }}
       </v-col>
       <v-col v-if="hasActorsOrContributors" cols="auto">
         <v-tooltip
@@ -105,13 +105,29 @@ export default Vue.extend({
   },
   computed: {
     actorsAndContributors(): Array<Object> {
-      const actors = this.playlist.actor || []
-      const contributors = this.playlist.contributor || []
+      const actors = this.playlist?.actor || []
+      const contributors = this.playlist?.contributor || []
 
       return actors.concat(contributors).slice(0, 12)
     },
     hasActorsOrContributors(): boolean {
       return this.actorsAndContributors.length !== 0
+    },
+    playlistName(): string {
+      return this.playlist?.name || ''
+    },
+    omittedPlaylisitId(): string {
+      const playlistId = this.playlist?.id || ''
+      return playlistId.length > 8 ? playlistId.slice(0, 8) + '...' : playlistId
+    },
+    playlistSeriesId(): string | undefined {
+      return this.playlist?.originalSeriesId
+    },
+    playlistDetailedCatch(): string | undefined {
+      return this.playlist?.detailedCatch
+    },
+    playlistDescription(): string | undefined {
+      return this.playlist?.description
     },
   },
   methods: {
@@ -132,6 +148,7 @@ export default Vue.extend({
       return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
     },
     logoImageUrl(playlist: any) {
+      if (playlist === undefined) return ''
       return playlist.logo?.medium?.url || this.dummyImage(playlist.dateCreated)
     },
     actorContributorName(data: any): string {
