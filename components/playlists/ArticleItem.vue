@@ -13,11 +13,9 @@
             </v-col>
             <v-col class="mr-auto pl-0 pt-0 information" cols="9" sm="8" xs="5">
               <v-card-title class="title mb-1 pl-0">
-                <nuxt-link
-                  :to="{ name: 'playlists-id', params: { id: playlist.id } }"
-                >
+                <a class="playlist-title" @click="clickPlaylistItem">
                   {{ playlist.name }}
-                </nuxt-link>
+                </a>
                 <v-chip class="ma-2" small>下書き</v-chip>
               </v-card-title>
               <v-card-text
@@ -127,6 +125,9 @@ export default Vue.extend({
     formattedDate(_time: string): string {
       return moment(_time).format('YYYY/MM/DD HH:mm')
     },
+    clickPlaylistItem() {
+      this.$emit('click-playlist-item', this.playlist)
+    },
   },
 })
 </script>
@@ -141,6 +142,10 @@ export default Vue.extend({
 .v-card__title.title {
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.playlist-title {
+  text-decoration: underline;
 }
 
 .no_article {

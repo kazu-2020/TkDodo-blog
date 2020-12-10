@@ -1,38 +1,72 @@
 <template>
   <v-layout column style="position: relative">
-    <v-row style="position: relative" class="mt-4">
-      <v-col cols="auto">
-        <playlist-stepper :current="currentTab" @change-tab="changeTab" />
-      </v-col>
-      <v-col cols="auto">
-        <v-btn
-          color="orange"
-          class="save-button"
-          elevation="0"
-          style="position: absolute; right: 0"
-          @click="save"
-          >保存する</v-btn
-        >
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col v-if="isListEditing" cols="9" class="list-item-container mt-4">
-        <list-edit-tab />
+    <div class="fixed-row-wrapper">
+      <v-row class="fixed-row" justify="space-between" style="width: 95%">
+        <v-col cols="auto">
+          <playlist-stepper
+            :current="currentTab"
+            :article-tab-validation="isValidArticleTab"
+            :series-tab-validation="isValidSeriesTab"
+            @change-tab="changeTab"
+          />
+        </v-col>
+        <v-col cols="auto">
+          <v-btn
+            color="orange"
+            class="save-button"
+            elevation="0"
+            :disabled="preventSaveButton"
+            @click="save"
+            >保存する</v-btn
+          >
+        </v-col>
+      </v-row>
+    </div>
+    <v-row style="padding-top: 80px">
+      <v-col cols="12" class="hidden-lg-and-up preview-container">
+        <horizontal-basic-information-view :playlist="playlist" />
       </v-col>
       <v-col
-        v-else-if="isArticleEditing"
+        v-show="isListEditing"
         cols="9"
+        lg="9"
+        xl="9"
+        md="12"
+        sm="12"
+        class="list-item-container mt-4"
+      >
+        <list-edit-tab @update-episodes-list="updateEpisodeList" />
+      </v-col>
+      <v-col
+        v-show="isArticleEditing"
+        cols="9"
+        lg="9"
+        xl="9"
+        md="12"
+        sm="12"
         class="article-container mt-4"
       >
-        <article-edit-tab :playlist="playlist" @update-article="updateArticle"
+        <article-edit-tab
+          :playlist="playlist"
+          @update-article="updateArticle"
+          @update-validation="updateArticleTabValidation"
       /></v-col>
-      <v-col v-else-if="isSeriesEditing" cols="9" class="series-container mt-4">
+      <v-col
+        v-show="isSeriesEditing"
+        cols="9"
+        lg="9"
+        xl="9"
+        md="12"
+        sm="12"
+        class="series-container mt-4"
+      >
         <series-meta-edit-tab
           :playlist="playlist"
           @update-series="updateSeries"
+          @update-validation="updateSeriesTabValidation"
         />
       </v-col>
-      <v-col cols="3" class="preview-container">
+      <v-col cols="3" class="preview-container hidden-md-and-down">
         <div class="preview-container-inner mt-1 pa-2">
           <basic-information-view :playlist="playlist" />
           <v-col cols="12">
@@ -47,6 +81,7 @@
                     :src="eyecatchUrl(item)"
                     lazy-src="https://placehold.jp/50x28.png"
                     width="50"
+                    height="28"
                     class="episode-image"
                   />
                 </v-list-item-icon>
@@ -58,7 +93,18 @@
           </v-col>
           <v-divider />
           <v-col cols="12">
-            {{ playlist.article.plainBody }}
+            <div style="word-wrap: break-word; font-size: 14px">
+              {{ playlist.article.plainBody }}
+            </div>
+          </v-col>
+          <v-divider />
+          <v-col cols="2">
+            <playlist-json-dialog
+              button-color="#000000"
+              :playlist-id="playlist.id"
+              v-bind="attrs"
+              v-on="on"
+            />
           </v-col>
         </div>
       </v-col>
@@ -71,13 +117,18 @@ import Vue from 'vue'
 import { Playlist } from '@/types/playlist'
 import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
 import ListEditTab from '~/components/playlists/ListEditTab.vue'
+import PlaylistJsonDialog from '~/components/playlists/PlaylistJsonDialog.vue'
 import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
+import HorizontalBasicInformationView from '~/components/playlists/HorizontalBasicInformationView.vue'
 import SeriesMetaEditTab from '~/components/playlists/SeriesMetaEditTab.vue'
 import { PlaylistTab } from '~/models/definitions'
+import unloadAlertMixin from '~/components/common/unloadAlertMixin.ts'
 
 interface DataType {
   currentTab: PlaylistTab
+  isValidArticleTab: boolean
+  isValidSeriesTab: boolean
 }
 
 export default Vue.extend({
@@ -85,16 +136,21 @@ export default Vue.extend({
   components: {
     ArticleEditTab,
     BasicInformationView,
+    HorizontalBasicInformationView,
     ListEditTab,
+    PlaylistJsonDialog,
     PlaylistStepper,
     SeriesMetaEditTab,
   },
+  mixins: [unloadAlertMixin],
   async asyncData({ store, params }) {
     await store.dispatch('playlists/fetchPlaylist', params.id)
   },
   data(): DataType {
     return {
       currentTab: PlaylistTab.list,
+      isValidArticleTab: true,
+      isValidSeriesTab: true,
     }
   },
   computed: {
@@ -113,6 +169,12 @@ export default Vue.extend({
     isSeriesEditing(): boolean {
       return this.currentTab === PlaylistTab.series
     },
+    preventSaveButton(): boolean {
+      return !this.isValidArticleTab || !this.isValidSeriesTab
+    },
+  },
+  mounted() {
+    ;(this as any).notShowUnloadAlert()
   },
   methods: {
     eyecatchUrl(item: any): string {
@@ -125,11 +187,27 @@ export default Vue.extend({
     changeTab(nextTab: PlaylistTab) {
       this.currentTab = nextTab
     },
+    updateEpisodeList() {
+      if (this.currentTab !== PlaylistTab.list) return
+      ;(this as any).showUnloadAlert()
+    },
     updateArticle(article: any) {
+      if (this.currentTab === PlaylistTab.article) {
+        ;(this as any).showUnloadAlert()
+      }
       this.$store.dispatch('playlists/updateArticle', article)
     },
     updateSeries(playlist: any) {
+      if (this.currentTab === PlaylistTab.series) {
+        ;(this as any).showUnloadAlert()
+      }
       this.$store.dispatch('playlists/updateEditingPlaylist', playlist)
+    },
+    updateArticleTabValidation(valid: boolean) {
+      this.isValidArticleTab = valid
+    },
+    updateSeriesTabValidation(valid: boolean) {
+      this.isValidSeriesTab = valid
     },
     save() {
       const body: { [key: string]: string | undefined } = {
@@ -177,9 +255,19 @@ export default Vue.extend({
         })
       }
       const data = new FormData()
+
+      // このパラメーターを有効にすることで、Playlists#update でエピソードの更新もできるようにする
+      data.append('enable_list_update', '1')
+
       for (const key in body) {
         if (body[key] !== null && body[key] !== undefined) {
           data.append(`playlist[${key}]`, body[key] as string)
+        }
+      }
+
+      if (this.playlist.items.length > 0) {
+        for (const item of this.playlist.items) {
+          data.append('playlist[items][]', item.id as string)
         }
       }
 
@@ -245,6 +333,7 @@ export default Vue.extend({
         .put(`/playlists/${this.playlist.id}`, data)
         .then((_response) => {
           this.$store.dispatch('loading/succeedLoading')
+          ;(this as any).notShowUnloadAlert()
         })
         .catch((_error) => {
           this.$store.dispatch('loading/failLoading')
@@ -255,6 +344,19 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.fixed-row-wrapper {
+  position: absolute;
+  top: -12px;
+}
+
+.fixed-row {
+  position: fixed;
+  width: 100%;
+  z-index: 4;
+  background-color: #f3f3f3;
+  padding-top: 20px;
+}
+
 .save-button {
   color: white;
   width: 140px;
@@ -270,5 +372,9 @@ export default Vue.extend({
 .preview-container-inner {
   background-color: white;
   border-radius: 6px;
+}
+
+.v-responsive.v-image.episode-image {
+  border-radius: 5px;
 }
 </style>

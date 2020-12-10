@@ -13,12 +13,9 @@
             </v-col>
             <v-col class="mr-auto pl-1" cols="9">
               <v-card-title class="title mb-1">
-                <nuxt-link
-                  :to="{ name: 'playlists-id', params: { id: playlist.id } }"
-                  class="playlist-title"
-                >
+                <a class="playlist-title" @click="clickPlaylistItem">
                   {{ playlist.name }}
-                </nuxt-link>
+                </a>
                 <v-chip class="ma-2" small>下書き</v-chip>
               </v-card-title>
               <v-card-text class="card-list-item pb-1">
@@ -158,6 +155,9 @@ export default Vue.extend({
         this.$emit('delete-playlist', this.playlist)
       }
     },
+    clickPlaylistItem(): void {
+      this.$emit('click-playlist-item', this.playlist)
+    },
   },
 })
 </script>
@@ -170,6 +170,10 @@ export default Vue.extend({
 .v-card__title.title {
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.playlist-title {
+  text-decoration: underline;
 }
 
 .v-card__text.card-list-item {
