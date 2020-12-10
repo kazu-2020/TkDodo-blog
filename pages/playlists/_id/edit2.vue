@@ -81,6 +81,7 @@
                     :src="eyecatchUrl(item)"
                     lazy-src="https://placehold.jp/50x28.png"
                     width="50"
+                    height="28"
                     class="episode-image"
                   />
                 </v-list-item-icon>
@@ -371,5 +372,9 @@ export default Vue.extend({
 .preview-container-inner {
   background-color: white;
   border-radius: 6px;
+}
+
+.v-responsive.v-image.episode-image {
+  border-radius: 5px;
 }
 </style>

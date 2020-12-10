@@ -85,6 +85,7 @@
             :src="eyecatchUrl(item)"
             lazy-src="https://placehold.jp/50x28.png"
             width="50"
+            height="28"
             class="episode-image"
           />
         </v-list-item-icon>
@@ -300,6 +301,10 @@ export default Vue.extend({
 
 .episode_list {
   min-height: 30px;
+}
+
+.v-responsive.v-image.episode-image {
+  border-radius: 5px;
 }
 
 .edit_button {
