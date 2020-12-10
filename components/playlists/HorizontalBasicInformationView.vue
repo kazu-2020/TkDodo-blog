@@ -1,21 +1,21 @@
 <template>
   <v-row class="preview-container-inner">
     <v-col cols="2" md="2" sm="4" xs="12">
-      <h2 class="playlist-title">{{ playlist.name }}</h2>
+      <h2 class="playlist-title">{{ playlistName }}</h2>
       <div class="chips">
         <v-chip class="my-1" small> 非公開 </v-chip>
         <br />
         <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
-          ID: {{ playlist.id.slice(0, 12) + '...' }}
+          ID: {{ omittedPlaylisitId }}
         </v-chip>
         <v-chip
-          v-if="playlist.originalSeriesId"
+          v-if="playlistSeriesId"
           class="my-1"
           color="secondary"
           small
           @click="copySeriesId"
         >
-          SeriesID: {{ playlist.originalSeriesId }}
+          SeriesID: {{ playlistSeriesId }}
         </v-chip>
       </div>
     </v-col>
@@ -25,9 +25,9 @@
         style="border-radius: 4px; overflow: hidden; margin: 0 auto"
       />
     </v-col>
-    <v-col v-show="playlist.description" cols="2" md="2" sm="4" xs="12">
+    <v-col v-show="playlistDescription" cols="2" md="2" sm="4" xs="12">
       <div style="word-wrap: break-word; font-size: 14px">
-        {{ playlist.description.slice(0, 50) }}
+        {{ playlistDescription }}
       </div>
     </v-col>
     <v-col v-show="hasActorsOrContributors" cols="2" md="2" sm="4" xs="12">
@@ -127,6 +127,21 @@ export default Vue.extend({
     },
     playlistItems(): Array<Object> {
       return this.$store.state.playlists.editingPlaylist.items.slice(0, 4)
+    },
+    playlistName(): string {
+      return this.playlist?.name || ''
+    },
+    playlistSeriesId(): string | undefined {
+      return this.playlist?.originalSeriesId
+    },
+    omittedPlaylisitId(): string {
+      const playlistId = this.playlist?.id || ''
+      return playlistId.length > 8
+        ? playlistId.slice(0, 12) + '...'
+        : playlistId
+    },
+    playlistDescription(): string | undefined {
+      return this.playlist?.description?.slice(0, 50)
     },
     plainBody(): string {
       return this.playlist?.article?.plainBody?.slice(0, 50) || ''
