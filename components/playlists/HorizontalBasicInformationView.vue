@@ -60,13 +60,14 @@
       </v-tooltip>
     </v-col>
     <v-col cols="3" md="3" sm="4" xs="12">
-      <v-list dense>
+      <v-list dense class="py-0">
         <v-list-item v-for="item in playlistItems" :key="item.id" class="px-0">
           <v-list-item-icon class="mr-1">
             <v-img
               :src="eyecatchUrl(item)"
               lazy-src="https://placehold.jp/50x28.png"
               width="50"
+              height="28"
               class="episode-image"
             />
           </v-list-item-icon>
@@ -210,5 +211,9 @@ export default Vue.extend({
     color: white;
     font-weight: bold;
   }
+}
+
+.v-responsive.v-image.episode-image {
+  border-radius: 5px;
 }
 </style>
