@@ -1,7 +1,11 @@
 <template>
   <v-layout column style="position: relative">
     <div class="fixed-row-wrapper">
-      <v-row class="fixed-row" justify="space-between" style="width: 95%">
+      <v-row
+        class="fixed-row"
+        justify="space-between"
+        style="padding-right: 60px"
+      >
         <v-col cols="auto">
           <playlist-stepper
             :current="currentTab"
