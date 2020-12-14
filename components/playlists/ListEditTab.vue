@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="closePreviewDrawer">
     <h2>リスト</h2>
     <v-row>
       <v-col cols="12">
@@ -7,6 +7,7 @@
           :episodes="playlistItems"
           @delete-episode="deleteEpisode"
           @update-episodes="updateEpisodes"
+          @select-episode="selectEpisode"
         />
       </v-col>
     </v-row>
@@ -44,6 +45,7 @@
                       :episode="episode"
                       :ignore-episodes="playlistItems"
                       @add-episode="addEpisode"
+                      @select-episode="selectEpisode"
                     />
                   </tbody>
                 </template>
@@ -60,21 +62,31 @@
           :keywords.sync="keywords"
           :search-trigger-count="searchTriggerCount"
           @add-episode="addEpisode"
+          @select-episode="selectEpisode"
         />
       </v-col>
     </v-row>
+    <episode-preview-drawer
+      :episode="selectedEpisode"
+      :visible="previewDrawer"
+      @close-drawer="closePreviewDrawer"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Playlist } from '@/types/playlist'
+import { EpisodeData } from '@/types/episode_data'
 import PlaylistEpisodesList from '~/components/playlists/PlaylistEpisodesList.vue'
 import PlaylistEpisodeSearch from '~/components/playlists/PlaylistEpisodeSearch.vue'
+import EpisodePreviewDrawer from '~/components/playlists/EpisodePreviewDrawer.vue'
 
 interface DataType {
   keywords: string
   searchTriggerCount: number
+  selectedEpisode: EpisodeData | undefined
+  previewDrawer: boolean
 }
 
 export default Vue.extend({
@@ -82,11 +94,14 @@ export default Vue.extend({
   components: {
     PlaylistEpisodesList,
     PlaylistEpisodeSearch,
+    EpisodePreviewDrawer,
   },
   data(): DataType {
     return {
       keywords: '',
       searchTriggerCount: 0,
+      selectedEpisode: undefined,
+      previewDrawer: false,
     }
   },
   computed: {
@@ -130,6 +145,14 @@ export default Vue.extend({
     updateEpisodes(episodes: any) {
       this.$emit('update-episodes-list')
       this.$store.dispatch('playlists/updateEditingPlaylistEpisodes', episodes)
+    },
+    selectEpisode(episode: any) {
+      this.selectedEpisode = episode
+      this.previewDrawer = true
+    },
+    closePreviewDrawer() {
+      this.selectedEpisode = undefined
+      this.previewDrawer = false
     },
   },
 })

@@ -1,5 +1,5 @@
 <template>
-  <tr class="result_row">
+  <tr class="result_row" style="cursor: pointer" @click.stop="clickEpisode">
     <td>
       <v-btn
         v-if="!shouldIgnoreEpisode"
@@ -95,6 +95,9 @@ export default Vue.extend({
       return `${('00' + hours).slice(-2)}:${('00' + minutes).slice(-2)}:${(
         '00' + seconds
       ).slice(-2)}`
+    },
+    clickEpisode() {
+      this.$emit('select-episode', this.episode)
     },
   },
 })

@@ -15,7 +15,12 @@
         </tr>
       </thead>
       <draggable v-model="items" tag="tbody">
-        <tr v-for="item in items" :key="item.id">
+        <tr
+          v-for="item in items"
+          :key="item.id"
+          style="cursor: pointer"
+          @click.stop="clickEpisode(item)"
+        >
           <td>
             <v-btn
               tile
@@ -84,6 +89,9 @@ export default Vue.extend({
     },
   },
   methods: {
+    clickEpisode(item: any) {
+      this.$emit('select-episode', item)
+    },
     convertReleaseDate(releasedEvent: any) {
       if (releasedEvent) {
         return moment(releasedEvent.startDate).format('YYYY年M月DD日（ddd）')

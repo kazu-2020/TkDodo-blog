@@ -78,6 +78,7 @@
                 :episode="episode"
                 :ignore-episodes="ignoreEpisodes"
                 @add-episode="addEpisode"
+                @select-episode="selectEpisode(episode)"
               />
               <tr v-show="canLoadMoreEpisodes">
                 <td
@@ -243,6 +244,9 @@ export default Vue.extend({
     },
     searchAdditionalEpisodes() {
       this.searchEpisodes({ clearCurrentEpisodes: false })
+    },
+    selectEpisode(episode: any) {
+      this.$emit('select-episode', episode)
     },
   },
 })
