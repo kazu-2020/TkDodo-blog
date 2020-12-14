@@ -35,7 +35,6 @@
       <v-col v-for="item in playlists" :key="item.id" cols="11" class="py-1">
         <article-item
           :playlist="item"
-          @delete-playlist="deletePlaylist"
           @click-playlist-item="clickPlaylistItem"
         />
       </v-col>
@@ -44,7 +43,6 @@
       <v-col v-for="item in playlists" :key="item.id" cols="11" class="py-1">
         <playlist-item
           :playlist="item"
-          @delete-playlist="deletePlaylist"
           @click-playlist-item="clickPlaylistItem"
         />
       </v-col>
@@ -249,13 +247,6 @@ export default Vue.extend({
     },
   },
   methods: {
-    deletePlaylist(playlist: any) {
-      this.$store.dispatch('loading/startLoading', {
-        success: '削除しました',
-        error: '削除失敗しました',
-      })
-      this.$store.dispatch('playlists/deletePlaylist', playlist)
-    },
     deleteSelectedPlaylist(): void {
       this.$store.dispatch('loading/startLoading', {
         success: '削除しました',

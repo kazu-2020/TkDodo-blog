@@ -95,11 +95,6 @@ export default Vue.extend({
     },
   },
   methods: {
-    deletePlaylist(): void {
-      if (confirm('本当に削除しますか？')) {
-        this.$emit('delete-playlist', this.playlist)
-      }
-    },
     formattedDate(_time: string): string {
       return moment(_time).format('YYYY/MM/DD HH:mm')
     },
