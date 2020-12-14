@@ -11,7 +11,12 @@
                 aspect-ratio="1"
               />
             </v-col>
-            <v-col class="mr-auto pl-0 pt-0 information" cols="9" sm="8" xs="5">
+            <v-col
+              class="mr-auto pl-0 pt-0 information"
+              cols="10"
+              sm="9"
+              xs="7"
+            >
               <v-card-title class="title mb-1 pl-0">
                 <a class="playlist-title" @click="clickPlaylistItem">
                   {{ playlist.name }}
@@ -40,33 +45,6 @@
                   エピソード数： {{ playlist.itemNum }}
                 </div>
               </v-card-text>
-            </v-col>
-          </v-row>
-        </v-col>
-        <v-col class="text-center pl-0 pt-0" cols="auto">
-          <v-row>
-            <v-col>
-              <v-btn
-                :to="{
-                  name: 'playlists-id-article',
-                  params: { id: playlist.id },
-                }"
-                nuxt
-                depressed
-                color="orange"
-                class="edit_button"
-              >
-                <v-icon left>mdi-pencil</v-icon>
-                編集する
-              </v-btn>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-btn class="delete_button" outlined @click="deletePlaylist">
-                <v-icon left>mdi-delete</v-icon>
-                削除する
-              </v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -117,11 +95,6 @@ export default Vue.extend({
     },
   },
   methods: {
-    deletePlaylist(): void {
-      if (confirm('本当に削除しますか？')) {
-        this.$emit('delete-playlist', this.playlist)
-      }
-    },
     formattedDate(_time: string): string {
       return moment(_time).format('YYYY/MM/DD HH:mm')
     },
@@ -198,14 +171,6 @@ export default Vue.extend({
 
 .last_updated_at,
 .episodes_count {
-  color: #4f4f4f;
-}
-
-.edit_button {
-  color: white;
-}
-
-.delete_button {
   color: #4f4f4f;
 }
 
