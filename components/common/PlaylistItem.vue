@@ -32,63 +32,6 @@
         <v-col class="hidden-md-and-down pa-0" cols="6">
           <playlist-episodes-carousel :playlist="playlist" />
         </v-col>
-        <v-col cols="auto" class="text-center px-0 pt-0">
-          <v-row class="flex-column ma-0 fill-height">
-            <v-col class="px-0 pt-0">
-              <v-tooltip top>
-                <template #activator="{ on, attrs }">
-                  <v-btn
-                    small
-                    icon
-                    v-bind="attrs"
-                    :to="{ name: 'playlists-id', params: { id: playlist.id } }"
-                    nuxt
-                    v-on="on"
-                  >
-                    <v-icon>mdi-pencil</v-icon>
-                  </v-btn>
-                </template>
-                <span>編集する</span>
-              </v-tooltip>
-              <br />
-              <v-tooltip bottom>
-                <template #activator="{ on, attrs }">
-                  <v-btn
-                    small
-                    icon
-                    v-bind="attrs"
-                    class="delete_button mt-2"
-                    v-on="on"
-                    @click="deletePlaylist"
-                  >
-                    <v-icon>mdi-delete</v-icon>
-                  </v-btn>
-                </template>
-                <span>削除する</span>
-              </v-tooltip>
-              <br />
-              <v-tooltip bottom>
-                <template #activator="{ on, attrs }">
-                  <v-btn
-                    small
-                    icon
-                    v-bind="attrs"
-                    class="edit2_button mt-2"
-                    nuxt
-                    :to="{
-                      name: 'playlists-id-edit2',
-                      params: { id: playlist.id },
-                    }"
-                    v-on="on"
-                  >
-                    <v-icon>mdi-flask-round-bottom</v-icon>
-                  </v-btn>
-                </template>
-                <span>編集する(試用版)</span>
-              </v-tooltip>
-            </v-col>
-          </v-row>
-        </v-col>
       </v-row>
     </v-container>
   </v-card>
