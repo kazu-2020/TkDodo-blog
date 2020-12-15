@@ -14,9 +14,9 @@
             <v-col class="mr-auto pl-1" cols="9">
               <v-card-title class="title mb-1">
                 <a class="playlist-title" @click="clickPlaylistItem">
-                  {{ playlist.name }}
+                  <span class="playlist-name">{{ playlist.name }}</span>
+                  <v-chip class="ma-2" small>下書き</v-chip>
                 </a>
-                <v-chip class="ma-2" small>下書き</v-chip>
               </v-card-title>
               <v-card-text class="card-list-item pb-1">
                 番組総時間:
@@ -110,7 +110,7 @@ export default Vue.extend({
   padding-bottom: 0;
 }
 
-.playlist-title {
+.playlist-title .playlist-name {
   text-decoration: underline;
 }
 
