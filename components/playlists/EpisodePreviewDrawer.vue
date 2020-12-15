@@ -23,6 +23,18 @@
         <v-col cols="12" class="pt-0 body-2">
           直近放送日: {{ episodeRecentBroadcastDate }}
         </v-col>
+        <v-col v-show="genres.length !== 0" cols="12" class="py-0">
+          <v-chip
+            v-for="genre in genres"
+            :key="`genre-${genre.id}`"
+            small
+            class="my-1 mr-2"
+            color="blue-grey darken-1"
+            style="color: white"
+          >
+            {{ genre.name }}
+          </v-chip>
+        </v-col>
         <v-col v-if="hasActorsOrContributors" cols="auto">
           <v-tooltip
             v-for="(data, index) in actorsAndContributors"
@@ -109,6 +121,11 @@ export default Vue.extend({
     },
     hasActorsOrContributors(): boolean {
       return this.actorsAndContributors.length !== 0
+    },
+    genres(): string[] {
+      const formatGenres = this.episode?.identifierGroup?.formatGenreTag || []
+      const themeGenres = this.episode?.identifierGroup?.themeGenreTag || []
+      return formatGenres.concat(themeGenres)
     },
   },
   watch: {
