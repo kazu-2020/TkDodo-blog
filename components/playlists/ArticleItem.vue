@@ -19,16 +19,16 @@
             >
               <v-card-title class="title mb-1 pl-0">
                 <a class="playlist-title" @click="clickPlaylistItem">
-                  {{ playlist.name }}
+                  <span class="playlist-name">{{ playlist.name }}</span>
+                  <v-chip class="ma-2" small>下書き</v-chip>
                 </a>
-                <v-chip class="ma-2" small>下書き</v-chip>
               </v-card-title>
               <v-card-text
                 v-if="isArticlePresent"
                 class="article_outline hidden-sm-and-down pl-0"
               >
                 <!-- eslint-disable-next-line vue/no-v-html -->
-                <p v-html="articleOutline" />
+                <p style="text-align: start" v-html="articleOutline" />
               </v-card-text>
               <v-card-text v-else>
                 <div class="no_article">
@@ -117,7 +117,7 @@ export default Vue.extend({
   padding-bottom: 0;
 }
 
-.playlist-title {
+.playlist-title .playlist-name {
   text-decoration: underline;
 }
 

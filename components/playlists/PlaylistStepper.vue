@@ -83,7 +83,7 @@ export default Vue.extend({
   color: #000;
   cursor: pointer;
   padding: 10px 10px 8px 30px;
-  min-width: 180px;
+  min-width: 240px;
   float: left;
   position: relative;
   background-color: white;
