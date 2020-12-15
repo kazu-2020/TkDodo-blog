@@ -2,10 +2,19 @@
   <v-layout column style="position: relative">
     <div class="fixed-row-wrapper">
       <v-row
-        class="fixed-row"
+        class="fixed-row pt-2"
         justify="space-between"
         style="padding-right: 60px"
       >
+        <v-col cols="12">
+          <v-breadcrumbs :items="breadcrumbItems" class="pa-0">
+            <template #item="{ item }">
+              <v-breadcrumbs-item :href="item.href" :disabled="item.disabled">
+                {{ item.text }}
+              </v-breadcrumbs-item>
+            </template>
+          </v-breadcrumbs>
+        </v-col>
         <v-col cols="auto">
           <playlist-stepper
             :current="currentTab"
@@ -26,7 +35,7 @@
         </v-col>
       </v-row>
     </div>
-    <v-row style="padding-top: 80px">
+    <v-row style="padding-top: 100px">
       <v-col cols="12" class="hidden-lg-and-up preview-container">
         <horizontal-basic-information-view :playlist="playlist" />
       </v-col>
@@ -129,6 +138,12 @@ import SeriesMetaEditTab from '~/components/playlists/SeriesMetaEditTab.vue'
 import { PlaylistTab } from '~/models/definitions'
 import unloadAlertMixin from '~/components/common/unloadAlertMixin.ts'
 
+interface Breadcrumb {
+  text: string
+  disabled: boolean
+  href: string
+}
+
 interface DataType {
   currentTab: PlaylistTab
   isValidArticleTab: boolean
@@ -175,6 +190,20 @@ export default Vue.extend({
     },
     preventSaveButton(): boolean {
       return !this.isValidArticleTab || !this.isValidSeriesTab
+    },
+    breadcrumbItems(): Breadcrumb[] {
+      return [
+        {
+          text: 'プレイリスト一覧',
+          disabled: false,
+          href: '/',
+        },
+        {
+          text: this.playlist.name,
+          disabled: true,
+          href: `/playlists/${this.playlist.id}`,
+        },
+      ]
     },
   },
   mounted() {
