@@ -208,6 +208,10 @@ export default Vue.extend({
   },
   mounted() {
     ;(this as any).notShowUnloadAlert()
+    const hash = this.$route.hash
+    if (hash && hash.match(/^#(list|article|series)$/)) {
+      this.currentTab = hash.slice(1) as PlaylistTab
+    }
   },
   methods: {
     eyecatchUrl(item: any): string {

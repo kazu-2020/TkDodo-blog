@@ -45,7 +45,7 @@
               <v-col cols="6">
                 <span>使用したい画像をアップロードしてください。</span>
               </v-col>
-              <v-col v-if="!isBulk" cols="6">
+              <v-col cols="6">
                 <v-select
                   ref="filledImageTypeSelect"
                   :items="filledImageTypeList"
@@ -92,44 +92,13 @@
               <v-col cols="12">
                 <span>使用したい範囲を選択してください。</span>
               </v-col>
-              <v-col v-if="!isBulk && isStep2Ready" cols="auto">
+              <v-col v-if="isStep2Ready" cols="auto">
                 <cropper
                   ref="cropper"
                   :image="image"
                   :mime-type="fileType"
                   :trimming-image-type="trimmingImageType"
                 />
-              </v-col>
-              <v-col v-if="isBulk && isStep2Ready" cols="auto">
-                <v-row justify="center">
-                  <v-col cols="auto">
-                    <span class="text-subtitle-1">ロゴ (1:1)</span>
-                    <cropper
-                      ref="cropperLogo"
-                      :image="image"
-                      :mime-type="fileType"
-                      :trimming-image-type="'logo'"
-                    />
-                  </v-col>
-                  <v-col cols="auto">
-                    <span class="text-subtitle-1">アイキャッチ (16:9)</span>
-                    <cropper
-                      ref="cropperEyecatch"
-                      :image="image"
-                      :mime-type="fileType"
-                      :trimming-image-type="'eyecatch'"
-                    />
-                  </v-col>
-                  <v-col cols="auto">
-                    <span class="text-subtitle-1">ヒーロー (3:1)</span>
-                    <cropper
-                      ref="cropperHero"
-                      :image="image"
-                      :mime-type="fileType"
-                      :trimming-image-type="'hero'"
-                    />
-                  </v-col>
-                </v-row>
               </v-col>
             </v-row>
 
@@ -149,7 +118,7 @@
                 <span>生成される画像を確認してください。</span>
               </v-col>
               <v-col v-if="isTrimmedImageReady">
-                <v-row v-if="!isBulk">
+                <v-row>
                   <v-col cols="auto">
                     <v-img
                       :src="trimmedImage"
@@ -170,99 +139,6 @@
                         {{ text }}
                       </li>
                     </ul>
-                  </v-col>
-                </v-row>
-                <!-- 一括-->
-                <v-row v-if="isBulk">
-                  <v-col cols="auto">
-                    <v-row>
-                      <v-col>
-                        <span class="text-subtitle-1">ロゴ (1:1)</span>
-                      </v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col>
-                        <v-img
-                          :src="trimmedLogoImage"
-                          width="140"
-                          height="140"
-                          contain
-                          class="grey darken-4 bg-pattern-checker"
-                        />
-                      </v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col>
-                        <ul class="will-create-size-list pl-0">
-                          <li
-                            v-for="text in willCreateSizeTexts('logo')"
-                            :key="text"
-                          >
-                            {{ text }}
-                          </li>
-                        </ul>
-                      </v-col>
-                    </v-row>
-                  </v-col>
-                  <v-col cols="auto">
-                    <v-row>
-                      <v-col>
-                        <span class="text-subtitle-1">アイキャッチ (16:9)</span>
-                      </v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col>
-                        <v-img
-                          :src="trimmedEyecatchImage"
-                          width="249"
-                          height="140"
-                          contain
-                          class="grey darken-4 bg-pattern-checker"
-                        />
-                      </v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col>
-                        <ul class="will-create-size-list pl-0">
-                          <li
-                            v-for="text in willCreateSizeTexts('eyecatch')"
-                            :key="text"
-                          >
-                            {{ text }}
-                          </li>
-                        </ul>
-                      </v-col>
-                    </v-row>
-                  </v-col>
-                  <v-col cols="auto">
-                    <v-row>
-                      <v-col>
-                        <span class="text-subtitle-1">ヒーロー (3:1)</span>
-                      </v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col>
-                        <v-img
-                          :src="trimmedHeroImage"
-                          width="420"
-                          height="140"
-                          contain
-                          class="grey darken-4 bg-pattern-checker"
-                        />
-                      </v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col>
-                        <ul class="will-create-size-list pl-0">
-                          <li
-                            v-for="text in willCreateSizeTexts('hero')"
-                            :key="text"
-                          >
-                            {{ text }}
-                          </li>
-                        </ul>
-                      </v-col>
-                    </v-row>
                   </v-col>
                 </v-row>
               </v-col>
@@ -359,9 +235,6 @@ export default Vue.extend({
           return ''
       }
     },
-    isBulk(): boolean {
-      return this.trimmingImageType === 'bulk'
-    },
     isStep2Ready(): boolean {
       return this.step === 2 && !!this.image.src
     },
@@ -373,12 +246,6 @@ export default Vue.extend({
           return !!this.trimmedEyecatchImage
         case 'hero':
           return !!this.trimmedHeroImage
-        case 'bulk':
-          return (
-            !!this.trimmedLogoImage &&
-            !!this.trimmedEyecatchImage &&
-            !!this.trimmedHeroImage
-          )
         default:
           return false
       }
@@ -430,17 +297,6 @@ export default Vue.extend({
             .getCroppedCanvas(croppedCanvasOptions)
             .toDataURL(this.fileType)
           break
-        case 'bulk':
-          this.trimmedLogoImage = (this.$refs.cropperLogo as any)
-            .getCroppedCanvas(croppedCanvasOptions)
-            .toDataURL(this.fileType)
-          this.trimmedEyecatchImage = (this.$refs.cropperEyecatch as any)
-            .getCroppedCanvas(croppedCanvasOptions)
-            .toDataURL(this.fileType)
-          this.trimmedHeroImage = (this.$refs.cropperHero as any)
-            .getCroppedCanvas(croppedCanvasOptions)
-            .toDataURL(this.fileType)
-          break
       }
       this.step = 3
     },
@@ -462,11 +318,6 @@ export default Vue.extend({
           this.$emit('trimmed-eyecatch-image', this.trimmedEyecatchImage)
           break
         case 'hero':
-          this.$emit('trimmed-hero-image', this.trimmedHeroImage)
-          break
-        case 'bulk':
-          this.$emit('trimmed-logo-image', this.trimmedLogoImage)
-          this.$emit('trimmed-eyecatch-image', this.trimmedEyecatchImage)
           this.$emit('trimmed-hero-image', this.trimmedHeroImage)
           break
       }
