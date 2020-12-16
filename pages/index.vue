@@ -166,6 +166,22 @@
               削除する
             </v-btn>
           </v-col>
+          <v-col cols="6">
+            <v-btn
+              :to="{
+                name: 'playlists-id-edit2',
+                params: { id: selectedPlaylistId },
+                hash: '#article',
+              }"
+              nuxt
+              depressed
+              color="orange"
+              class="edit_button"
+            >
+              <v-icon left>mdi-flask-round-bottom</v-icon>
+              編集する(試用版)
+            </v-btn>
+          </v-col>
         </v-row>
       </v-list-item>
     </v-navigation-drawer>

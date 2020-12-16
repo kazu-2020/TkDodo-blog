@@ -1,10 +1,5 @@
 <template>
   <v-row>
-    <v-col cols="12">
-      <v-btn @click="openDialog('bulk')">
-        <v-icon left>mdi-pencil</v-icon>画像を一括編集
-      </v-btn>
-    </v-col>
     <v-col cols="auto">
       <label class="text--secondary">ロゴ - Logo</label>
       <v-hover v-slot="{ hover }">
