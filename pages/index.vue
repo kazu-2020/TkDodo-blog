@@ -65,6 +65,7 @@
       absolute
       temporary
       right
+      hide-overlay
       width="400"
       style="position: fixed"
     >
