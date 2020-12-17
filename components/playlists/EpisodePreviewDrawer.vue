@@ -169,6 +169,8 @@ export default Vue.extend({
   padding: 0 20px;
   background-color: white;
   width: 400px;
+  height: calc(100vh - 180px);
+  overflow: scroll;
   right: 0;
   box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.5);
   border-top-left-radius: 5px;
