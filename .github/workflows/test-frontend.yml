@@ -1,9 +1,15 @@
-name: Test
+name: Test for frontend
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/test-frontend.yml'
 
 jobs:
   lint-and-test:
+      env:
+        working-directory: ./frontend
       runs-on: ubuntu-latest
       steps:
       - uses: actions/checkout@v2
@@ -16,15 +22,18 @@ jobs:
         env:
           cache-name: cache-yarn
         with:
-          path: ~/.cache/yarn
+          path: ~/frontend/.cache/yarn
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - run: yarn install
+        working-directory: ${{env.working-directory}}
       - run: yarn lint
+        working-directory: ${{env.working-directory}}
       - run: yarn test
+        working-directory: ${{env.working-directory}}
       - name: action-slack
         uses: 8398a7/action-slack@v3
         with:
