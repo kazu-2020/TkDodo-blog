@@ -20,7 +20,7 @@
         :playlist-id="playlist.id"
         :initial-data="body"
         :episode-block-id="episodeBlockId"
-        class="mb-8"
+        class="mb-8 mr-4 ml-12"
         :image-by-file-endpoint="imageByFileEndpoint"
         :image-by-url-endpoint="imageByUrlEndpoint"
         @modify-content="setCurrentContent"
@@ -261,5 +261,67 @@ export default Vue.extend({
   border: none;
   border-top: solid 2px #bdbdbd;
   height: 1px;
+}
+</style>
+
+<style lang="scss">
+.ce-toolbar__actions {
+  left: -25px;
+  right: unset;
+  top: 10px;
+}
+
+.ce-settings {
+  left: -1px;
+  right: auto;
+}
+
+.ce-toolbar__plus {
+  left: -55px !important;
+}
+
+.ce-block--focused {
+  .ce-block__content {
+    background-color: #f7f7f7;
+  }
+}
+
+.link-tool__warning__message {
+  font-size: 12px;
+  color: red;
+}
+
+.link-tool__anchor {
+  font-size: 18px;
+  color: #333;
+  overflow-wrap: break-word;
+}
+
+.link-tool__content--rendered {
+  border-radius: 6px 6px 0 0;
+}
+
+.link-tool__description {
+  display: none;
+}
+
+.link-tool__input-description {
+  border-radius: 0 0 6px 6px;
+}
+
+.link-tool__input-description[contentEditable='true'][data-placeholder]::before {
+  position: absolute !important;
+  content: attr(data-placeholder);
+  color: #707684;
+  font-weight: normal;
+  display: none;
+}
+
+.link-tool__input-description[contentEditable='true'][data-placeholder]:empty::before {
+  display: block;
+}
+
+.link-tool__input-description[contentEditable='true'][data-placeholder]:empty:focus::before {
+  display: none;
 }
 </style>
