@@ -66,7 +66,7 @@
       temporary
       right
       hide-overlay
-      width="400"
+      :width="drawerWidth"
       style="position: fixed"
     >
       <v-list-item class="pa-2">
@@ -204,6 +204,7 @@ interface DataType {
   drawer: boolean
   selectedPlaylist: Playlist | undefined
   selectedPlaylistItems: EpisodeData[]
+  width: number
 }
 
 export default Vue.extend({
@@ -220,6 +221,7 @@ export default Vue.extend({
       drawer: false,
       selectedPlaylist: undefined,
       selectedPlaylistItems: [],
+      width: window.innerWidth,
     }
   },
   computed: {
@@ -234,6 +236,10 @@ export default Vue.extend({
     },
     selectedPlaylistId(): string {
       return this.selectedPlaylist ? this.selectedPlaylist.id : ''
+    },
+    drawerWidth(): number {
+      const halfSize = this.width * 0.6
+      return Math.min(halfSize, 500)
     },
   },
   watch: {
@@ -263,7 +269,16 @@ export default Vue.extend({
       },
     },
   },
+  mounted() {
+    window.addEventListener('resize', this.handleResize)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize)
+  },
   methods: {
+    handleResize(): void {
+      this.width = window.innerWidth
+    },
     deleteSelectedPlaylist(): void {
       this.$store.dispatch('loading/startLoading', {
         success: '削除しました',
