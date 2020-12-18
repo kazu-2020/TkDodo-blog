@@ -1,72 +1,74 @@
 <template>
-  <transition name="slide">
-    <aside v-show="visible" class="preview-drawer py-4">
-      <v-row justify="space-between">
-        <v-col cols="10" class="subtitle-2 font-weight-bold mt-2">
-          {{ episodeName }}
-        </v-col>
-        <v-col cols="2">
-          <v-btn icon @click="closeDrawer">
-            <v-icon style="text-align: right">mdi-close</v-icon>
-          </v-btn>
-        </v-col>
-        <v-col cols="12" class="pt-0">
-          <v-img
-            :src="eyecatchUrl"
-            lazy-src="https://placehold.jp/360x202.png?text=EyeCatch"
-            class="episode-image"
-          />
-        </v-col>
-        <v-col cols="12" class="pt-0 body-2">
-          {{ episodeDescription }}
-        </v-col>
-        <v-col cols="12" class="pt-0 body-2">
-          直近放送日: {{ episodeRecentBroadcastDate }}
-        </v-col>
-        <v-col v-show="genres.length !== 0" cols="12" class="py-0">
-          <v-chip
-            v-for="genre in genres"
-            :key="`genre-${genre.id}`"
-            small
-            class="my-1 mr-2"
-            color="blue-grey darken-1"
-            style="color: white"
-          >
-            {{ genre.name }}
-          </v-chip>
-        </v-col>
-        <v-col v-if="hasActorsOrContributors" cols="auto">
-          <v-tooltip
-            v-for="(data, index) in actorsAndContributors"
-            :key="`episode-actor-contributor-${index}`"
-            bottom
-          >
-            <template #activator="{ on, attrs }">
-              <div
-                v-if="noActorContributorImage(data)"
-                class="actor_contributor_badge"
-                v-bind="attrs"
-                v-on="on"
-              >
-                <div class="actor_contributor_badge_inner">
-                  {{ actorContributorName(data).slice(0, 1) }}
-                </div>
+  <v-navigation-drawer
+    v-model="drawer"
+    absolute
+    temporary
+    right
+    hide-overlay
+    :width="drawerWidth"
+    style="position: fixed"
+    class="preview-drawer"
+  >
+    <v-row justify="space-between">
+      <v-col cols="10" class="subtitle-2 font-weight-bold mt-2">
+        {{ episodeName }}
+      </v-col>
+      <v-col cols="12" class="pt-0">
+        <v-img
+          :src="eyecatchUrl"
+          lazy-src="https://placehold.jp/360x202.png?text=EyeCatch"
+          class="episode-image"
+        />
+      </v-col>
+      <v-col cols="12" class="pt-0 body-2">
+        {{ episodeDescription }}
+      </v-col>
+      <v-col cols="12" class="pt-0 body-2">
+        直近放送日: {{ episodeRecentBroadcastDate }}
+      </v-col>
+      <v-col v-show="genres.length !== 0" cols="12" class="py-0">
+        <v-chip
+          v-for="genre in genres"
+          :key="`genre-${genre.id}`"
+          small
+          class="my-1 mr-2"
+          color="blue-grey darken-1"
+          style="color: white"
+        >
+          {{ genre.name }}
+        </v-chip>
+      </v-col>
+      <v-col v-if="hasActorsOrContributors" cols="auto">
+        <v-tooltip
+          v-for="(data, index) in actorsAndContributors"
+          :key="`episode-actor-contributor-${index}`"
+          bottom
+        >
+          <template #activator="{ on, attrs }">
+            <div
+              v-if="noActorContributorImage(data)"
+              class="actor_contributor_badge"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <div class="actor_contributor_badge_inner">
+                {{ actorContributorName(data).slice(0, 1) }}
               </div>
-              <v-img
-                v-else
-                :src="actorContributorImageUrl(data)"
-                width="40"
-                v-bind="attrs"
-                class="actor_contributor_badge"
-                v-on="on"
-              />
-            </template>
-            <span>{{ actorContributorName(data) }}</span>
-          </v-tooltip>
-        </v-col>
-      </v-row>
-    </aside>
-  </transition>
+            </div>
+            <v-img
+              v-else
+              :src="actorContributorImageUrl(data)"
+              width="40"
+              v-bind="attrs"
+              class="actor_contributor_badge"
+              v-on="on"
+            />
+          </template>
+          <span>{{ actorContributorName(data) }}</span>
+        </v-tooltip>
+      </v-col>
+    </v-row>
+  </v-navigation-drawer>
 </template>
 
 <script lang="ts">
@@ -77,6 +79,8 @@ moment.locale('ja')
 
 interface DataType {
   eyecatchUrl: string
+  drawer: boolean
+  width: number
 }
 
 export default Vue.extend({
@@ -96,6 +100,8 @@ export default Vue.extend({
   data(): DataType {
     return {
       eyecatchUrl: 'https://placehold.jp/360x202.png?text=EyeCatch',
+      drawer: false,
+      width: window.innerWidth,
     }
   },
   computed: {
@@ -127,6 +133,10 @@ export default Vue.extend({
       const themeGenres = this.episode?.identifierGroup?.themeGenreTag || []
       return formatGenres.concat(themeGenres)
     },
+    drawerWidth(): number {
+      const halfSize = this.width * 0.4
+      return Math.min(halfSize, 400)
+    },
   },
   watch: {
     episode: {
@@ -139,8 +149,28 @@ export default Vue.extend({
       },
       deep: true,
     },
+    visible: {
+      handler(newValue) {
+        this.drawer = newValue
+      },
+      immediate: true,
+    },
+    drawer: {
+      handler(newValue) {
+        if (!newValue) this.closeDrawer()
+      },
+    },
+  },
+  mounted() {
+    window.addEventListener('resize', this.handleResize)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize)
   },
   methods: {
+    handleResize(): void {
+      this.width = window.innerWidth
+    },
     actorContributorName(data: any): string {
       return data.person?.name || data.organization?.name || ''
     },
