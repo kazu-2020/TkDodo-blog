@@ -5,6 +5,8 @@ on:
     paths:
       - 'frontend/**'
       - '.github/workflows/test-frontend.yml'
+      - 'amplify/**'
+      - 'amplify.yml'
 
 jobs:
   lint-and-test:
