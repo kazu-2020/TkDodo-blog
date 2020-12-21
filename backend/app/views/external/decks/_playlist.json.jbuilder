@@ -1,0 +1,43 @@
+# frozen_string_literal: true
+
+json.dateCreated playlist.created_at
+json.dateModified playlist.updated_at
+json.description playlist.description
+json.detailedCatch playlist.detailed_catch
+
+json.partial! 'shared/playlist_images', playlist: playlist
+
+json.id "eh-#{format('%010d', playlist.id)}"
+
+json.identifierGroup do
+  json.playlistUId playlist.string_id
+  json.playlistId "eh-#{format('%010d', playlist.id)}"
+  json.playlistName playlist.name
+  json.typeOfList 'recommend'
+  json.modeOfItem 'tv'
+  json.typeOfItem 'TVEpisode'
+  json.hashtag playlist.hashtags
+  json.aliasId playlist.alias_id || ''
+end
+
+json.name playlist.name
+json.style do
+  json.primaryLight playlist.primary_light_color
+  json.primaryDark playlist.primary_dark_color
+  json.textLight playlist.text_light_color
+  json.textDark playlist.text_dark_color
+  json.linkLight playlist.link_light_color
+  json.linkDark playlist.link_dark_color
+end
+
+json.type 'NPlaylist'
+if playlist.same_as.present?
+  json.sameAs do
+    json.name playlist.same_as.name
+    json.url playlist.same_as.url
+  end
+else
+  json.sameAs nil
+end
+
+json.url "https://dev-api-eh.nr.nhk.jp/d6.6/t/nplaylist/id/#{playlist.string_id}?area=#{area}"

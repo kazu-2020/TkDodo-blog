@@ -1,0 +1,38 @@
+name: Test for backend
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/test-backend.yml'
+
+jobs:
+  lint-job:
+    env:
+      JETS_ENV: test
+      working-directory: ./backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build the Docker compose
+        run: docker-compose build
+        working-directory: ${{env.working-directory}}
+      - name: Run setup
+        run: docker-compose run web bin/setup
+        working-directory: ${{env.working-directory}}
+      - name: Run Lint
+        run: docker-compose run web bundle exec rubocop
+        working-directory: ${{env.working-directory}}
+      - name: Run Rspec
+        run: docker-compose run web bundle exec rspec
+        working-directory: ${{env.working-directory}}
+      - name: action-slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,commit,message,author
+          author_name: lint-job
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+        if: always()
