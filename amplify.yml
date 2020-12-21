@@ -3,6 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
+        - cd frontend
         - yarn install
         - amplify init --amplify "{\"envName\":\"dev\"}" --yes
     build:
@@ -12,9 +13,9 @@ frontend:
         - amplify publish --invalidateCloudFront -- yes
   artifacts:
     # IMPORTANT - Please verify your build output directory
-    baseDirectory: dist/
+    baseDirectory: frontend/dist/
     files:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/*
+      - frontend/node_modules/**/*
