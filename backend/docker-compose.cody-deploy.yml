@@ -1,0 +1,39 @@
+version: "3"
+services:
+  db:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "4306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./mysqlconf:/etc/mysql/conf.d
+  web:
+    image: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+    command: bash -c "bundle exec jets server --host 0.0.0.0"
+    volumes:
+      - .:/app
+      - bundle:/bundle
+    ports:
+      - "8888:8888"
+    environment:
+      - DB_HOST=db
+      - AWS_REGION=ap-northeast-1
+      - AWS_DEFAULT_REGION=ap-northeast-1
+      - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+      - AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN
+      - JETS_ENV=$JETS_ENV
+      - JETS_AGREE=yes
+      - DATABASE_URL=$DATABASE_URL
+
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+volumes:
+  db-data:
+    driver: local
+  bundle:
+    driver: local

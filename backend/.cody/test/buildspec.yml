@@ -1,0 +1,11 @@
+# Build Specification Reference for CodeBuild: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
+
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - docker-compose -f docker-compose.cody-test.yml build
+      - docker-compose -f docker-compose.cody-test.yml run web bin/setup
+      - docker-compose -f docker-compose.cody-test.yml run web bundle exec rubocop
+      - docker-compose -f docker-compose.cody-test.yml run web bundle exec rspec

@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+
+# path to your application root.
+APP_ROOT = File.expand_path('..', __dir__)
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+FileUtils.chdir APP_ROOT do
+  puts '== Waiting mysql launch =='
+
+  system! 'bin/wait_for_mysql.sh'
+
+  puts '== Installing dependencies =='
+  system! 'gem install bundler --conservative'
+  system('bundle check') || system!('bundle install')
+
+  puts "\n== Creating database =="
+  system! 'bundle exec jets db:create'
+
+  puts "\n== Migrating database =="
+  system! 'bundle exec jets db:migrate'
+end
