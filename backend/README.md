@@ -103,7 +103,7 @@ $ aws-vault exec tomigaya-dev -- bundle exec jets deploy production
 CodePipeline の環境変数やステージに変更を加える場合には、 `.pipedream` 以下のファイルを変更して、以下のコマンドを実行してください。
 
 ```
-$ aws-vault exec tomigaya-dev -- bundle exec pipe deploy
+$ aws-vault exec tomigaya-dev -- bundle exec pipe deploy aw-editorialhands
 ```
 
 ## CodeBuild
@@ -118,7 +118,7 @@ Dockerイメージをビルドする用のタスク定義が、 `.cody/docker-bu
 環境変数等に変更を加える場合には、`.cody` 以下のファイルを変更して、以下のコマンドを実行してください。
 
 ```
-$ aws-vault exec tomigaya-dev -- bundle exec cody deploy --type docker-build
+$ aws-vault exec tomigaya-dev -- bundle exec cody deploy aw-editorialhands --type docker-build
 ```
 
 ### deploy
@@ -129,7 +129,7 @@ Dockerイメージをビルドする用のタスク定義が、 `.cody/deploy` �
 環境変数等に変更を加える場合には、`.cody` 以下のファイルを変更して、以下のコマンドを実行してください。
 
 ```
-$ aws-vault exec tomigaya-dev -- bundle exec cody deploy --type deploy
+$ aws-vault exec tomigaya-dev -- bundle exec cody deploy aw-editorialhands --type deploy
 ```
 
 ## DB migration on AWS
