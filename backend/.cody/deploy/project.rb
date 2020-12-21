@@ -4,7 +4,7 @@
 # For convenience methods, refer to the source https://github.com/tongueroo/cody/blob/master/lib/cody/dsl/project.rb
 
 # name("example-project-name") # recommend leaving unset and codebuild will use a conventional name
-github_url('https://github.com/d7lab/aw-editorialhands.git')
+github_url('https://github.com/d7lab/aw-editorialhands-ui.git')
 linux_image('aws/codebuild/amazonlinux2-x86_64-standard:3.0')
 vpc_config @vpc_config
 environment_variables(
