@@ -15,7 +15,7 @@
               </v-col>
               <v-col class="mr-auto">
                 <v-card-title class="headline pt-0">
-                  {{ playlist.name }}
+                  <span class="playlist-name">{{ playlist.name }}</span>
                   <v-card-subtitle
                     v-if="playlist.detailedNameRuby"
                     class="detailed-name-ruby"

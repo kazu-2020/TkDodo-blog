@@ -7,7 +7,7 @@ on:
       - '.github/workflows/test-backend.yml'
 
 jobs:
-  lint-job:
+  lint-and-test:
     env:
       JETS_ENV: test
       working-directory: ./backend

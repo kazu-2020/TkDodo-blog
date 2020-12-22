@@ -11,7 +11,6 @@ RUN apk update && \
 	yarn global add @vue/cli && \
   rm -rf /var/cache/apk/*
 
-
 COPY package.json yarn.lock $APP_HOME/
 RUN yarn install
 

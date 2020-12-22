@@ -8,6 +8,7 @@
           <v-form ref="form" v-model="valid" class="mb-2">
             <v-text-field
               v-model="name"
+              class="new-playlist-name"
               label="プレイリスト名 - Name"
               :rules="nameRules"
               required

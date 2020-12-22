@@ -1,0 +1,67 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    tty: true
+    command: yarn dev
+    environment:
+      API_URL: 'http://web:8888'
+    volumes:
+      - ./frontend:/app
+    ports:
+      - 8080:3000
+    depends_on:
+      - web
+      - db
+  db:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "4306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./mysqlconf:/etc/mysql/conf.d
+  web:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: bash -c "bundle exec jets server --host 0.0.0.0"
+    ports:
+      - 8888:8888
+    environment:
+      - DB_HOST=db
+      - JETS_ENV=${JETS_ENV:-development}
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./backend:/app
+      - bundle:/bundle
+  e2e:
+    build:
+      context: ./e2e
+      dockerfile: Dockerfile
+    command: /bin/sh -c "sleep 120; npx cypress run --browser chrome --headless"
+    depends_on:
+      - web
+      - frontend
+      - db
+    environment:
+      - CYPRESS_baseUrl=http://frontend:3000
+      - CYPRESS_browser=chrome
+      - CYPRESS_screenshotsFolder=/results/screenshots
+      - CYPRESS_videosFolder=/results/videos
+    volumes:
+      - ./e2e/cypress:/app/cypress
+      - ./e2e/cypress.json:/app/cypress.json
+      - ./e2e/results:/results
+volumes:
+  db-data:
+    driver: local
+  bundle:
+    driver: local

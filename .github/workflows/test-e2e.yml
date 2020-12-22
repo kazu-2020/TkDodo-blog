@@ -1,0 +1,31 @@
+name: E2E Test
+
+on: [push]
+
+jobs:
+  cypress-test:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - run: docker-compose pull
+        - uses: satackey/action-docker-layer-caching@v0.0.8
+        - name: Build the Docker compose
+          env:
+            DOCKER_BUILDKIT: 1
+          run: docker-compose build
+        - name: frontend yarn install
+          run: docker-compose run frontend yarn install
+        - name: jets setup
+          run: docker-compose run web bin/setup
+        - name: run cypress
+          run: docker-compose up --abort-on-container-exit --exit-code-from e2e
+        - name: action-slack
+          uses: 8398a7/action-slack@v3
+          with:
+            status: ${{ job.status }}
+            fields: repo,commit,message,author
+            author_name: lint-job
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          if: always()
