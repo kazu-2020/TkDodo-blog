@@ -11,7 +11,7 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV['DB_NAME'] || 'aw_editorialhands_development' %>
+  port: <%= ENV['DB_PORT'] %> # 未設定でOK。host側からdocker-composeのdbを利用する場合など「4306」を設定する
 
 test:
   <<: *default
