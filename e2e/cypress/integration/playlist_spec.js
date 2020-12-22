@@ -8,15 +8,15 @@ describe('プレイリスト新規作成', () => {
 
     // プレイリスト名を設定
     const playlistName = 'プレイリスト1'
-    cy.get('.new-playlist-name').type('プレイリスト1')
+    cy.get('.new-playlist-name').type(playlistName)
     cy.get('.new-playlist-name input[type="text"]').should(
       'have.value',
-      'プレイリスト1'
+      playlistName
     )
 
     cy.contains('上記の内容で保存する').click()
 
     // 新規作成された内容を確認
-    cy.contains(playlistName)
+    cy.contains('span.playlist-name', playlistName, { timeout: 5000 })
   })
 })

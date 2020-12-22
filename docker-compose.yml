@@ -8,7 +8,7 @@ services:
     tty: true
     command: yarn dev
     environment:
-      API_URL: 'http://frontendend:3000'
+      API_URL: 'http://web:8888'
     volumes:
       - ./frontend:/app
     ports:
