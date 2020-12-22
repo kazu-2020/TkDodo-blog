@@ -19,7 +19,10 @@
         <v-row justify="center" align-content="center">
           <v-col cols="1" />
           <v-col cols="5">
-            <div class="rounded_border_button" @click="moveToNewPlaylistPage">
+            <div
+              class="rounded_border_button new_episode_list"
+              @click="moveToNewPlaylistPage"
+            >
               <div class="content">
                 <div class="type_icon">
                   <v-icon>mdi-playlist-plus</v-icon>
@@ -32,7 +35,10 @@
             </div>
           </v-col>
           <v-col cols="5">
-            <div class="rounded_border_button" @click="moveToNewArticlePage">
+            <div
+              class="rounded_border_button new_article"
+              @click="moveToNewArticlePage"
+            >
               <div class="content">
                 <div class="type_icon">
                   <v-icon>mdi-note-text-outline</v-icon>
