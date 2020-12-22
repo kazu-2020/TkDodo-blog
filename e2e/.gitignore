@@ -116,6 +116,7 @@ dist
 .yarn/build-state.yml
 .pnp.*
 
+cypress/
 results/
 videos/
 
