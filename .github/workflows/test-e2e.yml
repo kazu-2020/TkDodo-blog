@@ -8,11 +8,12 @@ jobs:
       steps:
         - uses: actions/checkout@v2
         - run: docker-compose pull
-        - uses: satackey/action-docker-layer-caching@v0.0.8
+        # - uses: satackey/action-docker-layer-caching@v0.0.8
         - name: Build the Docker compose
           env:
             DOCKER_BUILDKIT: 1
-          run: docker-compose build
+            COMPOSE_DOCKER_CLI_BUILD: 1
+          run: docker-compose build --parallel
         - name: frontend yarn install
           run: docker-compose run frontend yarn install
         - name: jets setup
