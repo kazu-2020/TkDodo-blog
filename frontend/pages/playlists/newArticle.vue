@@ -241,7 +241,7 @@ export default Vue.extend({
                 `/playlists/${playlist.id}/article?showDialog=1`
               )
             } else {
-              this.$router.push(`/playlists/${playlist.id}/article`)
+              this.$router.push(`/playlists/${playlist.id}/edit2#article`)
             }
             this.$store.dispatch('loading/resetLoadingState')
           }

@@ -138,7 +138,7 @@ export default Vue.extend({
           if (state.playlists.allItems[0].name === this.name) {
             const playlist = state.playlists.allItems[0]
 
-            this.$router.push(`/playlists/${playlist.id}`)
+            this.$router.push(`/playlists/${playlist.id}/edit2`)
             this.$store.dispatch('loading/succeedLoading')
           }
 

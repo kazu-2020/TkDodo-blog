@@ -31,5 +31,5 @@ $ yarn install
 ### 実行
 
 ```
-$ npx cypress run --browser  --headless
+$ npx cypress run --browser chrome --headless
 ```

@@ -1,11 +1,15 @@
 <template>
   <div class="step-wrapper">
     <div class="arrow-steps clearfix">
-      <div class="step" :class="{ current: isList }" @click="changeTab('list')">
+      <div
+        class="step list-step"
+        :class="{ current: isList }"
+        @click="changeTab('list')"
+      >
         <span>リスト (NItemList)</span>
       </div>
       <div
-        class="step"
+        class="step article-step"
         :class="{ current: isArticle }"
         @click="changeTab('article')"
       >
@@ -15,7 +19,7 @@
         <span>記事 (NArticle)</span>
       </div>
       <div
-        class="step"
+        class="step series-step"
         :class="{ current: isSeries }"
         @click="changeTab('series')"
       >

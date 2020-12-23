@@ -205,6 +205,7 @@ export default Vue.extend({
         error: '削除失敗しました',
       })
       this.$store.dispatch('playlists/deletePlaylist', this.selectedPlaylist)
+      this.drawer = false
     },
     clickPlaylistItem(playlist: any) {
       this.drawer = true
