@@ -1,31 +1,35 @@
 <template>
-  <div class="step-wrapper">
-    <div class="arrow-steps clearfix">
+  <div class="arrow-steps clearfix row no-gutters pr-5">
+    <div class="col-4">
       <div
-        class="step list-step"
+        class="step d-flex justify-center align-center"
         :class="{ current: isList }"
         @click="changeTab('list')"
       >
         <span>リスト (NItemList)</span>
       </div>
+    </div>
+    <div class="col-4">
       <div
-        class="step article-step"
+        class="step d-flex justify-center align-center"
         :class="{ current: isArticle }"
         @click="changeTab('article')"
       >
         <v-icon v-if="!articleTabValidation" color="#AB0000"
-          >mdi-information</v-icon
-        >
+          >mdi-information
+        </v-icon>
         <span>記事 (NArticle)</span>
       </div>
+    </div>
+    <div class="col-4">
       <div
-        class="step series-step"
+        class="step d-flex justify-center align-center"
         :class="{ current: isSeries }"
         @click="changeTab('series')"
       >
         <v-icon v-if="!seriesTabValidation" color="#AB0000"
-          >mdi-information</v-icon
-        >
+          >mdi-information
+        </v-icon>
         <span>基本情報(NSeries)</span>
       </div>
     </div>
@@ -75,24 +79,14 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.step-wrapper {
-  display: table-cell;
-  height: 40px;
-  vertical-align: middle;
-}
-
 .arrow-steps .step {
-  font-size: 14px;
-  text-align: center;
+  font-size: 18px;
   color: #000;
   cursor: pointer;
-  padding: 10px 10px 8px 30px;
-  min-width: 240px;
-  float: left;
   position: relative;
   background-color: white;
   border: 1px solid #cecece;
-  height: 44px;
+  height: 52px;
 }
 
 .arrow-steps .step:before {
@@ -102,8 +96,8 @@ export default Vue.extend({
   right: -21px;
   width: 0;
   height: 0;
-  border-top: 22px solid transparent;
-  border-bottom: 20px solid transparent;
+  border-top: 26px solid transparent;
+  border-bottom: 25px solid transparent;
   border-left: 19px solid #cecece;
   z-index: 2;
 }
@@ -115,8 +109,8 @@ export default Vue.extend({
   right: -19px;
   width: 0;
   height: 0;
-  border-top: 22px solid transparent;
-  border-bottom: 20px solid transparent;
+  border-top: 26px solid transparent;
+  border-bottom: 25px solid transparent;
   border-left: 19px solid white;
   z-index: 3;
 }
@@ -131,15 +125,15 @@ export default Vue.extend({
 
 .arrow-steps .step:last-child:before {
   right: -22px;
-  border-top: 22px solid transparent;
-  border-bottom: 21px solid transparent;
+  border-top: 26px solid transparent;
+  border-bottom: 26px solid transparent;
   border-left: 20px solid #cecece;
 }
 
 .arrow-steps .step:last-child:after {
   right: -20px;
-  border-top: 22px solid transparent;
-  border-bottom: 21px solid transparent;
+  border-top: 26px solid transparent;
+  border-bottom: 26px solid transparent;
   border-left: 20px solid white;
 }
 
