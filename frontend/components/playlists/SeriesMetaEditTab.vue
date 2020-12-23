@@ -17,6 +17,7 @@
               <v-text-field
                 v-model="detailedNameRuby"
                 label="ふりがな - Detailed Name Ruby"
+                class="detailed_name_ruby"
               />
             </v-col>
             <v-col cols="12">
@@ -25,6 +26,7 @@
                 name="catch"
                 rows="3"
                 label="キャッチコピー - Detailed Catch"
+                class="detailed_catch"
               />
             </v-col>
             <v-col cols="12">
@@ -33,6 +35,7 @@
                 name="catch"
                 rows="5"
                 label="説明 - Description"
+                class="description"
                 counter
               />
             </v-col>
@@ -43,6 +46,7 @@
                 :items="[]"
                 hide-selected
                 label="キーワード - Keywords"
+                class="keywords"
                 multiple
                 persistent-hint
                 small-chips
@@ -67,6 +71,7 @@
                 hide-selected
                 label="ハッシュタグ - Hashtag"
                 hint="タグの先頭に「#」をつけてください。"
+                class="hashtags"
                 multiple
                 persistent-hint
                 small-chips
@@ -88,6 +93,7 @@
                 <v-select
                   v-model="formatGenre"
                   :items="formatGenreList"
+                  class="format_genre_select"
                   label="ジャンル(フォーマット) - Format Genre"
                 />
               </v-col>
@@ -96,6 +102,7 @@
                   v-model="themeGenre"
                   :items="themeGenreList"
                   label="ジャンル(テーマ) - Theme Genre"
+                  class="theme_genre_select"
                 />
               </v-col>
             </v-row>

@@ -1,10 +1,20 @@
 <template>
   <v-row v-if="!isDestroyed" class="py-0 px-4">
     <v-col cols="5">
-      <v-text-field v-model="name" :rules="nameRules" label="名前" />
+      <v-text-field
+        v-model="name"
+        :rules="nameRules"
+        label="名前"
+        class="citation-name"
+      />
     </v-col>
     <v-col cols="5">
-      <v-text-field v-model="url" :rules="urlRules" label="URL" />
+      <v-text-field
+        v-model="url"
+        :rules="urlRules"
+        label="URL"
+        class="citation-url"
+      />
     </v-col>
     <v-col cols="1">
       <v-btn color="error" class="mr-4" @click="removeCitation">削除</v-btn>

@@ -3,10 +3,20 @@
     <v-col v-if="existsSameAs" cols="12">
       <v-row>
         <v-col cols="5">
-          <v-text-field v-model="sameAsName" :rules="nameRules" label="名前" />
+          <v-text-field
+            v-model="sameAsName"
+            class="same-as-name"
+            :rules="nameRules"
+            label="名前"
+          />
         </v-col>
         <v-col cols="5">
-          <v-text-field v-model="sameAsUrl" :rules="urlRules" label="URL" />
+          <v-text-field
+            v-model="sameAsUrl"
+            class="same-as-url"
+            :rules="urlRules"
+            label="URL"
+          />
         </v-col>
         <v-col cols="1">
           <v-btn color="error" class="mr-4" @click="removeSameAs"> 削除 </v-btn>
@@ -14,7 +24,7 @@
       </v-row>
     </v-col>
     <v-col v-else cols="12">
-      <v-btn class="mr-4" @click="addSameAs">
+      <v-btn class="mr-4 add-same-as" @click="addSameAs">
         <v-icon>mdi-plus</v-icon>
         リンク(同一内容)を追加
       </v-btn>

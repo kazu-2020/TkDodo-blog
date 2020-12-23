@@ -24,7 +24,7 @@
               <v-btn
                 v-bind="attrs"
                 :value="`${freePaletteColor}`"
-                class="ml-3"
+                class="ml-3 custom_color"
                 :style="{
                   backgroundColor: `${freePaletteColor} !important`,
                 }"

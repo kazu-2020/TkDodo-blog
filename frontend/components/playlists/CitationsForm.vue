@@ -15,7 +15,7 @@
       />
     </v-col>
     <v-col cols="12">
-      <v-btn class="mr-4" @click="addCitation">
+      <v-btn class="mr-4 add-citation" @click="addCitation">
         <v-icon>mdi-plus</v-icon>
         関連リンクを追加
       </v-btn>
