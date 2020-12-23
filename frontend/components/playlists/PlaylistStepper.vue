@@ -2,7 +2,7 @@
   <div class="arrow-steps clearfix row no-gutters pr-5">
     <div class="col-4">
       <div
-        class="step d-flex justify-center align-center"
+        class="step list-step d-flex justify-center align-center"
         :class="{ current: isList }"
         @click="changeTab('list')"
       >
@@ -11,7 +11,7 @@
     </div>
     <div class="col-4">
       <div
-        class="step d-flex justify-center align-center"
+        class="step article-step d-flex justify-center align-center"
         :class="{ current: isArticle }"
         @click="changeTab('article')"
       >
@@ -23,7 +23,7 @@
     </div>
     <div class="col-4">
       <div
-        class="step d-flex justify-center align-center"
+        class="step series-step d-flex justify-center align-center"
         :class="{ current: isSeries }"
         @click="changeTab('series')"
       >
