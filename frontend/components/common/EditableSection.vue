@@ -162,16 +162,10 @@ export default {
 
 .ce-block__content,
 .ce-toolbar__content {
-  max-width: 980px;
+  max-width: 2000px;
 }
 .ce-block__content {
   margin: 0 20px;
-}
-
-@media screen and (min-width: 1904px) {
-  .ce-block__content {
-    margin: 0 100px;
-  }
 }
 
 .ce-toolbox__button[data-tool='episode'],
