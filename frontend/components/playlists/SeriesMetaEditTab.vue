@@ -2,7 +2,7 @@
   <div class="series-container container-fluid white rounded px-5 py-2">
     <v-row>
       <v-col cols="12">
-        <v-form ref="form" v-model="valid" class="ml-5">
+        <v-form ref="form" v-model="valid">
           <v-row dense>
             <v-col cols="12">
               <v-text-field
