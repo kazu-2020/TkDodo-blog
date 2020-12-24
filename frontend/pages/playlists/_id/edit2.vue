@@ -115,8 +115,6 @@
             <playlist-json-dialog
               button-color="#000000"
               :playlist-id="playlist.id"
-              v-bind="attrs"
-              v-on="on"
             />
           </v-col>
         </div>
