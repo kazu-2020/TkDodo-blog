@@ -1,11 +1,7 @@
 <template>
   <v-layout column style="position: relative">
     <div class="fixed-row-wrapper">
-      <v-row
-        class="fixed-row pt-2"
-        justify="space-between"
-        style="padding-right: 60px"
-      >
+      <v-row class="fixed-row pt-2 pr-15" justify="space-between">
         <v-col cols="12">
           <v-breadcrumbs :items="breadcrumbItems" class="pa-0">
             <template #item="{ item }">
@@ -15,7 +11,7 @@
             </template>
           </v-breadcrumbs>
         </v-col>
-        <v-col cols="auto">
+        <v-col cols="9">
           <playlist-stepper
             :current="currentTab"
             :article-tab-validation="isValidArticleTab"
@@ -23,10 +19,13 @@
             @change-tab="changeTab"
           />
         </v-col>
-        <v-col cols="auto">
+        <v-spacer />
+        <v-col cols="2" class="">
           <v-btn
+            x-large
+            block
             color="orange"
-            class="save-button"
+            dark
             elevation="0"
             :disabled="preventSaveButton"
             @click="save"
@@ -35,7 +34,7 @@
         </v-col>
       </v-row>
     </div>
-    <v-row style="padding-top: 100px">
+    <v-row style="padding-top: 120px">
       <v-col cols="12" class="hidden-lg-and-up preview-container">
         <horizontal-basic-information-view :playlist="playlist" />
       </v-col>
@@ -395,7 +394,6 @@ export default Vue.extend({
 }
 
 .save-button {
-  color: white;
   width: 140px;
 }
 
