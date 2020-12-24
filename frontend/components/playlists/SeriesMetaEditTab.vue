@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h2>基本情報</h2>
+  <div class="series-container container-fluid white rounded px-5 py-2">
     <v-row>
       <v-col cols="12">
         <v-form ref="form" v-model="valid" class="ml-5">
@@ -57,8 +56,8 @@
                       {{ item }}
                     </span>
                     <v-icon small @click="parent.selectItem(item)"
-                      >mdi-close</v-icon
-                    >
+                      >mdi-close
+                    </v-icon>
                   </v-chip>
                 </template>
               </v-combobox>
@@ -82,8 +81,8 @@
                       {{ item }}
                     </span>
                     <v-icon small @click="parent.selectItem(item)"
-                      >mdi-close</v-icon
-                    >
+                      >mdi-close
+                    </v-icon>
                   </v-chip>
                 </template>
               </v-combobox>

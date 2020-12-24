@@ -1,7 +1,6 @@
 <template>
-  <div @click="closePreviewDrawer">
-    <h2>リスト</h2>
-    <v-row>
+  <div class="list-item-container container-fluid white rounded px-5 py-2">
+    <v-row @click="closePreviewDrawer">
       <v-col cols="12">
         <playlist-episodes-list
           :episodes="playlistItems"
