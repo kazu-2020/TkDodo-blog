@@ -80,6 +80,7 @@ import { EpisodeData } from '@/types/episode_data'
 import PlaylistEpisodesList from '~/components/playlists/PlaylistEpisodesList.vue'
 import PlaylistEpisodeSearch from '~/components/playlists/PlaylistEpisodeSearch.vue'
 import EpisodePreviewDrawer from '~/components/playlists/EpisodePreviewDrawer.vue'
+import EpisodeSearchResultTableRow from '~/components/playlists/EpisodeSearchResultTableRow.vue'
 
 interface DataType {
   keywords: string
@@ -94,6 +95,7 @@ export default Vue.extend({
     PlaylistEpisodesList,
     PlaylistEpisodeSearch,
     EpisodePreviewDrawer,
+    EpisodeSearchResultTableRow,
   },
   data(): DataType {
     return {
