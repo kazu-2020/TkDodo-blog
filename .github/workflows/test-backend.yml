@@ -12,6 +12,7 @@ jobs:
       JETS_ENV: test
       working-directory: ./backend
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v1
       - name: Build the Docker compose
