@@ -112,16 +112,6 @@ export default Vue.extend({
     playlistItems(): Array<Object> {
       return this.$store.state.playlists.editingPlaylist.items
     },
-  },
-  methods: {
-    addEpisode(episode: any) {
-      this.$emit('update-episodes-list')
-      this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
-    },
-    deleteEpisode(episode: any) {
-      this.$emit('update-episodes-list')
-      this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
-    },
     articleEpisodes(): Array<Object> {
       return this.$store.state.playlists.editingPlaylist.article
         .containsEpisodes
@@ -135,6 +125,16 @@ export default Vue.extend({
       )
 
       return diffItems
+    },
+  },
+  methods: {
+    addEpisode(episode: any) {
+      this.$emit('update-episodes-list')
+      this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
+    },
+    deleteEpisode(episode: any) {
+      this.$emit('update-episodes-list')
+      this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
     },
     eyecatchUrl(item: any): string {
       if (item.eyecatch !== undefined) {
@@ -159,4 +159,8 @@ export default Vue.extend({
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+span.diff_episodes_count {
+  font-weight: bold;
+}
+</style>

@@ -13,7 +13,7 @@
         </v-row>
         <v-row justify="center">
           <v-col cols="10">
-            <div class="title text-center">記事の保存が完了しました</div>
+            <div class="title text-center">保存が完了しました</div>
           </v-col>
         </v-row>
         <v-row justify="center" align="center">
@@ -24,11 +24,11 @@
         <v-row justify="center" class="my-8">
           <v-col cols="5" class="left-pane">
             <p class="body-2">
-              プレイリストにないエピソードがあります。
+              記事中にプレイリストにないエピソードがあります。
               <br />
               プレイリスト編集画面で追加できます。
             </p>
-            <v-btn :to="playlistUrl" outlined color="orange">
+            <v-btn outlined color="orange" @click="moveToListEditing">
               <v-icon left> mdi-pencil </v-icon>
               プレイリスト編集画面へ
             </v-btn>
@@ -86,7 +86,7 @@ export default Vue.extend({
   },
   computed: {
     playlistUrl(): string {
-      return `/playlists/${this.playlist?.id}`
+      return `/playlists/${this.playlist?.id}/edit2#list`
     },
     shouldOmmitDiffItems(): boolean {
       return this.diffItems.length > 4
@@ -116,6 +116,10 @@ export default Vue.extend({
     hideDialog() {
       this.isShow = false
       this.$emit('hide-new-playlist-dialog')
+    },
+    moveToListEditing() {
+      this.isShow = false
+      this.$emit('move-to-list-editing')
     },
   },
 })

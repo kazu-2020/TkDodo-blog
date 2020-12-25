@@ -107,7 +107,7 @@
           <v-divider />
           <v-col cols="12">
             <div style="word-wrap: break-word; font-size: 14px">
-              {{ playlist.article.plainBody }}
+              {{ articlePlainBody }}
             </div>
           </v-col>
           <v-divider />
@@ -120,12 +120,20 @@
         </div>
       </v-col>
     </v-row>
+    <article-saved-dialog
+      :is-show-dialog="isShowDiffDialog"
+      :playlist="playlist"
+      :diff-items="diffEpisodeItems"
+      @hide-new-playlist-dialog="isShowDiffDialog = false"
+      @move-to-list-editing="moveToListEditing"
+    />
   </v-layout>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Playlist } from '@/types/playlist'
+import { EpisodeData } from '@/types/episode_data'
 import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
 import ListEditTab from '~/components/playlists/ListEditTab.vue'
 import PlaylistJsonDialog from '~/components/playlists/PlaylistJsonDialog.vue'
@@ -135,6 +143,7 @@ import HorizontalBasicInformationView from '~/components/playlists/HorizontalBas
 import SeriesMetaEditTab from '~/components/playlists/SeriesMetaEditTab.vue'
 import { PlaylistTab } from '~/models/definitions'
 import unloadAlertMixin from '~/components/common/unloadAlertMixin.ts'
+import ArticleSavedDialog from '~/components/playlists/ArticleSavedDialog.vue'
 
 interface Breadcrumb {
   text: string
@@ -146,6 +155,7 @@ interface DataType {
   currentTab: PlaylistTab
   isValidArticleTab: boolean
   isValidSeriesTab: boolean
+  isShowDiffDialog: boolean
 }
 
 export default Vue.extend({
@@ -158,6 +168,7 @@ export default Vue.extend({
     PlaylistJsonDialog,
     PlaylistStepper,
     SeriesMetaEditTab,
+    ArticleSavedDialog,
   },
   mixins: [unloadAlertMixin],
   async asyncData({ store, params }) {
@@ -168,6 +179,7 @@ export default Vue.extend({
       currentTab: PlaylistTab.list,
       isValidArticleTab: true,
       isValidSeriesTab: true,
+      isShowDiffDialog: false,
     }
   },
   computed: {
@@ -202,6 +214,19 @@ export default Vue.extend({
           href: `/playlists/${this.playlist.id}`,
         },
       ]
+    },
+    diffEpisodeItems(): EpisodeData[] {
+      const playlistItems = this.playlist.items || []
+      const articleItems = this.playlist.article?.containsEpisodes || []
+
+      const diffItems = articleItems.filter(
+        (v: any) => !playlistItems.map((x) => x.id).includes(v.id)
+      )
+
+      return diffItems
+    },
+    articlePlainBody(): string | undefined {
+      return this.playlist.article?.plainBody
     },
   },
   mounted() {
@@ -243,6 +268,10 @@ export default Vue.extend({
     },
     updateSeriesTabValidation(valid: boolean) {
       this.isValidSeriesTab = valid
+    },
+    moveToListEditing() {
+      this.currentTab = PlaylistTab.list
+      this.isShowDiffDialog = false
     },
     save() {
       const body: { [key: string]: string | undefined } = {
@@ -366,9 +395,18 @@ export default Vue.extend({
 
       this.$axios
         .put(`/playlists/${this.playlist.id}`, data)
-        .then((_response) => {
+        .then((response) => {
+          console.log(response)
           this.$store.dispatch('loading/succeedLoading')
+          this.$store.dispatch(
+            'playlists/setEditingPlaylist',
+            (response as any).data.playlist
+          )
           ;(this as any).notShowUnloadAlert()
+
+          if ((this as any).diffEpisodeItems.length !== 0) {
+            ;(this as any).isShowDiffDialog = true
+          }
         })
         .catch((_error) => {
           this.$store.dispatch('loading/failLoading')
