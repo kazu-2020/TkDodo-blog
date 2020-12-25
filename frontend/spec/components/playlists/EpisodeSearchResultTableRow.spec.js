@@ -59,7 +59,8 @@ describe('components/playlists/EpisodeSearchResultTableRow.vue', () => {
 
   describe('computed eyecatchUrl', () => {
     describe('アイキャッチがない場合', () => {
-      it('空文字が返却される', () => {
+      it('ダミー画像のURLが返却される', () => {
+        const dummyImageUrl = 'https://placehold.jp/50x28.png'
         const wrapper = mountFunction({
           propsData: {
             episode: {
@@ -69,7 +70,7 @@ describe('components/playlists/EpisodeSearchResultTableRow.vue', () => {
             ignoreEpisodes: [],
           },
         })
-        expect(wrapper.vm.eyecatchUrl).toBe('')
+        expect(wrapper.vm.eyecatchUrl).toBe(dummyImageUrl)
       })
     })
 
