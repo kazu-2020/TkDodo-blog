@@ -116,6 +116,9 @@ export const actions = actionTree(
           commit('updateEditingPlaylistEpisodes', response.data.items)
         })
     },
+    setEditingPlaylist({ commit }, playlist) {
+      commit('setEditingPlaylist', { playlist })
+    },
     deleteEditingPlaylistEpisode({ commit }, episode) {
       commit('deleteEditingPlaylistEpisode', episode)
     },
