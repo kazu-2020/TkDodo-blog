@@ -106,7 +106,7 @@ export default Vue.extend({
       if (eyecatch !== undefined) {
         return eyecatch.medium.url
       } else {
-        return ''
+        return 'https://placehold.jp/50x28.png'
       }
     },
     seriesName(episode: any) {
