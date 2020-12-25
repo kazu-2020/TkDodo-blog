@@ -1,3 +1,5 @@
+import { EpisodeData } from './episode_data'
+
 export interface Article {
   header?: string
   body?: string
@@ -7,4 +9,5 @@ export interface Article {
   authorName?: string
   publisherType?: string
   publisherName?: string
+  containsEpisodes?: Array<EpisodeData>
 }
