@@ -1,76 +1,81 @@
 <template>
-  <v-row>
-    <v-col cols="12">
-      <div v-if="isShowHeader">
-        <h3 class="mb-4">ヘッダー</h3>
-        <v-textarea v-model="header" outlined auto-grow />
-      </div>
-      <div v-else>
-        <v-btn block text class="mb-4 pa-4" @click="addHeader"
-          >ヘッダーを入力
-        </v-btn>
-      </div>
-      <hr class="dotted_hr" />
-    </v-col>
-    <v-col cols="12">
-      <h3>記事本文</h3>
-      <editable-section
-        key="sandbox2"
-        section-id="sandbox2"
-        :playlist-id="playlist.id"
-        :initial-data="body"
-        :episode-block-id="episodeBlockId"
-        class="mb-8 mr-4 ml-12"
-        :image-by-file-endpoint="imageByFileEndpoint"
-        :image-by-url-endpoint="imageByUrlEndpoint"
-        @modify-content="setCurrentContent"
-      />
-      <hr class="dotted_hr" />
-    </v-col>
-    <v-col cols="12">
-      <div v-if="isShowFooter">
-        <h3 class="mb-4">フッター</h3>
-        <v-textarea v-model="footer" outlined auto-grow />
-      </div>
-      <div v-else>
-        <v-btn block text class="mb-4 pa-4" @click="addFooter"
-          >フッターを入力
-        </v-btn>
-      </div>
-    </v-col>
-    <v-col cols="12" class="vertical_divider">
-      <v-sheet color="grey lighten-3" rounded class="pb-2 mb-1">
-        <iconed-title
-          icon="mdi-account-edit"
-          title="編集者情報の入力"
-          class="ma-4 pt-4"
+  <div class="article-container container-fluid white rounded px-5 py-2">
+    <v-row>
+      <v-col cols="12">
+        <div v-if="isShowHeader">
+          <h3 class="mb-4">ヘッダー</h3>
+          <v-textarea v-model="header" outlined auto-grow />
+        </div>
+        <div v-else>
+          <v-btn block text class="mb-4 pa-4" @click="addHeader"
+            >ヘッダーを入力
+          </v-btn>
+        </div>
+        <hr class="dotted_hr" />
+      </v-col>
+      <v-col cols="12">
+        <h3>記事本文</h3>
+        <editable-section
+          key="sandbox2"
+          section-id="sandbox2"
+          :playlist-id="playlist.id"
+          :initial-data="body"
+          :episode-block-id="episodeBlockId"
+          class="mb-8 mr-4 ml-12"
+          :image-by-file-endpoint="imageByFileEndpoint"
+          :image-by-url-endpoint="imageByUrlEndpoint"
+          @modify-content="setCurrentContent"
         />
-        <hr class="title_divider" />
-        <v-sheet color="white" class="ma-4 pa-4" rounded>
-          <v-form ref="form" v-model="valid">
-            <h4>著者 <small class="text--secondary"> - Author</small></h4>
-            <v-radio-group v-model="authorType" mandatory row>
-              <v-radio label="個人(Person)" value="Person" />
-              <v-radio label="グループ(Organization)" value="Organization" />
-            </v-radio-group>
-            <h4>
-              著者名 <small class="text--secondary"> - Author Name</small>
-            </h4>
-            <v-text-field v-model="authorName" :rules="[required]" />
-            <h4>発行者 <small class="text--secondary"> - Publisher</small></h4>
-            <v-radio-group v-model="publisherType" mandatory row>
-              <v-radio label="個人(Person)" value="Person" />
-              <v-radio label="グループ(Organization)" value="Organization" />
-            </v-radio-group>
-            <h4>
-              発行者名 <small class="text--secondary"> - Publisher Name</small>
-            </h4>
-            <v-text-field v-model="publisherName" :rules="[required]" />
-          </v-form>
+        <hr class="dotted_hr" />
+      </v-col>
+      <v-col cols="12">
+        <div v-if="isShowFooter">
+          <h3 class="mb-4">フッター</h3>
+          <v-textarea v-model="footer" outlined auto-grow />
+        </div>
+        <div v-else>
+          <v-btn block text class="mb-4 pa-4" @click="addFooter"
+            >フッターを入力
+          </v-btn>
+        </div>
+      </v-col>
+      <v-col cols="12" class="vertical_divider">
+        <v-sheet color="grey lighten-3" rounded class="pb-2 mb-1">
+          <iconed-title
+            icon="mdi-account-edit"
+            title="編集者情報の入力"
+            class="ma-4 pt-4"
+          />
+          <hr class="title_divider" />
+          <v-sheet color="white" class="ma-4 pa-4" rounded>
+            <v-form ref="form" v-model="valid">
+              <h4>著者 <small class="text--secondary"> - Author</small></h4>
+              <v-radio-group v-model="authorType" mandatory row>
+                <v-radio label="個人(Person)" value="Person" />
+                <v-radio label="グループ(Organization)" value="Organization" />
+              </v-radio-group>
+              <h4>
+                著者名 <small class="text--secondary"> - Author Name</small>
+              </h4>
+              <v-text-field v-model="authorName" :rules="[required]" />
+              <h4>
+                発行者 <small class="text--secondary"> - Publisher</small>
+              </h4>
+              <v-radio-group v-model="publisherType" mandatory row>
+                <v-radio label="個人(Person)" value="Person" />
+                <v-radio label="グループ(Organization)" value="Organization" />
+              </v-radio-group>
+              <h4>
+                発行者名
+                <small class="text--secondary"> - Publisher Name</small>
+              </h4>
+              <v-text-field v-model="publisherName" :rules="[required]" />
+            </v-form>
+          </v-sheet>
         </v-sheet>
-      </v-sheet>
-    </v-col>
-  </v-row>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>

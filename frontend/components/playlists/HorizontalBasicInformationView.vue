@@ -1,96 +1,102 @@
 <template>
-  <v-row class="preview-container-inner">
-    <v-col cols="2" md="2" sm="4" xs="12">
-      <h2 class="playlist-title">{{ playlistName }}</h2>
-      <div class="chips">
-        <v-chip class="my-1" small> 非公開 </v-chip>
-        <br />
-        <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
-          ID: {{ omittedPlaylisitId }}
-        </v-chip>
-        <v-chip
-          v-if="playlistSeriesId"
-          class="my-1"
-          color="secondary"
-          small
-          @click="copySeriesId"
-        >
-          SeriesID: {{ playlistSeriesId }}
-        </v-chip>
-      </div>
-    </v-col>
-    <v-col cols="1" md="1" sm="2" xs="6">
-      <v-img
-        :src="logoImageUrl(playlist)"
-        style="border-radius: 4px; overflow: hidden; margin: 0 auto"
-      />
-    </v-col>
-    <v-col v-show="playlistDescription" cols="2" md="2" sm="4" xs="12">
-      <div style="word-wrap: break-word; font-size: 14px">
-        {{ playlistDescription }}
-      </div>
-    </v-col>
-    <v-col v-show="hasActorsOrContributors" cols="2" md="2" sm="4" xs="12">
-      <v-tooltip
-        v-for="(data, index) in actorsAndContributors"
-        :key="`actor-contributor-${index}`"
-        bottom
-      >
-        <template #activator="{ on, attrs }">
-          <div
-            v-if="noActorContributorImage(data)"
-            class="actor_contributor_badge"
-            v-bind="attrs"
-            v-on="on"
+  <div class="preview-container container-fluid white rounded px-5 py-2">
+    <v-row>
+      <v-col cols="2" md="2" sm="4" xs="12">
+        <h2 class="playlist-title">{{ playlistName }}</h2>
+        <div class="chips">
+          <v-chip class="my-1" small> 非公開 </v-chip>
+          <br />
+          <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
+            ID: {{ omittedPlaylisitId }}
+          </v-chip>
+          <v-chip
+            v-if="playlistSeriesId"
+            class="my-1"
+            color="secondary"
+            small
+            @click="copySeriesId"
           >
-            <div class="actor_contributor_badge_inner">
-              {{ actorContributorName(data).slice(0, 1) }}
+            SeriesID: {{ playlistSeriesId }}
+          </v-chip>
+        </div>
+      </v-col>
+      <v-col cols="1" md="1" sm="2" xs="6">
+        <v-img
+          :src="logoImageUrl(playlist)"
+          style="border-radius: 4px; overflow: hidden; margin: 0 auto"
+        />
+      </v-col>
+      <v-col v-show="playlistDescription" cols="2" md="2" sm="4" xs="12">
+        <div style="word-wrap: break-word; font-size: 14px">
+          {{ playlistDescription }}
+        </div>
+      </v-col>
+      <v-col v-show="hasActorsOrContributors" cols="2" md="2" sm="4" xs="12">
+        <v-tooltip
+          v-for="(data, index) in actorsAndContributors"
+          :key="`actor-contributor-${index}`"
+          bottom
+        >
+          <template #activator="{ on, attrs }">
+            <div
+              v-if="noActorContributorImage(data)"
+              class="actor_contributor_badge"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <div class="actor_contributor_badge_inner">
+                {{ actorContributorName(data).slice(0, 1) }}
+              </div>
             </div>
-          </div>
-          <v-img
-            v-else
-            :src="actorContributorImageUrl(data)"
-            width="40"
-            v-bind="attrs"
-            class="actor_contributor_badge"
-            v-on="on"
-          />
-        </template>
-        <span>{{ actorContributorName(data) }}</span>
-      </v-tooltip>
-    </v-col>
-    <v-col cols="3" md="3" sm="4" xs="12">
-      <v-list dense class="py-0">
-        <v-list-item v-for="item in playlistItems" :key="item.id" class="px-0">
-          <v-list-item-icon class="mr-1">
             <v-img
-              :src="eyecatchUrl(item)"
-              lazy-src="https://placehold.jp/50x28.png"
-              width="50"
-              height="28"
-              class="episode-image"
+              v-else
+              :src="actorContributorImageUrl(data)"
+              width="40"
+              v-bind="attrs"
+              class="actor_contributor_badge"
+              v-on="on"
             />
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.name" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-col>
-    <v-col cols="2" md="2" sm="4" xs="12">
-      <div style="word-wrap: break-word; font-size: 14px">
-        {{ plainBody }}
-      </div>
-    </v-col>
-    <v-snackbar v-model="snackbar" timeout="2000">
-      コピーしました
-      <template #action="{ attrs }">
-        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
-          閉じる
-        </v-btn>
-      </template>
-    </v-snackbar>
-  </v-row>
+          </template>
+          <span>{{ actorContributorName(data) }}</span>
+        </v-tooltip>
+      </v-col>
+      <v-col cols="3" md="3" sm="4" xs="12">
+        <v-list dense class="py-0">
+          <v-list-item
+            v-for="item in playlistItems"
+            :key="item.id"
+            class="px-0"
+          >
+            <v-list-item-icon class="mr-1">
+              <v-img
+                :src="eyecatchUrl(item)"
+                lazy-src="https://placehold.jp/50x28.png"
+                width="50"
+                height="28"
+                class="episode-image"
+              />
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.name" />
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-col>
+      <v-col cols="2" md="2" sm="4" xs="12">
+        <div style="word-wrap: break-word; font-size: 14px">
+          {{ plainBody }}
+        </div>
+      </v-col>
+      <v-snackbar v-model="snackbar" timeout="2000">
+        コピーしました
+        <template #action="{ attrs }">
+          <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+            閉じる
+          </v-btn>
+        </template>
+      </v-snackbar>
+    </v-row>
+  </div>
 </template>
 
 <script lang="ts">
@@ -171,7 +177,7 @@ export default Vue.extend({
       if (item.eyecatch !== undefined) {
         return item.eyecatch.medium.url
       } else {
-        return ''
+        return 'https://placehold.jp/50x28.png'
       }
     },
     actorContributorName(data: any): string {
@@ -192,11 +198,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.preview-container-inner {
-  background-color: white;
-  border-radius: 6px;
-}
-
 .playlist-title {
   font-size: 16px;
   font-weight: bold;

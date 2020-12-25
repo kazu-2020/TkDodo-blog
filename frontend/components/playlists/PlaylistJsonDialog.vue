@@ -1,14 +1,7 @@
 <template>
   <v-dialog v-model="dialog" scrollable width="600px">
-    <template #activator="{ on, attrs }">
-      <v-btn
-        :color="buttonColor"
-        icon
-        small
-        v-bind="attrs"
-        class="dialog_button"
-        v-on="on"
-      >
+    <template #activator="{ on }">
+      <v-btn :color="buttonColor" icon small class="dialog_button" v-on="on">
         <v-icon>mdi-code-json</v-icon>
       </v-btn>
     </template>

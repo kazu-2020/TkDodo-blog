@@ -35,7 +35,7 @@
       </v-row>
     </div>
     <v-row style="padding-top: 120px">
-      <v-col cols="12" class="hidden-lg-and-up preview-container">
+      <v-col cols="12" class="hidden-lg-and-up preview-container-wrapper">
         <horizontal-basic-information-view :playlist="playlist" />
       </v-col>
       <v-col
@@ -45,7 +45,7 @@
         xl="9"
         md="12"
         sm="12"
-        class="list-item-container mt-4"
+        class="mt-4 list-item-container-wrapper"
       >
         <list-edit-tab @update-episodes-list="updateEpisodeList" />
       </v-col>
@@ -56,13 +56,14 @@
         xl="9"
         md="12"
         sm="12"
-        class="article-container mt-4"
+        class="mt-4 article-container-wrapper"
       >
         <article-edit-tab
           :playlist="playlist"
           @update-article="updateArticle"
           @update-validation="updateArticleTabValidation"
-      /></v-col>
+        />
+      </v-col>
       <v-col
         v-show="isSeriesEditing"
         cols="9"
@@ -70,7 +71,7 @@
         xl="9"
         md="12"
         sm="12"
-        class="series-container mt-4"
+        class="mt-4 series-container-wrapper"
       >
         <series-meta-edit-tab
           :playlist="playlist"
@@ -78,8 +79,8 @@
           @update-validation="updateSeriesTabValidation"
         />
       </v-col>
-      <v-col cols="3" class="preview-container hidden-md-and-down">
-        <div class="preview-container-inner mt-1 pa-2">
+      <v-col cols="3" class="preview-container-wrapper hidden-md-and-down">
+        <div class="preview-container container-fluid mt-4 pa-2 white rounded">
           <basic-information-view :playlist="playlist" />
           <v-col cols="12">
             <v-list dense>
@@ -114,8 +115,6 @@
             <playlist-json-dialog
               button-color="#000000"
               :playlist-id="playlist.id"
-              v-bind="attrs"
-              v-on="on"
             />
           </v-col>
         </div>
@@ -242,7 +241,7 @@ export default Vue.extend({
       if (item.eyecatch !== undefined) {
         return item.eyecatch.medium.url
       } else {
-        return ''
+        return 'https://placehold.jp/50x28.png'
       }
     },
     changeTab(nextTab: PlaylistTab) {
@@ -433,18 +432,6 @@ export default Vue.extend({
 
 .save-button {
   width: 140px;
-}
-
-.list-item-container,
-.article-container,
-.series-container {
-  background-color: white;
-  border-radius: 6px;
-}
-
-.preview-container-inner {
-  background-color: white;
-  border-radius: 6px;
 }
 
 .v-responsive.v-image.episode-image {
