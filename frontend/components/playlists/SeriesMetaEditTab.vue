@@ -231,11 +231,11 @@ export default Vue.extend({
       hashtag: this.playlist.hashtag || [],
       formatGenre: this.playlist.formatGenre || '',
       themeGenre: this.playlist.themeGenre || '',
-      selectedPalette: this.playlist.selectedPalette || '',
-      primaryLightColor: this.playlist.primaryLightColor || '',
-      primaryDarkColor: this.playlist.primaryDarkColor || '',
-      linkLightColor: this.playlist.linkLightColor || '',
-      linkDarkColor: this.playlist.linkDarkColor || '',
+      selectedPalette: this.playlist.selectedPalette || '#ffffff',
+      primaryLightColor: this.playlist.primaryLightColor || '#ffffff',
+      primaryDarkColor: this.playlist.primaryDarkColor || '#ffffff',
+      linkLightColor: this.playlist.linkLightColor || '#ffffff',
+      linkDarkColor: this.playlist.linkDarkColor || '#ffffff',
       sameAs: this.playlist.sameAs || {
         id: null,
         name: null,
@@ -291,11 +291,11 @@ export default Vue.extend({
         this.hashtag = newVal.hashtag
         this.formatGenre = newVal.formatGenre
         this.themeGenre = newVal.themeGenre
-        this.selectedPalette = newVal.selectedPalette
-        this.primaryLightColor = newVal.primaryLightColor
-        this.primaryDarkColor = newVal.primaryDarkColor
-        this.linkLightColor = newVal.linkLightColor
-        this.linkDarkColor = newVal.linkDarkColor
+        this.selectedPalette = newVal.selectedPalette || '#FFFFFF'
+        this.primaryLightColor = newVal.primaryLightColor || '#FFFFFF'
+        this.primaryDarkColor = newVal.primaryDarkColor || '#FFFFFF'
+        this.linkLightColor = newVal.linkLightColor || '#FFFFFF'
+        this.linkDarkColor = newVal.linkDarkColor || '#FFFFFF'
         this.sameAs = newVal.sameAs
         this.citations = newVal.citations
         this.aliasId = newVal.aliasId

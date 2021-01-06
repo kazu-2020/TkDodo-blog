@@ -115,13 +115,6 @@
               {{ articlePlainBody }}
             </div>
           </v-col>
-          <v-divider />
-          <v-col cols="2">
-            <playlist-json-dialog
-              button-color="#000000"
-              :playlist-id="playlist.id"
-            />
-          </v-col>
         </div>
       </v-col>
     </v-row>
@@ -141,7 +134,6 @@ import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
 import ListEditTab from '~/components/playlists/ListEditTab.vue'
-import PlaylistJsonDialog from '~/components/playlists/PlaylistJsonDialog.vue'
 import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
 import HorizontalBasicInformationView from '~/components/playlists/HorizontalBasicInformationView.vue'
@@ -157,6 +149,7 @@ interface Breadcrumb {
 }
 
 interface DataType {
+  playlist: Playlist
   currentTab: PlaylistTab
   isValidArticleTab: boolean
   isValidSeriesTab: boolean
@@ -164,23 +157,20 @@ interface DataType {
 }
 
 export default Vue.extend({
-  name: 'PlaylistIdEdit2Page',
+  name: 'PlaylistNewPage',
   components: {
     ArticleEditTab,
     BasicInformationView,
     HorizontalBasicInformationView,
     ListEditTab,
-    PlaylistJsonDialog,
     PlaylistStepper,
     SeriesMetaEditTab,
     ArticleSavedDialog,
   },
   mixins: [unloadAlertMixin],
-  async asyncData({ store, params }) {
-    await store.dispatch('playlists/fetchPlaylist', params.id)
-  },
   data(): DataType {
     return {
+      playlist: { article: { body: null }, items: [] },
       currentTab: PlaylistTab.list,
       isValidArticleTab: true,
       isValidSeriesTab: true,
@@ -188,11 +178,8 @@ export default Vue.extend({
     }
   },
   computed: {
-    playlist(): Playlist {
-      return this.$store.state.playlists.editingPlaylist
-    },
     playlistItems(): Array<Object> {
-      return this.$store.state.playlists.editingPlaylist.items
+      return this.playlist.items || []
     },
     isListEditing(): boolean {
       return this.currentTab === PlaylistTab.list
@@ -214,9 +201,9 @@ export default Vue.extend({
           href: '/',
         },
         {
-          text: this.playlist.name,
+          text: '新規作成',
           disabled: true,
-          href: `/playlists/${this.playlist.id}`,
+          href: '#',
         },
       ]
     },
@@ -258,27 +245,28 @@ export default Vue.extend({
     },
     updateEpisodes(episodes: any) {
       this.resetUnloadAlert()
-      this.$store.dispatch('playlists/updateEditingPlaylistEpisodes', episodes)
+      this.playlist.items = episodes
     },
     addEpisode(episode: any) {
       this.resetUnloadAlert()
-      this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
+      this.playlist.items.push(episode)
     },
     deleteEpisode(episode: any) {
       this.resetUnloadAlert()
       this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
+      this.playlist.items.splice(this.playlist.items.indexOf(episode), 1)
     },
     updateArticle(article: any) {
       if (this.currentTab === PlaylistTab.article) {
         ;(this as any).showUnloadAlert()
       }
-      this.$store.dispatch('playlists/updateArticle', article)
+      this.playlist.article = article
     },
     updateSeries(playlist: any) {
       if (this.currentTab === PlaylistTab.series) {
         ;(this as any).showUnloadAlert()
       }
-      this.$store.dispatch('playlists/updateEditingPlaylist', playlist)
+      this.playlist = playlist
     },
     updateArticleTabValidation(valid: boolean) {
       this.isValidArticleTab = valid
@@ -389,24 +377,26 @@ export default Vue.extend({
         )
       }
 
-      for (const citation of this.playlist.citations) {
-        if (citation.id) {
-          data.append(
-            'playlist[citations_attributes][][id]',
-            citation.id.toString()
-          )
-        }
-        if (citation.name) {
-          data.append('playlist[citations_attributes][][name]', citation.name)
-        }
-        if (citation.url) {
-          data.append('playlist[citations_attributes][][url]', citation.url)
-        }
-        if (citation._destroy) {
-          data.append(
-            'playlist[citations_attributes][][_destroy]',
-            citation._destroy.toString()
-          )
+      if (this.playlist.citations) {
+        for (const citation of this.playlist.citations) {
+          if (citation.id) {
+            data.append(
+              'playlist[citations_attributes][][id]',
+              citation.id.toString()
+            )
+          }
+          if (citation.name) {
+            data.append('playlist[citations_attributes][][name]', citation.name)
+          }
+          if (citation.url) {
+            data.append('playlist[citations_attributes][][url]', citation.url)
+          }
+          if (citation._destroy) {
+            data.append(
+              'playlist[citations_attributes][][_destroy]',
+              citation._destroy.toString()
+            )
+          }
         }
       }
 
@@ -416,19 +406,16 @@ export default Vue.extend({
       })
 
       this.$axios
-        .put(`/playlists/${this.playlist.id}`, data)
+        .post(`/playlists`, data)
         .then((response) => {
-          console.log(response)
           this.$store.dispatch('loading/succeedLoading')
-          this.$store.dispatch(
-            'playlists/setEditingPlaylist',
-            (response as any).data.playlist
-          )
+          this.playlist = (response as any).data.playlist
           ;(this as any).notShowUnloadAlert()
 
           if ((this as any).diffEpisodeItems.length !== 0) {
             ;(this as any).isShowDiffDialog = true
           }
+          this.$router.push(`/playlists/${this.playlist.id}/edit2`)
         })
         .catch((_error) => {
           this.$store.dispatch('loading/failLoading')

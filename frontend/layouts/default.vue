@@ -151,7 +151,10 @@ export default Vue.extend({
       return this.$store.state.loading.messages[this.snackBarState]
     },
     shouldIvoryBackground() {
-      return this.$route.name === 'playlists-id-edit2'
+      return (
+        this.$route.name === 'playlists-id-edit2' ||
+        this.$route.name === 'playlists-new'
+      )
     },
   },
   methods: {
