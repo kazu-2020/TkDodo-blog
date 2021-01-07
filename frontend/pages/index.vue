@@ -103,31 +103,6 @@
           <v-col cols="4">
             <v-btn
               :to="{
-                name: 'playlists-id',
-                params: { id: selectedPlaylistId },
-              }"
-              nuxt
-              depressed
-              color="orange"
-              class="edit_button"
-            >
-              <v-icon left>mdi-pencil</v-icon>
-              編集する
-            </v-btn>
-          </v-col>
-          <v-col cols="4">
-            <v-btn
-              class="delete_button"
-              outlined
-              @click="deleteSelectedPlaylist"
-            >
-              <v-icon left>mdi-delete</v-icon>
-              削除する
-            </v-btn>
-          </v-col>
-          <v-col cols="6">
-            <v-btn
-              :to="{
                 name: 'playlists-id-edit2',
                 params: { id: selectedPlaylistId },
               }"
@@ -136,23 +111,6 @@
               color="orange"
               class="edit_button"
             >
-              <v-icon left>mdi-flask-round-bottom</v-icon>
-              編集する(試用版)
-            </v-btn>
-          </v-col>
-        </v-row>
-        <v-row v-show="articleMode" justify="center">
-          <v-col cols="4">
-            <v-btn
-              :to="{
-                name: 'playlists-id-article',
-                params: { id: selectedPlaylistId },
-              }"
-              nuxt
-              depressed
-              color="orange"
-              class="edit_button"
-            >
               <v-icon left>mdi-pencil</v-icon>
               編集する
             </v-btn>
@@ -167,7 +125,9 @@
               削除する
             </v-btn>
           </v-col>
-          <v-col cols="6">
+        </v-row>
+        <v-row v-show="articleMode" justify="center">
+          <v-col cols="4">
             <v-btn
               :to="{
                 name: 'playlists-id-edit2',
@@ -179,8 +139,18 @@
               color="orange"
               class="edit_button"
             >
-              <v-icon left>mdi-flask-round-bottom</v-icon>
-              編集する(試用版)
+              <v-icon left>mdi-pencil</v-icon>
+              編集する
+            </v-btn>
+          </v-col>
+          <v-col cols="4">
+            <v-btn
+              class="delete_button"
+              outlined
+              @click="deleteSelectedPlaylist"
+            >
+              <v-icon left>mdi-delete</v-icon>
+              削除する
             </v-btn>
           </v-col>
         </v-row>
