@@ -153,7 +153,7 @@ export default Vue.extend({
     playlist: {
       handler(newVal) {
         this.article = newVal.article
-        this.body = newVal.article.body
+        this.body = newVal.article.body || null
         this.header =
           this.playlist.article.header ||
           this.$cookies.get('articleHeaderText') ||

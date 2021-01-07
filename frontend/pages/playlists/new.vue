@@ -16,6 +16,8 @@
             :current="currentTab"
             :article-tab-validation="isValidArticleTab"
             :series-tab-validation="isValidSeriesTab"
+            :hide-list-step="hideListStep"
+            :hide-article-step="hideArticleStep"
             @change-tab="changeTab"
           />
         </v-col>
@@ -182,10 +184,10 @@ export default Vue.extend({
       return this.playlist.items || []
     },
     isListEditing(): boolean {
-      return this.currentTab === PlaylistTab.list
+      return this.currentTab === PlaylistTab.list && !this.hideListStep
     },
     isArticleEditing(): boolean {
-      return this.currentTab === PlaylistTab.article
+      return this.currentTab === PlaylistTab.article && !this.hideArticleStep
     },
     isSeriesEditing(): boolean {
       return this.currentTab === PlaylistTab.series
@@ -220,12 +222,27 @@ export default Vue.extend({
     articlePlainBody(): string | undefined {
       return this.playlist.article?.plainBody
     },
+    hideListStep(): boolean {
+      return this.$route.query.mode === 'article'
+    },
+    hideArticleStep(): boolean {
+      return this.$route.query.mode === 'list'
+    },
+  },
+  watch: {
+    '$route.query.mode'(newValue) {
+      this.currentTab = PlaylistTab[newValue as keyof typeof PlaylistTab]
+    },
   },
   mounted() {
     ;(this as any).notShowUnloadAlert()
     const hash = this.$route.hash
     if (hash && hash.match(/^#(list|article|series)$/)) {
       this.currentTab = hash.slice(1) as PlaylistTab
+    }
+    const mode = this.$route.query.mode
+    if (mode) {
+      this.currentTab = PlaylistTab[mode as keyof typeof PlaylistTab]
     }
   },
   methods: {
