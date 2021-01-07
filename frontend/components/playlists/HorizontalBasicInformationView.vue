@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="2" md="2" sm="4" xs="12">
         <h2 class="playlist-title">{{ playlistName }}</h2>
-        <div class="chips" v-show="hasPlaylistId">
+        <div v-show="hasPlaylistId" class="chips">
           <v-chip class="my-1" small> 非公開 </v-chip>
           <br />
           <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
@@ -132,7 +132,7 @@ export default Vue.extend({
       return this.actorsAndContributors.length !== 0
     },
     hasPlaylistId(): boolean {
-      return this.playlist.id !== undefined
+      return this.playlist?.id !== undefined
     },
     playlistItems(): Array<Object> {
       const items = this.playlist.items || []

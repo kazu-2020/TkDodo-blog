@@ -6,7 +6,7 @@
     <v-row>
       <v-col cols="6" class="pr-0">
         <h2 class="playlist-title">{{ playlistName }}</h2>
-        <div class="chips" v-show="hasPlaylistId">
+        <div v-show="hasPlaylistId" class="chips">
           <v-chip class="my-1" small> 非公開 </v-chip>
           <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
             ID: {{ omittedPlaylisitId }}
@@ -114,7 +114,7 @@ export default Vue.extend({
       return this.actorsAndContributors.length !== 0
     },
     hasPlaylistId(): boolean {
-      return this.playlist.id !== undefined
+      return this.playlist?.id !== undefined
     },
     playlistName(): string {
       return this.playlist?.name || ''

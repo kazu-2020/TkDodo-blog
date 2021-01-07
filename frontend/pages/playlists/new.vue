@@ -149,7 +149,7 @@ interface Breadcrumb {
 }
 
 interface DataType {
-  playlist: Playlist
+  playlist: Partial<Playlist>
   currentTab: PlaylistTab
   isValidArticleTab: boolean
   isValidSeriesTab: boolean
@@ -170,7 +170,7 @@ export default Vue.extend({
   mixins: [unloadAlertMixin],
   data(): DataType {
     return {
-      playlist: { article: { body: null }, items: [] },
+      playlist: { article: { body: undefined }, items: [] },
       currentTab: PlaylistTab.list,
       isValidArticleTab: true,
       isValidSeriesTab: true,
@@ -249,12 +249,12 @@ export default Vue.extend({
     },
     addEpisode(episode: any) {
       this.resetUnloadAlert()
-      this.playlist.items.push(episode)
+      this.playlist.items?.push(episode)
     },
     deleteEpisode(episode: any) {
       this.resetUnloadAlert()
       this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
-      this.playlist.items.splice(this.playlist.items.indexOf(episode), 1)
+      this.playlist.items?.splice(this.playlist.items?.indexOf(episode), 1)
     },
     updateArticle(article: any) {
       if (this.currentTab === PlaylistTab.article) {
@@ -299,13 +299,13 @@ export default Vue.extend({
         remove_logo_image: this.playlist.removeLogoImage?.toString(),
         remove_eyecatch_image: this.playlist.removeEyecatchImage?.toString(),
         remove_hero_image: this.playlist.removeHeroImage?.toString(),
-        marked_header: this.playlist.article.header,
-        editor_data: JSON.stringify(this.playlist.article.body),
-        marked_footer: this.playlist.article.footer,
-        author_type: this.playlist.article.authorType,
-        author_name: this.playlist.article.authorName,
-        publisher_name: this.playlist.article.publisherName,
-        publisher_type: this.playlist.article.publisherType,
+        marked_header: this.playlist.article?.header,
+        editor_data: JSON.stringify(this.playlist.article?.body),
+        marked_footer: this.playlist.article?.footer,
+        author_type: this.playlist.article?.authorType,
+        author_name: this.playlist.article?.authorName,
+        publisher_name: this.playlist.article?.publisherName,
+        publisher_type: this.playlist.article?.publisherType,
       }
 
       if (this.playlist.logoImageData) {
@@ -334,7 +334,7 @@ export default Vue.extend({
         }
       }
 
-      if (this.playlist.items.length > 0) {
+      if (this.playlist.items && this.playlist.items.length > 0) {
         for (const item of this.playlist.items) {
           data.append('playlist[items][]', item.id as string)
         }
