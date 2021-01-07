@@ -103,7 +103,7 @@
           <v-col cols="4">
             <v-btn
               :to="{
-                name: 'playlists-id-edit2',
+                name: 'playlists-id',
                 params: { id: selectedPlaylistId },
               }"
               nuxt
@@ -130,7 +130,7 @@
           <v-col cols="4">
             <v-btn
               :to="{
-                name: 'playlists-id-edit2',
+                name: 'playlists-id',
                 params: { id: selectedPlaylistId },
                 hash: '#article',
               }"

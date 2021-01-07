@@ -1,252 +1,179 @@
 <template>
-  <v-layout column>
-    <v-row>
-      <v-col cols="12">
-        <v-card color="#F5F5F5">
-          <v-container>
-            <v-row justify="space-between">
-              <v-col cols="auto">
-                <v-img
-                  :src="logoImageUrl(playlist)"
-                  width="140"
-                  style="border-radius: 4px; overflow: hidden"
-                  class="pt-1"
-                />
-              </v-col>
-              <v-col class="mr-auto">
-                <v-card-title class="headline pt-0">
-                  <span class="playlist-name">{{ playlist.name }}</span>
-                  <v-card-subtitle
-                    v-if="playlist.detailedNameRuby"
-                    class="detailed-name-ruby"
-                  >
-                    ( {{ playlist.detailedNameRuby }} )
-                  </v-card-subtitle>
-                  <div class="chips">
-                    <v-chip class="ma-2" small> 非公開 </v-chip>
-                    <v-chip
-                      class="ma-2"
-                      color="primary"
-                      small
-                      @click="copyPlaylistId"
-                    >
-                      ID: {{ playlist.id }}
-                    </v-chip>
-                    <v-chip
-                      v-if="playlist.originalSeriesId"
-                      class="ma-2"
-                      color="secondary"
-                      small
-                      @click="copySeriesId"
-                    >
-                      SeriesID: {{ playlist.originalSeriesId }}
-                    </v-chip>
-                  </div>
-                </v-card-title>
-                <v-card-subtitle v-if="playlist.detailedCatch">
-                  ~ {{ playlist.detailedCatch }} ~
-                </v-card-subtitle>
-                <v-card-text v-text="playlist.description" />
-              </v-col>
-              <v-col
-                v-if="hasActorsOrContributors"
-                cols="auto"
-                style="width: 230px"
-                class="hidden-sm-and-down"
-              >
-                <v-tooltip
-                  v-for="(data, index) in actorsAndContributors"
-                  :key="`actor-contributor-${index}`"
-                  bottom
-                >
-                  <template #activator="{ on, attrs }">
-                    <div
-                      v-if="noActorContributorImage(data)"
-                      class="actor_contributor_badge"
-                      v-bind="attrs"
-                      v-on="on"
-                      @click="fillSearchBox(data)"
-                    >
-                      <div class="actor_contributor_badge_inner">
-                        {{ actorContributorName(data).slice(0, 1) }}
-                      </div>
-                    </div>
-                    <v-img
-                      v-else
-                      :src="actorContributorImageUrl(data)"
-                      width="40"
-                      v-bind="attrs"
-                      class="actor_contributor_badge"
-                      v-on="on"
-                      @click="fillSearchBox(data)"
-                    />
-                  </template>
-                  <span>{{ actorContributorName(data) }}</span>
-                </v-tooltip>
-              </v-col>
-              <v-col cols="auto" class="text-center">
-                <v-row class="flex-column ma-0 fill-height">
-                  <v-col class="px-0 pt-0">
-                    <v-tooltip left>
-                      <template #activator="{ on, attrs }">
-                        <v-btn
-                          color="#000000"
-                          icon
-                          v-bind="attrs"
-                          :to="`/playlists/${playlist.id}/edit`"
-                          nuxt
-                          small
-                          v-on="on"
-                        >
-                          <v-icon>mdi-pencil</v-icon>
-                        </v-btn>
-                      </template>
-                      <span>メタを編集する</span>
-                    </v-tooltip>
-                  </v-col>
-                  <v-col class="px-0 pt-0">
-                    <v-tooltip left>
-                      <template #activator="{ on, attrs }">
-                        <v-btn
-                          color="#000000"
-                          icon
-                          v-bind="attrs"
-                          :to="`/playlists/${playlist.id}/article`"
-                          nuxt
-                          small
-                          v-on="on"
-                        >
-                          <v-icon>mdi-note-text-outline</v-icon>
-                        </v-btn>
-                      </template>
-                      <span>記事を編集する</span>
-                    </v-tooltip>
-                  </v-col>
-                  <v-col class="px-0 pt-0">
-                    <playlist-json-dialog
-                      button-color="#000000"
-                      :playlist-id="playlist.id"
-                      v-bind="attrs"
-                      v-on="on"
-                    />
-                  </v-col>
-                  <v-col />
-                </v-row>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card>
+  <v-layout column style="position: relative">
+    <div class="fixed-row-wrapper">
+      <v-row class="fixed-row pt-2 pr-15" justify="space-between">
+        <v-col cols="12">
+          <v-breadcrumbs :items="breadcrumbItems" class="pa-0">
+            <template #item="{ item }">
+              <v-breadcrumbs-item :href="item.href" :disabled="item.disabled">
+                {{ item.text }}
+              </v-breadcrumbs-item>
+            </template>
+          </v-breadcrumbs>
+        </v-col>
+        <v-col cols="9">
+          <playlist-stepper
+            :current="currentTab"
+            :article-tab-validation="isValidArticleTab"
+            :series-tab-validation="isValidSeriesTab"
+            @change-tab="changeTab"
+          />
+        </v-col>
+        <v-spacer />
+        <v-col cols="2" class="">
+          <v-btn
+            x-large
+            block
+            color="orange"
+            dark
+            elevation="0"
+            :disabled="preventSaveButton"
+            @click="save"
+            >保存する</v-btn
+          >
+        </v-col>
+      </v-row>
+    </div>
+    <v-row style="padding-top: 120px">
+      <v-col cols="12" class="hidden-lg-and-up preview-container-wrapper">
+        <horizontal-basic-information-view :playlist="playlist" />
       </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <h3>エピソード選定</h3>
-      </v-col>
-      <v-col cols="12">
-        <playlist-episodes-list
-          :episodes="playlistItems"
+      <v-col
+        v-show="isListEditing"
+        cols="9"
+        lg="9"
+        xl="9"
+        md="12"
+        sm="12"
+        class="mt-4 list-item-container-wrapper"
+      >
+        <list-edit-tab
+          :playlist="playlist"
           @update-episodes="updateEpisodes"
+          @add-episode="addEpisode"
           @delete-episode="deleteEpisode"
         />
       </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12" align="center">
-        <v-btn color="orange" @click="saveEpisodes">
-          上記の内容で保存する
-        </v-btn>
+      <v-col
+        v-show="isArticleEditing"
+        cols="9"
+        lg="9"
+        xl="9"
+        md="12"
+        sm="12"
+        class="mt-4 article-container-wrapper"
+      >
+        <article-edit-tab
+          :playlist="playlist"
+          @update-article="updateArticle"
+          @update-validation="updateArticleTabValidation"
+        />
+      </v-col>
+      <v-col
+        v-show="isSeriesEditing"
+        cols="9"
+        lg="9"
+        xl="9"
+        md="12"
+        sm="12"
+        class="mt-4 series-container-wrapper"
+      >
+        <series-meta-edit-tab
+          :playlist="playlist"
+          @update-series="updateSeries"
+          @update-validation="updateSeriesTabValidation"
+        />
+      </v-col>
+      <v-col cols="3" class="preview-container-wrapper hidden-md-and-down">
+        <div class="preview-container container-fluid mt-4 pa-2 white rounded">
+          <basic-information-view :playlist="playlist" />
+          <v-col cols="12">
+            <v-list dense>
+              <v-list-item
+                v-for="item in playlistItems"
+                :key="item.id"
+                class="px-0"
+              >
+                <v-list-item-icon class="mr-1">
+                  <v-img
+                    :src="eyecatchUrl(item)"
+                    lazy-src="https://placehold.jp/50x28.png"
+                    width="50"
+                    height="28"
+                    class="episode-image"
+                  />
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="item.name" />
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-col>
+          <v-divider />
+          <v-col cols="12">
+            <div style="word-wrap: break-word; font-size: 14px">
+              {{ articlePlainBody }}
+            </div>
+          </v-col>
+          <v-divider />
+          <v-col cols="2">
+            <playlist-json-dialog
+              button-color="#000000"
+              :playlist-id="playlist.id"
+            />
+          </v-col>
+        </div>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col cols="12">
-        <v-divider />
-      </v-col>
-    </v-row>
-    <v-row v-show="diffEpisodeItems.length !== 0" class="article_epidoes">
-      <v-col cols="12">
-        <v-expansion-panels>
-          <v-expansion-panel>
-            <v-expansion-panel-header
-              ><div>
-                プレイリストに保存されていない記事エピソードが
-                <span class="diff_episodes_count"
-                  >{{ diffEpisodeItems.length }}件</span
-                >あります
-              </div></v-expansion-panel-header
-            >
-            <v-expansion-panel-content>
-              <v-simple-table>
-                <template #default>
-                  <thead>
-                    <tr>
-                      <th />
-                      <th class="text-left">エピソード</th>
-                      <th />
-                      <th class="text-left">エピソードID</th>
-                      <th class="text-left">シリーズ名</th>
-                      <th class="text-left">シリーズID</th>
-                      <th class="text-left">直近放送日</th>
-                      <th class="text-left">視聴可能</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <episode-search-result-table-row
-                      v-for="episode in diffEpisodeItems"
-                      :key="episode.id"
-                      :episode="episode"
-                      :ignore-episodes="playlistItems"
-                      @add-episode="addEpisode"
-                    />
-                  </tbody>
-                </template>
-              </v-simple-table>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </v-col>
-    </v-row>
-    <playlist-episode-search
-      :ignore-episodes="playlistItems"
-      :keywords.sync="keywords"
-      :search-trigger-count="searchTriggerCount"
-      @add-episode="addEpisode"
+    <article-saved-dialog
+      :is-show-dialog="isShowDiffDialog"
+      :playlist="playlist"
+      :diff-items="diffEpisodeItems"
+      @hide-new-playlist-dialog="isShowDiffDialog = false"
+      @move-to-list-editing="moveToListEditing"
     />
-    <v-snackbar v-model="snackbar" timeout="2000">
-      コピーしました
-      <template #action="{ attrs }">
-        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
-          閉じる
-        </v-btn>
-      </template>
-    </v-snackbar>
   </v-layout>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
 import { Playlist } from '@/types/playlist'
-import PlaylistEpisodesList from '~/components/playlists/PlaylistEpisodesList.vue'
-import PlaylistEpisodeSearch from '~/components/playlists/PlaylistEpisodeSearch.vue'
-import EpisodeSearchResultTableRow from '~/components/playlists/EpisodeSearchResultTableRow.vue'
+import { EpisodeData } from '@/types/episode_data'
+import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
+import ListEditTab from '~/components/playlists/ListEditTab.vue'
 import PlaylistJsonDialog from '~/components/playlists/PlaylistJsonDialog.vue'
+import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
+import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
+import HorizontalBasicInformationView from '~/components/playlists/HorizontalBasicInformationView.vue'
+import SeriesMetaEditTab from '~/components/playlists/SeriesMetaEditTab.vue'
+import { PlaylistTab } from '~/models/definitions'
 import unloadAlertMixin from '~/components/common/unloadAlertMixin.ts'
+import ArticleSavedDialog from '~/components/playlists/ArticleSavedDialog.vue'
+
+interface Breadcrumb {
+  text: string
+  disabled: boolean
+  href: string
+}
 
 interface DataType {
-  snackbar: boolean
-  url: String
-  jsonDialog: boolean
-  keywords: String
-  searchTriggerCount: number
+  currentTab: PlaylistTab
+  isValidArticleTab: boolean
+  isValidSeriesTab: boolean
+  isShowDiffDialog: boolean
 }
 
 export default Vue.extend({
-  name: 'PlaylistIdIndexComponent',
+  name: 'PlaylistIdEdit2Page',
   components: {
-    EpisodeSearchResultTableRow,
-    PlaylistEpisodesList,
-    PlaylistEpisodeSearch,
+    ArticleEditTab,
+    BasicInformationView,
+    HorizontalBasicInformationView,
+    ListEditTab,
     PlaylistJsonDialog,
+    PlaylistStepper,
+    SeriesMetaEditTab,
+    ArticleSavedDialog,
   },
   mixins: [unloadAlertMixin],
   async asyncData({ store, params }) {
@@ -254,12 +181,10 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
-      snackbar: false,
-      url:
-        'https://pbs.twimg.com/profile_images/1111451081135943680/d1sPJsQf_400x400.png',
-      jsonDialog: false,
-      keywords: '',
-      searchTriggerCount: 0,
+      currentTab: PlaylistTab.list,
+      isValidArticleTab: true,
+      isValidSeriesTab: true,
+      isShowDiffDialog: false,
     }
   },
   computed: {
@@ -269,130 +194,269 @@ export default Vue.extend({
     playlistItems(): Array<Object> {
       return this.$store.state.playlists.editingPlaylist.items
     },
-    articleEpisodes(): Array<Object> {
-      return this.$store.state.playlists.editingPlaylist.article
-        .containsEpisodes
+    isListEditing(): boolean {
+      return this.currentTab === PlaylistTab.list
     },
-    diffEpisodeItems(): Array<Object> {
-      const playlistItems = (this as any).playlistItems
-      const articleItems = (this as any).articleEpisodes
+    isArticleEditing(): boolean {
+      return this.currentTab === PlaylistTab.article
+    },
+    isSeriesEditing(): boolean {
+      return this.currentTab === PlaylistTab.series
+    },
+    preventSaveButton(): boolean {
+      return !this.isValidArticleTab || !this.isValidSeriesTab
+    },
+    breadcrumbItems(): Breadcrumb[] {
+      return [
+        {
+          text: 'プレイリスト一覧',
+          disabled: false,
+          href: '/',
+        },
+        {
+          text: this.playlist.name,
+          disabled: true,
+          href: `/playlists/${this.playlist.id}`,
+        },
+      ]
+    },
+    diffEpisodeItems(): EpisodeData[] {
+      const playlistItems = this.playlist.items || []
+      const articleItems = this.playlist.article?.containsEpisodes || []
 
       const diffItems = articleItems.filter(
-        (v: any) => !playlistItems.map((x: any) => x.id).includes(v.id)
+        (v: any) => !playlistItems.map((x) => x.id).includes(v.id)
       )
 
       return diffItems
     },
-    actorsAndContributors(): Array<Object> {
-      const actors = this.playlist.actor || []
-      const contributors = this.playlist.contributor || []
-
-      return actors.concat(contributors).slice(0, 12)
-    },
-    hasActorsOrContributors(): boolean {
-      return this.actorsAndContributors.length !== 0
+    articlePlainBody(): string | undefined {
+      return this.playlist.article?.plainBody
     },
   },
+  mounted() {
+    ;(this as any).notShowUnloadAlert()
+    const hash = this.$route.hash
+    if (hash && hash.match(/^#(list|article|series)$/)) {
+      this.currentTab = hash.slice(1) as PlaylistTab
+    }
+  },
   methods: {
-    logoImageUrl(playlist: any) {
-      return playlist.logo?.medium?.url || this.dummyImage(playlist.dateCreated)
-    },
-    saveEpisodes() {
-      ;(this as any).notShowUnloadAlert()
-      this.$store.dispatch('loading/startLoading', {
-        success: '正常に保存できました',
-        error: '保存できませんでした',
-      })
-      this.$store.dispatch('playlists/saveEditingPlaylistEpisodes')
-    },
-    copyPlaylistId(): void {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(this.playlist.id)
-        this.snackbar = true
+    eyecatchUrl(item: any): string {
+      if (item.eyecatch !== undefined) {
+        return item.eyecatch.medium.url
+      } else {
+        return 'https://placehold.jp/50x28.png'
       }
     },
-    copySeriesId() {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(this.playlist.originalSeriesId)
-        this.snackbar = true
-      }
+    changeTab(nextTab: PlaylistTab) {
+      this.currentTab = nextTab
     },
-    dummyImage(time: any) {
-      const logoNumber = (Number(moment(time).format('DD')) % 10) + 1
-      return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
+    resetUnloadAlert(): void {
+      if (this.currentTab !== PlaylistTab.list) return
+      ;(this as any).showUnloadAlert()
     },
     updateEpisodes(episodes: any) {
+      this.resetUnloadAlert()
       this.$store.dispatch('playlists/updateEditingPlaylistEpisodes', episodes)
     },
     addEpisode(episode: any) {
-      ;(this as any).showUnloadAlert()
+      this.resetUnloadAlert()
       this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
     },
     deleteEpisode(episode: any) {
-      ;(this as any).showUnloadAlert()
+      this.resetUnloadAlert()
       this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
     },
-    actorContributorName(data: any): string {
-      return data.person?.name || data.organization?.name || ''
+    updateArticle(article: any) {
+      if (this.currentTab === PlaylistTab.article) {
+        ;(this as any).showUnloadAlert()
+      }
+      this.$store.dispatch('playlists/updateArticle', article)
     },
-    actorContributorImageUrl(data: any): string {
-      return (
-        data.person?.image?.small?.url ||
-        data.organization?.image?.small?.url ||
-        ''
-      )
+    updateSeries(playlist: any) {
+      if (this.currentTab === PlaylistTab.series) {
+        ;(this as any).showUnloadAlert()
+      }
+      this.$store.dispatch('playlists/updateEditingPlaylist', playlist)
     },
-    noActorContributorImage(data: any): boolean {
-      return this.actorContributorImageUrl(data) === ''
+    updateArticleTabValidation(valid: boolean) {
+      this.isValidArticleTab = valid
     },
-    fillSearchBox(data: any): void {
-      this.keywords = this.actorContributorName(data)
-      this.searchTriggerCount++
+    updateSeriesTabValidation(valid: boolean) {
+      this.isValidSeriesTab = valid
+    },
+    moveToListEditing() {
+      this.currentTab = PlaylistTab.list
+      this.isShowDiffDialog = false
+    },
+    save() {
+      const body: { [key: string]: string | undefined } = {
+        name: this.playlist.name,
+        detailed_name_ruby: this.playlist.detailedNameRuby,
+        description: this.playlist.description,
+        detailed_catch: this.playlist.detailedCatch,
+        format_genre_code: this.playlist.formatGenre,
+        theme_genre_code: this.playlist.themeGenre,
+        selected_palette: this.playlist.selectedPalette,
+        primary_light_color: this.playlist.primaryLightColor,
+        primary_dark_color: this.playlist.primaryDarkColor,
+        text_light_color: this.playlist.textLightColor,
+        text_dark_color: this.playlist.textDarkColor,
+        link_light_color: this.playlist.linkLightColor,
+        link_dark_color: this.playlist.linkDarkColor,
+        reserve_publish_time_at: this.playlist.reservePublishTimeAt,
+        reserve_finish_time_at: this.playlist.reserveFinishTimeAt,
+        alias_id: this.playlist.aliasId,
+        remove_logo_image: this.playlist.removeLogoImage?.toString(),
+        remove_eyecatch_image: this.playlist.removeEyecatchImage?.toString(),
+        remove_hero_image: this.playlist.removeHeroImage?.toString(),
+        marked_header: this.playlist.article.header,
+        editor_data: JSON.stringify(this.playlist.article.body),
+        marked_footer: this.playlist.article.footer,
+        author_type: this.playlist.article.authorType,
+        author_name: this.playlist.article.authorName,
+        publisher_name: this.playlist.article.publisherName,
+        publisher_type: this.playlist.article.publisherType,
+      }
+
+      if (this.playlist.logoImageData) {
+        Object.assign(body, {
+          logo_image: this.playlist.logoImageData,
+        })
+      }
+      if (this.playlist.eyecatchImageData) {
+        Object.assign(body, {
+          eyecatch_image: this.playlist.eyecatchImageData,
+        })
+      }
+      if (this.playlist.heroImageData) {
+        Object.assign(body, {
+          hero_image: this.playlist.heroImageData,
+        })
+      }
+      const data = new FormData()
+
+      // このパラメーターを有効にすることで、Playlists#update でエピソードの更新もできるようにする
+      data.append('enable_list_update', '1')
+
+      for (const key in body) {
+        if (body[key] !== null && body[key] !== undefined) {
+          data.append(`playlist[${key}]`, body[key] as string)
+        }
+      }
+
+      if (this.playlist.items.length > 0) {
+        for (const item of this.playlist.items) {
+          data.append('playlist[items][]', item.id as string)
+        }
+      }
+
+      if (this.playlist.keywords) {
+        for (const keyword of this.playlist.keywords) {
+          data.append('playlist[keywords][]', keyword)
+        }
+      }
+
+      if (this.playlist.hashtag) {
+        for (const hash of this.playlist.hashtag) {
+          data.append('playlist[hashtags][]', hash)
+        }
+      }
+
+      if (this.playlist.sameAs?.id) {
+        data.append(
+          'playlist[same_as_attributes][id]',
+          this.playlist.sameAs.id.toString()
+        )
+      }
+      if (this.playlist.sameAs?.name) {
+        data.append(
+          'playlist[same_as_attributes][name]',
+          this.playlist.sameAs?.name
+        )
+      }
+      if (this.playlist.sameAs?.url) {
+        data.append(
+          'playlist[same_as_attributes][url]',
+          this.playlist.sameAs.url
+        )
+      }
+      if (this.playlist.sameAs?._destroy) {
+        data.append(
+          'playlist[same_as_attributes][_destroy]',
+          this.playlist.sameAs._destroy.toString()
+        )
+      }
+
+      for (const citation of this.playlist.citations) {
+        if (citation.id) {
+          data.append(
+            'playlist[citations_attributes][][id]',
+            citation.id.toString()
+          )
+        }
+        if (citation.name) {
+          data.append('playlist[citations_attributes][][name]', citation.name)
+        }
+        if (citation.url) {
+          data.append('playlist[citations_attributes][][url]', citation.url)
+        }
+        if (citation._destroy) {
+          data.append(
+            'playlist[citations_attributes][][_destroy]',
+            citation._destroy.toString()
+          )
+        }
+      }
+
+      this.$store.dispatch('loading/startLoading', {
+        success: '保存しました',
+        error: '保存失敗しました',
+      })
+
+      this.$axios
+        .put(`/playlists/${this.playlist.id}`, data)
+        .then((response) => {
+          console.log(response)
+          this.$store.dispatch('loading/succeedLoading')
+          this.$store.dispatch(
+            'playlists/setEditingPlaylist',
+            (response as any).data.playlist
+          )
+          ;(this as any).notShowUnloadAlert()
+
+          if ((this as any).diffEpisodeItems.length !== 0) {
+            ;(this as any).isShowDiffDialog = true
+          }
+        })
+        .catch((_error) => {
+          this.$store.dispatch('loading/failLoading')
+        })
     },
   },
 })
 </script>
 
 <style lang="scss" scoped>
-.v-card__subtitle.detailed-name-ruby {
-  padding: 8px;
+.fixed-row-wrapper {
+  position: absolute;
+  top: -12px;
 }
 
-.v-input.episode-search.v-text-field.v-text-field--single-line.v-text-field--solo.v-text-field--is-booted.v-text-field--enclosed {
-  .v-text-field__details {
-    display: none;
-  }
+.fixed-row {
+  position: fixed;
+  width: 100%;
+  z-index: 4;
+  background-color: #f3f3f3;
+  padding-top: 20px;
 }
 
-span.diff_episodes_count {
-  font-weight: bold;
+.save-button {
+  width: 140px;
 }
 
-.actor_contributor_badge {
-  border-radius: 20px;
-  overflow: hidden;
-  display: inline-block;
-  margin-right: 10px;
-  margin-bottom: 16px;
-  cursor: pointer;
-  background-color: #546e7a;
-  width: 40px;
-  height: 40px;
-  position: relative;
-
-  .actor_contributor_badge_inner {
-    display: inline-block;
-    position: relative;
-    top: 6px;
-    left: 12px;
-    color: white;
-    font-weight: bold;
-  }
-}
-</style>
-
-<style lang="scss">
-.article_epidoes .v-expansion-panel-content__wrap {
-  padding: 0 0 16px;
+.v-responsive.v-image.episode-image {
+  border-radius: 5px;
 }
 </style>

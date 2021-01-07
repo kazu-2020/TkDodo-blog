@@ -432,7 +432,7 @@ export default Vue.extend({
           if ((this as any).diffEpisodeItems.length !== 0) {
             ;(this as any).isShowDiffDialog = true
           }
-          this.$router.push(`/playlists/${this.playlist.id}/edit2`)
+          this.$router.push(`/playlists/${this.playlist.id}`)
         })
         .catch((_error) => {
           this.$store.dispatch('loading/failLoading')

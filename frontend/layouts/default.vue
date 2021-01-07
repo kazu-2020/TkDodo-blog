@@ -152,7 +152,7 @@ export default Vue.extend({
     },
     shouldIvoryBackground() {
       return (
-        this.$route.name === 'playlists-id-edit2' ||
+        this.$route.name === 'playlists-id' ||
         this.$route.name === 'playlists-new'
       )
     },
