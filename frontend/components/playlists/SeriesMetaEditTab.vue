@@ -9,6 +9,7 @@
                 v-model="name"
                 :rules="nameRules"
                 label="名前 - Name"
+                class="playlist_name"
                 required
               />
             </v-col>
