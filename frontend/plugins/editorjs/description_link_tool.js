@@ -13,6 +13,22 @@ export default class DescriptionLinkTool extends LinkTool {
     return wrapper
   }
 
+  // @override
+  async startFetching(event) {
+    if (this.fetching) return
+    this.fetching = true
+
+    let url = this.nodes.input.textContent
+
+    if (event.type === 'paste') {
+      url = (event.clipboardData || window.clipboardData).getData('text')
+    }
+
+    this.removeErrorStyle()
+    await this.fetchLinkData(url)
+  }
+
+  // @override
   async fetchLinkData(url) {
     this.showProgress()
     this.data = { link: url }
@@ -70,6 +86,12 @@ export default class DescriptionLinkTool extends LinkTool {
     }
 
     return metaData
+  }
+
+  // @override
+  fetchingFailed(errorMessage) {
+    this.fetching = false
+    super.fetchingFailed(errorMessage)
   }
 
   makeDescriptionTextBox() {
