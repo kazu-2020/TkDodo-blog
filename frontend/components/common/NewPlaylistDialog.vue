@@ -94,11 +94,11 @@ export default Vue.extend({
     },
     moveToNewPlaylistPage() {
       this.hideNewPlaylistDialog()
-      this.$router.push(`/playlists/newList`)
+      this.$router.push(`/playlists/new?mode=list`)
     },
     moveToNewArticlePage() {
       this.hideNewPlaylistDialog()
-      this.$router.push(`/playlists/newArticle`)
+      this.$router.push(`/playlists/new?mode=article`)
     },
   },
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="arrow-steps clearfix row no-gutters pr-5">
-    <div class="col-4">
+    <div v-show="showListStep" class="col-4">
       <div
         class="step list-step d-flex justify-center align-center"
         :class="{ current: isList }"
@@ -9,7 +9,7 @@
         <span>リスト (NItemList)</span>
       </div>
     </div>
-    <div class="col-4">
+    <div v-show="showArticleStep" class="col-4">
       <div
         class="step article-step d-flex justify-center align-center"
         :class="{ current: isArticle }"
@@ -58,6 +58,16 @@ export default Vue.extend({
       default: true,
       required: true,
     },
+    hideListStep: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+    hideArticleStep: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
   },
   computed: {
     isList() {
@@ -68,6 +78,12 @@ export default Vue.extend({
     },
     isSeries() {
       return this.current === PlaylistTab.series
+    },
+    showListStep() {
+      return !this.hideListStep
+    },
+    showArticleStep() {
+      return !this.hideArticleStep
     },
   },
   methods: {

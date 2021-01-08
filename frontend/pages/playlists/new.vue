@@ -16,6 +16,8 @@
             :current="currentTab"
             :article-tab-validation="isValidArticleTab"
             :series-tab-validation="isValidSeriesTab"
+            :hide-list-step="hideListStep"
+            :hide-article-step="hideArticleStep"
             @change-tab="changeTab"
           />
         </v-col>
@@ -47,7 +49,12 @@
         sm="12"
         class="mt-4 list-item-container-wrapper"
       >
-        <list-edit-tab @update-episodes-list="updateEpisodeList" />
+        <list-edit-tab
+          :playlist="playlist"
+          @update-episodes="updateEpisodes"
+          @add-episode="addEpisode"
+          @delete-episode="deleteEpisode"
+        />
       </v-col>
       <v-col
         v-show="isArticleEditing"
@@ -110,13 +117,6 @@
               {{ articlePlainBody }}
             </div>
           </v-col>
-          <v-divider />
-          <v-col cols="2">
-            <playlist-json-dialog
-              button-color="#000000"
-              :playlist-id="playlist.id"
-            />
-          </v-col>
         </div>
       </v-col>
     </v-row>
@@ -136,7 +136,6 @@ import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
 import ListEditTab from '~/components/playlists/ListEditTab.vue'
-import PlaylistJsonDialog from '~/components/playlists/PlaylistJsonDialog.vue'
 import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
 import HorizontalBasicInformationView from '~/components/playlists/HorizontalBasicInformationView.vue'
@@ -152,6 +151,7 @@ interface Breadcrumb {
 }
 
 interface DataType {
+  playlist: Partial<Playlist>
   currentTab: PlaylistTab
   isValidArticleTab: boolean
   isValidSeriesTab: boolean
@@ -159,23 +159,20 @@ interface DataType {
 }
 
 export default Vue.extend({
-  name: 'PlaylistIdEdit2Page',
+  name: 'PlaylistNewPage',
   components: {
     ArticleEditTab,
     BasicInformationView,
     HorizontalBasicInformationView,
     ListEditTab,
-    PlaylistJsonDialog,
     PlaylistStepper,
     SeriesMetaEditTab,
     ArticleSavedDialog,
   },
   mixins: [unloadAlertMixin],
-  async asyncData({ store, params }) {
-    await store.dispatch('playlists/fetchPlaylist', params.id)
-  },
   data(): DataType {
     return {
+      playlist: { article: { body: undefined }, items: [] },
       currentTab: PlaylistTab.list,
       isValidArticleTab: true,
       isValidSeriesTab: true,
@@ -183,17 +180,14 @@ export default Vue.extend({
     }
   },
   computed: {
-    playlist(): Playlist {
-      return this.$store.state.playlists.editingPlaylist
-    },
     playlistItems(): Array<Object> {
-      return this.$store.state.playlists.editingPlaylist.items
+      return this.playlist.items || []
     },
     isListEditing(): boolean {
-      return this.currentTab === PlaylistTab.list
+      return this.currentTab === PlaylistTab.list && !this.hideListStep
     },
     isArticleEditing(): boolean {
-      return this.currentTab === PlaylistTab.article
+      return this.currentTab === PlaylistTab.article && !this.hideArticleStep
     },
     isSeriesEditing(): boolean {
       return this.currentTab === PlaylistTab.series
@@ -209,9 +203,9 @@ export default Vue.extend({
           href: '/',
         },
         {
-          text: this.playlist.name,
+          text: '新規作成',
           disabled: true,
-          href: `/playlists/${this.playlist.id}`,
+          href: '#',
         },
       ]
     },
@@ -228,12 +222,27 @@ export default Vue.extend({
     articlePlainBody(): string | undefined {
       return this.playlist.article?.plainBody
     },
+    hideListStep(): boolean {
+      return this.$route.query.mode === 'article'
+    },
+    hideArticleStep(): boolean {
+      return this.$route.query.mode === 'list'
+    },
+  },
+  watch: {
+    '$route.query.mode'(newValue) {
+      this.currentTab = PlaylistTab[newValue as keyof typeof PlaylistTab]
+    },
   },
   mounted() {
     ;(this as any).notShowUnloadAlert()
     const hash = this.$route.hash
     if (hash && hash.match(/^#(list|article|series)$/)) {
       this.currentTab = hash.slice(1) as PlaylistTab
+    }
+    const mode = this.$route.query.mode
+    if (mode) {
+      this.currentTab = PlaylistTab[mode as keyof typeof PlaylistTab]
     }
   },
   methods: {
@@ -247,21 +256,34 @@ export default Vue.extend({
     changeTab(nextTab: PlaylistTab) {
       this.currentTab = nextTab
     },
-    updateEpisodeList() {
+    resetUnloadAlert(): void {
       if (this.currentTab !== PlaylistTab.list) return
       ;(this as any).showUnloadAlert()
+    },
+    updateEpisodes(episodes: any) {
+      this.resetUnloadAlert()
+      this.playlist.items = episodes
+    },
+    addEpisode(episode: any) {
+      this.resetUnloadAlert()
+      this.playlist.items?.push(episode)
+    },
+    deleteEpisode(episode: any) {
+      this.resetUnloadAlert()
+      this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
+      this.playlist.items?.splice(this.playlist.items?.indexOf(episode), 1)
     },
     updateArticle(article: any) {
       if (this.currentTab === PlaylistTab.article) {
         ;(this as any).showUnloadAlert()
       }
-      this.$store.dispatch('playlists/updateArticle', article)
+      this.playlist.article = article
     },
     updateSeries(playlist: any) {
       if (this.currentTab === PlaylistTab.series) {
         ;(this as any).showUnloadAlert()
       }
-      this.$store.dispatch('playlists/updateEditingPlaylist', playlist)
+      this.playlist = playlist
     },
     updateArticleTabValidation(valid: boolean) {
       this.isValidArticleTab = valid
@@ -294,13 +316,13 @@ export default Vue.extend({
         remove_logo_image: this.playlist.removeLogoImage?.toString(),
         remove_eyecatch_image: this.playlist.removeEyecatchImage?.toString(),
         remove_hero_image: this.playlist.removeHeroImage?.toString(),
-        marked_header: this.playlist.article.header,
-        editor_data: JSON.stringify(this.playlist.article.body),
-        marked_footer: this.playlist.article.footer,
-        author_type: this.playlist.article.authorType,
-        author_name: this.playlist.article.authorName,
-        publisher_name: this.playlist.article.publisherName,
-        publisher_type: this.playlist.article.publisherType,
+        marked_header: this.playlist.article?.header,
+        editor_data: JSON.stringify(this.playlist.article?.body),
+        marked_footer: this.playlist.article?.footer,
+        author_type: this.playlist.article?.authorType,
+        author_name: this.playlist.article?.authorName,
+        publisher_name: this.playlist.article?.publisherName,
+        publisher_type: this.playlist.article?.publisherType,
       }
 
       if (this.playlist.logoImageData) {
@@ -329,7 +351,7 @@ export default Vue.extend({
         }
       }
 
-      if (this.playlist.items.length > 0) {
+      if (this.playlist.items && this.playlist.items.length > 0) {
         for (const item of this.playlist.items) {
           data.append('playlist[items][]', item.id as string)
         }
@@ -372,41 +394,45 @@ export default Vue.extend({
         )
       }
 
-      for (const citation of this.playlist.citations) {
-        if (citation.id) {
-          data.append(
-            'playlist[citations_attributes][][id]',
-            citation.id.toString()
-          )
-        }
-        if (citation.name) {
-          data.append('playlist[citations_attributes][][name]', citation.name)
-        }
-        if (citation.url) {
-          data.append('playlist[citations_attributes][][url]', citation.url)
-        }
-        if (citation._destroy) {
-          data.append(
-            'playlist[citations_attributes][][_destroy]',
-            citation._destroy.toString()
-          )
+      if (this.playlist.citations) {
+        for (const citation of this.playlist.citations) {
+          if (citation.id) {
+            data.append(
+              'playlist[citations_attributes][][id]',
+              citation.id.toString()
+            )
+          }
+          if (citation.name) {
+            data.append('playlist[citations_attributes][][name]', citation.name)
+          }
+          if (citation.url) {
+            data.append('playlist[citations_attributes][][url]', citation.url)
+          }
+          if (citation._destroy) {
+            data.append(
+              'playlist[citations_attributes][][_destroy]',
+              citation._destroy.toString()
+            )
+          }
         }
       }
 
+      this.$store.dispatch('loading/startLoading', {
+        success: '保存しました',
+        error: '保存失敗しました',
+      })
+
       this.$axios
-        .put(`/playlists/${this.playlist.id}`, data)
+        .post(`/playlists`, data)
         .then((response) => {
-          console.log(response)
           this.$store.dispatch('loading/succeedLoading')
-          this.$store.dispatch(
-            'playlists/setEditingPlaylist',
-            (response as any).data.playlist
-          )
+          this.playlist = (response as any).data.playlist
           ;(this as any).notShowUnloadAlert()
 
           if ((this as any).diffEpisodeItems.length !== 0) {
             ;(this as any).isShowDiffDialog = true
           }
+          this.$router.push(`/playlists/${this.playlist.id}`)
         })
         .catch((_error) => {
           this.$store.dispatch('loading/failLoading')

@@ -75,7 +75,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import PlaylistEpisodesList from '~/components/playlists/PlaylistEpisodesList.vue'
 import PlaylistEpisodeSearch from '~/components/playlists/PlaylistEpisodeSearch.vue'
@@ -97,6 +96,13 @@ export default Vue.extend({
     EpisodePreviewDrawer,
     EpisodeSearchResultTableRow,
   },
+  props: {
+    playlist: {
+      type: Object,
+      required: true,
+      default: () => {},
+    },
+  },
   data(): DataType {
     return {
       keywords: '',
@@ -106,15 +112,11 @@ export default Vue.extend({
     }
   },
   computed: {
-    playlist(): Playlist {
-      return this.$store.state.playlists.editingPlaylist
-    },
     playlistItems(): Array<Object> {
-      return this.$store.state.playlists.editingPlaylist.items
+      return this.playlist.items || []
     },
     articleEpisodes(): Array<Object> {
-      return this.$store.state.playlists.editingPlaylist.article
-        .containsEpisodes
+      return this.playlist.article?.containsEpisodes || []
     },
     diffEpisodeItems(): Array<Object> {
       const playlistItems = (this as any).playlistItems
@@ -129,12 +131,10 @@ export default Vue.extend({
   },
   methods: {
     addEpisode(episode: any) {
-      this.$emit('update-episodes-list')
-      this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
+      this.$emit('add-episode', episode)
     },
     deleteEpisode(episode: any) {
-      this.$emit('update-episodes-list')
-      this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
+      this.$emit('delete-episode', episode)
     },
     eyecatchUrl(item: any): string {
       if (item.eyecatch !== undefined) {
@@ -144,8 +144,7 @@ export default Vue.extend({
       }
     },
     updateEpisodes(episodes: any) {
-      this.$emit('update-episodes-list')
-      this.$store.dispatch('playlists/updateEditingPlaylistEpisodes', episodes)
+      this.$emit('update-episodes', episodes)
     },
     selectEpisode(episode: any) {
       this.selectedEpisode = episode

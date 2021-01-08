@@ -6,18 +6,11 @@ describe('プレイリスト新規作成', () => {
 
     cy.get('.new_episode_list').click()
 
-    // プレイリスト名を設定
-    const playlistName = 'プレイリスト1'
-    cy.get('.new-playlist-name').type(playlistName)
-    cy.get('.new-playlist-name input[type="text"]').should(
-      'have.value',
-      playlistName
-    )
-
-    cy.contains('上記の内容で保存する').click()
-
     // メタの編集
     cy.get('.series-step').click()
+
+    const playlistName = 'プレイリスト1'
+    cy.get('.playlist_name').type(playlistName)
 
     const playlistDetailedNameRuby = 'ぷれいりすと１'
     cy.get('.detailed_name_ruby input[type="text"]')
@@ -54,10 +47,15 @@ describe('プレイリスト新規作成', () => {
 
     cy.contains('保存する').click({ force: true })
 
-    cy.reload()
+    cy.wait(2000)
 
     // 保存された内容の確認
     cy.get('.series-step').click()
+
+    cy.get('.playlist_name input[type="text"]').should(
+      'have.value',
+      playlistName
+    )
 
     cy.contains('.playlist-title', playlistName, { timeout: 5000 })
 

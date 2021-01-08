@@ -26,6 +26,11 @@ class PlaylistsController < ApplicationController
 
     begin
       @playlist.save!
+      if params[:enable_list_update]
+        items = params.require(:playlist).permit(items: [])[:items] || []
+        @playlist.rebuild_episode_list_to(items)
+      end
+
       render 'create', formats: 'json', handlers: 'jbuilder'
     rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
       render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity

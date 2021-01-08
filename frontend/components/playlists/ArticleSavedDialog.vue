@@ -86,7 +86,7 @@ export default Vue.extend({
   },
   computed: {
     playlistUrl(): string {
-      return `/playlists/${this.playlist?.id}/edit2#list`
+      return `/playlists/${this.playlist?.id}#list`
     },
     shouldOmmitDiffItems(): boolean {
       return this.diffItems.length > 4
