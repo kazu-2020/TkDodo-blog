@@ -113,6 +113,7 @@ export default Vue.extend({
       publisherType: this.playlist.article.publisherType || 'Organization',
       required: (value) => !!value || '必ず入力してください',
       valid: true,
+      initializing: true,
     }
   },
   computed: {
@@ -125,12 +126,6 @@ export default Vue.extend({
       } else {
         return Date.now().toString()
       }
-    },
-    shouldSaveHeader() {
-      return this.isShowHeader && this.header !== ''
-    },
-    shouldSaveFooter() {
-      return this.isShowFooter && this.footer !== ''
     },
     imageByUrlEndpoint() {
       return `/playlists/${this.playlist.id}/upload_article_image_by_url`
@@ -153,7 +148,7 @@ export default Vue.extend({
     playlist: {
       handler(newVal) {
         this.article = newVal.article
-        this.body = newVal.article.body
+        this.body = newVal.article.body || null
         this.header =
           this.playlist.article.header ||
           this.$cookies.get('articleHeaderText') ||
@@ -173,6 +168,7 @@ export default Vue.extend({
     },
     authorType: {
       handler(newVal) {
+        if (this.initializing) return
         const originalArticle = Object.assign({}, this.article)
         const article = Object.assign(originalArticle, { authorType: newVal })
         this.$emit('update-article', article)
@@ -181,6 +177,7 @@ export default Vue.extend({
     },
     authorName: {
       handler(newVal) {
+        if (this.initializing) return
         const originalArticle = Object.assign({}, this.article)
         const article = Object.assign(originalArticle, { authorName: newVal })
         this.$emit('update-article', article)
@@ -189,6 +186,7 @@ export default Vue.extend({
     },
     publisherType: {
       handler(newVal) {
+        if (this.initializing) return
         const originalArticle = Object.assign({}, this.article)
         const article = Object.assign(originalArticle, {
           publisherType: newVal,
@@ -199,6 +197,7 @@ export default Vue.extend({
     },
     publisherName: {
       handler(newVal) {
+        if (this.initializing) return
         const originalArticle = Object.assign({}, this.article)
         const article = Object.assign(originalArticle, {
           publisherName: newVal,
@@ -207,54 +206,65 @@ export default Vue.extend({
       },
       immediate: true,
     },
-    header: [
-      {
-        handler() {
-          this.$cookies.set('articleHeaderText', this.header, {
-            path: '/',
-            maxAge: 60 * 60 * 24 * 30,
-          })
-          const originalArticle = Object.assign({}, this.article)
-          const headerText = this.shouldSaveHeader ? this.header : null
-          const article = Object.assign(originalArticle, { header: headerText })
-          this.$emit('update-article', article)
-        },
-        immediate: true,
+    header: {
+      handler() {
+        this.$cookies.set('articleHeaderText', this.header, {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 30,
+        })
+        this.updateArticleHeader()
       },
-    ],
-    footer: [
-      {
-        handler() {
-          this.$cookies.set('articleFooterText', this.footer, {
-            path: '/',
-            maxAge: 60 * 60 * 24 * 30,
-          })
-          const originalArticle = Object.assign({}, this.article)
-          const footerText = this.shouldSaveFooter ? this.footer : null
-          const article = Object.assign(originalArticle, { footer: footerText })
-          this.$emit('update-article', article)
-        },
-        immediate: true,
+      immediate: true,
+    },
+    footer: {
+      handler() {
+        this.$cookies.set('articleFooterText', this.footer, {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 30,
+        })
+        this.updateArticleFooter()
       },
-    ],
+      immediate: true,
+    },
     valid: {
       handler(newValue) {
         this.$emit('update-validation', newValue)
       },
     },
   },
+  mounted() {
+    // 初期化時の `update-article` イベントを発行しないようにする
+    this.initializing = false
+  },
   methods: {
     addHeader() {
       this.isShowHeader = true
+      this.header = this.$cookies.get('articleHeaderText') || ''
+      this.updateArticleHeader()
     },
     addFooter() {
       this.isShowFooter = true
+      this.footer = this.$cookies.get('articleFooterText') || ''
+      this.updateArticleFooter()
     },
     setCurrentContent(payload) {
+      if (this.initializing) return
       const originalArticle = Object.assign({}, this.article)
       const article = Object.assign(originalArticle, {
         body: payload.editorData,
       })
+      this.$emit('update-article', article)
+    },
+    updateArticleHeader() {
+      if (this.initializing) return
+      const originalArticle = Object.assign({}, this.article)
+      const article = Object.assign(originalArticle, { header: this.header })
+      this.$emit('update-article', article)
+    },
+    updateArticleFooter() {
+      if (this.initializing) return
+      const originalArticle = Object.assign({}, this.article)
+      const article = Object.assign(originalArticle, { footer: this.footer })
       this.$emit('update-article', article)
     },
   },
