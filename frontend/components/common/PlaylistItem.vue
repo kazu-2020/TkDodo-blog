@@ -2,7 +2,7 @@
   <v-card class="mx-auto" outlined light>
     <v-container>
       <v-row class="px-4">
-        <v-col class="playlist_logo_block py-0">
+        <v-col class="playlist_logo_block py-0" @click="clickPlaylistItem">
           <v-row>
             <v-col cols="3" class="pa-0 pl-1 pb-1 mt-1">
               <v-img
@@ -13,7 +13,7 @@
             </v-col>
             <v-col class="mr-auto pl-1" cols="9">
               <v-card-title class="title mb-1">
-                <a class="playlist-title" @click="clickPlaylistItem">
+                <a class="playlist-title">
                   <span class="playlist-name">{{ playlist.name }}</span>
                   <v-chip class="ma-2" small>下書き</v-chip>
                 </a>
@@ -120,6 +120,7 @@ export default Vue.extend({
 
 .playlist_logo_block {
   width: 30%;
+  cursor: pointer;
 }
 
 .playlist_logo_image {
