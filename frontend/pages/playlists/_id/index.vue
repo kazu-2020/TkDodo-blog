@@ -424,7 +424,13 @@ export default Vue.extend({
             'playlists/setEditingPlaylist',
             (response as any).data.playlist
           )
-          ;(this as any).notShowUnloadAlert()
+
+          this.$store.subscribeAction({
+            after: (action, _state) => {
+              if (action.type !== 'playlists/setEditingPlaylist') return
+              ;(this as any).notShowUnloadAlert()
+            },
+          })
 
           if ((this as any).diffEpisodeItems.length !== 0) {
             ;(this as any).isShowDiffDialog = true
