@@ -131,6 +131,10 @@ class Playlist < ApplicationRecord
     end
   end
 
+  def has_article?
+    marked_body.present?
+  end
+
   def wait_for_publish!(reserve_publish_time_at)
     raise InvalidPublishedStateTransitionError if reserve_publish_time_at.nil? || !(draft? || secret?)
 

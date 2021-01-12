@@ -14,6 +14,7 @@ json.identifierGroup do
   json.typeOfItem type_of_item(@object_type)
   json.hashtag @playlist.hashtags
   json.aliasId @playlist.alias_id || ''
+  json.deckId deck_ids(@playlist)
 end
 
 json.keywords @playlist.keywords

@@ -416,6 +416,32 @@ describe Playlist, type: :model do
     end
   end
 
+  describe '#has_article?' do
+    let(:playlist) { create(:playlist, editor_data: editor_data) }
+
+    context 'when playlist has article' do
+      let(:editor_data) do
+        json = File.open(Jets.root.join('spec/fixtures/payloads/editor-data.json')) do |file|
+          json_string = file.read
+          JSON.parse(json_string, symbolize_names: true)
+        end
+        json
+      end
+
+      it 'returns true' do
+        expect(playlist.has_article?).to eq(true)
+      end
+    end
+
+    context 'when playlist does not have article' do
+      let(:editor_data) { nil }
+
+      it 'returns false' do
+        expect(playlist.has_article?).to eq(false)
+      end
+    end
+  end
+
   describe '.assign_from_series' do
     let(:series_id) { '6X8L7Z8VK8' }
     subject(:playlist) { Playlist.assign_from_series(series_id) }
