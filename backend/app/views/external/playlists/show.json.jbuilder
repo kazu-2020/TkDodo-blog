@@ -11,9 +11,10 @@ json.identifierGroup do
   json.playlistName @playlist.name
   json.typeOfList 'recommend'
   json.modeOfItem 'tv'
-  json.typeOfItem 'TVEpisode'
+  json.typeOfItem type_of_item(@object_type)
   json.hashtag @playlist.hashtags
   json.aliasId @playlist.alias_id || ''
+  json.deckId deck_ids(@playlist)
 end
 
 json.keywords @playlist.keywords
@@ -55,7 +56,7 @@ else
 end
 
 # rubocop:disable Metrics/BlockLength
-json.items @playlist.playlist_items.each.with_index(1).to_a do |playlist_item, index|
+json.items @playlist.playlist_items.each do |playlist_item|
   episode_data = fetch_episode_data(playlist_item: playlist_item)
 
   case @object_type
@@ -64,15 +65,22 @@ json.items @playlist.playlist_items.each.with_index(1).to_a do |playlist_item, i
     broadcast_event = fetch_boradcast_event(episode_data, options)
     next if broadcast_event.nil?
 
-    json.set_raw! :item, broadcast_event[:video].first.to_json
-    json.position index
+    video_json_data = ::MultiJson.load(broadcast_event.to_json)['video'].first
+    next if video_json_data.nil?
+
+    video_json_data.each_key do |key|
+      json.set_raw! key, video_json_data[key].to_json
+    end
   when 'broadcastevent'
     options = @area.present? ? { area: @area } : {}
     broadcast_event = fetch_boradcast_event(episode_data, options)
     next if broadcast_event.nil?
 
-    json.set_raw! :item, broadcast_event.to_json
-    json.position index
+    json_data = ::MultiJson.load(broadcast_event.to_json)
+
+    json_data.each_key do |key|
+      json.set_raw! key, json_data[key].to_json
+    end
   else
     json.type 'TVEpisode'
     json.id playlist_item.episode_id
