@@ -11,7 +11,7 @@ json.identifierGroup do
   json.playlistName @playlist.name
   json.typeOfList 'recommend'
   json.modeOfItem 'tv'
-  json.typeOfItem 'TVEpisode'
+  json.typeOfItem type_of_item(@object_type)
   json.hashtag @playlist.hashtags
   json.aliasId @playlist.alias_id || ''
 end

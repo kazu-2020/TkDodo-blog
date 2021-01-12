@@ -13,4 +13,12 @@ module External::PlaylistsHelper
       nil
     end
   end
+
+  def type_of_item(object_type)
+    case object_type
+    when 'broadcastevent' then 'BroadcastEvent'
+    when 'videoobject' then 'VideoObject'
+    else 'TVEpisode'
+    end
+  end
 end
