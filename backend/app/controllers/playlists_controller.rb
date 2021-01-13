@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PlaylistsController < ApplicationController
-  before_action :set_playlist, only: %i[update delete]
+  before_action :set_playlist, only: %i[update delete actors_and_contributors]
   before_action :set_pagination, only: [:index]
 
   DEFAULT_PAGE = 1
@@ -110,6 +110,8 @@ class PlaylistsController < ApplicationController
       head :bad_request
     end
   end
+
+  def actors_and_contributors; end
 
   private
 
