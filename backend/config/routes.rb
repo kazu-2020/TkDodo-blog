@@ -26,6 +26,7 @@ Jets.application.routes.draw do
     member do
       post :upload_article_image_by_url
       post :upload_article_image_by_file
+      get :actors_and_contributors
     end
 
     resources :playlist_items, only: [:index] do

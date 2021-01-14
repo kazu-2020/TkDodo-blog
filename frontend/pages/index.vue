@@ -92,6 +92,17 @@
           <v-list-item-title style="font-size: 14px" v-text="item.name" />
         </v-list-item-content>
       </v-list-item>
+      <v-divider v-if="selectedActorsAndContributors.length > 0" class="mt-4" />
+      <div
+        v-if="selectedActorsAndContributors.length > 0"
+        class="subtitle-1 px-2 pt-2"
+      >
+        出演者/スタッフ
+      </div>
+      <actor-contributor-list
+        v-if="selectedActorsAndContributors.length > 0"
+        :actors-and-contributors="selectedActorsAndContributors"
+      />
       <v-divider class="mt-4" />
       <v-list-item>
         <div class="article_preview">
@@ -161,6 +172,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import ActorContributorList from '../components/playlists/ActorContributorList.vue'
 import PlaylistItem from '~/components/common/PlaylistItem.vue'
 import ArticleItem from '~/components/playlists/ArticleItem.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
@@ -174,12 +186,18 @@ interface DataType {
   drawer: boolean
   selectedPlaylist: Playlist | undefined
   selectedPlaylistItems: EpisodeData[]
+  selectedPlaylistActorContributor: Object[]
   width: number
 }
 
 export default Vue.extend({
   name: 'PlaylistIndexPage',
-  components: { PlaylistItem, ArticleItem, BasicInformationView },
+  components: {
+    PlaylistItem,
+    ActorContributorList,
+    ArticleItem,
+    BasicInformationView,
+  },
   async asyncData({ store }) {
     await store.dispatch('playlists/fetchPlaylists', 1)
   },
@@ -191,6 +209,7 @@ export default Vue.extend({
       drawer: false,
       selectedPlaylist: undefined,
       selectedPlaylistItems: [],
+      selectedPlaylistActorContributor: [],
       width: window.innerWidth,
     }
   },
@@ -210,6 +229,13 @@ export default Vue.extend({
     drawerWidth(): number {
       const halfSize = this.width * 0.6
       return Math.min(halfSize, 500)
+    },
+    selectedActorsAndContributors(): Array<Object> {
+      const actors = (this.selectedPlaylistActorContributor as any)?.actor || []
+      const contributors =
+        (this.selectedPlaylistActorContributor as any)?.contributor || []
+
+      return actors.concat(contributors)
     },
   },
   watch: {
@@ -236,6 +262,7 @@ export default Vue.extend({
     selectedPlaylist: {
       handler() {
         this.fetchEpisodes()
+        this.fetchActorContributor()
       },
     },
   },
@@ -260,6 +287,7 @@ export default Vue.extend({
     clickPlaylistItem(playlist: any) {
       this.drawer = true
       this.selectedPlaylistItems = []
+      this.selectedPlaylistActorContributor = []
       this.selectedPlaylist = playlist
     },
     eyecatchUrl(item: any): string {
@@ -277,6 +305,16 @@ export default Vue.extend({
         .get(`/playlists/${this.selectedPlaylist.id}/playlist_items`)
         .then((res) => {
           this.selectedPlaylistItems = res.data.items
+        })
+    },
+    fetchActorContributor(): void {
+      if (this.selectedPlaylist === undefined) return
+      if (this.selectedPlaylistActorContributor.length !== 0) return
+
+      this.$axios
+        .get(`/playlists/${this.selectedPlaylist.id}/actors_and_contributors`)
+        .then((res) => {
+          this.selectedPlaylistActorContributor = res.data
         })
     },
   },
