@@ -11,6 +11,7 @@ abort("The Jets environment is running in production mode!") if Jets.env == "pro
 Jets.boot
 
 require "jets/spec_helpers"
+require 'active_support/testing/file_fixtures'
 
 Dir[Jets.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -20,9 +21,19 @@ module Helpers
   end
 end
 
+module FileFixtureSupport
+  extend ActiveSupport::Concern
+  include ActiveSupport::Testing::FileFixtures
+
+  included do
+    self.file_fixture_path = RSpec.configuration.file_fixture_path
+  end
+end
+
 RSpec.configure do |config|
   config.include ActionDispatch::TestProcess
   config.include Helpers
+  config.include FileFixtureSupport
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
@@ -38,4 +49,7 @@ RSpec.configure do |config|
   config.after(:all) do
     FileUtils.rm_rf(Jets.root.join('public', 'uploads', 'test'))
   end
+
+  config.add_setting :file_fixture_path, default: 'spec/fixtures/files'
+  config.file_fixture_path = Jets.root.join('spec', 'fixtures')
 end
