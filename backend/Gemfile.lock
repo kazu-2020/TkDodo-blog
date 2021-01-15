@@ -277,7 +277,6 @@ GEM
       racc (~> 1.4)
     nokogumbo (2.0.4)
       nokogiri (~> 1.8, >= 1.8.4)
-    ostruct (0.1.0)
     parallel (1.20.1)
     parser (2.7.2.0)
       ast (~> 2.4.1)
@@ -402,7 +401,6 @@ DEPENDENCIES
   launchy
   multi_json
   mysql2 (~> 0.5.2)
-  ostruct (= 0.1.0)
   pipedream
   pry-byebug
   puma
