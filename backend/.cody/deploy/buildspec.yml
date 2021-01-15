@@ -23,5 +23,4 @@ phases:
       - cd backend
       - docker-compose -f docker-compose.cody-deploy.yml build
       - docker-compose -f docker-compose.cody-deploy.yml run web bin/setup
-      - docker-compose -f docker-compose.cody-deploy.yml run web bundle exec jets configure Fne3bRyKTgGwPJm8Nvqzo17h143l42ss
       - docker-compose -f docker-compose.cody-deploy.yml run web bundle exec jets deploy
