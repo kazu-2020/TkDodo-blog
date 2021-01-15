@@ -22,9 +22,8 @@ Jets.application.configure do
   }
   # config.cors = '*.mydomain.com' # for specific domain
 
-  config.gems.disable = true
   config.lambda.layers = [
-    'arn:aws:lambda:ap-northeast-1:359601428599:layer:prod-aw-editorialhands-custom-gems:2'
+    'arn:aws:lambda:ap-northeast-1:359601428599:layer:prod-aw-editorialhands-custom-gems:1'
   ]
 
   # config.function.timeout = 30 # defaults to 30
