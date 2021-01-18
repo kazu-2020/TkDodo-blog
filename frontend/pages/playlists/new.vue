@@ -319,10 +319,10 @@ export default Vue.extend({
         marked_header: this.playlist.article?.header,
         editor_data: JSON.stringify(this.playlist.article?.body),
         marked_footer: this.playlist.article?.footer,
-        author_type: this.playlist.article?.authorType,
-        author_name: this.playlist.article?.authorName,
-        publisher_name: this.playlist.article?.publisherName,
-        publisher_type: this.playlist.article?.publisherType,
+        author_type: this.playlist.article?.authorType || 'Organization',
+        author_name: this.playlist.article?.authorName || 'NHK',
+        publisher_name: this.playlist.article?.publisherName || 'デジタルラボ',
+        publisher_type: this.playlist.article?.publisherType || 'Organization',
       }
 
       if (this.playlist.logoImageData) {

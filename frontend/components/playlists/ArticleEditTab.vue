@@ -169,6 +169,7 @@ export default Vue.extend({
     authorType: {
       handler(newVal) {
         if (this.initializing) return
+        this.article.authorType = newVal
         const originalArticle = Object.assign({}, this.article)
         const article = Object.assign(originalArticle, { authorType: newVal })
         this.$emit('update-article', article)
@@ -178,6 +179,7 @@ export default Vue.extend({
     authorName: {
       handler(newVal) {
         if (this.initializing) return
+        this.article.authorName = newVal
         const originalArticle = Object.assign({}, this.article)
         const article = Object.assign(originalArticle, { authorName: newVal })
         this.$emit('update-article', article)
@@ -187,6 +189,7 @@ export default Vue.extend({
     publisherType: {
       handler(newVal) {
         if (this.initializing) return
+        this.article.publisherType = newVal
         const originalArticle = Object.assign({}, this.article)
         const article = Object.assign(originalArticle, {
           publisherType: newVal,
@@ -198,6 +201,7 @@ export default Vue.extend({
     publisherName: {
       handler(newVal) {
         if (this.initializing) return
+        this.article.publisherName = newVal
         const originalArticle = Object.assign({}, this.article)
         const article = Object.assign(originalArticle, {
           publisherName: newVal,
@@ -212,6 +216,11 @@ export default Vue.extend({
           path: '/',
           maxAge: 60 * 60 * 24 * 30,
         })
+        if (this.isShowHeader) {
+          this.article.header = this.header
+        } else {
+          this.article.header = undefined
+        }
         this.updateArticleHeader()
       },
       immediate: true,
@@ -222,6 +231,11 @@ export default Vue.extend({
           path: '/',
           maxAge: 60 * 60 * 24 * 30,
         })
+        if (this.isShowFooter) {
+          this.article.footer = this.footer
+        } else {
+          this.article.footer = undefined
+        }
         this.updateArticleFooter()
       },
       immediate: true,
@@ -249,6 +263,7 @@ export default Vue.extend({
     },
     setCurrentContent(payload) {
       if (this.initializing) return
+      this.article.body = payload.editorData
       const originalArticle = Object.assign({}, this.article)
       const article = Object.assign(originalArticle, {
         body: payload.editorData,
