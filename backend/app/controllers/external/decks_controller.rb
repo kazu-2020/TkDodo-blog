@@ -5,7 +5,7 @@ class External::DecksController < ApplicationController
   def show
     @request_url = request.url
     @area = params[:area]
-    @deck = Deck.find_by(area: @area)
+    @deck = Deck.find_by(area: @area, is_r5: true)
     @deck_id = params[:deck_id].gsub('.json', '')
     @object_type = params[:type] || 'tvepisode'
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
