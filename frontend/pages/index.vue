@@ -74,42 +74,7 @@
           <basic-information-view :playlist="selectedPlaylist" />
         </v-col>
       </v-list-item>
-      <v-list-item
-        v-for="item in selectedPlaylistItems"
-        :key="item.id"
-        class="px-6 episode_list"
-      >
-        <v-list-item-icon class="mr-1 my-1">
-          <v-img
-            :src="eyecatchUrl(item)"
-            lazy-src="https://placehold.jp/50x28.png"
-            width="50"
-            height="28"
-            class="episode-image"
-          />
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title style="font-size: 14px" v-text="item.name" />
-        </v-list-item-content>
-      </v-list-item>
-      <v-divider v-if="selectedActorsAndContributors.length > 0" class="mt-4" />
-      <div
-        v-if="selectedActorsAndContributors.length > 0"
-        class="subtitle-1 px-2 pt-2"
-      >
-        出演者/スタッフ
-      </div>
-      <actor-contributor-list
-        v-if="selectedActorsAndContributors.length > 0"
-        :actors-and-contributors="selectedActorsAndContributors"
-      />
-      <v-divider class="mt-4" />
-      <v-list-item>
-        <div class="article_preview">
-          {{ selectedPlaylistArticle }}
-        </div>
-      </v-list-item>
-      <v-list-item>
+      <v-list-item class="mb-4">
         <v-row v-show="!articleMode" justify="center">
           <v-col cols="4">
             <v-btn
@@ -165,6 +130,42 @@
             </v-btn>
           </v-col>
         </v-row>
+      </v-list-item>
+      <v-list-item
+        v-for="item in selectedPlaylistItems"
+        :key="item.id"
+        class="px-6 episode_list"
+      >
+        <v-list-item-icon class="mr-3 my-3">
+          <v-img
+            :src="eyecatchUrl(item)"
+            lazy-src="https://placehold.jp/50x28.png"
+            width="50"
+            height="28"
+            class="episode-image"
+          />
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title style="font-size: 14px" v-text="item.name" />
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider v-if="selectedActorsAndContributors.length > 0" class="mt-4" />
+      <div
+        v-if="selectedActorsAndContributors.length > 0"
+        class="subtitle-1 px-5 pt-2"
+      >
+        出演者/スタッフ
+      </div>
+      <actor-contributor-list
+        v-if="selectedActorsAndContributors.length > 0"
+        :actors-and-contributors="selectedActorsAndContributors"
+        class="mx-2"
+      />
+      <v-divider class="mt-4" />
+      <v-list-item>
+        <div class="article_preview">
+          {{ selectedPlaylistArticle }}
+        </div>
       </v-list-item>
     </v-navigation-drawer>
   </v-layout>
