@@ -8,7 +8,7 @@ class Deck < ApplicationRecord
   validates :visible_uid, presence: true
   validates :editorial_uid, presence: true
 
-  before_create :set_uids
+  before_validation :set_uids
 
   def deck_uid(deck_id)
     case deck_id
@@ -21,10 +21,14 @@ class Deck < ApplicationRecord
     end
   end
 
+  def deck_id(type)
+    "#{item_type}-#{type}-#{is_r5 ? 'r5-' : ''}#{area}"
+  end
+
   private
 
   def set_uids
-    self.visible_uid = SecureRandom.uuid
-    self.editorial_uid = SecureRandom.uuid
+    self.visible_uid = SecureRandom.uuid if visible_uid.blank?
+    self.editorial_uid = SecureRandom.uuid if editorial_uid.blank?
   end
 end
