@@ -15,4 +15,14 @@ class DecksJob < ApplicationJob
       area: '130'
     )
   end
+
+  def assign_all_playlist_to_deck
+    deck = Deck.find_by(is_r5: false)
+    playlists = Playlist.where('deck_id IS NULL')
+
+    playlists.each do |playlist|
+      playlist.deck = deck
+      playlist.save
+    end
+  end
 end

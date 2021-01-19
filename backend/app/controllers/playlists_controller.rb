@@ -9,7 +9,7 @@ class PlaylistsController < ApplicationController
 
   def index
     @playlists = if params[:area].present?
-                   deck = Deck.find_by(area: params[:area])
+                   deck = Deck.find_by(area: params[:area], is_r5: true)
                    Playlist.of(deck).recent.page(@page).per(@per)
                  else
                    Playlist.original.recent.page(@page).per(@per)
@@ -23,6 +23,7 @@ class PlaylistsController < ApplicationController
   iam_policy('s3')
   def create
     @playlist = Playlist.new(converted_params)
+    @playlist.deck = Deck.find_by(is_r5: false)
 
     begin
       @playlist.save!

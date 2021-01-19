@@ -52,7 +52,7 @@ class ImportOldPlaylistJob < ApplicationJob
   def sync_deck
     res = r5_client.deck(area_id: AREA_ID)
 
-    deck = Deck.find_or_initialize_by(area: AREA_ID)
+    deck = Deck.find_or_initialize_by(area: AREA_ID, is_r5: true)
     deck.name = res.dig(:config, :deck_name)
     deck.save
 
