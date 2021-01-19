@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class External::DecksController < ApplicationController
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def show
     @request_url = request.url
     @area = params[:area]
@@ -20,4 +21,5 @@ class External::DecksController < ApplicationController
       render json: { message: 'デッキが見つかりませんでした' }, status: 404
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end
