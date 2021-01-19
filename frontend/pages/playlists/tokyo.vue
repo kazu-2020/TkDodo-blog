@@ -60,30 +60,6 @@
           <basic-information-view :playlist="selectedPlaylist" />
         </v-col>
       </v-list-item>
-      <v-list-item
-        v-for="item in selectedPlaylistItems"
-        :key="item.id"
-        class="px-6 episode_list"
-      >
-        <v-list-item-icon class="mr-1 my-1">
-          <v-img
-            :src="eyecatchUrl(item)"
-            lazy-src="https://placehold.jp/50x28.png"
-            width="50"
-            height="28"
-            class="episode-image"
-          />
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title style="font-size: 14px" v-text="item.name" />
-        </v-list-item-content>
-      </v-list-item>
-      <v-divider class="mt-4" />
-      <v-list-item>
-        <div class="article_preview">
-          {{ selectedPlaylistArticle }}
-        </div>
-      </v-list-item>
       <v-list-item>
         <v-row justify="center">
           <v-col cols="4">
@@ -111,22 +87,31 @@
               削除する
             </v-btn>
           </v-col>
-          <v-col cols="6">
-            <v-btn
-              :to="{
-                name: 'playlists-id',
-                params: { id: selectedPlaylistId },
-              }"
-              nuxt
-              depressed
-              color="orange"
-              class="edit_button"
-            >
-              <v-icon left>mdi-flask-round-bottom</v-icon>
-              編集する(試用版)
-            </v-btn>
-          </v-col>
         </v-row>
+      </v-list-item>
+      <v-list-item
+        v-for="item in selectedPlaylistItems"
+        :key="item.id"
+        class="px-6 episode_list"
+      >
+        <v-list-item-icon class="mr-3 my-3">
+          <v-img
+            :src="eyecatchUrl(item)"
+            lazy-src="https://placehold.jp/50x28.png"
+            width="50"
+            height="28"
+            class="episode-image"
+          />
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title style="font-size: 14px" v-text="item.name" />
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider class="mt-4" />
+      <v-list-item>
+        <div class="article_preview">
+          {{ selectedPlaylistArticle }}
+        </div>
       </v-list-item>
     </v-navigation-drawer>
   </v-layout>
