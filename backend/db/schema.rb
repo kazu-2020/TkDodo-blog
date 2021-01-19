@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_11_025201) do
+ActiveRecord::Schema.define(version: 2021_01_19_045548) do
 
   create_table "article_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -32,7 +32,10 @@ ActiveRecord::Schema.define(version: 2020_12_11_025201) do
 
   create_table "decks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
+    t.text "description", comment: "デッキの説明"
     t.string "area"
+    t.string "item_type", default: "recommend", comment: "デッキを構成するプレイリストのタイプ"
+    t.boolean "is_r5", default: false, null: false, comment: "r5 相当のデッキか"
     t.string "visible_uid", comment: "Editorial APIレスポンス時のUID"
     t.string "editorial_uid", comment: "Visible APIレスポンス時のUID"
     t.datetime "created_at", precision: 6, null: false
