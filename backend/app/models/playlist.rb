@@ -214,6 +214,14 @@ class Playlist < ApplicationRecord
     end.flatten
   end
 
+  def deck_ids
+    return [] unless deck.present?
+
+    ids = ["recommend-visible-r5-#{deck.area}"]
+    ids << "recommend-editorial-r5-#{deck.area}" if has_article?
+    ids
+  end
+
   private
 
   def generate_string_id
