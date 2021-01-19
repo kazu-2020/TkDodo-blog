@@ -10,6 +10,17 @@ class Deck < ApplicationRecord
 
   before_create :set_uids
 
+  def deck_uid(deck_id)
+    case deck_id
+    when /visible/
+      visible_uid
+    when /editorial/
+      editorial_uid
+    else
+      ''
+    end
+  end
+
   private
 
   def set_uids

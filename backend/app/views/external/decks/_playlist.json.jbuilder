@@ -15,9 +15,28 @@ json.identifierGroup do
   json.playlistName playlist.name
   json.typeOfList 'recommend'
   json.modeOfItem 'tv'
-  json.typeOfItem 'TVEpisode'
+  json.typeOfItem type_of_item(@object_type)
   json.hashtag playlist.hashtags
   json.aliasId playlist.alias_id || ''
+  json.deckId playlist.deck_ids
+end
+
+if playlist.deck.present?
+  json.relatedDeck do
+    json.array! playlist.deck_ids do |deck_id|
+      json.type 'NDeck'
+      json.id deck_id
+      json.name playlist.deck.name
+      json.description ''
+      json.identifierGroup do
+        json.deckUId playlist.deck.deck_uid(deck_id)
+        json.deckId deck_id
+        json.deckName playlist.deck.name
+        json.typeOfDeck 'recommend'
+      end
+      json.url deck_url(playlist.deck, deck_id, @object_type)
+    end
+  end
 end
 
 json.name playlist.name
