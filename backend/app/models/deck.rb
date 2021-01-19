@@ -21,6 +21,10 @@ class Deck < ApplicationRecord
     end
   end
 
+  def deck_id(type)
+    "#{item_type}-#{type}-#{is_r5 ? 'r5-' : ''}#{area}"
+  end
+
   private
 
   def set_uids

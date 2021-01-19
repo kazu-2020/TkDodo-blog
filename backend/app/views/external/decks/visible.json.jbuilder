@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 json.type 'NDeck'
-json.id @identifier_group_deck_id
+json.id @deck.deck_id('visible')
 json.name @deck.name
-json.description ''
+json.description @deck.description
 
 json.identifierGroup do
   json.deckUId @deck.visible_uid
-  json.deckId @identifier_group_deck_id
+  json.deckId @deck.deck_id('visible')
   json.deckName @deck.name
-  json.typeOfDeck 'recommend'
+  json.typeOfDeck @deck.item_type
 end
 
 json.set! 'playlists' do
-  json.array! @deck.playlists.each.with_index(1).to_a do |(playlist, index)|
-    json.partial! partial: 'external/decks/playlist', locals: { playlist: playlist, index: index, area: @area }
+  json.array! @deck.playlists.each do |playlist|
+    json.partial! partial: 'external/decks/playlist', locals: { playlist: playlist, area: @area }
   end
 end
 

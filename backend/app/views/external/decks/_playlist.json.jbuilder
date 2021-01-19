@@ -27,12 +27,12 @@ if playlist.deck.present?
       json.type 'NDeck'
       json.id deck_id
       json.name playlist.deck.name
-      json.description ''
+      json.description playlist.deck.description
       json.identifierGroup do
         json.deckUId playlist.deck.deck_uid(deck_id)
         json.deckId deck_id
         json.deckName playlist.deck.name
-        json.typeOfDeck 'recommend'
+        json.typeOfDeck playlist.deck.item_type
       end
       json.url deck_url(playlist.deck, deck_id, @object_type)
     end
