@@ -90,6 +90,8 @@ describe EditorDataToPlainText, type: :model do
         テキスト太字#{'  '}
         改行イタリック太字イタリック
 
+        hello
+
         Yahoo! JAPAN
 
         this is dokos.

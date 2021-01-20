@@ -10,9 +10,7 @@ class EditorDataToPlainText
   def call
     return if blocks.blank?
 
-    plain_text = blocks
-                 .reject { |block| block['type'] == 'image' }
-                 .map { |block| to_plain_text(block) }.join("\n\n")
+    plain_text = blocks.map { |block| to_plain_text(block) }.join("\n\n")
     "#{plain_text}\n"
   end
 
@@ -22,6 +20,7 @@ class EditorDataToPlainText
     Sanitize.fragment block
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
   def to_plain_text(block)
     case block['type']
     when 'header'
@@ -30,6 +29,8 @@ class EditorDataToPlainText
       to_paragraph_text(block)
     when 'linkTool'
       to_link_text(block)
+    when 'image'
+      to_image_text(block)
     when 'list'
       to_list_text(block)
     when 'embed'
@@ -38,6 +39,7 @@ class EditorDataToPlainText
       to_episode_text(block)
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength
 
   def to_header_text(block)
     text = block['data']['text']
@@ -53,6 +55,10 @@ class EditorDataToPlainText
 
   def to_link_text(block)
     block.dig('data', 'meta', 'description')
+  end
+
+  def to_image_text(block)
+    block.dig('data', 'caption')
   end
 
   def to_list_text(block)
