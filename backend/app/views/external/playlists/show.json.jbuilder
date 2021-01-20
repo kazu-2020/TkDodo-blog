@@ -14,7 +14,25 @@ json.identifierGroup do
   json.typeOfItem type_of_item(@object_type)
   json.hashtag @playlist.hashtags
   json.aliasId @playlist.alias_id || ''
-  json.deckId deck_ids(@playlist)
+end
+
+if @playlist.deck.present?
+  json.relatedDeck do
+    json.array! [@playlist.deck] do |deck|
+      deck_id = deck.deck_id('visible')
+      json.type 'NDeck'
+      json.id deck_id
+      json.name @playlist.deck.name
+      json.description @playlist.deck.description
+      json.identifierGroup do
+        json.deckUId @playlist.deck.deck_uid(deck_id)
+        json.deckId deck_id
+        json.deckName @playlist.deck.name
+        json.typeOfDeck @playlist.deck.item_type
+      end
+      json.url deck_url(@playlist.deck, deck_id, @object_type)
+    end
+  end
 end
 
 json.keywords @playlist.keywords
