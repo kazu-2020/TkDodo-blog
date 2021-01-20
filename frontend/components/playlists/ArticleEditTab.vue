@@ -80,6 +80,7 @@
 
 <script>
 import Vue from 'vue'
+import lodash from 'lodash'
 import EditableSection from '~/components/common/EditableSection.vue'
 import editorBlockMixin from '~/components/common/editorBlockMixin'
 import IconedTitle from '~/components/common/IconedTitle.vue'
@@ -147,7 +148,7 @@ export default Vue.extend({
   watch: {
     playlist: {
       handler(newVal) {
-        this.article = newVal.article
+        this.article = lodash.cloneDeep(newVal.article)
         this.body = newVal.article.body || null
         this.header =
           this.playlist.article.header ||
