@@ -3,7 +3,7 @@ require "fileutils"
 require "jets"
 
 ENV['JETS_TEST'] = "1"
-ENV['JETS_ENV'] ||= "test"
+ENV['JETS_ENV'] = "test"
 # Ensures aws api never called. Fixture home folder does not contain ~/.aws/credentails
 ENV['HOME'] = Jets.root.join('spec/fixtures/home').to_s
 
