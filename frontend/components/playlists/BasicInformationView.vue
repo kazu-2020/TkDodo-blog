@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="base-information"
-    style="border: 1px solid #d3d3d3; border-radius: 14px; padding: 0 8px"
-  >
+  <div class="base-information pa-3 rounded" style="border: 1px solid #d3d3d3">
     <v-row>
       <v-col cols="6" class="pr-0">
         <h2 class="playlist-title">{{ playlistName }}</h2>
