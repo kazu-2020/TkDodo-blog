@@ -20,8 +20,8 @@ end
 
 json.sameAs do
   json.array! [
-    "https://www.nhk.jp/d/dk/recommend-editorial-#{@area}",
-    "https://dev-preview-eh.nr.nhk.jp/d/dk/recommend-editorial-#{@area}"
+    "https://www.nhk.jp/d/dk/recommend-editorial-#{@area}#{@deck.is_r5? ? '-r5' : ''}",
+    "https://dev-preview-eh.nr.nhk.jp/d/dk/recommend-editorial-#{@area}#{@deck.is_r5? ? '-r5' : ''}"
   ]
 end
 
