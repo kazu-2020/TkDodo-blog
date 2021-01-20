@@ -5,7 +5,7 @@ describe External::DecksController, type: :request do
     let(:area) { 130 }
 
     before do
-      create(:deck, area: area, is_r5: true)
+      create(:deck, area: area, is_r5: false)
     end
 
     context 'when contains valid area' do

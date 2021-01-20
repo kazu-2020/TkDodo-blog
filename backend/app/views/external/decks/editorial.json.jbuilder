@@ -14,14 +14,15 @@ end
 
 json.set! 'playlists' do
   json.array! @deck.playlists.has_article.each do |playlist|
-    json.partial! partial: 'external/decks/playlist', locals: { playlist: playlist, area: @area }
+    json.partial! partial: 'external/decks/playlist',
+                  locals: { playlist: playlist, area: @area, deck_type: 'editorial', object_type: @object_type }
   end
 end
 
 json.sameAs do
   json.array! [
-    "https://www.nhk.jp/d/dk/recommend-editorial-#{@area}",
-    "https://dev-preview-eh.nr.nhk.jp/d/dk/recommend-editorial-#{@area}"
+    "https://www.nhk.jp/d/dk/recommend-editorial-#{@area}#{@deck.is_r5? ? '-r5' : ''}",
+    "https://dev-preview-eh.nr.nhk.jp/d/dk/recommend-editorial-#{@area}#{@deck.is_r5? ? '-r5' : ''}"
   ]
 end
 

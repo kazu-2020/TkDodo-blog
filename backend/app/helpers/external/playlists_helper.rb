@@ -22,17 +22,16 @@ module External::PlaylistsHelper
     end
   end
 
-  def deck_ids(playlist)
-    if playlist.deck.present?
-      if playlist.has_article?
-        %w[recommend-visible-r5-130 recommend-editorial-r5-130]
-      else
-        ['recommend-visible-r5-130']
-      end
-    elsif playlist.has_article?
-      %w[recommend-visible-130 recommend-editorial-130]
+  def deck_url(deck, deck_id, object_type)
+    base_url = 'https://dev-api-eh.nr.nhk.jp/d6.6/t/ndeck/recommend'
+
+    case deck_id
+    when /visible/
+      base_url + "/visible#{deck.is_r5? ? '-r5' : ''}.json?area=#{deck.area}&type=#{object_type}"
+    when /editorial/
+      base_url + "/editorial#{deck.is_r5? ? '-r5' : ''}.json?area=#{deck.area}&type=#{object_type}"
     else
-      ['recommend-visible-130']
+      ''
     end
   end
 end
