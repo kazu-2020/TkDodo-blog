@@ -27,6 +27,7 @@
         />
       </v-col>
       <v-col v-if="playlistDetailedCatch" cols="12" class="body-2 py-2">
+        <div class="body-3 font-weight-bold mb-2">キャッチコピー</div>
         - {{ playlistDetailedCatch }} -
       </v-col>
       <v-col
@@ -35,9 +36,11 @@
         class="body-2 py-2"
         style="word-wrap: break-word"
       >
+        <div class="body-3 font-weight-bold mb-2">説明</div>
         {{ playlistDescription }}
       </v-col>
-      <v-col v-if="hasActorsOrContributors" cols="auto">
+      <v-col v-if="hasActorsOrContributors" cols="auto" class="body-2">
+        <div class="body-3 font-weight-bold mb-2">出演者/スタッフ</div>
         <v-tooltip
           v-for="(data, index) in actorsAndContributors"
           :key="`actor-contributor-${index}`"
@@ -193,8 +196,8 @@ export default Vue.extend({
   .actor_contributor_badge_inner {
     display: inline-block;
     position: relative;
-    top: 6px;
-    left: 12px;
+    top: 9px;
+    left: 13px;
     color: white;
     font-weight: bold;
   }

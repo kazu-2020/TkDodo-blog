@@ -27,11 +27,13 @@
         />
       </v-col>
       <v-col v-show="playlistDescription" cols="2" md="2" sm="4" xs="12">
+        <div class="body-2 font-weight-bold mb-2">説明</div>
         <div style="word-wrap: break-word; font-size: 14px">
           {{ playlistDescription }}
         </div>
       </v-col>
       <v-col v-show="hasActorsOrContributors" cols="2" md="2" sm="4" xs="12">
+        <div class="body-2 font-weight-bold mb-2">出演者/スタッフ</div>
         <v-tooltip
           v-for="(data, index) in actorsAndContributors"
           :key="`actor-contributor-${index}`"
@@ -61,6 +63,7 @@
         </v-tooltip>
       </v-col>
       <v-col cols="3" md="3" sm="4" xs="12">
+        <div class="body-2 font-weight-bold mb-2">リスト</div>
         <v-list dense class="py-0">
           <v-list-item
             v-for="item in playlistItems"
@@ -83,6 +86,7 @@
         </v-list>
       </v-col>
       <v-col cols="2" md="2" sm="4" xs="12">
+        <div class="body-2 font-weight-bold mb-2">記事</div>
         <div style="word-wrap: break-word; font-size: 14px">
           {{ plainBody }}
         </div>
