@@ -88,6 +88,7 @@
         <div class="preview-container container-fluid mt-4 pa-2 white rounded">
           <basic-information-view :playlist="playlist" />
           <v-col cols="12">
+            <div class="body-2 font-weight-bold">リスト</div>
             <v-list dense>
               <v-list-item
                 v-for="item in playlistItems"
@@ -111,6 +112,7 @@
           </v-col>
           <v-divider />
           <v-col cols="12">
+            <div class="body-2 font-weight-bold mb-2">記事</div>
             <div style="word-wrap: break-word; font-size: 14px">
               {{ articlePlainBody }}
             </div>
