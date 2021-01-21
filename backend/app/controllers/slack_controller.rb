@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class SlackController < ApplicationController
+  SLACK_CHANNEL = 'bz-rebase-nhk-labo-app-notify'
+
   def incoming_webhook
+    slack.channel = SLACK_CHANNEL
     slack.post params[:text] if ENV['SLACK_WEBHOOK_URL'].present?
     render json: { message: 'ok' }, status: 200
   end
