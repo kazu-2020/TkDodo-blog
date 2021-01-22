@@ -2,15 +2,8 @@
   <div class="article-container container-fluid white rounded px-5 py-2">
     <v-row>
       <v-col cols="12">
-        <div v-if="isShowHeader">
-          <h3 class="mb-4">ヘッダー</h3>
-          <v-textarea v-model="header" outlined auto-grow />
-        </div>
-        <div v-else>
-          <v-btn block text class="mb-4 pa-4" @click="addHeader"
-            >ヘッダーを入力
-          </v-btn>
-        </div>
+        <h3 class="mb-4">ヘッダー</h3>
+        <v-textarea v-model="header" outlined auto-grow />
         <hr class="dotted_hr" />
       </v-col>
       <v-col cols="12">
@@ -28,15 +21,8 @@
         <hr class="dotted_hr" />
       </v-col>
       <v-col cols="12">
-        <div v-if="isShowFooter">
-          <h3 class="mb-4">フッター</h3>
-          <v-textarea v-model="footer" outlined auto-grow />
-        </div>
-        <div v-else>
-          <v-btn block text class="mb-4 pa-4" @click="addFooter"
-            >フッターを入力
-          </v-btn>
-        </div>
+        <h3 class="mb-4">フッター</h3>
+        <v-textarea v-model="footer" outlined auto-grow />
       </v-col>
       <v-col cols="12" class="vertical_divider">
         <v-sheet color="grey lighten-3" rounded class="pb-2 mb-1">
@@ -105,8 +91,6 @@ export default Vue.extend({
       draftBody: {},
       header: undefined,
       footer: undefined,
-      isShowHeader: undefined,
-      isShowFooter: undefined,
       authorType: this.playlist.article.authorType || 'Organization',
       authorName: this.playlist.article.authorName || 'デジタルラボ',
       publisherName: this.playlist.article.publisherName || 'NHK',
@@ -142,20 +126,8 @@ export default Vue.extend({
       handler(newVal) {
         this.article = lodash.cloneDeep(newVal.article)
         this.body = newVal.article.body || null
-        this.header =
-          this.playlist.article.header ||
-          this.$cookies.get('articleHeaderText') ||
-          ''
-        this.footer =
-          this.playlist.article.footer ||
-          this.$cookies.get('articleFooterText') ||
-          ''
-        this.isShowHeader =
-          this.playlist.article.header !== undefined &&
-          this.playlist.article.header !== null
-        this.isShowFooter =
-          this.playlist.article.footer !== undefined &&
-          this.playlist.article.footer !== null
+        this.header = this.playlist.article.header || ''
+        this.footer = this.playlist.article.footer || ''
       },
       immediate: true,
     },
@@ -205,30 +177,12 @@ export default Vue.extend({
     },
     header: {
       handler() {
-        this.$cookies.set('articleHeaderText', this.header, {
-          path: '/',
-          maxAge: 60 * 60 * 24 * 30,
-        })
-        if (this.isShowHeader) {
-          this.article.header = this.header
-        } else {
-          this.article.header = undefined
-        }
         this.updateArticleHeader()
       },
       immediate: true,
     },
     footer: {
       handler() {
-        this.$cookies.set('articleFooterText', this.footer, {
-          path: '/',
-          maxAge: 60 * 60 * 24 * 30,
-        })
-        if (this.isShowFooter) {
-          this.article.footer = this.footer
-        } else {
-          this.article.footer = undefined
-        }
         this.updateArticleFooter()
       },
       immediate: true,
@@ -244,23 +198,8 @@ export default Vue.extend({
     this.initializing = false
   },
   methods: {
-    addHeader() {
-      this.isShowHeader = true
-      this.header = this.$cookies.get('articleHeaderText') || ''
-      this.updateArticleHeader()
-    },
-    addFooter() {
-      this.isShowFooter = true
-      this.footer = this.$cookies.get('articleFooterText') || ''
-      this.updateArticleFooter()
-    },
     setCurrentContent(payload) {
       if (this.initializing) return
-      console.log(`---- article.body ---`)
-      console.log(this.article.body)
-      console.log(`---- payload.editorData ---`)
-      console.log(payload.editorData)
-
       this.article.body = payload.editorData
       const originalArticle = Object.assign({}, this.article)
       const article = Object.assign(originalArticle, {
