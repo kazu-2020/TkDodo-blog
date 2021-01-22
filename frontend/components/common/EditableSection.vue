@@ -95,6 +95,9 @@ export default {
       immediate: true,
     },
   },
+  beforeDestroy() {
+    this.editor.destroy()
+  },
   methods: {
     // Call from basicEditorMixin
     initializeEditor() {
