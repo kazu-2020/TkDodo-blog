@@ -20,7 +20,6 @@
           section-id="sandbox2"
           :playlist-id="playlist.id"
           :initial-data="body"
-          :episode-block-id="episodeBlockId"
           class="mb-8 mr-4 ml-12"
           :image-by-file-endpoint="imageByFileEndpoint"
           :image-by-url-endpoint="imageByUrlEndpoint"
@@ -120,13 +119,6 @@ export default Vue.extend({
   computed: {
     playlistName() {
       return this.playlist.name
-    },
-    episodeBlockId() {
-      if (this.body?.time) {
-        return this.body.time.toString()
-      } else {
-        return Date.now().toString()
-      }
     },
     imageByUrlEndpoint() {
       return `/playlists/${this.playlist.id}/upload_article_image_by_url`
@@ -264,6 +256,11 @@ export default Vue.extend({
     },
     setCurrentContent(payload) {
       if (this.initializing) return
+      console.log(`---- article.body ---`)
+      console.log(this.article.body)
+      console.log(`---- payload.editorData ---`)
+      console.log(payload.editorData)
+
       this.article.body = payload.editorData
       const originalArticle = Object.assign({}, this.article)
       const article = Object.assign(originalArticle, {
