@@ -66,6 +66,7 @@
       </v-col>
     </v-row>
     <episode-preview-drawer
+      :playlist="playlist"
       :episode="selectedEpisode"
       :visible="previewDrawer"
       @close-drawer="closePreviewDrawer"
