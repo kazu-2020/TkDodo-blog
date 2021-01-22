@@ -177,13 +177,13 @@ export default Vue.extend({
     },
     header: {
       handler() {
-        this.updateArticleHeader()
+        this.updateArticle()
       },
       immediate: true,
     },
     footer: {
       handler() {
-        this.updateArticleFooter()
+        this.updateArticle()
       },
       immediate: true,
     },
@@ -200,23 +200,17 @@ export default Vue.extend({
   methods: {
     setCurrentContent(payload) {
       if (this.initializing) return
-      this.article.body = payload.editorData
+      this.article.body = this.body = payload.editorData
+      this.updateArticle()
+    },
+    updateArticle() {
+      if (this.initializing) return
       const originalArticle = Object.assign({}, this.article)
       const article = Object.assign(originalArticle, {
-        body: payload.editorData,
+        header: this.header,
+        body: this.body,
+        footer: this.footer,
       })
-      this.$emit('update-article', article)
-    },
-    updateArticleHeader() {
-      if (this.initializing) return
-      const originalArticle = Object.assign({}, this.article)
-      const article = Object.assign(originalArticle, { header: this.header })
-      this.$emit('update-article', article)
-    },
-    updateArticleFooter() {
-      if (this.initializing) return
-      const originalArticle = Object.assign({}, this.article)
-      const article = Object.assign(originalArticle, { footer: this.footer })
       this.$emit('update-article', article)
     },
   },
