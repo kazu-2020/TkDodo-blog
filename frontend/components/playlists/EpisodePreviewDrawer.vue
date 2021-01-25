@@ -23,21 +23,10 @@
       <v-col cols="12" class="pt-0 body-2">
         {{ episodeDescription }}
       </v-col>
-      <v-col cols="12" class="pt-0 body-2">
+      <v-col cols="12" class="py-0 body-2">
         直近放送日: {{ episodeRecentBroadcastDate }}
       </v-col>
-      <v-col v-show="genres.length !== 0" cols="12" class="py-0">
-        <v-chip
-          v-for="genre in genres"
-          :key="`genre-${genre.id}`"
-          small
-          class="my-1 mr-2"
-          color="blue-grey darken-1"
-          style="color: white"
-        >
-          {{ genre.name }}
-        </v-chip>
-      </v-col>
+      <episode-preview-genres-list :episode="episode" />
       <v-col v-if="hasActorsOrContributors" cols="auto">
         <v-tooltip
           v-for="(data, index) in actorsAndContributors"
@@ -111,6 +100,27 @@
                 </div>
               </nuxt-link>
             </div>
+            <div
+              v-if="relatedPlaylist.formatGenreName.length !== 0"
+              class="format-genre-badge"
+            >
+              {{ relatedPlaylist.formatGenreName }}
+            </div>
+            <span
+              v-if="
+                relatedPlaylist.formatGenreName.length !== 0 ||
+                relatedPlaylist.themeGenreName.length !== 0
+              "
+              style="font-size: 12px"
+            >
+              /
+            </span>
+            <div
+              v-if="relatedPlaylist.themeGenreName.length !== 0"
+              class="theme-genre-badge"
+            >
+              {{ relatedPlaylist.themeGenreName }}
+            </div>
           </v-col>
         </v-row>
       </v-col>
@@ -122,6 +132,7 @@
 import Vue from 'vue'
 import moment from 'moment'
 import { Playlist } from '@/types/playlist'
+import EpisodePreviewGenresList from '~/components/playlists/EpisodePreviewGenresList.vue'
 
 moment.locale('ja')
 
@@ -134,6 +145,9 @@ interface DataType {
 
 export default Vue.extend({
   name: 'EpisodePreviewDrawer',
+  components: {
+    EpisodePreviewGenresList,
+  },
   props: {
     playlist: {
       type: Object,
@@ -182,11 +196,6 @@ export default Vue.extend({
     },
     hasActorsOrContributors(): boolean {
       return this.actorsAndContributors.length !== 0
-    },
-    genres(): string[] {
-      const formatGenres = this.episode?.identifierGroup?.formatGenreTag || []
-      const themeGenres = this.episode?.identifierGroup?.themeGenreTag || []
-      return formatGenres.concat(themeGenres)
     },
     drawerWidth(): number {
       const halfSize = this.width * 0.4
@@ -246,6 +255,7 @@ export default Vue.extend({
     },
     fetchPlaylists(): void {
       if (this.relatedPlaylists.length !== 0) return
+      if (this.episode === undefined) return
 
       this.$axios.get(`/episodes/${this.episode.id}/playlists`).then((res) => {
         console.log(res)
@@ -339,5 +349,25 @@ export default Vue.extend({
   top: 8px;
   font-size: 12px;
   right: 20px;
+}
+
+.format-genre-badge {
+  display: inline-block;
+  font-size: 10px;
+  background-color: #acdce2;
+  border-radius: 15px;
+  color: black;
+  font-weight: bold;
+  padding: 1px 5px;
+}
+
+.theme-genre-badge {
+  display: inline-block;
+  font-size: 10px;
+  background-color: #fdacaf;
+  border-radius: 15px;
+  color: black;
+  font-weight: bold;
+  padding: 1px 5px;
 }
 </style>
