@@ -9,7 +9,7 @@ class ImportOldPlaylistJob < ApplicationJob
   iam_policy('s3')
   rate '1 hour'
   def execute
-    deck = sync_deck
+    deck = Deck.find_by(area: AREA_ID, is_r5: true)
 
     recommend_playlist_ids.each do |playlist_id|
       res = r5_client.playlist(playlist_type: 'recommend', playlist_id: playlist_id)
@@ -35,7 +35,7 @@ class ImportOldPlaylistJob < ApplicationJob
 
   iam_policy('s3')
   def delete_all
-    deck = sync_deck
+    deck = Deck.find_by(area: AREA_ID, is_r5: true)
     deck.destroy
   end
 
@@ -47,16 +47,6 @@ class ImportOldPlaylistJob < ApplicationJob
 
   def r6_client
     @r6_client ||= DlabApiClient.new
-  end
-
-  def sync_deck
-    res = r5_client.deck(area_id: AREA_ID)
-
-    deck = Deck.find_or_initialize_by(area: AREA_ID, is_r5: true)
-    deck.name = res.dig(:config, :deck_name)
-    deck.save
-
-    deck
   end
 
   def recommend_playlist_ids

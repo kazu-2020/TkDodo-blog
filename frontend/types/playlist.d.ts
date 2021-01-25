@@ -12,7 +12,9 @@ export interface Playlist {
   detailedCatch: string
   hashtag: string
   formatGenre: string
+  formatGenreName?: string
   themeGenre: string
+  themeGenreName?: string
   selectedPalette: string
   primaryLightColor: string
   primaryDarkColor: string
