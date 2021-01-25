@@ -67,6 +67,53 @@
           <span>{{ actorContributorName(data) }}</span>
         </v-tooltip>
       </v-col>
+      <v-col v-if="relatedPlaylists.length > 0" class="pa-3">
+        <div
+          class="body-2 font-weight-bold"
+          style="border-left: 4px solid orange; padding-left: 10px"
+        >
+          {{ episode.name }} が含まれるプレイリスト
+        </div>
+        <v-row class="px-4">
+          <v-col
+            v-for="relatedPlaylist in relatedPlaylists"
+            :key="relatedPlaylist.id"
+            cols="6"
+          >
+            <nuxt-link
+              :to="{
+                name: 'playlists-id',
+                params: { id: relatedPlaylist.id },
+              }"
+              class="body-2 related-playlist-title"
+            >
+              {{ relatedPlaylist.name }}
+            </nuxt-link>
+            <div class="thmubnail" style="position: relative">
+              <nuxt-link
+                :to="{
+                  name: 'playlists-id',
+                  params: { id: relatedPlaylist.id },
+                }"
+              >
+                <v-img
+                  :src="logoUrl(relatedPlaylist)"
+                  lazy-src="https://placehold.jp/140x140.png"
+                  width="140"
+                  height="140"
+                  class="playlist-image"
+                />
+                <div
+                  v-if="playlist.id === relatedPlaylist.id"
+                  class="current-playlist-badge"
+                >
+                  現在編集中
+                </div>
+              </nuxt-link>
+            </div>
+          </v-col>
+        </v-row>
+      </v-col>
     </v-row>
   </v-navigation-drawer>
 </template>
@@ -74,6 +121,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
+import { Playlist } from '@/types/playlist'
 
 moment.locale('ja')
 
@@ -81,11 +129,17 @@ interface DataType {
   eyecatchUrl: string
   drawer: boolean
   width: number
+  relatedPlaylists: Array<Playlist>
 }
 
 export default Vue.extend({
   name: 'EpisodePreviewDrawer',
   props: {
+    playlist: {
+      type: Object,
+      required: false,
+      default: () => {},
+    },
     episode: {
       type: Object,
       required: false,
@@ -102,6 +156,7 @@ export default Vue.extend({
       eyecatchUrl: 'https://placehold.jp/360x202.png?text=EyeCatch',
       drawer: false,
       width: window.innerWidth,
+      relatedPlaylists: [],
     }
   },
   computed: {
@@ -146,6 +201,7 @@ export default Vue.extend({
         } else {
           this.eyecatchUrl = 'https://placehold.jp/360x202.png?text=EyeCatch'
         }
+        this.fetchPlaylists()
       },
       deep: true,
     },
@@ -185,7 +241,23 @@ export default Vue.extend({
       return this.actorContributorImageUrl(data) === ''
     },
     closeDrawer() {
+      this.relatedPlaylists = []
       this.$emit('close-drawer')
+    },
+    fetchPlaylists(): void {
+      if (this.relatedPlaylists.length !== 0) return
+
+      this.$axios.get(`/episodes/${this.episode.id}/playlists`).then((res) => {
+        console.log(res)
+        this.relatedPlaylists = res.data.playlists
+      })
+    },
+    logoUrl(item: any): string {
+      if (item.logo !== undefined) {
+        return item.logo.medium.url
+      } else {
+        return 'https://placehold.jp/140x140.png'
+      }
     },
   },
 })
@@ -242,5 +314,30 @@ export default Vue.extend({
 .slide-enter,
 .slide-leave-to {
   transform: translateX(100vw) translateX(0px);
+}
+
+.related-playlist-title {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  margin-bottom: 4px;
+}
+
+.playlist-image {
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  width: 100%;
+}
+
+.current-playlist-badge {
+  background-color: orange;
+  color: white;
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 5px;
+  position: absolute;
+  top: 8px;
+  font-size: 12px;
+  right: 20px;
 }
 </style>

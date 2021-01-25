@@ -43,6 +43,7 @@ Jets.application.routes.draw do
 
     member do
       get :bundle
+      get :playlists
     end
   end
 

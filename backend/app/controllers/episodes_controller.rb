@@ -20,6 +20,11 @@ class EpisodesController < ApplicationController
     @result = client.episode_bundle(type: 'tv', episode_id: params[:episode_id])
   end
 
+  def playlists
+    playlist_ids = PlaylistItem.where(episode_id: params[:episode_id]).pluck(:playlist_id).uniq
+    @playlists = Playlist.where(id: playlist_ids)
+  end
+
   private
 
   def search_params
