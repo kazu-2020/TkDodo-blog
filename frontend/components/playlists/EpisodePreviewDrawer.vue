@@ -76,9 +76,9 @@
         </div>
         <v-row class="px-4">
           <v-col
-            cols="6"
             v-for="relatedPlaylist in relatedPlaylists"
             :key="relatedPlaylist.id"
+            cols="6"
           >
             <nuxt-link
               :to="{
