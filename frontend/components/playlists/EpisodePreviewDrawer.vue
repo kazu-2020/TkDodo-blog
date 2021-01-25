@@ -111,6 +111,27 @@
                 </div>
               </nuxt-link>
             </div>
+            <div
+              v-if="relatedPlaylist.formatGenreName.length !== 0"
+              class="format-genre-badge"
+            >
+              {{ relatedPlaylist.formatGenreName }}
+            </div>
+            <span
+              v-if="
+                relatedPlaylist.formatGenreName.length !== 0 ||
+                relatedPlaylist.themeGenreName.length !== 0
+              "
+              style="font-size: 12px"
+            >
+              /
+            </span>
+            <div
+              v-if="relatedPlaylist.themeGenreName.length !== 0"
+              class="theme-genre-badge"
+            >
+              {{ relatedPlaylist.themeGenreName }}
+            </div>
           </v-col>
         </v-row>
       </v-col>
@@ -246,6 +267,7 @@ export default Vue.extend({
     },
     fetchPlaylists(): void {
       if (this.relatedPlaylists.length !== 0) return
+      if (this.episode === undefined) return
 
       this.$axios.get(`/episodes/${this.episode.id}/playlists`).then((res) => {
         console.log(res)
@@ -339,5 +361,25 @@ export default Vue.extend({
   top: 8px;
   font-size: 12px;
   right: 20px;
+}
+
+.format-genre-badge {
+  display: inline-block;
+  font-size: 10px;
+  background-color: #acdce2;
+  border-radius: 15px;
+  color: black;
+  font-weight: bold;
+  padding: 1px 5px;
+}
+
+.theme-genre-badge {
+  display: inline-block;
+  font-size: 10px;
+  background-color: #fdacaf;
+  border-radius: 15px;
+  color: black;
+  font-weight: bold;
+  padding: 1px 5px;
 }
 </style>

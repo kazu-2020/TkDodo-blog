@@ -10,7 +10,9 @@ json.keywords playlist.keywords
 json.detailedCatch playlist.detailed_catch
 json.hashtag playlist.hashtags
 json.formatGenre playlist.format_genre_code
+json.formatGenreName playlist.format_genre_name
 json.themeGenre playlist.theme_genre_code
+json.themeGenreName playlist.theme_genre_name
 json.style do
   json.selectedPalette playlist.selected_palette
   json.primaryLight playlist.primary_light_color

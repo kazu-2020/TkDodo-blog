@@ -131,6 +131,18 @@ class Playlist < ApplicationRecord
     end
   end
 
+  def format_genre_name
+    return '' unless format_genre_code
+
+    FORMAT_GENRES[format_genre_code.to_sym]
+  end
+
+  def theme_genre_name
+    return '' unless theme_genre_code
+
+    THEME_GENRES[theme_genre_code.to_sym]
+  end
+
   def has_article?
     marked_body.present?
   end
