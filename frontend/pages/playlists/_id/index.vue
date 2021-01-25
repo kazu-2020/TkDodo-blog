@@ -24,9 +24,8 @@
           <v-btn
             x-large
             block
-            color="orange"
-            dark
             elevation="0"
+            color="accent"
             :disabled="preventSaveButton"
             @click="save"
             >保存する</v-btn
