@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 json.type 'NPlaylist'
-json.id @request_url
+json.id "eh-#{format('%010d', @playlist.id)}"
 json.name @playlist.name
 json.detailedSeriesNameRuby @playlist.detailed_name_ruby
 
@@ -73,7 +73,6 @@ else
   json.sameAs nil
 end
 
-# rubocop:disable Metrics/BlockLength
 json.items @playlist.playlist_items.each do |playlist_item|
   episode_data = fetch_episode_data(playlist_item: playlist_item)
 
@@ -100,22 +99,13 @@ json.items @playlist.playlist_items.each do |playlist_item|
       json.set_raw! key, json_data[key].to_json
     end
   else
-    json.type 'TVEpisode'
-    json.id playlist_item.episode_id
-    json.url episode_data[:url]
-    json.name episode_data[:name]
+    json_data = ::MultiJson.load(episode_data.to_json)
 
-    if episode_data[:sameAs].present?
-      json.sameAs episode_data[:sameAs] do |same_as|
-        json.name same_as[:name]
-        json.url same_as[:url]
-      end
-    else
-      json.sameAs nil
+    json_data.each_key do |key|
+      json.set_raw! key, json_data[key].to_json
     end
   end
 end
-# rubocop:enable Metrics/BlockLength
 
 json.playlisticle do
   json.mainEntityOfPage ''
