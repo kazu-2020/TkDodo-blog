@@ -78,7 +78,6 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
-
   private
 
   def api_endpoint
