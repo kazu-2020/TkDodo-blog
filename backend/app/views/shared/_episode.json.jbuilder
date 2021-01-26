@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 episode_data = fetch_episode_data(playlist_item: episode)
+broadcast_events = fetch_broadcast_event(episode_data[:id])
 
 if episode_data.present?
   json.type episode_data[:type]
@@ -25,7 +26,7 @@ if episode_data.present?
   json.set_raw! :eyecatch, episode_data[:eyecatch].to_json if episode_data[:eyecatch].present?
   json.set_raw! :eyecatches, episode_data[:eyecatches].to_json if episode_data[:eyecatches].present?
   json.set_raw! :videos, episode_data[:videos].to_json
-  json.set_raw! :broadcastEvent, episode_data[:broadcastEvent].to_json
+  json.set_raw! :broadcastEvent, broadcast_events.to_json
   json.set_raw! :citations, episode_data[:citations].to_json
   json.url episode_data[:url]
   json.set_raw! :sameAs, episode_data[:sameAs].to_json

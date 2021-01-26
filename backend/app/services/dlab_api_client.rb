@@ -69,6 +69,16 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
+  # broadcast_eventを episode_id 指定で取得する
+  #
+  # @param [String] broadcast_event_id
+  def broadcast_event_from_episode_id(episode_id, query = {})
+    res = client.get "/#{VERSION}/t/broadcastevent/te/#{episode_id}.json",
+                     INTERNAL_PARAMS.merge(query)
+    handle_response(res)
+  end
+
+
   private
 
   def api_endpoint
