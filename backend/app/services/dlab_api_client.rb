@@ -50,39 +50,6 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
-  # TV/Radio Series List APIをリクエストする
-  # シリーズ単位でリスト化するAPI
-  #
-  # @see https://md.dlab.nhk.or.jp/p/r1HGkXGYV#/
-  # @param [String] type: 'tv' or 'radio'
-  # @param [Integer] size: 取得件数(2019/04/15時点で2,354件)
-  # @param [Integer] offset: 開始インデックス
-  def series_ids(type:, size:, offset:, query: {})
-    res = client.get "/#{VERSION}/ids/#{type}Series.json",
-                     INTERNAL_PARAMS.merge(size: size, offset: offset).merge(query)
-    handle_response(res)
-  end
-
-  # シリーズをシリーズID指定で取得する
-  #
-  # @param [String] type: 'tv' or 'radio'
-  # @param [String] series_id: シリーズID
-  def series(type:, series_id:, query: {})
-    res = client.get "/#{VERSION}/t/#{type}series/#{type.downcase.first}s/#{series_id}.json",
-                     INTERNAL_PARAMS.merge(query)
-    handle_response(res)
-  end
-
-  # エピソードをエピソードID指定で取得する
-  #
-  # @param [String] type: 'tvepisode' or 'radioepisode'
-  # @param [String] episode_id: エピソードID
-  def episode(type:, episode_id:, query: {})
-    res = client.get "/#{VERSION}/t/#{type.downcase}/#{type.downcase.first}e/#{episode_id}.json",
-                     INTERNAL_PARAMS.merge(query)
-    handle_response(res)
-  end
-
   # エピソードをブロードキャストイベント指定で取得する
   #
   # @param [String] type: 'tvepisode' or 'radioepisode'
@@ -93,45 +60,20 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
-  # シリーズIDでエピソードIDを取得する
-  # 最大で10000件しか返ってこない
-  # :nextUrl に次ページのリンクが入って返ってくる、次ページがない場合はnil
-  # @param [String] type
-  # @param [String] series_id
-  # @param [Integer] size
-  # @param [Integer] offset
-  def episode_ids(type:, series_id:, size: 10_000, offset: 0, query: {})
-    prefix = type == 'tv' ? 'TV' : 'Radio'
-    res = client.get "/#{VERSION}/ids/#{prefix}Episode.json",
-                     { size: size, "#{type.downcase.first}s": series_id, offset: offset }.merge(query)
-    handle_response(res)
-  end
-
-  # シリーズIDでエピソードIDを全件取得する
-  # @param [String] type
-  # @param [String] series_id
-  def episode_ids_all(type:, series_id:)
-    ids = res = episode_ids(type: type, series_id: series_id)
-    while res[:nextUrl].present?
-      res = handle_response(client.get(res[:nextUrl]))
-      ids[:entities].concat(res[:entities])
-    end
-    ids
-  end
-
-  # @param [String] type
-  # @param [Array] ids
-  def bulk(type:, ids:, query: {})
-    res = client.get "/#{VERSION}/t/#{type}episode/bulk.json",
-                     INTERNAL_PARAMS.merge("#{type.downcase.first}e": ids.join(',')).merge(query)
-    handle_response(res)
-  end
-
   # broadcast_eventを broadcast_event_id 指定で取得する
   #
   # @param [String] broadcast_event_id
   def broadcast_event(broadcast_event_id, query = {})
     res = client.get "/#{VERSION}/t/broadcastevent/be/#{broadcast_event_id}.json",
+                     INTERNAL_PARAMS.merge(query)
+    handle_response(res)
+  end
+
+  # broadcast_eventを episode_id 指定で取得する
+  #
+  # @param [String] broadcast_event_id
+  def broadcast_event_from_episode_id(episode_id, query = {})
+    res = client.get "/#{VERSION}/t/broadcastevent/te/#{episode_id}.json",
                      INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end

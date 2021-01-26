@@ -87,8 +87,14 @@ export default Vue.extend({
       return this.episode?.identifierGroup?.themeGenreTag || []
     },
     broadcastGenres(): object[] {
-      // FIXME: 取得先がわかり次第実装
-      return []
+      const broadcastEvent = this.episode?.broadcastEvent[0]
+      if (broadcastEvent === undefined) return []
+
+      const genres = broadcastEvent.identifierGroup.genres
+
+      return genres.map((item: any) => {
+        return { id: item.id, name: item.name1 + '/' + item.name2 }
+      })
     },
   },
 })
@@ -135,5 +141,7 @@ export default Vue.extend({
 
 .broadcast-genre-badge {
   background-color: #fedc9b;
+  border-radius: 0;
+  margin-bottom: 4px;
 }
 </style>
