@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 json.type 'NPlaylist'
-json.id @request_url
+json.id "eh-#{format('%010d', @playlist.id)}"
 json.name @playlist.name
 json.detailedSeriesNameRuby @playlist.detailed_name_ruby
 
