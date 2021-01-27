@@ -6,6 +6,7 @@
         :class="{ current: isList }"
         @click="changeTab('list')"
       >
+        <span v-if="hasUnsavedList" class="unsaved-change">●</span>
         <span>リスト (NItemList)</span>
       </div>
     </div>
@@ -15,9 +16,8 @@
         :class="{ current: isArticle }"
         @click="changeTab('article')"
       >
-        <v-icon v-if="!articleTabValidation" color="#AB0000"
-          >mdi-information
-        </v-icon>
+        <span v-if="!articleTabValidation" class="has-error">●</span>
+        <span v-else-if="hasUnsavedArticle" class="unsaved-change">●</span>
         <span>記事 (NArticle)</span>
       </div>
     </div>
@@ -27,9 +27,8 @@
         :class="{ current: isSeries }"
         @click="changeTab('series')"
       >
-        <v-icon v-if="!seriesTabValidation" color="#AB0000"
-          >mdi-information
-        </v-icon>
+        <span v-if="!seriesTabValidation" class="has-error">●</span>
+        <span v-else-if="hasUnsavedSeries" class="unsaved-change">●</span>
         <span>基本情報(NSeries)</span>
       </div>
     </div>
@@ -47,6 +46,21 @@ export default Vue.extend({
       type: String as PropType<PlaylistTab>,
       default: PlaylistTab.list,
       required: false,
+    },
+    hasUnsavedList: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+    hasUnsavedArticle: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+    hasUnsavedSeries: {
+      type: Boolean,
+      default: false,
+      required: true,
     },
     articleTabValidation: {
       type: Boolean,
@@ -181,5 +195,19 @@ export default Vue.extend({
   color: #fff;
   background-color: #2f2d2e;
   font-weight: bold;
+}
+
+.has-error {
+  color: #ab0000;
+  font-size: 8px;
+  position: relative;
+  top: -9px;
+}
+
+.unsaved-change {
+  color: #009688;
+  font-size: 8px;
+  position: relative;
+  top: -9px;
 }
 </style>
