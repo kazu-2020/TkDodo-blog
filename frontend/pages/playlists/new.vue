@@ -279,7 +279,6 @@ export default Vue.extend({
     },
     deleteEpisode(episode: any) {
       this.resetUnloadAlert()
-      this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
       this.playlist.items?.splice(this.playlist.items?.indexOf(episode), 1)
     },
     updateArticle(article: any) {
