@@ -163,14 +163,6 @@ export default {
 <style lang="scss">
 @import '~/assets/css/editorjs/plugins.scss';
 
-.ce-block__content,
-.ce-toolbar__content {
-  max-width: 2000px;
-}
-.ce-block__content {
-  margin: 0 20px;
-}
-
 .ce-toolbox__button[data-tool='episode'],
 .ce-toolbox__button[data-tool='tvEvent'],
 .ce-toolbox__button[data-tool='howTo'],
