@@ -2,12 +2,17 @@
   <div class="article-container container-fluid white rounded px-5 py-2">
     <v-row>
       <v-col cols="12">
-        <h3 class="mb-4">ヘッダー</h3>
-        <v-textarea v-model="header" outlined auto-grow />
+        <h3 class="content-title">ヘッダー</h3>
+        <v-textarea
+          v-model="header"
+          outlined
+          auto-grow
+          class="text-area-width"
+        />
         <hr class="dotted_hr" />
       </v-col>
       <v-col cols="12">
-        <h3>記事本文</h3>
+        <h3 class="content-title">記事本文</h3>
         <editable-section
           key="sandbox2"
           section-id="sandbox2"
@@ -21,8 +26,13 @@
         <hr class="dotted_hr" />
       </v-col>
       <v-col cols="12">
-        <h3 class="mb-4">フッター</h3>
-        <v-textarea v-model="footer" outlined auto-grow />
+        <h3 class="content-title">フッター</h3>
+        <v-textarea
+          v-model="footer"
+          outlined
+          auto-grow
+          class="text-area-width"
+        />
       </v-col>
       <v-col cols="12" class="vertical_divider">
         <v-sheet color="grey lighten-3" rounded class="pb-2 mb-1">
@@ -226,8 +236,18 @@ export default Vue.extend({
 </style>
 
 <style lang="scss">
+.content-title {
+  max-width: 672px;
+  margin: 0 auto 10px;
+}
+
+.text-area-width {
+  max-width: 670px;
+  margin: 0 auto;
+}
+
 .ce-toolbar__actions {
-  left: -25px;
+  left: -50px;
   right: unset;
   top: 10px;
 }
@@ -238,7 +258,7 @@ export default Vue.extend({
 }
 
 .ce-toolbar__plus {
-  left: -55px !important;
+  left: -85px !important;
 }
 
 .ce-block--focused {
