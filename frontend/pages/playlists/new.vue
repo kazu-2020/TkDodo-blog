@@ -18,6 +18,9 @@
             :series-tab-validation="isValidSeriesTab"
             :hide-list-step="hideListStep"
             :hide-article-step="hideArticleStep"
+            :has-unsaved-list="hasUnsavedList"
+            :has-unsaved-article="hasUnsavedArticle"
+            :has-unsaved-series="hasUnsavedSeries"
             @change-tab="changeTab"
           />
         </v-col>
@@ -153,6 +156,9 @@ interface Breadcrumb {
 interface DataType {
   playlist: Partial<Playlist>
   currentTab: PlaylistTab
+  hasUnsavedList: boolean
+  hasUnsavedArticle: boolean
+  hasUnsavedSeries: boolean
   isValidArticleTab: boolean
   isValidSeriesTab: boolean
   isShowDiffDialog: boolean
@@ -174,6 +180,9 @@ export default Vue.extend({
     return {
       playlist: { article: { body: undefined }, items: [] },
       currentTab: PlaylistTab.list,
+      hasUnsavedList: false,
+      hasUnsavedArticle: false,
+      hasUnsavedSeries: false,
       isValidArticleTab: true,
       isValidSeriesTab: true,
       isShowDiffDialog: false,
@@ -258,6 +267,7 @@ export default Vue.extend({
     },
     resetUnloadAlert(): void {
       if (this.currentTab !== PlaylistTab.list) return
+      this.hasUnsavedList = true
       ;(this as any).showUnloadAlert()
     },
     updateEpisodes(episodes: any) {
@@ -276,12 +286,14 @@ export default Vue.extend({
     updateArticle(article: any) {
       if (this.currentTab === PlaylistTab.article) {
         ;(this as any).showUnloadAlert()
+        this.hasUnsavedArticle = true
       }
       this.playlist.article = article
     },
     updateSeries(playlist: any) {
       if (this.currentTab === PlaylistTab.series) {
         ;(this as any).showUnloadAlert()
+        this.hasUnsavedSeries = true
       }
       this.playlist = playlist
     },
@@ -432,6 +444,10 @@ export default Vue.extend({
           if ((this as any).diffEpisodeItems.length !== 0) {
             ;(this as any).isShowDiffDialog = true
           }
+          this.hasUnsavedList = false
+          this.hasUnsavedArticle = false
+          this.hasUnsavedSeries = false
+
           this.$router.push(`/playlists/${this.playlist.id}`)
         })
         .catch((_error) => {
