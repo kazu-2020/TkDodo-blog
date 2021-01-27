@@ -305,6 +305,7 @@ export default Vue.extend({
     },
     name: {
       handler(newVal) {
+        if (this.playlist.name === newVal) return
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, { name: newVal })
         this.$emit('update-series', playlist)
@@ -312,6 +313,7 @@ export default Vue.extend({
     },
     detailedNameRuby: {
       handler(newVal) {
+        if (this.playlist.detailedNameRuby === newVal) return
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, {
           detailedNameRuby: newVal,
@@ -321,6 +323,7 @@ export default Vue.extend({
     },
     detailedCatch: {
       handler(newVal) {
+        if (this.playlist.detailedCatch === newVal) return
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, {
           detailedCatch: newVal,
@@ -330,6 +333,7 @@ export default Vue.extend({
     },
     description: {
       handler(newVal) {
+        if (this.playlist.description === newVal) return
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, {
           description: newVal,
@@ -339,6 +343,7 @@ export default Vue.extend({
     },
     keywords: {
       handler(newVal) {
+        if (this.playlist.keywords === newVal) return
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, { keywords: newVal })
         this.$emit('update-series', playlist)
@@ -346,6 +351,7 @@ export default Vue.extend({
     },
     hashtag: {
       handler(newVal) {
+        if (this.playlist.hashtag === newVal) return
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, { hashtag: newVal })
         this.$emit('update-series', playlist)
@@ -353,6 +359,7 @@ export default Vue.extend({
     },
     formatGenre: {
       handler(newVal) {
+        if (this.playlist.formatGenre === newVal) return
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, {
           formatGenre: newVal,
@@ -362,6 +369,7 @@ export default Vue.extend({
     },
     themeGenre: {
       handler(newVal) {
+        if (this.playlist.themeGenre === newVal) return
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, { themeGenre: newVal })
         this.$emit('update-series', playlist)
@@ -369,6 +377,7 @@ export default Vue.extend({
     },
     sameAs: {
       handler(newVal) {
+        if (this.playlist.sameAs === newVal) return
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, { sameAs: newVal })
         this.$emit('update-series', playlist)
@@ -376,6 +385,7 @@ export default Vue.extend({
     },
     citations: {
       handler(newVal) {
+        if (this.playlist.citations === newVal) return
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, { citations: newVal })
         this.$emit('update-series', playlist)
@@ -383,6 +393,7 @@ export default Vue.extend({
     },
     aliasId: {
       handler(newVal) {
+        if (this.playlist.aliasId === newVal) return
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, { aliasId: newVal })
         this.$emit('update-series', playlist)

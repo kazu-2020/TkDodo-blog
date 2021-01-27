@@ -16,6 +16,9 @@
             :current="currentTab"
             :article-tab-validation="isValidArticleTab"
             :series-tab-validation="isValidSeriesTab"
+            :has-unsaved-list="hasUnsavedList"
+            :has-unsaved-article="hasUnsavedArticle"
+            :has-unsaved-series="hasUnsavedSeries"
             @change-tab="changeTab"
           />
         </v-col>
@@ -159,6 +162,9 @@ interface Breadcrumb {
 
 interface DataType {
   currentTab: PlaylistTab
+  hasUnsavedList: boolean
+  hasUnsavedArticle: boolean
+  hasUnsavedSeries: boolean
   isValidArticleTab: boolean
   isValidSeriesTab: boolean
   isShowDiffDialog: boolean
@@ -183,6 +189,9 @@ export default Vue.extend({
   data(): DataType {
     return {
       currentTab: PlaylistTab.list,
+      hasUnsavedList: false,
+      hasUnsavedArticle: false,
+      hasUnsavedSeries: false,
       isValidArticleTab: true,
       isValidSeriesTab: true,
       isShowDiffDialog: false,
@@ -256,6 +265,7 @@ export default Vue.extend({
     resetUnloadAlert(): void {
       if (this.currentTab !== PlaylistTab.list) return
       ;(this as any).showUnloadAlert()
+      this.hasUnsavedList = true
     },
     updateEpisodes(episodes: any) {
       this.resetUnloadAlert()
@@ -272,12 +282,14 @@ export default Vue.extend({
     updateArticle(article: any) {
       if (this.currentTab === PlaylistTab.article) {
         ;(this as any).showUnloadAlert()
+        this.hasUnsavedArticle = true
       }
       this.$store.dispatch('playlists/updateArticle', article)
     },
     updateSeries(playlist: any) {
       if (this.currentTab === PlaylistTab.series) {
         ;(this as any).showUnloadAlert()
+        this.hasUnsavedSeries = true
       }
       this.$store.dispatch('playlists/updateEditingPlaylist', playlist)
     },
@@ -419,7 +431,6 @@ export default Vue.extend({
       this.$axios
         .put(`/playlists/${this.playlist.id}`, data)
         .then((response) => {
-          console.log(response)
           this.$store.dispatch('loading/succeedLoading')
           this.$store.dispatch(
             'playlists/setEditingPlaylist',
@@ -436,6 +447,10 @@ export default Vue.extend({
           if ((this as any).diffEpisodeItems.length !== 0) {
             ;(this as any).isShowDiffDialog = true
           }
+
+          this.hasUnsavedList = false
+          this.hasUnsavedArticle = false
+          this.hasUnsavedSeries = false
         })
         .catch((_error) => {
           this.$store.dispatch('loading/failLoading')
