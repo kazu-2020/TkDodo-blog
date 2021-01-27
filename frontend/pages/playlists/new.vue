@@ -29,8 +29,7 @@
           <v-btn
             x-large
             block
-            color="orange"
-            dark
+            color="accent"
             elevation="0"
             :disabled="preventSaveButton"
             @click="save"
