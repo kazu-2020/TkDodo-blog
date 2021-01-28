@@ -3,36 +3,42 @@
     <v-row>
       <v-col cols="12">
         <h3 class="content-title">ヘッダー</h3>
-        <v-textarea
-          v-model="header"
-          outlined
-          auto-grow
-          class="text-area-width"
-        />
+        <div class="d-flex justify-center">
+          <v-textarea
+            v-model="header"
+            outlined
+            auto-grow
+            class="text-area-width"
+          />
+        </div>
         <hr class="dotted_hr" />
       </v-col>
       <v-col cols="12">
         <h3 class="content-title">記事本文</h3>
-        <editable-section
-          key="sandbox2"
-          section-id="sandbox2"
-          :playlist-id="playlist.id"
-          :initial-data="body"
-          class="mb-8 mr-4 ml-12"
-          :image-by-file-endpoint="imageByFileEndpoint"
-          :image-by-url-endpoint="imageByUrlEndpoint"
-          @modify-content="setCurrentContent"
-        />
+        <div class="d-flex justify-center">
+          <editable-section
+            key="sandbox2"
+            section-id="sandbox2"
+            :playlist-id="playlist.id"
+            :initial-data="body"
+            class="mb-8 mr-4 ml-12"
+            :image-by-file-endpoint="imageByFileEndpoint"
+            :image-by-url-endpoint="imageByUrlEndpoint"
+            @modify-content="setCurrentContent"
+          />
+        </div>
         <hr class="dotted_hr" />
       </v-col>
       <v-col cols="12">
         <h3 class="content-title">フッター</h3>
-        <v-textarea
-          v-model="footer"
-          outlined
-          auto-grow
-          class="text-area-width"
-        />
+        <div class="d-flex justify-center">
+          <v-textarea
+            v-model="footer"
+            outlined
+            auto-grow
+            class="text-area-width"
+          />
+        </div>
       </v-col>
       <v-col cols="12" class="vertical_divider">
         <v-sheet color="grey lighten-3" rounded class="pb-2 mb-1">
