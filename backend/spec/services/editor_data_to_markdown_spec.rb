@@ -16,6 +16,10 @@ describe EditorDataToMarkdown, type: :model do
             'text' => 'テキスト<b>太字</b><br>改行<i>イタリック</i><b><i>太字イタリック</i></b>'
           },
             'type' => 'paragraph' },
+          { 'data' => {
+            'text' => 'テキスト<b>太字<br></b><br>改行<i>イタリック<br></i><b><i>太字イタリック<br></i><br></b>'
+          },
+            'type' => 'paragraph' },
           {
             'data' => {
               'file' => {
@@ -85,6 +89,9 @@ describe EditorDataToMarkdown, type: :model do
     it do
       s = <<~MARKDOWN
         ## 見出し**太字**#{'  '}
+        改行*イタリック****太字イタリック***
+
+        テキスト**太字**#{'  '}
         改行*イタリック****太字イタリック***
 
         テキスト**太字**#{'  '}

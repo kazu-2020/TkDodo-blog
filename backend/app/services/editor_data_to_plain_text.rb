@@ -77,6 +77,8 @@ class EditorDataToPlainText
   end
 
   def convert_inline_br(text)
-    text.gsub(%r{</?br>}) { "  \n" }
+    text.gsub(%r{</?br></b>}) { '' }
+        .gsub(%r{</?br></i>}) { '' }
+        .gsub(%r{</?br>}) { "\n" }
   end
 end

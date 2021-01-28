@@ -44,7 +44,9 @@ class EditorDataToMarkdown
   end
 
   def convert_inline_html_tags(text)
-    text.gsub(%r{</?b>}) { '**' }
+    text.gsub(%r{</?br></b>}) { '**' }
+        .gsub(%r{</?br></i>}) { '*' }
+        .gsub(%r{</?b>}) { '**' }
         .gsub(%r{</?i>}) { '*' }
         .gsub(%r{</?br>}) { "  \n" }
   end
