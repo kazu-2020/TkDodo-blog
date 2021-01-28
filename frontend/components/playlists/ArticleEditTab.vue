@@ -254,7 +254,7 @@ export default Vue.extend({
 
 .ce-toolbar__actions {
   left: -50px;
-  right: unset;
+  right: unset !important;
   top: 10px;
 }
 
