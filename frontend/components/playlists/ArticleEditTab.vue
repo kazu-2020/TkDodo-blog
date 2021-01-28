@@ -15,18 +15,16 @@
       </v-col>
       <v-col cols="12">
         <h3 class="content-title">記事本文</h3>
-        <div class="d-flex justify-center">
-          <editable-section
-            key="sandbox2"
-            section-id="sandbox2"
-            :playlist-id="playlist.id"
-            :initial-data="body"
-            class="mb-8 mr-4 ml-12"
-            :image-by-file-endpoint="imageByFileEndpoint"
-            :image-by-url-endpoint="imageByUrlEndpoint"
-            @modify-content="setCurrentContent"
-          />
-        </div>
+        <editable-section
+          key="sandbox2"
+          section-id="sandbox2"
+          :playlist-id="playlist.id"
+          :initial-data="body"
+          class="mb-8"
+          :image-by-file-endpoint="imageByFileEndpoint"
+          :image-by-url-endpoint="imageByUrlEndpoint"
+          @modify-content="setCurrentContent"
+        />
         <hr class="dotted_hr" />
       </v-col>
       <v-col cols="12">
@@ -243,12 +241,12 @@ export default Vue.extend({
 
 <style lang="scss">
 .content-title {
-  max-width: 672px;
+  max-width: 650px;
   margin: 0 auto 10px;
 }
 
 .text-area-width {
-  max-width: 670px;
+  max-width: 650px;
   margin: 0 auto;
 }
 
