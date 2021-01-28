@@ -7,7 +7,7 @@ export default class DescriptionLinkTool extends LinkTool {
 
     if (this.data.link) {
       this.makeDescriptionTextBox()
-      this.nodes.inputDescription.textContent = this.data.meta.description
+      this.nodes.inputDescription.value = this.data.meta.description
     }
 
     return wrapper
@@ -98,31 +98,26 @@ export default class DescriptionLinkTool extends LinkTool {
     const descriptionClass = 'link-tool__input-description'
 
     this.nodes.inputDescription = this.make(
-      'div',
+      'input',
       [this.CSS.input, descriptionClass],
       {
         contentEditable: !this.readOnly,
       }
     )
 
-    this.nodes.inputDescription.dataset.placeholder =
+    this.nodes.inputDescription.placeholder =
       'リンク先を説明するテキストを入力してください'
 
     if (!this.readOnly) {
+      this.nodes.inputDescription.addEventListener('paste', (event) => {
+        const description = (
+          event.clipboardData || window.clipboardData
+        ).getData('text')
+        this.setDescription(description)
+      })
+
       this.nodes.inputDescription.addEventListener('input', (event) => {
-        this.data.meta.description = event.target.textContent
-
-        if (this.data.meta.description) {
-          this.nodes.linkContent.insertBefore(
-            this.nodes.linkDescription,
-            this.nodes.linkText
-          )
-          this.nodes.linkDescription.textContent = this.data.meta.description
-        } else {
-          this.nodes.linkContent.removeChild(this.nodes.linkDescription)
-        }
-
-        this.nodes.linkContent.classList.add(this.CSS.linkContentRendered)
+        this.setDescription(event.target.value)
       })
     }
 
@@ -131,6 +126,21 @@ export default class DescriptionLinkTool extends LinkTool {
     }
 
     this.nodes.wrapper.appendChild(this.nodes.inputDescription)
+  }
+
+  setDescription(description) {
+    this.data.meta.description = description
+
+    if (this.data.meta.description) {
+      this.nodes.linkContent.insertBefore(
+        this.nodes.linkDescription,
+        this.nodes.linkText
+      )
+    } else {
+      this.nodes.linkContent.removeChild(this.nodes.linkDescription)
+    }
+
+    this.nodes.linkContent.classList.add(this.CSS.linkContentRendered)
   }
 
   makeWarningMessage() {

@@ -16,6 +16,10 @@ describe EditorDataToPlainText, type: :model do
             'text' => 'テキスト<b>太字</b><br>改行<i>イタリック</i><b><i>太字イタリック</i></b>'
           },
             'type' => 'paragraph' },
+          { 'data' => {
+            'text' => 'テキスト<b>太字<br></b><br>改行<i>イタリック<br></i><b><i>太字イタリック<br></i><br></b>'
+          },
+            'type' => 'paragraph' },
           {
             'data' => {
               'file' => {
@@ -84,10 +88,13 @@ describe EditorDataToPlainText, type: :model do
 
     it do
       s = <<~TEXT
-        見出し太字#{'  '}
+        見出し太字
         改行イタリック太字イタリック
 
-        テキスト太字#{'  '}
+        テキスト太字
+        改行イタリック太字イタリック
+
+        テキスト太字
         改行イタリック太字イタリック
 
         hello
@@ -98,13 +105,13 @@ describe EditorDataToPlainText, type: :model do
 
         1. one
         1. two
-        1. three#{'  '}
+        1. three
         three
         1. four
 
         ･ ichi
         ･ ni
-        ･ san#{'  '}
+        ･ san
         san
         ･ shi
 
