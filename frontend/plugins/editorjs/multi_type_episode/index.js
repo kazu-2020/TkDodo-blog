@@ -365,7 +365,7 @@ export default class MultiTypeEpisode {
    */
   showEpisodeLinkPreview() {
     const previewBlockHolder = new PreviewBlockBuilder(this, this.data)
-
+    this.resetContainerElement()
     this.nodes.container.appendChild(previewBlockHolder.buildEpisodeBlock())
   }
 
@@ -374,7 +374,7 @@ export default class MultiTypeEpisode {
    */
   showEpisodeRecipeLinkPreview() {
     const previewBlockHolder = new PreviewBlockBuilder(this, this.data)
-
+    this.resetContainerElement()
     this.nodes.container.appendChild(previewBlockHolder.buildRecipeBlock())
   }
 
@@ -383,7 +383,7 @@ export default class MultiTypeEpisode {
    */
   showEpisodeHowToLinkPreview() {
     const previewBlockHolder = new PreviewBlockBuilder(this, this.data)
-
+    this.resetContainerElement()
     this.nodes.container.appendChild(previewBlockHolder.buildHowToBlock())
   }
 
@@ -392,7 +392,7 @@ export default class MultiTypeEpisode {
    */
   showEpisodeEventLinkPreview() {
     const previewBlockHolder = new PreviewBlockBuilder(this, this.data)
-
+    this.resetContainerElement()
     this.nodes.container.appendChild(previewBlockHolder.buildEventBlock())
   }
 }
