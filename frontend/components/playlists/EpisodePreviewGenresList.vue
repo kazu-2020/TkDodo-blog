@@ -51,7 +51,9 @@
         </div>
         <div v-if="episodeThemeGenres.length === 0" class="genre-badge" />
       </div>
-      <div class="genre-title">ブロードキャストジャンル</div>
+      <div class="genre-title" :class="{ 'mb-5': hasNoBroadcastGenres }">
+        ブロードキャストジャンル
+      </div>
       <div
         v-for="broadcastGenre in broadcastGenres"
         :key="`broadcast-genre-${broadcastGenre.id}`"
@@ -95,6 +97,9 @@ export default Vue.extend({
       return genres.map((item: any) => {
         return { id: item.id, name: item.name1 + '/' + item.name2 }
       })
+    },
+    hasNoBroadcastGenres(): boolean {
+      return this.broadcastGenres.length === 0
     },
   },
 })
