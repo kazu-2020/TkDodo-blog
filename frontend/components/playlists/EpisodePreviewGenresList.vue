@@ -1,7 +1,7 @@
 <template>
   <v-col cols="12" class="py-0">
     <div class="genre-title">シリーズジャンル</div>
-    <div style="display: block">
+    <div class="genre-block">
       <div style="display: inline-block">
         <div style="font-size: 8px">フォーマット</div>
         <div
@@ -11,7 +11,7 @@
         >
           {{ seriesFormatGenre.name }}
         </div>
-        <div v-if="seriesFormatGenres.length === 0" class="genre-badge" />
+        <div v-if="seriesFormatGenres.length === 0" class="genre-badge">-</div>
       </div>
       /
       <div style="display: inline-block">
@@ -23,11 +23,11 @@
         >
           {{ seriesThemeGenre.name }}
         </div>
-        <div v-if="seriesThemeGenres.length === 0" class="genre-badge" />
+        <div v-if="seriesThemeGenres.length === 0" class="genre-badge">-</div>
       </div>
     </div>
     <div class="genre-title">エピソードジャンル</div>
-    <div style="display: block">
+    <div class="genre-block">
       <div style="display: inline-block">
         <div style="font-size: 8px">フォーマット</div>
         <div
@@ -37,7 +37,7 @@
         >
           {{ episodeFormatGenre.name }}
         </div>
-        <div v-if="episodeFormatGenres.length === 0" class="genre-badge" />
+        <div v-if="episodeFormatGenres.length === 0" class="genre-badge">-</div>
       </div>
       /
       <div style="display: inline-block">
@@ -49,11 +49,12 @@
         >
           {{ episodeThemeGenre.name }}
         </div>
-        <div v-if="episodeThemeGenres.length === 0" class="genre-badge" />
+        <div v-if="episodeThemeGenres.length === 0" class="genre-badge">-</div>
       </div>
-      <div class="genre-title" :class="{ 'mb-5': hasNoBroadcastGenres }">
-        ブロードキャストジャンル
-      </div>
+    </div>
+    <div class="genre-title">ブロードキャストジャンル</div>
+    <div class="genre-block">
+      <div v-if="hasNoBroadcastGenres" class="pb-2">-</div>
       <div
         v-for="broadcastGenre in broadcastGenres"
         :key="`broadcast-genre-${broadcastGenre.id}`"
@@ -106,6 +107,12 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.genre-block {
+  display: block;
+  background-color: #fbfbfb;
+  margin-right: 15px;
+}
+
 .genre-title {
   font-size: 13px;
   margin-top: 8px;

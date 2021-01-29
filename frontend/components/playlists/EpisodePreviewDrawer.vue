@@ -27,7 +27,7 @@
         直近放送日: {{ episodeRecentBroadcastDate }}
       </v-col>
       <episode-preview-genres-list :episode="episode" />
-      <v-col v-if="hasActorsOrContributors" cols="auto">
+      <v-col v-if="hasActorsOrContributors" cols="12" class="pb-0">
         <v-tooltip
           v-for="(data, index) in actorsAndContributors"
           :key="`episode-actor-contributor-${index}`"
@@ -78,7 +78,7 @@
             >
               {{ relatedPlaylist.name }}
             </nuxt-link>
-            <div class="thmubnail" style="position: relative">
+            <div class="thmubnail mt-2" style="position: relative">
               <nuxt-link
                 :to="{
                   name: 'playlists-id',
@@ -100,26 +100,33 @@
                 </div>
               </nuxt-link>
             </div>
-            <div
-              v-if="relatedPlaylist.formatGenreName.length !== 0"
-              class="format-genre-badge"
-            >
-              {{ relatedPlaylist.formatGenreName }}
-            </div>
-            <span
-              v-if="
-                relatedPlaylist.formatGenreName.length !== 0 ||
-                relatedPlaylist.themeGenreName.length !== 0
-              "
-              style="font-size: 12px"
-            >
+            <div class="genre-block">
+              <div style="display: inline-block">
+                <div style="font-size: 8px">フォーマット</div>
+                <div
+                  v-if="relatedPlaylist.formatGenreName.length !== 0"
+                  class="genre-badge format-genre-badge"
+                >
+                  {{ relatedPlaylist.formatGenreName }}
+                </div>
+                <div v-if="relatedPlaylist.formatGenreName.length === 0">-</div>
+              </div>
               /
-            </span>
-            <div
-              v-if="relatedPlaylist.themeGenreName.length !== 0"
-              class="theme-genre-badge"
-            >
-              {{ relatedPlaylist.themeGenreName }}
+              <div style="display: inline-block">
+                <div style="font-size: 8px">テーマ</div>
+                <div
+                  v-if="relatedPlaylist.themeGenreName.length !== 0"
+                  class="genre-badge theme-genre-badge"
+                >
+                  {{ relatedPlaylist.themeGenreName }}
+                </div>
+                <div
+                  v-if="relatedPlaylist.themeGenreName.length === 0"
+                  class="genre-badge"
+                >
+                  -
+                </div>
+              </div>
             </div>
           </v-col>
         </v-row>
@@ -298,7 +305,7 @@ export default Vue.extend({
   overflow: hidden;
   display: inline-block;
   margin-right: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   cursor: pointer;
   background-color: #546e7a;
   width: 40px;
@@ -330,7 +337,6 @@ export default Vue.extend({
   color: black;
   font-weight: bold;
   text-decoration: none;
-  margin-bottom: 4px;
 }
 
 .playlist-image {
@@ -354,20 +360,20 @@ export default Vue.extend({
 .format-genre-badge {
   display: inline-block;
   font-size: 10px;
-  background-color: #acdce2;
+  background-color: #99c24d;
   border-radius: 15px;
   color: black;
   font-weight: bold;
-  padding: 1px 5px;
+  padding: 2px 5px;
 }
 
 .theme-genre-badge {
   display: inline-block;
   font-size: 10px;
-  background-color: #fdacaf;
+  border: 2px solid #99c24d;
   border-radius: 15px;
   color: black;
   font-weight: bold;
-  padding: 1px 5px;
+  padding: 2px 5px;
 }
 </style>
