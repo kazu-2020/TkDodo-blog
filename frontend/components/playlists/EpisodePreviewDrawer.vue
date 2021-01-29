@@ -78,7 +78,7 @@
             >
               {{ relatedPlaylist.name }}
             </nuxt-link>
-            <div class="thmubnail" style="position: relative">
+            <div class="thmubnail mt-2" style="position: relative">
               <nuxt-link
                 :to="{
                   name: 'playlists-id',
@@ -100,26 +100,33 @@
                 </div>
               </nuxt-link>
             </div>
-            <div
-              v-if="relatedPlaylist.formatGenreName.length !== 0"
-              class="format-genre-badge"
-            >
-              {{ relatedPlaylist.formatGenreName }}
-            </div>
-            <span
-              v-if="
-                relatedPlaylist.formatGenreName.length !== 0 ||
-                relatedPlaylist.themeGenreName.length !== 0
-              "
-              style="font-size: 12px"
-            >
+            <div class="genre-block">
+              <div style="display: inline-block">
+                <div style="font-size: 8px">フォーマット</div>
+                <div
+                  v-if="relatedPlaylist.formatGenreName.length !== 0"
+                  class="genre-badge format-genre-badge"
+                >
+                  {{ relatedPlaylist.formatGenreName }}
+                </div>
+                <div v-if="relatedPlaylist.formatGenreName.length === 0">-</div>
+              </div>
               /
-            </span>
-            <div
-              v-if="relatedPlaylist.themeGenreName.length !== 0"
-              class="theme-genre-badge"
-            >
-              {{ relatedPlaylist.themeGenreName }}
+              <div style="display: inline-block">
+                <div style="font-size: 8px">テーマ</div>
+                <div
+                  v-if="relatedPlaylist.themeGenreName.length !== 0"
+                  class="genre-badge theme-genre-badge"
+                >
+                  {{ relatedPlaylist.themeGenreName }}
+                </div>
+                <div
+                  v-if="relatedPlaylist.themeGenreName.length === 0"
+                  class="genre-badge"
+                >
+                  -
+                </div>
+              </div>
             </div>
           </v-col>
         </v-row>
@@ -330,7 +337,6 @@ export default Vue.extend({
   color: black;
   font-weight: bold;
   text-decoration: none;
-  margin-bottom: 4px;
 }
 
 .playlist-image {
