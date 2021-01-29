@@ -27,7 +27,7 @@
         直近放送日: {{ episodeRecentBroadcastDate }}
       </v-col>
       <episode-preview-genres-list :episode="episode" />
-      <v-col v-if="hasActorsOrContributors" cols="auto">
+      <v-col v-if="hasActorsOrContributors" cols="12" class="pb-0">
         <v-tooltip
           v-for="(data, index) in actorsAndContributors"
           :key="`episode-actor-contributor-${index}`"
@@ -298,7 +298,7 @@ export default Vue.extend({
   overflow: hidden;
   display: inline-block;
   margin-right: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   cursor: pointer;
   background-color: #546e7a;
   width: 40px;
