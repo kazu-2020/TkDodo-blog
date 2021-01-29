@@ -360,20 +360,20 @@ export default Vue.extend({
 .format-genre-badge {
   display: inline-block;
   font-size: 10px;
-  background-color: #acdce2;
+  background-color: #99c24d;
   border-radius: 15px;
   color: black;
   font-weight: bold;
-  padding: 1px 5px;
+  padding: 2px 5px;
 }
 
 .theme-genre-badge {
   display: inline-block;
   font-size: 10px;
-  background-color: #fdacaf;
+  border: 2px solid #99c24d;
   border-radius: 15px;
   color: black;
   font-weight: bold;
-  padding: 1px 5px;
+  padding: 2px 5px;
 }
 </style>
