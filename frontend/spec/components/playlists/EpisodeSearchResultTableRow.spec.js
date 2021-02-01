@@ -1,22 +1,13 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import EpisodeSearchResultTableRow from '~/components/playlists/EpisodeSearchResultTableRow.vue'
 
 Vue.use(Vuetify)
 
 describe('components/playlists/EpisodeSearchResultTableRow.vue', () => {
-  const localVue = createLocalVue()
-  let vuetify
-
-  beforeEach(() => {
-    vuetify = new Vuetify()
-  })
-
   const mountFunction = (options) => {
     return mount(EpisodeSearchResultTableRow, {
-      localVue,
-      vuetify,
       ...options,
     })
   }

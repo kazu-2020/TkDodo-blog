@@ -3,7 +3,7 @@
     <v-container>
       <v-row class="px-4">
         <v-col class="playlist_logo_block py-0" @click="clickPlaylistItem">
-          <v-row class="pa-4">
+          <v-row>
             <v-col cols="3" class="pa-0 pl-1 pb-1 mt-1">
               <v-img
                 :src="logoImageUrl"

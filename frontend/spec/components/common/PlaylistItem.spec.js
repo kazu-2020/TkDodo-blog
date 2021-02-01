@@ -1,21 +1,12 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import { mount, RouterLinkStub, createLocalVue } from '@vue/test-utils'
+import { mount, RouterLinkStub } from '@vue/test-utils'
 import PlaylistItem from '~/components/common/PlaylistItem.vue'
 Vue.use(Vuetify)
 
 describe('components/common/PlaylistItem.vue', () => {
-  const localVue = createLocalVue()
-  let vuetify
-
-  beforeEach(() => {
-    vuetify = new Vuetify()
-  })
-
   it('Vue instance を作れている', () => {
     const wrapper = mount(PlaylistItem, {
-      localVue,
-      vuetify,
       stubs: {
         NuxtLink: RouterLinkStub,
       },
@@ -32,8 +23,6 @@ describe('components/common/PlaylistItem.vue', () => {
   describe('computed totalTime', () => {
     it('変換された時間を返却する', () => {
       const wrapper = mount(PlaylistItem, {
-        localVue,
-        vuetify,
         stubs: {
           NuxtLink: RouterLinkStub,
         },
@@ -49,8 +38,6 @@ describe('components/common/PlaylistItem.vue', () => {
 
     it('totalTime が null でも所定の結果を返却する', () => {
       const wrapper = mount(PlaylistItem, {
-        localVue,
-        vuetify,
         stubs: {
           NuxtLink: RouterLinkStub,
         },
@@ -69,8 +56,6 @@ describe('components/common/PlaylistItem.vue', () => {
     describe('プレイリストにロゴ情報がない', () => {
       it('default1 の画像を返却する', () => {
         const wrapper = mount(PlaylistItem, {
-          localVue,
-          vuetify,
           stubs: {
             NuxtLink: RouterLinkStub,
           },
@@ -91,8 +76,6 @@ describe('components/common/PlaylistItem.vue', () => {
       it('プレイリストに含まれるロゴ情報を返却する', () => {
         const logoUrl = 'https://example.com/logo.jpg'
         const wrapper = mount(PlaylistItem, {
-          localVue,
-          vuetify,
           stubs: {
             NuxtLink: RouterLinkStub,
           },
@@ -112,8 +95,6 @@ describe('components/common/PlaylistItem.vue', () => {
     describe('プレイリストに作成日がない', () => {
       it('固定の画像パスを返却', () => {
         const wrapper = mount(PlaylistItem, {
-          localVue,
-          vuetify,
           stubs: {
             NuxtLink: RouterLinkStub,
           },
@@ -130,8 +111,6 @@ describe('components/common/PlaylistItem.vue', () => {
     describe('プレイリストに作成日がある', () => {
       it('日付から決定された画像パスを返却', () => {
         const wrapper = mount(PlaylistItem, {
-          localVue,
-          vuetify,
           stubs: {
             NuxtLink: RouterLinkStub,
           },

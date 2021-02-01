@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'jets', '~> 2.3', submodules: true
+gem 'jets', git: 'https://github.com/boltops-tools/jets.git', submodules: true, branch: 'master'
 
 gem 'acts_as_list'
 gem 'chroma'
