@@ -2,7 +2,7 @@
   <v-layout column style="position: relative">
     <div class="fixed-row-wrapper">
       <v-row class="fixed-row pt-2 pr-15" justify="space-between">
-        <v-col cols="12">
+        <v-col cols="12" class="pt-8">
           <v-breadcrumbs :items="breadcrumbItems" class="pa-0">
             <template #item="{ item }">
               <v-breadcrumbs-item :href="item.href" :disabled="item.disabled">

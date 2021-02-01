@@ -1,48 +1,6 @@
 GIT
-  remote: https://github.com/boltops-tools/jets.git
-  revision: 731d6742d707518096dbde7254c8c7db31a93fa2
-  branch: master
-  submodules: true
-  specs:
-    jets (2.3.18)
-      actionmailer (~> 6.0.0)
-      actionpack (~> 6.0.0)
-      actionview (~> 6.0.0)
-      activerecord (~> 6.0.0)
-      activesupport (~> 6.0.0)
-      aws-mfa-secure (~> 0.4.0)
-      aws-sdk-apigateway
-      aws-sdk-cloudformation
-      aws-sdk-cloudwatchlogs
-      aws-sdk-dynamodb
-      aws-sdk-kinesis
-      aws-sdk-lambda
-      aws-sdk-s3
-      aws-sdk-sns
-      aws-sdk-sqs
-      aws-sdk-ssm
-      cfn_camelizer (~> 0.4.6)
-      cfnresponse
-      dotenv
-      gems
-      hashie
-      jets-gems
-      jets-html-sanitizer
-      kramdown
-      memoist
-      mimemagic
-      rack
-      railties (~> 6.0.0)
-      rainbow
-      recursive-open-struct
-      shotgun
-      text-table
-      thor
-      zeitwerk
-
-GIT
   remote: https://github.com/shrinerb/shrine.git
-  revision: 5869396e8380a09065f7d1a100bc3baef1a975c9
+  revision: 8a0fa775281429f4e9ce9defecd18df71757ea72
   specs:
     shrine (3.3.0)
       content_disposition (~> 1.0)
@@ -84,11 +42,11 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
-    acts_as_list (1.0.2)
+    acts_as_list (1.0.3)
       activerecord (>= 4.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    ast (2.4.1)
+    ast (2.4.2)
     aws-eventstream (1.1.0)
     aws-logs (0.3.4)
       activesupport
@@ -105,8 +63,8 @@ GEM
       rainbow
       thor
       zeitwerk
-    aws-partitions (1.406.0)
-    aws-sdk-apigateway (1.57.0)
+    aws-partitions (1.421.0)
+    aws-sdk-apigateway (1.58.0)
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-cloudformation (1.46.0)
@@ -118,10 +76,10 @@ GEM
     aws-sdk-codebuild (1.65.0)
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-codepipeline (1.38.0)
+    aws-sdk-codepipeline (1.39.0)
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-core (3.110.0)
+    aws-sdk-core (3.111.2)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
@@ -132,23 +90,23 @@ GEM
     aws-sdk-kinesis (1.30.0)
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-kms (1.39.0)
+    aws-sdk-kms (1.41.0)
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-lambda (1.56.0)
+    aws-sdk-lambda (1.57.0)
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.86.2)
+    aws-sdk-s3 (1.87.0)
       aws-sdk-core (~> 3, >= 3.109.0)
-      aws-sdk-kms (~> 1.26)
+      aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
-    aws-sdk-sns (1.36.0)
-      aws-sdk-core (~> 3, >= 3.109.0)
-      aws-sigv4 (~> 1.1)
-    aws-sdk-sqs (1.34.0)
+    aws-sdk-sns (1.37.0)
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-ssm (1.99.0)
+    aws-sdk-sqs (1.35.0)
+      aws-sdk-core (~> 3, >= 3.109.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-ssm (1.103.0)
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sigv4 (~> 1.1)
     aws-sigv4 (1.2.2)
@@ -159,13 +117,13 @@ GEM
       memoist
     builder (3.2.4)
     byebug (11.1.3)
-    capybara (3.34.0)
+    capybara (3.35.1)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
-      regexp_parser (~> 1.5)
+      regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     cfn-status (0.4.2)
       aws-sdk-cloudformation
@@ -180,8 +138,8 @@ GEM
       text-table
       zeitwerk
     coderay (1.1.3)
-    cody (1.0.2)
-      activesupport (~> 6.0.0)
+    cody (1.0.4)
+      activesupport
       aws-logs
       aws-mfa-secure
       aws-sdk-cloudformation
@@ -197,7 +155,7 @@ GEM
       thor
       zeitwerk
     colormath (0.1.2)
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.8)
     content_disposition (1.0.0)
     counter_culture (2.7.0)
       activerecord (>= 4.2)
@@ -214,27 +172,64 @@ GEM
     erubi (1.10.0)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
-    faraday (1.1.0)
+    faraday (1.3.0)
+      faraday-net_http (~> 1.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
+    faraday-net_http (1.0.1)
     faraday_middleware (1.0.0)
       faraday (~> 1.0)
-    fastimage (2.2.0)
-    ffi (1.13.1)
-    friendly_id (5.4.1)
+    fastimage (2.2.1)
+    ffi (1.14.2)
+    friendly_id (5.4.2)
       activerecord (>= 4.0.0)
     gems (1.2.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashie (4.1.0)
-    i18n (1.8.5)
+    i18n (1.8.7)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.1)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
-    jbuilder (2.10.1)
+    jbuilder (2.11.2)
       activesupport (>= 5.0.0)
-    jets-gems (0.2.2)
+    jets (2.3.19)
+      actionmailer (~> 6.0.0)
+      actionpack (~> 6.0.0)
+      actionview (~> 6.0.0)
+      activerecord (~> 6.0.0)
+      activesupport (~> 6.0.0)
+      aws-mfa-secure (~> 0.4.0)
+      aws-sdk-apigateway
+      aws-sdk-cloudformation
+      aws-sdk-cloudwatchlogs
+      aws-sdk-dynamodb
+      aws-sdk-kinesis
+      aws-sdk-lambda
+      aws-sdk-s3
+      aws-sdk-sns
+      aws-sdk-sqs
+      aws-sdk-ssm
+      cfn_camelizer (~> 0.4.6)
+      cfnresponse
+      dotenv
+      gems
+      hashie
+      jets-gems (~> 0.2.3)
+      jets-html-sanitizer
+      kramdown
+      memoist
+      mimemagic
+      rack
+      railties (~> 6.0.0)
+      rainbow
+      recursive-open-struct
+      shotgun
+      text-table
+      thor
+      zeitwerk
+    jets-gems (0.2.3)
       gems
     jets-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
@@ -256,7 +251,7 @@ GEM
       rexml
     launchy (2.5.0)
       addressable (~> 2.7)
-    loofah (2.8.0)
+    loofah (2.9.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -266,19 +261,20 @@ GEM
     mimemagic (0.3.5)
     mini_magick (4.11.0)
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
-    minitest (5.14.2)
+    mini_portile2 (2.5.0)
+    minitest (5.14.3)
     multi_json (1.15.0)
     multipart-post (2.1.1)
     mysql2 (0.5.3)
     nio4r (2.5.4)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.11.1)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     nokogumbo (2.0.4)
       nokogiri (~> 1.8, >= 1.8.4)
     ostruct (0.1.0)
     parallel (1.20.1)
-    parser (2.7.2.0)
+    parser (3.0.0.0)
       ast (~> 2.4.1)
     pipedream (0.4.5)
       activesupport
@@ -300,8 +296,9 @@ GEM
       byebug (~> 11.0)
       pry (~> 0.13.0)
     public_suffix (4.0.6)
-    puma (5.1.1)
+    puma (5.2.0)
       nio4r (~> 2.0)
+    racc (1.5.2)
     rack (2.2.3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -317,10 +314,10 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
     rainbow (3.0.0)
-    rake (13.0.1)
+    rake (13.0.3)
     recursive-open-struct (1.1.3)
-    redcarpet (3.5.0)
-    regexp_parser (1.8.2)
+    redcarpet (3.5.1)
+    regexp_parser (2.0.3)
     render_me_pretty (0.8.3)
       activesupport
       rainbow
@@ -330,31 +327,31 @@ GEM
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
       rspec-mocks (~> 3.10.0)
-    rspec-core (3.10.0)
+    rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
-    rspec-expectations (3.10.0)
+    rspec-expectations (3.10.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
-    rspec-mocks (3.10.0)
+    rspec-mocks (3.10.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
-    rspec-support (3.10.0)
-    rubocop (1.6.1)
+    rspec-support (3.10.2)
+    rubocop (1.9.0)
       parallel (~> 1.10)
-      parser (>= 2.7.1.5)
+      parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
       rubocop-ast (>= 1.2.0, < 2.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 1.4.0, < 2.0)
-    rubocop-ast (1.3.0)
+      unicode-display_width (>= 1.4.0, < 3.0)
+    rubocop-ast (1.4.1)
       parser (>= 2.7.1.5)
-    ruby-progressbar (1.10.1)
+    ruby-progressbar (1.11.0)
     ruby-vips (2.0.17)
       ffi (~> 1.9)
-    ruby2_keywords (0.0.2)
-    sanitize (5.2.1)
+    ruby2_keywords (0.0.4)
+    sanitize (5.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.8.0)
       nokogumbo (~> 2.0)
@@ -362,12 +359,12 @@ GEM
       rack (>= 1.0)
     slack-incoming-webhooks (0.3.0)
     text-table (1.2.4)
-    thor (1.0.1)
+    thor (1.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    tzinfo (1.2.8)
+    tzinfo (1.2.9)
       thread_safe (~> 0.1)
-    unicode-display_width (1.7.0)
+    unicode-display_width (2.0.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.4.2)
@@ -391,7 +388,7 @@ DEPENDENCIES
   friendly_id
   image_processing
   jbuilder
-  jets!
+  jets (~> 2.3)
   jwt
   kaminari
   launchy

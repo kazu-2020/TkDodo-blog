@@ -3,7 +3,7 @@
     <v-container>
       <v-row class="px-4">
         <v-col class="playlist_logo_block py-0">
-          <v-row>
+          <v-row class="pa-4">
             <v-col cols="2" sm="3" xs="5" class="pa-0 pl-1 pb-1 mt-1 pr-4">
               <v-img
                 :src="logoImageUrl"
