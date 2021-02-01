@@ -57,9 +57,6 @@ Style/Documentation:
 Style/DocumentDynamicEvalDefinition:
   Enabled: true
 
-Style/EndlessMethod:
-  Enabled: true
-
 Style/ExplicitBlockArgument:
   Enabled: true
 
@@ -75,9 +72,6 @@ Style/HashAsLastArrayItem:
 Style/HashEachMethods:
   Enabled: true
 
-Style/HashExcept:
-  Enabled: true
-
 Style/HashLikeCase:
   Enabled: true
 
@@ -85,9 +79,6 @@ Style/HashTransformKeys:
   Enabled: true
 
 Style/HashTransformValues:
-  Enabled: true
-
-Style/IfWithBooleanLiteralBranches:
   Enabled: true
 
 Style/KeywordParametersOrder:
@@ -163,9 +154,6 @@ Metrics/ClassLength:
     - app/models/series.rb
   Max: 200
 
-Layout/BeginEndAlignment:
-  Enabled: true
-
 Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
 
@@ -175,7 +163,7 @@ Layout/LineLength:
 Layout/SpaceAroundMethodCallOperator:
   Enabled: true
 
-Layout/SpaceBeforeBrackets:
+Layout/BeginEndAlignment:
   Enabled: true
 
 Metrics/ModuleLength:
@@ -187,14 +175,11 @@ Naming/PredicateName:
 Naming/MethodParameterName:
   Enabled: false # メソッドの引数名の最小文字数制限
 
-Lint/AmbiguousAssignment:
-  Enabled: true
-
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - "spec/**/*"
 
-Lint/DeprecatedConstants:
+Lint/RaiseException:
   Enabled: true
 
 Lint/DeprecatedOpenSSLConstant:
@@ -248,37 +233,19 @@ Lint/HashCompareByIdentity:
 Lint/IdentityComparison:
   Enabled: true
 
-Lint/LambdaWithoutLiteralBlock:
-  Enabled: true
-
 Lint/MissingSuper:
   Enabled: true
 
 Lint/NoReturnInBeginEndBlocks:
   Enabled: true
 
-Lint/NumberedParameterAssignment:
-  Enabled: true
-
-Lint/OrAssignmentToConstant:
-  Enabled: true
-
 Lint/OutOfRangeRegexpRef:
-  Enabled: true
-
-Lint/RaiseException:
-  Enabled: true
-
-Lint/RedundantDirGlobSort:
   Enabled: true
 
 Lint/RedundantSafeNavigation:
   Enabled: true
 
 Lint/SelfAssignment:
-  Enabled: true
-
-Lint/SymbolConversion:
   Enabled: true
 
 Lint/ToEnumArguments:
@@ -288,9 +255,6 @@ Lint/TopLevelReturnWithArgument:
   Enabled: true
 
 Lint/TrailingCommaInAttributeDeclaration:
-  Enabled: true
-
-Lint/TripleQuotes:
   Enabled: true
 
 Lint/UnexpectedBlockArity:

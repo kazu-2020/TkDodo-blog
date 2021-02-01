@@ -2,7 +2,7 @@
   <v-layout column>
     <v-row>
       <v-col cols="12">
-        <div class="title mb-4 pt-2">東京デッキ一覧</div>
+        <div class="title mb-4">東京デッキ一覧</div>
       </v-col>
       <v-col cols="12">
         以下のプレイリストは

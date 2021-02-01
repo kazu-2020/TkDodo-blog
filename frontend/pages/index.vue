@@ -4,7 +4,7 @@
       <v-col cols="11">
         <v-row justify="space-between">
           <v-col cols="6">
-            <div class="title mb-4 pt-2">プレイリスト一覧</div>
+            <div class="title mb-4">プレイリスト一覧</div>
           </v-col>
           <v-col cols="2">
             <div class="mode_switch_block">
