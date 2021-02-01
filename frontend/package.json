@@ -31,7 +31,7 @@
     "@editorjs/link": "^2.3.1",
     "@editorjs/list": "^1.6.2",
     "@nuxtjs/auth": "^4.9.1",
-    "@nuxtjs/axios": "^5.12.2",
+    "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/moment": "^1.6.1",
     "@types/vue-markdown": "^2.2.1",
     "chroma-js": "^2.1.0",
