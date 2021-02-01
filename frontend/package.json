@@ -57,7 +57,7 @@
     "@nuxtjs/eslint-config-typescript": "^5.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
     "@nuxtjs/stylelint-module": "^4.0.0",
-    "@nuxtjs/vuetify": "^1.11.2",
+    "@nuxtjs/vuetify": "^1.11.3",
     "@types/chroma-js": "^2.1.3",
     "@types/jest": "^26.0.20",
     "@types/nuxtjs__auth": "^4.8.7",

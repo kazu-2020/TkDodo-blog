@@ -23,7 +23,7 @@
         v-for="(_episodes, index) in splittedEpisodes"
         :key="`splittedEpisode${index}`"
       >
-        <v-row class="px-4">
+        <v-row class="pa-4">
           <v-col
             v-for="episode in _episodes"
             :key="episode.id"
