@@ -6,7 +6,7 @@ Jets.application.routes.draw do
   scope prefix: :'d6.6' do
     scope prefix: :t do
       scope prefix: :nplaylist do
-        get 'id/:playlist_id', to: 'external/playlists#show'
+        get 'pl/:playlist_id', to: 'external/playlists#show'
       end
 
       scope prefix: :ndeck do

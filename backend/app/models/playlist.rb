@@ -131,6 +131,10 @@ class Playlist < ApplicationRecord
     end
   end
 
+  def original_id
+    "eh-#{format('%010d', id)}"
+  end
+
   def format_genre_name
     return '' unless format_genre_code
 
