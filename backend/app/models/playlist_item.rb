@@ -31,15 +31,14 @@ class PlaylistItem < ApplicationRecord
     client = DlabApiClient.new
     res = client.episode(type: 'tv', episode_id: episode_id)
     # BroadcastEvent だけが大きすぎて、MySQL のカラムにデータがすべて入らないため、削除
-    res.delete(:broadcastEvent)
-    self.cached_data = res
+    self.cached_data = res.reject { |key| key == :broadcastEvent }
     self.cached_data_at = Time.current
 
     set_duration(res)
 
     save
 
-    cached_data.deep_symbolize_keys
+    res
   end
 
   private
