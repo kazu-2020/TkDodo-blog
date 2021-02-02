@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 json.id playlist.string_id
+json.originalId playlist.original_id
 json.name playlist.name
 json.publishedState playlist.published_state
 json.detailedNameRuby playlist.detailed_name_ruby
