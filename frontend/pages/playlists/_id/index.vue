@@ -123,7 +123,7 @@
           <v-col cols="2">
             <playlist-json-dialog
               button-color="#000000"
-              :playlist-id="playlist.id"
+              :playlist-id="playlist.originalId"
             />
           </v-col>
         </div>
