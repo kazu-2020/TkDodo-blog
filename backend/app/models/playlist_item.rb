@@ -29,7 +29,7 @@ class PlaylistItem < ApplicationRecord
 
   def fetch_data
     client = DlabApiClient.new
-    res = client.episode_bundle(type: 'tv', episode_id: episode_id)[:tvepisode][0]
+    res = client.episode(type: 'tv', episode_id: episode_id)
     # BroadcastEvent だけが大きすぎて、MySQL のカラムにデータがすべて入らないため、削除
     res.delete(:broadcastEvent)
     self.cached_data = res

@@ -41,6 +41,15 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
+  # Episode データをリクエストする
+  #
+  # @param [String] type: 'tv' or 'radio'
+  # @param [String] episode_id: エピソードID
+  def episode(type:, episode_id:)
+    res = client.get "/#{VERSION}/t/tvepisode/#{type.downcase.first}e/#{episode_id}.json", INTERNAL_PARAMS
+    handle_response(res)
+  end
+
   # Series データ一式をリクエストする
   #
   # @param [String] type: 'tv' or 'radio'

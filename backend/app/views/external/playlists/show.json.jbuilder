@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 json.type 'NPlaylist'
-json.id "eh-#{format('%010d', @playlist.id)}"
+json.id @playlist.original_id
 json.name @playlist.name
 json.detailedSeriesNameRuby @playlist.detailed_name_ruby
 
 json.identifierGroup do
   json.playlistUId @playlist.string_id
-  json.playlistId "eh-#{format('%010d', @playlist.id)}"
+  json.playlistId @playlist.original_id
   json.playlistName @playlist.name
   json.typeOfList 'recommend'
   json.modeOfItem 'tv'

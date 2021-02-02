@@ -7,11 +7,11 @@ json.detailedCatch playlist.detailed_catch
 
 json.partial! 'shared/playlist_images', playlist: playlist
 
-json.id "eh-#{format('%010d', playlist.id)}"
+json.id playlist.original_id
 
 json.identifierGroup do
   json.playlistUId playlist.string_id
-  json.playlistId "eh-#{format('%010d', playlist.id)}"
+  json.playlistId playlist.original_id
   json.playlistName playlist.name
   json.typeOfList 'recommend'
   json.modeOfItem 'tv'
@@ -59,4 +59,4 @@ else
   json.sameAs nil
 end
 
-json.url "https://dev-api-eh.nr.nhk.jp/d6.6/t/nplaylist/id/#{playlist.string_id}?area=#{area}"
+json.url "https://dev-api-eh.nr.nhk.jp/d6.6/t/nplaylist/pl/#{playlist.original_id}.json?area=#{area}"

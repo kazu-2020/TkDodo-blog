@@ -5,7 +5,7 @@ describe External::PlaylistsController, type: :request do
     let(:playlist) { create(:playlist) }
 
     it 'returns success response' do
-      get "/d6.6/t/nplaylist/id/#{playlist.string_id}.json"
+      get "/d6.6/t/nplaylist/pl/#{playlist.original_id}.json"
       expect(response.status).to eq 200
     end
   end

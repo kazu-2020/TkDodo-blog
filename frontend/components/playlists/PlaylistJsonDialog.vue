@@ -8,7 +8,7 @@
     <v-card class="playlist_json_dialog">
       <v-card-title>
         <span class="headline">
-          {{ `/d6.6/t/nplaylist/id/${playlistId}.json 出力イメージ` }}
+          {{ `/d6.6/t/nplaylist/pl/${playlistId}.json 出力イメージ` }}
         </span>
       </v-card-title>
       <v-card-text>
@@ -49,7 +49,7 @@ export default Vue.extend({
     dialog: {
       handler(newValue) {
         if (newValue && this.playlistJson === null) {
-          this.$axios.get(`/d6.6/t/nplaylist/id/${this.playlistId}`).then((res) => {
+          this.$axios.get(`/d6.6/t/nplaylist/pl/${this.playlistId}`).then((res) => {
             this.playlistJson = res.data
           })
         }
