@@ -1,5 +1,5 @@
 <template>
-  <div class="preview-container container-fluid white rounded px-5 py-2">
+  <div class="preview-container container-fluid white rounded px-5 py-2 mt-4">
     <v-row>
       <v-col cols="2" md="2" sm="4" xs="12">
         <h2 class="playlist-title">{{ playlistName }}</h2>
