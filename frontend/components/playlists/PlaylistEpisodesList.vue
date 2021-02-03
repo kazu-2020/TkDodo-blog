@@ -27,7 +27,7 @@
               small
               color="orange"
               class="delete-button"
-              @click="deleteEpisode(item)"
+              @click.stop="deleteEpisode(item)"
             >
               <v-icon> mdi-minus </v-icon>
             </v-btn>
