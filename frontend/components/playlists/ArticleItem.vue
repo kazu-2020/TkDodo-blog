@@ -147,7 +147,7 @@ export default Vue.extend({
 
 @media only screen and (min-width: 960px) and (max-width: 1264px) {
   .article_outline {
-    max-height: 50px;
+    max-height: 49px;
   }
 }
 
