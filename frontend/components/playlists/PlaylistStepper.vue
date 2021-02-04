@@ -156,14 +156,14 @@ export default Vue.extend({
 .arrow-steps .step:last-child:before {
   right: -22px;
   border-top: 26px solid transparent;
-  border-bottom: 26px solid transparent;
+  border-bottom: 25px solid transparent;
   border-left: 20px solid #cecece;
 }
 
 .arrow-steps .step:last-child:after {
   right: -20px;
   border-top: 26px solid transparent;
-  border-bottom: 26px solid transparent;
+  border-bottom: 24px solid transparent;
   border-left: 20px solid white;
 }
 
