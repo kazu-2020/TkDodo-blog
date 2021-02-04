@@ -39,7 +39,12 @@
         </div>
       </v-col>
       <v-col cols="12" class="vertical_divider">
-        <v-sheet color="grey lighten-3" rounded class="pb-2 mb-1">
+        <v-sheet
+          color="grey lighten-3"
+          rounded
+          class="pb-2 mb-1"
+          style="max-width: 650px; margin: 0 auto 4px"
+        >
           <iconed-title
             icon="mdi-account-edit"
             title="編集者情報の入力"
