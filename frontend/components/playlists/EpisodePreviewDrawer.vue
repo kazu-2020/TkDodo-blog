@@ -50,7 +50,7 @@
             <v-img
               v-else
               :src="actorContributorImageUrl(data)"
-              width="40"
+              width="60"
               v-bind="attrs"
               class="actor_contributor_badge"
               v-on="on"
@@ -313,22 +313,23 @@ export default Vue.extend({
 }
 
 .actor_contributor_badge {
-  border-radius: 20px;
+  border-radius: 30px;
   overflow: hidden;
   display: inline-block;
   margin-right: 10px;
   margin-bottom: 10px;
   cursor: pointer;
   background-color: #546e7a;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   position: relative;
 
   .actor_contributor_badge_inner {
     display: inline-block;
     position: relative;
-    top: 6px;
-    left: 12px;
+    top: 12px;
+    left: 20px;
+    font-size: 20px;
     color: white;
     font-weight: bold;
   }
