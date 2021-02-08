@@ -32,7 +32,17 @@
       {{ releaseDate }}
     </td>
     <td>
-      <v-chip class="mx-2" color="pink" label text-color="white">視聴可</v-chip>
+      <v-chip
+        v-if="hasVideo(episode)"
+        class="mx-2"
+        color="pink"
+        label
+        text-color="white"
+        >視聴可</v-chip
+      >
+      <v-chip v-else class="mx-2" color="grey" label text-color="white"
+        >視聴不可</v-chip
+      >
     </td>
   </tr>
 </template>
@@ -95,6 +105,9 @@ export default Vue.extend({
       return `${('00' + hours).slice(-2)}:${('00' + minutes).slice(-2)}:${(
         '00' + seconds
       ).slice(-2)}`
+    },
+    hasVideo(episode: any) {
+      return episode.detailedRecentEvent?.id && episode.videos.length !== 0
     },
     clickEpisode() {
       this.$emit('select-episode', this.episode)
