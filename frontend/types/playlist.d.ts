@@ -23,6 +23,7 @@ export interface Playlist {
   textDarkColor: string
   linkLightColor: string
   linkDarkColor: string
+  publishedState?: string
   reservePublishTimeAt: string
   reserveFinishTimeAt: string
   logoImageData: string
