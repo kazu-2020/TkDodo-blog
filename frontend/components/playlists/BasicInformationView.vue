@@ -135,10 +135,10 @@ export default Vue.extend({
       return this.playlist?.description
     },
     publishedState(): string {
-      return this.playlist.publishedState === 'draft' ? '下書き' : '非公開'
+      return this.playlist?.publishedState === 'draft' ? '下書き' : '非公開'
     },
     publishedStateColor(): string {
-      return this.playlist.publishedState === 'draft'
+      return this.playlist?.publishedState === 'draft'
         ? 'grey lighten-1'
         : 'deep-orange darken-1'
     },
