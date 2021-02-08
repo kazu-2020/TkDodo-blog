@@ -4,7 +4,9 @@
       <v-col cols="6" class="pr-0">
         <h2 class="playlist-title">{{ playlistName }}</h2>
         <div v-show="hasPlaylistId" class="chips">
-          <v-chip class="my-1" small> 非公開 </v-chip>
+          <v-chip class="my-1" small :color="publishedStateColor">{{
+            publishedState
+          }}</v-chip>
           <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
             ID: {{ omittedPlaylisitId }}
           </v-chip>
@@ -131,6 +133,14 @@ export default Vue.extend({
     },
     playlistDescription(): string | undefined {
       return this.playlist?.description
+    },
+    publishedState(): string {
+      return this.playlist.publishedState === 'draft' ? '下書き' : '非公開'
+    },
+    publishedStateColor(): string {
+      return this.playlist.publishedState === 'draft'
+        ? 'grey lighten-1'
+        : 'deep-orange darken-1'
     },
   },
   methods: {

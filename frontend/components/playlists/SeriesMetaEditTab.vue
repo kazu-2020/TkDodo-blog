@@ -164,6 +164,14 @@
               />
             </v-col>
           </v-row>
+          <v-row dense class="my-5">
+            <v-col cols="12">
+              <h3>d6.6 API への公開/非公開</h3>
+            </v-col>
+            <v-col cols="12" sm="6" md="3">
+              <v-checkbox v-model="publishedState" label="公開する" />
+            </v-col>
+          </v-row>
         </v-form>
       </v-col>
     </v-row>
@@ -205,6 +213,7 @@ interface DataType {
   aliasIdRules: Function[]
   formatGenreList: Object[]
   themeGenreList: Object[]
+  publishedState: boolean
 }
 
 export default Vue.extend({
@@ -279,7 +288,13 @@ export default Vue.extend({
         { value: '096', text: '芸術' },
         { value: '110', text: '福祉全般' },
       ],
+      publishedState: this.playlist.publishedState === 'draft',
     }
+  },
+  computed: {
+    convertedPublishedState(): string {
+      return this.publishedState ? 'draft' : 'secret'
+    },
   },
   watch: {
     playlist: {
@@ -300,6 +315,7 @@ export default Vue.extend({
         this.sameAs = newVal.sameAs
         this.citations = newVal.citations
         this.aliasId = newVal.aliasId
+        this.publishedState = newVal.publishedState === 'draft'
       },
       deep: true,
     },
@@ -396,6 +412,17 @@ export default Vue.extend({
         if (this.playlist.aliasId === newVal) return
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, { aliasId: newVal })
+        this.$emit('update-series', playlist)
+      },
+    },
+    publishedState: {
+      handler() {
+        if (this.playlist.publishedState === this.convertedPublishedState)
+          return
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, {
+          publishedState: this.convertedPublishedState,
+        })
         this.$emit('update-series', playlist)
       },
     },
