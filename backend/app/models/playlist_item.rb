@@ -30,8 +30,8 @@ class PlaylistItem < ApplicationRecord
   def fetch_data
     client = DlabApiClient.new
     res = client.episode(type: 'tv', episode_id: episode_id)
-    # BroadcastEvent だけが大きすぎて、MySQL のカラムにデータがすべて入らないため、削除
-    self.cached_data = res.reject { |key| key == :broadcastEvent }
+    # BroadcastEvent, videos が大きすぎて、MySQL のカラムにデータがすべて入らないため、削除
+    self.cached_data = res.reject { |key| %i[broadcastEvent videos].include?(key) }
     self.cached_data_at = Time.current
 
     set_duration(res)
