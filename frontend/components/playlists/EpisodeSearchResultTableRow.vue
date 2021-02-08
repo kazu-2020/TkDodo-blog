@@ -33,14 +33,14 @@
     </td>
     <td>
       <v-chip
+        v-if="hasVideo(episode)"
         class="mx-2"
         color="pink"
         label
         text-color="white"
-        v-if="hasVideo(episode)"
         >視聴可</v-chip
       >
-      <v-chip class="mx-2" color="grey" label text-color="white" v-else
+      <v-chip v-else class="mx-2" color="grey" label text-color="white"
         >視聴不可</v-chip
       >
     </td>
@@ -107,7 +107,7 @@ export default Vue.extend({
       ).slice(-2)}`
     },
     hasVideo(episode: any) {
-      return episode.detailedRecentEvent.id && episode.videos.length !== 0
+      return episode.detailedRecentEvent?.id && episode.videos.length !== 0
     },
     clickEpisode() {
       this.$emit('select-episode', this.episode)

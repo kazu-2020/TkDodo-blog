@@ -52,15 +52,15 @@
           </td>
           <td>
             <v-chip
+              v-if="hasVideo(item)"
               class="mx-2"
               color="pink"
               label
               text-color="white"
-              v-if="hasVideo(item)"
             >
               視聴可
             </v-chip>
-            <v-chip class="mx-2" color="grey" label text-color="white" v-else>
+            <v-chip v-else class="mx-2" color="grey" label text-color="white">
               視聴不可
             </v-chip>
           </td>

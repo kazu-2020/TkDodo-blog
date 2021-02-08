@@ -20,6 +20,9 @@
           class="episode-image"
         />
       </v-col>
+      <v-col v-if="hasVideo" cols="12" class="text-center">
+        <iframe :src="videoUrl" style="width: 271px; border-style: none" />
+      </v-col>
       <v-col cols="12" class="pt-0 body-2">
         {{ episodeDescription }}
       </v-col>
@@ -207,6 +210,15 @@ export default Vue.extend({
     drawerWidth(): number {
       const halfSize = this.width * 0.4
       return Math.min(halfSize, 400)
+    },
+    videoUrl(): string {
+      return this.episode.videos[0].embedUrl
+    },
+    hasVideo(): boolean {
+      return (
+        this.episode?.detailedRecentEvent?.id &&
+        this.episode?.videos?.length !== 0
+      )
     },
   },
   watch: {
