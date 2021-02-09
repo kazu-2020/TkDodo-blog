@@ -240,11 +240,12 @@ export default Vue.extend({
   .actor_contributor_badge_inner {
     display: inline-block;
     position: relative;
-    top: 10px;
+    top: -48px;
     left: 16px;
     font-size: 18px;
     color: white;
     font-weight: bold;
+    padding: 60px 0px;
   }
 }
 

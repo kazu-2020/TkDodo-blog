@@ -49,24 +49,20 @@
           bottom
         >
           <template #activator="{ on, attrs }">
-            <div
-              v-if="noActorContributorImage(data)"
-              class="actor_contributor_badge"
-              v-bind="attrs"
-              v-on="on"
-            >
-              <div class="actor_contributor_badge_inner">
-                {{ actorContributorName(data).slice(0, 1) }}
-              </div>
-            </div>
             <v-img
-              v-else
               :src="actorContributorImageUrl(data)"
               width="60"
               v-bind="attrs"
               class="actor_contributor_badge"
               v-on="on"
-            />
+            >
+              <div
+                v-if="noActorContributorImage(data)"
+                class="actor_contributor_badge_inner"
+              >
+                {{ actorContributorName(data).slice(0, 1) }}
+              </div>
+            </v-img>
           </template>
           <span>{{ actorContributorName(data) }}</span>
         </v-tooltip>
@@ -206,11 +202,12 @@ export default Vue.extend({
   .actor_contributor_badge_inner {
     display: inline-block;
     position: relative;
-    top: 18px;
+    top: -40px;
     left: 20px;
     font-size: 20px;
     color: white;
     font-weight: bold;
+    padding: 60px 0px;
   }
 }
 </style>
