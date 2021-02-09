@@ -212,13 +212,18 @@ export default Vue.extend({
       return Math.min(halfSize, 400)
     },
     videoUrl(): string {
-      return this.episode.videos[0].embedUrl
+      const videos = this.episode?.videos || []
+      const okushibuVideo = videos.find(
+        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
+      )
+      return okushibuVideo.embedUrl
     },
     hasVideo(): boolean {
-      return (
-        this.episode?.detailedRecentEvent?.id &&
-        this.episode?.videos?.length !== 0
+      const videos = this.episode?.videos || []
+      const okushibuVideo = videos.find(
+        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
       )
+      return !!okushibuVideo
     },
   },
   watch: {
