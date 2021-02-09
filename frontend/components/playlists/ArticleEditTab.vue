@@ -15,6 +15,9 @@
       </v-col>
       <v-col cols="12">
         <h3 class="content-title">記事本文</h3>
+        <span class="character-counter float-right grey--text">
+          {{ counter }} 文字
+        </span>
         <editable-section
           key="sandbox2"
           section-id="sandbox2"
@@ -85,6 +88,7 @@
 <script>
 import Vue from 'vue'
 import lodash from 'lodash'
+import PlainTextParser from '../../plugins/editorjs/plain_text_parser'
 import EditableSection from '~/components/common/EditableSection.vue'
 import editorBlockMixin from '~/components/common/editorBlockMixin'
 import IconedTitle from '~/components/common/IconedTitle.vue'
@@ -138,6 +142,11 @@ export default Vue.extend({
       )
 
       return diffItems
+    },
+    counter() {
+      const plainText = PlainTextParser.parse(this.article.body)
+      if (!plainText) return 0
+      return plainText.length
     },
   },
   watch: {
@@ -253,6 +262,12 @@ export default Vue.extend({
 .text-area-width {
   max-width: 650px;
   margin: 0 auto;
+}
+
+.character-counter {
+  position: relative;
+  top: -50px;
+  right: 0;
 }
 
 .ce-toolbar__actions {
