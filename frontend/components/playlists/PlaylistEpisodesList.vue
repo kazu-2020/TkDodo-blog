@@ -140,7 +140,11 @@ export default Vue.extend({
       ).slice(-2)}`
     },
     hasVideo(episode: any) {
-      return episode.detailedRecentEvent.id && episode.videos.length !== 0
+      const videos = episode?.videos || []
+      const okushibuVideo = videos.find(
+        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
+      )
+      return !!okushibuVideo
     },
   },
 })

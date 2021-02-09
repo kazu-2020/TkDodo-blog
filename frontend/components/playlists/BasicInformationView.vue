@@ -4,7 +4,9 @@
       <v-col cols="6" class="pr-0">
         <h2 class="playlist-title">{{ playlistName }}</h2>
         <div v-show="hasPlaylistId" class="chips">
-          <v-chip class="my-1" small> 非公開 </v-chip>
+          <v-chip class="my-1" small :color="publishedStateColor">{{
+            publishedState
+          }}</v-chip>
           <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
             ID: {{ omittedPlaylisitId }}
           </v-chip>
@@ -47,24 +49,20 @@
           bottom
         >
           <template #activator="{ on, attrs }">
-            <div
-              v-if="noActorContributorImage(data)"
-              class="actor_contributor_badge"
+            <v-img
+              :src="actorContributorImageUrl(data)"
+              width="60"
               v-bind="attrs"
+              class="actor_contributor_badge"
               v-on="on"
             >
-              <div class="actor_contributor_badge_inner">
+              <div
+                v-if="noActorContributorImage(data)"
+                class="actor_contributor_badge_inner"
+              >
                 {{ actorContributorName(data).slice(0, 1) }}
               </div>
-            </div>
-            <v-img
-              v-else
-              :src="actorContributorImageUrl(data)"
-              width="40"
-              v-bind="attrs"
-              class="actor_contributor_badge"
-              v-on="on"
-            />
+            </v-img>
           </template>
           <span>{{ actorContributorName(data) }}</span>
         </v-tooltip>
@@ -132,6 +130,14 @@ export default Vue.extend({
     playlistDescription(): string | undefined {
       return this.playlist?.description
     },
+    publishedState(): string {
+      return this.playlist?.publishedState === 'draft' ? '下書き' : '非公開'
+    },
+    publishedStateColor(): string {
+      return this.playlist?.publishedState === 'draft'
+        ? 'grey lighten-1'
+        : 'deep-orange darken-1'
+    },
   },
   methods: {
     copyPlaylistId(): void {
@@ -182,24 +188,26 @@ export default Vue.extend({
 }
 
 .actor_contributor_badge {
-  border-radius: 20px;
+  border-radius: 30px;
   overflow: hidden;
   display: inline-block;
   margin-right: 10px;
   margin-bottom: 16px;
   cursor: pointer;
   background-color: #546e7a;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   position: relative;
 
   .actor_contributor_badge_inner {
     display: inline-block;
     position: relative;
-    top: 9px;
-    left: 13px;
+    top: -40px;
+    left: 20px;
+    font-size: 20px;
     color: white;
     font-weight: bold;
+    padding: 60px 0px;
   }
 }
 </style>

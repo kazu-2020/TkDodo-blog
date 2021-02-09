@@ -15,7 +15,9 @@
               <v-card-title class="title mb-1">
                 <a class="playlist-title">
                   <span class="playlist-name">{{ playlist.name }}</span>
-                  <v-chip class="ma-2" small>下書き</v-chip>
+                  <v-chip class="ma-2" small :color="publishedStateColor">{{
+                    publishedState
+                  }}</v-chip>
                 </a>
               </v-card-title>
               <v-card-text class="card-list-item pb-1">
@@ -87,6 +89,14 @@ export default Vue.extend({
     },
     lastUpdateDate(): string {
       return this.formattedDate(this.playlist.dateModified)
+    },
+    publishedState(): string {
+      return this.playlist?.publishedState === 'draft' ? '下書き' : '非公開'
+    },
+    publishedStateColor(): string {
+      return this.playlist?.publishedState === 'draft'
+        ? 'grey lighten-1'
+        : 'deep-orange darken-1'
     },
   },
   methods: {

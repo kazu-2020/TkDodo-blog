@@ -130,7 +130,7 @@ class PlaylistsController < ApplicationController
                   :text_light_color, :text_dark_color, :link_light_color, :link_dark_color,
                   :reserve_publish_time_at, :reserve_finish_time_at,
                   :original_series_id, :alias_id, :marked_header, :editor_data, :marked_footer,
-                  :author_type, :author_name, :publisher_type, :publisher_name,
+                  :author_type, :author_name, :publisher_type, :publisher_name, :published_state,
                   same_as_attributes: %i[id name url _destroy], citations_attributes: %i[id name url _destroy],
                   playlist_items_attributes: %i[episode_id],
                   keywords: [], hashtags: [])
