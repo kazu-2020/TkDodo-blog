@@ -353,6 +353,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .mode_switch_block {
   position: relative;
+  z-index: 1;
 }
 
 .mode_switch {
