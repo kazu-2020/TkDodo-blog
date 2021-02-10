@@ -136,7 +136,11 @@ export default Vue.extend({
   name: 'PlaylistTokyoPage',
   components: { PlaylistItem, BasicInformationView },
   async asyncData({ store }) {
-    await store.dispatch('playlists/fetchD5Playlists', { area: '130', page: 1 })
+    await store.dispatch('playlists/fetchD5Playlists', {
+      area: '130',
+      page: 1,
+      publishedState: 'draft',
+    })
   },
   data(): DataType {
     return {
