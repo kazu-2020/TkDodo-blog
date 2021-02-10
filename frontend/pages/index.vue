@@ -14,6 +14,15 @@
                 class="mode_switch"
               />
             </div>
+            <v-select
+              v-model="selectedPublishedStateFilter"
+              :items="publishedStateFilters"
+              item-text="text"
+              item-value="state"
+              class="pt-16"
+              dense
+              solo
+            />
           </v-col>
         </v-row>
       </v-col>
@@ -189,6 +198,7 @@ interface DataType {
   selectedPlaylistItems: EpisodeData[]
   selectedPlaylistActorContributor: Object[]
   width: number
+  selectedPublishedStateFilter: Object
 }
 
 export default Vue.extend({
@@ -200,7 +210,10 @@ export default Vue.extend({
     BasicInformationView,
   },
   async asyncData({ store }) {
-    await store.dispatch('playlists/fetchPlaylists', 1)
+    await store.dispatch('playlists/fetchPlaylists', {
+      page: 1,
+      publishedState: 'draft',
+    })
   },
   data(): DataType {
     return {
@@ -212,6 +225,7 @@ export default Vue.extend({
       selectedPlaylistItems: [],
       selectedPlaylistActorContributor: [],
       width: window.innerWidth,
+      selectedPublishedStateFilter: { state: 'draft', text: '下書きのみ' },
     }
   },
   computed: {
@@ -237,6 +251,12 @@ export default Vue.extend({
         (this.selectedPlaylistActorContributor as any)?.contributor || []
 
       return actors.concat(contributors)
+    },
+    publishedStateFilters(): Array<Object> {
+      return [
+        { state: 'draft', text: '下書きのみ' },
+        { state: '', text: '非公開を含む全て' },
+      ]
     },
   },
   watch: {
@@ -264,6 +284,14 @@ export default Vue.extend({
       handler() {
         this.fetchEpisodes()
         this.fetchActorContributor()
+      },
+    },
+    selectedPublishedStateFilter: {
+      handler(newValue) {
+        this.$store.dispatch('playlists/fetchPlaylists', {
+          page: 1,
+          publishedState: newValue,
+        })
       },
     },
   },

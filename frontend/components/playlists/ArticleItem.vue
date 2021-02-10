@@ -20,7 +20,9 @@
               <v-card-title class="title mb-1 pl-0">
                 <a class="playlist-title" @click="clickPlaylistItem">
                   <span class="playlist-name">{{ playlist.name }}</span>
-                  <v-chip class="ma-2" small>下書き</v-chip>
+                  <v-chip class="ma-2" small :color="publishedStateColor">{{
+                    publishedState
+                  }}</v-chip>
                 </a>
               </v-card-title>
               <v-card-text
@@ -92,6 +94,14 @@ export default Vue.extend({
     },
     isArticlePresent(): boolean {
       return this.articleOutline !== ''
+    },
+    publishedState(): string {
+      return this.playlist?.publishedState === 'draft' ? '下書き' : '非公開'
+    },
+    publishedStateColor(): string {
+      return this.playlist?.publishedState === 'draft'
+        ? 'grey lighten-1'
+        : 'deep-orange darken-1'
     },
   },
   methods: {

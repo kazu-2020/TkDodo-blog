@@ -59,11 +59,13 @@ export const mutations = mutationTree(state, {
 export const actions = actionTree(
   { state, getters, mutations },
   {
-    async fetchPlaylists({ commit }, page) {
-      await this.$axios.get(`/playlists?page=${page}`).then((response) => {
-        commit('setPlaylists', { playlists: response.data.playlists })
-        commit('setPagination', { pagination: response.data.pagination })
-      })
+    async fetchPlaylists({ commit }, { page, publishedState }) {
+      await this.$axios
+        .get(`/playlists?page=${page}&published_state=${publishedState}`)
+        .then((response) => {
+          commit('setPlaylists', { playlists: response.data.playlists })
+          commit('setPagination', { pagination: response.data.pagination })
+        })
     },
     async fetchD5Playlists({ commit }, payloads) {
       await this.$axios
