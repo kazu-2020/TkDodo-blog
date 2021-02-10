@@ -10,10 +10,12 @@ class PlaylistsController < ApplicationController
   def index
     @playlists = if params[:area].present?
                    deck = Deck.find_by(area: params[:area], is_r5: true)
-                   Playlist.of(deck).recent.page(@page).per(@per)
+                   Playlist.of(deck)
                  else
-                   Playlist.original.recent.page(@page).per(@per)
+                   Playlist.original
                  end
+    @playlists = @playlists.draft if params[:published_state] == 'draft'
+    @playlists = @playlists.recent.page(@page).per(@per)
   end
 
   def show
