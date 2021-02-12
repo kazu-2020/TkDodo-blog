@@ -110,6 +110,12 @@
                   <v-list-item-title v-text="item.name" />
                 </v-list-item-content>
               </v-list-item>
+              <v-list-item
+                v-if="playlist.browsableItemCount === 0"
+                class="caption px-0"
+              >
+                ※) このプレイリストには再生可能なエピソードが有りません
+              </v-list-item>
             </v-list>
           </v-col>
           <v-divider />

@@ -158,6 +158,12 @@
           <v-list-item-title style="font-size: 14px" v-text="item.name" />
         </v-list-item-content>
       </v-list-item>
+      <v-list-item
+        v-if="selectedPlaylistBrowsableItemCount === 0"
+        class="body-2 ml-2"
+      >
+        ※) このプレイリストには再生可能なエピソードが有りません
+      </v-list-item>
       <v-divider v-if="selectedActorsAndContributors.length > 0" class="mt-4" />
       <div
         v-if="selectedActorsAndContributors.length > 0"
@@ -240,6 +246,11 @@ export default Vue.extend({
     },
     selectedPlaylistId(): string {
       return this.selectedPlaylist ? this.selectedPlaylist.id : ''
+    },
+    selectedPlaylistBrowsableItemCount(): string {
+      return this.selectedPlaylist
+        ? this.selectedPlaylist.browsableItemCount
+        : 0
     },
     drawerWidth(): number {
       const halfSize = this.width * 0.6

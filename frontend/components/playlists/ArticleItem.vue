@@ -21,6 +21,12 @@
                 <a class="playlist-title" @click="clickPlaylistItem">
                   <span class="playlist-name">{{ playlist.name }}</span>
                   <published-state-badge class="ma-2" :playlist="playlist" />
+                  <span
+                    v-if="playlist.browsableItemCount === 0"
+                    style="font-size: 12px; color: black"
+                  >
+                    <v-icon>mdi-video-off-outline</v-icon>
+                  </span>
                 </a>
               </v-card-title>
               <v-card-text
