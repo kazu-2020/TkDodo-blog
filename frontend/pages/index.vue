@@ -255,7 +255,8 @@ export default Vue.extend({
     publishedStateFilters(): Array<Object> {
       return [
         { state: 'draft', text: '下書きのみ' },
-        { state: '', text: '非公開を含む全て' },
+        { state: 'secret', text: '非公開のみ' },
+        { state: '', text: '全て' },
       ]
     },
   },
