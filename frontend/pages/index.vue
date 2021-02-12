@@ -247,7 +247,7 @@ export default Vue.extend({
     selectedPlaylistId(): string {
       return this.selectedPlaylist ? this.selectedPlaylist.id : ''
     },
-    selectedPlaylistBrowsableItemCount(): string {
+    selectedPlaylistBrowsableItemCount(): number {
       return this.selectedPlaylist
         ? this.selectedPlaylist.browsableItemCount
         : 0

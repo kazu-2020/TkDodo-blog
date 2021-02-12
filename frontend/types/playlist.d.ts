@@ -32,6 +32,7 @@ export interface Playlist {
   removeLogoImage: boolean
   removeEyecatchImage: boolean
   removeHeroImage: boolean
+  browsableItemCount: number
   items: Array<EpisodeData>
   sameAs: SameAs
   citations: Array<Citation>
