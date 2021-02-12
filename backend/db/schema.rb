@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_19_045548) do
+ActiveRecord::Schema.define(version: 2021_02_12_060805) do
 
   create_table "article_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2021_01_19_045548) do
     t.string "item_id", comment: "コンテキストに紐づくアイテムのID"
     t.integer "position", default: 1, null: false
     t.integer "duration", comment: "エピソードの再生時間"
+    t.boolean "has_video", default: false, null: false, comment: "再生可能な動画があるか"
     t.text "cached_data", comment: "r6 API からのエピソードJSONのキャッシュ"
     t.datetime "cached_data_at", comment: "cache_data を保存した日時"
     t.datetime "created_at", precision: 6, null: false

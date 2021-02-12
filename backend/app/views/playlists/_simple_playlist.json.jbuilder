@@ -59,6 +59,7 @@ if playlist.hero_image_url
 end
 json.itemNum playlist.playlist_items_count
 json.totalTime playlist.total_time
+json.browsableItemCount playlist.browsable_item_count
 json.originalSeriesId playlist.original_series_id if playlist.original_series_id
 json.datePublished playlist.published_at
 

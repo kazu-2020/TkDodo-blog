@@ -44,6 +44,7 @@ end
 json.partial! 'shared/playlist_images', playlist: playlist
 json.itemNum playlist.playlist_items_count
 json.totalTime playlist.total_time
+json.browsableItemCount playlist.browsable_item_count
 
 json.article do
   json.header playlist.marked_header
