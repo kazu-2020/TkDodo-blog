@@ -20,9 +20,7 @@
               <v-card-title class="title mb-1 pl-0">
                 <a class="playlist-title" @click="clickPlaylistItem">
                   <span class="playlist-name">{{ playlist.name }}</span>
-                  <v-chip class="ma-2" small :color="publishedStateColor">{{
-                    publishedState
-                  }}</v-chip>
+                  <published-state-badge class="ma-2" :playlist="playlist" />
                 </a>
               </v-card-title>
               <v-card-text
@@ -58,10 +56,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
+import PublishedStateBadge from '~/components/playlists/PublishedStateBadge.vue'
 
 export default Vue.extend({
   name: 'ArticleItem',
-  components: {},
+  components: {
+    PublishedStateBadge,
+  },
   props: {
     playlist: {
       type: Object,
@@ -94,14 +95,6 @@ export default Vue.extend({
     },
     isArticlePresent(): boolean {
       return this.articleOutline !== ''
-    },
-    publishedState(): string {
-      return this.playlist?.publishedState === 'draft' ? '下書き' : '非公開'
-    },
-    publishedStateColor(): string {
-      return this.playlist?.publishedState === 'draft'
-        ? 'grey lighten-1'
-        : 'deep-orange darken-1'
     },
   },
   methods: {

@@ -15,9 +15,7 @@
               <v-card-title class="title mb-1">
                 <a class="playlist-title">
                   <span class="playlist-name">{{ playlist.name }}</span>
-                  <v-chip class="ma-2" small :color="publishedStateColor">{{
-                    publishedState
-                  }}</v-chip>
+                  <published-state-badge class="ma-2" :playlist="playlist" />
                 </a>
               </v-card-title>
               <v-card-text class="card-list-item pb-1">
@@ -42,6 +40,7 @@
 import Vue from 'vue'
 import moment from 'moment'
 import PlaylistEpisodesCarousel from '~/components/common/PlaylistEpisodesCarousel.vue'
+import PublishedStateBadge from '~/components/playlists/PublishedStateBadge.vue'
 
 interface DataType {
   episodePreviewNum: number
@@ -51,6 +50,7 @@ export default Vue.extend({
   name: 'PlaylistItem',
   components: {
     PlaylistEpisodesCarousel,
+    PublishedStateBadge,
   },
   props: {
     playlist: {
@@ -89,14 +89,6 @@ export default Vue.extend({
     },
     lastUpdateDate(): string {
       return this.formattedDate(this.playlist.dateModified)
-    },
-    publishedState(): string {
-      return this.playlist?.publishedState === 'draft' ? '下書き' : '非公開'
-    },
-    publishedStateColor(): string {
-      return this.playlist?.publishedState === 'draft'
-        ? 'grey lighten-1'
-        : 'deep-orange darken-1'
     },
   },
   methods: {

@@ -114,7 +114,7 @@ export default Vue.extend({
   color: #000;
   cursor: pointer;
   position: relative;
-  background-color: white;
+  background-color: #f4f4f4;
   border: 1px solid #cecece;
   height: 52px;
 }
@@ -141,12 +141,12 @@ export default Vue.extend({
   height: 0;
   border-top: 26px solid transparent;
   border-bottom: 25px solid transparent;
-  border-left: 19px solid white;
+  border-left: 19px solid #f4f4f4;
   z-index: 3;
 }
 
 .arrow-steps .current.step:after {
-  border-left: 19px solid #2f2d2e;
+  border-left: 19px solid white;
 }
 
 .arrow-steps .step:last-child {
@@ -164,11 +164,11 @@ export default Vue.extend({
   right: -20px;
   border-top: 26px solid transparent;
   border-bottom: 24px solid transparent;
-  border-left: 20px solid white;
+  border-left: 20px solid #f4f4f4;
 }
 
 .arrow-steps .current.step:last-child:after {
-  border-left: 20px solid #2f2d2e;
+  border-left: 20px solid white;
 }
 
 .arrow-steps .step span {
@@ -192,8 +192,8 @@ export default Vue.extend({
 }
 
 .arrow-steps .step.current {
-  color: #fff;
-  background-color: #2f2d2e;
+  color: black;
+  background-color: white;
   font-weight: bold;
 }
 
