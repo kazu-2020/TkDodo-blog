@@ -2,6 +2,10 @@ import LinkTool from '@editorjs/link'
 import ajax from '@codexteam/ajax'
 
 export default class DescriptionLinkTool extends LinkTool {
+  static get enableLineBreaks() {
+    return false
+  }
+
   render() {
     const wrapper = super.render()
 
