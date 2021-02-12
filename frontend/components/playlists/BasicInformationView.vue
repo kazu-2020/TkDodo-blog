@@ -4,9 +4,7 @@
       <v-col cols="6" class="pr-0">
         <h2 class="playlist-title">{{ playlistName }}</h2>
         <div v-show="hasPlaylistId" class="chips">
-          <v-chip class="my-1" small :color="publishedStateColor">{{
-            publishedState
-          }}</v-chip>
+          <published-state-badge class="my-1" :playlist="playlist" />
           <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
             ID: {{ omittedPlaylisitId }}
           </v-chip>
@@ -82,6 +80,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
+import PublishedStateBadge from '~/components/playlists/PublishedStateBadge.vue'
 
 interface DataType {
   snackbar: boolean
@@ -89,6 +88,9 @@ interface DataType {
 
 export default Vue.extend({
   name: 'BasicInformationView',
+  components: {
+    PublishedStateBadge,
+  },
   props: {
     playlist: {
       type: Object,
@@ -129,14 +131,6 @@ export default Vue.extend({
     },
     playlistDescription(): string | undefined {
       return this.playlist?.description
-    },
-    publishedState(): string {
-      return this.playlist?.publishedState === 'draft' ? '下書き' : '非公開'
-    },
-    publishedStateColor(): string {
-      return this.playlist?.publishedState === 'draft'
-        ? 'grey lighten-1'
-        : 'deep-orange darken-1'
     },
   },
   methods: {
