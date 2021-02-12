@@ -14,7 +14,12 @@ class PlaylistsController < ApplicationController
                  else
                    Playlist.original
                  end
-    @playlists = @playlists.draft if params[:published_state] == 'draft'
+    case params[:published_state]
+    when 'draft'
+      @playlists = @playlists.draft
+    when 'secret'
+      @playlists = @playlists.secret
+    end
     @playlists = @playlists.recent.page(@page).per(@per)
   end
 
