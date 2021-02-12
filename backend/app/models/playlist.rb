@@ -151,6 +151,10 @@ class Playlist < ApplicationRecord
     marked_body.present?
   end
 
+  def browsable_item_count
+    playlist_items.pluck(:has_video).select { |has_video| has_video }.size
+  end
+
   def wait_for_publish!(reserve_publish_time_at)
     raise InvalidPublishedStateTransitionError if reserve_publish_time_at.nil? || !(draft? || secret?)
 
