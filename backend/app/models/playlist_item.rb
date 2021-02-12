@@ -35,6 +35,7 @@ class PlaylistItem < ApplicationRecord
     self.cached_data_at = Time.current
 
     set_duration(res)
+    set_has_video(res)
 
     save
 
@@ -55,5 +56,9 @@ class PlaylistItem < ApplicationRecord
     end_date = Time.parse(data.dig(:releasedEvent, :endDate))
 
     self.duration = end_date - start_date
+  end
+
+  def set_has_video(data)
+    self.has_video = data[:videos].find { |video| video.dig(:identifierGroup, :environmentId) == 'okushibu' }.present?
   end
 end
