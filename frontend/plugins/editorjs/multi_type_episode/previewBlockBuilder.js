@@ -97,7 +97,7 @@ class PreviewBlockBuilder {
     const thumbnailImageUrl =
       eyecatch && eyecatch.medium && eyecatch.medium.url
         ? eyecatch.medium.url
-        : 'https://via.placeholder.com/150'
+        : 'https://via.placeholder.com/160x90'
     const thumbnailImage = new HTMLElementBuilder(
       'img',
       this.CSS.linkContentThumbnailImage,
@@ -236,7 +236,7 @@ class PreviewBlockBuilder {
     const thumbnailImageUrl =
       images.length > 0 && images[0]
         ? images[0]
-        : 'https://via.placeholder.com/150'
+        : 'https://via.placeholder.com/160x90'
     const thumbnailImage = new HTMLElementBuilder(
       'img',
       this.CSS.linkContentThumbnailImage,
@@ -376,7 +376,7 @@ class PreviewBlockBuilder {
       images[0].thumbnail.length > 0 &&
       images[0].thumbnail[0].url
         ? images[0].thumbnail[0].url
-        : 'https://via.placeholder.com/150'
+        : 'https://via.placeholder.com/160x90'
     const thumbnailImage = new HTMLElementBuilder(
       'img',
       this.CSS.linkContentThumbnailImage,

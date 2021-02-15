@@ -262,7 +262,7 @@ export default class Episode {
       const imageUrl =
         item.eyecatch && item.eyecatch.medium
           ? item.eyecatch.medium.url
-          : 'https://via.placeholder.com/32'
+          : 'https://via.placeholder.com/160x90'
 
       episodeTumbnail.style.backgroundImage = 'url(' + imageUrl + ')'
 
