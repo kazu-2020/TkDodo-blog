@@ -5,6 +5,15 @@
         <v-row justify="space-between">
           <v-col cols="6">
             <div class="title mb-4 pt-2">プレイリスト一覧</div>
+            <v-text-field
+              v-model="searchKeyword"
+              label="プレイリストタイトルで検索"
+              prepend-inner-icon="mdi-magnify"
+              solo
+              class="playlist-search"
+              hide-details
+              @keypress.enter="searchPlaylistWithKeyword"
+            />
           </v-col>
           <v-col cols="2">
             <div class="mode_switch_block">
@@ -204,7 +213,8 @@ interface DataType {
   selectedPlaylistItems: EpisodeData[]
   selectedPlaylistActorContributor: Object[]
   width: number
-  selectedPublishedStateFilter: Object
+  selectedPublishedStateFilter: string
+  searchKeyword: string | undefined
 }
 
 export default Vue.extend({
@@ -231,7 +241,8 @@ export default Vue.extend({
       selectedPlaylistItems: [],
       selectedPlaylistActorContributor: [],
       width: window.innerWidth,
-      selectedPublishedStateFilter: { state: 'draft', text: '下書きのみ' },
+      selectedPublishedStateFilter: 'draft',
+      searchKeyword: undefined,
     }
   },
   computed: {
@@ -303,6 +314,7 @@ export default Vue.extend({
         this.$store.dispatch('playlists/fetchPlaylists', {
           page: 1,
           publishedState: newValue,
+          query: this.searchKeyword,
         })
       },
     },
@@ -357,6 +369,13 @@ export default Vue.extend({
         .then((res) => {
           this.selectedPlaylistActorContributor = res.data
         })
+    },
+    searchPlaylistWithKeyword(): void {
+      this.$store.dispatch('playlists/fetchPlaylists', {
+        page: 1,
+        publishedState: this.selectedPublishedStateFilter,
+        query: this.searchKeyword,
+      })
     },
   },
 })
