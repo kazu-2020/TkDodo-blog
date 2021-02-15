@@ -20,6 +20,7 @@ class PlaylistsController < ApplicationController
     when 'secret'
       @playlists = @playlists.secret
     end
+    @playlists = @playlists.name_like(params[:query]) if params[:query]
     @playlists = @playlists.recent.page(@page).per(@per)
   end
 

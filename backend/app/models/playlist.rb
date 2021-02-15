@@ -43,6 +43,7 @@ class Playlist < ApplicationRecord
   scope :of, ->(deck) { where(deck: deck) }
   scope :has_article, -> { where('marked_body IS NOT NULL') }
   scope :no_article, -> { where('marked_body IS NULL') }
+  scope :name_like, ->(query) { where('name LIKE ?', "%#{query}%") }
 
   validates :name, presence: true
   validates :published_state, presence: true, inclusion: { in: PUBLISHED_STATES.map(&:to_s) }
