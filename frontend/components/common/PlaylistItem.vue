@@ -29,8 +29,14 @@
                 <span>{{ totalTime }}</span>
               </v-card-text>
               <v-card-text class="card-list-item pb-1">
-                <v-icon>mdi-update</v-icon>
-                {{ lastUpdateDate }} 更新
+                <div class="last_updated_at d-inline">
+                  <v-icon>mdi-update</v-icon>
+                  {{ lastUpdateDate }} 更新
+                </div>
+                <div class="episodes_count d-inline ml-5">
+                  <v-icon>mdi-monitor</v-icon>
+                  エピソード数： {{ playlist.itemNum }}
+                </div>
               </v-card-text>
             </v-col>
           </v-row>
@@ -134,5 +140,10 @@ export default Vue.extend({
 .playlist_logo_image {
   width: 100%;
   border-radius: 4px;
+}
+
+.last_updated_at,
+.episodes_count {
+  color: #4f4f4f;
 }
 </style>
