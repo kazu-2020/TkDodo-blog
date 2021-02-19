@@ -219,7 +219,17 @@ export default Vue.extend({
       return okushibuVideo.embedUrl
     },
     hasVideo(): boolean {
-      const videos = this.episode?.videos || []
+      const broadcastEventId = this.episode?.detailedRecentEvent?.id
+      if (broadcastEventId === undefined) {
+        return false
+      }
+
+      const broadcastEvent = this.episode.broadcastEvent.find(
+        (be: any) => be.id === broadcastEventId
+      )
+
+      const videos = broadcastEvent?.video || []
+
       const okushibuVideo = videos.find(
         (video: any) => video.identifierGroup?.environmentId === 'okushibu'
       )
