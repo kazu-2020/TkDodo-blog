@@ -73,7 +73,7 @@ else
   json.sameAs nil
 end
 
-json.items @playlist.playlist_items.each do |playlist_item|
+json.items @playlist.playlist_items.kept.each do |playlist_item|
   episode_data = fetch_episode_data(playlist_item: playlist_item, force_fetch: true)
 
   case @object_type

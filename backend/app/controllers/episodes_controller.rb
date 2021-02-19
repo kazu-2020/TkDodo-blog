@@ -21,7 +21,7 @@ class EpisodesController < ApplicationController
   end
 
   def playlists
-    playlist_ids = PlaylistItem.where(episode_id: params[:episode_id]).pluck(:playlist_id).uniq
+    playlist_ids = PlaylistItem.where(episode_id: params[:episode_id]).kept.pluck(:playlist_id).uniq
     @playlists = Playlist.where(id: playlist_ids)
   end
 

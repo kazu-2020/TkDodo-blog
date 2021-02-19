@@ -32,7 +32,7 @@ describe PlaylistItemsController, type: :request do
     it 'returns success response' do
       post "playlists/#{playlist.string_id}/playlist_items/bulk_update", params: params
       expect(response.status).to eq 200
-      expect(playlist.playlist_items.count).to eq 1
+      expect(playlist.playlist_items.kept.count).to eq 1
     end
   end
 end

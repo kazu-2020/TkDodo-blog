@@ -8,7 +8,7 @@ class PlaylistJob < ApplicationJob
   end
 
   def recalculate_playlist_item_duration
-    PlaylistItem.all.each(&:fetch_data)
+    PlaylistItem.kept.all.each(&:fetch_data)
   end
 
   cron '00 3 28 1 ? 2021' # 2021/01/28 12:00に実行 FIXME: 一時的なバッチ処理

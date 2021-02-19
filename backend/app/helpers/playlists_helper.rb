@@ -28,7 +28,7 @@ module PlaylistsHelper
 
   def fetch_unique_actors(playlist)
     actors =
-      playlist.playlist_items.map do |playlist_item|
+      playlist.playlist_items.kept.map do |playlist_item|
         episode_data = fetch_episode_data(playlist_item: playlist_item, force_fetch: true)
         episode_data[:actors]
       end.flatten
@@ -40,7 +40,7 @@ module PlaylistsHelper
 
   # rubocop:disable Metrics/AbcSize
   def fetch_unique_contributors(playlist)
-    contributors = playlist.playlist_items.map do |playlist_item|
+    contributors = playlist.playlist_items.kept.map do |playlist_item|
       episode_data = fetch_episode_data(playlist_item: playlist_item, force_fetch: true)
       episode_data[:contributors]
     end.flatten

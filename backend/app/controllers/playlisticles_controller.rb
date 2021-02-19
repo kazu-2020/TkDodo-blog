@@ -9,7 +9,7 @@ class PlaylisticlesController < ApplicationController
 
   def sandbox2
     @playlist = Playlist.find(Playlist.pluck(:id).sample)
-    @playlist = Playlist.find(Playlist.pluck(:id).sample) while @playlist.playlist_items.size.zero?
+    @playlist = Playlist.find(Playlist.pluck(:id).sample) while @playlist.playlist_items.kept.size.zero?
   end
 
   def sandbox_word
