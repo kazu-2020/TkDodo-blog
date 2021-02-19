@@ -222,6 +222,7 @@ class Playlist < ApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def article_contains_episodes
     return [] unless editor_data.present?
 
@@ -232,8 +233,9 @@ class Playlist < ApplicationRecord
       client.episode_bundle(type: 'tv', episode_id: episode_id)[:tvepisode][0]
     rescue DlabApiBase::NotFound, NoMethodError
       nil
-    end.flatten
+    end.flatten.compact
   end
+  # rubocop:enable Metrics/AbcSize
 
   def deck_ids
     return [] unless deck.present?

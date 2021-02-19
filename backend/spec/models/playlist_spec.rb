@@ -401,7 +401,7 @@ describe Playlist, type: :model do
       end
 
       before do
-        json = File.open(Jets.root.join('spec/fixtures/payloads/te_PG3Z16Q145.json')) do |file|
+        json = File.open(Jets.root.join('spec/fixtures/payloads/ts_bundle_6X8L7Z8VK8.json')) do |file|
           json_string = file.read
           JSON.parse(json_string, symbolize_names: true)
         end
@@ -411,7 +411,7 @@ describe Playlist, type: :model do
       end
 
       it 'retruns episodes array' do
-        expect(playlist.article_contains_episodes.size).to be 1
+        expect(playlist.article_contains_episodes.size).to eq 1
       end
     end
   end
