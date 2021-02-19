@@ -107,7 +107,16 @@ export default Vue.extend({
       ).slice(-2)}`
     },
     hasVideo(episode: any) {
-      const videos = episode?.videos || []
+      const broadcastEventId = episode?.detailedRecentEvent?.id
+      if (broadcastEventId === undefined) {
+        return false
+      }
+
+      const broadcastEvent = episode.broadcastEvent.find(
+        (be: any) => be.id === broadcastEventId
+      )
+
+      const videos = broadcastEvent?.video || []
       const okushibuVideo = videos.find(
         (video: any) => video.identifierGroup?.environmentId === 'okushibu'
       )
