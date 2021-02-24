@@ -296,34 +296,34 @@ describe Playlist, type: :model do
 
     context 'when new episodes added' do
       let(:episode_ids) do
-        ['NEWEP1', playlist.playlist_items.pluck(:episode_id)].flatten
+        ['NEWEP1', playlist.playlist_items.kept.pluck(:episode_id)].flatten
       end
 
       it 'includes new episodes to the playlist' do
         expect do
           playlist.rebuild_episode_list_to(episode_ids)
         end.to change {
-          playlist.reload.playlist_items.count
+          playlist.reload.playlist_items.kept.count
         }.from(2).to(3)
       end
     end
 
     context 'when old episodes removed' do
       let(:episode_ids) do
-        [playlist.playlist_items.pluck(:episode_id).first]
+        [playlist.playlist_items.kept.pluck(:episode_id).first]
       end
 
       it 'does not include old episodes to the playlist' do
         expect do
           playlist.rebuild_episode_list_to(episode_ids)
         end.to change {
-          playlist.reload.playlist_items.count
+          playlist.reload.playlist_items.kept.count
         }.from(2).to(1)
       end
     end
 
     context 'when epidoes were reordered' do
-      let(:current_episode_ids) { playlist.playlist_items.pluck(:episode_id) }
+      let(:current_episode_ids) { playlist.playlist_items.kept.pluck(:episode_id) }
       let(:episode_ids) do
         [current_episode_ids.second, 'NEWEP1', current_episode_ids.first]
       end
@@ -331,7 +331,7 @@ describe Playlist, type: :model do
       it 'reorder playlist episodes' do
         playlist.rebuild_episode_list_to(episode_ids)
 
-        expect(playlist.playlist_items.pluck(:episode_id)).to eq(episode_ids)
+        expect(playlist.playlist_items.kept.pluck(:episode_id)).to eq(episode_ids)
       end
     end
   end

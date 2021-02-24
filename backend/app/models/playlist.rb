@@ -153,7 +153,7 @@ class Playlist < ApplicationRecord
   end
 
   def browsable_item_count
-    playlist_items.pluck(:has_video).select { |has_video| has_video }.size
+    playlist_items.kept.pluck(:has_video).select { |has_video| has_video }.size
   end
 
   def wait_for_publish!(reserve_publish_time_at)
@@ -179,7 +179,7 @@ class Playlist < ApplicationRecord
   end
 
   def rebuild_episode_list_to(episodes)
-    current_episodes = playlist_items.pluck(:episode_id)
+    current_episodes = playlist_items.kept.pluck(:episode_id)
 
     ActiveRecord::Base.transaction do
       new_episode_ids = (current_episodes | episodes) - current_episodes
@@ -271,7 +271,7 @@ class Playlist < ApplicationRecord
 
   def remove_playlist_items!(episode_ids)
     episode_ids.each do |episode_id|
-      playlist_items.find_by(episode_id: episode_id).destroy!
+      playlist_items.kept.find_by(episode_id: episode_id).destroy!
     end
   end
 
@@ -279,7 +279,7 @@ class Playlist < ApplicationRecord
     new_episode_order.each_with_index do |episode, i|
       next if episode == reload.playlist_items[i].episode_id
 
-      sort_target_episode = playlist_items.find_by(episode_id: episode)
+      sort_target_episode = playlist_items.kept.find_by(episode_id: episode)
       sort_target_episode.set_list_position(i + 1)
     end
   end

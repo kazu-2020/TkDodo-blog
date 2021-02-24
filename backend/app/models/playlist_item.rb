@@ -3,6 +3,7 @@
 class PlaylistItem < ApplicationRecord
   CACHED_DATA_TTL = 1.week
 
+  include Discard::Model
   extend FriendlyId
   friendly_id :episode_id
 

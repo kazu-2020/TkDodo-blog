@@ -15,7 +15,7 @@ class ImportOldPlaylistJob < ApplicationJob
       res = r5_client.playlist(playlist_type: 'recommend', playlist_id: playlist_id)
       playlist = deck.playlists.find_or_initialize_by(d5_playlist_id: res[:playlist_id])
       assign_playlist_attributes(playlist, res)
-      playlist.playlist_items.destroy_all # 冪等性を保つため、一度全削除
+      playlist.playlist_items.destroy_all # 冪等性を保つため、discarded は使わず、一度全削除
 
       playlist.save
 

@@ -23,7 +23,7 @@ json.playlisticle do
           type: 'episode',
           data: {
             url: 'https://example.com',
-            episode: @playlist.playlist_items.first.fetch_data
+            episode: @playlist.playlist_items.kept.first.fetch_data
           }
         }
       ]
