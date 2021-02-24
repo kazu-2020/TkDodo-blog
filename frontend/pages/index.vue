@@ -12,6 +12,7 @@
               solo
               class="playlist-search"
               hide-details
+              clearable
               @keypress.enter="searchPlaylistWithKeyword"
             />
           </v-col>

@@ -10,6 +10,7 @@
           class="episode-search"
           hide-details
           :loading="loading"
+          clearable
           @keypress.enter="searchEpisodesWithKeyword"
         />
       </v-col>
