@@ -477,7 +477,7 @@ export default Vue.extend({
   position: fixed;
   width: 100%;
   z-index: 4;
-  background-color: #f3f3f3;
+  background-color: #f0f0f0;
   padding-top: 20px;
 }
 

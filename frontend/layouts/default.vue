@@ -1,11 +1,11 @@
 <template>
   <v-app>
-    <v-app-bar :clipped-left="clipped" fixed app>
+    <v-app-bar :clipped-left="clipped" fixed app color="white">
       <nuxt-link :to="'/'" style="text-decoration: none" class="playlist-title">
         <v-img
-          src="/logo-black.png"
-          srcset="/logo-black.png 1x, /logo-black@2x.png 2x"
-          width="150"
+          src="/logo-black.jpg"
+          srcset="/logo-black.jpg 1x, /logo-black@2x.jpg 2x"
+          width="225"
           class="mr-5 ml-1"
         />
       </nuxt-link>
@@ -52,7 +52,7 @@
         @hide-new-series-playlist-dialog="isShowNewSeriesPlaylistDialog = false"
       />
     </v-app-bar>
-    <v-main :class="{ 'ivory-background': shouldIvoryBackground }">
+    <v-main class="ivory-background">
       <v-container fluid class="px-10">
         <nuxt />
       </v-container>
@@ -150,12 +150,6 @@ export default Vue.extend({
     snackBarMessage(): string {
       return this.$store.state.loading.messages[this.snackBarState]
     },
-    shouldIvoryBackground() {
-      return (
-        this.$route.name === 'playlists-id' ||
-        this.$route.name === 'playlists-new'
-      )
-    },
   },
   methods: {
     resetLoadingState() {
@@ -175,6 +169,6 @@ a.playlist-title {
 }
 
 .v-main.ivory-background {
-  background-color: #f3f3f3;
+  background-color: #f0f0f0;
 }
 </style>
