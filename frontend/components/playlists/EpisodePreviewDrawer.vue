@@ -12,6 +12,10 @@
     <v-row justify="space-between">
       <v-col cols="10" class="subtitle-2 font-weight-bold mt-2">
         {{ episodeName }}
+        <br />
+        <div class="caption grey--text text--darken-1">
+          {{ seriesName }}
+        </div>
       </v-col>
       <v-col cols="12" class="pt-0">
         <v-img
@@ -186,6 +190,9 @@ export default Vue.extend({
   computed: {
     episodeName(): string {
       return this.episode?.name || ''
+    },
+    seriesName(): string {
+      return this.episode?.partOfSeries?.name || ''
     },
     episodeDescription(): string {
       return this.episode?.description || ''
