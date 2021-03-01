@@ -158,14 +158,17 @@
         <v-list-item-icon class="mr-3 my-3">
           <v-img
             :src="eyecatchUrl(item)"
-            lazy-src="https://placehold.jp/50x28.png"
-            width="50"
-            height="28"
-            class="episode-image"
+            lazy-src="https://placehold.jp/71x40.png"
+            width="71"
+            height="40"
           />
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title style="font-size: 14px" v-text="item.name" />
+          <v-list-item-subtitle
+            style="font-size: 12px; margin-top: 4px"
+            v-text="seriesName(item)"
+          />
         </v-list-item-content>
       </v-list-item>
       <v-list-item
@@ -348,7 +351,7 @@ export default Vue.extend({
       if (item.eyecatch !== undefined) {
         return item.eyecatch.medium.url
       } else {
-        return 'https://placehold.jp/50x28.png'
+        return 'https://placehold.jp/71x40.png'
       }
     },
     fetchEpisodes(): void {
@@ -378,6 +381,9 @@ export default Vue.extend({
         query: this.searchKeyword,
       })
     },
+    seriesName(item): string {
+      return item?.partOfSeries?.name || ''
+    },
   },
 })
 </script>
@@ -395,10 +401,6 @@ export default Vue.extend({
 
 .episode_list {
   min-height: 30px;
-}
-
-.v-responsive.v-image.episode-image {
-  border-radius: 5px;
 }
 
 .edit_button {
