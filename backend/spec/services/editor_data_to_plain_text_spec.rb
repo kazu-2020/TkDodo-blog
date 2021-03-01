@@ -90,6 +90,7 @@ describe EditorDataToPlainText, type: :model do
 
     subject { EditorDataToPlainText.new(editor_data: editor_data).call }
 
+    # rubocop:disable Layout/TrailingWhitespace
     it do
       s = <<~TEXT
         見出し太字
@@ -127,5 +128,6 @@ describe EditorDataToPlainText, type: :model do
 
       is_expected.to eq s.chomp
     end
+    # rubocop:enable Layout/TrailingWhitespace
   end
 end
