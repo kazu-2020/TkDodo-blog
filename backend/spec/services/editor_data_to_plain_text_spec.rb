@@ -20,6 +20,10 @@ describe EditorDataToPlainText, type: :model do
             'text' => 'テキスト<b>太字<br></b><br>改行<i>イタリック<br></i><b><i>太字イタリック<br></i><br></b>'
           },
             'type' => 'paragraph' },
+          { 'data' => {
+            'text' => '&nbsp;&nbsp;　'
+          },
+            'type' => 'paragraph' },
           {
             'data' => {
               'file' => {
@@ -86,6 +90,7 @@ describe EditorDataToPlainText, type: :model do
 
     subject { EditorDataToPlainText.new(editor_data: editor_data).call }
 
+    # rubocop:disable Layout/TrailingWhitespace
     it do
       s = <<~TEXT
         見出し太字
@@ -97,6 +102,8 @@ describe EditorDataToPlainText, type: :model do
         テキスト太字
         改行イタリック太字イタリック
 
+          　
+        
         hello
 
         Yahoo! JAPAN
@@ -121,5 +128,6 @@ describe EditorDataToPlainText, type: :model do
 
       is_expected.to eq s.chomp
     end
+    # rubocop:enable Layout/TrailingWhitespace
   end
 end

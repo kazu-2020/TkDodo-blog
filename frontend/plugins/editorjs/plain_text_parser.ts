@@ -1,64 +1,96 @@
+interface EditorDataBlockBase {
+  type: string
+}
+
+interface EditorData {
+  blocks?: EditorDataBlockBase[]
+}
+
+interface HeaderEditorData extends EditorDataBlockBase {
+  data: { text: string }
+}
+
+interface ParagraphEditorData extends EditorDataBlockBase {
+  data: { text: string }
+}
+
+interface LinkToolEditorData extends EditorDataBlockBase {
+  data: { meta: { description: string } }
+}
+
+interface ImageEditorData extends EditorDataBlockBase {
+  data: { caption: string }
+}
+
+interface ListEditorData extends EditorDataBlockBase {
+  data: { style: string; items: string[] }
+}
+
+interface EmbedEditorData extends EditorDataBlockBase {
+  data: { caption: string }
+}
+
 class PlainTextParser {
-  static parse(editorData: any): string {
+  static parse(editorData: EditorData): string {
     if (editorData?.blocks == null || editorData.blocks.length < 1) return ''
 
     const plainText = editorData.blocks
-      .map((block: any) => this.toPlainText(block))
+      .map((block) => this.toPlainText(block))
       .join('\n\n')
 
     return `${plainText}\n`
   }
 
-  static toPlainText(block: any): string {
+  static toPlainText(block: EditorDataBlockBase): string {
     switch (block.type) {
       case 'header':
-        return this.headerParser(block)
+        return this.headerParser(block as HeaderEditorData)
       case 'paragraph':
-        return this.paragraphParser(block)
+        return this.paragraphParser(block as ParagraphEditorData)
       case 'linkTool':
-        return this.linkToolParser(block)
+        return this.linkToolParser(block as LinkToolEditorData)
       case 'image':
-        return this.imageParser(block)
+        return this.imageParser(block as ImageEditorData)
       case 'list':
-        return this.listParser(block)
+        return this.listParser(block as ListEditorData)
       case 'embed':
-        return this.embedParser(block)
+        return this.embedParser(block as EmbedEditorData)
       default:
         return ''
     }
   }
 
-  static headerParser(block: any): string {
-    return this.stripTags(this.convertInlineBr(block.data.text))
+  static headerParser(block: HeaderEditorData): string {
+    return this.stripHtml(this.convertInlineBr(block.data.text))
   }
 
-  static paragraphParser(block: any): string {
-    return this.stripTags(this.convertInlineBr(block.data.text))
+  static paragraphParser(block: ParagraphEditorData): string {
+    return this.stripHtml(this.convertInlineBr(block.data.text))
   }
 
-  static linkToolParser(block: any): string {
+  static linkToolParser(block: LinkToolEditorData): string {
     return block.data.meta.description
   }
 
-  static imageParser(block: any): string {
+  static imageParser(block: ImageEditorData): string {
     return block.data.caption
   }
 
-  static listParser(block: any): string {
+  static listParser(block: ListEditorData): string {
     const prefix = block.data.style === 'ordered' ? '1.' : '･'
     return block.data.items
-      .map(
-        (item: any) => `${prefix} ${this.stripTags(this.convertInlineBr(item))}`
-      )
+      .map((item) => `${prefix} ${this.stripHtml(this.convertInlineBr(item))}`)
       .join('\n')
   }
 
-  static embedParser(block: any): string {
+  static embedParser(block: EmbedEditorData): string {
     return block.data.caption
   }
 
-  static stripTags(text: string): string {
-    return text.replace(/(<([^>]+)>)/gi, '')
+  static stripHtml(text: string): string {
+    const d = document.createElement('div')
+    d.innerHTML = text
+    return d.textContent || d.textContent || ''
   }
 
   static convertInlineBr(text: string): string {

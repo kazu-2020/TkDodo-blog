@@ -21,7 +21,6 @@ gem 'multi_json'
 gem 'mysql2', '~> 0.5.2'
 gem 'ostruct', '0.1.0'
 gem 'redcarpet'
-gem 'sanitize'
 gem 'shrine', github: 'shrinerb/shrine'
 gem 'slack-incoming-webhooks'
 
