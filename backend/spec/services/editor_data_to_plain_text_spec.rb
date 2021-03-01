@@ -20,6 +20,10 @@ describe EditorDataToPlainText, type: :model do
             'text' => 'テキスト<b>太字<br></b><br>改行<i>イタリック<br></i><b><i>太字イタリック<br></i><br></b>'
           },
             'type' => 'paragraph' },
+          { 'data' => {
+            'text' => '&nbsp;&nbsp;　'
+          },
+            'type' => 'paragraph' },
           {
             'data' => {
               'file' => {
@@ -97,6 +101,8 @@ describe EditorDataToPlainText, type: :model do
         テキスト太字
         改行イタリック太字イタリック
 
+          　
+        
         hello
 
         Yahoo! JAPAN

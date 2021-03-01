@@ -16,8 +16,8 @@ class EditorDataToPlainText
 
   private
 
-  def strip_tags(block)
-    Sanitize.fragment block
+  def strip_html(block)
+    Nokogiri::HTML.parse(block).text
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
@@ -44,13 +44,13 @@ class EditorDataToPlainText
   def to_header_text(block)
     text = block['data']['text']
 
-    strip_tags(convert_inline_br(text))
+    strip_html(convert_inline_br(text))
   end
 
   def to_paragraph_text(block)
     text = block['data']['text']
 
-    strip_tags(convert_inline_br(text))
+    strip_html(convert_inline_br(text))
   end
 
   def to_link_text(block)
@@ -65,7 +65,7 @@ class EditorDataToPlainText
     items = block.dig('data', 'items')
     prefix = block.dig('data', 'style') == 'ordered' ? '1.' : '･'
 
-    items.map { |item| "#{prefix} #{strip_tags(convert_inline_br(item))}" }.join("\n")
+    items.map { |item| "#{prefix} #{strip_html(convert_inline_br(item))}" }.join("\n")
   end
 
   def to_embed_text(block)
