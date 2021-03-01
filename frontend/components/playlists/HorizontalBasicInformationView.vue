@@ -1,10 +1,27 @@
 <template>
   <div class="preview-container container-fluid white rounded px-5 py-2 mt-4">
     <v-row>
-      <v-col cols="2" md="2" sm="4" xs="12">
-        <h2 class="playlist-title">{{ playlistName }}</h2>
+      <v-col cols="2" md="2" sm="2" xs="6">
+        <v-img
+          :src="logoImageUrl(playlist)"
+          style="border-radius: 4px; overflow: hidden"
+          max-height="130"
+          max-width="130"
+          class="mb-2"
+        />
+        <div class="body-2 text--darken--1 grey--text">
+          エピソード数: 全{{ playlistItemCount }}件
+        </div>
+      </v-col>
+      <v-col cols="2" md="2" sm="2" xs="6">
         <div v-show="hasPlaylistId" class="chips">
           <published-state-badge class="my-1" :playlist="playlist" />
+          <span
+            v-if="playlist.browsableItemCount === 0"
+            style="font-size: 12px; color: black"
+          >
+            <v-icon>mdi-video-off-outline</v-icon>
+          </span>
           <br />
           <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
             ID: {{ omittedPlaylisitId }}
@@ -18,82 +35,58 @@
           >
             SeriesID: {{ playlistSeriesId }}
           </v-chip>
+          <div class="mt-2">
+            <v-tooltip
+              v-for="(data, index) in actorsAndContributors"
+              :key="`actor-contributor-${index}`"
+              bottom
+            >
+              <template #activator="{ on, attrs }">
+                <div
+                  v-if="noActorContributorImage(data)"
+                  class="actor_contributor_badge"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <div class="actor_contributor_badge_inner">
+                    {{ actorContributorName(data).slice(0, 1) }}
+                  </div>
+                </div>
+                <v-img
+                  v-else
+                  :src="actorContributorImageUrl(data)"
+                  width="30"
+                  v-bind="attrs"
+                  class="actor_contributor_badge"
+                  v-on="on"
+                />
+              </template>
+              <span>{{ actorContributorName(data) }}</span>
+            </v-tooltip>
+          </div>
         </div>
       </v-col>
-      <v-col cols="1" md="1" sm="2" xs="6">
-        <v-img
-          :src="logoImageUrl(playlist)"
-          style="border-radius: 4px; overflow: hidden; margin: 0 auto"
-        />
+      <v-col cols="8" md="8" sm="8" xs="8">
+        <h2 class="playlist-title">{{ playlistName }}</h2>
+        <playlist-preview-episodes-carousel :playlist="playlist" />
       </v-col>
-      <v-col v-show="playlistDescription" cols="2" md="2" sm="4" xs="12">
-        <div class="body-2 font-weight-bold mb-2">説明</div>
-        <div style="word-wrap: break-word; font-size: 14px">
+    </v-row>
+    <v-row style="border-top: 1px solid #aeaeae">
+      <v-col cols="6">
+        <div class="mr-4 float-left font-weight-bold subtitle-1">説明</div>
+        <div
+          style="width: 85%; background-color: #f8f8f8"
+          class="float-left rounded pa-3"
+        >
           {{ playlistDescription }}
         </div>
       </v-col>
-      <v-col v-show="hasActorsOrContributors" cols="2" md="2" sm="4" xs="12">
-        <div class="body-2 font-weight-bold mb-2">出演者/スタッフ</div>
-        <v-tooltip
-          v-for="(data, index) in actorsAndContributors"
-          :key="`actor-contributor-${index}`"
-          bottom
+      <v-col cols="6">
+        <div class="mr-4 float-left font-weight-bold subtitle-1">記事</div>
+        <div
+          style="width: 85%; background-color: #f8f8f8"
+          class="float-left rounded pa-3"
         >
-          <template #activator="{ on, attrs }">
-            <div
-              v-if="noActorContributorImage(data)"
-              class="actor_contributor_badge"
-              v-bind="attrs"
-              v-on="on"
-            >
-              <div class="actor_contributor_badge_inner">
-                {{ actorContributorName(data).slice(0, 1) }}
-              </div>
-            </div>
-            <v-img
-              v-else
-              :src="actorContributorImageUrl(data)"
-              width="50"
-              v-bind="attrs"
-              class="actor_contributor_badge"
-              v-on="on"
-            />
-          </template>
-          <span>{{ actorContributorName(data) }}</span>
-        </v-tooltip>
-      </v-col>
-      <v-col cols="3" md="3" sm="4" xs="12">
-        <div class="body-2 font-weight-bold mb-2">リスト</div>
-        <v-list dense class="py-0">
-          <v-list-item
-            v-for="item in playlistItems"
-            :key="item.id"
-            class="px-0"
-          >
-            <v-list-item-icon class="mr-1">
-              <v-img
-                :src="eyecatchUrl(item)"
-                lazy-src="https://placehold.jp/50x28.png"
-                width="50"
-                height="28"
-                class="episode-image"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title v-text="item.name" />
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item
-            v-if="playlist.browsableItemCount === 0"
-            class="caption px-0"
-          >
-            ※) このプレイリストには再生可能なエピソードが有りません
-          </v-list-item>
-        </v-list>
-      </v-col>
-      <v-col cols="2" md="2" sm="4" xs="12">
-        <div class="body-2 font-weight-bold mb-2">記事</div>
-        <div style="word-wrap: break-word; font-size: 14px">
           {{ plainBody }}
         </div>
       </v-col>
@@ -112,6 +105,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
+import PlaylistPreviewEpisodesCarousel from '~/components/playlists/PlaylistPreviewEpisodesCarousel.vue'
 import PublishedStateBadge from '~/components/playlists/PublishedStateBadge.vue'
 
 interface DataType {
@@ -121,6 +115,7 @@ interface DataType {
 export default Vue.extend({
   name: 'HorizontalBasicInformationView',
   components: {
+    PlaylistPreviewEpisodesCarousel,
     PublishedStateBadge,
   },
   props: {
@@ -151,6 +146,10 @@ export default Vue.extend({
     playlistItems(): Array<Object> {
       const items = this.playlist.items || []
       return items.slice(0, 4)
+    },
+    playlistItemCount(): number {
+      const items = this.playlist.items || []
+      return items.length
     },
     playlistName(): string {
       return this.playlist?.name || ''
@@ -226,26 +225,26 @@ export default Vue.extend({
 }
 
 .actor_contributor_badge {
-  border-radius: 25px;
+  border-radius: 15px;
   overflow: hidden;
   display: inline-block;
   margin-right: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 4px;
   cursor: pointer;
   background-color: #546e7a;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   position: relative;
 
   .actor_contributor_badge_inner {
     display: inline-block;
     position: relative;
     top: -48px;
-    left: 16px;
-    font-size: 18px;
+    left: 9px;
+    font-size: 14px;
     color: white;
     font-weight: bold;
-    padding: 60px 0px;
+    padding: 52px 0px;
   }
 }
 
