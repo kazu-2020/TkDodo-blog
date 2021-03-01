@@ -381,7 +381,7 @@ export default Vue.extend({
         query: this.searchKeyword,
       })
     },
-    seriesName(item): string {
+    seriesName(item: any): string {
       return item?.partOfSeries?.name || ''
     },
   },

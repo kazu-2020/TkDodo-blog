@@ -268,7 +268,7 @@ export default Vue.extend({
         return 'https://placehold.jp/71x40.png'
       }
     },
-    seriesName(item): string {
+    seriesName(item: any): string {
       return item?.partOfSeries?.name || ''
     },
     changeTab(nextTab: PlaylistTab) {
