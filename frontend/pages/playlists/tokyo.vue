@@ -28,7 +28,7 @@
     </v-row>
     <v-row>
       <v-col v-for="item in playlists" :key="item.id" cols="12" class="py-2">
-        <playlist-item
+        <simple-playlist-item
           :playlist="item"
           @click-playlist-item="clickPlaylistItem"
         />
@@ -120,7 +120,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
-import PlaylistItem from '~/components/common/PlaylistItem.vue'
+import SimplePlaylistItem from '~/components/common/SimplePlaylistItem.vue'
 import { Playlist } from '~/types/playlist'
 import { EpisodeData } from '~/types/episode_data'
 
@@ -134,7 +134,7 @@ interface DataType {
 
 export default Vue.extend({
   name: 'PlaylistTokyoPage',
-  components: { PlaylistItem, BasicInformationView },
+  components: { SimplePlaylistItem, BasicInformationView },
   async asyncData({ store }) {
     await store.dispatch('playlists/fetchD5Playlists', {
       area: '130',
