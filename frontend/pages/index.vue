@@ -60,7 +60,7 @@
     </v-row>
     <v-row v-else justify="center">
       <v-col v-for="item in playlists" :key="item.id" cols="11" class="py-1">
-        <playlist-item
+        <simple-playlist-item
           :playlist="item"
           @click-playlist-item="clickPlaylistItem"
         />
@@ -202,7 +202,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import ActorContributorList from '../components/playlists/ActorContributorList.vue'
-import PlaylistItem from '~/components/common/PlaylistItem.vue'
+import SimplePlaylistItem from '~/components/common/SimplePlaylistItem.vue'
 import ArticleItem from '~/components/playlists/ArticleItem.vue'
 import PlaylistIndexBasicInformationView from '~/components/playlists/PlaylistIndexBasicInformationView.vue'
 import { Playlist } from '~/types/playlist'
@@ -224,7 +224,7 @@ interface DataType {
 export default Vue.extend({
   name: 'PlaylistIndexPage',
   components: {
-    PlaylistItem,
+    SimplePlaylistItem,
     ActorContributorList,
     ArticleItem,
     PlaylistIndexBasicInformationView,
