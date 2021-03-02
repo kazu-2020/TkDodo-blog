@@ -9,7 +9,7 @@
     style="position: fixed"
     class="preview-drawer"
   >
-    <v-row justify="space-between">
+    <v-row justify="space-between" class="px-5">
       <v-col cols="10" class="subtitle-2 font-weight-bold mt-2">
         {{ episodeName }}
         <br />
@@ -319,7 +319,6 @@ export default Vue.extend({
   position: fixed;
   top: 160px;
   z-index: 100;
-  padding: 0 20px;
   background-color: white;
   width: 400px;
   height: calc(100vh - 180px);
