@@ -90,7 +90,7 @@
     >
       <v-list-item class="pa-2">
         <v-col cols="12">
-          <basic-information-view :playlist="selectedPlaylist" />
+          <playlist-index-basic-information-view :playlist="selectedPlaylist" />
         </v-col>
       </v-list-item>
       <v-list-item class="mb-4">
@@ -204,7 +204,7 @@ import Vue from 'vue'
 import ActorContributorList from '../components/playlists/ActorContributorList.vue'
 import PlaylistItem from '~/components/common/PlaylistItem.vue'
 import ArticleItem from '~/components/playlists/ArticleItem.vue'
-import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
+import PlaylistIndexBasicInformationView from '~/components/playlists/PlaylistIndexBasicInformationView.vue'
 import { Playlist } from '~/types/playlist'
 import { EpisodeData } from '~/types/episode_data'
 
@@ -227,7 +227,7 @@ export default Vue.extend({
     PlaylistItem,
     ActorContributorList,
     ArticleItem,
-    BasicInformationView,
+    PlaylistIndexBasicInformationView,
   },
   async asyncData({ store }) {
     await store.dispatch('playlists/fetchPlaylists', {
