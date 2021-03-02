@@ -65,9 +65,7 @@
                 <th class="text-left">エピソード</th>
                 <th />
                 <th class="text-left">再生時間</th>
-                <th class="text-left">エピソードID</th>
                 <th class="text-left">シリーズ名</th>
-                <th class="text-left">シリーズID</th>
                 <th class="text-left">直近放送日</th>
                 <th class="text-left">視聴可能</th>
               </tr>

@@ -25,9 +25,7 @@
       {{ episode.name }}
     </td>
     <td>{{ totalTime(episode) }}</td>
-    <td>{{ episode.id }}</td>
     <td>{{ episode.partOfSeries.name }}</td>
-    <td>{{ episode.partOfSeries.id }}</td>
     <td>
       {{ releaseDate }}
     </td>

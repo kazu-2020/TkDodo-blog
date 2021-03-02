@@ -97,17 +97,20 @@
                 :key="item.id"
                 class="px-0"
               >
-                <v-list-item-icon class="mr-1">
+                <v-list-item-icon class="mr-3">
                   <v-img
                     :src="eyecatchUrl(item)"
-                    lazy-src="https://placehold.jp/50x28.png"
-                    width="50"
-                    height="28"
-                    class="episode-image"
+                    lazy-src="https://placehold.jp/71x40.png"
+                    width="71"
+                    height="40"
                   />
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title v-text="item.name" />
+                  <v-list-item-subtitle
+                    style="font-size: 12px; margin-top: 2px"
+                    v-text="seriesName(item)"
+                  />
                 </v-list-item-content>
               </v-list-item>
               <v-list-item
@@ -262,8 +265,11 @@ export default Vue.extend({
       if (item.eyecatch !== undefined) {
         return item.eyecatch.medium.url
       } else {
-        return 'https://placehold.jp/50x28.png'
+        return 'https://placehold.jp/71x40.png'
       }
+    },
+    seriesName(item: any): string {
+      return item?.partOfSeries?.name || ''
     },
     changeTab(nextTab: PlaylistTab) {
       this.currentTab = nextTab
@@ -483,9 +489,5 @@ export default Vue.extend({
 
 .save-button {
   width: 140px;
-}
-
-.v-responsive.v-image.episode-image {
-  border-radius: 5px;
 }
 </style>
