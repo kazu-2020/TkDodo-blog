@@ -676,7 +676,7 @@ class PreviewBlockBuilder {
     ).build()
 
     locationText.textContent =
-      this.data.event.location + ' (' + this.data.event.address + ')'
+      this.data.event.place + ' (' + this.data.event.postalAddress + ')'
 
     locationBlock.appendChild(locationText)
 
