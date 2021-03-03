@@ -153,10 +153,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.v-responsive.v-image.episode-image {
-  border-radius: 5px;
-}
-
 .delete-button.v-btn.v-btn--tile.v-size--small {
   min-width: 0;
   padding: 0 2px;

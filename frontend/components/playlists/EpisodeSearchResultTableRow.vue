@@ -129,9 +129,6 @@ export default Vue.extend({
 
 <style lang="scss">
 .result_row {
-  .v-responsive.v-image.episode-image {
-    border-radius: 2px;
-  }
   .add_button.v-btn.v-btn--tile.v-size--small {
     min-width: 0;
     padding: 0 2px;
