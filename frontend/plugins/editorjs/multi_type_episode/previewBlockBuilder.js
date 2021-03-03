@@ -371,8 +371,10 @@ class PreviewBlockBuilder {
     const images = this.data.howTo.image
 
     const thumbnailImageUrl =
+      images &&
       images.length > 0 &&
       images[0] &&
+      images[0].thumbnail &&
       images[0].thumbnail.length > 0 &&
       images[0].thumbnail[0].url
         ? images[0].thumbnail[0].url
@@ -444,51 +446,53 @@ class PreviewBlockBuilder {
 
     sectionNameBlock.appendChild(stepIcon)
 
-    const sectionNameText = new HTMLElementBuilder(
-      'div',
-      this.CSS.linkContentHowToSectionNameText
-    ).build()
-
-    sectionNameText.textContent = this.data.howTo.step[0].name
-
-    sectionNameBlock.appendChild(sectionNameText)
-
-    const stepsBlock = new HTMLElementBuilder(
-      'div',
-      this.CSS.linkContentHowToSteps
-    ).build()
-
-    rightColumn.appendChild(stepsBlock)
-
-    for (const step of this.data.howTo.step[0].itemListElement) {
-      const stepBlock = new HTMLElementBuilder(
+    if (this.data.howTo.section && this.data.howTo.section.length > 0) {
+      const sectionNameText = new HTMLElementBuilder(
         'div',
-        this.CSS.linkContentHowToStep
-      ).build()
-      const stepIconBackground = new HTMLElementBuilder(
-        'div',
-        this.CSS.linkContentHowToStepIconBackground
+        this.CSS.linkContentHowToSectionNameText
       ).build()
 
-      stepBlock.appendChild(stepIconBackground)
+      sectionNameText.textContent = this.data.howTo.section[0].step[0].name
 
-      const stepNumber = new HTMLElementBuilder(
+      sectionNameBlock.appendChild(sectionNameText)
+
+      const stepsBlock = new HTMLElementBuilder(
         'div',
-        this.CSS.linkContentHowToStepNumber
+        this.CSS.linkContentHowToSteps
       ).build()
 
-      stepNumber.textContent = step.position
-      stepIconBackground.appendChild(stepNumber)
+      rightColumn.appendChild(stepsBlock)
 
-      const stepName = new HTMLElementBuilder(
-        'div',
-        this.CSS.linkContentHowToStepName
-      ).build()
+      this.data.howTo.section[0].step.forEach((step, index) => {
+        const stepBlock = new HTMLElementBuilder(
+          'div',
+          this.CSS.linkContentHowToStep
+        ).build()
+        const stepIconBackground = new HTMLElementBuilder(
+          'div',
+          this.CSS.linkContentHowToStepIconBackground
+        ).build()
 
-      stepName.textContent = step.name
-      stepBlock.appendChild(stepName)
+        stepBlock.appendChild(stepIconBackground)
 
-      stepsBlock.appendChild(stepBlock)
+        const stepNumber = new HTMLElementBuilder(
+          'div',
+          this.CSS.linkContentHowToStepNumber
+        ).build()
+
+        stepNumber.textContent = index + 1
+        stepIconBackground.appendChild(stepNumber)
+
+        const stepName = new HTMLElementBuilder(
+          'div',
+          this.CSS.linkContentHowToStepName
+        ).build()
+
+        stepName.textContent = step.name
+        stepBlock.appendChild(stepName)
+
+        stepsBlock.appendChild(stepBlock)
+      })
     }
 
     const seeMoreInfoBlock = new HTMLElementBuilder(
@@ -672,7 +676,7 @@ class PreviewBlockBuilder {
     ).build()
 
     locationText.textContent =
-      this.data.event.location + ' (' + this.data.event.address + ')'
+      this.data.event.place + ' (' + this.data.event.postalAddress + ')'
 
     locationBlock.appendChild(locationText)
 

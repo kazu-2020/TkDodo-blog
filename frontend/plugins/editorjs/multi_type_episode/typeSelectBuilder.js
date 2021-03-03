@@ -82,7 +82,7 @@ class TypeSelectBuilder {
     const imageUrl =
       episode.eyecatch && episode.eyecatch.medium
         ? episode.eyecatch.medium.url
-        : 'https://via.placeholder.com/32'
+        : 'https://via.placeholder.com/160x90'
 
     episodeThumbnail.style.backgroundImage = 'url(' + imageUrl + ')'
 
@@ -91,7 +91,7 @@ class TypeSelectBuilder {
       this.CSS.playlistItemTitle
     ).build()
 
-    episodeTitle.textContent = '[Ep]' + episode.name
+    episodeTitle.textContent = '[エピソード]' + episode.name
     const selectEpisodeButton = new HTMLElementBuilder(
       'button',
       this.CSS.playlistItemButton
@@ -131,7 +131,7 @@ class TypeSelectBuilder {
       const imageUrl =
         recipe.image && recipe.image.length >= 1
           ? recipe.image[0]
-          : 'https://via.placeholder.com/32'
+          : 'https://via.placeholder.com/160x90'
 
       recipeThumbnail.style.backgroundImage = 'url(' + imageUrl + ')'
 
@@ -140,7 +140,7 @@ class TypeSelectBuilder {
         this.CSS.playlistItemTitle
       ).build()
 
-      recipeTitle.textContent = '[Rc]' + recipe.name
+      recipeTitle.textContent = '[レシピ]' + recipe.name
 
       const selectRecipeButton = new HTMLElementBuilder(
         'button',
@@ -182,7 +182,7 @@ class TypeSelectBuilder {
       const imageUrl =
         howTo.image && howTo.image.length >= 1
           ? howTo.image[0].thumbnail[0].url
-          : 'https://via.placeholder.com/32'
+          : 'https://via.placeholder.com/160x90'
 
       howToThumbnail.style.backgroundImage = 'url(' + imageUrl + ')'
 
@@ -191,7 +191,7 @@ class TypeSelectBuilder {
         this.CSS.playlistItemTitle
       ).build()
 
-      howToTitle.textContent = '[Ht]' + howTo.name
+      howToTitle.textContent = '[ハウツー]' + howTo.name
 
       const selectHowToButton = new HTMLElementBuilder(
         'button',
@@ -233,7 +233,7 @@ class TypeSelectBuilder {
       const imageUrl =
         event.image && event.image.medium
           ? event.image.medium.url
-          : 'https://via.placeholder.com/32'
+          : 'https://via.placeholder.com/160x90'
 
       eventThumbnail.style.backgroundImage = 'url(' + imageUrl + ')'
 
@@ -242,7 +242,7 @@ class TypeSelectBuilder {
         this.CSS.playlistItemTitle
       ).build()
 
-      eventTitle.textContent = '[Ev]' + event.name
+      eventTitle.textContent = '[イベント]' + event.name
 
       const selectEventButton = new HTMLElementBuilder(
         'button',
