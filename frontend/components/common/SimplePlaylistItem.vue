@@ -8,15 +8,15 @@
   >
     <v-img
       :src="logoImageUrl"
-      class="playlist_logo_image float-left mr-4"
+      class="playlist_logo_image float-left mr-3"
       aspect-ratio="1"
-      height="50"
-      width="50"
+      height="30"
+      width="30"
     />
-    <div class="title float-left mt-1">
+    <div class="title float-left">
       <a class="playlist-title">
         <span class="playlist-name">{{ playlistName }}</span>
-        <published-state-badge class="ma-2" :playlist="playlist" />
+        <published-state-badge class="" :playlist="playlist" />
         <span
           v-if="playlist.browsableItemCount === 0"
           style="font-size: 12px; color: black"
@@ -25,15 +25,15 @@
         </span>
       </a>
     </div>
-    <div class="float-right mt-3 pr-4">
+    <div class="float-right mt-1 pr-4">
       <v-icon>mdi-clock-time-four-outline</v-icon>
       {{ totalTime }}
     </div>
-    <div class="float-right mt-3 pr-4">
+    <div class="float-right mt-1 pr-4">
       <v-icon>mdi-monitor</v-icon>
       {{ playlist.itemNum }}
     </div>
-    <div class="float-right mt-3 pr-4">
+    <div class="float-right mt-1 pr-4">
       <v-icon>mdi-update</v-icon>
       {{ lastUpdateDate }} 更新
     </div>
@@ -108,8 +108,9 @@ export default Vue.extend({
 </script>
 <style scoped>
 .playlist-title .playlist-name {
-  font-size: 20px;
-  text-decoration: underline;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.7rem;
 }
 
 .playlist_logo_block {
