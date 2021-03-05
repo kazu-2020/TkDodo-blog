@@ -16,8 +16,8 @@
     <td justify="center" align="center">
       <v-img
         :src="eyecatchUrl"
-        lazy-src="https://placehold.jp/50x28.png"
-        width="50"
+        lazy-src="https://placehold.jp/71x40.png"
+        width="71"
         class="ma-2 episode-image"
       />
     </td>
@@ -73,7 +73,7 @@ export default Vue.extend({
       if (this.episode.eyecatch !== undefined) {
         return this.episode.eyecatch.medium.url
       } else {
-        return 'https://placehold.jp/50x28.png'
+        return 'https://placehold.jp/71x40.png'
       }
     },
     releaseDate(): string {
