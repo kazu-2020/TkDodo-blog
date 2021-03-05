@@ -463,7 +463,7 @@ class PreviewBlockBuilder {
 
       rightColumn.appendChild(stepsBlock)
 
-      this.data.howTo.section[0].step.forEach((step, index) => {
+      this.data.howTo.section[0].step.slice(0, 3).forEach((step, index) => {
         const stepBlock = new HTMLElementBuilder(
           'div',
           this.CSS.linkContentHowToStep
