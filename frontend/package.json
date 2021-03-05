@@ -43,6 +43,8 @@
     "nuxt": "^2.14.12",
     "nuxt-typed-vuex": "^0.1.22",
     "v-mask": "^2.2.4",
+    "video.js": "^7.11.4",
+    "videojs-contrib-eme": "^3.8.0",
     "vue-cropperjs": "^4.2.0",
     "vue-ctk-date-time-picker": "^2.5.0",
     "vue-markdown": "^2.2.4",
