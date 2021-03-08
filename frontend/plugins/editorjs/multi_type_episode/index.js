@@ -343,6 +343,7 @@ export default class MultiTypeEpisode {
       },
       series: {
         name: response.tvSeries.name,
+        aliasId: response.tvSeries.identifierGroup.aliasId,
       },
       episodeId: episode.id,
     })
