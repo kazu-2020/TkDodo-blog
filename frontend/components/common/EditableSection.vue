@@ -1,9 +1,10 @@
 <template>
   <div>
+    <div class="new-block-button" @click="insertNewBlock">
+      <v-icon class="new-block-button-icon">mdi-plus</v-icon>
+      新しいブロックを追加する
+    </div>
     <div :id="editorId" />
-    <v-btn rounded large color="secondary" class="d-none" @click="dumpSaveData">
-      Save
-    </v-btn>
     <v-snackbar
       v-model="snackBar"
       color="error"
@@ -125,9 +126,6 @@ export default {
           }
         })
     },
-    dumpSaveData() {
-      console.log('Article data: ', JSON.stringify(this.editorData))
-    },
     isIncludeEpisodeBlock(data) {
       const episodeBlock = data.blocks.find((b) =>
         this.isEpisodeRelatedBlock(b.type)
@@ -156,9 +154,43 @@ export default {
         .map(addEmptyDescription)
         .filter(emptyLinkFilter)
     },
+    insertNewBlock() {
+      this.editor.blocks.insert('paragraph', {}, {}, 0, true)
+    },
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.new-block-button {
+  border: 1px dotted #c6bebb;
+  color: #c6bebb;
+  max-width: 650px;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin: 0 auto 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #c6bebb;
+    color: black;
+
+    .new-block-button-icon {
+      color: black;
+    }
+  }
+
+  .new-block-button-icon {
+    color: #c6bebb;
+    position: relative;
+    top: -2px;
+
+    &:hover {
+      color: black;
+    }
+  }
+}
+</style>
 
 <style lang="scss">
 @import '~/assets/css/editorjs/plugins.scss';
@@ -168,5 +200,9 @@ export default {
 .ce-toolbox__button[data-tool='howTo'],
 .ce-toolbox__button[data-tool='recipe'] {
   display: none;
+}
+
+.codex-editor--narrow .codex-editor__redactor {
+  margin-right: 0;
 }
 </style>
