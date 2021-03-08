@@ -4,7 +4,7 @@
     @mouseenter="showSeriesName"
     @mouseleave="hideSeriesName"
   >
-    <v-img :src="episodeThumbnailUrl(episode)" aspect-ratio="1.33" />
+    <v-img :src="episodeThumbnailUrl(episode)" aspect-ratio="1.778" />
     <div class="pa-1 caption" style="color: black">
       {{ caption }}
     </div>
@@ -13,7 +13,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
 
 interface DataType {
   isShowSeriesName: boolean
@@ -42,13 +41,7 @@ export default Vue.extend({
   },
   methods: {
     episodeThumbnailUrl(episode: any): string {
-      return (
-        episode.eyecatch?.medium?.url || this.dummyImage(episode.dateCreated)
-      )
-    },
-    dummyImage(time: any): string {
-      const logoNumber = (Number(moment(time).format('DD')) % 10) + 1
-      return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
+      return episode.eyecatch?.medium?.url || 'https://placehold.jp/71x40.png'
     },
     showSeriesName(): void {
       this.isShowSeriesName = true

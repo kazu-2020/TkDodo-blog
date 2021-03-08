@@ -463,7 +463,7 @@ class PreviewBlockBuilder {
 
       rightColumn.appendChild(stepsBlock)
 
-      this.data.howTo.section[0].step.forEach((step, index) => {
+      this.data.howTo.section[0].step.slice(0, 3).forEach((step, index) => {
         const stepBlock = new HTMLElementBuilder(
           'div',
           this.CSS.linkContentHowToStep
@@ -507,7 +507,7 @@ class PreviewBlockBuilder {
       this.CSS.linkContentDetailButton,
       {
         target: '_blank',
-        href: this.data.link,
+        href: `https://dev-www.nhk.jp/p/${this.data.series.aliasId}/ts/${this.data.howTo.identifierGroup.seriesId}/howto/${this.data.howTo.id}/`,
       }
     ).build()
 

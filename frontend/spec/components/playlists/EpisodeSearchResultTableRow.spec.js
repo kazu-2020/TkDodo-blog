@@ -69,7 +69,7 @@ describe('components/playlists/EpisodeSearchResultTableRow.vue', () => {
   describe('computed eyecatchUrl', () => {
     describe('アイキャッチがない場合', () => {
       it('ダミー画像のURLが返却される', () => {
-        const dummyImageUrl = 'https://placehold.jp/50x28.png'
+        const dummyImageUrl = 'https://placehold.jp/71x40.png'
         const wrapper = mountFunction({
           propsData: {
             episode: {
