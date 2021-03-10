@@ -40,7 +40,11 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['@assets/css/main.scss', 'vue-json-pretty/lib/styles.css', 'video.js/dist/video-js.css'],
+  css: [
+    '@assets/css/main.scss',
+    'vue-json-pretty/lib/styles.css',
+    'video.js/dist/video-js.css',
+  ],
   /*
    ** Plugins to load before mounting the App
    */
