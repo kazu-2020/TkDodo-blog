@@ -25,7 +25,7 @@
         />
       </v-col>
       <v-col v-if="hasVideo" cols="12" class="text-center">
-        <iframe :src="videoUrl" style="width: 271px; border-style: none" />
+        <fluid-video-player :src="videoUrl" />
       </v-col>
       <v-col cols="12" class="pt-0 body-2">
         {{ episodeDescription }}
@@ -147,6 +147,7 @@ import Vue from 'vue'
 import moment from 'moment'
 import { Playlist } from '@/types/playlist'
 import EpisodePreviewGenresList from '~/components/playlists/EpisodePreviewGenresList.vue'
+import FluidVideoPlayer from '~/components/common/FluidVideoPlayer.vue'
 
 moment.locale('ja')
 
@@ -160,6 +161,7 @@ interface DataType {
 export default Vue.extend({
   name: 'EpisodePreviewDrawer',
   components: {
+    FluidVideoPlayer,
     EpisodePreviewGenresList,
   },
   props: {
@@ -223,7 +225,10 @@ export default Vue.extend({
       const okushibuVideo = videos.find(
         (video: any) => video.identifierGroup?.environmentId === 'okushibu'
       )
-      return okushibuVideo.embedUrl
+      const hlsVideo = okushibuVideo.detailedContent.find(
+        (v: any) => v.name === 'hls_fmp4'
+      )
+      return hlsVideo?.contentUrl
     },
     hasVideo(): boolean {
       const broadcastEventId = this.episode?.detailedRecentEvent?.id
