@@ -66,7 +66,7 @@
                 <th />
                 <th class="text-left">再生時間</th>
                 <th class="text-left">シリーズ名</th>
-                <th class="text-left">直近放送日</th>
+                <th class="text-left" style="min-width: 180px">直近放送日</th>
                 <th class="text-left">視聴可能</th>
               </tr>
             </thead>
