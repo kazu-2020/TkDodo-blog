@@ -23,7 +23,12 @@
             <v-icon>mdi-video-off-outline</v-icon>
           </span>
           <br />
-          <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
+          <v-chip
+            class="my-1 playlist-id"
+            color="primary"
+            small
+            @click="copyPlaylistId"
+          >
             ID: {{ playlistId }}
           </v-chip>
           <v-chip
@@ -212,7 +217,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.v-chip__content {
+.playlist-id .v-chip__content {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
