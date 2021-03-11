@@ -1,12 +1,12 @@
 <template>
-  <div class="preview-container container-fluid white rounded px-5 py-2 mt-4">
+  <div class="preview-container container-fluid white rounded pa-4 mt-4">
     <v-row>
       <v-col cols="2" md="2" sm="2" xs="6">
         <v-img
           :src="logoImageUrl(playlist)"
           style="border-radius: 4px; overflow: hidden"
-          max-height="130"
-          max-width="130"
+          max-height="200"
+          max-width="200"
           class="mb-2"
         />
         <div class="body-2 text--darken--1 grey--text">
@@ -24,7 +24,7 @@
           </span>
           <br />
           <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
-            ID: {{ omittedPlaylisitId }}
+            ID: {{ playlistId }}
           </v-chip>
           <v-chip
             v-if="playlistSeriesId"
@@ -157,11 +157,8 @@ export default Vue.extend({
     playlistSeriesId(): string | undefined {
       return this.playlist?.originalSeriesId
     },
-    omittedPlaylisitId(): string {
-      const playlistId = this.playlist?.id || ''
-      return playlistId.length > 8
-        ? playlistId.slice(0, 12) + '...'
-        : playlistId
+    playlistId(): string {
+      return this.playlist?.id || ''
     },
     playlistDescription(): string | undefined {
       return this.playlist?.description?.slice(0, 50)
@@ -213,6 +210,16 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style lang="scss">
+.v-chip__content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block !important;
+  padding-top: 1px;
+}
+</style>
 
 <style lang="scss" scoped>
 .playlist-title {

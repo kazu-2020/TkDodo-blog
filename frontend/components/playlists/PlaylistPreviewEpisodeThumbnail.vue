@@ -5,7 +5,7 @@
     @mouseleave="hideSeriesName"
   >
     <v-img :src="episodeThumbnailUrl(episode)" aspect-ratio="1.778" />
-    <div class="pa-1 caption" style="color: black">
+    <div class="py-1 caption" style="color: black">
       {{ caption }}
     </div>
   </v-sheet>
@@ -33,10 +33,9 @@ export default Vue.extend({
   },
   computed: {
     caption(): string {
-      const caption = this.isShowSeriesName
+      return this.isShowSeriesName
         ? this.episode.partOfSeries.name
         : this.episode.name
-      return caption.length > 9 ? caption.substr(0, 8) + '…' : caption
     },
   },
   methods: {

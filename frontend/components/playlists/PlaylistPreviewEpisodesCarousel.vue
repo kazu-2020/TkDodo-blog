@@ -13,12 +13,12 @@
         ></v-row>
       </v-container>
     </div>
-    <v-carousel v-else hide-delimiters height="120" :show-arrows="isShowArrows">
+    <v-carousel v-else hide-delimiters height="150" :show-arrows="isShowArrows">
       <v-carousel-item
         v-for="(_episodes, index) in splittedEpisodes"
         :key="`splittedEpisode${index}`"
       >
-        <v-row class="pa-4">
+        <v-row class="py-4">
           <v-col
             v-for="episode in _episodes"
             :key="episode.id"
