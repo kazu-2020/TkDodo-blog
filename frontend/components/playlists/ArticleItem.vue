@@ -47,8 +47,15 @@
                   {{ lastUpdateDate }} 更新
                 </div>
                 <div class="episodes_count d-inline ml-5">
-                  <v-icon>mdi-monitor</v-icon>
-                  エピソード数： {{ playlist.itemNum }}
+                  <v-tooltip bottom>
+                    <template #activator="{ on, attrs }">
+                      <v-icon>mdi-monitor</v-icon>
+                      <span v-bind="attrs" v-on="on">
+                        {{ playlist.playableItemNum }} / {{ playlist.itemNum }}
+                      </span>
+                    </template>
+                    <span>再生可能エピソード数 / 総エピソード数</span>
+                  </v-tooltip>
                 </div>
               </v-card-text>
             </v-col>
