@@ -26,12 +26,26 @@
       </a>
     </div>
     <div class="float-right mt-1 pr-4">
-      <v-icon>mdi-clock-time-four-outline</v-icon>
-      {{ totalTime }}
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-icon>mdi-clock-time-four-outline</v-icon>
+          <span v-bind="attrs" v-on="on">
+            {{ playableTotalTime }} / {{ totalTime }}
+          </span>
+        </template>
+        <span>再生可能時間 / 総再生時間</span>
+      </v-tooltip>
     </div>
     <div class="float-right mt-1 pr-4">
-      <v-icon>mdi-monitor</v-icon>
-      {{ playlist.itemNum }}
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-icon>mdi-monitor</v-icon>
+          <span v-bind="attrs" v-on="on">
+            {{ playlist.playableItemNum }} / {{ playlist.itemNum }}
+          </span>
+        </template>
+        <span>再生可能エピソード数 / 総エピソード数</span>
+      </v-tooltip>
     </div>
     <div class="float-right mt-1 pr-4">
       <v-icon>mdi-update</v-icon>
@@ -76,6 +90,19 @@ export default Vue.extend({
       }
       const seconds = this.playlist.totalTime % 60
       const totalMinutes = (this.playlist.totalTime - seconds) / 60
+      const minutes = totalMinutes % 60
+      const hours = Math.floor(totalMinutes / 60)
+
+      return `${('00' + hours).slice(-2)}:${('00' + minutes).slice(-2)}:${(
+        '00' + seconds
+      ).slice(-2)}`
+    },
+    playableTotalTime(): string {
+      if (!this.playlist.playableTotalTime) {
+        return '--:--:--'
+      }
+      const seconds = this.playlist.playableTotalTime % 60
+      const totalMinutes = (this.playlist.playableTotalTime - seconds) / 60
       const minutes = totalMinutes % 60
       const hours = Math.floor(totalMinutes / 60)
 
