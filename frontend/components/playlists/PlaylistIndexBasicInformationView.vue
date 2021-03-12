@@ -23,17 +23,17 @@
         <v-img
           :src="logoImageUrl(playlist)"
           width="73"
-          class="d-inline-block"
+          class="d-inline-block elevation-3"
         />
         <v-img
           :src="eyecatchImageUrl(playlist)"
           width="130"
-          class="d-inline-block"
+          class="d-inline-block elevation-3"
         />
         <v-img
           :src="heroImageUrl(playlist)"
           width="220"
-          class="d-inline-block"
+          class="d-inline-block elevation-3"
         />
       </v-col>
       <v-col v-if="playlistDetailedCatch" cols="12" class="body-2 py-2">
