@@ -20,6 +20,8 @@ class PlaylistItem < ApplicationRecord
   # TOOD: リストにエピソード以外が入るようになったとき、context の設定をタイプごとに切り替えられるようにする
   before_save :set_item_context_and_id
 
+  scope :playable, -> { where(has_video: true) }
+
   def cached_json
     cached_data.deep_symbolize_keys if has_cached_json?
   end

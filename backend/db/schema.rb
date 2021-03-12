@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_19_063221) do
+ActiveRecord::Schema.define(version: 2021_03_12_141800) do
 
   create_table "article_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -99,7 +99,9 @@ ActiveRecord::Schema.define(version: 2021_02_19_063221) do
     t.string "alias_id", comment: "短縮URL"
     t.string "d5_playlist_id", comment: "r5 デッキのプレイリストID"
     t.integer "playlist_items_count", default: 0, null: false
+    t.integer "playable_playlist_items_count", default: 0, comment: "再生可能なエピソード数"
     t.integer "total_time", default: 0, comment: "プレイリストの総時間"
+    t.integer "playable_total_time", default: 0, comment: "プレイリスト再生可能時間"
     t.text "marked_header", comment: "ヘッダー"
     t.text "article_body", size: :medium, comment: "記事本文"
     t.text "marked_body", size: :medium, comment: "記事本文（マークダウン）"

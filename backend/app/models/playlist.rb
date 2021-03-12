@@ -245,6 +245,16 @@ class Playlist < ApplicationRecord
     ids
   end
 
+  def update_playable_total_time!
+    self.playable_total_time = playlist_items.playable.sum(&:duration)
+    save!
+  end
+
+  def update_playable_playlist_items_count!
+    self.playable_playlist_items_count = playlist_items.playable.size
+    save!
+  end
+
   private
 
   def generate_string_id
