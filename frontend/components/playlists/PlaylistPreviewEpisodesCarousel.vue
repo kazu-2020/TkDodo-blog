@@ -109,7 +109,6 @@ export default Vue.extend({
         })
     },
     handleResize() {
-      console.log(window.innerWidth)
       if (window.innerWidth < 950) {
         this.episodePreviewNum = 4
       } else {

@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div class="new-block-button" @click="insertNewBlock">
+    <div
+      v-show="isShowInsertBlockButton"
+      class="new-block-button"
+      @click="insertNewBlock"
+    >
       <v-icon class="new-block-button-icon">mdi-plus</v-icon>
       新しいブロックを追加する
     </div>
@@ -81,6 +85,7 @@ export default {
       snackBar: false,
       snackBarMessage: '',
       snackBarTimeout: 5000,
+      isShowInsertBlockButton: false,
     }
   },
   watch: {
@@ -95,6 +100,12 @@ export default {
       },
       immediate: true,
     },
+    editorData: {
+      handler() {
+        const firstBlock = this.editor.blocks.getBlockByIndex(0)
+        this.isShowInsertBlockButton = !firstBlock.isEmpty
+      },
+    },
   },
   beforeDestroy() {
     this.editor.destroy()
@@ -103,6 +114,8 @@ export default {
     // Call from basicEditorMixin
     initializeEditor() {
       this.editor.blocks.insert()
+      const firstBlock = this.editor.blocks.getBlockByIndex(0)
+      this.isShowInsertBlockButton = !firstBlock.isEmpty
     },
     // Call from basicEditorMixin
     updateEditorData() {
@@ -155,7 +168,9 @@ export default {
         .filter(emptyLinkFilter)
     },
     insertNewBlock() {
-      this.editor.blocks.insert('paragraph', {}, {}, 0, true)
+      this.isShowInsertBlockButton = false
+      this.editor.blocks.insert('paragraph', {}, {}, 0, false)
+      this.editor.caret.setToFirstBlock('end', 0)
     },
   },
 }
