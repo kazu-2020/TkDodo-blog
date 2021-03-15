@@ -51,6 +51,7 @@ class PlaylistsController < ApplicationController
   iam_policy('s3')
   def import_from_series
     @playlist = Playlist.assign_from_series(playlist_params[:original_series_id])
+    @playlist.deck = Deck.find_by(is_r5: false)
 
     begin
       @playlist.save!
