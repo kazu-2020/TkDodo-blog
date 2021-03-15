@@ -22,16 +22,19 @@
       <v-col cols="12">
         <v-img
           :src="logoImageUrl(playlist)"
+          :aspect-ratio="1 / 1"
           width="73"
           class="d-inline-block elevation-3"
         />
         <v-img
           :src="eyecatchImageUrl(playlist)"
+          :aspect-ratio="16 / 9"
           width="130"
           class="d-inline-block elevation-3"
         />
         <v-img
           :src="heroImageUrl(playlist)"
+          :aspect-ratio="3 / 1"
           width="220"
           class="d-inline-block elevation-3"
         />

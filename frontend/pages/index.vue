@@ -268,7 +268,7 @@ export default Vue.extend({
         : 0
     },
     drawerWidth(): number {
-      const halfSize = this.width * 0.6
+      const halfSize = this.width * 0.95
       return Math.min(halfSize, 500)
     },
     selectedActorsAndContributors(): Array<Object> {
