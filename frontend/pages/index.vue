@@ -322,6 +322,16 @@ export default Vue.extend({
         })
       },
     },
+    searchKeyword: {
+      handler(newValue) {
+        if (newValue === null) {
+          this.$store.dispatch('playlists/fetchPlaylists', {
+            page: 1,
+            publishedState: this.selectedPublishedStateFilter,
+          })
+        }
+      },
+    },
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
