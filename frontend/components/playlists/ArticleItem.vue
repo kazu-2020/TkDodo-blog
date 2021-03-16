@@ -1,69 +1,63 @@
 <template>
-  <v-card class="mx-auto" outlined light>
-    <v-container>
-      <v-row class="px-4">
-        <v-col class="playlist_logo_block py-0">
-          <v-row class="pa-4">
-            <v-col cols="2" sm="3" xs="5" class="pa-0 pl-1 pb-1 mt-1 pr-4">
-              <v-img
-                :src="logoImageUrl"
-                class="playlist_logo_image elevation-3"
-                aspect-ratio="1"
-              />
-            </v-col>
-            <v-col
-              class="mr-auto pl-0 pt-0 information"
-              cols="10"
-              sm="9"
-              xs="7"
-            >
-              <v-card-title class="title mb-1 pl-0 d-block text-truncate">
-                <a class="playlist-title" @click="clickPlaylistItem">
-                  <span class="playlist-name">{{ playlist.name }}</span>
-                  <published-state-badge class="ma-2" :playlist="playlist" />
-                  <span
-                    v-if="playlist.browsableItemCount === 0"
-                    style="font-size: 12px; color: black"
-                  >
-                    <v-icon>mdi-video-off-outline</v-icon>
-                  </span>
-                </a>
-              </v-card-title>
-              <v-card-text
-                v-if="isArticlePresent"
-                class="article_outline hidden-sm-and-down pl-0"
-              >
-                <!-- eslint-disable-next-line vue/no-v-html -->
-                <p style="text-align: start" v-html="articleOutline" />
-              </v-card-text>
-              <v-card-text v-else>
-                <div class="no_article">
-                  <p class="no_article_text">記事はまだありません</p>
-                </div>
-              </v-card-text>
-              <v-card-text class="card_list_item pb-1 d-inline-block pl-0">
-                <div class="last_updated_at d-inline">
-                  <v-icon>mdi-update</v-icon>
-                  {{ lastUpdateDate }} 更新
-                </div>
-                <div class="episodes_count d-inline ml-5">
-                  <v-tooltip bottom>
-                    <template #activator="{ on, attrs }">
-                      <v-icon>mdi-monitor</v-icon>
-                      <span v-bind="attrs" v-on="on">
-                        {{ playlist.playableItemNum }} / {{ playlist.itemNum }}
-                      </span>
-                    </template>
-                    <span>再生可能エピソード数 / 総エピソード数</span>
-                  </v-tooltip>
-                </div>
-              </v-card-text>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-card>
+  <div
+    class="mx-auto pa-2 clearfix"
+    style="background-color: white; border-radius: 4px; cursor: pointer"
+    outlined
+    light
+    @click="clickPlaylistItem"
+  >
+    <v-img
+      :src="logoImageUrl"
+      class="playlist_logo_image elevation-3 elevation-3 float-left"
+      aspect-ratio="1"
+      style="width: 160px"
+    />
+    <div class="title float-left ml-6 article-info">
+      <a class="playlist-title">
+        <span class="playlist-name">{{ playlistName }}</span>
+        <published-state-badge class="" :playlist="playlist" />
+        <span
+          v-if="playlist.browsableItemCount === 0"
+          style="font-size: 12px; color: black"
+        >
+          <v-icon>mdi-video-off-outline</v-icon>
+        </span>
+      </a>
+      <div
+        v-if="isArticlePresent"
+        class="article_outline hidden-sm-and-down pl-0"
+      >
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <p style="text-align: start" class="body-1" v-html="articleOutline" />
+      </div>
+      <div v-else>
+        <div class="no_article">
+          <p class="no_article_text body-1">記事はまだありません</p>
+        </div>
+      </div>
+      <div
+        class="pt-2 pb-1 d-block pl-0 body-1"
+        style="position: absolute; bottom: 0"
+      >
+        <div class="last_updated_at d-inline">
+          <v-icon>mdi-update</v-icon>
+          {{ lastUpdateDate }} 更新
+        </div>
+        <div class="episodes_count d-inline ml-5">
+          <v-tooltip bottom>
+            <template #activator="{ on, attrs }">
+              <v-icon>mdi-monitor</v-icon>
+              <span v-bind="attrs" v-on="on">
+                {{ playlist.playableItemNum }} /
+                {{ playlist.itemNum }}
+              </span>
+            </template>
+            <span>再生可能エピソード数 / 総エピソード数</span>
+          </v-tooltip>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -109,6 +103,10 @@ export default Vue.extend({
     isArticlePresent(): boolean {
       return this.articleOutline !== ''
     },
+    playlistName(): string {
+      const name = this.playlist?.name || ''
+      return name.length > 24 ? name.slice(0, 24) + '…' : name
+    },
   },
   methods: {
     formattedDate(_time: string): string {
@@ -128,13 +126,16 @@ export default Vue.extend({
   border-radius: 4px;
 }
 
-.v-card__title.title {
-  padding-top: 0;
-  padding-bottom: 0;
+.playlist-title .playlist-name {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.7rem;
 }
 
-.playlist-title .playlist-name {
-  text-decoration: underline;
+.article-info {
+  width: calc(100% - 200px);
+  min-height: 160px;
+  position: relative;
 }
 
 .no_article {
@@ -163,7 +164,7 @@ export default Vue.extend({
 
 @media only screen and (min-width: 960px) and (max-width: 1264px) {
   .article_outline {
-    max-height: 49px;
+    max-height: 93px;
   }
 }
 
@@ -173,13 +174,11 @@ export default Vue.extend({
 }
 
 .article_outline:before {
-  content: '…';
   bottom: 0;
   right: 0;
 }
 
 .article_outline:after {
-  content: '';
   height: 100%;
   width: 100%;
   background: white;
@@ -190,18 +189,9 @@ export default Vue.extend({
   color: #4f4f4f;
 }
 
-.information {
-  position: relative;
-}
-
-.card_list_item {
-  position: absolute;
-  bottom: 0;
-}
-
-@media only screen and (max-width: 600px) {
-  .card_list_item {
-    position: relative;
-  }
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
 }
 </style>
