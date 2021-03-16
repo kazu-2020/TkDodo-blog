@@ -94,6 +94,10 @@ export default Vue.extend({
   },
   methods: {
     fetchEpisodes() {
+      if (this.playlist.id === undefined) {
+        this.isFetched = true
+        return
+      }
       if (this.episodes.length !== 0) return
 
       this.$axios
