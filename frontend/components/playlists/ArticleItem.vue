@@ -17,7 +17,7 @@
               sm="9"
               xs="7"
             >
-              <v-card-title class="title mb-1 pl-0">
+              <v-card-title class="title mb-1 pl-0 d-block text-truncate">
                 <a class="playlist-title" @click="clickPlaylistItem">
                   <span class="playlist-name">{{ playlist.name }}</span>
                   <published-state-badge class="ma-2" :playlist="playlist" />
@@ -104,7 +104,7 @@ export default Vue.extend({
       return this.formattedDate(this.playlist.dateModified)
     },
     articleOutline(): string {
-      return this.playlist.article.plainBody?.replace(/\n/g, '<br/>') || ''
+      return this.playlist.article.plainBody?.replace(/\n\n/g, '<br/>') || ''
     },
     isArticlePresent(): boolean {
       return this.articleOutline !== ''
