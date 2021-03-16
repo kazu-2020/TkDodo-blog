@@ -8,7 +8,7 @@
   >
     <v-img
       :src="logoImageUrl"
-      class="playlist_logo_image float-left mr-3"
+      class="playlist_logo_image float-left mr-3 elevation-3"
       aspect-ratio="1"
       height="30"
       width="30"

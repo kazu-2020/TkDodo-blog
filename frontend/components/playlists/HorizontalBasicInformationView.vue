@@ -7,7 +7,7 @@
           style="border-radius: 4px; overflow: hidden"
           max-height="200"
           max-width="200"
-          class="mb-2"
+          class="mb-2 elevation-3"
         />
         <div class="body-2 text--darken--1 grey--text">
           エピソード数: 全{{ playlistItemCount }}件
