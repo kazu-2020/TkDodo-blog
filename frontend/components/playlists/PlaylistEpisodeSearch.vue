@@ -191,6 +191,13 @@ export default Vue.extend({
       },
       immediate: true,
     },
+    editingKeywords: {
+      handler(nweVal: string | null) {
+        if (nweVal == null) {
+          this.episodes = []
+        }
+      },
+    },
   },
   methods: {
     searchEpisodes({
@@ -220,7 +227,7 @@ export default Vue.extend({
           if (this.episodes.length <= pageSize) {
             this.$scrollTo('#episode-search-result', 1400, {
               easing: [0, 0, 0.1, 1],
-              offset: -75,
+              offset: -185,
             })
           }
         })
