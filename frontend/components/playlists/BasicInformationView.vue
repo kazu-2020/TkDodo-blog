@@ -24,6 +24,7 @@
           :src="logoImageUrl(playlist)"
           width="100"
           style="border-radius: 4px; overflow: hidden; margin: 0 auto"
+          class="elevation-3"
         />
       </v-col>
       <v-col v-if="playlistDetailedCatch" cols="12" class="body-2 py-2">

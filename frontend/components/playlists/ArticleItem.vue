@@ -7,7 +7,7 @@
             <v-col cols="2" sm="3" xs="5" class="pa-0 pl-1 pb-1 mt-1 pr-4">
               <v-img
                 :src="logoImageUrl"
-                class="playlist_logo_image"
+                class="playlist_logo_image elevation-3"
                 aspect-ratio="1"
               />
             </v-col>

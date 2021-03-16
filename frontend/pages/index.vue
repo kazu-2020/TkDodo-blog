@@ -269,7 +269,7 @@ export default Vue.extend({
     },
     drawerWidth(): number {
       const halfSize = this.width * 0.95
-      return Math.min(halfSize, 500)
+      return Math.min(halfSize, 520)
     },
     selectedActorsAndContributors(): Array<Object> {
       const actors = (this.selectedPlaylistActorContributor as any)?.actor || []
@@ -320,6 +320,16 @@ export default Vue.extend({
           publishedState: newValue,
           query: this.searchKeyword,
         })
+      },
+    },
+    searchKeyword: {
+      handler(newValue) {
+        if (newValue === null) {
+          this.$store.dispatch('playlists/fetchPlaylists', {
+            page: 1,
+            publishedState: this.selectedPublishedStateFilter,
+          })
+        }
       },
     },
   },
