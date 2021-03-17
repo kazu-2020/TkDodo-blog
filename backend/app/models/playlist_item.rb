@@ -30,20 +30,27 @@ class PlaylistItem < ApplicationRecord
     cached_data_at.present? && (cached_data_at + CACHED_DATA_TTL).future?
   end
 
+  # rubocop: disable Metrics/AbcSize
   def fetch_data
     client = DlabApiClient.new
-    res = client.episode(type: 'tv', episode_id: episode_id)
+    bundle_res = client.episode_bundle(type: 'tv', episode_id: episode_id)
+    episode_res = bundle_res[:tvepisode][0]
+
     # BroadcastEvent, videos が大きすぎて、MySQL のカラムにデータがすべて入らないため、削除
-    self.cached_data = res.reject { |key| %i[broadcastEvent videos].include?(key) }
+    self.cached_data = episode_res.reject { |key| %i[broadcastEvent videos].include?(key) }
     self.cached_data_at = Time.current
 
-    set_duration(res)
-    set_has_video(res)
+    set_duration(episode_res)
+    set_has_video(episode_res)
+
+    self.has_how_to = bundle_res[:howto].present?
+    self.has_event = bundle_res[:event].present?
 
     save
 
-    res
+    episode_res
   end
+  # rubocop: enable Metrics/AbcSize
 
   private
 
