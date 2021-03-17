@@ -33,6 +33,12 @@ export interface Playlist {
   removeEyecatchImage: boolean
   removeHeroImage: boolean
   browsableItemCount: number
+  hasHowTo: boolean
+  hasEvent: boolean
+  outputEpisodeToBundle: boolean
+  outputArticleToBundle: boolean
+  outputHowToToBundle: boolean
+  outputEventToBundle: boolean
   items: Array<EpisodeData>
   sameAs: SameAs
   citations: Array<Citation>

@@ -265,6 +265,12 @@ export default Vue.extend({
     },
   },
   data(): DataType {
+    const selectedTypes = []
+    if (this.playlist.outputEpisodeToBundle) selectedTypes.push('tvepisode')
+    if (this.playlist.outputArticleToBundle) selectedTypes.push('narticle')
+    if (this.playlist.outputHowToToBundle) selectedTypes.push('howto')
+    if (this.playlist.outputEventToBundle) selectedTypes.push('event')
+
     return {
       name: this.playlist.name || '',
       detailedNameRuby: this.playlist.detailedNameRuby || '',
@@ -322,7 +328,7 @@ export default Vue.extend({
         { value: '110', text: '福祉全般' },
       ],
       publishedState: this.playlist.publishedState === 'draft',
-      selectedTypes: ['tvepisode'],
+      selectedTypes,
     }
   },
   computed: {
@@ -332,15 +338,15 @@ export default Vue.extend({
     hasArticle(): boolean {
       return (
         this.playlist.article.header ||
-        this.playlist.article.body ||
+        this.playlist.article.plainBody ||
         this.playlist.article.footer
       )
     },
     hasHowTo(): boolean {
-      return false
+      return this.playlist.hasHowTo
     },
     hasEvent(): boolean {
-      return false
+      return this.playlist.hasEvent
     },
   },
   watch: {
@@ -469,6 +475,29 @@ export default Vue.extend({
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, {
           publishedState: this.convertedPublishedState,
+        })
+        this.$emit('update-series', playlist)
+      },
+    },
+    selectedTypes: {
+      handler(newValue) {
+        if (
+          this.playlist.outputEpisodeToBundle ===
+            newValue.includes('tvepisode') &&
+          this.playlist.outputArticleToBundle ===
+            newValue.includes('narticle') &&
+          this.playlist.outputHowToToBundle === newValue.includes('howto') &&
+          this.playlist.outputHowToToBundle === newValue.includes('event')
+        ) {
+          return
+        }
+
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, {
+          outputEpisodeToBundle: newValue.includes('tvepisode'),
+          outputArticleToBundle: newValue.includes('narticle'),
+          outputHowToToBundle: newValue.includes('howto'),
+          outputEventToBundle: newValue.includes('event'),
         })
         this.$emit('update-series', playlist)
       },
