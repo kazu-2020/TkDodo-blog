@@ -172,6 +172,38 @@
               <v-checkbox v-model="publishedState" label="公開する" />
             </v-col>
           </v-row>
+          <v-row dense class="my-5">
+            <v-col cols="12"><h3>Type ごとのAPI出力 ON/OFF</h3></v-col>
+            <v-col cols="12" sm="6" md="3">
+              <v-checkbox
+                v-model="selectedTypes"
+                class="mt-1"
+                label="TVEpisode"
+                value="tvepisode"
+              />
+              <v-checkbox
+                v-if="hasArticle"
+                v-model="selectedTypes"
+                class="mt-0"
+                label="NArticle"
+                value="narticle"
+              />
+              <v-checkbox
+                v-if="hasHowTo"
+                v-model="selectedTypes"
+                class="mt-0"
+                label="HowTo"
+                value="howto"
+              />
+              <v-checkbox
+                v-if="hasEvent"
+                v-model="selectedTypes"
+                class="mt-0"
+                label="Event"
+                value="event"
+              />
+            </v-col>
+          </v-row>
         </v-form>
       </v-col>
     </v-row>
@@ -214,6 +246,7 @@ interface DataType {
   formatGenreList: Object[]
   themeGenreList: Object[]
   publishedState: boolean
+  selectedTypes: string[]
 }
 
 export default Vue.extend({
@@ -289,11 +322,25 @@ export default Vue.extend({
         { value: '110', text: '福祉全般' },
       ],
       publishedState: this.playlist.publishedState === 'draft',
+      selectedTypes: ['tvepisode'],
     }
   },
   computed: {
     convertedPublishedState(): string {
       return this.publishedState ? 'draft' : 'secret'
+    },
+    hasArticle(): boolean {
+      return (
+        this.playlist.article.header ||
+        this.playlist.article.body ||
+        this.playlist.article.footer
+      )
+    },
+    hasHowTo(): boolean {
+      return false
+    },
+    hasEvent(): boolean {
+      return false
     },
   },
   watch: {
