@@ -316,7 +316,7 @@ export default Vue.extend({
       this.isShowDiffDialog = false
     },
     save() {
-      const body: { [key: string]: string | undefined } = {
+      const body: { [key: string]: string | undefined | boolean } = {
         name: this.playlist.name,
         detailed_name_ruby: this.playlist.detailedNameRuby,
         description: this.playlist.description,
