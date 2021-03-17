@@ -139,6 +139,8 @@ class PlaylistsController < ApplicationController
                   :remove_logo_image, :remove_eyecatch_image, :remove_hero_image,
                   :selected_palette, :primary_light_color, :primary_dark_color,
                   :text_light_color, :text_dark_color, :link_light_color, :link_dark_color,
+                  :output_episode_to_bundle, :output_article_to_bundle,
+                  :output_how_to_to_bundle, :output_event_to_bundle,
                   :reserve_publish_time_at, :reserve_finish_time_at,
                   :original_series_id, :alias_id, :marked_header, :editor_data, :marked_footer,
                   :author_type, :author_name, :publisher_type, :publisher_name, :published_state,
