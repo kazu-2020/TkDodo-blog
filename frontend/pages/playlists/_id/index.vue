@@ -104,7 +104,7 @@
                     width="71"
                     height="40"
                   >
-                    <div class="no-video" v-if="!item.hasVideo">視聴不可</div>
+                    <div class="no-video" v-if="!hasVideo(item)">視聴不可</div>
                   </v-img>
                 </v-list-item-icon>
                 <v-list-item-content>
@@ -310,6 +310,22 @@ export default Vue.extend({
     moveToListEditing() {
       this.currentTab = PlaylistTab.list
       this.isShowDiffDialog = false
+    },
+    hasVideo(episode: any) {
+      const broadcastEventId = episode?.detailedRecentEvent?.id
+      if (broadcastEventId === undefined) {
+        return false
+      }
+
+      const broadcastEvent = episode.broadcastEvent.find(
+        (be: any) => be.id === broadcastEventId
+      )
+
+      const videos = broadcastEvent?.video || []
+      const okushibuVideo = videos.find(
+        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
+      )
+      return !!okushibuVideo
     },
     save() {
       const body: { [key: string]: string | undefined | boolean } = {
