@@ -41,7 +41,7 @@
       >
         <div class="last_updated_at d-inline">
           <v-icon>mdi-update</v-icon>
-          {{ lastUpdateDate }} 更新
+          {{ lastUpdateDate }}
         </div>
         <div class="episodes_count d-inline ml-5">
           <v-tooltip bottom>
