@@ -158,12 +158,16 @@
         class="px-6 episode_list"
       >
         <v-list-item-icon class="mr-3 my-3">
-          <v-img
-            :src="eyecatchUrl(item)"
-            lazy-src="https://placehold.jp/71x40.png"
-            width="71"
-            height="40"
-          />
+          <div style="position: relative">
+            <v-img
+              :src="eyecatchUrl(item)"
+              lazy-src="https://placehold.jp/71x40.png"
+              width="71"
+              height="40"
+            >
+              <div class="no_video" v-if="!item.hasVideo">視聴不可</div>
+            </v-img>
+          </div>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title style="font-size: 14px" v-text="item.name" />
@@ -172,12 +176,6 @@
             v-text="seriesName(item)"
           />
         </v-list-item-content>
-      </v-list-item>
-      <v-list-item
-        v-if="selectedPlaylistBrowsableItemCount === 0"
-        class="body-2 ml-2"
-      >
-        ※) このプレイリストには再生可能なエピソードが有りません
       </v-list-item>
       <v-divider v-if="selectedActorsAndContributors.length > 0" class="mt-4" />
       <div
@@ -436,5 +434,16 @@ export default Vue.extend({
   font-size: 14px;
   width: 100%;
   padding: 20px 12px 12px;
+}
+
+.no_video {
+  position: absolute;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  font-size: 12px;
 }
 </style>
