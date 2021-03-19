@@ -192,7 +192,12 @@
       <v-divider class="mt-4" />
       <v-list-item>
         <div class="article_preview">
-          {{ selectedPlaylistArticle }}
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <p
+            style="text-align: start"
+            class="body-1"
+            v-html="selectedPlaylistArticle"
+          />
         </div>
       </v-list-item>
     </v-navigation-drawer>
@@ -257,7 +262,8 @@ export default Vue.extend({
       return this.$store.state.playlists.pagination.totalPages
     },
     selectedPlaylistArticle(): string {
-      return this.selectedPlaylist?.article?.plainBody || ''
+      const article = this.selectedPlaylist?.article?.plainBody || ''
+      return article.replace(/\n\n/g, '<br/>')
     },
     selectedPlaylistId(): string {
       return this.selectedPlaylist ? this.selectedPlaylist.id : ''
@@ -425,7 +431,6 @@ export default Vue.extend({
   word-wrap: break-word;
   font-size: 14px;
   width: 100%;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding: 20px 12px 12px;
 }
 </style>
