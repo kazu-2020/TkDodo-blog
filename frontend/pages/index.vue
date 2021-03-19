@@ -16,12 +16,13 @@
               @keypress.enter="searchPlaylistWithKeyword"
             />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="4" style="display: table">
             <div class="mode_switch_block">
               <v-switch
                 v-model="articleMode"
                 label="記事モード"
-                class="mode_switch"
+                class="mode_switch pt-14"
+                style="display: table-cell; width: 130px"
               />
             </div>
             <v-select
@@ -29,7 +30,8 @@
               :items="publishedStateFilters"
               item-text="text"
               item-value="state"
-              class="pt-16"
+              class="pt-16 pl-4"
+              style="max-width: 100px; display: table-cell"
               dense
               solo
             />
@@ -408,10 +410,12 @@ export default Vue.extend({
 .mode_switch_block {
   position: relative;
   z-index: 1;
+  width: 130px;
+  height: 40px;
+  margin: 0 0 0 auto;
 }
 
 .mode_switch {
-  position: absolute;
   right: 0;
 }
 
