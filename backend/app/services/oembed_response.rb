@@ -27,9 +27,8 @@ class OembedResponse
     url.match?(%r{https?://.*nhk.jp.*/p/.*ts/[A-Z1-9]{10}/episode/te/[A-Z1-9]{10}})
   end
 
-  # NOTE:
-  #   seriesの場合、トレイリングスラッシュなしはdevのoEmbedAPIで無効なURLとして扱われる
-  #   エイリアスを指定すると正しいembedが返ってこない
+  # NOTE: seriesの場合、トレイリングスラッシュなしはdevのoEmbedAPIで無効なURLとして扱われる
+  # NOTE: エイリアスを指定すると正しいembedが返ってこない
   # @return [String] dev-embed.nr.nhk.jp用のURL ts/ 以降
   def extract_series_or_episode_url
     url[%r{https?://.*nhk.jp.*/p/.*(ts/[A-Z1-9]{10}/.*)}, 1]
