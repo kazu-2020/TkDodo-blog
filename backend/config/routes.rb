@@ -60,6 +60,8 @@ Jets.application.routes.draw do
     end
   end
 
+  get '/oembed', to: 'oembed#index'
+
   post '/slack/incoming_webhook', to: 'slack#incoming_webhook'
   get '/editor/fetch_link', to: 'editors#fetch_link', as: :fetch_link_editor
 

@@ -17,8 +17,7 @@ class DlabApiClient < DlabApiBase
 
   # TVEpisode 検索APIをリクエストする
   #
-  # @param [String] word: 検索したい文字列
-  # @param [Integer] offset: 開始インデックス
+  # @param [Hash] search_params
   def search(search_params)
     word = search_params[:word]
     offset = search_params[:offset] || DEFAULT_OFFSET
@@ -80,7 +79,8 @@ class DlabApiClient < DlabApiBase
 
   # broadcast_eventを episode_id 指定で取得する
   #
-  # @param [String] broadcast_event_id
+  # @param [String] episode_id
+  # @param [Hash] query
   def broadcast_event_from_episode_id(episode_id, query = {})
     res = client.get "/#{VERSION}/t/broadcastevent/te/#{episode_id}.json",
                      INTERNAL_PARAMS.merge(query)
