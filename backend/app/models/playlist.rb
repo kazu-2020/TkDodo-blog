@@ -255,6 +255,26 @@ class Playlist < ApplicationRecord
     save!
   end
 
+  # rubocop: disable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  def bundle
+    result = {
+      tvepisode: [],
+      event: [],
+      howto: []
+    }
+
+    client = DlabApiClient.new
+    playlist_items.each do |item|
+      data = client.episode_bundle(type: 'tv', episode_id: item.episode_id)
+
+      result[:tvepisode] << data[:tvepisode][0] if data[:tvepisode] && !data[:tvepisode].empty?
+      result[:event] += data[:event] if data[:event] && !data[:event].empty?
+      result[:howto] += data[:howto] if data[:howto] && !data[:howto].empty?
+    end
+    result
+  end
+  # rubocop: enable Metrics/CyclomaticComplexity, Metrics/AbcSize
+
   private
 
   def generate_string_id

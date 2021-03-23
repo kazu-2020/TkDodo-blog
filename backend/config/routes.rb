@@ -14,6 +14,10 @@ Jets.application.routes.draw do
         get 'dk/:deck_id', to: 'external/decks#show', constraints: { deck_id: /recommend-(visible|editorial)$/ }
         get 'recommend/:deck_id', to: 'external/decks#show'
       end
+
+      scope prefix: :bundle do
+        get 'pl/:playlist_id', to: 'external/playlists#bundle'
+      end
     end
   end
 
