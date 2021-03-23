@@ -487,7 +487,7 @@ export default Vue.extend({
           this.playlist.outputArticleToBundle ===
             newValue.includes('narticle') &&
           this.playlist.outputHowToToBundle === newValue.includes('howto') &&
-          this.playlist.outputHowToToBundle === newValue.includes('event')
+          this.playlist.outputEventToBundle === newValue.includes('event')
         ) {
           return
         }
