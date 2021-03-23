@@ -172,6 +172,38 @@
               <v-checkbox v-model="publishedState" label="公開する" />
             </v-col>
           </v-row>
+          <v-row dense class="my-5">
+            <v-col cols="12"><h3>Type ごとのAPI出力 ON/OFF</h3></v-col>
+            <v-col cols="12" sm="6" md="3">
+              <v-checkbox
+                v-model="selectedTypes"
+                class="mt-1"
+                label="TVEpisode"
+                value="tvepisode"
+              />
+              <v-checkbox
+                v-if="hasArticle"
+                v-model="selectedTypes"
+                class="mt-0"
+                label="NArticle"
+                value="narticle"
+              />
+              <v-checkbox
+                v-if="hasHowTo"
+                v-model="selectedTypes"
+                class="mt-0"
+                label="HowTo"
+                value="howto"
+              />
+              <v-checkbox
+                v-if="hasEvent"
+                v-model="selectedTypes"
+                class="mt-0"
+                label="Event"
+                value="event"
+              />
+            </v-col>
+          </v-row>
         </v-form>
       </v-col>
     </v-row>
@@ -214,6 +246,7 @@ interface DataType {
   formatGenreList: Object[]
   themeGenreList: Object[]
   publishedState: boolean
+  selectedTypes: string[]
 }
 
 export default Vue.extend({
@@ -232,6 +265,12 @@ export default Vue.extend({
     },
   },
   data(): DataType {
+    const selectedTypes = []
+    if (this.playlist.outputEpisodeToBundle) selectedTypes.push('tvepisode')
+    if (this.playlist.outputArticleToBundle) selectedTypes.push('narticle')
+    if (this.playlist.outputHowToToBundle) selectedTypes.push('howto')
+    if (this.playlist.outputEventToBundle) selectedTypes.push('event')
+
     return {
       name: this.playlist.name || '',
       detailedNameRuby: this.playlist.detailedNameRuby || '',
@@ -289,11 +328,25 @@ export default Vue.extend({
         { value: '110', text: '福祉全般' },
       ],
       publishedState: this.playlist.publishedState === 'draft',
+      selectedTypes,
     }
   },
   computed: {
     convertedPublishedState(): string {
       return this.publishedState ? 'draft' : 'secret'
+    },
+    hasArticle(): boolean {
+      return (
+        this.playlist.article.header ||
+        this.playlist.article.plainBody ||
+        this.playlist.article.footer
+      )
+    },
+    hasHowTo(): boolean {
+      return this.playlist.hasHowTo
+    },
+    hasEvent(): boolean {
+      return this.playlist.hasEvent
     },
   },
   watch: {
@@ -422,6 +475,29 @@ export default Vue.extend({
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, {
           publishedState: this.convertedPublishedState,
+        })
+        this.$emit('update-series', playlist)
+      },
+    },
+    selectedTypes: {
+      handler(newValue) {
+        if (
+          this.playlist.outputEpisodeToBundle ===
+            newValue.includes('tvepisode') &&
+          this.playlist.outputArticleToBundle ===
+            newValue.includes('narticle') &&
+          this.playlist.outputHowToToBundle === newValue.includes('howto') &&
+          this.playlist.outputEventToBundle === newValue.includes('event')
+        ) {
+          return
+        }
+
+        const originalPlaylist = Object.assign({}, (this as any).playlist)
+        const playlist = Object.assign(originalPlaylist, {
+          outputEpisodeToBundle: newValue.includes('tvepisode'),
+          outputArticleToBundle: newValue.includes('narticle'),
+          outputHowToToBundle: newValue.includes('howto'),
+          outputEventToBundle: newValue.includes('event'),
         })
         this.$emit('update-series', playlist)
       },

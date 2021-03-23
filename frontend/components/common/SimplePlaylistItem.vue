@@ -49,7 +49,7 @@
     </div>
     <div class="float-right mt-1 pr-4">
       <v-icon>mdi-update</v-icon>
-      {{ lastUpdateDate }} 更新
+      {{ lastUpdateDate }}
     </div>
   </div>
 </template>

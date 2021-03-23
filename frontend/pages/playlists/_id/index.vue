@@ -103,7 +103,9 @@
                     lazy-src="https://placehold.jp/71x40.png"
                     width="71"
                     height="40"
-                  />
+                  >
+                    <div class="no-video" v-if="!hasVideo(item)">視聴不可</div>
+                  </v-img>
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title v-text="item.name" />
@@ -112,12 +114,6 @@
                     v-text="seriesName(item)"
                   />
                 </v-list-item-content>
-              </v-list-item>
-              <v-list-item
-                v-if="playlist.browsableItemCount === 0"
-                class="caption px-0"
-              >
-                ※) このプレイリストには再生可能なエピソードが有りません
               </v-list-item>
             </v-list>
           </v-col>
@@ -315,8 +311,24 @@ export default Vue.extend({
       this.currentTab = PlaylistTab.list
       this.isShowDiffDialog = false
     },
+    hasVideo(episode: any) {
+      const broadcastEventId = episode?.detailedRecentEvent?.id
+      if (broadcastEventId === undefined) {
+        return false
+      }
+
+      const broadcastEvent = episode.broadcastEvent.find(
+        (be: any) => be.id === broadcastEventId
+      )
+
+      const videos = broadcastEvent?.video || []
+      const okushibuVideo = videos.find(
+        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
+      )
+      return !!okushibuVideo
+    },
     save() {
-      const body: { [key: string]: string | undefined } = {
+      const body: { [key: string]: string | undefined | boolean } = {
         name: this.playlist.name,
         detailed_name_ruby: this.playlist.detailedNameRuby,
         description: this.playlist.description,
@@ -338,6 +350,10 @@ export default Vue.extend({
         remove_hero_image: this.playlist.removeHeroImage?.toString(),
         marked_header: this.playlist.article.header,
         editor_data: JSON.stringify(this.playlist.article.body),
+        output_episode_to_bundle: this.playlist.outputEpisodeToBundle,
+        output_article_to_bundle: this.playlist.outputArticleToBundle,
+        output_how_to_to_bundle: this.playlist.outputHowToToBundle,
+        output_event_to_bundle: this.playlist.outputEventToBundle,
         marked_footer: this.playlist.article.footer,
         author_type: this.playlist.article.authorType,
         author_name: this.playlist.article.authorName,
@@ -489,5 +505,16 @@ export default Vue.extend({
 
 .save-button {
   width: 140px;
+}
+
+.no-video {
+  position: absolute;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  font-size: 12px;
 }
 </style>

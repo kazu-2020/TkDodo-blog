@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_12_141800) do
+ActiveRecord::Schema.define(version: 2021_03_17_112700) do
 
   create_table "article_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 2021_03_12_141800) do
     t.integer "position", default: 1, null: false
     t.integer "duration", comment: "エピソードの再生時間"
     t.boolean "has_video", default: false, null: false, comment: "再生可能な動画があるか"
+    t.boolean "has_how_to", default: false, null: false, comment: "ハウツー保持フラグ"
+    t.boolean "has_event", default: false, null: false, comment: "イベント保持フラグ"
     t.text "cached_data", comment: "r6 API からのエピソードJSONのキャッシュ"
     t.datetime "discarded_at", comment: "削除日時"
     t.datetime "cached_data_at", comment: "cache_data を保存した日時"
@@ -107,6 +109,10 @@ ActiveRecord::Schema.define(version: 2021_03_12_141800) do
     t.text "marked_body", size: :medium, comment: "記事本文（マークダウン）"
     t.text "marked_footer", comment: "フッター"
     t.json "editor_data", comment: "editorのjsonデータ"
+    t.boolean "output_episode_to_bundle", default: true, comment: "bundle にてエピソードを出力するかのフラグ"
+    t.boolean "output_article_to_bundle", default: false, comment: "bundle にて記事を出力するかのフラグ"
+    t.boolean "output_how_to_to_bundle", default: false, comment: "bundle にてハウツーを出力するかのフラグ"
+    t.boolean "output_event_to_bundle", default: false, comment: "bundle にてイベントを出力するかのフラグ"
     t.string "author_type", comment: "Person or Organization"
     t.string "author_name", comment: "著者名"
     t.string "publisher_type", comment: "Person or Organization"

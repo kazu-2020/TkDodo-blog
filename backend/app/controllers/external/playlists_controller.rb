@@ -19,6 +19,18 @@ class External::PlaylistsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
+  def bundle
+    if params[:playlist_id].present?
+      playlist_id = convert_playlist_id(params[:playlist_id])
+      @playlist = Playlist.friendly.find(playlist_id)
+    elsif params[:playlist_uid].present?
+      playlist_uid = params[:playlist_uid].gsub('.json', '')
+      @playlist = Playlist.find_by(string_id: playlist_uid)
+    else
+      raise ActiveRecord::RecordNotFound
+    end
+  end
+
   private
 
   def convert_playlist_id(playlist_id)

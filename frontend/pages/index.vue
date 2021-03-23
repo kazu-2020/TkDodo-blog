@@ -16,12 +16,13 @@
               @keypress.enter="searchPlaylistWithKeyword"
             />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="4" style="display: table">
             <div class="mode_switch_block">
               <v-switch
                 v-model="articleMode"
                 label="記事モード"
-                class="mode_switch"
+                class="mode_switch pt-14"
+                style="display: table-cell; width: 130px"
               />
             </div>
             <v-select
@@ -29,7 +30,8 @@
               :items="publishedStateFilters"
               item-text="text"
               item-value="state"
-              class="pt-16"
+              class="pt-16 pl-4"
+              style="max-width: 100px; display: table-cell"
               dense
               solo
             />
@@ -156,12 +158,16 @@
         class="px-6 episode_list"
       >
         <v-list-item-icon class="mr-3 my-3">
-          <v-img
-            :src="eyecatchUrl(item)"
-            lazy-src="https://placehold.jp/71x40.png"
-            width="71"
-            height="40"
-          />
+          <div style="position: relative">
+            <v-img
+              :src="eyecatchUrl(item)"
+              lazy-src="https://placehold.jp/71x40.png"
+              width="71"
+              height="40"
+            >
+              <div class="no_video" v-if="!hasVideo(item)">視聴不可</div>
+            </v-img>
+          </div>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title style="font-size: 14px" v-text="item.name" />
@@ -170,12 +176,6 @@
             v-text="seriesName(item)"
           />
         </v-list-item-content>
-      </v-list-item>
-      <v-list-item
-        v-if="selectedPlaylistBrowsableItemCount === 0"
-        class="body-2 ml-2"
-      >
-        ※) このプレイリストには再生可能なエピソードが有りません
       </v-list-item>
       <v-divider v-if="selectedActorsAndContributors.length > 0" class="mt-4" />
       <div
@@ -192,7 +192,12 @@
       <v-divider class="mt-4" />
       <v-list-item>
         <div class="article_preview">
-          {{ selectedPlaylistArticle }}
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <p
+            style="text-align: start"
+            class="body-1"
+            v-html="selectedPlaylistArticle"
+          />
         </div>
       </v-list-item>
     </v-navigation-drawer>
@@ -257,7 +262,8 @@ export default Vue.extend({
       return this.$store.state.playlists.pagination.totalPages
     },
     selectedPlaylistArticle(): string {
-      return this.selectedPlaylist?.article?.plainBody || ''
+      const article = this.selectedPlaylist?.article?.plainBody || ''
+      return article.replace(/\n\n/g, '<br/>')
     },
     selectedPlaylistId(): string {
       return this.selectedPlaylist ? this.selectedPlaylist.id : ''
@@ -394,6 +400,22 @@ export default Vue.extend({
     seriesName(item: any): string {
       return item?.partOfSeries?.name || ''
     },
+    hasVideo(episode: any) {
+      const broadcastEventId = episode?.detailedRecentEvent?.id
+      if (broadcastEventId === undefined) {
+        return false
+      }
+
+      const broadcastEvent = episode.broadcastEvent.find(
+        (be: any) => be.id === broadcastEventId
+      )
+
+      const videos = broadcastEvent?.video || []
+      const okushibuVideo = videos.find(
+        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
+      )
+      return !!okushibuVideo
+    },
   },
 })
 </script>
@@ -402,10 +424,12 @@ export default Vue.extend({
 .mode_switch_block {
   position: relative;
   z-index: 1;
+  width: 130px;
+  height: 40px;
+  margin: 0 0 0 auto;
 }
 
 .mode_switch {
-  position: absolute;
   right: 0;
 }
 
@@ -425,7 +449,17 @@ export default Vue.extend({
   word-wrap: break-word;
   font-size: 14px;
   width: 100%;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding: 20px 12px 12px;
+}
+
+.no_video {
+  position: absolute;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  font-size: 12px;
 }
 </style>
