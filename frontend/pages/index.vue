@@ -97,7 +97,7 @@
       </v-list-item>
       <v-list-item class="mb-4">
         <v-row v-show="!articleMode" justify="center">
-          <v-col cols="4">
+          <v-col cols="4" offset="2">
             <v-btn
               :to="{
                 name: 'playlists-id',
@@ -122,9 +122,14 @@
               削除する
             </v-btn>
           </v-col>
+          <v-col cols="2">
+            <v-btn :href="playlistWebUrl(selectedPlaylist)" small fab outlined>
+              <v-icon>mdi-link-variant</v-icon>
+            </v-btn>
+          </v-col>
         </v-row>
         <v-row v-show="articleMode" justify="center">
-          <v-col cols="4">
+          <v-col cols="4" offset="2">
             <v-btn
               :to="{
                 name: 'playlists-id',
@@ -148,6 +153,11 @@
             >
               <v-icon left>mdi-delete</v-icon>
               削除する
+            </v-btn>
+          </v-col>
+          <v-col cols="2">
+            <v-btn :href="playlistWebUrl(selectedPlaylist)" small fab outlined>
+              <v-icon>mdi-link-variant</v-icon>
             </v-btn>
           </v-col>
         </v-row>
@@ -415,6 +425,9 @@ export default Vue.extend({
         (video: any) => video.identifierGroup?.environmentId === 'okushibu'
       )
       return !!okushibuVideo
+    },
+    playlistWebUrl(selectedPlaylist: any): string {
+      return `https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/${selectedPlaylist?.originalId}`
     },
   },
 })
