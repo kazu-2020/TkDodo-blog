@@ -104,7 +104,7 @@
                     width="71"
                     height="40"
                   >
-                    <div class="no-video" v-if="!hasVideo(item)">視聴不可</div>
+                    <div v-if="!hasVideo(item)" class="no-video">視聴不可</div>
                   </v-img>
                 </v-list-item-icon>
                 <v-list-item-content>
