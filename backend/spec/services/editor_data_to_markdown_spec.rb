@@ -8,13 +8,22 @@ describe EditorDataToMarkdown, type: :model do
       {
         'time' => 1_599_617_474_944,
         'blocks' => [
-          { 'type' => 'header', 'data' => { 'text' => '見出し<b>太字</b><br>改行<i>イタリック</i><b><i>太字イタリック</i></b>', 'level' => 2 } },
-          { 'type' => 'paragraph', 'data' => { 'text' => '<b> 半角スペース </b>|<b>　全角スペース　</b>|<b><br>前後改行<br></b><b> </b>|<b>　</b>|<b><br></b>' } },
-          { 'type' => 'paragraph', 'data' => { 'text' => '<i> 半角スペース </i>|<i>　全角スペース　</i>|<i><br>前後改行<br></i><i> </i>|<i>　</i>|<i><br></i>' } },
+          { 'type' => 'header',
+            'data' => { 'text' => '見出し<b>太字</b><br>改行<i>イタリック</i><b><i>太字イタリック</i></b>', 'level' => 2 } },
+          { 'type' => 'paragraph',
+            'data' => {
+              'text' => '<b> 半角スペース </b>|<b>　全角スペース　</b>|<b><br>前後改行<br></b><b> </b>|<b>　</b>|<b><br></b>'
+            } },
+          { 'type' => 'paragraph',
+            'data' => {
+              'text' => '<i> 半角スペース </i>|<i>　全角スペース　</i>|<i><br>前後改行<br></i><i> </i>|<i>　</i>|<i><br></i>'
+            } },
           { 'type' => 'paragraph', 'data' => { 'text' => '<b><i>太字イタリック<br></i><br></b>' } },
           {
             'data' => {
-              'file' => { 'url' => '/uploads/private/article/ts/8XR6MQY3W7/8XR6MQY3W7-body_726e2d70c0e70fd831820ec43de53110.jpg' },
+              'file' => {
+                'url' => '/uploads/private/article/ts/8XR6MQY3W7/8XR6MQY3W7-body_726e2d70c0e70fd831820ec43de53110.jpg'
+              },
               'caption' => 'hello',
               'stretched' => false,
               'withBorder' => false,
