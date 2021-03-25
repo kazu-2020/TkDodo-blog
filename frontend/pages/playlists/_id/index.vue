@@ -120,8 +120,13 @@
           <v-divider />
           <v-col cols="12">
             <div class="body-2 font-weight-bold mb-2">記事</div>
-            <div style="word-wrap: break-word; font-size: 14px">
-              {{ articlePlainBody }}
+            <div class="article_preview">
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <p
+                style="text-align: start"
+                class="body-1"
+                v-html="articlePlainBody"
+              />
             </div>
           </v-col>
           <v-divider />
@@ -246,7 +251,8 @@ export default Vue.extend({
       return diffItems
     },
     articlePlainBody(): string | undefined {
-      return this.playlist.article?.plainBody
+      const article = this.playlist?.article?.plainBody || ''
+      return article.replace(/\n\n/g, '<br/>')
     },
   },
   mounted() {
@@ -516,5 +522,12 @@ export default Vue.extend({
   height: 100%;
   padding: 10px;
   font-size: 12px;
+}
+
+.article_preview {
+  word-wrap: break-word;
+  font-size: 14px;
+  width: 100%;
+  padding: 10px 0 6px;
 }
 </style>
