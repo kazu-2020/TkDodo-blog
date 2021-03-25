@@ -121,12 +121,13 @@
           <v-col cols="12">
             <div class="body-2 font-weight-bold mb-2">記事</div>
             <div class="article_preview">
-              <!-- eslint-disable-next-line vue/no-v-html -->
+              <!-- eslint-disable vue/no-v-html -->
               <p
                 style="text-align: start"
                 class="body-1"
                 v-html="articlePlainBody"
               />
+              <!-- eslint-enable -->
             </div>
           </v-col>
           <v-divider />
