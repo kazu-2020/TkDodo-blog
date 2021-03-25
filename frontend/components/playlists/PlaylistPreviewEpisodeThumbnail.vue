@@ -5,7 +5,7 @@
     @mouseleave="hideSeriesName"
   >
     <v-img :src="episodeThumbnailUrl(episode)" aspect-ratio="1.778">
-      <div class="no-video" v-if="!hasVideo(episode)">
+      <div v-if="!hasVideo(episode)" class="no-video">
         <div class="no-video-text">視聴不可</div>
       </div>
     </v-img>

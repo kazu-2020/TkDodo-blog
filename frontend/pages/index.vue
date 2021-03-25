@@ -202,12 +202,13 @@
       <v-divider class="mt-4" />
       <v-list-item>
         <div class="article_preview">
-          <!-- eslint-disable-next-line vue/no-v-html -->
+          <!-- eslint-disable vue/no-v-html -->
           <p
             style="text-align: start"
             class="body-1"
             v-html="selectedPlaylistArticle"
           />
+          <!-- eslint-enable -->
         </div>
       </v-list-item>
     </v-navigation-drawer>
