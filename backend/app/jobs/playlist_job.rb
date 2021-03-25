@@ -17,7 +17,7 @@ class PlaylistJob < ApplicationJob
     end
   end
 
-  cron '00 4 1 3 ? 2021' # 2021/03/01 13:00に実行 FIXME: 一時的なバッチ処理
+  cron '00 4 25 3 ? 2021' # 2021/03/25 13:00に実行 FIXME: 一時的なバッチ処理、よく使うので残しておく
   def tmp_article_bodies_regenerate
     Playlist.find_each do |pl|
       pl.set_bodies

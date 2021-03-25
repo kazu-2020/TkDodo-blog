@@ -8,23 +8,13 @@ describe EditorDataToMarkdown, type: :model do
       {
         'time' => 1_599_617_474_944,
         'blocks' => [
-          { 'data' => {
-            'text' => '見出し<b>太字</b><br>改行<i>イタリック</i><b><i>太字イタリック</i></b>', 'level' => 2
-          },
-            'type' => 'header' },
-          { 'data' => {
-            'text' => 'テキスト<b>太字</b><br>改行<i>イタリック</i><b><i>太字イタリック</i></b>'
-          },
-            'type' => 'paragraph' },
-          { 'data' => {
-            'text' => 'テキスト<b>太字<br></b><br>改行<i>イタリック<br></i><b><i>太字イタリック<br></i><br></b>'
-          },
-            'type' => 'paragraph' },
+          { 'type' => 'header', 'data' => { 'text' => '見出し<b>太字</b><br>改行<i>イタリック</i><b><i>太字イタリック</i></b>', 'level' => 2 } },
+          { 'type' => 'paragraph', 'data' => { 'text' => '<b> 半角スペース </b>|<b>　全角スペース　</b>|<b><br>前後改行<br></b><b> </b>|<b>　</b>|<b><br></b>' } },
+          { 'type' => 'paragraph', 'data' => { 'text' => '<i> 半角スペース </i>|<i>　全角スペース　</i>|<i><br>前後改行<br></i><i> </i>|<i>　</i>|<i><br></i>' } },
+          { 'type' => 'paragraph', 'data' => { 'text' => '<b><i>太字イタリック<br></i><br></b>' } },
           {
             'data' => {
-              'file' => {
-                'url' => '/uploads/private/article/ts/8XR6MQY3W7/8XR6MQY3W7-body_726e2d70c0e70fd831820ec43de53110.jpg'
-              },
+              'file' => { 'url' => '/uploads/private/article/ts/8XR6MQY3W7/8XR6MQY3W7-body_726e2d70c0e70fd831820ec43de53110.jpg' },
               'caption' => 'hello',
               'stretched' => false,
               'withBorder' => false,
@@ -33,12 +23,7 @@ describe EditorDataToMarkdown, type: :model do
             'type' => 'image'
           },
           {
-            'data' => {
-              'link' => 'https://www.yahoo.co.jp/',
-              'meta' => {
-                'description' => 'Yahoo! JAPAN'
-              }
-            },
+            'data' => { 'link' => 'https://www.yahoo.co.jp/', 'meta' => { 'description' => 'Yahoo! JAPAN' } },
             'type' => 'linkTool'
           },
           {
@@ -86,16 +71,17 @@ describe EditorDataToMarkdown, type: :model do
 
     subject { EditorDataToMarkdown.new(editor_data: editor_data).call }
 
+    # rubocop:disable Layout/TrailingWhitespace
     it do
       s = <<~MARKDOWN
-        ## 見出し**太字**#{'  '}
+        ## 見出し**太字**  
         改行*イタリック****太字イタリック***
 
-        テキスト**太字**#{'  '}
-        改行*イタリック****太字イタリック***
-
-        テキスト**太字**#{'  '}
-        改行*イタリック****太字イタリック***
+        **半角スペース**|**全角スペース**|**前後改行**||
+        
+        *半角スペース*|*全角スペース*|*前後改行*||
+  
+        ***太字イタリック***
 
         ![](/uploads/private/article/ts/8XR6MQY3W7/8XR6MQY3W7-body_726e2d70c0e70fd831820ec43de53110.jpg "hello")
 
@@ -105,13 +91,13 @@ describe EditorDataToMarkdown, type: :model do
 
         1. **one**
         1. *two*
-        1. three#{'  '}
+        1. three  
         three
         1. ***four***
 
         - **ichi**
         - *ni*
-        - san#{'  '}
+        - san  
         san
         - ***shi***
 
@@ -121,5 +107,6 @@ describe EditorDataToMarkdown, type: :model do
 
       is_expected.to eq s.chomp
     end
+    # rubocop:enable Layout/TrailingWhitespace
   end
 end
