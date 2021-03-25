@@ -43,14 +43,6 @@ class EditorDataToMarkdown
     convert_inline_html_tags(block['data']['text'])
   end
 
-  def convert_inline_html_tags(text)
-    text.gsub(%r{</?br></b>}) { '**' }
-        .gsub(%r{</?br></i>}) { '*' }
-        .gsub(%r{</?b>}) { '**' }
-        .gsub(%r{</?i>}) { '*' }
-        .gsub(%r{</?br>}) { "  \n" }
-  end
-
   def to_image_markdown(block)
     url = block.dig('data', 'file', 'url')
     caption = block.dig('data', 'caption')
@@ -95,5 +87,27 @@ class EditorDataToMarkdown
     episode_name = block.dig('data', 'episode', 'name')
 
     "[#{episode_name}](#{link})"
+  end
+
+  def convert_inline_html_tags(text)
+    cleanup_inner_inline_html_tag(text)
+      .gsub(%r{<[b|i]></[b|i]>}, '') # 空タグの削除
+      .gsub(%r{</?b>}, '**')
+      .gsub(%r{</?i>}, '*')
+      .gsub(/<br>/, "  \n") # NOTE: shift+enterキーで<br>が入力できる
+  end
+
+  # b, iタグ内の先頭、末尾のtrimと<br>タグを削除
+  # @param [String] text
+  # @return [String]
+  def cleanup_inner_inline_html_tag(text)
+    text
+      .gsub(%r{(?<=<b>).*?(?=</b>)}) { |s| trim_inner_tag(s) }
+      .gsub(%r{(?<=<i>).*?(?=</i>)}) { |s| trim_inner_tag(s) }
+  end
+
+  def trim_inner_tag(text)
+    trimmed = text&.gsub(/(^[[:space:]]+)|([[:space:]]+$)/, '')&.strip # 全角スペースを含むスペースのtrim
+    trimmed.gsub(/<br.*?>/, '<br>').delete_prefix('<br>').delete_suffix('<br>')
   end
 end
