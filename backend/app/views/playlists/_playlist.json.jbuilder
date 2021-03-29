@@ -48,6 +48,7 @@ json.browsableItemCount playlist.browsable_item_count
 json.hasHowTo playlist.playlist_items.any?(&:has_how_to)
 json.hasEvent playlist.playlist_items.any?(&:has_event)
 json.outputEpisodeToBundle playlist.output_episode_to_bundle
+json.outputFaqPageToBundle playlist.output_faq_page_to_bundle
 json.outputArticleToBundle playlist.output_article_to_bundle
 json.outputHowToToBundle playlist.output_how_to_to_bundle
 json.outputEventToBundle playlist.output_event_to_bundle
