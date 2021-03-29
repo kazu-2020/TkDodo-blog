@@ -255,7 +255,7 @@ class Playlist < ApplicationRecord
     save!
   end
 
-  # rubocop: disable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  # rubocop: disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
   def bundle
     result = {
       tvepisode: [],
@@ -275,7 +275,7 @@ class Playlist < ApplicationRecord
     end
     result
   end
-  # rubocop: enable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  # rubocop: enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
 
   private
 
