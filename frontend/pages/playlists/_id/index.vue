@@ -361,6 +361,7 @@ export default Vue.extend({
         output_article_to_bundle: this.playlist.outputArticleToBundle,
         output_how_to_to_bundle: this.playlist.outputHowToToBundle,
         output_event_to_bundle: this.playlist.outputEventToBundle,
+        output_faq_page_to_bundle: this.playlist.outputFaqPageToBundle,
         marked_footer: this.playlist.article.footer,
         author_type: this.playlist.article.authorType,
         author_name: this.playlist.article.authorName,

@@ -178,15 +178,20 @@
               <v-checkbox
                 v-model="selectedTypes"
                 class="mt-1"
+                label="NItemList"
+                value="nitemlist"
+              />
+              <v-checkbox
+                v-model="selectedTypes"
+                class="mt-1"
                 label="TVEpisode"
                 value="tvepisode"
               />
               <v-checkbox
-                v-if="hasArticle"
                 v-model="selectedTypes"
-                class="mt-0"
-                label="NArticle"
-                value="narticle"
+                class="mt-1"
+                label="FAQPage"
+                value="faqpage"
               />
               <v-checkbox
                 v-if="hasHowTo"
@@ -201,6 +206,13 @@
                 class="mt-0"
                 label="Event"
                 value="event"
+              />
+              <v-checkbox
+                v-if="hasArticle"
+                v-model="selectedTypes"
+                class="mt-0"
+                label="NArticle"
+                value="narticle"
               />
             </v-col>
           </v-row>
@@ -270,6 +282,7 @@ export default Vue.extend({
     if (this.playlist.outputArticleToBundle) selectedTypes.push('narticle')
     if (this.playlist.outputHowToToBundle) selectedTypes.push('howto')
     if (this.playlist.outputEventToBundle) selectedTypes.push('event')
+    if (this.playlist.outputFaqPageToBundle) selectedTypes.push('faqpage')
 
     return {
       name: this.playlist.name || '',
@@ -487,7 +500,8 @@ export default Vue.extend({
           this.playlist.outputArticleToBundle ===
             newValue.includes('narticle') &&
           this.playlist.outputHowToToBundle === newValue.includes('howto') &&
-          this.playlist.outputEventToBundle === newValue.includes('event')
+          this.playlist.outputEventToBundle === newValue.includes('event') &&
+          this.playlist.outputFaqPageToBundle === newValue.includes('faqpage')
         ) {
           return
         }
@@ -498,6 +512,7 @@ export default Vue.extend({
           outputArticleToBundle: newValue.includes('narticle'),
           outputHowToToBundle: newValue.includes('howto'),
           outputEventToBundle: newValue.includes('event'),
+          outputFaqPageToBundle: newValue.includes('faqpage'),
         })
         this.$emit('update-series', playlist)
       },

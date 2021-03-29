@@ -39,6 +39,7 @@ export interface Playlist {
   outputArticleToBundle: boolean
   outputHowToToBundle: boolean
   outputEventToBundle: boolean
+  outputFaqPageToBundle: boolean
   items: Array<EpisodeData>
   sameAs: SameAs
   citations: Array<Citation>
