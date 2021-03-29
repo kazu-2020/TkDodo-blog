@@ -44,6 +44,7 @@ Jets.application.routes.draw do
   resources :episodes, only: [] do
     collection do
       get :search
+      get :bundle_items
     end
 
     member do

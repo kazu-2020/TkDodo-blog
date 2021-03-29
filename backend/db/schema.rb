@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_17_112700) do
+ActiveRecord::Schema.define(version: 2021_03_29_120200) do
 
   create_table "article_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -109,7 +109,9 @@ ActiveRecord::Schema.define(version: 2021_03_17_112700) do
     t.text "marked_body", size: :medium, comment: "記事本文（マークダウン）"
     t.text "marked_footer", comment: "フッター"
     t.json "editor_data", comment: "editorのjsonデータ"
+    t.boolean "output_item_list_to_bundle", default: false, comment: "bundle にてNItemListを出力するかのフラグ"
     t.boolean "output_episode_to_bundle", default: true, comment: "bundle にてエピソードを出力するかのフラグ"
+    t.boolean "output_faq_page_to_bundle", default: false, comment: "bundle にてFAQを出力するかのフラグ"
     t.boolean "output_article_to_bundle", default: false, comment: "bundle にて記事を出力するかのフラグ"
     t.boolean "output_how_to_to_bundle", default: false, comment: "bundle にてハウツーを出力するかのフラグ"
     t.boolean "output_event_to_bundle", default: false, comment: "bundle にてイベントを出力するかのフラグ"

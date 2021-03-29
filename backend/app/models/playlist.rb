@@ -255,12 +255,13 @@ class Playlist < ApplicationRecord
     save!
   end
 
-  # rubocop: disable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  # rubocop: disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
   def bundle
     result = {
       tvepisode: [],
       event: [],
-      howto: []
+      howto: [],
+      faqpage: []
     }
 
     client = DlabApiClient.new
@@ -268,12 +269,13 @@ class Playlist < ApplicationRecord
       data = client.episode_bundle(type: 'tv', episode_id: item.episode_id)
 
       result[:tvepisode] << data[:tvepisode][0] if data[:tvepisode] && !data[:tvepisode].empty?
+      result[:faqpage] += data[:faqpage] if data[:faqpage] && !data[:faqpage].empty?
       result[:event] += data[:event] if data[:event] && !data[:event].empty?
       result[:howto] += data[:howto] if data[:howto] && !data[:howto].empty?
     end
     result
   end
-  # rubocop: enable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  # rubocop: enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
 
   private
 
