@@ -174,38 +174,42 @@
           </v-row>
           <v-row dense class="my-5">
             <v-col cols="12"><h3>Type ごとのAPI出力 ON/OFF</h3></v-col>
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6" md="3" class="type-switch">
               <v-checkbox
                 v-model="selectedTypes"
                 class="mt-1"
                 label="NItemList"
-                value="nitemlist"
+                value="itemlist"
               />
               <v-checkbox
                 v-model="selectedTypes"
-                class="mt-1"
+                class="mt-0 ml-10"
                 label="TVEpisode"
                 value="tvepisode"
+                :disabled="disableItemListSubset"
               />
               <v-checkbox
                 v-model="selectedTypes"
-                class="mt-1"
+                class="mt-0 ml-10"
                 label="FAQPage"
                 value="faqpage"
+                :disabled="disableItemListSubset"
               />
               <v-checkbox
                 v-if="hasHowTo"
                 v-model="selectedTypes"
-                class="mt-0"
+                class="mt-0 ml-10"
                 label="HowTo"
                 value="howto"
+                :disabled="disableItemListSubset"
               />
               <v-checkbox
                 v-if="hasEvent"
                 v-model="selectedTypes"
-                class="mt-0"
+                class="mt-0 ml-10"
                 label="Event"
                 value="event"
+                :disabled="disableItemListSubset"
               />
               <v-checkbox
                 v-if="hasArticle"
@@ -278,6 +282,7 @@ export default Vue.extend({
   },
   data(): DataType {
     const selectedTypes = []
+    if (this.playlist.outputItemListToBundle) selectedTypes.push('itemlist')
     if (this.playlist.outputEpisodeToBundle) selectedTypes.push('tvepisode')
     if (this.playlist.outputArticleToBundle) selectedTypes.push('narticle')
     if (this.playlist.outputHowToToBundle) selectedTypes.push('howto')
@@ -360,6 +365,9 @@ export default Vue.extend({
     },
     hasEvent(): boolean {
       return this.playlist.hasEvent
+    },
+    disableItemListSubset(): boolean {
+      return !this.playlist.outputItemListToBundle
     },
   },
   watch: {
@@ -495,6 +503,8 @@ export default Vue.extend({
     selectedTypes: {
       handler(newValue) {
         if (
+          this.playlist.outputItemListToBundle ===
+            newValue.includes('itemlist') &&
           this.playlist.outputEpisodeToBundle ===
             newValue.includes('tvepisode') &&
           this.playlist.outputArticleToBundle ===
@@ -508,6 +518,7 @@ export default Vue.extend({
 
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, {
+          outputItemListToBundle: newValue.includes('itemlist'),
           outputEpisodeToBundle: newValue.includes('tvepisode'),
           outputArticleToBundle: newValue.includes('narticle'),
           outputHowToToBundle: newValue.includes('howto'),
@@ -615,3 +626,11 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style lang="scss">
+.type-switch {
+  .v-messages {
+    display: none;
+  }
+}
+</style>

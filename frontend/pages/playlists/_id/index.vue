@@ -357,6 +357,7 @@ export default Vue.extend({
         remove_hero_image: this.playlist.removeHeroImage?.toString(),
         marked_header: this.playlist.article.header,
         editor_data: JSON.stringify(this.playlist.article.body),
+        output_item_list_to_bundle: this.playlist.outputItemListToBundle,
         output_episode_to_bundle: this.playlist.outputEpisodeToBundle,
         output_article_to_bundle: this.playlist.outputArticleToBundle,
         output_how_to_to_bundle: this.playlist.outputHowToToBundle,
