@@ -106,11 +106,12 @@ export default class DescriptionLinkTool extends LinkTool {
       [this.CSS.input, descriptionClass],
       {
         contentEditable: !this.readOnly,
+        maxLength: 80,
       }
     )
 
     this.nodes.inputDescription.placeholder =
-      'リンク先を説明するテキストを入力してください'
+      'リンク先を説明するテキストを入力してください（最大80文字）'
 
     if (!this.readOnly) {
       this.nodes.inputDescription.addEventListener('paste', (event) => {
