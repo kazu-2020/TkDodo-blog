@@ -21,7 +21,7 @@ class EpisodesController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def bundle_items
-    episode_ids = params.require(:episode_ids)
+    episode_ids = params[:episode_ids] || []
     client = DlabApiClient.new
 
     result = { tvepisode: 0, event: 0, howto: 0, faqpage: 0 }
