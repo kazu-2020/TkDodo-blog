@@ -184,14 +184,14 @@
               <v-checkbox
                 v-model="selectedTypes"
                 class="mt-0 ml-10"
-                label="TVEpisode"
+                :label="`TVEpisode (${episodeCount})`"
                 value="tvepisode"
                 :disabled="disableItemListSubset"
               />
               <v-checkbox
                 v-model="selectedTypes"
                 class="mt-0 ml-10"
-                label="FAQPage"
+                :label="`FAQPage (${faqPageCount})`"
                 value="faqpage"
                 :disabled="disableItemListSubset"
               />
@@ -199,7 +199,7 @@
                 v-if="hasHowTo"
                 v-model="selectedTypes"
                 class="mt-0 ml-10"
-                label="HowTo"
+                :label="`HowTo (${howToCount})`"
                 value="howto"
                 :disabled="disableItemListSubset"
               />
@@ -207,7 +207,7 @@
                 v-if="hasEvent"
                 v-model="selectedTypes"
                 class="mt-0 ml-10"
-                label="Event"
+                :label="`Event (${eventCount})`"
                 value="event"
                 :disabled="disableItemListSubset"
               />
@@ -234,6 +234,7 @@ import {
   adjustLinkDarkColor,
   adjustLinkLightColor,
 } from '@/utils/adjustColor'
+import qs from 'qs'
 import ColorPalette from '~/components/playlists/ColorPalette.vue'
 import SeriesImagesForm from '~/components/playlists/SeriesImagesForm.vue'
 import SameAsForm from '~/components/playlists/SameAsForm.vue'
@@ -263,6 +264,10 @@ interface DataType {
   themeGenreList: Object[]
   publishedState: boolean
   selectedTypes: string[]
+  episodeCount: number
+  faqPageCount: number
+  howToCount: number
+  eventCount: number
 }
 
 export default Vue.extend({
@@ -347,6 +352,10 @@ export default Vue.extend({
       ],
       publishedState: this.playlist.publishedState === 'draft',
       selectedTypes,
+      episodeCount: 0,
+      faqPageCount: 0,
+      howToCount: 0,
+      eventCount: 0,
     }
   },
   computed: {
@@ -369,6 +378,9 @@ export default Vue.extend({
     disableItemListSubset(): boolean {
       return !this.playlist.outputItemListToBundle
     },
+    episodeIds(): string[] {
+      return this.playlist.items.map((item: any) => item.id)
+    },
   },
   watch: {
     playlist: {
@@ -390,6 +402,8 @@ export default Vue.extend({
         this.citations = newVal.citations
         this.aliasId = newVal.aliasId
         this.publishedState = newVal.publishedState === 'draft'
+
+        this.fetchBundleItemCount()
       },
       deep: true,
     },
@@ -552,7 +566,28 @@ export default Vue.extend({
       },
     },
   },
+  mounted() {
+    this.fetchBundleItemCount()
+  },
   methods: {
+    fetchBundleItemCount() {
+      console.log(this.episodeIds)
+
+      this.$axios
+        .get(`/episodes/bundle_items`, {
+          params: { episode_ids: this.episodeIds },
+          paramsSerializer: (params) => {
+            return qs.stringify(params, { arrayFormat: 'brackets' })
+          },
+        })
+        .then((res) => {
+          const countData = res.data
+          this.episodeCount = countData.tvepisode
+          this.faqPageCount = countData.faqpage
+          this.eventCount = countData.event
+          this.howToCount = countData.howto
+        })
+    },
     updateSeriesImage(data: { type: string; file: string }) {
       const originalPlaylist = Object.assign({}, (this as any).playlist)
 
