@@ -79,7 +79,7 @@ json.nseries do
 end
 # rubocop: enable Metrics/BlockLength
 
-if @playlist.output_episode_to_bundle
+if @playlist.output_episode_to_bundle && @playlist.output_item_list_to_bundle
   json.tvepisode bundle_data[:tvepisode] do |episode|
     json.partial! partial: 'shared/episode', locals: { episode_data: episode }
   end
@@ -109,13 +109,19 @@ if @playlist.output_article_to_bundle
   end
 end
 
-if @playlist.output_event_to_bundle
+if @playlist.output_faq_page_to_bundle && @playlist.output_item_list_to_bundle
+  json.faqpage bundle_data[:faqpage] do |faqpage|
+    json.partial! partial: 'shared/faqpage', locals: { faqpage: faqpage }
+  end
+end
+
+if @playlist.output_event_to_bundle && @playlist.output_item_list_to_bundle
   json.event bundle_data[:event] do |event|
     json.partial! partial: 'shared/event', locals: { event: event }
   end
 end
 
-if @playlist.output_how_to_to_bundle
+if @playlist.output_how_to_to_bundle && @playlist.output_item_list_to_bundle
   json.howto bundle_data[:howto] do |howto|
     json.partial! partial: 'shared/howto', locals: { howto: howto }
   end

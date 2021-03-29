@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_120200) do
     t.text "marked_body", size: :medium, comment: "記事本文（マークダウン）"
     t.text "marked_footer", comment: "フッター"
     t.json "editor_data", comment: "editorのjsonデータ"
+    t.boolean "output_item_list_to_bundle", default: false, comment: "bundle にてNItemListを出力するかのフラグ"
     t.boolean "output_episode_to_bundle", default: true, comment: "bundle にてエピソードを出力するかのフラグ"
     t.boolean "output_faq_page_to_bundle", default: false, comment: "bundle にてFAQを出力するかのフラグ"
     t.boolean "output_article_to_bundle", default: false, comment: "bundle にて記事を出力するかのフラグ"
