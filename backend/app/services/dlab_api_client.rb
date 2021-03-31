@@ -2,7 +2,7 @@
 
 class DlabApiClient < DlabApiBase
   API_ENDPOINT = if Jets.env.development? || Jets.env.test? || Jets.env.staging?
-                   'https://dev-api.nr.nhk.jp'
+                   'https://api.nr.nhk.jp'
                  elsif Jets.env.production?
                    'https://api.nr.nhk.jp'
                  else
@@ -84,6 +84,14 @@ class DlabApiClient < DlabApiBase
   def broadcast_event_from_episode_id(episode_id, query = {})
     res = client.get "/#{VERSION}/t/broadcastevent/te/#{episode_id}.json",
                      INTERNAL_PARAMS.merge(query)
+    handle_response(res)
+  end
+
+  # Howto データをリクエストする
+  #
+  # @param [String] howto_id: ハウツーID
+  def howto(howto_id:)
+    res = client.get "/#{VERSION}/t/howto/id/#{howto_id}.json", INTERNAL_PARAMS
     handle_response(res)
   end
 
