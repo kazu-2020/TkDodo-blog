@@ -55,7 +55,7 @@ class OembedResponse
     {
       version: '1.0',
       width: '100%',
-      height: 231,
+      height: 236,
       type: 'rich',
       provider_name: 'NHK',
       provider_url: 'https://www.nhk.jp',
@@ -64,7 +64,7 @@ class OembedResponse
       thumbnail_width: 640,
       thumbnail_height: 360,
       thumbnail_url: 'http://placehold.jp/640x360.png',
-      html: "<iframe width=\"100%\" height=\"231\" src=\"#{src}\" frameborder=\"0\"></iframe>"
+      html: "<iframe width=\"100%\" height=\"234\" src=\"#{src}\" frameborder=\"0\"></iframe>"
     }
   end
 
@@ -72,12 +72,12 @@ class OembedResponse
     res = DlabApiClient.new.howto(howto_id: extract_howto_id)
     episode_id = res.dig(:identifierGroup, :episodeId)
 
-    # src = "https://psychic-eureka-90cdb0a4.pages.github.io/oembed/te/#{episode_id}/howto/#{extract_howto_id}"
-    src = "http://localhost:3000/oembed/te/#{episode_id}/howto/#{extract_howto_id}"
+    src = "https://psychic-eureka-90cdb0a4.pages.github.io/oembed/te/#{episode_id}/howto/#{extract_howto_id}"
+    # src = "http://localhost:3000/oembed/te/#{episode_id}/howto/#{extract_howto_id}"
     {
       version: '1.0',
       width: '100%',
-      height: 231,
+      height: 520,
       type: 'rich',
       provider_name: 'NHK',
       provider_url: 'https://www.nhk.jp',
@@ -86,7 +86,7 @@ class OembedResponse
       thumbnail_width: 640,
       thumbnail_height: 360,
       thumbnail_url: 'http://placehold.jp/640x360.png',
-      html: "<iframe width=\"100%\" height=\"231\" src=\"#{src}\" frameborder=\"0\"></iframe>"
+      html: "<iframe width=\"100%\" height=\"520\" src=\"#{src}\" frameborder=\"0\"></iframe>"
     }
   end
 
