@@ -68,12 +68,12 @@ class OembedResponse
     }
   end
 
+  # rubocop:disable Metrics/MethodLength
   def howto_response_body
     res = DlabApiClient.new.howto(howto_id: extract_howto_id)
     episode_id = res.dig(:identifierGroup, :episodeId)
-
-    src = "https://psychic-eureka-90cdb0a4.pages.github.io/oembed/te/#{episode_id}/howto/#{extract_howto_id}"
-    # src = "http://localhost:3000/oembed/te/#{episode_id}/howto/#{extract_howto_id}"
+    # src = "https://psychic-eureka-90cdb0a4.pages.github.io/oembed/te/#{episode_id}/howto/#{extract_howto_id}"
+    src = "http://localhost:3000/oembed/te/#{episode_id}/howto/#{extract_howto_id}"
     {
       version: '1.0',
       width: '100%',
@@ -89,6 +89,7 @@ class OembedResponse
       html: "<iframe width=\"100%\" height=\"520\" src=\"#{src}\" frameborder=\"0\"></iframe>"
     }
   end
+  # rubocop:enable Metrics/MethodLength
 
   # FIXME: how_to, event, faq_page
   def dummy_response_body

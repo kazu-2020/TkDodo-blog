@@ -2,7 +2,7 @@
 
 class DlabApiClient < DlabApiBase
   API_ENDPOINT = if Jets.env.development? || Jets.env.test? || Jets.env.staging?
-                   'https://api.nr.nhk.jp'
+                   'https://dev-api.nr.nhk.jp'
                  elsif Jets.env.production?
                    'https://api.nr.nhk.jp'
                  else
