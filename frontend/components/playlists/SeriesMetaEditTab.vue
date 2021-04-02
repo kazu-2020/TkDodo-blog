@@ -577,7 +577,7 @@ export default Vue.extend({
         .get(`/episodes/bundle_items`, {
           params: { episode_ids: this.episodeIds },
           paramsSerializer: (params) => {
-            return qs.stringify(params, { arrayFormat: 'brackets' })
+            return qs.stringify(params, { arrayFormat: 'comma' })
           },
         })
         .then((res) => {
