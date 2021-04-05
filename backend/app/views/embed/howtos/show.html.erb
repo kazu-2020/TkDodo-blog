@@ -1,0 +1,150 @@
+<% content_for(:title, @howto_data[:name]) %>
+
+<div
+  class="embed rounded-sm shadow-md text-white bg-gray-750 border border-gray-450"
+>
+  <a href="<%= "https://www.nhk.jp/p/gc/ts/#{@episode_data.dig(:identifierGroup, :seriesId)}/howto/#{@howto_data[:id]}" %>" target="_blank">
+    <div class="p-3 grid grid-cols-12 gap-3">
+      <div class="col-span-7">
+        <div>
+          <span class="text-xs" style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+          <span class="text-gray-350 text-xs"><%= @episode_data[:name] %></span>
+        </div>
+        <div class="font-bold text-lg mt-1 mb-2"><%= @howto_data[:name] %></div>
+        <div class="text-gray-350 text-sm">
+          <%= @howto_data[:description] %>
+        </div>
+      </div>
+      <div class="col-span-5 pl-4">
+        <img
+          decoding="async"
+          src="<%= @howto_data.dig(:image, :medium, :url) %>"
+          data-v-7e59b65e=""
+          class="rounded-sm"
+          />
+      </div>
+
+      <div class="steps col-span-12">
+        <% @howto_data[:section].each do |section| %>
+          <div
+            class="col-span-12 border-t border-gray-350 pt-2"
+          >
+            <div class="flex font-bold mb-2">
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  class="fill-current text-white"
+                >
+                  <path d="M0 0h24v24H0z" fill="none"/>
+                  <path
+                    d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z"
+                    />
+                </svg>
+              </span>
+              <span class="ml-3"><%= section[:name] %></span>
+            </div>
+            <ol class="list-decimal list-inside text-gray-350">
+              <% section[:step].take(3).each do |step| %>
+                <li class="mb-1">
+                  <span class="ml-1"><%= step[:name] %></span>
+                </li>
+              <% end %>
+            </ol>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="border-t border-gray-350 px-3 py-2 flex justify-between items-center">
+      <div class="footer-logo">
+        <svg
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 45.44 12.76"
+          xml:space="preserve"
+          class="svg fill-current text-gray-350"
+          style="enable-background: new 0 0 30.8 28"
+        >
+          <g>
+            <path
+              d="M13.28.07a1.91,1.91,0,0,0-2.36,1.32L9.53,6.25,6.07.88A1.9,1.9,0,0,0,4.19,0,1.93,1.93,0,0,0,2.62,1.39L.07,10.32a1.91,1.91,0,0,0,1.32,2.36,1.88,1.88,0,0,0,.52.08,1.91,1.91,0,0,0,1.84-1.39L5.14,6.51l3.45,5.37a1.93,1.93,0,0,0,1.89.86A1.9,1.9,0,0,0,12,11.37L14.6,2.44A1.92,1.92,0,0,0,13.28.07Z"
+              transform="translate(0 0)"
+            ></path>
+            <path
+              d="M28.91.07a1.92,1.92,0,0,0-2.37,1.32l-.9,3.17H21.32l.61-2.12a1.91,1.91,0,1,0-3.68-1L15.7,10.32A1.91,1.91,0,0,0,17,12.68a2,2,0,0,0,.53.08,1.92,1.92,0,0,0,1.84-1.39l.91-3.17H24.6L24,10.32a1.91,1.91,0,0,0,1.31,2.36,2,2,0,0,0,.53.08,1.92,1.92,0,0,0,1.84-1.39l2.55-8.93A1.92,1.92,0,0,0,28.91.07Z"
+              transform="translate(0 0)"
+            ></path>
+            <path
+              d="M45.05.76A1.91,1.91,0,0,0,42.37.39L37,4.47l.59-2a1.91,1.91,0,1,0-3.68-1l-2.56,8.93a1.91,1.91,0,0,0,1.32,2.36A1.88,1.88,0,0,0,35,11.37l1.1-3.84h0a.34.34,0,0,0,.06.06l.07.09,4.14,4.46a1.91,1.91,0,1,0,2.81-2.6L40.47,6.63l4.21-3.19A1.9,1.9,0,0,0,45.05.76Z"
+              transform="translate(0 0)"
+            ></path>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <button
+          class="bg-gray-400 hover:bg-gray-500 text-white py-2 px-10 rounded-sm text-xs"
+        >
+          詳しく見る
+        </button>
+      </div>
+    </div>
+  </a>
+</div>
+
+<% content_for(:style) do %>
+  <style>
+      .embed {
+          max-width: var(--embed-max-width);
+      }
+
+      .steps {
+          max-height: 300px;
+          overflow: scroll;
+      }
+
+      .steps ol {
+          counter-reset: step-counter;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+      }
+
+      .steps li {
+          font-size: 16px;
+          line-height: 1.5;
+          padding-left: 30px;
+          position: relative;
+      }
+
+      .steps li::before {
+          content: counter(step-counter);
+          counter-increment: step-counter;
+          background-color: #fff;
+          border: 1px solid;
+          border-radius: 50%;
+          box-sizing: border-box;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 22px;
+          width: 22px;
+          color: #333;
+          font-size: 85%;
+          line-height: 1;
+          position: absolute;
+          top: 0;
+          left: 0;
+      }
+
+      .footer-logo {
+          width: 60px;
+          height: 16px;
+      }
+  </style>
+<% end %>

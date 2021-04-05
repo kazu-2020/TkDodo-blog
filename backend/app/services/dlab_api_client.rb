@@ -15,6 +15,11 @@ class DlabApiClient < DlabApiBase
   DEFAULT_SIZE = 10
   DEFAULT_SORT_TYPE = 'scoreDesc'
 
+  def initialize(api_endpoint: nil)
+    super()
+    @api_endpoint = api_endpoint || API_ENDPOINT
+  end
+
   # TVEpisode 検索APIをリクエストする
   #
   # @param [Hash] search_params
@@ -97,7 +102,5 @@ class DlabApiClient < DlabApiBase
 
   private
 
-  def api_endpoint
-    API_ENDPOINT
-  end
+  attr_reader :api_endpoint
 end

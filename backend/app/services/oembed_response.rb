@@ -70,23 +70,23 @@ class OembedResponse
 
   # rubocop:disable Metrics/MethodLength
   def howto_response_body
-    res = DlabApiClient.new.howto(howto_id: extract_howto_id)
+    res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').howto(howto_id: extract_howto_id)
     episode_id = res.dig(:identifierGroup, :episodeId)
-    # src = "https://psychic-eureka-90cdb0a4.pages.github.io/oembed/te/#{episode_id}/howto/#{extract_howto_id}"
-    src = "http://localhost:3000/oembed/te/#{episode_id}/howto/#{extract_howto_id}"
+    # src = "https://dev-eh.nr.nhk.jp/embed/te/#{episode_id}/howto/#{extract_howto_id}"
+    src = "http://localhost:8888/embed/te/#{episode_id}/howto/#{extract_howto_id}"
     {
       version: '1.0',
       width: '100%',
-      height: 520,
+      height: 340,
       type: 'rich',
       provider_name: 'NHK',
       provider_url: 'https://www.nhk.jp',
       url: url,
       title: 'Dummy',
-      thumbnail_width: 640,
-      thumbnail_height: 360,
-      thumbnail_url: 'http://placehold.jp/640x360.png',
-      html: "<iframe width=\"100%\" height=\"520\" src=\"#{src}\" frameborder=\"0\"></iframe>"
+      thumbnail_width: 620,
+      thumbnail_height: 340,
+      thumbnail_url: 'http://placehold.jp/620x340.png',
+      html: "<iframe width=\"100%\" height=\"340\" src=\"#{src}\" frameborder=\"0\"></iframe>"
     }
   end
   # rubocop:enable Metrics/MethodLength
