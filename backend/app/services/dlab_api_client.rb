@@ -87,6 +87,14 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
+  # Howto データをリクエストする
+  #
+  # @param [String] howto_id: ハウツーID
+  def howto(howto_id:)
+    res = client.get "/#{VERSION}/t/howto/id/#{howto_id}.json", INTERNAL_PARAMS
+    handle_response(res)
+  end
+
   private
 
   def api_endpoint
