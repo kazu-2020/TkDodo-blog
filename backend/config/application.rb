@@ -2,7 +2,7 @@
 
 Jets.application.configure do
   config.project_name = 'aw-editorialhands'
-  config.mode = 'api'
+  config.mode = 'html'
 
   config.prewarm.enable = true # default is true
   # config.prewarm.rate = '30 minutes' # default is '30 minutes'
