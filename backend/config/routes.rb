@@ -62,9 +62,9 @@ Jets.application.routes.draw do
   end
 
   get '/oembed', to: 'oembed#index'
-  namespace :embed do
-    get 'te/:episode_id/howto/:id', to: 'howto#show'
-  end
+  # namespace :embed do
+  #   get 'te/:episode_id/howto/:id', to: 'howto#show'
+  # end
 
   post '/slack/incoming_webhook', to: 'slack#incoming_webhook'
   get '/editor/fetch_link', to: 'editors#fetch_link', as: :fetch_link_editor
