@@ -72,8 +72,8 @@ class OembedResponse
   def howto_response_body
     res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').howto(howto_id: extract_howto_id)
     episode_id = res.dig(:identifierGroup, :episodeId)
-    # src = "https://dev-eh.nr.nhk.jp/embed/te/#{episode_id}/howto/#{extract_howto_id}"
-    src = "http://localhost:8888/embed/te/#{episode_id}/howto/#{extract_howto_id}"
+    src = "https://dev-eh.nr.nhk.jp/embed/te/#{episode_id}/howto/#{extract_howto_id}"
+    # src = "http://localhost:8888/embed/te/#{episode_id}/howto/#{extract_howto_id}"
     {
       version: '1.0',
       width: '100%',
