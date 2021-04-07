@@ -21,7 +21,7 @@ Jets.application.routes.draw do
     end
   end
 
-  resources :playlists, except: [:new, :edit] do
+  resources :playlists, except: %i[new edit] do
     collection do
       post :import_from_series
       post :upload_article_image_by_url
