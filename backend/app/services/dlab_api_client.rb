@@ -100,6 +100,14 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
+  # Event データをリクエストする
+  #
+  # @param [String] event_id: イベントID
+  def event(event_id:)
+    res = client.get "/#{VERSION}/t/event/id/#{event_id}.json", INTERNAL_PARAMS
+    handle_response(res)
+  end
+
   private
 
   attr_reader :api_endpoint
