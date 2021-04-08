@@ -10,8 +10,10 @@ class OembedResponse
   def response
     if series_url? || episode_url?
       response_body_by_nr
-    elsif how_to_url?
+    elsif howto_url?
       howto_response_body
+    elsif event_url?
+      event_response_body
     else
       dummy_response_body
     end
@@ -35,8 +37,14 @@ class OembedResponse
 
   # @example
   #   https://www.nhk.jp/p/gc/ts/E5Q48579J3/howto/55/
-  def how_to_url?
+  def howto_url?
     url.match?(%r{https?://.*nhk.jp.*/p/.*ts/[A-Z0-9]{10}/howto/[0-9]+})
+  end
+
+  # @example
+  #   https://www.nhk.jp/p/ts/D4VPQVK78M/event/94/
+  def event_url?
+    url.match?(%r{https?://.*nhk.jp.*/p/.*ts/[A-Z0-9]{10}/event/[0-9]+})
   end
 
   # NOTE: seriesの場合、トレイリングスラッシュなしはdevのoEmbedAPIで無効なURLとして扱われる
@@ -48,6 +56,10 @@ class OembedResponse
 
   def extract_howto_id
     url[%r{https?://.*nhk.jp.*/p/.*/howto/([0-9]+)}, 1]
+  end
+
+  def extract_event_id
+    url[%r{https?://.*nhk.jp.*/p/.*/event/([0-9]+)}, 1]
   end
 
   def response_body_by_nr
@@ -73,7 +85,6 @@ class OembedResponse
     res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').howto(howto_id: extract_howto_id)
     episode_id = res.dig(:identifierGroup, :episodeId)
     src = "https://dev-api-eh.nr.nhk.jp/embed/te/#{episode_id}/howto/#{extract_howto_id}"
-    # src = "http://localhost:8888/embed/te/#{episode_id}/howto/#{extract_howto_id}"
     {
       version: '1.0',
       width: '100%',
@@ -82,10 +93,34 @@ class OembedResponse
       provider_name: 'NHK',
       provider_url: 'https://www.nhk.jp',
       url: url,
-      title: 'Dummy',
-      thumbnail_width: 620,
-      thumbnail_height: 340,
-      thumbnail_url: 'http://placehold.jp/620x340.png',
+      title: res[:name] || 'Dummy',
+      thumbnail_width: res.dig(:image, :medium, :width) || 640,
+      thumbnail_height: res.dig(:image, :medium, :height) || 360,
+      thumbnail_url: res.dig(:image, :medium, :url) || 'http://placehold.jp/640x360.png',
+      html: "<iframe width=\"100%\" height=\"340\" src=\"#{src}\" frameborder=\"0\"></iframe>"
+    }
+  end
+  # rubocop:enable Metrics/MethodLength
+
+  # rubocop:disable Metrics/MethodLength
+  def event_response_body
+    # NOTE: prd環境で登録が少ないため一旦devを見るように
+    res = DlabApiClient.new(api_endpoint: 'https://dev-api.nr.nhk.jp').event(event_id: extract_event_id)
+    episode_id = res.dig(:identifierGroup, :episodeId)
+    src = "https://dev-api-eh.nr.nhk.jp/embed/te/#{episode_id}/event/#{extract_event_id}"
+    # src = "http://localhost:8888/embed/te/#{episode_id}/event/#{extract_event_id}"
+    {
+      version: '1.0',
+      width: '100%',
+      height: 340,
+      type: 'rich',
+      provider_name: 'NHK',
+      provider_url: 'https://www.nhk.jp',
+      url: url,
+      title: res[:name] || 'Dummy',
+      thumbnail_width: res.dig(:image, :medium, :width) || 640,
+      thumbnail_height: res.dig(:image, :medium, :height) || 360,
+      thumbnail_url: res.dig(:image, :medium, :url) || 'http://placehold.jp/640x360.png',
       html: "<iframe width=\"100%\" height=\"340\" src=\"#{src}\" frameborder=\"0\"></iframe>"
     }
   end

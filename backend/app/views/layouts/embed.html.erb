@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <%= csrf_meta_tags %>
   <style>
       :root {
@@ -47,6 +48,15 @@
           background-color: #141414;
       }
 
+      .embed {
+          max-width: var(--embed-max-width);
+      }
+
+      .footer-logo {
+          width: 60px;
+          height: 16px;
+      }
+
       .text-gray-350 {
           color: var(--color-gray-350);
       }
@@ -70,6 +80,11 @@
       .border-gray-450 {
           border-color: var(--color-gray-450);
       }
+
+      .material-icons.md-18 {
+          font-size: 18px;
+      }
+
   </style>
   <%= content_for?(:style) ? yield(:style) : nil %>
   <title><%= content_for?(:title) ? yield(:title) : 'embed' %></title>
