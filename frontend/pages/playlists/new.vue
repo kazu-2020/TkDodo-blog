@@ -177,7 +177,12 @@ export default Vue.extend({
   mixins: [unloadAlertMixin],
   data(): DataType {
     return {
-      playlist: { article: { body: undefined }, items: [] },
+      playlist: {
+        article: { body: undefined },
+        items: [],
+        outputItemListToBundle: true,
+        outputEpisodeToBundle: true,
+      },
       currentTab: PlaylistTab.list,
       hasUnsavedList: false,
       hasUnsavedArticle: false,
@@ -306,7 +311,7 @@ export default Vue.extend({
       this.isShowDiffDialog = false
     },
     save() {
-      const body: { [key: string]: string | undefined } = {
+      const body: { [key: string]: string | undefined | boolean } = {
         name: this.playlist.name,
         detailed_name_ruby: this.playlist.detailedNameRuby,
         description: this.playlist.description,
@@ -326,6 +331,12 @@ export default Vue.extend({
         remove_logo_image: this.playlist.removeLogoImage?.toString(),
         remove_eyecatch_image: this.playlist.removeEyecatchImage?.toString(),
         remove_hero_image: this.playlist.removeHeroImage?.toString(),
+        output_item_list_to_bundle: this.playlist.outputItemListToBundle,
+        output_episode_to_bundle: this.playlist.outputEpisodeToBundle,
+        output_article_to_bundle: this.playlist.outputArticleToBundle,
+        output_how_to_to_bundle: this.playlist.outputHowToToBundle,
+        output_event_to_bundle: this.playlist.outputEventToBundle,
+        output_faq_page_to_bundle: this.playlist.outputFaqPageToBundle,
         marked_header: this.playlist.article?.header,
         editor_data: JSON.stringify(this.playlist.article?.body),
         marked_footer: this.playlist.article?.footer,
