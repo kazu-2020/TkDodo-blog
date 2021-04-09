@@ -361,12 +361,15 @@ export default Vue.extend({
       this.width = window.innerWidth
     },
     deleteSelectedPlaylist(): void {
-      this.$store.dispatch('loading/startLoading', {
-        success: '削除しました',
-        error: '削除失敗しました',
-      })
-      this.$store.dispatch('playlists/deletePlaylist', this.selectedPlaylist)
-      this.drawer = false
+      const message = '削除したデータは復元できません。本当に削除しますか？'
+      if (window.confirm(message)) {
+        this.$store.dispatch('loading/startLoading', {
+          success: '削除しました',
+          error: '削除失敗しました',
+        })
+        this.$store.dispatch('playlists/deletePlaylist', this.selectedPlaylist)
+        this.drawer = false
+      }
     },
     clickPlaylistItem(playlist: any) {
       this.drawer = true
