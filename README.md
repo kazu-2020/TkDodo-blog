@@ -21,3 +21,10 @@ AWS Lambda, API Gateway 等のサーバーレスで配信しています。
 Cypress.io による E2E テスト
 
 [README](https://github.com/d7lab/aw-editorialhands-ui/blob/master/e2e/README.md)
+
+## oEmbed
+### API
+https://dev-api-eh.nr.nhk.jp/oembed?url={NOLのURL}
+
+### embed page
+https://dev-api-eh.nr.nhk.jp/embed/te/{episode_id}/{type}/{type_id}
