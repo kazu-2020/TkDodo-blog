@@ -212,6 +212,14 @@
         </div>
       </v-list-item>
     </v-navigation-drawer>
+    <v-dialog v-model="isShowLoadingDialog" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text class="pt-2">
+          読込中...
+          <v-progress-linear indeterminate color="white" class="mb-0 mt-2" />
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-layout>
 </template>
 
@@ -235,6 +243,7 @@ interface DataType {
   width: number
   selectedPublishedStateFilter: string
   searchKeyword: string | undefined
+  isShowLoadingDialog: boolean
 }
 
 export default Vue.extend({
@@ -263,6 +272,7 @@ export default Vue.extend({
       width: window.innerWidth,
       selectedPublishedStateFilter: 'draft',
       searchKeyword: undefined,
+      isShowLoadingDialog: false,
     }
   },
   computed: {
@@ -306,6 +316,7 @@ export default Vue.extend({
   watch: {
     page: {
       handler(newValue) {
+        this.isShowLoadingDialog = true
         this.$store.dispatch('playlists/fetchPlaylists', newValue)
       },
     },
@@ -332,6 +343,7 @@ export default Vue.extend({
     },
     selectedPublishedStateFilter: {
       handler(newValue) {
+        this.isShowLoadingDialog = true
         this.$store.dispatch('playlists/fetchPlaylists', {
           page: 1,
           publishedState: newValue,
@@ -342,11 +354,17 @@ export default Vue.extend({
     searchKeyword: {
       handler(newValue) {
         if (newValue === null) {
+          this.isShowLoadingDialog = true
           this.$store.dispatch('playlists/fetchPlaylists', {
             page: 1,
             publishedState: this.selectedPublishedStateFilter,
           })
         }
+      },
+    },
+    playlists: {
+      handler(_newValue) {
+        this.isShowLoadingDialog = false
       },
     },
   },
@@ -405,6 +423,7 @@ export default Vue.extend({
         })
     },
     searchPlaylistWithKeyword(): void {
+      this.isShowLoadingDialog = true
       this.$store.dispatch('playlists/fetchPlaylists', {
         page: 1,
         publishedState: this.selectedPublishedStateFilter,
