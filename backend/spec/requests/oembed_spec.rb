@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# FIXME: responseをmockする
+# FIXME: API依存のspec responseをmockする
 describe OembedController, type: :request do
   describe 'Episode url' do
     it 'returns success response' do
