@@ -5,7 +5,7 @@ class Embed::FaqpageController < EmbedController
     episode_id = params[:episode_id]
     res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').episode_bundle(type: 'tv', episode_id: episode_id)
     @episode_data = res[:tvepisode].first
-    faqpage_id = params[:id]
-    @faqpage_data = res[:faqpage].find { |h| h[:id] == faqpage_id }
+    faq_page_id = params[:id]
+    @faq_page_data = res[:faqpage].find { |h| h[:id] == faq_page_id }
   end
 end

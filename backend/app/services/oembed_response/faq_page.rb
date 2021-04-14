@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OembedResponse::Faqpage
+class OembedResponse::FaqPage
   attr_reader :url
 
   def initialize(url:)

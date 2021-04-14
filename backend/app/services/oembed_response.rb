@@ -21,7 +21,7 @@ class OembedResponse
     elsif event_url?
       Event.new(url: url)
     elsif faq_page_url?
-      Faqpage.new(url: url)
+      FaqPage.new(url: url)
     else
       Dummy.new(url: url)
     end
@@ -55,7 +55,7 @@ class OembedResponse
 
   # @example
   #   https://www.nhk.jp/p/ts/KVJY7PKWX2/faqpage/19/
-  # NOTE: 現在、NOLにfaqpageは独立したページを持たないためURLは実在しない
+  # NOTE: 現在、NOLにFAQPageは独立したページを持たないためURLは実在しない
   def faq_page_url?
     url.match?(%r{https?://.*nhk.jp.*/p/.*ts/[A-Z0-9]{10}/faqpage/[0-9]+})
   end
