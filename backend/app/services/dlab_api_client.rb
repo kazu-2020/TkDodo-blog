@@ -108,6 +108,14 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
+  # FAQPage データをリクエストする
+  #
+  # @param [String] faq_page_id: FAQPage ID
+  def faq_page(faq_page_id:)
+    res = client.get "/#{VERSION}/t/faqpage/id/#{faq_page_id}.json", INTERNAL_PARAMS
+    handle_response(res)
+  end
+
   private
 
   attr_reader :api_endpoint

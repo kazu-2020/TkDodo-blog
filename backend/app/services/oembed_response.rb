@@ -8,18 +8,24 @@ class OembedResponse
   end
 
   def response
-    if series_url? || episode_url?
-      response_body_by_nr
-    elsif howto_url?
-      howto_response_body
-    elsif event_url?
-      event_response_body
-    else
-      dummy_response_body
-    end
+    responser.response
   end
 
   private
+
+  def responser
+    if series_url? || episode_url?
+      SeriesOrEpisode.new(url: url)
+    elsif howto_url?
+      Howto.new(url: url)
+    elsif event_url?
+      Event.new(url: url)
+    elsif faq_page_url?
+      FaqPage.new(url: url)
+    else
+      Dummy.new(url: url)
+    end
+  end
 
   # @example
   #   https://www.nhk.jp/p/gendai/ts/WV5PLY8R43/
@@ -42,92 +48,15 @@ class OembedResponse
   end
 
   # @example
-  #   https://www.nhk.jp/p/ts/D4VPQVK78M/event/94/
+  #   https://dev-www.nhk.jp/p/ts/D4VPQVK78M/event/94/
   def event_url?
     url.match?(%r{https?://.*nhk.jp.*/p/.*ts/[A-Z0-9]{10}/event/[0-9]+})
   end
 
-  # NOTE: seriesの場合、トレイリングスラッシュなしはdevのoEmbedAPIで無効なURLとして扱われる
-  # NOTE: エイリアスを指定すると正しいembedが返ってこない
-  # @return [String] dev-embed.nr.nhk.jp用のURL ts/ 以降
-  def extract_series_or_episode_url
-    url[%r{https?://.*nhk.jp.*/p/.*(ts/[A-Z0-9]{10}/.*)}, 1]
-  end
-
-  def extract_howto_id
-    url[%r{https?://.*nhk.jp.*/p/.*/howto/([0-9]+)}, 1]
-  end
-
-  def extract_event_id
-    url[%r{https?://.*nhk.jp.*/p/.*/event/([0-9]+)}, 1]
-  end
-
-  def response_body_by_nr
-    src = "https://dev-embed.nr.nhk.jp/p/#{extract_series_or_episode_url}"
-    {
-      version: '1.0',
-      width: '100%',
-      height: 236,
-      type: 'rich',
-      provider_name: 'NHK',
-      provider_url: 'https://www.nhk.jp',
-      url: url,
-      title: 'Dummy',
-      thumbnail_width: 640,
-      thumbnail_height: 360,
-      thumbnail_url: 'http://placehold.jp/640x360.png',
-      html: "<iframe width=\"100%\" height=\"234\" src=\"#{src}\" frameborder=\"0\"></iframe>"
-    }
-  end
-
-  # rubocop:disable Metrics/MethodLength
-  def howto_response_body
-    res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').howto(howto_id: extract_howto_id)
-    episode_id = res.dig(:identifierGroup, :episodeId)
-    src = "https://dev-api-eh.nr.nhk.jp/embed/te/#{episode_id}/howto/#{extract_howto_id}"
-    {
-      version: '1.0',
-      width: '100%',
-      height: 340,
-      type: 'rich',
-      provider_name: 'NHK',
-      provider_url: 'https://www.nhk.jp',
-      url: url,
-      title: res[:name] || 'Dummy',
-      thumbnail_width: res.dig(:image, :medium, :width) || 640,
-      thumbnail_height: res.dig(:image, :medium, :height) || 360,
-      thumbnail_url: res.dig(:image, :medium, :url) || 'http://placehold.jp/640x360.png',
-      html: "<iframe width=\"100%\" height=\"340\" src=\"#{src}\" frameborder=\"0\"></iframe>"
-    }
-  end
-  # rubocop:enable Metrics/MethodLength
-
-  # rubocop:disable Metrics/MethodLength
-  def event_response_body
-    # NOTE: prd環境で登録が少ないため一旦devを見るように
-    res = DlabApiClient.new(api_endpoint: 'https://dev-api.nr.nhk.jp').event(event_id: extract_event_id)
-    episode_id = res.dig(:identifierGroup, :episodeId)
-    src = "https://dev-api-eh.nr.nhk.jp/embed/te/#{episode_id}/event/#{extract_event_id}"
-    # src = "http://localhost:8888/embed/te/#{episode_id}/event/#{extract_event_id}"
-    {
-      version: '1.0',
-      width: '100%',
-      height: 340,
-      type: 'rich',
-      provider_name: 'NHK',
-      provider_url: 'https://www.nhk.jp',
-      url: url,
-      title: res[:name] || 'Dummy',
-      thumbnail_width: res.dig(:image, :medium, :width) || 640,
-      thumbnail_height: res.dig(:image, :medium, :height) || 360,
-      thumbnail_url: res.dig(:image, :medium, :url) || 'http://placehold.jp/640x360.png',
-      html: "<iframe width=\"100%\" height=\"340\" src=\"#{src}\" frameborder=\"0\"></iframe>"
-    }
-  end
-  # rubocop:enable Metrics/MethodLength
-
-  # FIXME: how_to, event, faq_page
-  def dummy_response_body
-    { html: '<p>ダミーです。</p>' }
+  # @example
+  #   https://www.nhk.jp/p/ts/KVJY7PKWX2/faqpage/19/
+  # NOTE: 現在、NOLにFAQPageは独立したページを持たないためURLは実在しない
+  def faq_page_url?
+    url.match?(%r{https?://.*nhk.jp.*/p/.*ts/[A-Z0-9]{10}/faqpage/[0-9]+})
   end
 end
