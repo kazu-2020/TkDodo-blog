@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# FIXME: API依存のspec responseをmockする
-describe OembedController, type: :request do
+describe OembedController, type: :request, skip: 'API依存のspec responseをmockする' do
   describe 'Howto url' do
     it 'returns success response' do
       get '/embed/te/VNM43R2K9L/howto/55'

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# FIXME: API依存のspec responseをmockする
-describe OembedController, type: :request do
+describe OembedController, type: :request, skip: 'API依存のspec responseをmockする' do
   describe 'Episode url' do
     it 'returns success response' do
       get '/oembed', url: 'https://www.nhk.jp/p/mitsuhide-smapho/ts/R71NJ4MV53/episode/te/B7ZJX92J2N/'
