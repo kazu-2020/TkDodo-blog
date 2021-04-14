@@ -97,7 +97,7 @@
       </v-list-item>
       <v-list-item class="mb-4">
         <v-row v-show="!articleMode" justify="center">
-          <v-col cols="4" offset="2">
+          <v-col cols="4">
             <v-btn
               :to="{
                 name: 'playlists-id',
@@ -122,14 +122,44 @@
               削除する
             </v-btn>
           </v-col>
-          <v-col cols="2">
-            <v-btn :href="playlistWebUrl(selectedPlaylist)" small fab outlined>
-              <v-icon>mdi-link-variant</v-icon>
-            </v-btn>
+          <v-col cols="3">
+            <v-tooltip bottom>
+              <template #activator="{ on, attrs }">
+                <v-btn
+                  :href="playlistWebPreviewUrl(selectedPlaylist)"
+                  small
+                  fab
+                  outlined
+                  class="mr-2"
+                  v-bind="attrs"
+                  v-on="on"
+                  target="_blank"
+                >
+                  <v-icon>mdi-file-document-outline</v-icon>
+                </v-btn>
+              </template>
+              <span>ペライチ プレビュー</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template #activator="{ on, attrs }">
+                <v-btn
+                  :href="playlistSitePreviewUrl(selectedPlaylist)"
+                  small
+                  fab
+                  outlined
+                  v-bind="attrs"
+                  v-on="on"
+                  target="_blank"
+                >
+                  <v-icon>mdi-sitemap</v-icon>
+                </v-btn>
+              </template>
+              <span>サイト プレビュー</span>
+            </v-tooltip>
           </v-col>
         </v-row>
         <v-row v-show="articleMode" justify="center">
-          <v-col cols="4" offset="2">
+          <v-col cols="4">
             <v-btn
               :to="{
                 name: 'playlists-id',
@@ -155,10 +185,40 @@
               削除する
             </v-btn>
           </v-col>
-          <v-col cols="2">
-            <v-btn :href="playlistWebUrl(selectedPlaylist)" small fab outlined>
-              <v-icon>mdi-link-variant</v-icon>
-            </v-btn>
+          <v-col cols="3">
+            <v-tooltip bottom>
+              <template #activator="{ on, attrs }">
+                <v-btn
+                  :href="playlistWebPreviewUrl(selectedPlaylist)"
+                  small
+                  fab
+                  outlined
+                  class="mr-2"
+                  v-bind="attrs"
+                  v-on="on"
+                  target="_blank"
+                >
+                  <v-icon>mdi-file-document-outline</v-icon>
+                </v-btn>
+              </template>
+              <span>ペライチ プレビュー</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template #activator="{ on, attrs }">
+                <v-btn
+                  :href="playlistSitePreviewUrl(selectedPlaylist)"
+                  small
+                  fab
+                  outlined
+                  v-bind="attrs"
+                  v-on="on"
+                  target="_blank"
+                >
+                  <v-icon>mdi-sitemap</v-icon>
+                </v-btn>
+              </template>
+              <span>サイト プレビュー</span>
+            </v-tooltip>
           </v-col>
         </v-row>
       </v-list-item>
@@ -449,8 +509,11 @@ export default Vue.extend({
       )
       return !!okushibuVideo
     },
-    playlistWebUrl(selectedPlaylist: any): string {
+    playlistWebPreviewUrl(selectedPlaylist: any): string {
       return `https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/${selectedPlaylist?.originalId}`
+    },
+    playlistSitePreviewUrl(selectedPlaylist: any): string {
+      return `https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/${selectedPlaylist?.originalId}/site`
     },
   },
 })
