@@ -9,5 +9,7 @@ class Embed::EventController < EmbedController
     @episode_data = res[:tvepisode].first
     event_id = params[:id]
     @event_data = res[:event].find { |h| h[:id] == event_id }
+
+    render 'embed/not_found', status: :not_found and return if @episode_data.blank? || @event_data.blank?
   end
 end
