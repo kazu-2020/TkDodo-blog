@@ -131,9 +131,9 @@
                   fab
                   outlined
                   class="mr-2"
+                  target="_blank"
                   v-bind="attrs"
                   v-on="on"
-                  target="_blank"
                 >
                   <v-icon>mdi-file-document-outline</v-icon>
                 </v-btn>
@@ -147,9 +147,9 @@
                   small
                   fab
                   outlined
+                  target="_blank"
                   v-bind="attrs"
                   v-on="on"
-                  target="_blank"
                 >
                   <v-icon>mdi-sitemap</v-icon>
                 </v-btn>
@@ -194,9 +194,9 @@
                   fab
                   outlined
                   class="mr-2"
+                  target="_blank"
                   v-bind="attrs"
                   v-on="on"
-                  target="_blank"
                 >
                   <v-icon>mdi-file-document-outline</v-icon>
                 </v-btn>
@@ -210,9 +210,9 @@
                   small
                   fab
                   outlined
+                  target="_blank"
                   v-bind="attrs"
                   v-on="on"
-                  target="_blank"
                 >
                   <v-icon>mdi-sitemap</v-icon>
                 </v-btn>

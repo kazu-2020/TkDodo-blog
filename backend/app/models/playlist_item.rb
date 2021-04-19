@@ -45,6 +45,7 @@ class PlaylistItem < ApplicationRecord
 
     self.has_how_to = bundle_res[:howto].present?
     self.has_event = bundle_res[:event].present?
+    self.has_faq_page = bundle_res[:faqpage].present?
 
     save
 
