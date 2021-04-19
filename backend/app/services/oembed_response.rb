@@ -54,7 +54,7 @@ class OembedResponse
   end
 
   # @example
-  #   https://www.nhk.jp/p/ts/KVJY7PKWX2/faqpage/19/
+  #   https://www.nhk.jp/p/kyounoryouri/ts/XR5ZNJLM2Q/faqpage/965
   # NOTE: 現在、NOLにFAQPageは独立したページを持たないためURLは実在しない
   def faq_page_url?
     url.match?(%r{https?://.*nhk.jp.*/p/.*ts/[A-Z0-9]{10}/faqpage/[0-9]+})
