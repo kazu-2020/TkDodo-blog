@@ -9,6 +9,8 @@ class OembedResponse
 
   def response
     responser.response
+  rescue DlabApiClient::NotFound
+    nil
   end
 
   private
