@@ -189,6 +189,7 @@
                 :disabled="disableItemListSubset"
               />
               <v-checkbox
+                v-if="hasFaqPage"
                 v-model="selectedTypes"
                 class="mt-0 ml-10"
                 :label="`FAQPage (${faqPageCount})`"
@@ -371,6 +372,9 @@ export default Vue.extend({
     },
     hasHowTo(): boolean {
       return this.playlist.hasHowTo
+    },
+    hasFaqPage(): boolean {
+      return this.playlist.hasFaqPage
     },
     hasEvent(): boolean {
       return this.playlist.hasEvent
