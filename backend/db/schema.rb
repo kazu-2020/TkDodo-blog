@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_29_120200) do
+ActiveRecord::Schema.define(version: 2021_04_19_171000) do
 
   create_table "article_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_120200) do
     t.boolean "has_video", default: false, null: false, comment: "再生可能な動画があるか"
     t.boolean "has_how_to", default: false, null: false, comment: "ハウツー保持フラグ"
     t.boolean "has_event", default: false, null: false, comment: "イベント保持フラグ"
+    t.boolean "has_faq_page", default: false, null: false, comment: "FAQ 保持フラグ"
     t.text "cached_data", comment: "r6 API からのエピソードJSONのキャッシュ"
     t.datetime "discarded_at", comment: "削除日時"
     t.datetime "cached_data_at", comment: "cache_data を保存した日時"

@@ -35,6 +35,7 @@ export interface Playlist {
   browsableItemCount: number
   hasHowTo: boolean
   hasEvent: boolean
+  hasFaqPage: boolean
   outputItemListToBundle: boolean
   outputEpisodeToBundle: boolean
   outputArticleToBundle: boolean
