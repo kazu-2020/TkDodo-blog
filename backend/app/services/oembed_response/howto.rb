@@ -11,6 +11,9 @@ class OembedResponse::Howto
   def response
     res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').howto(howto_id: extract_howto_id)
     episode_id = res.dig(:identifierGroup, :episodeId)
+
+    raise DlabApiClient::NotFound if episode_id.blank?
+
     src = "https://dev-api-eh.nr.nhk.jp/embed/te/#{episode_id}/howto/#{extract_howto_id}"
     {
       version: '1.0',

@@ -12,8 +12,10 @@ class OembedResponse::Event
     # NOTE: prd環境で登録が少ないため一旦devを見るように
     res = DlabApiClient.new(api_endpoint: 'https://dev-api.nr.nhk.jp').event(event_id: extract_event_id)
     episode_id = res.dig(:identifierGroup, :episodeId)
+
+    raise DlabApiClient::NotFound if episode_id.blank?
+
     src = "https://dev-api-eh.nr.nhk.jp/embed/te/#{episode_id}/event/#{extract_event_id}"
-    # src = "http://localhost:8888/embed/te/#{episode_id}/event/#{extract_event_id}"
     {
       version: '1.0',
       width: '100%',

@@ -11,6 +11,9 @@ class OembedResponse::FaqPage
   def response
     res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').faq_page(faq_page_id: extract_faq_page_id)
     episode_id = res.dig(:identifierGroup, :episodeId)
+
+    raise DlabApiClient::NotFound if episode_id.blank?
+
     src = "https://dev-api-eh.nr.nhk.jp/embed/te/#{episode_id}/faqpage/#{extract_faq_page_id}"
     {
       version: '1.0',
