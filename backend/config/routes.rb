@@ -63,10 +63,9 @@ Jets.application.routes.draw do
 
   get '/oembed', to: 'oembed#index'
   namespace :embed do
-    get 'ts/:series_id/episode/te/:episode_id', to: 'episodes#show'
-    get 'te/:episode_id/howto/:id', to: 'howtos#show'
-    get 'te/:episode_id/event/:id', to: 'events#show'
-    get 'te/:episode_id/faqpage/:id', to: 'faqpages#show'
+    get 'te/:episode_id/howto/:id', to: 'howto#show'
+    get 'te/:episode_id/event/:id', to: 'event#show'
+    get 'te/:episode_id/faqpage/:id', to: 'faqpage#show'
   end
 
   post '/slack/incoming_webhook', to: 'slack#incoming_webhook'
