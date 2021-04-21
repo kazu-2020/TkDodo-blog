@@ -15,9 +15,12 @@ class OembedResponse
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def responser
-    if series_url? || episode_url?
+    if series_url?
       SeriesOrEpisode.new(url: url)
+    elsif episode_url?
+      Episode.new(url: url)
     elsif howto_url?
       Howto.new(url: url)
     elsif event_url?
@@ -28,6 +31,7 @@ class OembedResponse
       Dummy.new(url: url)
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # @example
   #   https://www.nhk.jp/p/gendai/ts/WV5PLY8R43/
