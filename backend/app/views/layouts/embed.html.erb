@@ -84,20 +84,12 @@
       .material-icons.md-18 {
           font-size: 18px;
       }
-
       /* https://github.com/tailwindlabs/tailwindcss-line-clamp より（CDNではpluginが利用できないため） */
-      .line-clamp-2 {
+      .line-clamp-3 {
           overflow: hidden;
           display: -webkit-box;
           -webkit-box-orient: vertical;
-          -webkit-line-clamp: 2;
-      }
-
-      .line-clamp-4 {
-          overflow: hidden;
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 4;
+          -webkit-line-clamp: 3;
       }
   </style>
   <%= content_for?(:style) ? yield(:style) : nil %>
