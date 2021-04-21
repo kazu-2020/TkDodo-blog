@@ -17,7 +17,7 @@ class OembedResponse::Episode
       provider_name: 'NHK',
       provider_url: 'https://www.nhk.jp',
       url: url,
-      title: 'Dummy',
+      title: 'Episode',
       thumbnail_width: 640,
       thumbnail_height: 360,
       thumbnail_url: 'http://placehold.jp/640x360.png',
