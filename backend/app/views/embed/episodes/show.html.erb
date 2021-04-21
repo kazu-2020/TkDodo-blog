@@ -9,20 +9,21 @@
         <img
           decoding="async"
           src="<%= episode_image_src %>"
+          data-v-7e59b65e=""
           class="rounded-sm"
-          alt="<%= @episode_data[:name] %>"/>
+          />
       </div>
-      <div class="col-span-7">
+      <div class="col-span-7" style="max-height: 135px">
         <div>
           <span class="text-xs" style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+          <span class="text-gray-350 text-xs"><%= @episode_data[:name] %></span>
         </div>
-        <div class="font-bold text-lg mt-1 mb-2"><%= @episode_data[:name] %></div>
         <div class="text-gray-350 text-sm flex items-center mt-2">
           <span class="material-icons md-18">event</span>
           <span class="ml-1">初回放送日時:</span>
           <span class="ml-1"><%= Time.parse(@episode_data.dig(:releasedEvent, :startDate)).strftime("%Y年%-m月%-d日 %H時%M分") %></span>
         </div>
-        <div class="text-gray-350 text-sm mt-2 line-clamp-2">
+        <div class="text-gray-350 text-sm mt-2 max-h-16 line-clamp-3">
           <%= @episode_data[:description] %>
         </div>
       </div>
