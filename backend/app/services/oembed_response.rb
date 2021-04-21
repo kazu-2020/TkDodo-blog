@@ -18,7 +18,7 @@ class OembedResponse
   # rubocop:disable Metrics/AbcSize
   def responser
     if series_url?
-      SeriesOrEpisode.new(url: url)
+      Series.new(url: url)
     elsif episode_url?
       Episode.new(url: url)
     elsif howto_url?
@@ -38,7 +38,7 @@ class OembedResponse
   #   https://www.nhk.jp/p/ts/WV5PLY8R43/
   # @return [TrueClass, FalseClass]
   def series_url?
-    url.match?(%r{https?://.*nhk.jp.*/p/.*ts/[A-Z0-9]{10}/$})
+    url.match?(%r{https?://.*nhk.jp.*/p/.*ts/[A-Z0-9]{10}/?$})
   end
 
   # @example
