@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Embed::EventController < EmbedController
+class Embed::EventsController < EmbedController
   def show
     episode_id = params[:episode_id]
     # NOTE: prd環境で登録が少ないため一旦devを見るように
