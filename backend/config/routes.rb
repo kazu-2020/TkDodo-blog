@@ -63,7 +63,7 @@ Jets.application.routes.draw do
 
   get '/oembed', to: 'oembed#index'
   namespace :embed do
-    get 'te/:episode_id', to: 'episodes#show'
+    get 'ts/:series_id/episode/te/:episode_id', to: 'episodes#show'
     get 'te/:episode_id/howto/:id', to: 'howtos#show'
     get 'te/:episode_id/event/:id', to: 'events#show'
     get 'te/:episode_id/faqpage/:id', to: 'faqpages#show'
