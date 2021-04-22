@@ -11,7 +11,7 @@
           <span class="text-gray-350 text-xs"><%= @episode_data[:name] %></span>
         </div>
         <div class="font-bold text-lg mt-1 mb-2"><%= @howto_data[:name] %></div>
-        <div class="text-gray-350 text-sm">
+        <div class="text-gray-350 text-sm line-clamp-3">
           <%= @howto_data[:description] %>
         </div>
       </div>
@@ -21,7 +21,7 @@
           src="<%= @howto_data.dig(:image, :medium, :url) %>"
           data-v-7e59b65e=""
           class="rounded-sm"
-          />
+          alt="<%= @howto_data[:name] %>"/>
       </div>
 
       <div class="steps col-span-12">
@@ -35,7 +35,7 @@
               </span>
               <span class="ml-3"><%= section[:name] %></span>
             </div>
-            <ol class="list-decimal list-inside text-gray-350">
+            <ol class="step-list list-decimal list-inside text-gray-350">
               <% section[:step].take(3).each do |step| %>
                 <li class="mb-1">
                   <span class="ml-1"><%= step[:name] %></span>
@@ -89,6 +89,24 @@
           position: absolute;
           top: 0;
           left: 0;
+      }
+
+      .step-list::after {
+          display: block;
+          position: absolute;
+          background: linear-gradient(
+                  180deg,
+                  rgba(20, 20, 20, 0) 50%,
+                  rgba(57, 57, 57, 0.8) 80%,
+                  rgba(57, 57, 57, 0.9) 90%,
+                  #343434 100%
+          );
+          top: 195px;
+          left: 1px;
+          right: 1px;
+          height: 80px;
+          max-width: 618px;
+          content: '';
       }
   </style>
 <% end %>
