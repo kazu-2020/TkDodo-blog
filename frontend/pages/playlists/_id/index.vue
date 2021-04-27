@@ -131,11 +131,45 @@
             </div>
           </v-col>
           <v-divider />
-          <v-col cols="2">
+          <v-col cols="12">
             <playlist-json-dialog
               button-color="#000000"
               :playlist-id="playlist.originalId"
             />
+            <v-tooltip bottom>
+              <template #activator="{ on, attrs }">
+                <v-btn
+                  :href="playlistWebPreviewUrl"
+                  icon
+                  small
+                  color="#000000"
+                  class="ml-2"
+                  target="_blank"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <v-icon>mdi-file-document-outline</v-icon>
+                </v-btn>
+              </template>
+              <span>ペライチ プレビュー</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template #activator="{ on, attrs }">
+                <v-btn
+                  :href="playlistSitePreviewUrl"
+                  icon
+                  small
+                  color="#000000"
+                  class="ml-2"
+                  target="_blank"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <v-icon>mdi-sitemap</v-icon>
+                </v-btn>
+              </template>
+              <span>サイト プレビュー</span>
+            </v-tooltip>
           </v-col>
         </div>
       </v-col>
@@ -254,6 +288,12 @@ export default Vue.extend({
     articlePlainBody(): string | undefined {
       const article = this.playlist?.article?.plainBody || ''
       return article.replace(/\n\n/g, '<br/>')
+    },
+    playlistWebPreviewUrl(): string {
+      return `https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/${this.playlist?.originalId}`
+    },
+    playlistSitePreviewUrl(): string {
+      return `https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/${this.playlist?.originalId}/site`
     },
   },
   mounted() {
