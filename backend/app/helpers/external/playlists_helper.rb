@@ -34,4 +34,20 @@ module External::PlaylistsHelper
       ''
     end
   end
+
+  def format_genre(playlist)
+    return [] if playlist.format_genre_code.nil?
+
+    [
+      { id: playlist.format_genre_code, name: playlist.format_genre_name }
+    ]
+  end
+
+  def theme_genre(playlist)
+    return [] if playlist.theme_genre_code.nil?
+
+    [
+      { id: playlist.theme_genre_code, name: playlist.theme_genre_name }
+    ]
+  end
 end
