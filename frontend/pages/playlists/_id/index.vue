@@ -228,8 +228,12 @@ export default Vue.extend({
     ArticleSavedDialog,
   },
   mixins: [unloadAlertMixin],
-  async asyncData({ store, params }) {
-    await store.dispatch('playlists/fetchPlaylist', params.id)
+  async asyncData({ store, params, error }) {
+    await store.dispatch('playlists/fetchPlaylist', params.id).catch((e) => {
+      if (e.response.status === 404) {
+        error({ statusCode: 404, message: e.response.data.messages })
+      }
+    })
   },
   data(): DataType {
     return {
