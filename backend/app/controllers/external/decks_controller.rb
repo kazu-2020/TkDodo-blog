@@ -7,6 +7,9 @@ class External::DecksController < ApplicationController
     @area = params[:area]
     is_r5 = !(params[:deck_id] =~ /r5/).nil?
     @deck = Deck.find_by(area: @area, is_r5: is_r5)
+
+    render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
+
     @playlists =
       if params[:theme_genre_code]
         @deck.playlists.draft.where(theme_genre_code: params[:theme_genre_code])
@@ -15,7 +18,6 @@ class External::DecksController < ApplicationController
       end
     @deck_id = params[:deck_id].gsub('.json', '')
     @object_type = params[:type] || 'tvepisode'
-    render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
 
     case params[:deck_id]
     when /visible/
