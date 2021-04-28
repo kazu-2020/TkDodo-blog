@@ -14,6 +14,8 @@ json.identifierGroup do
   json.typeOfItem type_of_item(@object_type)
   json.hashtag @playlist.hashtags
   json.aliasId @playlist.alias_id || ''
+  json.formatGenreTag format_genre(@playlist)
+  json.themeGenreTag theme_genre(@playlist)
 end
 
 if @playlist.deck.present?
