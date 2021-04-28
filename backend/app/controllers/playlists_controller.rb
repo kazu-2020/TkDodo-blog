@@ -28,6 +28,8 @@ class PlaylistsController < ApplicationController
 
   def show
     @playlist = Playlist.friendly.find(params[:playlist_id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { messages: "#{params[:playlist_id]}は見つかりませんでした" }, status: :not_found
   end
 
   iam_policy('s3')
