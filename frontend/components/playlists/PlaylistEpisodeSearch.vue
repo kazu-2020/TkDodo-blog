@@ -35,6 +35,14 @@
 
           <v-card>
             <v-list>
+              <v-list-item class="mt-2 mb-4">
+                <v-list-item-title class="mr-4">検索方法</v-list-item-title>
+                <v-btn-toggle v-model="queryKeyNum">
+                  <v-btn>エピソード名/概要</v-btn>
+                  <v-btn>出演者名</v-btn>
+                  <v-btn>キーワード</v-btn>
+                </v-btn-toggle>
+              </v-list-item>
               <v-list-item>
                 <v-list-item-title>並び順</v-list-item-title>
                 <v-btn-toggle v-model="sortTypeNum">
@@ -119,6 +127,7 @@ interface DataType {
   isNoResult: boolean
   searchOffset: number
   menu: boolean
+  queryKeyNum: number
   sortTypeNum: number
   ignoreRange: boolean
   totalSearchResult: number
@@ -153,6 +162,7 @@ export default Vue.extend({
       isNoResult: false,
       searchOffset: 0,
       menu: false,
+      queryKeyNum: 0,
       sortTypeNum: 0,
       ignoreRange: false,
       totalSearchResult: 0,
@@ -169,6 +179,18 @@ export default Vue.extend({
           return 'dateAsc'
         default:
           return 'scoreDesc'
+      }
+    },
+    queryKey(): string {
+      switch (this.queryKeyNum) {
+        case 0:
+          return 'word'
+        case 1:
+          return 'concern'
+        case 2:
+          return 'keyword'
+        default:
+          return 'word'
       }
     },
     canLoadMoreEpisodes(): boolean {
@@ -214,7 +236,7 @@ export default Vue.extend({
       }
       this.$axios
         .get(
-          `/episodes/search?word=${this.editingKeywords}&offset=${this.searchOffset}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}&size=${pageSize}`
+          `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}&size=${pageSize}`
         )
         .then((res) => {
           this.episodes = this.episodes.concat(res.data.items)

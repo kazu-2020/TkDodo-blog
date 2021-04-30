@@ -24,15 +24,15 @@ class DlabApiClient < DlabApiBase
   #
   # @param [Hash] search_params
   def search(search_params)
-    word = search_params[:word]
     offset = search_params[:offset] || DEFAULT_OFFSET
     ignore_range = search_params[:ignore_range].nil? ? true : search_params[:ignore_range]
     sort_type = search_params[:sort_type] || DEFAULT_SORT_TYPE
     size = search_params[:size] || DEFAULT_SIZE
+    merged_params = { type: 'TVEpisode', offset: offset, isFuzzy: true, ignoreRange: ignore_range,
+                      sortType: sort_type, size: size }
+    merged_params.merge!(search_query_hash(search_params))
 
-    res = client.get "/#{VERSION}/s/extended.json",
-                     INTERNAL_PARAMS.merge(type: 'TVEpisode', word: word, concerns: word, offset: offset, isFuzzy: true,
-                                           ignoreRange: ignore_range, sortType: sort_type, size: size)
+    res = client.get "/#{VERSION}/s/extended.json", INTERNAL_PARAMS.merge(merged_params)
     handle_response(res)
   end
 
@@ -126,6 +126,14 @@ class DlabApiClient < DlabApiBase
   end
 
   private
+
+  def search_query_hash(search_params)
+    merged_params = {}
+    merged_params.merge!(word: search_params[:word]) if search_params[:word].present?
+    merged_params.merge!(concern: search_params[:concern]) if search_params[:concern].present?
+    merged_params.merge!(keyword: search_params[:keyword]) if search_params[:keyword].present?
+    merged_params
+  end
 
   attr_reader :api_endpoint
 end
