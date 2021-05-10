@@ -377,7 +377,10 @@ export default Vue.extend({
     page: {
       handler(newValue) {
         this.isShowLoadingDialog = true
-        this.$store.dispatch('playlists/fetchPlaylists', newValue)
+        this.$store.dispatch('playlists/fetchPlaylists', {
+          page: newValue,
+          publishedState: this.selectedPublishedStateFilter,
+        })
       },
     },
     articleMode: {
@@ -404,6 +407,7 @@ export default Vue.extend({
     selectedPublishedStateFilter: {
       handler(newValue) {
         this.isShowLoadingDialog = true
+        this.page = 1
         this.$store.dispatch('playlists/fetchPlaylists', {
           page: 1,
           publishedState: newValue,
@@ -415,6 +419,7 @@ export default Vue.extend({
       handler(newValue) {
         if (newValue === null) {
           this.isShowLoadingDialog = true
+          this.page = 1
           this.$store.dispatch('playlists/fetchPlaylists', {
             page: 1,
             publishedState: this.selectedPublishedStateFilter,
