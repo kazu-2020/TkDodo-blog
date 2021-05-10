@@ -20,6 +20,9 @@ json.identifierGroup do
   json.aliasId playlist.alias_id || ''
   json.formatGenre format_genre(playlist)
   json.themeGenre theme_genre(playlist)
+end
+
+json.additionalProperty do
   json.layoutPattern 'largeImage'
 end
 
