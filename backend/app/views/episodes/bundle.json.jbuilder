@@ -6,3 +6,4 @@ json.tvEpisode @result[:tvepisode]&.first
 json.set_raw! :recipes, (@result[:recipe] || []).to_json
 json.set_raw! :howTos, (@result[:howto] || []).to_json
 json.set_raw! :events, (@result[:event] || []).to_json
+json.set_raw! :faqpage, (@result[:faqpage] || []).to_json
