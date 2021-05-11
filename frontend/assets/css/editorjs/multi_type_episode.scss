@@ -86,6 +86,7 @@
   border: 1px solid #707070;
   border-radius: 6px;
   display: table;
+  width: 100%;
 }
 
 .multi_type_episode__left_column {
@@ -295,6 +296,7 @@
   border-bottom: 1px solid #ccc;
   padding-bottom: 2px;
   padding-top: 8px;
+  min-height: 44px;
   cursor: pointer;
 
   &:hover {
@@ -307,6 +309,7 @@
   top: 50%;
   left: 90px;
   transform: translateY(-50%);
+  padding-bottom: 4px;
   display: inline-block;
 }
 
@@ -322,6 +325,42 @@
   cursor: pointer;
   right: 0;
   top: 25%;
+}
+
+.multi_type_episode__playlist-item-button-min {
+  position: absolute;
+  cursor: pointer;
+  right: 0;
+  top: 20%;
+}
+
+.multi_type_episode__faqpage_episode_name {
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: #212121;
+}
+
+.multi_type_episode__faqpage_question {
+  font-size: 14px;
+}
+
+.multi_type_episode__faq_page_see_more_info {
+  padding-top: 16px;
+}
+
+.multi_type_episode__faqpage_nhk_logo_image {
+  float: left;
+  margin-top: 15px;
+}
+.multi_type_episode__faqpage_detail_button {
+  float: right;
+  padding: 8px 40px;
+  background-color: #999999;
+  border-radius: 5px;
+  color: #ffffff !important;
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: none !important;
 }
 
 @keyframes link-in {

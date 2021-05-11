@@ -27,6 +27,7 @@ class TypeSelectBuilder {
       playlistItemThumbnail: 'multi_type_episode__playlist-item-thumbnail',
       playlistItemTitle: 'multi_type_episode__playlist-item-title',
       playlistItemButton: 'multi_type_episode__playlist-item-button',
+      playlistItemButtonMin: 'multi_type_episode__playlist-item-button-min',
     }
   }
 
@@ -37,13 +38,15 @@ class TypeSelectBuilder {
     selectEpisodeButtonFn,
     selectRecipeButtonFn,
     selectHowToButtonFn,
-    selectEventButtonFn
+    selectEventButtonFn,
+    selectFaqPageButtonFn
   ) {
     this._showTypeSelectorHeader()
     this._showEpisodeItem(selectEpisodeButtonFn)
     this._showRecipeItems(selectRecipeButtonFn)
     this._showHowToItems(selectHowToButtonFn)
     this._showEventItems(selectEventButtonFn)
+    this._showFaqPageItems(selectFaqPageButtonFn)
 
     return this.nodes.typeSelectHolder
   }
@@ -261,6 +264,45 @@ class TypeSelectBuilder {
       eventItem.appendChild(selectEventButton)
 
       this.nodes.typeSelectHolder.appendChild(eventItem)
+    }
+  }
+
+  /**
+   * FAQPageへタイプ変更するDOM群を構築
+   */
+  _showFaqPageItems(selectFaqPageButtonFn) {
+    const faqPages = this.data.faqpage
+
+    if (faqPages.length === 0) return
+
+    for (const faqPage of faqPages) {
+      const faqPageItem = new HTMLElementBuilder(
+        'div',
+        this.CSS.playlistItem
+      ).build()
+      const faqPageTitle = new HTMLElementBuilder(
+        'div',
+        this.CSS.playlistItemTitle
+      ).build()
+
+      faqPageTitle.textContent = '[FAQ]' + faqPage.name
+
+      const selectFaqPageButton = new HTMLElementBuilder(
+        'button',
+        this.CSS.playlistItemButtonMin
+      ).build()
+
+      selectFaqPageButton.textContent = '選択'
+
+      faqPageItem.addEventListener('click', (_event) => {
+        this.nodes.typeSelectHolder.remove()
+        selectFaqPageButtonFn(this.context, faqPage)
+      })
+
+      faqPageItem.appendChild(faqPageTitle)
+      faqPageItem.appendChild(selectFaqPageButton)
+
+      this.nodes.typeSelectHolder.appendChild(faqPageItem)
     }
   }
 }

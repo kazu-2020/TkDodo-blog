@@ -24,7 +24,7 @@ class PreviewBlockBuilder {
       linkContentLeftColumn: 'multi_type_episode__left_column',
       linkContentThumbnail: 'multi_type_episode__thumbnail',
       linkContentThumbnailImage: 'multi_type_episode__thumbnail_image',
-      linkContentnNhkLogoImage: 'multi_type_episode__nhk_logo_image',
+      linkContentNhkLogoImage: 'multi_type_episode__nhk_logo_image',
       linkContentRightColumn: 'multi_type_episode__right_column',
       linkContentSeriesName: 'multi_type_episode__series_name',
       linkContentEpisodeName: 'multi_type_episode__episode_name',
@@ -68,6 +68,12 @@ class PreviewBlockBuilder {
       linkContentEventLocation: 'multi_type_episode__event_location',
       linkContentEventPinIcon: 'multi_type_episode__event_pin_icon',
       linkContentEventLocationText: 'multi_type_episode__event_location_text',
+      // faq page
+      linkContentFaqEpisodeName: 'multi_type_episode__faqpage_episode_name',
+      linkContentFaqQuestion: 'multi_type_episode__faqpage_question',
+      linkContentFaqSeeMoreInfo: 'multi_type_episode__faq_page_see_more_info',
+      linkContentFaqNhkLogoImage: 'multi_type_episode__faqpage_nhk_logo_image',
+      linkContentFaqDetailButton: 'multi_type_episode__faqpage_detail_button',
     }
   }
 
@@ -113,7 +119,7 @@ class PreviewBlockBuilder {
     const nhkLogoBlock = new HTMLElementBuilder('div').build()
     const nhkLogoImage = new HTMLElementBuilder(
       'img',
-      this.CSS.linkContentnNhkLogoImage,
+      this.CSS.linkContentNhkLogoImage,
       {
         src: '/NHK_logo%402x.jpg',
         width: 68,
@@ -690,6 +696,99 @@ class PreviewBlockBuilder {
     const detailButton = new HTMLElementBuilder(
       'a',
       this.CSS.linkContentDetailButton,
+      {
+        target: '_blank',
+        href: this.data.link,
+      }
+    ).build()
+
+    detailButton.textContent = '詳しく見る'
+
+    seeMoreInfoBlock.appendChild(detailButton)
+
+    return holder
+  }
+
+  /**
+   * FAQのプレビューブロックを生成
+   */
+  buildFaqPageBlock() {
+    const holder = new HTMLElementBuilder('div', this.CSS.linkContent).build()
+
+    holder.classList.add(this.CSS.linkContentInner)
+
+    const rightColumn = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentRightColumn
+    ).build()
+
+    holder.appendChild(rightColumn)
+
+    const seriesName = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentSeriesName
+    ).build()
+
+    seriesName.textContent = this.data.series.name
+
+    rightColumn.appendChild(seriesName)
+
+    const episodeName = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentFaqEpisodeName
+    ).build()
+    episodeName.textContent = this.data.episode.name
+    rightColumn.appendChild(episodeName)
+
+    const faqPageName = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEpisodeName
+    ).build()
+
+    faqPageName.textContent = this.data.faqPage.name
+
+    rightColumn.appendChild(faqPageName)
+
+    const descriptionBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentEpisodeDescription
+    ).build()
+
+    this.data.faqPage.questions.slice(0, 3).forEach((question) => {
+      const questionBlock = new HTMLElementBuilder(
+        'div',
+        this.CSS.linkContentFaqQuestion
+      ).build()
+      questionBlock.textContent = 'Q. ' + question.name
+      descriptionBlock.appendChild(questionBlock)
+    })
+
+    rightColumn.appendChild(descriptionBlock)
+
+    const seeMoreInfoBlock = new HTMLElementBuilder(
+      'div',
+      this.CSS.linkContentFaqSeeMoreInfo
+    ).build()
+
+    rightColumn.appendChild(seeMoreInfoBlock)
+
+    const nhkLogoBlock = new HTMLElementBuilder('div').build()
+    const nhkLogoImage = new HTMLElementBuilder(
+      'img',
+      this.CSS.linkContentFaqNhkLogoImage,
+      {
+        src: '/NHK_logo%402x.jpg',
+        width: 68,
+        height: 19,
+      }
+    ).build()
+
+    nhkLogoBlock.appendChild(nhkLogoImage)
+    seeMoreInfoBlock.appendChild(nhkLogoBlock)
+
+    const detailButton = new HTMLElementBuilder(
+      'a',
+      this.CSS.linkContentFaqDetailButton,
       {
         target: '_blank',
         href: this.data.link,
