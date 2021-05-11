@@ -83,6 +83,7 @@ export default class MultiTypeEpisode {
       recipe: data.recipe || {},
       howTo: data.howTo || {},
       event: data.event || {},
+      faqPage: data.faqPage || {},
       selectedType: data.selectedType || 'none',
     }
 
@@ -156,6 +157,9 @@ export default class MultiTypeEpisode {
         case 'event':
           this.showEpisodeEventLinkPreview()
           break
+        case 'faqPage':
+          this.showEpisodeFaqPageLinkPreview()
+          break
       }
     } else {
       const inputHolder = new EpisodeSelectBuilder(
@@ -227,7 +231,6 @@ export default class MultiTypeEpisode {
             this.data.episodeId +
             '/bundle',
         })
-
         this.episodeBundle = response.body
         this._renderSelectType()
       } catch (error) {
@@ -254,7 +257,8 @@ export default class MultiTypeEpisode {
       this._switchToEpisodeBlock,
       this._switchToRecipeBlock,
       this._switchToHowToBlock,
-      this._switchToEventBlock
+      this._switchToEventBlock,
+      this._switchToFaqPageBlock
     )
 
     this.nodes.container.appendChild(node)
@@ -274,6 +278,7 @@ export default class MultiTypeEpisode {
       recipe: {},
       howTo: {},
       event: {},
+      faqPage: {},
       episodeId: episode.id,
       selectedType: 'episode',
     })
@@ -288,6 +293,7 @@ export default class MultiTypeEpisode {
       link: recipe.url,
       howTo: {},
       event: {},
+      faqPage: {},
       recipe,
       selectedType: 'recipe',
     })
@@ -303,6 +309,7 @@ export default class MultiTypeEpisode {
       link: howTo.url,
       recipe: {},
       event: {},
+      faqPage: {},
       howTo,
       selectedType: 'howTo',
     })
@@ -317,10 +324,23 @@ export default class MultiTypeEpisode {
       link: event.url,
       recipe: {},
       howTo: {},
+      faqPage: {},
       event,
       selectedType: 'event',
     })
     that.showEpisodeEventLinkPreview()
+  }
+
+  _switchToFaqPageBlock(that, faqPage) {
+    that.data = Object.assign(that.data, {
+      link: faqPage.url,
+      recipe: {},
+      howTo: {},
+      event: {},
+      faqPage,
+      selectedType: 'faqPage',
+    })
+    that.showEpisodeFaqPageLinkPreview()
   }
 
   /**
@@ -395,5 +415,14 @@ export default class MultiTypeEpisode {
     const previewBlockHolder = new PreviewBlockBuilder(this, this.data)
     this.resetContainerElement()
     this.nodes.container.appendChild(previewBlockHolder.buildEventBlock())
+  }
+
+  /**
+   * FAQブロックを表示
+   */
+  showEpisodeFaqPageLinkPreview() {
+    const previewBlockHolder = new PreviewBlockBuilder(this, this.data)
+    this.resetContainerElement()
+    this.nodes.container.appendChild(previewBlockHolder.buildFaqPageBlock())
   }
 }
