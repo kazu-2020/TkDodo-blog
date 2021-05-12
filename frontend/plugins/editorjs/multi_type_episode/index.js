@@ -305,8 +305,16 @@ export default class MultiTypeEpisode {
    * ハウツーブロックへの切り替え処理
    */
   _switchToHowToBlock(that, howTo) {
+    const url = (() => {
+      if (that.data.series.aliasId === undefined) {
+        return `https://www.nhk.jp/p/ts/${howTo.identifierGroup.seriesId}/howto/${howTo.id}/`
+      } else {
+        return `https://www.nhk.jp/p/${that.data.series.aliasId}/ts/${howTo.identifierGroup.seriesId}/howto/${howTo.id}/`
+      }
+    })()
+
     that.data = Object.assign(that.data, {
-      link: howTo.url,
+      link: url,
       recipe: {},
       event: {},
       faqPage: {},
@@ -332,8 +340,16 @@ export default class MultiTypeEpisode {
   }
 
   _switchToFaqPageBlock(that, faqPage) {
+    const url = (() => {
+      if (that.data.series.aliasId === undefined) {
+        return `https://www.nhk.jp/p/ts/${faqPage.identifierGroup.seriesId}/faqpage/${faqPage.id}/`
+      } else {
+        return `https://www.nhk.jp/p/${that.data.series.aliasId}/ts/${faqPage.identifierGroup.seriesId}/faqpage/${faqPage.id}/`
+      }
+    })()
+
     that.data = Object.assign(that.data, {
-      link: faqPage.url,
+      link: url,
       recipe: {},
       howTo: {},
       event: {},
