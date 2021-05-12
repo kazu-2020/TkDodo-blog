@@ -513,7 +513,7 @@ class PreviewBlockBuilder {
       this.CSS.linkContentDetailButton,
       {
         target: '_blank',
-        href: `https://dev-www.nhk.jp/p/${this.data.series.aliasId}/ts/${this.data.howTo.identifierGroup.seriesId}/howto/${this.data.howTo.id}/`,
+        href: this.data.link,
       }
     ).build()
 
