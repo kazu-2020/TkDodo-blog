@@ -40,8 +40,9 @@ class DlabApiClient < DlabApiBase
   #
   # @param [String] type: 'tv' or 'radio'
   # @param [String] episode_id: エピソードID
-  def episode_bundle(type:, episode_id:)
-    res = client.get "/#{VERSION}/t/bundle/#{type.downcase.first}e/#{episode_id}.json", INTERNAL_PARAMS
+  # @param [Hash] query
+  def episode_bundle(type:, episode_id:, query: {})
+    res = client.get "/#{VERSION}/t/bundle/#{type.downcase.first}e/#{episode_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 
@@ -49,8 +50,9 @@ class DlabApiClient < DlabApiBase
   #
   # @param [String] type: 'tv' or 'radio'
   # @param [String] episode_id: エピソードID
-  def episode(type:, episode_id:)
-    res = client.get "/#{VERSION}/t/tvepisode/#{type.downcase.first}e/#{episode_id}.json", INTERNAL_PARAMS
+  # @param [Hash] query
+  def episode(type:, episode_id:, query: {})
+    res = client.get "/#{VERSION}/t/tvepisode/#{type.downcase.first}e/#{episode_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 
