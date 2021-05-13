@@ -14,7 +14,7 @@ class OembedResponse::Howto
 
     raise DlabApiClient::NotFound if episode_id.blank?
 
-    src = "https://dev-api-eh.nr.nhk.jp/embed/te/#{episode_id}/howto/#{extract_howto_id}"
+    src = "#{OembedResponse.src_host}/embed/te/#{episode_id}/howto/#{extract_howto_id}"
     {
       version: '1.0',
       width: '100%',

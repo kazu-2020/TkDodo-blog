@@ -8,7 +8,7 @@ class OembedResponse::Episode
   end
 
   def response
-    src = "https://dev-api-eh.nr.nhk.jp/embed/#{extract_series_and_episode_url}"
+    src = "#{OembedResponse.src_host}/embed/#{extract_series_and_episode_url}"
     {
       version: '1.0',
       width: '100%',
