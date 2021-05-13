@@ -3,6 +3,10 @@
 class OembedResponse
   attr_reader :url
 
+  def self.src_host
+    Jets.env.development? ? 'http://localhost:8888' : 'https://dev-api-eh.nr.nhk.jp'
+  end
+
   def initialize(url:)
     @url = url
   end

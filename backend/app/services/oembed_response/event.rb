@@ -15,7 +15,7 @@ class OembedResponse::Event
 
     raise DlabApiClient::NotFound if episode_id.blank?
 
-    src = "https://dev-api-eh.nr.nhk.jp/embed/te/#{episode_id}/event/#{extract_event_id}"
+    src = "#{OembedResponse.src_host}/embed/te/#{episode_id}/event/#{extract_event_id}"
     {
       version: '1.0',
       width: '100%',
