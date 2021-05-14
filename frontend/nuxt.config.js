@@ -20,14 +20,7 @@ export default {
         content: process.env.npm_package_description || '',
       },
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'preload',
-        as: 'style',
-        href: 'https://fonts.googleapis.com/earlyaccess/notosansjp.css',
-      },
-    ],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   /*
    ** Customize the progress-bar color
@@ -59,6 +52,14 @@ export default {
    ** Nuxt.js dev-modules
    */
   buildModules: [
+    [
+      '@nuxtjs/google-fonts',
+      {
+        families: { 'Noto Sans JP': true },
+        display: 'block',
+        preload: true,
+      },
+    ],
     '@nuxt/typescript-build',
     'nuxt-typed-vuex',
     // Doc: https://github.com/nuxt-community/stylelint-module
