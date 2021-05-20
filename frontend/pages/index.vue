@@ -264,8 +264,7 @@
         <div class="article_preview">
           <!-- eslint-disable vue/no-v-html -->
           <p
-            style="text-align: start"
-            class="body-1"
+            style="text-align: start; font-size: 14px; line-height: 1.5rem"
             v-html="selectedPlaylistArticle"
           />
           <!-- eslint-enable -->
