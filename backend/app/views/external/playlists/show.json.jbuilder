@@ -52,9 +52,9 @@ json.style do
   json.linkLight @playlist.link_light_color
   json.linkDark @playlist.link_dark_color
 end
-json.dateCreated @playlist.created_at
-json.datePublished @playlist.published_at
-json.dateModified @playlist.updated_at
+json.dateCreated @playlist.created_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
+json.datePublished @playlist.published_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
+json.dateModified @playlist.updated_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
 json.actor fetch_unique_actors(@playlist)
 json.contributor fetch_unique_contributors(@playlist)
 
@@ -130,7 +130,7 @@ json.playlisticle do
   json.authorName @playlist.author_name
   json.publisher @playlist.publisher_type
   json.publisherType @playlist.publisher_name
-  json.dateCreated @playlist.created_at
-  json.datePublished @playlist.published_at
-  json.dateModified @playlist.updated_at
+  json.dateCreated @playlist.created_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
+  json.datePublished @playlist.published_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
+  json.dateModified @playlist.updated_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
 end

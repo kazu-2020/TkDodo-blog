@@ -73,6 +73,6 @@ json.aliasId playlist.alias_id
 json.actor fetch_unique_actors(playlist)
 json.contributor fetch_unique_contributors(playlist)
 
-json.datePublished playlist.published_at
-json.dateCreated playlist.created_at
-json.dateModified playlist.updated_at
+json.datePublished playlist.published_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
+json.dateCreated playlist.created_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
+json.dateModified playlist.updated_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')

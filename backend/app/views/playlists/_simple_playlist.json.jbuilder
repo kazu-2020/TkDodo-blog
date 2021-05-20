@@ -63,7 +63,7 @@ json.totalTime playlist.total_time
 json.playableTotalTime playlist.playable_total_time
 json.browsableItemCount playlist.browsable_item_count
 json.originalSeriesId playlist.original_series_id if playlist.original_series_id
-json.datePublished playlist.published_at
+json.datePublished playlist.published_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
 
 json.article do
   json.header playlist.marked_header
@@ -73,5 +73,5 @@ json.article do
   json.footer playlist.marked_footer
 end
 
-json.dateCreated playlist.created_at
-json.dateModified playlist.updated_at
+json.dateCreated playlist.created_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
+json.dateModified playlist.updated_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
