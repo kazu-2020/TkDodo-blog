@@ -113,6 +113,15 @@
                     style="font-size: 12px; margin-top: 2px"
                     v-text="seriesName(item)"
                   />
+                  <v-list-item-subtitle
+                    style="
+                      font-size: 12px;
+                      margin-top: 2px;
+                      padding-bottom: 2px;
+                    "
+                  >
+                    直近放送日: {{ startDate(item) }}
+                  </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -186,6 +195,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import moment from 'moment'
 import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
@@ -308,6 +318,16 @@ export default Vue.extend({
     }
   },
   methods: {
+    startDate(item: any): string {
+      const date = item?.detailedRecentEvent?.startDate || ''
+
+      if (date.length === 0) {
+        return '-'
+      } else {
+        moment.locale('ja')
+        return moment(date).format('YYYY年MM月DD日(ddd) HH:mm')
+      }
+    },
     eyecatchUrl(item: any): string {
       if (item.eyecatch !== undefined) {
         return item.eyecatch.medium.url

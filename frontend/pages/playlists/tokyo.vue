@@ -27,7 +27,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col v-for="item in playlists" :key="item.id" cols="12" class="py-2">
+      <v-col v-for="item in playlists" :key="item.id" cols="11" class="py-1">
         <simple-playlist-item
           :playlist="item"
           @click-playlist-item="clickPlaylistItem"
@@ -97,14 +97,24 @@
         <v-list-item-icon class="mr-3 my-3">
           <v-img
             :src="eyecatchUrl(item)"
-            lazy-src="https://placehold.jp/50x28.png"
-            width="50"
-            height="28"
-            class="episode-image"
-          />
+            lazy-src="https://placehold.jp/71x40.png"
+            width="71"
+            height="40"
+          >
+            <div v-if="!hasVideo(item)" class="no-video">視聴不可</div>
+          </v-img>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title style="font-size: 14px" v-text="item.name" />
+          <v-list-item-subtitle
+            style="font-size: 12px; margin-top: 2px"
+            v-text="seriesName(item)"
+          />
+          <v-list-item-subtitle
+            style="font-size: 12px; margin-top: 2px; padding-bottom: 2px"
+          >
+            直近放送日: {{ startDate(item) }}
+          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-divider class="mt-4" />
@@ -119,6 +129,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import moment from 'moment'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
 import SimplePlaylistItem from '~/components/common/SimplePlaylistItem.vue'
 import { Playlist } from '~/types/playlist'
@@ -188,6 +199,26 @@ export default Vue.extend({
     },
   },
   methods: {
+    seriesName(item: any): string {
+      return item?.partOfSeries?.name || ''
+    },
+    startDate(item: any): string {
+      const date = item?.detailedRecentEvent?.startDate || ''
+
+      if (date.length === 0) {
+        return '-'
+      } else {
+        moment.locale('ja')
+        return moment(date).format('YYYY年MM月DD日(ddd) HH:mm')
+      }
+    },
+    hasVideo(episode: any) {
+      const videos = episode?.videos || []
+      const okushibuVideo = videos.find(
+        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
+      )
+      return !!okushibuVideo
+    },
     deleteSelectedPlaylist(): void {
       this.$store.dispatch('loading/startLoading', {
         success: '削除しました',
@@ -229,5 +260,16 @@ export default Vue.extend({
 
 .delete_button {
   color: #4f4f4f;
+}
+
+.no-video {
+  position: absolute;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  font-size: 12px;
 }
 </style>
