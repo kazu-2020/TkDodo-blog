@@ -245,6 +245,11 @@
             style="font-size: 12px; margin-top: 4px"
             v-text="seriesName(item)"
           />
+          <v-list-item-subtitle
+            style="font-size: 12px; margin-top: 2px; padding-bottom: 2px"
+          >
+            直近放送日: {{ startDate(item) }}
+          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-divider v-if="selectedActorsAndContributors.length > 0" class="mt-4" />
@@ -284,6 +289,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import moment from 'moment'
 import ActorContributorList from '../components/playlists/ActorContributorList.vue'
 import SimplePlaylistItem from '~/components/common/SimplePlaylistItem.vue'
 import ArticleItem from '~/components/playlists/ArticleItem.vue'
@@ -496,6 +502,16 @@ export default Vue.extend({
     },
     seriesName(item: any): string {
       return item?.partOfSeries?.name || ''
+    },
+    startDate(item: any): string {
+      const date = item?.detailedRecentEvent?.startDate || ''
+
+      if (date.length === 0) {
+        return '-'
+      } else {
+        moment.locale('ja')
+        return moment(date).format('YYYY年MM月DD日(ddd) HH:mm')
+      }
     },
     hasVideo(episode: any) {
       const videos = episode?.videos || []
