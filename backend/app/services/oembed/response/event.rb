@@ -12,10 +12,11 @@ class Oembed::Response::Event
     raise DlabApiClient::NotFound if episode_id.blank?
 
     src = "#{src_host}/embed/te/#{episode_id}/event/#{extract_event_id}"
+    height = max_height || 340
     {
       version: '1.0',
       width: max_width,
-      height: max_height,
+      height: height,
       type: 'rich',
       provider_name: 'NHK',
       provider_url: 'https://www.nhk.jp',
@@ -24,7 +25,7 @@ class Oembed::Response::Event
       thumbnail_width: res.dig(:image, :medium, :width) || 640,
       thumbnail_height: res.dig(:image, :medium, :height) || 360,
       thumbnail_url: res.dig(:image, :medium, :url) || 'http://placehold.jp/640x360.png',
-      html: "<iframe width=\"#{max_width}\" height=\"#{max_height}\" src=\"#{src}\" frameborder=\"0\"></iframe>"
+      html: "<iframe width=\"#{max_width}\" height=\"#{height}\" src=\"#{src}\" frameborder=\"0\"></iframe>"
     }
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize

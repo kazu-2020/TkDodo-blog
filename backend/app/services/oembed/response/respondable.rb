@@ -6,7 +6,7 @@ module Oembed::Response::Respondable
   def initialize(url:, max_width:, max_height:)
     @url = url
     @max_width = max_width || 620
-    @max_height = max_height || 200
+    @max_height = max_height
   end
 
   def response
