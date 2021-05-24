@@ -1,24 +1,20 @@
 # frozen_string_literal: true
 
-class OembedResponse::FaqPage
-  attr_reader :url
+class Oembed::Response::FaqPage
+  include Oembed::Response::Respondable
 
-  def initialize(url:)
-    @url = url
-  end
-
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def response
     res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').faq_page(faq_page_id: extract_faq_page_id)
     episode_id = res.dig(:identifierGroup, :episodeId)
 
     raise DlabApiClient::NotFound if episode_id.blank?
 
-    src = "#{OembedResponse.src_host}/embed/te/#{episode_id}/faqpage/#{extract_faq_page_id}"
+    src = "#{src_host}/embed/te/#{episode_id}/faqpage/#{extract_faq_page_id}"
     {
       version: '1.0',
-      width: '100%',
-      height: 340,
+      width: max_width,
+      height: max_height,
       type: 'rich',
       provider_name: 'NHK',
       provider_url: 'https://www.nhk.jp',
@@ -27,10 +23,10 @@ class OembedResponse::FaqPage
       thumbnail_width: res.dig(:image, :medium, :width) || 640,
       thumbnail_height: res.dig(:image, :medium, :height) || 360,
       thumbnail_url: res.dig(:image, :medium, :url) || 'http://placehold.jp/640x360.png',
-      html: "<iframe width=\"100%\" height=\"340\" src=\"#{src}\" frameborder=\"0\"></iframe>"
+      html: "<iframe width=\"#{max_width}\" height=\"#{max_height}\" src=\"#{src}\" frameborder=\"0\"></iframe>"
     }
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 

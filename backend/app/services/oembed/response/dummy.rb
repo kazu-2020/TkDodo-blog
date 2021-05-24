@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
-class OembedResponse::Dummy
-  attr_reader :url
-
-  def initialize(url:)
-    @url = url
-  end
+class Oembed::Response::Dummy
+  include Oembed::Response::Respondable
 
   def response
     { html: '<p>ダミーです。</p>' }

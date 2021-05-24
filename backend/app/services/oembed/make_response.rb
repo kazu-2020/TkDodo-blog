@@ -1,17 +1,21 @@
 # frozen_string_literal: true
 
-class OembedResponse
-  attr_reader :url
+class Oembed::MakeResponse
+  include ActiveModel::Validations
 
-  def self.src_host
-    Jets.env.development? ? 'http://localhost:8888' : 'https://dev-api-eh.nr.nhk.jp'
-  end
+  attr_reader :url, :max_width, :max_height
 
-  def initialize(url:)
+  validates :url, presence: true
+
+  def initialize(url:, max_width: nil, max_height: nil)
     @url = url
+    @max_width = max_width.to_i.zero? ? nil : max_width.to_i
+    @max_height = max_height.to_i.zero? ? nil : max_height.to_i
   end
 
-  def response
+  def call
+    raise ArgumentError unless valid?
+
     responser.response
   rescue DlabApiClient::NotFound
     nil
@@ -22,17 +26,17 @@ class OembedResponse
   # rubocop:disable Metrics/AbcSize
   def responser
     if series_url?
-      Series.new(url: url)
+      Oembed::Response::Series.new(url: url, max_width: max_width, max_height: max_height)
     elsif episode_url?
-      Episode.new(url: url)
+      Oembed::Response::Episode.new(url: url, max_width: max_width, max_height: max_height)
     elsif howto_url?
-      Howto.new(url: url)
+      Oembed::Response::Howto.new(url: url, max_width: max_width, max_height: max_height)
     elsif event_url?
-      Event.new(url: url)
+      Oembed::Response::Event.new(url: url, max_width: max_width, max_height: max_height)
     elsif faq_page_url?
-      FaqPage.new(url: url)
+      Oembed::Response::FaqPage.new(url: url, max_width: max_width, max_height: max_height)
     else
-      Dummy.new(url: url)
+      Oembed::Response::Dummy.new(url: url, max_width: max_width, max_height: max_height)
     end
   end
   # rubocop:enable Metrics/AbcSize
