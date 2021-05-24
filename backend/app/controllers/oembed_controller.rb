@@ -2,7 +2,9 @@
 
 class OembedController < ApplicationController
   def index
-    res = OembedResponse.new(url: params[:url]).response
+    res = Oembed::MakeResponse.new(url: params[:url],
+                                   max_width: params[:maxwidth],
+                                   max_height: params[:maxheight]).call
 
     if res
       render json: res
