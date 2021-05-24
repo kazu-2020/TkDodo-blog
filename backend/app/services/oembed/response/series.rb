@@ -3,8 +3,8 @@
 class Oembed::Response::Series
   include Oembed::Response::Respondable
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-   def response
+  # rubocop:disable Metrics/MethodLength
+  def response
     src = "#{src_host}/embed/#{extract_series_url}"
     height = max_height || 234
     {
@@ -22,7 +22,7 @@ class Oembed::Response::Series
       html: "<iframe width=\"#{max_width}\" height=\"#{height}\" src=\"#{src}\" frameborder=\"0\"></iframe>"
     }
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   private
 
