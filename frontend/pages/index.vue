@@ -231,11 +231,16 @@
           <div style="position: relative">
             <v-img
               :src="eyecatchUrl(item)"
-              lazy-src="https://placehold.jp/71x40.png"
-              width="71"
-              height="40"
+              lazy-src="https://placehold.jp/100x56.png"
+              width="100"
+              height="56"
             >
-              <div v-if="!hasVideo(item)" class="no_video">視聴不可</div>
+              <div
+                v-if="!hasVideo(item)"
+                class="no_video d-flex justify-center align-center"
+              >
+                <div>視聴不可</div>
+              </div>
             </v-img>
           </div>
         </v-list-item-icon>
@@ -469,7 +474,7 @@ export default Vue.extend({
       if (item.eyecatch !== undefined) {
         return item.eyecatch.medium.url
       } else {
-        return 'https://placehold.jp/71x40.png'
+        return 'https://placehold.jp/100x56.png'
       }
     },
     fetchEpisodes(): void {
