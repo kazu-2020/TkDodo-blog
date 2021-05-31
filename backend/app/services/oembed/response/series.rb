@@ -6,7 +6,7 @@ class Oembed::Response::Series
   # rubocop:disable Metrics/MethodLength
   def response
     src = "#{src_host}/embed/#{extract_series_url}"
-    height = max_height || 234
+    height = max_height || 200
     {
       version: '1.0',
       width: max_width,
