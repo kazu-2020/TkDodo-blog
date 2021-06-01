@@ -52,7 +52,7 @@ class EpisodesController < ApplicationController
   private
 
   def search_params
-    params.permit(:word, :concern, :keyword, :offset, :ignore_range, :sort_type, :size)
+    params.permit(:word, :concern, :keyword, :offset, :ignore_range, :sort_type, :size, :service)
   end
 
   def client
