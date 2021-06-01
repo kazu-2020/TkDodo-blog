@@ -14,12 +14,21 @@
           @keypress.enter="searchEpisodesWithKeyword"
         />
       </v-col>
-      <v-col cols="8" align="right" class="search_detail">
+      <v-col cols="3" align="right">
+        <v-switch
+          v-model="filterService"
+          label="G or E のエピソードのみ"
+          class="custom_toggle_filter"
+        />
+      </v-col>
+      <v-col cols="4" align="right">
         <v-switch
           v-model="ignoreRange"
           label="公開範囲外のエピソードを含む"
-          class="ignore_range"
+          class="custom_toggle_filter"
         />
+      </v-col>
+      <v-col cols="3" align="right" class="search_detail">
         <v-menu
           v-model="menu"
           :close-on-content-click="false"
@@ -130,6 +139,7 @@ interface DataType {
   queryKeyNum: number
   sortTypeNum: number
   ignoreRange: boolean
+  filterService: boolean
   totalSearchResult: number
 }
 
@@ -165,6 +175,7 @@ export default Vue.extend({
       queryKeyNum: 0,
       sortTypeNum: 0,
       ignoreRange: false,
+      filterService: false,
       totalSearchResult: 0,
     }
   },
@@ -234,10 +245,13 @@ export default Vue.extend({
         this.episodes = []
         this.searchOffset = 0
       }
+
+      let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}&size=${pageSize}`
+      if (this.filterService) {
+        searchUrl = searchUrl + '&service=g1,g2,e1,e2,e3'
+      }
       this.$axios
-        .get(
-          `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}&size=${pageSize}`
-        )
+        .get(searchUrl)
         .then((res) => {
           this.episodes = this.episodes.concat(res.data.items)
           this.totalSearchResult = res.data.total
@@ -291,13 +305,13 @@ export default Vue.extend({
   position: relative;
 }
 
-.v-input.ignore_range.v-input--selection-controls.v-input--switch {
-  position: absolute;
-  top: 12px;
-  right: 192px;
+.v-input.custom_toggle_filter.v-input--selection-controls.v-input--switch {
   margin-top: 0;
   margin-right: 16px;
   display: inline-block;
-  width: 280px;
+
+  label.v-label {
+    font-size: 14px;
+  }
 }
 </style>

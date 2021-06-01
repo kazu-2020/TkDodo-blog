@@ -134,6 +134,7 @@ class DlabApiClient < DlabApiBase
     merged_params.merge!(word: search_params[:word]) if search_params[:word].present?
     merged_params.merge!(concern: search_params[:concern]) if search_params[:concern].present?
     merged_params.merge!(keyword: search_params[:keyword]) if search_params[:keyword].present?
+    merged_params.merge!(service: search_params[:service]) if search_params[:service].present?
     merged_params
   end
 
