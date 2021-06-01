@@ -3,13 +3,13 @@
 <style>
     .embed-episode {
         height: 200px;
-        min-width: 200px;
+        min-width: 240px;
     }
 </style>
 
 <div class="embed embed-episode rounded-sm shadow-md text-white border border-gray-450">
   <a href="<%= @episode_data[:url] %>" target="_blank">
-    <div class="p-3 pb-2 grid grid-cols-12 gap-3">
+    <div class="p-3 pb-2 grid grid-cols-12 gap-3 mb-auto" style="height: 158px;">
       <div class="col-span-5">
         <img
           decoding="async"
