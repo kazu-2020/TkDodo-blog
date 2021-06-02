@@ -22,8 +22,8 @@ Jets.application.routes.draw do
 
     scope prefix: :l do
       scope prefix: :bundle do
-        get 'pl/:playlist_id/types.json', to: 'external/playlists#list_bundle'
-        get 'id/:playlist_uid/types.json', to: 'external/playlists#list_bundle'
+        get 'pl/:playlist_id', to: 'external/playlists#list_bundle'
+        get 'id/:playlist_uid', to: 'external/playlists#list_bundle'
       end
     end
   end
