@@ -12,7 +12,7 @@ class Oembed::Response::Event
     raise DlabApiClient::NotFound if episode_id.blank?
 
     src = "#{src_host}/embed/te/#{episode_id}/event/#{extract_event_id}"
-    height = max_height || 340
+    height = max_height || 200
     {
       version: '1.0',
       width: max_width,

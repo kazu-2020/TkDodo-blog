@@ -1,10 +1,15 @@
 <% content_for(:title, @faq_page_data[:name]) %>
 
-<div
-  class="embed rounded-sm shadow-md text-white border border-gray-450"
->
+<style>
+    .embed-faqpage {
+        height: 340px;
+        min-width: 240px;
+    }
+</style>
+
+<div class="embed embed-faqpage rounded-sm shadow-md text-white border border-gray-450">
   <a href="<%= "https://www.nhk.jp/p/ts/#{@episode_data.dig(:identifierGroup, :seriesId)}/faqpage/#{@faq_page_data[:id]}" %>" target="_blank">
-    <div class="p-3 grid grid-cols-12 gap-3">
+    <div class="p-3 grid grid-cols-12 gap-3 mb-auto" style="height: 298px;">
       <div class="col-span-12">
         <div>
           <span class="text-xs" style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
