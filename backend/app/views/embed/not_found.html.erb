@@ -1,8 +1,13 @@
 <% content_for(:title, 'コンテンツが存在しません') %>
 
-<div
-  class="embed rounded-sm shadow-md text-white bg-gray-750 border border-gray-450"
->
+<style>
+    .embed-notfound {
+        height: 200px;
+        min-width: 240px;
+    }
+</style>
+
+<div class="embed embed-notfound rounded-sm shadow-md text-white bg-gray-750 border border-gray-450">
   <div class="pt-16 pb-8 flex flex-col items-center font-bold">
     <p class="text-gray-450">404</p>
     <p>コンテンツが存在しません</p>
