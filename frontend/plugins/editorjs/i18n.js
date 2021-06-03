@@ -50,7 +50,8 @@ export const i18n = {
       header: {},
       image: {
         'Select an Image': '画像を選択してください',
-        Caption: 'キャプションを入力してください',
+        Caption:
+          '画像の代替テキストを入力（任意、キャプション表示ではありません）',
         'Couldn’t upload image. Please try another.':
           '画像がアップロードできませんでした。別の画像を試してください。',
       },
