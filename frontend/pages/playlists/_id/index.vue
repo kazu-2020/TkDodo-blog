@@ -113,7 +113,14 @@
                   </v-img>
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title v-text="item.name" />
+                  <v-list-item-title style="font-size: 14px">
+                    <span
+                      ><img
+                        :src="serviceLogoUrl(item)"
+                        style="height: 18px; vertical-align: text-bottom"
+                    /></span>
+                    {{ item.name }}
+                  </v-list-item-title>
                   <v-list-item-subtitle
                     style="font-size: 12px; margin-top: 2px"
                     v-text="seriesName(item)"
@@ -392,6 +399,9 @@ export default Vue.extend({
         (video: any) => video.identifierGroup?.environmentId === 'okushibu'
       )
       return !!okushibuVideo
+    },
+    serviceLogoUrl(item: any) {
+      return item?.releasedEvent?.publishedOn?.images?.badgeSmall?.url || ''
     },
     save() {
       const body: { [key: string]: string | undefined | boolean } = {
