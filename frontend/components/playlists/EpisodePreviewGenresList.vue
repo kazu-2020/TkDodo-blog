@@ -90,7 +90,7 @@ export default Vue.extend({
       return this.episode?.identifierGroup?.themeGenreTag || []
     },
     broadcastGenres(): object[] {
-      const broadcastEvent = this.episode?.broadcastEvent[0]
+      const broadcastEvent = this.episode?.broadcastEvent?.[0]
       if (broadcastEvent === undefined) return []
 
       const genres = broadcastEvent.identifierGroup.genres
