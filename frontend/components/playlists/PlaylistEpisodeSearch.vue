@@ -225,10 +225,20 @@ export default Vue.extend({
       immediate: true,
     },
     editingKeywords: {
-      handler(nweVal: string | null) {
-        if (nweVal == null) {
+      handler(newVal: string | null) {
+        if (newVal == null) {
           this.episodes = []
         }
+      },
+    },
+    filterService: {
+      handler() {
+        this.searchEpisodesWithKeyword()
+      },
+    },
+    ignoreRange: {
+      handler() {
+        this.searchEpisodesWithKeyword()
       },
     },
   },
