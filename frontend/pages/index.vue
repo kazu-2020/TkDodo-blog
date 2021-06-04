@@ -245,18 +245,16 @@
           </div>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title style="font-size: 14px">
-            <span
-              ><img
+          <v-list-item-title style="font-size: 14px" v-text="item.name" />
+          <v-list-item-subtitle style="font-size: 12px; margin-top: 4px">
+            <span style="position: relative">
+              <img
                 :src="serviceLogoUrl(item)"
-                style="height: 18px; vertical-align: text-bottom"
-            /></span>
-            {{ item.name }}
-          </v-list-item-title>
-          <v-list-item-subtitle
-            style="font-size: 12px; margin-top: 4px"
-            v-text="seriesName(item)"
-          />
+                style="height: 12px; position: relative; top: 1px"
+              />
+            </span>
+            {{ seriesName(item) }}
+          </v-list-item-subtitle>
           <v-list-item-subtitle
             style="font-size: 12px; margin-top: 2px; padding-bottom: 2px"
           >
