@@ -60,8 +60,8 @@ class DlabApiClient < DlabApiBase
   #
   # @param [String] type: 'tv' or 'radio'
   # @param [String] series_id: シリーズID
-  def series_bundle(type:, series_id:)
-    res = client.get "/#{VERSION}/t/bundle/#{type.downcase.first}s/#{series_id}.json", INTERNAL_PARAMS
+  def series_bundle(type:, series_id:, query: {})
+    res = client.get "/#{VERSION}/t/bundle/#{type.downcase.first}s/#{series_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 
