@@ -24,6 +24,14 @@ if playlist.logo_image_url
       end
     end
   end
+else
+  json.logo do
+    json.main do
+      json.url playlist.dummy_image_url('logo')
+      json.width 1080
+      json.height 1080
+    end
+  end
 end
 
 if playlist.eyecatch_image_url
@@ -60,6 +68,14 @@ if playlist.eyecatch_image_url
     end
   end
   # rubocop:enable Metrics/BlockLength
+else
+  json.eyecatch do
+    json.main do
+      json.url playlist.dummy_image_url('eyecatch')
+      json.width 1920
+      json.height 1080
+    end
+  end
 end
 
 if playlist.hero_image_url
@@ -76,6 +92,14 @@ if playlist.hero_image_url
         json.width playlist.hero_image.width
         json.height playlist.hero_image.height
       end
+    end
+  end
+else
+  json.hero do
+    json.main do
+      json.url playlist.dummy_image_url('hero')
+      json.width 1920
+      json.height 640
     end
   end
 end

@@ -156,6 +156,11 @@ class Playlist < ApplicationRecord
     playlist_items.kept.pluck(:has_video).select { |has_video| has_video }.size
   end
 
+  def dummy_image_url(image_type)
+    image_seed = created_at.day + 1
+    "https://dev-eh.nr.nhk.jp/dummy/default#{image_seed}/default#{image_seed}-#{image_type}.png"
+  end
+
   def wait_for_publish!(reserve_publish_time_at)
     raise InvalidPublishedStateTransitionError if reserve_publish_time_at.nil? || !(draft? || secret?)
 
