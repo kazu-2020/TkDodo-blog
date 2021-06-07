@@ -1,0 +1,1 @@
+../../../backend/app/models/same_as.rb
