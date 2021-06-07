@@ -225,10 +225,20 @@ export default Vue.extend({
       immediate: true,
     },
     editingKeywords: {
-      handler(nweVal: string | null) {
-        if (nweVal == null) {
+      handler(newVal: string | null) {
+        if (newVal == null) {
           this.episodes = []
         }
+      },
+    },
+    filterService: {
+      handler() {
+        this.searchEpisodesWithKeyword()
+      },
+    },
+    ignoreRange: {
+      handler() {
+        this.searchEpisodesWithKeyword()
       },
     },
   },
@@ -248,7 +258,8 @@ export default Vue.extend({
 
       let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}&size=${pageSize}`
       if (this.filterService) {
-        searchUrl = searchUrl + '&service=g1,g2,e1,e2,e3'
+        // FIXME: e2 を加えると BadRequest になるため、一旦除外
+        searchUrl = searchUrl + '&service=g1,g2,e1,e3'
       }
       this.$axios
         .get(searchUrl)

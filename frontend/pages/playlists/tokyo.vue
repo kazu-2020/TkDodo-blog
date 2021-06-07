@@ -106,10 +106,15 @@
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title style="font-size: 14px" v-text="item.name" />
-          <v-list-item-subtitle
-            style="font-size: 12px; margin-top: 2px"
-            v-text="seriesName(item)"
-          />
+          <v-list-item-subtitle style="font-size: 12px; margin-top: 4px">
+            <span style="position: relative">
+              <img
+                :src="serviceLogoUrl(item)"
+                style="height: 12px; position: relative; top: 1px"
+              />
+            </span>
+            {{ seriesName(item) }}
+          </v-list-item-subtitle>
           <v-list-item-subtitle
             style="font-size: 12px; margin-top: 2px; padding-bottom: 2px"
           >
@@ -201,6 +206,9 @@ export default Vue.extend({
   methods: {
     seriesName(item: any): string {
       return item?.partOfSeries?.name || ''
+    },
+    serviceLogoUrl(item: any) {
+      return item?.releasedEvent?.publishedOn?.images?.badgeSmall?.url || ''
     },
     startDate(item: any): string {
       const date = item?.detailedRecentEvent?.startDate || ''
