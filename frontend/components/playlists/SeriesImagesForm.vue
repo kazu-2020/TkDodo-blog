@@ -111,6 +111,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import moment from 'moment'
 import TrimmingImageDialog from '~/components/playlists/TrimmingImageDialog.vue'
 
 interface DataType {
@@ -123,10 +124,6 @@ interface DataType {
   isShowTrimmingImageDialog: boolean
   trimmingImageType: string
 }
-
-const defaultLogoImageUrl = 'https://placehold.jp/140x140.png?text=1x1'
-const defaultEyecatchImageUrl = 'https://placehold.jp/249x140.png?text=16x9'
-const defaultHeroImageUrl = 'https://placehold.jp/420x140.png?text=3x1'
 
 export default Vue.extend({
   name: 'SeriesImagesForm',
@@ -153,35 +150,35 @@ export default Vue.extend({
   computed: {
     logoImageUrl(): string {
       if (this.isRemoveLogoImage) {
-        return defaultLogoImageUrl
+        return this.dummyImagePath('logo')
       }
 
       return (
         this.logoImageData ||
         this.playlist.logo?.medium?.url ||
-        defaultLogoImageUrl
+        this.dummyImagePath('logo')
       )
     },
     eyecatchImageUrl(): string {
       if (this.isRemoveEyecatchImage) {
-        return defaultEyecatchImageUrl
+        return this.dummyImagePath('eyecatch')
       }
 
       return (
         this.eyecatchImageData ||
         this.playlist.eyecatch?.medium?.url ||
-        defaultEyecatchImageUrl
+        this.dummyImagePath('eyecatch')
       )
     },
     heroImageUrl(): string {
       if (this.isRemoveHeroImage) {
-        return defaultHeroImageUrl
+        return this.dummyImagePath('hero')
       }
 
       return (
         this.heroImageData ||
         this.playlist.hero?.medium?.url ||
-        defaultHeroImageUrl
+        this.dummyImagePath('hero')
       )
     },
   },
@@ -220,6 +217,11 @@ export default Vue.extend({
       this.heroImageData = value
       this.isRemoveHeroImage = false
       this.$emit('update-series-image', { type: 'hero', file: value })
+    },
+    dummyImagePath(type: string) {
+      const time = this.playlist.dateCreated
+      const logoNumber = (Number(moment(time).format('DD')) % 10) + 1
+      return `/dummy/default${logoNumber}/default${logoNumber}-${type}.png`
     },
   },
 })
