@@ -1,0 +1,1 @@
+../../../backend/app/uploaders/image_uploader.rb

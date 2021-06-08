@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :citation do
+  factory :playlist_keyword do
     association :playlist
-    name { 'Awesome Name' }
-    url { 'https://example.com' }
+    sequence(:name) { |n| "Awesome Keyword#{n}" }
   end
 end

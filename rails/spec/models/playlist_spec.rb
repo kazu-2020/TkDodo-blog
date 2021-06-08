@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe Playlist, type: :model do
   context 'validations' do
@@ -296,34 +296,34 @@ describe Playlist, type: :model do
 
     context 'when new episodes added' do
       let(:episode_ids) do
-        ['NEWEP1', playlist.playlist_items.kept.pluck(:episode_id)].flatten
+        ['NEWEP1', playlist.playlist_items.pluck(:episode_id)].flatten
       end
 
       it 'includes new episodes to the playlist' do
         expect do
           playlist.rebuild_episode_list_to(episode_ids)
         end.to change {
-          playlist.reload.playlist_items.kept.count
+          playlist.reload.playlist_items.count
         }.from(2).to(3)
       end
     end
 
     context 'when old episodes removed' do
       let(:episode_ids) do
-        [playlist.playlist_items.kept.pluck(:episode_id).first]
+        [playlist.playlist_items.pluck(:episode_id).first]
       end
 
       it 'does not include old episodes to the playlist' do
         expect do
           playlist.rebuild_episode_list_to(episode_ids)
         end.to change {
-          playlist.reload.playlist_items.kept.count
+          playlist.reload.playlist_items.count
         }.from(2).to(1)
       end
     end
 
     context 'when epidoes were reordered' do
-      let(:current_episode_ids) { playlist.playlist_items.kept.pluck(:episode_id) }
+      let(:current_episode_ids) { playlist.playlist_items.pluck(:episode_id) }
       let(:episode_ids) do
         [current_episode_ids.second, 'NEWEP1', current_episode_ids.first]
       end
@@ -331,7 +331,7 @@ describe Playlist, type: :model do
       it 'reorder playlist episodes' do
         playlist.rebuild_episode_list_to(episode_ids)
 
-        expect(playlist.playlist_items.kept.pluck(:episode_id)).to eq(episode_ids)
+        expect(playlist.playlist_items.pluck(:episode_id)).to eq(episode_ids)
       end
     end
   end
@@ -393,7 +393,7 @@ describe Playlist, type: :model do
 
     context 'When editor_data does exist' do
       let(:editor_data) do
-        File.open(Jets.root.join('spec/fixtures/payloads/editor-data.json')) do |file|
+        File.open(Rails.root.join('spec/fixtures/payloads/editor-data.json')) do |file|
           json_string = file.read
           JSON.parse(json_string, symbolize_names: true)
         end
@@ -401,7 +401,7 @@ describe Playlist, type: :model do
 
       before do
         json =
-          File.open(Jets.root.join('spec/fixtures/payloads/ts_bundle_6X8L7Z8VK8.json')) do |file|
+          File.open(Rails.root.join('spec/fixtures/payloads/te_PG3Z16Q145.json')) do |file|
             json_string = file.read
             JSON.parse(json_string, symbolize_names: true)
           end
@@ -411,32 +411,7 @@ describe Playlist, type: :model do
       end
 
       it 'retruns episodes array' do
-        expect(playlist.article_contains_episodes.size).to eq 1
-      end
-    end
-  end
-
-  describe '#has_article?' do
-    let(:playlist) { create(:playlist, editor_data: editor_data) }
-
-    context 'when playlist has article' do
-      let(:editor_data) do
-        File.open(Jets.root.join('spec/fixtures/payloads/editor-data.json')) do |file|
-          json_string = file.read
-          JSON.parse(json_string, symbolize_names: true)
-        end
-      end
-
-      it 'returns true' do
-        expect(playlist.has_article?).to eq(true)
-      end
-    end
-
-    context 'when playlist does not have article' do
-      let(:editor_data) { nil }
-
-      it 'returns false' do
-        expect(playlist.has_article?).to eq(false)
+        expect(playlist.article_contains_episodes.size).to be 1
       end
     end
   end
@@ -447,7 +422,7 @@ describe Playlist, type: :model do
 
     before do
       json =
-        File.open(Jets.root.join('spec/fixtures/payloads/ts_bundle_6X8L7Z8VK8.json')) do |file|
+        File.open(Rails.root.join('spec/fixtures/payloads/ts_bundle_6X8L7Z8VK8.json')) do |file|
           json_string = file.read
           JSON.parse(json_string, symbolize_names: true)
         end

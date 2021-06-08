@@ -1,0 +1,1 @@
+../../../backend/config/initializers/jbuilder_raw.rb

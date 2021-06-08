@@ -63,4 +63,12 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  default_url =
+    if ENV['USE_S3_SHRINE']
+      'https://d1zefghvqpvnvt.cloudfront.net'
+    else
+      'http://localhost:8888'
+    end
+  config.shrine_config = { default_url: default_url }
 end

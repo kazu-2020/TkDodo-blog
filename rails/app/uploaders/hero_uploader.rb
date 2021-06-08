@@ -1,0 +1,1 @@
+../../../backend/app/uploaders/hero_uploader.rb

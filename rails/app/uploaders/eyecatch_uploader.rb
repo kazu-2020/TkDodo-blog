@@ -1,0 +1,1 @@
+../../../backend/app/uploaders/eyecatch_uploader.rb

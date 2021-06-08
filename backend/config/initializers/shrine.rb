@@ -2,7 +2,14 @@
 
 require 'shrine'
 
-if ENV['USE_S3_SHRINE'] || Jets.env.production?
+environment_name =
+  if ENV['JETS_ENV'].present?
+    Jets.env
+  else
+    Rails.env
+  end
+
+if ENV['USE_S3_SHRINE'] || environment_name == 'production'
   require 'shrine/storage/s3'
 
   s3_options = {
@@ -10,12 +17,12 @@ if ENV['USE_S3_SHRINE'] || Jets.env.production?
     bucket: 'tomigaya-dev-aw-editorialhands-resources'
   }
 
-  cache_storage = Shrine::Storage::S3.new(prefix: "shrine/#{Jets.env}/assets/cache", **s3_options)
-  store_storage = Shrine::Storage::S3.new(prefix: "shrine/#{Jets.env}/assets/images", **s3_options)
+  cache_storage = Shrine::Storage::S3.new(prefix: "shrine/#{environment_name}/assets/cache", **s3_options)
+  store_storage = Shrine::Storage::S3.new(prefix: "shrine/#{environment_name}/assets/images", **s3_options)
 else
   require 'shrine/storage/file_system'
 
-  prefix = Jets.env.test? ? 'uploads/test' : 'uploads'
+  prefix = environment_name == 'test' ? 'uploads/test' : 'uploads'
   cache_storage = Shrine::Storage::FileSystem.new('public', prefix: "#{prefix}/cache")
   store_storage = Shrine::Storage::FileSystem.new('public', prefix: prefix)
 end
