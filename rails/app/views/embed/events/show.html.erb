@@ -1,0 +1,45 @@
+<% content_for(:title, @event_data[:name]) %>
+
+<style>
+    .embed-event {
+        height: 200px;
+        min-width: 240px;
+    }
+</style>
+
+<div class="embed embed-event rounded-sm shadow-md text-white border border-gray-450">
+  <a href="<%= @event_data[:url] %>" target="_blank">
+    <div class="p-3 grid grid-cols-12 gap-3 mb-auto" style="height: 158px;">
+      <div class="col-span-7">
+        <div>
+          <span class="text-xs" style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+        </div>
+        <div class="font-bold text-lg mt-1 mb-2">【<%= @event_data[:place] %>】<%= @event_data[:name] %></div>
+        <div class="text-gray-350 text-sm flex items-center">
+          <span class="material-icons md-18">event</span>
+          <span class="ml-1"><%= Time.parse(@event_data[:startDate]).strftime("%Y年%-m月%-d日 %H時%M分") %>〜</span>
+        </div>
+        <div class="text-gray-350 text-sm flex items-center mt-1">
+          <span class="material-icons md-18">place</span>
+          <span class="ml-1"><%= @event_data[:postalAddress] %></span>
+        </div>
+      </div>
+      <div class="col-span-5 pl-4">
+        <img
+          decoding="async"
+          src="<%= @event_data.dig(:image, :medium, :url) %>"
+          data-v-7e59b65e=""
+          class="rounded-sm"
+          />
+      </div>
+
+    </div>
+    <%= render 'shared/embed_footer' %>
+  </a>
+</div>
+
+<% content_for(:style) do %>
+  <style>
+
+  </style>
+<% end %>

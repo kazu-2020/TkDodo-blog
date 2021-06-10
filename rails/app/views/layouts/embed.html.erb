@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <%= csrf_meta_tags %>
+  <style>
+      :root {
+          --bg-color-light: #fafafa;
+          --bg-color-dark: #141414;
+          --sub-bg-color-light: #f0f0f0;
+          --sub-bg-color-dark: #2a2a2b;
+          --text-color-light: #232324;
+          --text-color-dark: #fff;
+          --sub-text-color-light: #6e6e6f;
+          --sub-text-color-dark: #929293;
+          --link-color-light: #232324;
+          --link-color-dark: #fff;
+          --primary-color-light: #757575;
+          --primary-color-dark: #999;
+          --mobile-column-count: 1;
+          --body-width: 1060px;
+          --border-color-light: #e5e5ea;
+          --border-color-dark: #3a3a3c;
+          --box-color-light: #c7c7cc;
+          --box-color-dark: #48484a;
+          --alert-color-light: #bf1419;
+          --alert-color-dark: #f55;
+          --color-logo-primary: #737373;
+          --color-logo-secondary: #6b6b6b;
+          --color-white: #fff;
+          --color-black: #111;
+          --color-gray-350: #ABABAB;
+          --color-gray-450: #CACACA;
+          --color-gray-750: #333333;
+          --embed-max-width: 620px;
+      }
+
+      html {
+          font-family: ヒラギノ角ゴ Pro W3, Hiragino Kaku Gothic Pro, ヒラギノ角ゴ W3,
+          Hiragino Kaku Gothic, メイリオ, Meiryo, Avenir, Helvetica Neue, Helvetica,
+          Arial, sans-serif;
+      }
+
+      body {
+          background-color: var(--color-gray-750);
+      }
+
+      .embed {
+          max-width: var(--embed-max-width);
+      }
+
+      .footer-logo {
+          width: 60px;
+          height: 16px;
+      }
+
+      .text-gray-350 {
+          color: var(--color-gray-350);
+      }
+
+      .text-gray-450 {
+          color: var(--color-gray-450);
+      }
+
+      .text-gray-750 {
+          color: var(--color-gray-750);
+      }
+
+      .bg-gray-750 {
+          background-color: var(--color-gray-750);
+      }
+
+      .border-gray-350 {
+          border-color: var(--color-gray-350);
+      }
+
+      .border-gray-450 {
+          border-color: var(--color-gray-450);
+      }
+
+      .material-icons.md-18 {
+          font-size: 18px;
+      }
+
+      /* https://github.com/tailwindlabs/tailwindcss-line-clamp より（CDNではpluginが利用できないため） */
+      .line-clamp-2 {
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+      }
+
+      .line-clamp-3 {
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+      }
+
+      .line-clamp-4 {
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 4;
+      }
+  </style>
+  <%= content_for?(:style) ? yield(:style) : nil %>
+  <title><%= content_for?(:title) ? yield(:title) : 'embed' %></title>
+</head>
+<body>
+<%= yield %>
+</body>
+</html>
