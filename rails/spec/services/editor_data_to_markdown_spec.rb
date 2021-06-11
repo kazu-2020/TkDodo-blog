@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-if ENV['JETS_ENV'] == 'test'
-  require 'spec_helper'
-else
-  require 'rails_helper'
-end
+require 'rails_helper'
 
 describe EditorDataToMarkdown, type: :model do
   describe '#call' do

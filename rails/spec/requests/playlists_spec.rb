@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rails_helper'
+
 describe PlaylistsController, type: :request do
   describe 'GET #index' do
     before { create(:playlist) }
@@ -60,7 +62,7 @@ describe PlaylistsController, type: :request do
     let(:params) { { url: 'https://placehold.jp/150x150.png' } }
 
     it 'リクエストが成功する' do
-      post "playlists/#{playlist.string_id}/upload_article_image_by_url", params: params
+      post "/playlists/#{playlist.string_id}/upload_article_image_by_url", params: params
       expect(response.status).to eq 200
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1
@@ -70,7 +72,7 @@ describe PlaylistsController, type: :request do
   describe 'POST #upload_article_image_by_file' do
     let(:playlist) { create(:playlist) }
     let(:image) do
-      fixture_file_upload(Jets.root.join('spec/fixtures/images/square.png'), 'image/png')
+      fixture_file_upload(Rails.root.join('spec/fixtures/images/square.png'), 'image/png')
     end
 
     before do
@@ -78,7 +80,7 @@ describe PlaylistsController, type: :request do
     end
 
     it 'リクエストが成功する' do
-      post "playlists/#{playlist.string_id}/upload_article_image_by_file"
+      post "/playlists/#{playlist.string_id}/upload_article_image_by_file"
       expect(response.status).to eq 200
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1

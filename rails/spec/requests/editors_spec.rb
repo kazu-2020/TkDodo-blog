@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rails_helper'
+
 describe EditorsController, type: :request do
   describe 'GET #fetch_link' do
     let(:valid_url) { 'https://nhk.jp' }
@@ -7,7 +9,7 @@ describe EditorsController, type: :request do
 
     context '有効なURLが渡されたとき' do
       it 'リクエストが成功すること' do
-        get 'editor/fetch_link', { url: valid_url }
+        get fetch_link_editor_path(url: valid_url)
         expect(response.status).to eq 200
         expect(JSON.parse(response.body)['success']).to eq 1
       end
@@ -15,7 +17,7 @@ describe EditorsController, type: :request do
 
     context '無効なURLが渡されたとき' do
       it 'リクエストは成功するが、レスポンスにエラーが含まれる' do
-        get 'editor/fetch_link', { url: invalid_url }
+        get fetch_link_editor_path(url: invalid_url)
         expect(response.status).to eq 200
         expect(JSON.parse(response.body)['success']).to eq 0
       end

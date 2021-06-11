@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PlaylistsController < ApplicationController
-  before_action :set_playlist, only: %i[update delete actors_and_contributors]
+  before_action :set_playlist, only: %i[update destroy actors_and_contributors]
   before_action :set_pagination, only: [:index]
 
   DEFAULT_PAGE = 1
@@ -27,23 +27,20 @@ class PlaylistsController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   def show
-    @playlist = Playlist.friendly.find(params[:playlist_id])
+    @playlist = Playlist.friendly.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render json: { messages: "#{params[:playlist_id]}は見つかりませんでした" }, status: :not_found
+    render json: { messages: "#{params[:id]}は見つかりませんでした" }, status: :not_found
   end
 
   def create
     @playlist = Playlist.new(converted_params)
     @playlist.deck = Deck.find_by(is_r5: false)
-
     begin
       @playlist.save!
       if params[:enable_list_update]
         items = params.require(:playlist).permit(items: [])[:items] || []
         @playlist.rebuild_episode_list_to(items)
       end
-
-      render 'create', formats: 'json', handlers: 'jbuilder'
     rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
       render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
     end
@@ -69,13 +66,12 @@ class PlaylistsController < ApplicationController
       end
 
       @playlist.touch # nested_attrubuites だけ更新された場合のための処理
-      render 'update', formats: 'json', handlers: 'jbuilder'
     else
       render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  def delete
+  def destroy
     @playlist.destroy
     render json: { deleted: true }
   end
@@ -83,7 +79,7 @@ class PlaylistsController < ApplicationController
   def upload_article_image_by_url
     playlist =
       begin
-        Playlist.friendly.find(params[:playlist_id])
+        Playlist.friendly.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         nil
       end
@@ -103,7 +99,7 @@ class PlaylistsController < ApplicationController
   def upload_article_image_by_file
     playlist =
       begin
-        Playlist.friendly.find(params[:playlist_id])
+        Playlist.friendly.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         nil
       end
@@ -124,7 +120,7 @@ class PlaylistsController < ApplicationController
   private
 
   def set_playlist
-    @playlist = Playlist.friendly.find(params[:playlist_id])
+    @playlist = Playlist.friendly.find(params[:id])
   end
 
   def playlist_params

@@ -1,25 +1,25 @@
 Rails.application.routes.draw do
   root 'welcome#index'
 
-  scope prefix: :'d6.6', format: 'json' do
-    scope prefix: :t do
-      scope prefix: :nplaylist do
+  scope :'d6.6', format: 'json' do
+    scope :t do
+      scope :nplaylist do
         get 'pl/:playlist_id', to: 'external/playlists#show'
         get 'id/:playlist_uid', to: 'external/playlists#show'
       end
 
-      scope prefix: :ndeck do
+      scope :ndeck do
         get 'dk/:deck_id', to: 'external/decks#show', constraints: { deck_id: /recommend-(visible|editorial)/ }
         get 'recommend/:deck_id', to: 'external/decks#show'
       end
 
-      scope prefix: :bundle do
+      scope :bundle do
         get 'pl/:playlist_id', to: 'external/playlists#bundle'
       end
     end
 
-    scope prefix: :l do
-      scope prefix: :bundle do
+    scope :l do
+      scope :bundle do
         get 'pl/:playlist_id/types', to: 'external/playlists#list_bundle'
         get 'id/:playlist_uid/types', to: 'external/playlists#list_bundle'
       end

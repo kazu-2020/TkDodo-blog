@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require 'rails_helper'
+
 describe PlaylisticlesController, type: :request do
   before do
-    json = File.open(Jets.root.join('spec/fixtures/payloads/d65_pl_ts_QLZLXN22G2.json')) do |file|
+    json = File.open(Rails.root.join('spec/fixtures/payloads/d65_pl_ts_QLZLXN22G2.json')) do |file|
       json_string = file.read
       JSON.parse(json_string, symbolize_names: true)
     end

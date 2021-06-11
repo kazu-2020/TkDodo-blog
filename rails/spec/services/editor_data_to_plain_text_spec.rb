@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe EditorDataToPlainText, type: :model do
   describe '#call' do
@@ -103,7 +103,7 @@ describe EditorDataToPlainText, type: :model do
         改行イタリック太字イタリック
 
           　
-        
+
         hello
 
         Yahoo! JAPAN

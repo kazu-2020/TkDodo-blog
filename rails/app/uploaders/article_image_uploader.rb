@@ -1,1 +1,6 @@
-../../../backend/app/uploaders/article_image_uploader.rb
+# frozen_string_literal: true
+
+require 'image_processing/mini_magick'
+
+class ArticleImageUploader < ImageUploader
+end

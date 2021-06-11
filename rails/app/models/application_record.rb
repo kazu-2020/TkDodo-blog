@@ -1,1 +1,5 @@
-../../../backend/app/models/application_record.rb
+# frozen_string_literal: true
+
+class ApplicationRecord < ActiveRecord::Base
+  self.abstract_class = true
+end
