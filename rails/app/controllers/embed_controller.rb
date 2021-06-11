@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class EmbedController < Jets::Controller::Base
+class EmbedController < ApplicationController
   layout 'embed'
 end

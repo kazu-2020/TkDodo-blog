@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
+  root 'playlists#index', format: 'json'
 
   scope :'d6.6', format: 'json' do
     scope :t do
@@ -55,14 +55,6 @@ Rails.application.routes.draw do
     member do
       get :bundle
       get :playlists
-    end
-  end
-
-  resources :playlisticles, only: [], format: 'json' do
-    collection do
-      get :sandbox
-      get :sandbox2
-      get :sandbox_word
     end
   end
 
