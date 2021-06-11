@@ -2,12 +2,7 @@
 
 require 'shrine'
 
-environment_name =
-  if ENV['JETS_ENV'].present?
-    Jets.env
-  else
-    Rails.env
-  end
+environment_name = Rails.env
 
 if ENV['USE_S3_SHRINE'] || environment_name == 'production'
   require 'shrine/storage/s3'

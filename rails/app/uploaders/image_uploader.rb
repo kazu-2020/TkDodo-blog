@@ -8,11 +8,7 @@ class ImageUploader < Shrine
 
   plugin :remove_attachment # adds the remove_<name> accessor to model, removes the attached file if it set a true
   plugin :store_dimensions, analyzer: :mini_magick
-  if ENV['JETS_ENV'].present?
-    plugin :url_options, store: { host: Jets.application.config.shrine_config[:default_url], public: true }
-  else
-    plugin :url_options, store: { host: Rails.application.config.shrine_config[:default_url], public: true }
-  end
+  plugin :url_options, store: { host: Rails.application.config.shrine_config[:default_url], public: true }
   plugin :validation_helpers, default_messages: {
     max_size: ->(max) { I18n.t('errors.file.max_size', max: max) },
     max_width: ->(max) { I18n.t('errors.file.max_width', max: max) },

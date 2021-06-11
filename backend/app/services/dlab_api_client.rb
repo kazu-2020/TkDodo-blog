@@ -2,22 +2,12 @@
 
 class DlabApiClient < DlabApiBase
   API_ENDPOINT =
-    if ENV['RAILS_ENV'].present?
-      if Rails.env.development? || Rails.env.test? || Rails.env.staging?
-        'https://dev-api.nr.nhk.jp'
-      elsif Jets.env.production?
-        'https://api.nr.nhk.jp'
-      else
-        'dummy'
-      end
+    if Jets.env.development? || Jets.env.test? || Jets.env.staging?
+      'https://dev-api.nr.nhk.jp'
+    elsif Jets.env.production?
+      'https://api.nr.nhk.jp'
     else
-      if Jets.env.development? || Jets.env.test? || Jets.env.staging?
-        'https://dev-api.nr.nhk.jp'
-      elsif Jets.env.production?
-        'https://api.nr.nhk.jp'
-      else
-        'dummy'
-      end
+      'dummy'
     end
 
   VERSION = 'r6'
