@@ -2,8 +2,8 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_04_19_171000) do
 
-  create_table "article_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
     t.text "image_data"
     t.string "image_id", comment: "Shrine が生成する画像ID"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_171000) do
     t.index ["playlist_id"], name: "index_article_images_on_playlist_id"
   end
 
-  create_table "citations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "citations", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", null: false
     t.string "name", null: false
     t.string "url", null: false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_171000) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "decks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "decks", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.text "description", comment: "デッキの説明"
     t.string "area"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_171000) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "playlist_hashtags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "playlist_hashtags", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", null: false
     t.text "name"
     t.datetime "created_at", precision: 6, null: false
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_171000) do
     t.index ["playlist_id"], name: "index_playlist_hashtags_on_playlist_id"
   end
 
-  create_table "playlist_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "playlist_items", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", null: false
     t.string "episode_id", null: false
     t.string "context", comment: "アイテムの種別(Type)"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_171000) do
     t.index ["playlist_id"], name: "idx_playlist_id"
   end
 
-  create_table "playlist_keywords", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "playlist_keywords", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", null: false
     t.text "name"
     t.datetime "created_at", precision: 6, null: false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_171000) do
     t.index ["playlist_id"], name: "index_playlist_keywords_on_playlist_id"
   end
 
-  create_table "playlists", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "playlists", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "detailed_name_ruby"
     t.text "description", comment: "説明"
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_171000) do
     t.index ["string_id"], name: "index_playlists_on_string_id", unique: true
   end
 
-  create_table "same_as", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "same_as", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", null: false
     t.string "name", null: false
     t.string "url", null: false
