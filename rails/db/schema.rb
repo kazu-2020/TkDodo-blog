@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_171000) do
 
   create_table "playlists", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
-    t.string "detailed_name_ruby"
+    t.string "detailed_name_ruby", comment: "名前のルビ（ふりがな）"
     t.text "description", comment: "説明"
     t.text "headline", comment: "見出し"
     t.text "hero_image_data", comment: "ヒーローイメージ画像データ"
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_171000) do
     t.string "original_series_id", comment: "プレイリスト生成元のシリーズID"
     t.string "alias_id", comment: "短縮URL"
     t.string "d5_playlist_id", comment: "r5 デッキのプレイリストID"
-    t.integer "playlist_items_count", default: 0, null: false
+    t.integer "playlist_items_count", default: 0, null: false, comment: "エピソード数"
     t.integer "playable_playlist_items_count", default: 0, comment: "再生可能なエピソード数"
     t.integer "total_time", default: 0, comment: "プレイリストの総時間"
     t.integer "playable_total_time", default: 0, comment: "プレイリスト再生可能時間"
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_171000) do
     t.string "publisher_type", comment: "Person or Organization"
     t.string "publisher_name", comment: "発行者名"
     t.string "published_state", default: "draft", null: false, comment: "公開状態"
-    t.datetime "reserve_publish_time_at"
+    t.datetime "reserve_publish_time_at", comment: "予約公開日"
     t.datetime "reserve_finish_time_at", comment: "公開終了日時"
     t.datetime "published_at", comment: "公開日時"
     t.datetime "created_at", precision: 6, null: false

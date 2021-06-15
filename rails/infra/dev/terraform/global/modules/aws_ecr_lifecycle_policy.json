@@ -1,0 +1,16 @@
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Keep last 200 images",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "imageCountMoreThan",
+                "countNumber": 200
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
