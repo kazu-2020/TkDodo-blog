@@ -58,7 +58,6 @@ Rails.application.routes.draw do
     end
   end
 
-  ## 北村さんに確認
   get '/oembed', to: 'oembed#index'
   namespace :embed do
     get 'ts/:series_id', to: 'series#show'
@@ -70,4 +69,7 @@ Rails.application.routes.draw do
 
   post '/slack/incoming_webhook', to: 'slack#incoming_webhook', format: 'json'
   get '/editor/fetch_link', to: 'editors#fetch_link', as: :fetch_link_editor, format: 'json'
+
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get 'healthcheck', to: 'healthcheck#show'
 end
