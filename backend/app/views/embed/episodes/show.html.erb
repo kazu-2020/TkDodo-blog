@@ -57,6 +57,20 @@
     }
 </style>
 
+<script type="text/javascript">
+  loggingSize();
+
+  function resize() {
+    loggingSize();
+  }
+
+  function loggingSize() {
+    console.table({height: window.innerHeight, width: window.innerWidth});
+  }
+
+  window.onresize = resize;
+</script>
+
 <div class="embed embed-episode rounded-sm shadow-md text-white border border-gray-450">
   <a href="<%= @episode_data[:url] %>" target="_blank">
     <!-- - height:200px -->
