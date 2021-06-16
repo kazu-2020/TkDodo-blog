@@ -31,11 +31,7 @@ phases:
       branch_name=$TARGET_BRANCH
 
       # build
-      if [ ${branch_name} = 'develop' ]; then
-        containers/dev/ecs/bin/build_docker.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} dev /tmp
-      elif [ ${branch_name} = 'staging' ]; then
-        containers/staging/ecs/bin/build_docker.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} staging /tmp
-      elif [ ${branch_name} = 'master' ]; then
+      if [ ${branch_name} = 'master' ]; then
         containers/production/ecs/bin/build_docker.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} production /tmp
       else
         echo no build target
@@ -50,11 +46,7 @@ phases:
       fi
 
       # deploy
-      if [ ${branch_name} = 'develop' ]; then
-        containers/dev/ecs/bin/deploy.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} dev
-      elif [ ${branch_name} = 'staging' ]; then
-        containers/staging/ecs/bin/deploy.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} staging
-      elif [ ${branch_name} = 'master' ]; then
+      if [ ${branch_name} = 'master' ]; then
         containers/production/ecs/bin/deploy.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} production
       else
         echo no deploy target
