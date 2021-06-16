@@ -2,7 +2,7 @@ FROM ruby:2.7.3
 
 ENV PATH /root/.local/bin:$PATH
 ENV LANG C.UTF-8
-ENV DOCKER_VERSION=17.03.0-ce
+ENV DOCKER_VERSION=18.09.6
 RUN set -ex \
   && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
   && apt-get update \
@@ -10,13 +10,13 @@ RUN set -ex \
   nodejs \
   gzip \
   jq \
-  # python35 \
-  # --no-install-recommends \
+  iptables \
+  --no-install-recommends \
   && rm -rf /var/lib/apt/lists/* \
   && npm install -g yarn \
   && echo "####################################" \
   && echo docker install \
-  && curl -L -o /tmp/docker-${DOCKER_VERSION}.tgz https://get.docker.com/builds/Linux/x86_64/docker-${DOCKER_VERSION}.tgz  \
+  && curl -L -o /tmp/docker-${DOCKER_VERSION}.tgz https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz \
   && tar -xz -C /tmp -f /tmp/docker-${DOCKER_VERSION}.tgz \
   && mv /tmp/docker/* /usr/bin \
   && echo "####################################" \
