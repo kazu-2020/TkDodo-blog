@@ -2,7 +2,7 @@
 
 # アプリケーション名
 export APP_PREFIX=tomigaya-
-export APP_NAME=cms1
+export APP_NAME=aw-editorialhands
 export AWS_ACCOUNT_ID=359601428599
 # ecrのリポジトリ
 export CONTAINER_REGISTRY=${AWS_ACCOUNT_ID}.dkr.ecr.ap-northeast-1.amazonaws.com
@@ -15,7 +15,7 @@ function to_string_array () {
 }
 
 # 標準入力から受けたjsonをjavascriptの文字列表現に直す
-# 
+#
 # root@c86ec18f2788:/# to_json_string <<EOS
 # {
 #   "hoge": 1,
