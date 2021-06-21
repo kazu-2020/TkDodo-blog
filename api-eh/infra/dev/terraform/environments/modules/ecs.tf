@@ -11,7 +11,7 @@ resource "aws_ecs_cluster" "ecs_cluster" {
 resource "aws_ecs_service" "ecs" {
   name            = "${local.env_resource_prefix}-service"
   cluster         = "${aws_ecs_cluster.ecs_cluster.id}"
-  task_definition = "cms1-dev:1"
+  task_definition = "editorialhands-dev:1"
   # サービス作成時は必要数0にしておいて、デプロイのときに初めて必要数を設定する
   desired_count                      = 0
   launch_type                        = "FARGATE"

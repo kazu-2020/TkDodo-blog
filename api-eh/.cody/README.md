@@ -46,7 +46,7 @@ $ CODY_ENV=production aws-vault exec tomigaya-prd bundle exec cody deploy
 
 #### settings.yml の編集
 
-https://github.com/d7lab/aw-editorialhands/blob/master/rails/.pipedream/settings.yml
+https://github.com/d7lab/aw-editorialhands/blob/master/api-eh/.pipedream/settings.yml
 
 新しい環境(CODY_ENV)を定義します。
 
@@ -67,7 +67,6 @@ develop2:
 
 @target_linux_image = '359601428599.dkr.ecr.ap-northeast-1.amazonaws.com/aw-editorialhands-deployer:v1'
 @env_values = {
-  RAILS_MASTER_KEY_DEV: 'ssm:/aw-editorialhands/dev/rails_master_key',
   AWS_DEFAULT_REGION: 'ap-northeast-1',
   SLACK_NOTIFICATION_URL: 'https://hooks.slack.com/services/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',
   TARGET_BRANCH: 'develop2' # <- Docker Image をビルドするための対象ブランチをココに書きます

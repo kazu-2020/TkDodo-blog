@@ -19,9 +19,9 @@ if [ -n "$ENV" -a "$ENV" = "production" ]; then
   export DESIRED_COUNT=1
 
   # コンテナに渡す環境変数(circleciで設定)
-  cat < ./rails/infra/dev/containers/ecs/common.env > ./rails/infra/dev/containers/ecs/${ENV}.env.gen
-  cat < ./rails/infra/dev/containers/ecs/${ENV}.env >> ./rails/infra/dev/containers/ecs/${ENV}.env.gen
-  cat >> ./rails/infra/dev/containers/ecs/${ENV}.env.gen  <<FIN
+  cat < ./api-eh/infra/dev/containers/ecs/common.env > ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen
+  cat < ./api-eh/infra/dev/containers/ecs/${ENV}.env >> ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen
+  cat >> ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen  <<FIN
 RAILS_ENV=${ENV}
 RAILS_MASTER_KEY=${RAILS_MASTER_KEY_PRODUCTION}
 FIN
@@ -31,10 +31,10 @@ FIN
 up_web() {
   echo start up web
   # タスク定義生成
-  ruby ./rails/infra/dev/containers/ecs/gen_task_def.rb \
-    --env_file ./rails/infra/dev/containers/ecs/${ENV}.env.gen \
-    --secrets-file ./rails/infra/dev/containers/ecs/secrets.yml \
-    --task-definition-template ./rails/infra/dev/containers/ecs/task-definition-template.json | jq '.' > task-definitions.json
+  ruby ./api-eh/infra/dev/containers/ecs/gen_task_def.rb \
+    --env_file ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen \
+    --secrets-file ./api-eh/infra/dev/containers/ecs/secrets.yml \
+    --task-definition-template ./api-eh/infra/dev/containers/ecs/task-definition-template.json | jq '.' > task-definitions.json
   cat task-definitions.json
 
   # タスク定義登録

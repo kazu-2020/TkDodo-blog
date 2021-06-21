@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 pipe_env = ENV['PIPE_ENV'] || 'development'
-target_branch = ENV['PIPELINE_TARGET_BRANCH'] || 'master'
+target_branch = ENV['PIPELINE_TARGET_BRANCH'] || 'feature/migrate_from_jets_to_rails'
 
 stage 'Source' do
   github(
@@ -12,5 +12,5 @@ stage 'Source' do
 end
 
 stage 'Build-and-Deploy' do
-  codebuild(name: "aw-editorialhands-#{pipe_env}", project_name: "aw-editorialhands-#{pipe_env}")
+  codebuild(name: "api-eh-#{pipe_env}", project_name: "api-eh-#{pipe_env}")
 end

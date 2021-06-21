@@ -52,7 +52,7 @@ $ PIPE_ENV=production PIPELINE_TARGET_BRANCH=master aws-vault exec tomigaya-prd 
 
 ### settings.yml の編集
 
-https://github.com/d7lab/aw-editorialhands/blob/master/rails/.pipedream/settings.yml
+https://github.com/d7lab/aw-editorialhands/blob/master/api-eh/.pipedream/settings.yml
 
 新しい環境(PIPE_ENV)を定義します。
 

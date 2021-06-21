@@ -23,7 +23,7 @@ time yarn install
 
 # assets precompile
 
-source ./rails/infra/dev/containers/ecs/${ENV}.env
+source ./api-eh/infra/dev/containers/ecs/${ENV}.env
 APP_DOMAIN=${APP_DOMAIN} ASSET_SYNC=true RAILS_ENV=${ENV} bundle exec rails webpacker:compile --trace
 
 echo $SHA1 > vcs_version
@@ -48,9 +48,9 @@ build_rails_image() {
   local rails_image_name=${CONTAINER_REGISTRY}/${APP_NAME}-app:${ENV}_${SHA1}
   if [ "${image_count}" != "0" ] ; then
     # キャッシュがある場合はキャッシュも使う
-    docker build --cache-from ${latest_image} -t ${rails_image_name} -f ./rails/infra/dev/containers/ecs/rails/Dockerfile .
+    docker build --cache-from ${latest_image} -t ${rails_image_name} -f ./api-eh/infra/dev/containers/ecs/rails/Dockerfile .
   else
-    docker build -t ${rails_image_name} -f ./rails/infra/dev/containers/ecs/rails/Dockerfile .
+    docker build -t ${rails_image_name} -f ./api-eh/infra/dev/containers/ecs/rails/Dockerfile .
   fi
   # dir -p ~/caches/docker
   # ocker save -o ~/caches/docker/rails-dockerimage.tar $(docker history ${rails_image_name} -q | grep -v missing)

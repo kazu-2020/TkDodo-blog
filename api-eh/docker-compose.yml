@@ -9,7 +9,7 @@ services:
     volumes:
       - db-data:/var/lib/mysql
       - ./mysqlconf:/etc/mysql/conf.d
-  web:
+  rails:
     build: .
     command: bash -c "rm /app/tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
     volumes:
