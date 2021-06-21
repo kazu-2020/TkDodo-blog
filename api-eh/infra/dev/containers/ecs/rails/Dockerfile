@@ -1,13 +1,13 @@
 # このDockerfileは本番のecs環境で動作します。
 # ローカル用のDockerfileとの整合性に注意して変更すること。
 # containers/local/rails/Dockerfile
-FROM ruby:2.7.3
+FROM ruby:2.7.2
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 RUN set -ex \
-    && wget -qO- https://deb.nodesource.com/setup_12.x | bash - \
+    && wget -qO- https://deb.nodesource.com/setup_10.x | bash - \
     && apt-get update \
     && apt-get install -y \
     default-mysql-client \
