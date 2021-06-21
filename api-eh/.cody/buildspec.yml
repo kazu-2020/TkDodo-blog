@@ -28,10 +28,8 @@ phases:
       - docker version
   build:
     commands: |
-      branch_name=$TARGET_BRANCH
-
       # build
-      if [ ${branch_name} = 'feature/migrate_from_jets_to_rails' ]; then
+      if [ $TARGET_BRANCH = 'feature/migrate_from_jets_to_rails' ]; then
         api-eh/infra/dev/containers/ecs/bin/build_docker.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} production /tmp
       else
         echo no build target
@@ -46,7 +44,7 @@ phases:
       fi
 
       # deploy
-      if [ ${branch_name} = 'master' ]; then
+      if [ $TARGET_BRANCH = 'master' ]; then
         api-eh/infra/dev/containers/ecs/bin/deploy.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} production
       else
         echo no deploy target

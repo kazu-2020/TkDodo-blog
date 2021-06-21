@@ -6,6 +6,7 @@
 github_url('https://github.com/d7lab/aw-editorialhands.git')
 linux_image(@target_linux_image)
 environment_variables(@env_values)
+vpc_config @vpc_config
 
 # Some useful helpers:
 # puts "project_name #{project_name}" # IE: demo-web
