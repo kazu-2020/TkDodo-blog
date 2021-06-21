@@ -24,7 +24,9 @@ time yarn install
 
 # assets precompile
 
-source ./infra/dev/containers/ecs/${ENV}.env
+# rails 自体は production build するものの、環境変数自体は dev 向けに設定
+# source ./infra/dev/containers/ecs/${ENV}.env
+source ./infra/dev/containers/ecs/dev.env
 APP_DOMAIN=${APP_DOMAIN} ASSET_SYNC=true RAILS_ENV=${ENV} bundle exec rails webpacker:compile --trace
 
 echo $SHA1 > vcs_version
