@@ -19,7 +19,7 @@ provider "template" {
 }
 
 variable "name" {
-  default = "aw-editorialhands"
+  default = "api-eh"
 }
 
 variable "region" {

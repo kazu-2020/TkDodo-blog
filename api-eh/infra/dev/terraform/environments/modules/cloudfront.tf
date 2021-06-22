@@ -180,34 +180,6 @@ resource "aws_cloudfront_distribution" "front_distribution" {
     max_ttl                = 10
   }
 
-  #----------------------------------------------------------
-  # derivation設定
-
-  ordered_cache_behavior {
-    allowed_methods  = ["HEAD", "DELETE", "POST", "GET", "OPTIONS", "PUT", "PATCH"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${aws_alb.alb.id}"
-    path_pattern     = "derivation/*"
-
-    compress = true
-
-    forwarded_values {
-      query_string = true
-
-      headers = [
-        "Host",
-      ]
-
-      cookies {
-        forward = "none"
-      }
-    }
-
-    viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 60
-    default_ttl            = 60
-    max_ttl                = 60
-  }
   restrictions {
     geo_restriction {
       restriction_type = "none"

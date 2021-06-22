@@ -48,7 +48,8 @@ build_rails_image() {
     docker pull ${latest_image}
   fi
 
-  local rails_image_name=${CONTAINER_REGISTRY}/${APP_NAME}-app:${ENV}_${SHA1}
+  # local rails_image_name=${CONTAINER_REGISTRY}/${APP_NAME}-app:${ENV}_${SHA1}
+  local rails_image_name=${CONTAINER_REGISTRY}/${APP_NAME}-app:${SHA1}
   if [ "${image_count}" != "0" ] ; then
     # キャッシュがある場合はキャッシュも使う
     docker build --cache-from ${latest_image} -t ${rails_image_name} -f ./infra/dev/containers/ecs/rails/Dockerfile .
