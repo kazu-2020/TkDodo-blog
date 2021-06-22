@@ -47,22 +47,6 @@
                     "awslogs-stream-prefix": "rails"
                 }
             }
-        },
-        {
-            "name": "datadog-agent",
-            "image": "datadog/agent:latest",
-            "essential": true,
-            "portMappings": [
-                {
-                    "containerPort": 8126,
-                    "hostPort": 8126,
-                    "protocol": "tcp"
-                }
-            ],
-            "environment": [
-            ],
-            "secrets": [
-            ]
         }
     ],
     "requiresCompatibilities": [
