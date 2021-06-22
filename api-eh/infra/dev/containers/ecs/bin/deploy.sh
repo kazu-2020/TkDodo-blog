@@ -25,6 +25,7 @@ if [ -n "$ENV" -a "$ENV" = "dev" ]; then
 RAILS_ENV=production
 RAILS_MASTER_KEY=${RAILS_MASTER_KEY_PRODUCTION}
 FIN
+fi
 
 # デプロイ
 # コマンドのタイムアウトを30分に設定
