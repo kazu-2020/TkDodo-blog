@@ -11,7 +11,7 @@ export SHA1=$1
 # デプロイ環境
 export ENV=$2
 
-if [ -n "$ENV" -a "$ENV" = "production" ]; then
+if [ -n "$ENV" -a "$ENV" = "dev" ]; then
   export RAILS_CPU=512     # .5 vCPU
   export TOTAL_MEMORY=2048 # 1024 MB
   export RAILS_MEMORY=2048
@@ -22,7 +22,7 @@ if [ -n "$ENV" -a "$ENV" = "production" ]; then
   cat < ./api-eh/infra/dev/containers/ecs/common.env > ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen
   cat < ./api-eh/infra/dev/containers/ecs/${ENV}.env >> ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen
   cat >> ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen  <<FIN
-RAILS_ENV=${ENV}
+RAILS_ENV=production
 RAILS_MASTER_KEY=${RAILS_MASTER_KEY_PRODUCTION}
 FIN
 
@@ -56,4 +56,3 @@ up_web() {
 export -f up_web
 
 up_web
-
