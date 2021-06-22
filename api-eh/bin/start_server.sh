@@ -4,7 +4,7 @@
 set -ex
 
 if [ "${LOCAL_DOCKER_COMPOSE_MODE}" = "" ]; then
-  ln -sf /dev/stdout /usr/src/rails/app/log/${RAILS_ENV}.log
+  ln -sf /dev/stdout /usr/src/app/log/${RAILS_ENV}.log
 fi
 
 bundle exec rails db:create
