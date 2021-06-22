@@ -43,7 +43,7 @@ up_web() {
     --cli-input-json file://task-definitions.json
 
   # 最新のタスク定義確認
-  local latest_task_definition=$(latest_task_definition ${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME})
+  local latest_task_definition=$(latest_task_definition ${APP_PREFIX}${ENV}-${APP_NAME})
 
   # 最新のタスク定義でサービス更新
   aws ecs update-service \
