@@ -4,7 +4,7 @@ class DlabApiClient < DlabApiBase
   API_ENDPOINT =
     if Rails.env.development? || Rails.env.test? || Rails.env.staging?
       'https://dev-api.nr.nhk.jp'
-    elsif Jets.env.production?
+    elsif Rails.env.production?
       'https://api.nr.nhk.jp'
     else
       'dummy'

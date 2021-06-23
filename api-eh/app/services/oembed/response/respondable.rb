@@ -14,6 +14,6 @@ module Oembed::Response::Respondable
   end
 
   def src_host
-    Jets.env.development? ? 'http://localhost:8888' : 'https://dev-api-eh.nr.nhk.jp'
+    Rails.env.development? ? 'http://localhost:8888' : 'https://dev-api-eh.nr.nhk.jp'
   end
 end
