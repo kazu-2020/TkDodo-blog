@@ -1,2 +1,2 @@
 #!/bin/bash
-bundle exec pumactl -F /usr/src/rails/app/config/puma.rb start
+bundle exec pumactl -F /usr/src/app/config/puma.rb start
