@@ -47,6 +47,7 @@ group :development, :test do
   gem 'pipedream'
   gem 'pry-byebug'
   gem 'rspec-rails'
+  gem 'rubocop', '1.9.0', require: false
 end
 
 group :development do

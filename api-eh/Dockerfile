@@ -1,39 +1,49 @@
-# このDockerfileはローカルのdocker-compse環境で動作します。
-# 本番用のDockerfileとの整合性に注意して変更すること。
-# containers/ecs/rails/Dockerfile
-FROM ruby:2.7.2
+FROM ruby:2.7.2-alpine3.11
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-
-RUN set -ex \
-    && wget -qO- https://deb.nodesource.com/setup_10.x | bash - \
-    && apt-get update \
-    && apt-get install -y \
-    default-mysql-client \
+ENV LANG C.UTF-8
+RUN apk upgrade && \
+    apk add --no-cache \
+    bash \
+    build-base \
+    curl-dev \
+    git \
     imagemagick \
-    unzip \
+    imagemagick-dev \
+    less \
+    libxml2-dev \
+    libxslt-dev \
+    mysql-client \
+    mysql-dev \
     nodejs \
-    fonts-vlgothic \
-    locales \
-    locales-all \
-    vim \
-    # for chrome packages
-    fonts-liberation libxshmfence1 libappindicator3-1 libasound2 libnspr4 libxtst6 libnss3 libxss1 xdg-utils libx11-xcb1 libdrm2 libgbm1 libxcb-dri3-0 \
-    --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/* \
-    && curl -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && dpkg -i google-chrome-stable_current_amd64.deb \
-    && npm install -g yarn
-ENV LANG ja_JP.UTF-8
-ENV HISTFILE=/usr/src/app/.bash_history
+    yarn \
+    openssl \
+    readline \
+    readline-dev \
+    rsync \
+    tar \
+    ttf-freefont \
+    tzdata \
+    udev \
+    wget \
+    yaml \
+    yaml-dev\
+    zip \
+    zlib \
+    zlib-dev
 
-# ローカルではGemはvolume、ソースはホスト側にマウントされるので不要
-# ADD Gemfile /usr/src/app/
-# ADD Gemfile.lock /usr/src/app/
-# RUN bundle install --system
-# ADD . /usr/src/app
+RUN gem install bundler
+RUN gem update
 
-EXPOSE 3000
+ENV APP_HOME /app
+RUN mkdir $APP_HOME
 
-CMD bin/start_server.sh
+WORKDIR $APP_HOME
+
+ADD Gemfile $APP_HOME/Gemfile
+ADD Gemfile.lock $APP_HOME/Gemfile.lock
+
+RUN bundle install -j8
+RUN yarn install
+ADD . $APP_HOME
+
+CMD ["bundle", "exec", "rails", "server", '-b', '0.0.0.0']

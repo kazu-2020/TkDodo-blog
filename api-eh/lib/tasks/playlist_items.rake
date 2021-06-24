@@ -1,5 +1,5 @@
 namespace :playlist_items do
-  desc "エピソードの参照状態により論理削除切り替え"
+  desc 'エピソードの参照状態により論理削除切り替え'
   task change_status_of_zombified_and_respawned_episodes: :environment do
     client = DlabApiClient.new
     playlist_items = PlaylistItem.all

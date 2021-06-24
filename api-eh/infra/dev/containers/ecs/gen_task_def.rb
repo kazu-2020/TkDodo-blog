@@ -10,14 +10,12 @@ Config = Struct.new(
   :secrets_file
 ) do
   def valid?
-    [
-      :task_definition_template,
-      :env_file,
-      :secrets_file
+    %i[
+      task_definition_template
+      env_file
+      secrets_file
     ].each do |f|
-      unless send(f)
-        raise "#{f} required"
-      end
+      raise "#{f} required" unless send(f)
     end
   end
 end
@@ -93,11 +91,12 @@ end
 def parse_env_file(file)
   File.readlines(file).map(&:chomp).each_with_object({}) do |line, obj|
     next if /^\s*#/ =~ line
-    if /^([^=]+)=(.*)$/ =~ line
-      key = Regexp.last_match(1)
-      value = Regexp.last_match(2)
-      obj[key] = value
-    end
+
+    next unless /^([^=]+)=(.*)$/ =~ line
+
+    key = Regexp.last_match(1)
+    value = Regexp.last_match(2)
+    obj[key] = value
   end
 end
 

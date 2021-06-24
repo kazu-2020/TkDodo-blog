@@ -1,5 +1,5 @@
 namespace :playlists do
-  desc "プレイリストの再生時間や再生可能エピソード数の更新"
+  desc 'プレイリストの再生時間や再生可能エピソード数の更新'
   task recalculate_playlist_item_duration: :environment do
     PlaylistItem.kept.all.each(&:fetch_data)
 
@@ -9,7 +9,7 @@ namespace :playlists do
     end
   end
 
-  desc "r5 プレイリストの取り込み"
+  desc 'r5 プレイリストの取り込み'
   task import_r5_playlists: :environment do
     R5PlaylistsImporter.new.execute
   end

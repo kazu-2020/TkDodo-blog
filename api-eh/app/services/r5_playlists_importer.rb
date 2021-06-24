@@ -1,6 +1,7 @@
 class R5PlaylistsImporter
-  AREA_ID = '130'
+  AREA_ID = '130'.freeze
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def execute
     deck = Deck.find_by(area: AREA_ID, is_r5: true)
 
@@ -24,6 +25,7 @@ class R5PlaylistsImporter
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 
