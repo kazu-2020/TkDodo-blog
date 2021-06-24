@@ -50,7 +50,7 @@ up_web() {
     --cluster ${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}-ecs-cluster \
     --service ${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}-service \
     --enable-execute-command \
-    --deployment-configuration "deploymentCircuitBreaker={enable=true,rollback=false}" \
+    --deployment-configuration "deploymentCircuitBreaker={enable=true,rollback=true}" \
     --task-definition ${latest_task_definition} \
     --desired-count ${DESIRED_COUNT}
 
