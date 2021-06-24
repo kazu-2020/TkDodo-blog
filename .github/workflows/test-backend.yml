@@ -3,14 +3,14 @@ name: Test for backend
 on:
   push:
     paths:
-      - 'backend/**'
-      - '.github/workflows/test-backend.yml'
+      - "api-eh/**"
+      - ".github/workflows/test-backend.yml"
 
 jobs:
   lint-and-test:
     env:
-      JETS_ENV: test
-      working-directory: ./backend
+      RAILS_ENV: test
+      working-directory: ./api-eh
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -19,13 +19,13 @@ jobs:
         run: docker-compose build
         working-directory: ${{env.working-directory}}
       - name: Run setup
-        run: docker-compose run web bin/setup
+        run: docker-compose run rails bin/setup
         working-directory: ${{env.working-directory}}
       - name: Run Lint
-        run: docker-compose run web bundle exec rubocop
+        run: docker-compose run rails bundle exec rubocop
         working-directory: ${{env.working-directory}}
       - name: Run Rspec
-        run: docker-compose run web bundle exec rspec
+        run: docker-compose run rails bundle exec rspec
         working-directory: ${{env.working-directory}}
       - name: action-slack
         uses: 8398a7/action-slack@v3
