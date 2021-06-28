@@ -3,7 +3,7 @@ variable "region" {}
 
 variable "domain" {
   default = {
-    dev        = "dev-api-eh-ecs.nr.nhk.jp"
+    dev        = "dev-api-eh.nr.nhk.jp"
     staging    = ""
     production = ""
   }
