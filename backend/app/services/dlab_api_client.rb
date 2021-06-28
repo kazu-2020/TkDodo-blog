@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class DlabApiClient < DlabApiBase
-  API_ENDPOINT = if Jets.env.development? || Jets.env.test? || Jets.env.staging?
-                   'https://dev-api.nr.nhk.jp'
-                 elsif Jets.env.production?
-                   'https://api.nr.nhk.jp'
-                 else
-                   'dummy'
-                 end
+  API_ENDPOINT =
+    if Jets.env.development? || Jets.env.test? || Jets.env.staging?
+      'https://dev-api.nr.nhk.jp'
+    elsif Jets.env.production?
+      'https://api.nr.nhk.jp'
+    else
+      'dummy'
+    end
 
   VERSION = 'r6'
   INTERNAL_PARAMS = { extendedEntities: true, ignoreRange: true }.freeze

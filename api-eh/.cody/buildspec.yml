@@ -1,0 +1,59 @@
+version: 0.2
+
+phases:
+  install:
+    commands: |
+      nohup /usr/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2&
+
+      wait_max=20
+      count=0
+      echo waiting for dockerd
+      until docker info > /dev/null 2>&1
+      do
+        printf "."
+        sleep 1
+        count=$((count + 1))
+        if [ $count -ge $wait_max ]; then
+          echo -e "\n**** ERROR dockerd not ready ****"
+          exit 1
+        fi
+      done
+      echo -e "\ndockerd ready"
+
+      docker version
+      echo $?
+
+  pre_build:
+    commands:
+      - docker version
+  build:
+    commands: |
+      if [ $TARGET_BRANCH = 'master' ]; then
+        api-eh/infra/dev/containers/ecs/bin/build_docker.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} production /tmp
+      else
+        echo no build target
+        exit 1
+      fi
+
+      if [ $? = 0 ]; then
+        echo build success
+      else
+        echo build failed!!!!!!!!!!!!!!!!!!!!!!!!!
+        exit 1
+      fi
+
+      if [ $TARGET_BRANCH = 'master' ]; then
+        api-eh/infra/dev/containers/ecs/bin/deploy.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} dev
+      else
+        echo no deploy target
+      fi
+
+      if [ $? = 0 ]; then
+        echo deploy success
+      else
+        echo deploy failed!!!!!!!!!!!!!!!!!!!!!!!!!
+        exit 1
+      fi
+  post_build:
+    commands:
+      - echo pre_build

@@ -1,0 +1,32 @@
+version: "3"
+services:
+  db:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "4306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./mysqlconf:/etc/mysql/conf.d
+  rails:
+    build: .
+    command: bash -c "rm /app/tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
+    volumes:
+      - .:/app
+      - bundle:/bundle
+    ports:
+      - "8888:3000"
+    environment:
+      - DB_HOST=db
+      - RAILS_ENV=${RAILS_ENV:-development}
+
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+volumes:
+  db-data:
+    driver: local
+  bundle:
+    driver: local

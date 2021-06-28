@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :citation do
+    association :playlist
     name { 'Awesome Name' }
     url { 'https://example.com' }
   end

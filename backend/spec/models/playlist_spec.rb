@@ -393,18 +393,18 @@ describe Playlist, type: :model do
 
     context 'When editor_data does exist' do
       let(:editor_data) do
-        json = File.open(Jets.root.join('spec/fixtures/payloads/editor-data.json')) do |file|
+        File.open(Jets.root.join('spec/fixtures/payloads/editor-data.json')) do |file|
           json_string = file.read
           JSON.parse(json_string, symbolize_names: true)
         end
-        json
       end
 
       before do
-        json = File.open(Jets.root.join('spec/fixtures/payloads/ts_bundle_6X8L7Z8VK8.json')) do |file|
-          json_string = file.read
-          JSON.parse(json_string, symbolize_names: true)
-        end
+        json =
+          File.open(Jets.root.join('spec/fixtures/payloads/ts_bundle_6X8L7Z8VK8.json')) do |file|
+            json_string = file.read
+            JSON.parse(json_string, symbolize_names: true)
+          end
         client = instance_double(DlabApiClient)
         allow(DlabApiClient).to receive(:new).and_return(client)
         allow(client).to receive(:episode_bundle).with(type: 'tv', episode_id: 'PG3Z16Q145').and_return(json)
@@ -421,11 +421,10 @@ describe Playlist, type: :model do
 
     context 'when playlist has article' do
       let(:editor_data) do
-        json = File.open(Jets.root.join('spec/fixtures/payloads/editor-data.json')) do |file|
+        File.open(Jets.root.join('spec/fixtures/payloads/editor-data.json')) do |file|
           json_string = file.read
           JSON.parse(json_string, symbolize_names: true)
         end
-        json
       end
 
       it 'returns true' do
@@ -447,10 +446,11 @@ describe Playlist, type: :model do
     subject(:playlist) { Playlist.assign_from_series(series_id) }
 
     before do
-      json = File.open(Jets.root.join('spec/fixtures/payloads/ts_bundle_6X8L7Z8VK8.json')) do |file|
-        json_string = file.read
-        JSON.parse(json_string, symbolize_names: true)
-      end
+      json =
+        File.open(Jets.root.join('spec/fixtures/payloads/ts_bundle_6X8L7Z8VK8.json')) do |file|
+          json_string = file.read
+          JSON.parse(json_string, symbolize_names: true)
+        end
       client = instance_double(DlabApiClient)
       allow(DlabApiClient).to receive(:new).and_return(client)
       allow(client).to receive(:series_bundle).with(type: 'tv', series_id: series_id).and_return(json)
