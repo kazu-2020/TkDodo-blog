@@ -13,6 +13,6 @@ class Embed::EpisodesController < EmbedController
   end
 
   def embed_episode_params
-    params.permit(:episode_id, :height)
+    params.permit(:series_id, :episode_id, :height)
   end
 end

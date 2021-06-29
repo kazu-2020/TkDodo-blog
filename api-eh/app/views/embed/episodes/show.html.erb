@@ -23,27 +23,27 @@
         content: '';
     }
 
-    @media (max-height: 200px) {
+    @media (max-height: 250px) {
         .small\:hidden {
             display: none !important;
         }
     }
 
-    @media (min-height: 201px) {
+    @media (min-height: 251px) {
         .card\:hidden {
             display: none !important;
         }
     }
 
-    /* < 274px */
-    @media only screen and (max-width: 277px) {
+    /* <= 240px */
+    @media only screen and (max-width: 240px) {
         .xxxs\:hidden {
             display: none !important;
         }
     }
 
-    /* 276px - 464px */
-    @media only screen and (min-width: 277px) and (max-width: 465px) {
+    /* 241px - 464px */
+    @media only screen and (min-width: 241px) and (max-width: 465px) {
         .xxs\:hidden {
             display: none !important;
         }
@@ -73,28 +73,25 @@
 
 <div class="embed embed-episode rounded-sm shadow-md text-white border border-gray-450">
   <a href="<%= @episode_data[:url] %>" target="_blank">
-    <!-- - height:200px -->
+    <!-- - height:230px -->
     <div class="card:hidden h-full">
-      <!-- < width:276px-->
+      <!-- < width:241px-->
       <div class="xxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
         <div class="pb-2 grid grid-cols-12 gap-3 mb-auto sm:text-lg">
           <div class="col-span-12">
-            <figure class="relative max-w-xs cursor-pointer eyecatch-wrapper">
-              <img
-                decoding="async"
-                src="<%= episode_image_src %>"
-                class="rounded-sm"
-                alt="<%= @episode_data[:name] %>"/>
-              <figcaption class="absolute -mt-12 -ml-2 text-white px-3 z-10">
-                <div class="text-xs">
-                  <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
-                </div>
-                <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= @episode_data[:name] %></div>
-              </figcaption>
-            </figure>
+            <img
+              decoding="async"
+              src="<%= episode_image_src %>"
+              class="rounded-sm"
+              alt="<%= @episode_data[:name] %>"/>
+            <div class="my-2"></div>
+            <div class="text-xs">
+              <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+            </div>
+            <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= @episode_data[:name] %></div>
           </div>
         </div>
-        <%= render 'shared/embed_footer_episode' %>
+        <%#= render 'shared/embed_footer_episode' %>
       </div>
 
       <!-- width:276px -- width:464px-->
@@ -112,12 +109,9 @@
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
             <div class="font-bold text-md mt-1 mb-2 line-clamp-2"><%= @episode_data[:name] %></div>
-          </div>
-          <div class="col-span-12">
-            <div class="text-gray-350 text-xs flex items-center mt-2">
-              <span class="material-icons md-18">event</span>
-              <span class="ml-1">初回放送日時:</span>
-              <span class="ml-1"><%= Time.parse(@episode_data.dig(:releasedEvent, :startDate)).strftime("%Y年%-m月%-d日 %H時%M分") %></span>
+            <div class="text-gray-350 text-xs mt-2">
+              <span class="material-icons md-18 align-middle">event</span>
+              <span class="align-middle">初回放送日時: <%= Time.parse(@episode_data.dig(:releasedEvent, :startDate)).strftime("%Y年%-m月%-d日 %H時%M分") %></span>
             </div>
           </div>
         </div>
@@ -139,10 +133,9 @@
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
             <div class="font-bold text-md mt-1 mb-2 line-clamp-2"><%= @episode_data[:name] %></div>
-            <div class="text-gray-350 text-xs flex items-center mt-2">
-              <span class="material-icons md-18">event</span>
-              <span class="ml-1">初回放送日時:</span>
-              <span class="ml-1"><%= Time.parse(@episode_data.dig(:releasedEvent, :startDate)).strftime("%Y年%-m月%-d日 %H時%M分") %></span>
+            <div class="text-gray-350 text-xs mt-2">
+              <span class="material-icons md-18 align-middle">event</span>
+              <span class="align-middle">初回放送日時: <%= Time.parse(@episode_data.dig(:releasedEvent, :startDate)).strftime("%Y年%-m月%-d日 %H時%M分") %></span>
             </div>
             <div class="text-gray-350 text-xs mt-2 line-clamp-2">
               <%= @episode_data[:description] %>
@@ -153,9 +146,9 @@
       </div>
     </div>
 
-    <!-- >= height:201px -->
+    <!-- >= height:231px -->
     <div class="small:hidden h-full">
-      <!-- < width:276px-->
+      <!-- < width:241px-->
       <div class="xxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
         <div class="pb-2 grid grid-cols-12 gap-3 mb-auto sm:text-lg">
           <div class="col-span-12">
@@ -169,32 +162,38 @@
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
             <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= @episode_data[:name] %></div>
-            <div class="text-gray-350 text-xs flex items-center mt-2">
-              <span class="material-icons md-18">event</span>
-              <span class="ml-1">初回放送日時: <%= Time.parse(@episode_data.dig(:releasedEvent, :startDate)).strftime("%Y年%-m月%-d日 %H時%M分") %></span>
+            <div class="text-gray-350 text-xs mt-2">
+              <span class="material-icons md-18 align-middle">event</span>
+              <span class="align-middle">初回放送日時: <%= Time.parse(@episode_data.dig(:releasedEvent, :startDate)).strftime("%Y年%-m月%-d日 %H時%M分") %></span>
             </div>
           </div>
         </div>
-        <%= render 'shared/embed_footer_episode' %>
+        <%#= render 'shared/embed_footer_episode' %>
       </div>
 
       <!-- width:276px -- width:464px-->
       <div class="xxxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
-        <div class="sm:text-lg">
-          <div class="col-span-12">
+        <div class="pb-2 grid grid-cols-12 gap-3 mb-auto sm:text-lg">
+          <div class="col-span-6">
             <img
               decoding="async"
               src="<%= episode_image_src %>"
               class="rounded-sm"
               alt="<%= @episode_data[:name] %>"/>
-            <div class="my-2"></div>
+          </div>
+          <div class="col-span-6">
             <div class="text-xs">
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
-            <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= @episode_data[:name] %></div>
-            <div class="text-gray-350 text-xs flex items-center mt-2">
-              <span class="material-icons md-18">event</span>
-              <span class="ml-1">初回放送日時: <%= Time.parse(@episode_data.dig(:releasedEvent, :startDate)).strftime("%Y年%-m月%-d日 %H時%M分") %></span>
+            <div class="font-bold text-md mt-1 mb-2 line-clamp-2"><%= @episode_data[:name] %></div>
+          </div>
+          <div class="col-span-12">
+            <div class="text-gray-350 text-xs mt-2">
+              <span class="material-icons md-18 align-middle">event</span>
+              <span class="align-middle">初回放送日時: <%= Time.parse(@episode_data.dig(:releasedEvent, :startDate)).strftime("%Y年%-m月%-d日 %H時%M分") %></span>
+            </div>
+            <div class="text-gray-350 text-xs mt-2 line-clamp-2">
+              <%= @episode_data[:description] %>
             </div>
           </div>
         </div>
@@ -204,20 +203,26 @@
       <!-- > width:464px-->
       <div class="xxxs:hidden xxs:hidden flex flex-col justify-between h-full p-3">
         <div class="pb-2 grid grid-cols-12 gap-3 mb-auto sm:text-lg">
-          <div class="col-span-12">
+          <div class="col-span-5">
             <img
               decoding="async"
               src="<%= episode_image_src %>"
               class="rounded-sm"
               alt="<%= @episode_data[:name] %>"/>
-            <div class="my-2"></div>
+          </div>
+          <div class="col-span-7">
             <div class="text-xs">
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
-            <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= @episode_data[:name] %></div>
-            <div class="text-gray-350 text-xs flex items-center mt-2">
-              <span class="material-icons md-18">event</span>
-              <span class="ml-1">初回放送日時: <%= Time.parse(@episode_data.dig(:releasedEvent, :startDate)).strftime("%Y年%-m月%-d日 %H時%M分") %></span>
+            <div class="font-bold text-md mt-1 mb-2 line-clamp-2"><%= @episode_data[:name] %></div>
+            <div class="text-gray-350 text-xs mt-2">
+              <span class="material-icons md-18 align-middle">event</span>
+              <span class="align-middle">初回放送日時: <%= Time.parse(@episode_data.dig(:releasedEvent, :startDate)).strftime("%Y年%-m月%-d日 %H時%M分") %></span>
+            </div>
+          </div>
+          <div class="col-span-12">
+            <div class="text-gray-350 text-xs mt-2 line-clamp-2">
+              <%= @episode_data[:description] %>
             </div>
           </div>
         </div>
