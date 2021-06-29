@@ -6,12 +6,12 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - "4306:3306"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --ft_min_word_len=1
     volumes:
       - db-data:/var/lib/mysql
-      - ./mysqlconf:/etc/mysql/conf.d
   rails:
     build: .
-    command: bash -c "rm /app/tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
+    command: bash -c "rm -f ./tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
     volumes:
       - .:/app
       - bundle:/bundle
