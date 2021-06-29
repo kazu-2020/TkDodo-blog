@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   frontend:
@@ -8,7 +8,7 @@ services:
     tty: true
     command: yarn dev
     environment:
-      API_URL: 'http://web:8888'
+      API_URL: "http://web:8888"
     volumes:
       - ./frontend:/app
     ports:
@@ -22,25 +22,25 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - "4306:3306"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --ft_min_word_len=1
     volumes:
       - db-data:/var/lib/mysql
-      - ./mysqlconf:/etc/mysql/conf.d
   web:
     build:
-      context: ./backend
+      context: ./api-eh
       dockerfile: Dockerfile
-    command: bash -c "bundle exec jets server --host 0.0.0.0"
+    command: bash -c "rm -f ./tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
     ports:
-      - 8888:8888
+      - 8888:3000
     environment:
       - DB_HOST=db
-      - JETS_ENV=${JETS_ENV:-development}
+      - RAILS_ENV=${RAILS_ENV:-development}
     depends_on:
       - db
     tty: true
     stdin_open: true
     volumes:
-      - ./backend:/app
+      - ./api-eh:/app
       - bundle:/bundle
   e2e:
     build:
