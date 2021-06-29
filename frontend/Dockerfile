@@ -9,7 +9,7 @@ WORKDIR $APP_HOME
 RUN apk update && \
 	yarn install && \
 	yarn global add @vue/cli && \
-  rm -rf /var/cache/apk/*
+	rm -rf /var/cache/apk/*
 
 COPY package.json yarn.lock $APP_HOME/
 RUN yarn install
