@@ -1,7 +1,7 @@
 resource "aws_alb" "alb" {
   name = "${local.env_resource_prefix}-lb"
   security_groups = [
-    "${lookup(var.lb_security_grouop, "${terraform.workspace}")}"
+    "${lookup(var.lb_security_group, "${terraform.workspace}")}"
   ]
 
   subnets = [

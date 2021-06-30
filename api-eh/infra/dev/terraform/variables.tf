@@ -63,7 +63,7 @@ variable "subnet_public_d" {
   }
 }
 
-variable "app_security_grouop" {
+variable "app_security_group" {
   default = {
     # tomigaya-dev-internal-sg
     dev        = "sg-0aeb9fe5497f55bce"
@@ -72,7 +72,7 @@ variable "app_security_grouop" {
   }
 }
 
-variable "lb_security_grouop" {
+variable "lb_security_group" {
   default = {
     # tomigaya-dev-lb-sg
     dev        = "sg-0686c11971a0fafbb"
