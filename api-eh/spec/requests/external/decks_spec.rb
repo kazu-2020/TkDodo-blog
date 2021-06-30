@@ -8,6 +8,7 @@ describe External::DecksController, type: :request do
 
     before do
       create(:deck, area: area)
+      create(:deck, area: area, is_r5: true)
     end
 
     context 'when contains valid area' do
@@ -26,6 +27,11 @@ describe External::DecksController, type: :request do
       context 'and path is "visible"' do
         it 'pathes include "dk" and returns success response' do
           get '/d6.6/t/ndeck/dk/recommend-visible.json', params: { area: area }
+          expect(response.status).to eq 200
+        end
+
+        it 'pathes include "dk" and "r5" returns success response' do
+          get '/d6.6/t/ndeck/dk/recommend-visible-r5.json', params: { area: area }
           expect(response.status).to eq 200
         end
 
