@@ -1,4 +1,4 @@
-FROM ruby:3.0.1-alpine3.11
+FROM ruby:3.0.1-alpine
 
 ENV LANG C.UTF-8
 RUN apk upgrade && \
