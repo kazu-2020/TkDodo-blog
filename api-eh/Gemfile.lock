@@ -240,7 +240,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.11.7-x86_64-linux)
       racc (~> 1.4)
-    ostruct (0.1.0)
     parallel (1.20.1)
     parser (3.0.1.1)
       ast (~> 2.4.1)
@@ -413,7 +412,6 @@ DEPENDENCIES
   listen (~> 3.3)
   multi_json
   mysql2 (~> 0.5)
-  ostruct (= 0.1.0)
   pipedream
   pry-byebug
   puma (~> 5.0)
