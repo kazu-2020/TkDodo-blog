@@ -1,7 +1,7 @@
 # このDockerfileは本番のecs環境で動作します。
 # ローカル用のDockerfileとの整合性に注意して変更すること。
 # containers/local/rails/Dockerfile
-FROM ruby:2.7.2
+FROM ruby:3.0.1
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
