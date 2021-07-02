@@ -7,7 +7,7 @@ class PlaylistItem < ApplicationRecord
   extend FriendlyId
   friendly_id :episode_id
 
-  belongs_to :playlist
+  belongs_to :playlist, optional: true
   counter_culture :playlist
   counter_culture :playlist, column_name: 'total_time', delta_column: 'duration'
   acts_as_list scope: :playlist
