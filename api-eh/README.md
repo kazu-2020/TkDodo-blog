@@ -42,3 +42,6 @@ https://github.com/d7lab/aw-editorialhands/tree/master/api-eh/infra/dev/terrafor
 ### Terraform で反映
 
 [Terrafrom README](https://github.com/d7lab/aw-editorialhands/blob/master/api-eh/infra/dev/terraform/README.md) を参照してください。
+
+## Rubyのバージョンアップ
+参考PR: https://github.com/d7lab/aw-editorialhands/pull/644
