@@ -294,6 +294,17 @@ describe Playlist, type: :model do
   describe '#rebuild_episode_list_to' do
     let(:playlist) { create(:playlist, :with_playlist_items) }
 
+    before do
+      json =
+        File.open(Rails.root.join('spec/fixtures/payloads/te_PG3Z16Q145.json')) do |file|
+          json_string = file.read
+          JSON.parse(json_string, symbolize_names: true)
+        end
+      client = instance_double(DlabApiClient)
+      allow(DlabApiClient).to receive(:new).and_return(client)
+      allow(client).to receive(:episode_bundle).with(any_args).and_return(json)
+    end
+
     context 'when new episodes added' do
       let(:episode_ids) do
         ['NEWEP1', playlist.playlist_items.pluck(:episode_id)].flatten
