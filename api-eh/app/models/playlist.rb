@@ -66,6 +66,7 @@ class Playlist < ApplicationRecord
   before_create :set_default_color
   after_create :link_article_images
   before_save :generate_derivatives
+  before_save :update_sub_type_count
 
   class << self
     def assign_from_series(series_id)
@@ -326,6 +327,28 @@ class Playlist < ApplicationRecord
     eyecatch_image_derivatives! if will_save_change_to_eyecatch_image_data? && eyecatch_image.present?
     hero_image_derivatives! if will_save_change_to_hero_image_data? && hero_image.present?
   end
+
+  # rubocop: disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def update_sub_type_count
+    client = DlabApiClient.new
+
+    result = { event_count: 0, how_to_count: 0, faq_page_count: 0 }
+
+    playlist_items.each do |item|
+      data =
+        begin
+          client.episode_bundle(type: 'tv', episode_id: item.episode_id)
+        rescue DlabApiClient::NotFound
+          {}
+        end
+
+      result[:faq_page_count] += data[:faqpage].size if data[:faqpage] && !data[:faqpage].empty?
+      result[:event_count] += data[:event].size if data[:event] && !data[:event].empty?
+      result[:how_to_count] += data[:howto].size if data[:howto] && !data[:howto].empty?
+    end
+    assign_attributes(result)
+  end
+  # rubocop: enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def require_author_name_and_type
     if author_type.present?

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_171000) do
+ActiveRecord::Schema.define(version: 2021_07_05_154400) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -103,6 +103,9 @@ ActiveRecord::Schema.define(version: 2021_04_19_171000) do
     t.string "d5_playlist_id", comment: "r5 デッキのプレイリストID"
     t.integer "playlist_items_count", default: 0, null: false, comment: "エピソード数"
     t.integer "playable_playlist_items_count", default: 0, comment: "再生可能なエピソード数"
+    t.integer "faq_page_count", default: 0, null: false, comment: "FAQページ数"
+    t.integer "how_to_count", default: 0, null: false, comment: "ハウツー数"
+    t.integer "event_count", default: 0, null: false, comment: "イベント数"
     t.integer "total_time", default: 0, comment: "プレイリストの総時間"
     t.integer "playable_total_time", default: 0, comment: "プレイリスト再生可能時間"
     t.text "marked_header", comment: "ヘッダー"

@@ -13,4 +13,12 @@ namespace :playlists do
   task import_r5_playlists: :environment do
     R5PlaylistsImporter.new.execute
   end
+
+  desc 'プレイリストの SubType カウントの集計'
+  task update_subtypes: :environment do
+    Playlist.all.each do |playlist|
+      playlist.record_timestamps = false
+      playlist.save
+    end
+  end
 end
