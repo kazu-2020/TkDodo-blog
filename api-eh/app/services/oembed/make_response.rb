@@ -3,14 +3,13 @@
 class Oembed::MakeResponse
   include ActiveModel::Validations
 
-  attr_reader :url, :max_width, :max_height
+  attr_reader :url, :height
 
   validates :url, presence: true
 
-  def initialize(url:, max_width: nil, max_height: nil)
+  def initialize(url:, height: nil)
     @url = url
-    @max_width = max_width.to_i.zero? ? nil : max_width.to_i
-    @max_height = max_height.to_i.zero? ? nil : max_height.to_i
+    @height = height.to_i.zero? ? nil : height.to_i
   end
 
   def call
@@ -26,17 +25,17 @@ class Oembed::MakeResponse
   # rubocop:disable Metrics/AbcSize
   def responser
     if series_url?
-      Oembed::Response::Series.new(url: url, max_width: max_width, max_height: max_height)
+      Oembed::Response::Series.new(url: url, height: height)
     elsif episode_url?
-      Oembed::Response::Episode.new(url: url, max_width: max_width, max_height: max_height)
+      Oembed::Response::Episode.new(url: url, height: height)
     elsif howto_url?
-      Oembed::Response::Howto.new(url: url, max_width: max_width, max_height: max_height)
+      Oembed::Response::Howto.new(url: url, height: height)
     elsif event_url?
-      Oembed::Response::Event.new(url: url, max_width: max_width, max_height: max_height)
+      Oembed::Response::Event.new(url: url, height: height)
     elsif faq_page_url?
-      Oembed::Response::FaqPage.new(url: url, max_width: max_width, max_height: max_height)
+      Oembed::Response::FaqPage.new(url: url, height: height)
     else
-      Oembed::Response::Dummy.new(url: url, max_width: max_width, max_height: max_height)
+      Oembed::Response::Dummy.new(url: url, height: height)
     end
   end
   # rubocop:enable Metrics/AbcSize

@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 module Oembed::Response::Respondable
-  attr_reader :url, :max_width, :max_height
+  attr_reader :url, :height
 
-  def initialize(url:, max_width:, max_height:)
+  def initialize(url:, height:)
     @url = url
-    @max_width = max_width || 620
-    @max_height = max_height
+    @height = height
   end
 
   def response
