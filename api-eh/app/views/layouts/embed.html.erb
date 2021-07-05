@@ -3,9 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= javascript_pack_tag 'application' %>
+  <%= stylesheet_pack_tag "oembed", "data-turbo-track": "reload" %>
   <style>
       :root {
           --bg-color-light: #fafafa;
