@@ -3,7 +3,7 @@
 class Oembed::Response::Event
   include Oembed::Response::Respondable
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   def response
     # NOTE: prd環境で登録が少ないため一旦devを見るように
     res = DlabApiClient.new(api_endpoint: 'https://dev-api.nr.nhk.jp').event(event_id: extract_event_id)
@@ -12,10 +12,10 @@ class Oembed::Response::Event
     raise DlabApiClient::NotFound if episode_id.blank?
 
     src = "#{src_host}/embed/te/#{episode_id}/event/#{extract_event_id}"
-    height = max_height || 200
+    height ||= 200
     {
       version: '1.0',
-      width: max_width,
+      width: 620,
       height: height,
       type: 'rich',
       provider_name: 'NHK',
@@ -25,10 +25,10 @@ class Oembed::Response::Event
       thumbnail_width: res.dig(:image, :medium, :width) || 640,
       thumbnail_height: res.dig(:image, :medium, :height) || 360,
       thumbnail_url: res.dig(:image, :medium, :url) || 'http://placehold.jp/640x360.png',
-      html: "<iframe width=\"#{max_width}\" height=\"#{height}\" src=\"#{src}\" frameborder=\"0\"></iframe>"
+      html: "<iframe width=\"100%\" height=\"#{height}\" src=\"#{src}\" frameborder=\"0\"></iframe>"
     }
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   private
 

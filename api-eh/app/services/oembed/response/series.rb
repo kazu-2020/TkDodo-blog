@@ -6,10 +6,10 @@ class Oembed::Response::Series
   # rubocop:disable Metrics/MethodLength
   def response
     src = "#{src_host}/embed/#{extract_series_url}"
-    height = max_height || 200
+    height ||= 200
     {
       version: '1.0',
-      width: max_width,
+      width: 620,
       height: height,
       type: 'rich',
       provider_name: 'NHK',
@@ -19,7 +19,7 @@ class Oembed::Response::Series
       thumbnail_width: 640,
       thumbnail_height: 360,
       thumbnail_url: 'http://placehold.jp/640x360.png',
-      html: "<iframe width=\"#{max_width}\" height=\"#{height}\" src=\"#{src}\" frameborder=\"0\"></iframe>"
+      html: "<iframe width=\"100%\" height=\"#{height}\" src=\"#{src}\" frameborder=\"0\"></iframe>"
     }
   end
   # rubocop:enable Metrics/MethodLength
