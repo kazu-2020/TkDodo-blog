@@ -17,8 +17,7 @@ namespace :playlists do
   desc 'プレイリストの SubType カウントの集計'
   task update_subtypes: :environment do
     Playlist.all.each do |playlist|
-      playlist.record_timestamps = false
-      playlist.save
+      playlist.update_sub_type_count!
     end
   end
 end
