@@ -13,4 +13,9 @@ namespace :playlists do
   task import_r5_playlists: :environment do
     R5PlaylistsImporter.new.execute
   end
+
+  desc 'プレイリストの SubType カウントの集計'
+  task update_subtypes: :environment do
+    Playlist.all.each(&:update_sub_type_count!)
+  end
 end

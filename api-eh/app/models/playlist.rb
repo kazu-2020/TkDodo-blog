@@ -282,6 +282,30 @@ class Playlist < ApplicationRecord
   end
   # rubocop: enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
 
+  # rubocop: disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def update_sub_type_count!
+    client = DlabApiClient.new
+
+    result = { event_count: 0, how_to_count: 0, faq_page_count: 0 }
+
+    playlist_items.each do |item|
+      data =
+        begin
+          client.episode_bundle(type: 'tv', episode_id: item.episode_id)
+        rescue DlabApiClient::NotFound
+          {}
+        end
+
+      result[:faq_page_count] += data[:faqpage].size if data[:faqpage] && !data[:faqpage].empty?
+      result[:event_count] += data[:event].size if data[:event] && !data[:event].empty?
+      result[:how_to_count] += data[:howto].size if data[:howto] && !data[:howto].empty?
+    end
+    assign_attributes(result)
+
+    save!
+  end
+  # rubocop: enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
   private
 
   def generate_string_id

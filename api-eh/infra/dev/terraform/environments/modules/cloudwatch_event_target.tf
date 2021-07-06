@@ -90,3 +90,34 @@ resource "aws_cloudwatch_event_target" "playlists_import_r5_playlists" {
     }
   }
 }
+
+resource "aws_cloudwatch_event_rule" "playlists_update_subtypes" {
+  name                  = "playlists_update_subtypes"
+  description           = "プレイリストのサブタイプ数を更新"
+  schedule_expression   = "rate(3 hours)"
+}
+
+resource "aws_cloudwatch_event_target" "playlists_update_subtypes" {
+  target_id      = "playlists_update_subtypes"
+  arn            = aws_ecs_cluster.ecs_cluster.arn
+  rule           = aws_cloudwatch_event_rule.playlists_update_subtypes.name
+  role_arn       = aws_iam_role.iam_role_event.arn
+  input          = file("${path.module}/cloudwatch_event_targets/playlists_update_subtypes.json")
+
+  ecs_target {
+    launch_type               = "FARGATE"
+    task_count                = 1
+    task_definition_arn       = "arn:aws:ecs:ap-northeast-1:${var.aws_account_id}:task-definition/${local.env_resource_prefix}"
+    platform_version          = "1.4.0"
+    network_configuration {
+      subnets = [
+        "${lookup(var.subnet_private_a, "${terraform.workspace}")}",
+        "${lookup(var.subnet_private_c, "${terraform.workspace}")}",
+      ]
+      security_groups = [
+        "${lookup(var.app_security_group, "${terraform.workspace}")}",
+      ]
+      assign_public_ip = true
+    }
+  }
+}
