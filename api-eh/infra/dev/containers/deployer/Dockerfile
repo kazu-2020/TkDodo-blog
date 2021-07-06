@@ -4,7 +4,7 @@ ENV PATH /root/.local/bin:$PATH
 ENV LANG C.UTF-8
 ENV DOCKER_VERSION=18.09.6
 RUN set -ex \
-  && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+  && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
   && apt-get update \
   && apt-get install -y \
   nodejs \
