@@ -19,7 +19,7 @@ aw-editorialhands/api-eh ディレクトリにいる状態で下記コマンド
 
 ```
 #バージョンは適宜変更
-export DEPLOYER_VERSION=v3
+export DEPLOYER_VERSION=v4
 
 # build containerビルド
 docker build -t 359601428599.dkr.ecr.ap-northeast-1.amazonaws.com/aw-editorialhands-deployer:${DEPLOYER_VERSION} infra/dev/containers/deployer
