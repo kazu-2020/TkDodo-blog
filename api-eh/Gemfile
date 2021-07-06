@@ -35,6 +35,7 @@ gem 'multi_json'
 gem 'redcarpet'
 gem 'shrine', github: 'shrinerb/shrine'
 gem 'slack-incoming-webhooks'
+gem 'tailwindcss-rails'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
