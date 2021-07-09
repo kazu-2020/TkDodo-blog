@@ -14,6 +14,16 @@ resource "aws_wafregional_regex_match_set" "block_regexp_match" {
   }
 }
 
+resource "aws_wafregional_ipset" "allow_ipset" {
+  name = "${local.env_resource_prefix}-allowed-ipset"
+
+  // kodera-san
+  ip_set_descriptor {
+    type  = "IPV4"
+    value = "182.171.239.19/32"
+  }
+}
+
 resource "aws_wafregional_regex_pattern_set" "block_regexp_pattern" {
   name = "${local.env_resource_prefix}-block-regexp-pattern"
 
@@ -33,6 +43,19 @@ resource "aws_wafregional_rule" "alb_rule" {
   }
 }
 
+resource "aws_wafregional_rule" "alb_ip_rule" {
+  name        = "${local.env_resource_prefix}-alb-ip-rule"
+  metric_name = "${replace(var.name, "-", "")}${terraform.workspace}albacl"
+  depends_on  = [aws_wafregional_ipset.allow_ipset]
+
+  predicate {
+    data_id = "${aws_wafregional_ipset.allow_ipset.id}"
+    negated = false
+    type    = "IPMatch"
+  }
+}
+
+
 resource "aws_wafregional_web_acl" "alb_acl" {
   name        = "${local.env_resource_prefix}-alb-acl"
   metric_name = "${replace(var.name, "-", "")}${terraform.workspace}albacl"
@@ -47,6 +70,14 @@ resource "aws_wafregional_web_acl" "alb_acl" {
     }
 
     priority = 1
+    rule_id  = "${aws_wafregional_rule.alb_ip_rule.id}"
+  }
+  rule {
+    action {
+      type = "ALLOW"
+    }
+
+    priority = 2
     rule_id  = "${aws_wafregional_rule.alb_rule.id}"
   }
 }
