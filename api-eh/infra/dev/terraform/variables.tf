@@ -104,8 +104,8 @@ variable "cf_certificate_arn" {
 
 variable "web_acl" {
   default = {
-    # tomigaya-team-acl
-    "dev.id"        = "9bd95a93-2a49-465f-b981-4ae3acabff98"
+    # tomigaya-developer-acl
+    "dev.id"        = "e3c024fa-7dfa-4856-ae70-6f2936d19494"
     "staging.id"    = ""
     "production.id" = ""
   }
