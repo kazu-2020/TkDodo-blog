@@ -37,6 +37,7 @@ resource "aws_iam_role_policy" "app_role_policy" {
             ],
             "Resource": [
                 "arn:aws:s3:::${aws_s3_bucket.assets.bucket}/*",
+                "arn:aws:s3:::${aws_s3_bucket.assets.bucket}/",
                 "arn:aws:s3:::${data.terraform_remote_state.shared_resources.outputs.resources_bucket.bucket}/*",
                 "arn:aws:s3:::${data.terraform_remote_state.shared_resources.outputs.resources_bucket.bucket}",
                 "arn:aws:s3:::tomigaya-dev-aw-editorialhands-resources/*",
