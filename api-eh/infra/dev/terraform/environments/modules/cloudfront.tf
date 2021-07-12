@@ -127,7 +127,7 @@ resource "aws_cloudfront_distribution" "front_distribution" {
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "${aws_s3_bucket.assets.id}"
     compress         = true
-    path_pattern     = "${terraform.workspace}/packs/*"
+    path_pattern     = "packs/*"
 
     forwarded_values {
       query_string = true
