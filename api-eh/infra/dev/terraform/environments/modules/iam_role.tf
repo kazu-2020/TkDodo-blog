@@ -42,6 +42,16 @@ resource "aws_iam_role_policy" "app_role_policy" {
                 "arn:aws:s3:::tomigaya-dev-aw-editorialhands-resources/*",
                 "arn:aws:s3:::tomigaya-dev-aw-editorialhands-resources"
             ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ssmmessages:CreateControlChannel",
+            "ssmmessages:CreateDataChannel",
+            "ssmmessages:OpenControlChannel",
+            "ssmmessages:OpenDataChannel"
+          ],
+          "Resource": "*"
         }
     ]
 }
