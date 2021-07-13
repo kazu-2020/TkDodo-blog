@@ -2615,16 +2615,16 @@
     lodash "^4.17.15"
     nanoid "^2.1.11"
 
-"@nuxtjs/axios@^5.12.5":
-  version "5.12.5"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-5.12.5.tgz#d4a1003052d21e54d93d97a895ca84f58e4bc8d9"
-  integrity sha512-KCZMLRZFYOKcGt9mKxJMH6UJMB6H6g+BF/YxXEYz3Urrf2U2XiNkj6rmBqgw0XLRY5XD9Wm8knTGp6955512fQ==
+"@nuxtjs/axios@^5.13.6":
+  version "5.13.6"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-5.13.6.tgz#6f4bbd98a3a7799a5d2c0726c6ad2a98aa111881"
+  integrity sha512-XS+pOE0xsDODs1zAIbo95A0LKlilvJi8YW0NoXYuq3/jjxGgWDxizZ6Yx0AIIjZOoGsXJOPc0/BcnSEUQ2mFBA==
   dependencies:
     "@nuxtjs/proxy" "^2.1.0"
     axios "^0.21.1"
     axios-retry "^3.1.9"
-    consola "^2.15.0"
-    defu "^3.2.2"
+    consola "^2.15.3"
+    defu "^5.0.0"
 
 "@nuxtjs/axios@^5.9.5":
   version "5.12.2"
@@ -3080,10 +3080,10 @@
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
   integrity sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
 
-"@types/nuxtjs__auth@^4.8.7":
-  version "4.8.7"
-  resolved "https://registry.yarnpkg.com/@types/nuxtjs__auth/-/nuxtjs__auth-4.8.7.tgz#d38c06c8d6594a985c81d3276039c84891ac2b6f"
-  integrity sha512-Y4msEIAW//Bl4+Ho0sz6E8vzIwpEGvN7hxog/AxNQTyqo5iJeStmOSeNfy0DTKUq2eyZA6Wg4sUOaUYyUyiq4Q==
+"@types/nuxtjs__auth@^4.8.8":
+  version "4.8.8"
+  resolved "https://registry.yarnpkg.com/@types/nuxtjs__auth/-/nuxtjs__auth-4.8.8.tgz#c1b80cf2c0430378c07a1338431b5b8687cab111"
+  integrity sha512-SAeQpSDDRz66R8NCpo3G0g19kbwz/I/ZX9hwIHFZIbYnesmea1fJi8Jf3pP9CX6JU/A7bgDiGG3HmdGlmJDUvw==
   dependencies:
     vue "^2.6.10"
 
@@ -6347,11 +6347,6 @@ defu@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/defu/-/defu-3.1.0.tgz#a6b5104cacc06aa1efa01923becddbedd32505e8"
   integrity sha512-pc7vS4wbYFtsRL+OaLHKD72VcpOz9eYgzZeoLz9pCs+R8htyPdZnD1CxKP9ttZuT90CLPYFTSaTyc3/7v4gG9A==
-
-defu@^3.2.2:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/defu/-/defu-3.2.2.tgz#be20f4cc49b9805d54ee6b610658d53894942e97"
-  integrity sha512-8UWj5lNv7HD+kB0e9w77Z7TdQlbUYDVWqITLHNqFIn6khrNHv5WQo38Dcm1f6HeNyZf0U7UbPf6WeZDSdCzGDQ==
 
 defu@^4.0.1:
   version "4.0.1"
