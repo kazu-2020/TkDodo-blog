@@ -12,6 +12,8 @@ class Embed::EpisodesController < EmbedController
     render 'embed/not_found', status: :not_found
   end
 
+  private
+
   def embed_episode_params
     params.permit(:series_id, :episode_id, :height)
   end
