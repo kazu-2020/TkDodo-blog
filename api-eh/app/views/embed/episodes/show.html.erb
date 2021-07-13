@@ -73,7 +73,7 @@
 
 <div class="embed embed-episode rounded-sm shadow-md text-white border border-gray-450">
   <a href="<%= @episode_data[:url] %>" target="_blank">
-    <!-- - height:230px -->
+    <!-- <= height:250px -->
     <div class="card:hidden h-full">
       <!-- < width:241px-->
       <div class="xxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
@@ -91,7 +91,7 @@
             <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= @episode_data[:name] %></div>
           </div>
         </div>
-        <%#= render 'shared/embed_footer_episode' %>
+        <%#= render 'shared/embed_footer' %>
       </div>
 
       <!-- width:276px -- width:464px-->
@@ -115,7 +115,7 @@
             </div>
           </div>
         </div>
-        <%= render 'shared/embed_footer_episode' %>
+        <%= render 'shared/embed_footer' %>
       </div>
 
       <!-- > width:464px-->
@@ -142,11 +142,11 @@
             </div>
           </div>
         </div>
-        <%= render 'shared/embed_footer_episode' %>
+        <%= render 'shared/embed_footer' %>
       </div>
     </div>
 
-    <!-- >= height:231px -->
+    <!-- >= height:251px -->
     <div class="small:hidden h-full">
       <!-- < width:241px-->
       <div class="xxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
@@ -168,7 +168,7 @@
             </div>
           </div>
         </div>
-        <%#= render 'shared/embed_footer_episode' %>
+        <%#= render 'shared/embed_footer' %>
       </div>
 
       <!-- width:276px -- width:464px-->
@@ -197,7 +197,7 @@
             </div>
           </div>
         </div>
-        <%= render 'shared/embed_footer_episode' %>
+        <%= render 'shared/embed_footer' %>
       </div>
 
       <!-- > width:464px-->
@@ -226,7 +226,7 @@
             </div>
           </div>
         </div>
-        <%= render 'shared/embed_footer_episode' %>
+        <%= render 'shared/embed_footer' %>
       </div>
     </div>
   </a>

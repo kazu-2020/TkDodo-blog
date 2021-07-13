@@ -5,6 +5,7 @@ module Embed::EpisodesHelper
     eyecatch_image_url || keyvisual_url || '//via.placeholder.com/640x360'
   end
 
+  # TODO: episodeのeyecatchが無かった時にseriesのeyecatchを表示する
   def eyecatch_image_url
     @episode_data.dig(:eyecatch, :medium,
                       :url) || @episode_data.dig(:eyecatch, :tver, :url) || @episode_data.dig(:eyecatch, :main, :url)
