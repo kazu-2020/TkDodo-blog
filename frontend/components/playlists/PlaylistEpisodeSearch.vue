@@ -74,6 +74,7 @@
     </v-row>
     <v-row id="episode-search-result">
       <v-col v-if="episodes.length !== 0" cols="12">
+        <div class="body-2 ml-1">全 {{ totalSearchResult }} 件</div>
         <v-simple-table>
           <template #default>
             <thead>
@@ -274,7 +275,7 @@ export default Vue.extend({
           if (this.episodes.length <= pageSize) {
             this.$scrollTo('#episode-search-result', 1400, {
               easing: [0, 0, 0.1, 1],
-              offset: -185,
+              offset: -195,
             })
           }
         })
