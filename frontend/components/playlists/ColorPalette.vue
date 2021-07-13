@@ -69,7 +69,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { VColorPickerColor } from 'vuetify/src/components/VColorPicker/util'
 import {
   adjustPrimaryDarkColor,
   adjustPrimaryLightColor,
@@ -127,8 +126,8 @@ export default Vue.extend({
       const element = event.target as HTMLInputElement
       this.emitAdjustedColors(element.value)
     },
-    onUpdatePicker(colorObject: VColorPickerColor) {
-      this.emitAdjustedColors(colorObject.hex)
+    onUpdatePicker(colorObject: any) {
+      this.emitAdjustedColors(colorObject?.hex)
     },
     emitAdjustedColors(colorHex: string) {
       this.$emit('update:selectedPalette', colorHex)

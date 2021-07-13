@@ -220,7 +220,7 @@ import BasicInformationView from '~/components/playlists/BasicInformationView.vu
 import HorizontalBasicInformationView from '~/components/playlists/HorizontalBasicInformationView.vue'
 import SeriesMetaEditTab from '~/components/playlists/SeriesMetaEditTab.vue'
 import { PlaylistTab } from '~/models/definitions'
-import unloadAlertMixin from '~/components/common/unloadAlertMixin.ts'
+import unloadAlertMixin from '~/components/common/unloadAlertMixin'
 import ArticleSavedDialog from '~/components/playlists/ArticleSavedDialog.vue'
 
 interface Breadcrumb {

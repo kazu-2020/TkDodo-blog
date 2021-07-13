@@ -31,19 +31,17 @@ describe('store/loading.ts', () => {
       state = store.state
     })
     describe('startLoading', () => {
-      it('state が変わりメッセージがセットされる', async (done) => {
+      it('state が変わりメッセージがセットされる', async () => {
         action = 'startLoading'
         await testedAction({ commit, state }, 'hello')
         expect(store.getters.state).toBe('loading')
         expect(store.getters.messages).toBe('hello')
-
-        done()
       })
     })
 
     describe('succeedLoading', () => {
       describe('state が loading の場合', () => {
-        it('state が success になること', async (done) => {
+        it('state が success になること', async () => {
           store.replaceState({
             state: 'loading',
           })
@@ -51,13 +49,11 @@ describe('store/loading.ts', () => {
           action = 'succeedLoading'
           await testedAction({ commit, state })
           expect(store.getters.state).toBe('success')
-
-          done()
         })
       })
 
       describe('state が none の場合', () => {
-        it('state が変わらず none のままになる', async (done) => {
+        it('state が変わらず none のままになる', async () => {
           store.replaceState({
             state: 'none',
           })
@@ -65,15 +61,13 @@ describe('store/loading.ts', () => {
           action = 'succeedLoading'
           await testedAction({ commit, state })
           expect(store.getters.state).toBe('none')
-
-          done()
         })
       })
     })
 
     describe('failLoading', () => {
       describe('state が loading の場合', () => {
-        it('state が error になること', async (done) => {
+        it('state が error になること', async () => {
           store.replaceState({
             state: 'loading',
           })
@@ -81,13 +75,11 @@ describe('store/loading.ts', () => {
           action = 'failLoading'
           await testedAction({ commit, state })
           expect(store.getters.state).toBe('error')
-
-          done()
         })
       })
 
       describe('state が none の場合', () => {
-        it('state が変わらず none のままになる', async (done) => {
+        it('state が変わらず none のままになる', async () => {
           store.replaceState({
             state: 'none',
           })
@@ -95,14 +87,12 @@ describe('store/loading.ts', () => {
           action = 'failLoading'
           await testedAction({ commit, state })
           expect(store.getters.state).toBe('none')
-
-          done()
         })
       })
     })
 
     describe('resetLoadingState', () => {
-      it('state が none になること', async (done) => {
+      it('state が none になること', async () => {
         store.replaceState({
           state: 'loading',
         })
@@ -110,8 +100,6 @@ describe('store/loading.ts', () => {
         action = 'resetLoadingState'
         await testedAction({ commit, state })
         expect(store.getters.state).toBe('none')
-
-        done()
       })
     })
   })
