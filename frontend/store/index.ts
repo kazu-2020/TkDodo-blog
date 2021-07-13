@@ -1,4 +1,4 @@
-import { getAccessorType } from 'nuxt-typed-vuex'
+import { getAccessorType } from 'typed-vuex'
 
 import * as loading from './loading'
 import * as playlists from './playlists'
