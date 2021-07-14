@@ -110,7 +110,9 @@
                     color="amber"
                     class="mr-4"
                   />
-                  さらに読み込む
+                  {{ nextPageStartIndex }}-{{
+                    nextPageEndIndex
+                  }}件目を読み込む/全{{ totalSearchResult }}件
                 </td>
               </tr>
             </tbody>
@@ -216,6 +218,15 @@ export default Vue.extend({
         this.$emit('update:keywords', value)
       },
     },
+    pageSize(): number {
+      return 10
+    },
+    nextPageStartIndex(): number {
+      return this.searchOffset + 1
+    },
+    nextPageEndIndex(): number {
+      return Math.min(this.searchOffset + this.pageSize, this.totalSearchResult)
+    },
   },
   watch: {
     searchTriggerCount: {
@@ -250,14 +261,13 @@ export default Vue.extend({
       clearCurrentEpisodes: boolean
     }) {
       this.loading = true
-      const pageSize = 10
 
       if (clearCurrentEpisodes) {
         this.episodes = []
         this.searchOffset = 0
       }
 
-      let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}&size=${pageSize}`
+      let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}&size=${this.pageSize}`
       if (this.filterService) {
         // FIXME: e2 を加えると BadRequest になるため、一旦除外
         searchUrl = searchUrl + '&service=g1,g2,e1,e3'
@@ -268,11 +278,11 @@ export default Vue.extend({
           this.episodes = this.episodes.concat(res.data.items)
           this.totalSearchResult = res.data.total
           this.isNoResult = this.totalSearchResult === 0
-          this.searchOffset += pageSize
+          this.searchOffset += this.pageSize
         })
         .finally(() => {
           this.loading = false
-          if (this.episodes.length <= pageSize) {
+          if (this.episodes.length <= this.pageSize) {
             this.$scrollTo('#episode-search-result', 1400, {
               easing: [0, 0, 0.1, 1],
               offset: -195,
