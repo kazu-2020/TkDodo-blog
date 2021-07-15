@@ -127,8 +127,23 @@
           <div class="col-span-7">
             <div class="text-xs">
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+              <span class="border border-gray-350 text-xs p-1 ml-1 rounded-sm text-white text-center" style="font-size: 10px;">
+                <%= event_date_status_label %>
+              </span>
             </div>
-            <div class="font-bold text-md mt-1 mb-2 line-clamp-2"><%= @event_data[:name] %></div>
+
+            <div class="grid grid-cols-12 gap-8">
+              <div class="col-span-2">
+                <div class="p-1 h-14 w-14">
+                  <div class="bg-white h-full w-full">99</div>
+                </div>
+              </div>
+              <div class="col-span-10">
+                <div class="font-bold text-md mt-1 mb-2 line-clamp-2">
+                  <%= @event_data[:name] %>
+                </div>
+              </div>
+            </div>
 
             <% unless blank_event_offers? %>
               <div class="grid grid-cols-12 gap-0">
