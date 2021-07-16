@@ -1,4 +1,4 @@
-FROM ruby:3.0.1
+FROM ruby:3.0.2
 
 ENV PATH /root/.local/bin:$PATH
 ENV LANG C.UTF-8
