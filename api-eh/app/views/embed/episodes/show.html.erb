@@ -137,9 +137,6 @@
               <span class="material-icons md-18 align-middle">event</span>
               <span class="align-middle">初回放送日時: <%= Time.parse(@episode_data.dig(:releasedEvent, :startDate)).strftime("%Y年%-m月%-d日 %H時%M分") %></span>
             </div>
-            <div class="text-gray-350 text-xs mt-2 line-clamp-2">
-              <%= @episode_data[:description] %>
-            </div>
           </div>
         </div>
         <%= render 'shared/embed_footer' %>
