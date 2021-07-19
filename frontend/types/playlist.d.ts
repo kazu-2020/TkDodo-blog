@@ -50,4 +50,5 @@ export interface Playlist {
   actor: Array<Object>
   contributor: Array<Object>
   article: Article
+  layoutPattern: string
 }

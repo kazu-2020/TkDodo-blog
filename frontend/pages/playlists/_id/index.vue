@@ -441,6 +441,7 @@ export default Vue.extend({
         publisher_name: this.playlist.article.publisherName,
         publisher_type: this.playlist.article.publisherType,
         published_state: this.playlist.publishedState,
+        layout_pattern: this.playlist.layoutPattern,
       }
 
       if (this.playlist.logoImageData) {
