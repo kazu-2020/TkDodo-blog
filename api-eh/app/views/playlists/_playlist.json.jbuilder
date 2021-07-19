@@ -44,6 +44,7 @@ end
 json.partial! 'shared/playlist_images', playlist: playlist
 json.itemNum playlist.playlist_items_count
 json.totalTime playlist.total_time
+json.layoutPattern playlist.layout_pattern
 json.browsableItemCount playlist.browsable_item_count
 json.hasHowTo playlist.playlist_items.any?(&:has_how_to)
 json.hasEvent playlist.playlist_items.any?(&:has_event)
