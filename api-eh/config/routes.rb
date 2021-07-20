@@ -67,6 +67,8 @@ Rails.application.routes.draw do
     get 'te/:episode_id/faqpage/:id', to: 'faqpages#show'
   end
 
+  get '/ogp', to: 'ogp#index'
+
   post '/slack/incoming_webhook', to: 'slack#incoming_webhook', format: 'json'
   get '/editor/fetch_link', to: 'editors#fetch_link', as: :fetch_link_editor, format: 'json'
 
