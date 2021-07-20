@@ -53,7 +53,6 @@ export default {
    */
   buildModules: [
     [
-      '@nuxtjs/eslint-module',
       '@nuxtjs/google-fonts',
       {
         families: { 'Noto Sans JP': true },
@@ -154,6 +153,7 @@ export default {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
           exclude: /(node_modules)/,
         })
       }
