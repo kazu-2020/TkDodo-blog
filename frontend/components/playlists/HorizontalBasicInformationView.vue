@@ -40,6 +40,14 @@
           >
             SeriesID: {{ playlistSeriesId }}
           </v-chip>
+          <v-chip
+            v-if="layoutPattern"
+            class="my-1"
+            color="purple darken-2 white--text"
+            small
+          >
+            {{ layoutPattern }}
+          </v-chip>
           <div class="mt-2">
             <v-tooltip
               v-for="(data, index) in actorsAndContributors"
@@ -170,6 +178,9 @@ export default Vue.extend({
     },
     plainBody(): string {
       return this.playlist?.article?.plainBody?.slice(0, 50) || ''
+    },
+    layoutPattern(): string | undefined {
+      return this.playlist?.layoutPattern
     },
   },
   methods: {
