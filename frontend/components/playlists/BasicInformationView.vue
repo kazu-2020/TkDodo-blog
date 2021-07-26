@@ -17,6 +17,14 @@
           >
             SeriesID: {{ playlistSeriesId }}
           </v-chip>
+          <v-chip
+            v-if="layoutPattern"
+            class="my-1"
+            color="purple darken-2 white--text"
+            small
+          >
+            {{ layoutPattern }}
+          </v-chip>
         </div>
       </v-col>
       <v-col cols="6">
@@ -132,6 +140,9 @@ export default Vue.extend({
     },
     playlistDescription(): string | undefined {
       return this.playlist?.description
+    },
+    layoutPattern(): string | undefined {
+      return this.playlist?.layoutPattern
     },
   },
   methods: {
