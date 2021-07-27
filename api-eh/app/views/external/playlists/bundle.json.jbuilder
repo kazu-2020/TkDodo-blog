@@ -72,7 +72,7 @@ json.nseries do
     end
   end
 
-  json.url "https://master.d32t4o5i7c0bll.amplifyapp.com/#/playlists/#{@playlist.string_id}"
+  json.url "https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/#{@playlist.original_id}"
 
   if @playlist.same_as.present?
     json.sameAs do
