@@ -3,10 +3,11 @@
 # aw-pl-webから呼び出されるリッチリンク対応のためのエンドポイント
 class OgpController < ApplicationController
   def index
-    res = ogp_params[:url] && Faraday.get(ogp_params[:url])
+    raise DlabApiBase::InternalServerError if ogp_params[:url].blank?
 
-    if res&.success?
-      render json: make_json(res)
+    json = playlist_page_url? ? parse_playlist : parse_html
+    if json
+      render json: json
     else
       render json: { message: "Error. url: #{ogp_params[:url]}" }
     end
@@ -18,6 +19,22 @@ class OgpController < ApplicationController
     OGP::OpenGraph.new(body)
   rescue
     nil
+  end
+
+  def parse_playlist
+    playlist_id = ogp_params[:url][playlist_page_url_regex, 1].to_i
+    pl = Playlist.find(playlist_id)
+
+    { title: pl.name,
+      description: pl.description,
+      image: pl.eyecatch_image_url || 'https://placehold.jp/640x360.png' }
+  end
+
+  def parse_html
+    res = Faraday.get(ogp_params[:url])
+    return nil unless res&.success?
+
+    make_json(res)
   end
 
   # @param [Faraday::Response] res
@@ -32,5 +49,14 @@ class OgpController < ApplicationController
 
   def ogp_params
     params.permit(:url)
+  end
+
+  def playlist_page_url?
+    ogp_params[:url].match?(playlist_page_url_regex)
+  end
+
+  # FIXME: ドメインが振られたら変更する
+  def playlist_page_url_regex
+    %r{https?://psychic-eureka-90cdb0a4.pages.github.io/p/pl/eh-([A-Z0-9]{10})}
   end
 end
