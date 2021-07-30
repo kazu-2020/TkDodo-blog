@@ -112,6 +112,14 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
+  # Howto データをリクエストする
+  #
+  # @param [String] episode_id: TVEpisode id
+  def episode_howto(episode_id:)
+    res = client.get "/#{VERSION}/l/howto/te/#{episode_id}.json?size=100", INTERNAL_PARAMS
+    handle_response(res)
+  end
+
   # Event データをリクエストする
   #
   # @param [String] event_id: イベントID
@@ -120,11 +128,27 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
+  # Event データをリクエストする
+  #
+  # @param [String] episode_id: TVEpisode id
+  def episode_event(episode_id:)
+    res = client.get "/#{VERSION}/l/event/te/#{episode_id}.json?size=100", INTERNAL_PARAMS
+    handle_response(res)
+  end
+
   # FAQPage データをリクエストする
   #
   # @param [String] faq_page_id: FAQPage ID
   def faq_page(faq_page_id:)
     res = client.get "/#{VERSION}/t/faqpage/id/#{faq_page_id}.json", INTERNAL_PARAMS
+    handle_response(res)
+  end
+
+  # FAQPage データをリクエストする
+  #
+  # @param [String] episode_id: TVEpisode id
+  def episode_faq_page(episode_id:)
+    res = client.get "/#{VERSION}/l/faqpage/te/#{episode_id}.json?size=100", INTERNAL_PARAMS
     handle_response(res)
   end
 
