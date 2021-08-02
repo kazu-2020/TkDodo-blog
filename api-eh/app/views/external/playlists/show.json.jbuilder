@@ -104,6 +104,39 @@ json.items @playlist.playlist_items.kept.each do |playlist_item|
     json_data.each_key do |key|
       json.set_raw! key, json_data[key].to_json
     end
+  when 'event'
+    events = fetch_event(episode_data)
+    next unless events[:result].present?
+
+    events[:result].each do |event|
+      json_data = ::MultiJson.load(event.to_json)
+
+      json_data.each_key do |key|
+        json.set_raw! key, json_data[key].to_json
+      end
+    end
+  when 'howto'
+    howtos = fetch_howto(episode_data)
+    next unless howtos[:result].present?
+
+    howtos[:result].each do |howto|
+      json_data = ::MultiJson.load(howto.to_json)
+
+      json_data.each_key do |key|
+        json.set_raw! key, json_data[key].to_json
+      end
+    end
+  when 'faqpage'
+    faq_pages = fetch_faq_page(episode_data)
+    next unless faq_pages[:result].present?
+
+    faq_pages[:result].each do |faq_page|
+      json_data = ::MultiJson.load(faq_page.to_json)
+
+      json_data.each_key do |key|
+        json.set_raw! key, json_data[key].to_json
+      end
+    end
   else
     json_data = ::MultiJson.load(episode_data.to_json)
 
@@ -111,6 +144,17 @@ json.items @playlist.playlist_items.kept.each do |playlist_item|
       json.set_raw! key, json_data[key].to_json
     end
   end
+end
+
+case @object_type
+when 'event'
+  json.itemUrl "#{events_external_playlist_url}.json"
+when 'howto'
+  json.itemUrl "#{howtos_external_playlist_url}.json"
+when 'faqpage'
+  json.itemUrl "#{faqpages_external_playlist_url}.json"
+else
+  json.itemUrl "#{episodes_external_playlist_url}.json"
 end
 
 json.playlisticle do
