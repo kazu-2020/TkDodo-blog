@@ -14,6 +14,33 @@ module External::PlaylistsHelper
     end
   end
 
+  def fetch_event(episode)
+    client = DlabApiClient.new
+    begin
+      client.episode_event(episode_id: episode[:id])
+    rescue DlabApiClient::NotFound
+      nil
+    end
+  end
+
+  def fetch_howto(episode)
+    client = DlabApiClient.new
+    begin
+      client.episode_howto(episode_id: episode[:id])
+    rescue DlabApiClient::NotFound
+      nil
+    end
+  end
+
+  def fetch_faq_page(episode)
+    client = DlabApiClient.new
+    begin
+      client.episode_faq_page(episode_id: episode[:id])
+    rescue DlabApiClient::NotFound
+      nil
+    end
+  end
+
   def type_of_item(object_type)
     case object_type
     when 'broadcastevent' then 'BroadcastEvent'

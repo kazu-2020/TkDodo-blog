@@ -62,7 +62,7 @@ class External::PlaylistsController < ApplicationController
     @playlist = Playlist.friendly.find(playlist_id)
 
     @faq_pages =
-      @playlist.playlist_items.map do |item|
+      @playlist.playlist_items.kept.map do |item|
         res = client.episode_faq_page(episode_id: item.episode_id)
         res[:result]
       rescue DlabApiClient::NotFound
@@ -77,7 +77,7 @@ class External::PlaylistsController < ApplicationController
     @playlist = Playlist.friendly.find(playlist_id)
 
     @events =
-      @playlist.playlist_items.map do |item|
+      @playlist.playlist_items.kept.map do |item|
         res = client.episode_event(episode_id: item.episode_id)
         res[:result]
       rescue DlabApiClient::NotFound
@@ -92,7 +92,7 @@ class External::PlaylistsController < ApplicationController
     @playlist = Playlist.friendly.find(playlist_id)
 
     @howtos =
-      @playlist.playlist_items.map do |item|
+      @playlist.playlist_items.kept.map do |item|
         res = client.episode_howto(episode_id: item.episode_id)
         res[:result]
       rescue DlabApiClient::NotFound
