@@ -157,13 +157,13 @@ end
 
 case @object_type
 when 'event'
-  json.itemUrl "#{events_external_playlist_url}.json"
+  json.itemUrl "#{events_external_playlist_url(@playlist.original_id)}.json"
 when 'howto'
-  json.itemUrl "#{howtos_external_playlist_url}.json"
+  json.itemUrl "#{howtos_external_playlist_url(@playlist.original_id)}.json"
 when 'faqpage'
-  json.itemUrl "#{faqpages_external_playlist_url}.json"
+  json.itemUrl "#{faqpages_external_playlist_url(@playlist.original_id)}.json"
 else
-  json.itemUrl "#{episodes_external_playlist_url}.json"
+  json.itemUrl "#{episodes_external_playlist_url(@playlist.original_id)}.json"
 end
 
 json.playlisticle do
