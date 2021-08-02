@@ -79,7 +79,9 @@ else
   json.sameAs nil
 end
 
-json.items @playlist.playlist_items.kept.each do |playlist_item|
+# rubocop:disable Metrics/BlockLength
+subtype_item_count = 0
+json.items @playlist.playlist_items.kept.first(10).each do |playlist_item|
   episode_data = fetch_episode_data(playlist_item: playlist_item, force_fetch: true)
 
   case @object_type
@@ -109,33 +111,39 @@ json.items @playlist.playlist_items.kept.each do |playlist_item|
     next unless events[:result].present?
 
     events[:result].each do |event|
-      json_data = ::MultiJson.load(event.to_json)
+      next if subtype_item_count == 10
 
+      json_data = ::MultiJson.load(event.to_json)
       json_data.each_key do |key|
         json.set_raw! key, json_data[key].to_json
       end
+      subtype_item_count += 1
     end
   when 'howto'
     howtos = fetch_howto(episode_data)
     next unless howtos[:result].present?
 
     howtos[:result].each do |howto|
-      json_data = ::MultiJson.load(howto.to_json)
+      next if subtype_item_count == 10
 
+      json_data = ::MultiJson.load(howto.to_json)
       json_data.each_key do |key|
         json.set_raw! key, json_data[key].to_json
       end
+      subtype_item_count += 1
     end
   when 'faqpage'
     faq_pages = fetch_faq_page(episode_data)
     next unless faq_pages[:result].present?
 
     faq_pages[:result].each do |faq_page|
-      json_data = ::MultiJson.load(faq_page.to_json)
+      next if subtype_item_count == 10
 
+      json_data = ::MultiJson.load(faq_page.to_json)
       json_data.each_key do |key|
         json.set_raw! key, json_data[key].to_json
       end
+      subtype_item_count += 1
     end
   else
     json_data = ::MultiJson.load(episode_data.to_json)
@@ -145,6 +153,7 @@ json.items @playlist.playlist_items.kept.each do |playlist_item|
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
 
 case @object_type
 when 'event'
