@@ -23,6 +23,11 @@ Rails.application.routes.draw do
         get 'pl/:playlist_id/types', to: 'external/playlists#list_bundle'
         get 'id/:playlist_uid/types', to: 'external/playlists#list_bundle'
       end
+
+      get 'tvepisode/id/:playlist_id', to: 'external/playlists#episodes', as: :episodes_external_playlist
+      get 'faqpage/id/:playlist_id', to: 'external/playlists#faq_pages', as: :faqpages_external_playlist
+      get 'event/id/:playlist_id', to: 'external/playlists#events', as: :events_external_playlist
+      get 'howto/id/:playlist_id', to: 'external/playlists#howtos', as: :howtos_external_playlist
     end
   end
 

@@ -49,10 +49,68 @@ class External::PlaylistsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
+  def episodes
+    playlist_id = convert_playlist_id(params[:playlist_id])
+    @playlist = Playlist.friendly.find(playlist_id)
+    @offset = (params[:offset] || 0).to_i
+    @size = (params[:size] || 10).to_i
+  end
+
+  # rubocop:disable Metrics/AbcSize
+  def faq_pages
+    playlist_id = convert_playlist_id(params[:playlist_id])
+    @playlist = Playlist.friendly.find(playlist_id)
+
+    @faq_pages =
+      @playlist.playlist_items.map do |item|
+        res = client.episode_faq_page(episode_id: item.episode_id)
+        res[:result]
+      rescue DlabApiClient::NotFound
+        []
+      end.flatten
+    @offset = (params[:offset] || 0).to_i
+    @size = (params[:size] || 10).to_i
+  end
+
+  def events
+    playlist_id = convert_playlist_id(params[:playlist_id])
+    @playlist = Playlist.friendly.find(playlist_id)
+
+    @events =
+      @playlist.playlist_items.map do |item|
+        res = client.episode_event(episode_id: item.episode_id)
+        res[:result]
+      rescue DlabApiClient::NotFound
+        []
+      end.flatten
+    @offset = (params[:offset] || 0).to_i
+    @size = (params[:size] || 10).to_i
+  end
+
+  def howtos
+    playlist_id = convert_playlist_id(params[:playlist_id])
+    @playlist = Playlist.friendly.find(playlist_id)
+
+    @howtos =
+      @playlist.playlist_items.map do |item|
+        res = client.episode_howto(episode_id: item.episode_id)
+        res[:result]
+      rescue DlabApiClient::NotFound
+        []
+      end.flatten
+    @offset = (params[:offset] || 0).to_i
+    @size = (params[:size] || 10).to_i
+  end
+  # rubocop:enable Metrics/AbcSize
+
   private
 
   def convert_playlist_id(playlist_id)
     converted_playlist_id = playlist_id.gsub('.json', '').gsub('eh-', '')
     converted_playlist_id.to_i
+  end
+
+  def client
+    @client ||= DlabApiClient.new
   end
 end
