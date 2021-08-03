@@ -55,8 +55,11 @@ end
 json.dateCreated @playlist.created_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
 json.datePublished @playlist.published_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
 json.dateModified @playlist.updated_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
-json.actor fetch_unique_actors(@playlist)
-json.contributor fetch_unique_contributors(@playlist)
+
+unless @is_min_mode
+  json.actor fetch_unique_actors(@playlist)
+  json.contributor fetch_unique_contributors(@playlist)
+end
 
 json.partial! 'shared/playlist_images', playlist: @playlist
 
@@ -79,81 +82,83 @@ else
   json.sameAs nil
 end
 
-# rubocop:disable Metrics/BlockLength
-subtype_item_count = 0
-json.items @playlist.playlist_items.kept.first(10).each do |playlist_item|
-  episode_data = fetch_episode_data(playlist_item: playlist_item, force_fetch: true)
+unless @is_min_mode
+  # rubocop:disable Metrics/BlockLength
+  subtype_item_count = 0
+  json.items @playlist.playlist_items.kept.first(10).each do |playlist_item|
+    episode_data = fetch_episode_data(playlist_item: playlist_item, force_fetch: true)
 
-  case @object_type
-  when 'videoobject'
-    options = @area.present? ? { area: @area } : {}
-    broadcast_event = fetch_boradcast_event(episode_data, options)
-    next if broadcast_event.nil?
+    case @object_type
+    when 'videoobject'
+      options = @area.present? ? { area: @area } : {}
+      broadcast_event = fetch_boradcast_event(episode_data, options)
+      next if broadcast_event.nil?
 
-    video_json_data = ::MultiJson.load(broadcast_event.to_json)['video'].first
-    next if video_json_data.nil?
+      video_json_data = ::MultiJson.load(broadcast_event.to_json)['video'].first
+      next if video_json_data.nil?
 
-    video_json_data.each_key do |key|
-      json.set_raw! key, video_json_data[key].to_json
-    end
-  when 'broadcastevent'
-    options = @area.present? ? { area: @area } : {}
-    broadcast_event = fetch_boradcast_event(episode_data, options)
-    next if broadcast_event.nil?
+      video_json_data.each_key do |key|
+        json.set_raw! key, video_json_data[key].to_json
+      end
+    when 'broadcastevent'
+      options = @area.present? ? { area: @area } : {}
+      broadcast_event = fetch_boradcast_event(episode_data, options)
+      next if broadcast_event.nil?
 
-    json_data = ::MultiJson.load(broadcast_event.to_json)
+      json_data = ::MultiJson.load(broadcast_event.to_json)
 
-    json_data.each_key do |key|
-      json.set_raw! key, json_data[key].to_json
-    end
-  when 'event'
-    events = fetch_event(episode_data)
-    next unless events[:result].present?
-
-    events[:result].each do |event|
-      next if subtype_item_count == 10
-
-      json_data = ::MultiJson.load(event.to_json)
       json_data.each_key do |key|
         json.set_raw! key, json_data[key].to_json
       end
-      subtype_item_count += 1
-    end
-  when 'howto'
-    howtos = fetch_howto(episode_data)
-    next unless howtos[:result].present?
+    when 'event'
+      events = fetch_event(episode_data)
+      next unless events[:result].present?
 
-    howtos[:result].each do |howto|
-      next if subtype_item_count == 10
+      events[:result].each do |event|
+        next if subtype_item_count == 10
 
-      json_data = ::MultiJson.load(howto.to_json)
+        json_data = ::MultiJson.load(event.to_json)
+        json_data.each_key do |key|
+          json.set_raw! key, json_data[key].to_json
+        end
+        subtype_item_count += 1
+      end
+    when 'howto'
+      howtos = fetch_howto(episode_data)
+      next unless howtos[:result].present?
+
+      howtos[:result].each do |howto|
+        next if subtype_item_count == 10
+
+        json_data = ::MultiJson.load(howto.to_json)
+        json_data.each_key do |key|
+          json.set_raw! key, json_data[key].to_json
+        end
+        subtype_item_count += 1
+      end
+    when 'faqpage'
+      faq_pages = fetch_faq_page(episode_data)
+      next unless faq_pages[:result].present?
+
+      faq_pages[:result].each do |faq_page|
+        next if subtype_item_count == 10
+
+        json_data = ::MultiJson.load(faq_page.to_json)
+        json_data.each_key do |key|
+          json.set_raw! key, json_data[key].to_json
+        end
+        subtype_item_count += 1
+      end
+    else
+      json_data = ::MultiJson.load(episode_data.to_json)
+
       json_data.each_key do |key|
         json.set_raw! key, json_data[key].to_json
       end
-      subtype_item_count += 1
-    end
-  when 'faqpage'
-    faq_pages = fetch_faq_page(episode_data)
-    next unless faq_pages[:result].present?
-
-    faq_pages[:result].each do |faq_page|
-      next if subtype_item_count == 10
-
-      json_data = ::MultiJson.load(faq_page.to_json)
-      json_data.each_key do |key|
-        json.set_raw! key, json_data[key].to_json
-      end
-      subtype_item_count += 1
-    end
-  else
-    json_data = ::MultiJson.load(episode_data.to_json)
-
-    json_data.each_key do |key|
-      json.set_raw! key, json_data[key].to_json
     end
   end
+  # rubocop:enable Metrics/BlockLength
 end
-# rubocop:enable Metrics/BlockLength
 
 case @object_type
 when 'event'
