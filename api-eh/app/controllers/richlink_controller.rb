@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 # aw-pl-webから呼び出されるリッチリンク対応のためのエンドポイント
-class OgpController < ApplicationController
+class RichlinkController < ApplicationController
   def index
-    raise DlabApiBase::InternalServerError if ogp_params[:url].blank?
+    raise DlabApiBase::InternalServerError if richlink_params[:url].blank?
 
     json = playlist_page_url? ? parse_playlist : parse_html
     if json
       render json: json
     else
-      render json: { message: "Error. url: #{ogp_params[:url]}" }
+      render json: { message: "Error. url: #{richlink_params[:url]}" }
     end
   end
 
@@ -22,7 +22,7 @@ class OgpController < ApplicationController
   end
 
   def parse_playlist
-    playlist_id = ogp_params[:url][playlist_page_url_regex, 1].to_i
+    playlist_id = richlink_params[:url][playlist_page_url_regex, 1].to_i
     pl = Playlist.find(playlist_id)
 
     { title: pl.name,
@@ -31,7 +31,7 @@ class OgpController < ApplicationController
   end
 
   def parse_html
-    res = Faraday.get(ogp_params[:url])
+    res = Faraday.get(richlink_params[:url])
     return nil unless res&.success?
 
     make_json(res)
@@ -47,12 +47,12 @@ class OgpController < ApplicationController
       image: ogp&.image&.url || 'https://placehold.jp/640x360.png' }
   end
 
-  def ogp_params
+  def richlink_params
     params.permit(:url)
   end
 
   def playlist_page_url?
-    ogp_params[:url].match?(playlist_page_url_regex)
+    richlink_params[:url].match?(playlist_page_url_regex)
   end
 
   # FIXME: ドメインが振られたら変更する
