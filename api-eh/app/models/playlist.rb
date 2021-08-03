@@ -157,7 +157,7 @@ class Playlist < ApplicationRecord
   end
 
   def dummy_image_url(image_type)
-    image_seed = created_at.day + 1
+    image_seed = created_at.day.digits.first + 1
     "https://dev-eh.nr.nhk.jp/dummy/default#{image_seed}/default#{image_seed}-#{image_type}.png"
   end
 
