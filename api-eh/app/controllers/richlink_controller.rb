@@ -27,7 +27,7 @@ class RichlinkController < ApplicationController
 
     { title: pl.name,
       description: pl.description,
-      image: pl.eyecatch_image_url || 'https://placehold.jp/640x360.png' }
+      image: pl.eyecatch_image_url || pl.dummy_image_url('eyecatch') }
   end
 
   def parse_html
