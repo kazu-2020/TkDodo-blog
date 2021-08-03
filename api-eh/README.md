@@ -59,9 +59,9 @@ https://github.com/d7lab/aw-editorialhands/tree/master/api-eh/infra/dev/terrafor
 - oEmbed APIではiframe内にこのコンテンツを設定したHTMLプロパティを返却します。
 - example: https://dev-api-eh.nr.nhk.jp/embed/te/7MKRXXKMML/faqpage/20
 
-**/ogp**
+**/richlink**
 - プレイリスト新標準専用
 - パラメータのURLからカード化に必要な情報をogpなどから取得してJSONを返します。
   - ogpがなければ、メタのtitle, descriptionから情報を取得します。
   - パラメータにプレイリスト新標準のURLが設定された場合は、DBから情報を取得します。
-- example: https://dev-api-eh.nr.nhk.jp/ogp?url=https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/eh-0000000030
+- example: https://dev-api-eh.nr.nhk.jp/richlink?url=https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/eh-0000000030
