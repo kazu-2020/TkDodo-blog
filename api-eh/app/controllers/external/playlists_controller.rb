@@ -16,6 +16,7 @@ class External::PlaylistsController < ApplicationController
     @object_type = params[:type] || 'tvepisode'
     @area = params[:area]
     @request_url = request.url
+    @is_min_mode = params[:is_min_mode] == '1'
   end
   # rubocop:enable Metrics/AbcSize
 
