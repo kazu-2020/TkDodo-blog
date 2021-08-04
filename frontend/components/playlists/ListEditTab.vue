@@ -1,76 +1,86 @@
 <template>
-  <div class="list-item-container container-fluid white rounded px-5 py-2">
-    <v-row @click="closePreviewDrawer">
-      <v-col cols="12">
-        <playlist-episodes-list
-          :episodes="playlistItems"
-          @delete-episode="deleteEpisode"
-          @update-episodes="updateEpisodes"
-          @select-episode="selectEpisode"
-        />
-      </v-col>
-    </v-row>
-    <v-row v-show="diffEpisodeItems.length !== 0" class="article_epidoes">
-      <v-col cols="12">
-        <v-expansion-panels>
-          <v-expansion-panel>
-            <v-expansion-panel-header
-              ><div>
-                プレイリストに保存されていない記事エピソードが
-                <span class="diff_episodes_count"
-                  >{{ diffEpisodeItems.length }}件</span
-                >あります
-              </div></v-expansion-panel-header
-            >
-            <v-expansion-panel-content>
-              <v-simple-table>
-                <template #default>
-                  <thead>
-                    <tr>
-                      <th />
-                      <th class="text-left">エピソード</th>
-                      <th />
-                      <th class="text-left">シリーズ名</th>
-                      <th class="text-left" style="min-width: 180px">
-                        直近放送日
-                      </th>
-                      <th class="text-left">視聴可能</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <episode-search-result-table-row
-                      v-for="episode in diffEpisodeItems"
-                      :key="episode.id"
-                      :episode="episode"
-                      :ignore-episodes="playlistItems"
-                      @add-episode="addEpisode"
-                      @select-episode="selectEpisode"
-                    />
-                  </tbody>
-                </template>
-              </v-simple-table>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </v-col>
-    </v-row>
+  <div>
     <v-row>
       <v-col cols="12">
-        <playlist-episode-search
-          :ignore-episodes="playlistItems"
-          :keywords.sync="keywords"
-          :search-trigger-count="searchTriggerCount"
-          @add-episode="addEpisode"
-          @select-episode="selectEpisode"
+        <related-playlists
+          :keywords="playlistKeywords"
+          :items="playlistItems"
         />
       </v-col>
     </v-row>
-    <episode-preview-drawer
-      :playlist="playlist"
-      :episode="selectedEpisode"
-      :visible="previewDrawer"
-      @close-drawer="closePreviewDrawer"
-    />
+    <div class="list-item-container container-fluid white rounded px-5 py-2">
+      <v-row @click="closePreviewDrawer">
+        <v-col cols="12">
+          <playlist-episodes-list
+            :episodes="playlistItems"
+            @delete-episode="deleteEpisode"
+            @update-episodes="updateEpisodes"
+            @select-episode="selectEpisode"
+          />
+        </v-col>
+      </v-row>
+      <v-row v-show="diffEpisodeItems.length !== 0" class="article_epidoes">
+        <v-col cols="12">
+          <v-expansion-panels>
+            <v-expansion-panel>
+              <v-expansion-panel-header
+                ><div>
+                  プレイリストに保存されていない記事エピソードが
+                  <span class="diff_episodes_count"
+                    >{{ diffEpisodeItems.length }}件</span
+                  >あります
+                </div></v-expansion-panel-header
+              >
+              <v-expansion-panel-content>
+                <v-simple-table>
+                  <template #default>
+                    <thead>
+                      <tr>
+                        <th />
+                        <th class="text-left">エピソード</th>
+                        <th />
+                        <th class="text-left">シリーズ名</th>
+                        <th class="text-left" style="min-width: 180px">
+                          直近放送日
+                        </th>
+                        <th class="text-left">視聴可能</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <episode-search-result-table-row
+                        v-for="episode in diffEpisodeItems"
+                        :key="episode.id"
+                        :episode="episode"
+                        :ignore-episodes="playlistItems"
+                        @add-episode="addEpisode"
+                        @select-episode="selectEpisode"
+                      />
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <playlist-episode-search
+            :ignore-episodes="playlistItems"
+            :keywords.sync="keywords"
+            :search-trigger-count="searchTriggerCount"
+            @add-episode="addEpisode"
+            @select-episode="selectEpisode"
+          />
+        </v-col>
+      </v-row>
+      <episode-preview-drawer
+        :playlist="playlist"
+        :episode="selectedEpisode"
+        :visible="previewDrawer"
+        @close-drawer="closePreviewDrawer"
+      />
+    </div>
   </div>
 </template>
 
@@ -81,6 +91,7 @@ import PlaylistEpisodesList from '~/components/playlists/PlaylistEpisodesList.vu
 import PlaylistEpisodeSearch from '~/components/playlists/PlaylistEpisodeSearch.vue'
 import EpisodePreviewDrawer from '~/components/playlists/EpisodePreviewDrawer.vue'
 import EpisodeSearchResultTableRow from '~/components/playlists/EpisodeSearchResultTableRow.vue'
+import RelatedPlaylists from '~/components/playlists/RelatedPlaylists.vue'
 
 interface DataType {
   keywords: string
@@ -96,6 +107,7 @@ export default Vue.extend({
     PlaylistEpisodeSearch,
     EpisodePreviewDrawer,
     EpisodeSearchResultTableRow,
+    RelatedPlaylists,
   },
   props: {
     playlist: {
@@ -115,6 +127,9 @@ export default Vue.extend({
   computed: {
     playlistItems(): Array<Object> {
       return this.playlist.items || []
+    },
+    playlistKeywords(): Array<Object> {
+      return this.playlist.keywords || []
     },
     articleEpisodes(): Array<Object> {
       return this.playlist.article?.containsEpisodes || []
