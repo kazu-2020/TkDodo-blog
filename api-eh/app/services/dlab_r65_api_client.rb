@@ -17,7 +17,7 @@ class DlabR65ApiClient < DlabApiBase
   end
 
   def keyword_playlist(keyword)
-    res = client.get "/#{VERSION}/t/ndeck/search/tv.json", { keyword: keyword, area: 130 }
+    res = client.get "/#{VERSION}/t/ndeck/search/tv.json", { keyword: keyword }
     handle_response(res)
   end
 end

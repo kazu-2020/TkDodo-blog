@@ -9,6 +9,7 @@
             :alt="playlist.name"
             max-width="120"
             class="mb-1"
+            lazy-src="https://placehold.jp/3d4070/ffffff/120x120.png?text=NoImage"
           />
           <div class="body-2" style="max-width: 120px">
             {{ playlist.name }}
