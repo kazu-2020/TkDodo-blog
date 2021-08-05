@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RelatedPlaylistsController < ApplicationController
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def index
     episode_ids = params[:episode_ids].split(',')
     keywords = params[:keywords].split(',')
@@ -21,7 +21,7 @@ class RelatedPlaylistsController < ApplicationController
       nil
     end
 
-    @related_playlists = @related_playlists.flatten.uniq {|playlist| playlist[:id] }
+    @related_playlists = @related_playlists.flatten.uniq { |playlist| playlist[:id] }
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
