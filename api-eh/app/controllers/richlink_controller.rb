@@ -35,6 +35,8 @@ class RichlinkController < ApplicationController
     return nil unless res&.success?
 
     make_json(res)
+  rescue
+    nil
   end
 
   # @param [Faraday::Response] res
