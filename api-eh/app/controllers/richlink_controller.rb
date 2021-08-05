@@ -42,9 +42,10 @@ class RichlinkController < ApplicationController
     ogp = ogp(res.body)
     html = Nokogiri::HTML.parse(res.body.to_s)
 
-    { title: ogp&.title || ogp&.site_name || html.title.to_s,
+    title = ogp&.title || ogp&.site_name || html.title.to_s
+    { title: title,
       description: ogp&.description || html.css('//head/meta[name="description"]/@content'),
-      image: ogp&.image&.url || 'https://placehold.jp/640x360.png' }
+      image: ogp&.image&.url || default_image_url_by(title: title) }
   end
 
   def richlink_params
@@ -58,5 +59,11 @@ class RichlinkController < ApplicationController
   # FIXME: ドメインが振られたら変更する
   def playlist_page_url_regex
     %r{https?://psychic-eureka-90cdb0a4.pages.github.io/p/pl/eh-([A-Z0-9]{10})}
+  end
+
+  # @param [String] title
+  def default_image_url_by(title:)
+    default_image_number = title.length % 10 + 1
+    "https://dev-eh.nr.nhk.jp/dummy/default#{default_image_number}/default#{default_image_number}-eyecatch.png"
   end
 end
