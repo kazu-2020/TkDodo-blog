@@ -35,6 +35,13 @@ export default class DescriptionLinkTool extends LinkTool {
   // @override
   async fetchLinkData(url) {
     this.showProgress()
+
+    if (!/^(http|https):\/\/[^ "]+$/.test(url)) {
+      this.data.link = ''
+      this.fetchingFailed('http または https から始まるURLを入力してください')
+      return
+    }
+
     this.data = { link: url }
 
     try {
@@ -47,17 +54,13 @@ export default class DescriptionLinkTool extends LinkTool {
 
       this.onFetch(body)
     } catch (error) {
-      // 存在しないURLが入力されてエラーが起きた状態のまま保存された場合にblockを保存させたくないのでlinkを空にする
-      this.data.link = ''
-      this.fetchingFailed(this.api.i18n.t("Couldn't fetch the link data"))
+      this.fetchingFailed('無効なリンクが入力されています')
     }
   }
 
   onFetch(response) {
     const metaData = this._onFetch(response)
     if (!metaData) {
-      // 無効なURLでエラーが起きた状態のまま保存された場合にblockを保存させたくないのでlinkを空にする
-      this.data.link = ''
       return
     }
 
@@ -70,11 +73,9 @@ export default class DescriptionLinkTool extends LinkTool {
 
   _onFetch(response) {
     if (!response || !response.success) {
-      this.fetchingFailed(
-        this.api.i18n.t("Couldn't get this link data, try the other one")
-      )
+      this.fetchingFailed('無効なリンクが入力されています')
 
-      return
+      return { meta: { description: '' } }
     }
 
     const metaData = response.meta
@@ -82,11 +83,9 @@ export default class DescriptionLinkTool extends LinkTool {
     this.data = { meta: metaData }
 
     if (!metaData) {
-      this.fetchingFailed(
-        this.api.i18n.t('Wrong response format from the server')
-      )
+      this.fetchingFailed('無効なリンクが入力されています')
 
-      return
+      return { meta: { description: '' } }
     }
 
     return metaData
