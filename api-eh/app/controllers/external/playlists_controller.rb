@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class External::PlaylistsController < ApplicationController
+  rescue_from ActionController::UnknownFormat, ActionView::MissingTemplate do
+    render json: { message: '該当リソースは見つかりませんでした' }, status: 404
+  end
+
   # rubocop:disable Metrics/AbcSize
   def show
     if params[:playlist_id].present?

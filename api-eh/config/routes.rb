@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'playlists#index', format: 'json'
 
-  scope :'d6.6', format: 'json' do
+  scope :'d6.6' do
     scope :t do
       scope :nplaylist do
         get 'pl/:playlist_id', to: 'external/playlists#show'
