@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class External::DecksController < ApplicationController
+  rescue_from ActionController::UnknownFormat, ActionView::MissingTemplate do
+    render json: { message: '該当リソースは見つかりませんでした' }, status: 404
+  end
+
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
   def show
     @request_url = request.url
