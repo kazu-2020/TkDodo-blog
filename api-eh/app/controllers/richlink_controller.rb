@@ -11,6 +11,8 @@ class RichlinkController < ApplicationController
     else
       render json: { message: "Error. url: #{richlink_params[:url]}" }
     end
+  rescue
+    render json: { message: "Error. url: #{richlink_params[:url]}" }
   end
 
   private
