@@ -44,11 +44,13 @@ class RichlinkController < ApplicationController
   # @param [Faraday::Response] res
   def make_json(res)
     ogp = ogp(res.body)
-    html = Nokogiri::HTML.parse(res.body.to_s)
+
+    require 'kconv'
+    html = Nokogiri::HTML.parse(res.body.to_s.toutf8)
 
     title = ogp&.title || ogp&.site_name || html.title.to_s
     { title: title,
-      description: ogp&.description || html.css('//head/meta[name="description"]/@content'),
+      description: ogp&.description || html.css('//head/meta[name="description"]/@content')&.to_s,
       image: ogp&.image&.url || default_image_url_by(title: title) }
   end
 
