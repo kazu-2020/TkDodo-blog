@@ -49,7 +49,7 @@ export default Vue.extend({
     dialog: {
       handler(newValue) {
         if (newValue && this.playlistJson === null) {
-          this.$axios.get(`/d6.6/t/nplaylist/pl/${this.playlistId}`).then((res) => {
+          this.$axios.get(`/d6.6/t/nplaylist/pl/${this.playlistId}.json`).then((res) => {
             this.playlistJson = res.data
           })
         }
