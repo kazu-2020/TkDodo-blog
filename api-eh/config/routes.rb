@@ -63,6 +63,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :related_playlists, only: :index, format: 'json'
+
   get '/oembed', to: 'oembed#index'
   namespace :embed do
     get 'ts/:series_id', to: 'series#show'
