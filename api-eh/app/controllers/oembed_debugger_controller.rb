@@ -9,7 +9,6 @@ class OembedDebuggerController < ApplicationController
                                            episode_id: episode_id,
                                            query: { ignoreRange: false })
 
-
     @episode_data = res[:tvepisode].first
     series_id = res.dig(:tvseries, :id)
     # @event_data = res[:event]&.first
