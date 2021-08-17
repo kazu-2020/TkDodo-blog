@@ -28,6 +28,12 @@ Rails.application.routes.draw do
       get 'faqpage/id/:playlist_id', to: 'external/playlists#faq_pages', as: :faqpages_external_playlist
       get 'event/id/:playlist_id', to: 'external/playlists#events', as: :events_external_playlist
       get 'howto/id/:playlist_id', to: 'external/playlists#howtos', as: :howtos_external_playlist
+
+      scope :nplaylist do
+        get 'dk/:deck_id', to: 'external/playlists#index',
+                           constraints: { deck_id: /recommend-(visible|editorial)(-r5)?/ },
+                           as: :external_playlists
+      end
     end
   end
 

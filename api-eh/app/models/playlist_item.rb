@@ -67,6 +67,8 @@ class PlaylistItem < ApplicationRecord
     end_date = Time.parse(data.dig(:releasedEvent, :endDate))
 
     self.duration = end_date - start_date
+  rescue TypeError
+    nil
   end
 
   def set_has_video(data)

@@ -29,6 +29,7 @@ class External::DecksController < ApplicationController
     when /visible/
       render 'visible', format: 'json', handlers: 'jbuilder'
     when /editorial/
+      @playlists = @playlists.has_article
       render 'editorial', format: 'json', handlers: 'jbuilder'
     else
       render json: { message: 'デッキが見つかりませんでした' }, status: 404
