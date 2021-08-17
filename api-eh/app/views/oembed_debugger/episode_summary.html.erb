@@ -1,0 +1,11 @@
+<div class="text-white">
+  <ul>
+    <li><a href="/oembed_debugger/episode_summary?episode_id=MY514KPKKM">幻解!超常ファイル ダークサイド・ミステリーE+(プラス)</a></li>
+    <li><a href="/oembed_debugger/episode_summary?episode_id=18PGVZ9VWV">美の壺</a></li>
+  </ul>
+</div>
+
+<hr class="my-10">
+
+<h1 class="text-white text-xl font-bold mb-5"><%= @episode_data.dig(:name) %>（<%= @episode_data.dig(:id) %>）</h1>
+<%= render 'iframes.html', src: @src %>

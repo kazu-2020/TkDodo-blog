@@ -18,8 +18,8 @@ class Oembed::Response::Series
       title: 'Series',
       thumbnail_width: 640,
       thumbnail_height: 360,
-      thumbnail_url: 'http://placehold.jp/640x360.png',
-      html: "<iframe width=\"100%\" height=\"#{height}\" src=\"#{src}\" frameborder=\"0\"></iframe>"
+      thumbnail_url: 'https://placehold.jp/640x360.png',
+      html: "<iframe width=\"100%\" height=\"#{height}\" src=\"#{src}\" style=\"border: 0;\"></iframe>"
     }
   end
   # rubocop:enable Metrics/MethodLength
