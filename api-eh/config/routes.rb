@@ -31,7 +31,7 @@ Rails.application.routes.draw do
 
       scope :nplaylist do
         get 'dk/:deck_id', to: 'external/playlists#index',
-                           constraints: { deck_id: /recommend-(visible|editorial)(-r5)?/ },
+                           constraints: { deck_id: /recommend-(tv|radio)(-r5)?/ },
                            as: :external_playlists
       end
     end

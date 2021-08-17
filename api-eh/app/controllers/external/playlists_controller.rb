@@ -5,36 +5,49 @@ class External::PlaylistsController < ApplicationController
     render json: { message: '該当リソースは見つかりませんでした' }, status: 404
   end
 
+  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
   def index
     @area = params[:area]
     is_r5 = !(params[:deck_id] =~ /r5/).nil?
     @deck = Deck.find_by(area: @area, is_r5: is_r5)
     @offset = (params[:offset] || 0).to_i
     @size = (params[:size] || 10).to_i
+    consume_action = (params[:consumeAction] || '').split(',')
+    order = params[:order] || 'desc'
+    order_by = params[:orderBy] || 'dateModified'
 
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
+    render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(order)
 
-    @playlists =
-      if params[:theme_genre_code]
-        @deck.playlists.draft.where(theme_genre_code: params[:theme_genre_code])
-      elsif is_r5
-        @deck.playlists.draft.where(updated_at: (1.week.ago..DateTime.now)).recent
-      else
-        @deck.playlists.draft
-      end
+    unless %w[dateModified dateCreated].include?(order_by)
+      render json: { message: '無効なパラメーターが指定されています' }, status: 400
+      return
+    end
+
+    @playlists = @deck.playlists.draft
+    @playlists = @playlists.has_article if consume_action.include?('read')
+
+    case order_by
+    when 'dateModified'
+      @playlists = @playlists.order(updated_at: order)
+    when 'dateCreated'
+      @playlists = @playlists.order(created_at: order)
+    end
+
     @deck_id = params[:deck_id]
-    @object_type = params[:type] || 'tvepisode'
 
     case params[:deck_id]
-    when /visible/
-      render 'visible', format: 'json', handlers: 'jbuilder'
-    when /editorial/
-      @playlists = @playlists.has_article
-      render 'editorial', format: 'json', handlers: 'jbuilder'
+    when /tv/
+      @object_type = params[:type] || 'tvepisode'
+      render 'tv', format: 'json', handlers: 'jbuilder'
+    when /radio/
+      @object_type = params[:type] || 'radioepisode'
+      render 'radio', format: 'json', handlers: 'jbuilder'
     else
       render json: { message: 'デッキが見つかりませんでした' }, status: 404
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize
   def show
