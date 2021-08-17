@@ -76,6 +76,8 @@ Rails.application.routes.draw do
 
   get '/richlink', to: 'richlink#index'
 
+  get 'oembed_debugger/episode_summary', to: 'oembed_debugger#episode_summary'
+
   post '/slack/incoming_webhook', to: 'slack#incoming_webhook', format: 'json'
   get '/editor/fetch_link', to: 'editors#fetch_link', as: :fetch_link_editor, format: 'json'
 

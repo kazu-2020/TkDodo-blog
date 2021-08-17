@@ -23,8 +23,8 @@ class Oembed::Response::FaqPage
       title: res[:name] || 'Dummy',
       thumbnail_width: res.dig(:image, :medium, :width) || 640,
       thumbnail_height: res.dig(:image, :medium, :height) || 360,
-      thumbnail_url: res.dig(:image, :medium, :url) || 'http://placehold.jp/640x360.png',
-      html: "<iframe width=\"100%\" height=\"#{height}\" src=\"#{src}\" frameborder=\"0\"></iframe>"
+      thumbnail_url: res.dig(:image, :medium, :url) || 'https://placehold.jp/640x360.png',
+      html: "<iframe width=\"100%\" height=\"#{height}\" src=\"#{src}\" style=\"border: 0;\"></iframe>"
     }
   end
   # rubocop:enable Metrics/MethodLength
