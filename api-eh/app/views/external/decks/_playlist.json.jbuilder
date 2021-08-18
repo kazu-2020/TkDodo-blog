@@ -23,7 +23,7 @@ json.identifierGroup do
 end
 
 json.additionalProperty do
-  json.layoutPattern 'largeImage'
+  json.layoutPattern playlist.layout_pattern
 end
 
 if playlist.deck.present?
