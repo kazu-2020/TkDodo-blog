@@ -23,7 +23,7 @@ json.nseries do
   end
 
   json.additionalProperty do
-    json.layoutPattern @playlist.layout_pattern
+    json.layoutPattern 'largeImage'
   end
 
   if @playlist.deck.present?
