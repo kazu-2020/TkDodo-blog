@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       end
 
       scope :ndeck do
-        get 'dk/:deck_id', to: 'external/decks#show', constraints: { deck_id: /recommend-(visible|editorial)(-r5)?/ }
+        get 'dk/:deck_id', to: 'external/decks#show', constraints: { deck_id: /recommend-(tv|radio)(-r5)?/ }
         get 'recommend/:deck_id', to: 'external/decks#show'
       end
 
