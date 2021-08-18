@@ -19,8 +19,9 @@ json.set! 'playlists' do
   end
 end
 
+deck_id = params[:deck_id].split('-').unshift('recommend').uniq.join('-')
 next_url_params = params.permit(:area, :type, :consumeAction, :order, :orderBy).merge(offset: 0, size: 10).to_param
-json.playlistUrl "#{external_playlists_url(deck_id: params[:deck_id])}.json?#{next_url_params.to_param}"
+json.playlistUrl "#{external_playlists_url(deck_id: deck_id)}.json?#{next_url_params.to_param}"
 
 json.sameAs do
   json.array! [
