@@ -14,7 +14,7 @@ class Oembed::Response::Howto
     height ||= 340
     {
       version: '1.0',
-      width: 620,
+      width: '100%',
       height: height,
       type: 'rich',
       provider_name: 'NHK',
