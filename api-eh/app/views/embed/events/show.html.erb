@@ -1,31 +1,11 @@
 <% content_for(:title, @event_data[:name]) %>
 
-<style>
-    .embed-event {
-        height: <%= @height %>px;
-        overflow: hidden;
-        min-width: 240px;
-    }
-
-    @media (max-height: 250px) {
-        .small\:hidden {
-            display: none !important;
-        }
-    }
-
-    @media (min-height: 251px) {
-        .card\:hidden {
-            display: none !important;
-        }
-    }
-</style>
-
 <div class="embed embed-event rounded-sm shadow-md text-white border border-gray-450">
   <a href="<%= @event_data[:url] %>" target="_blank">
     <!-- - height:250px -->
     <div class="card:hidden h-full">
       <!-- < width:241px-->
-      <div class="xxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
+      <div class="xxxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
         <div class="pb-2 grid grid-cols-12 gap-3 mb-auto">
           <div class="col-span-12">
             <img
@@ -42,10 +22,10 @@
         </div>
       </div>
 
-      <!-- >= width:276px -->
-      <div class="invisible xxs:visible flex flex-col justify-between h-full p-3">
-        <div class="pb-2 grid grid-cols-12 gap-3 mb-auto h-full">
-          <div class="xxs:col-span-6 xs:col-span-8">
+      <!-- >= width:241px -->
+      <div class="invisible xxxs:visible flex flex-col justify-between h-full p-3">
+        <div class="pb-2 flex mb-auto h-full">
+          <div class="flex-auto">
             <div class="text-xs">
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
@@ -69,7 +49,7 @@
               </span>
             </div>
           </div>
-          <div class="xxs:col-span-6 xs:col-span-4 flex flex-col justify-between">
+          <div class="w-32 xxs:w-48 flex-none flex flex-col justify-between ml-3">
             <div>
               <img
                 decoding="async"
@@ -181,6 +161,22 @@
 
 <% content_for(:style) do %>
   <style>
+      .embed-event {
+          height: <%= @height %>px;
+          overflow: hidden;
+          min-width: 240px;
+      }
 
+      @media (max-height: 250px) {
+          .small\:hidden {
+              display: none !important;
+          }
+      }
+
+      @media (min-height: 251px) {
+          .card\:hidden {
+              display: none !important;
+          }
+      }
   </style>
 <% end %>
