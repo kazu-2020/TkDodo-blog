@@ -63,6 +63,8 @@ class PlaylistItem < ApplicationRecord
   end
 
   def set_duration(data)
+    return if data.dig(:releasedEvent, :startDate).nil? || data.dig(:releasedEvent, :endDate).nil?
+
     start_date = Time.parse(data.dig(:releasedEvent, :startDate))
     end_date = Time.parse(data.dig(:releasedEvent, :endDate))
 
