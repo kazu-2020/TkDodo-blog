@@ -75,6 +75,7 @@ resource "aws_cloudfront_distribution" "front_distribution" {
       origin_protocol_policy = "match-viewer"
       # origin_protocol_policy = "http-only"
       origin_ssl_protocols = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+      origin_read_timeout = 60
     }
   }
 
