@@ -1,25 +1,5 @@
 <% content_for(:title, @episode_data[:name]) %>
 
-<style>
-    .embed-episode {
-        height: <%= @height %>px;
-        overflow: hidden;
-        min-width: 240px;
-    }
-
-    @media (max-height: 250px) {
-        .small\:hidden {
-            display: none !important;
-        }
-    }
-
-    @media (min-height: 251px) {
-        .card\:hidden {
-            display: none !important;
-        }
-    }
-</style>
-
 <script type="text/javascript">
   loggingSize();
 
@@ -153,3 +133,25 @@
     </div>
   </a>
 </div>
+
+<% content_for(:style) do %>
+  <style>
+      .embed-episode {
+          height: <%= @height %>px;
+          overflow: hidden;
+          min-width: 240px;
+      }
+
+      @media (max-height: 250px) {
+          .small\:hidden {
+              display: none !important;
+          }
+      }
+
+      @media (min-height: 251px) {
+          .card\:hidden {
+              display: none !important;
+          }
+      }
+  </style>
+<% end %>
