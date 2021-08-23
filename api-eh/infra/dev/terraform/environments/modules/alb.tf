@@ -13,6 +13,8 @@ resource "aws_alb" "alb" {
   internal                   = false
   enable_deletion_protection = false
 
+  idle_timeout = 120
+
   tags = {
     Name        = "${local.env_resource_prefix}-lb"
     Stack       = "${var.name}"
