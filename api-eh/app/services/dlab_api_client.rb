@@ -14,7 +14,8 @@ class DlabApiClient < DlabApiBase
   INTERNAL_PARAMS = { extendedEntities: true, ignoreRange: true }.freeze
   DEFAULT_OFFSET = 0
   DEFAULT_SIZE = 10
-  DEFAULT_SORT_TYPE = 'scoreDesc'
+  DEFAULT_SORT_ORDER = 'desc'
+  DEFAULT_SORT_ORDER_BY = 'score'
 
   def initialize(api_endpoint: nil)
     super()
@@ -27,10 +28,11 @@ class DlabApiClient < DlabApiBase
   def search(search_params)
     offset = search_params[:offset] || DEFAULT_OFFSET
     ignore_range = search_params[:ignore_range].nil? ? true : search_params[:ignore_range]
-    sort_type = search_params[:sort_type] || DEFAULT_SORT_TYPE
+    sort_order = search_params[:order] || DEFAULT_SORT_ORDER
+    sort_order_by = search_params[:order_by] || DEFAULT_SORT_ORDER_BY
     size = search_params[:size] || DEFAULT_SIZE
     merged_params = { type: 'TVEpisode', offset: offset, isFuzzy: true, ignoreRange: ignore_range,
-                      sortType: sort_type, size: size }
+                      order: sort_order, order_by: sort_order_by, size: size }
     merged_params.merge!(search_query_hash(search_params))
 
     res = client.get "/#{VERSION}/s/extended.json", INTERNAL_PARAMS.merge(merged_params)
