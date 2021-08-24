@@ -20,7 +20,7 @@
     <div class="card:hidden h-full">
       <!-- < width:241px-->
       <div class="xxxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
-        <div class="pb-2 grid grid-cols-12 gap-3 mb-auto">
+        <div class="grid grid-cols-12 gap-3 mb-auto">
           <div class="col-span-12">
             <img
               decoding="async"
@@ -38,7 +38,7 @@
 
       <!-- >= width:241px -->
       <div class="invisible xxxs:visible flex flex-col justify-between h-full p-3">
-        <div class="pb-2 flex mb-auto h-full">
+        <div class="flex mb-auto h-full">
           <div class="w-32 xxs:w-48 flex-none flex flex-col justify-between">
             <div>
               <img
@@ -75,14 +75,14 @@
     <div class="small:hidden h-full">
       <!-- < width:241px-->
       <div class="xxxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
-        <div class="pb-2 grid grid-cols-12 gap-3 mb-auto sm:text-lg">
+        <div class="grid grid-cols-12 gap-3 mb-auto sm:text-lg">
           <div class="col-span-12">
             <img
               decoding="async"
               src="<%= episode_image_src %>"
               class="rounded-sm"
               alt="<%= @episode_data[:name] %>"/>
-            <div class="text-xs mt-1">
+            <div class="text-xs mt-1 line-clamp-2">
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
             <div class="font-bold text-sm mt-1 w-54 line-clamp-2"><%= @episode_data[:name] %></div>
@@ -96,7 +96,7 @@
 
       <!-- >= width:241px -->
       <div class="invisible xxxs:visible h-full p-3">
-        <div class="pb-2 flex mb-auto h-full">
+        <div class="flex mb-auto h-full">
           <div class="w-32 xxs:w-48 flex-none flex flex-col justify-between">
             <div>
               <img
