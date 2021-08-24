@@ -466,15 +466,17 @@ export default Vue.extend({
     keywords: {
       handler(newVal) {
         const trimmedKeywords = this.trimKeywordHash(newVal)
-        if (trimmedKeywords.toString() === this.keywords.toString()) return
-        if (this.playlist.keywords.toString() === trimmedKeywords.toString())
+        if (
+          trimmedKeywords.toString() === this.keywords.toString() &&
+          this.keywords.toString() === this.playlist?.keywords?.toString()
+        )
           return
+        this.keywords = trimmedKeywords
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, {
           keywords: trimmedKeywords,
         })
         this.$emit('update-series', playlist)
-        this.keywords = trimmedKeywords
       },
     },
     hashtag: {
