@@ -465,9 +465,17 @@ export default Vue.extend({
     },
     keywords: {
       handler(newVal) {
-        if (this.playlist.keywords === newVal) return
+        const trimmedKeywords = this.trimKeywordHash(newVal)
+        if (
+          trimmedKeywords.toString() === this.keywords.toString() &&
+          this.keywords.toString() === this.playlist?.keywords?.toString()
+        )
+          return
+        this.keywords = trimmedKeywords
         const originalPlaylist = Object.assign({}, (this as any).playlist)
-        const playlist = Object.assign(originalPlaylist, { keywords: newVal })
+        const playlist = Object.assign(originalPlaylist, {
+          keywords: trimmedKeywords,
+        })
         this.$emit('update-series', playlist)
       },
     },
@@ -685,6 +693,11 @@ export default Vue.extend({
     validate() {
       const form: any = this.$refs.form
       form.validate()
+    },
+    trimKeywordHash(keywords: string[]): string[] {
+      return keywords.map((keyword: string) => {
+        return keyword.trim().replace('#', '')
+      })
     },
   },
 })
