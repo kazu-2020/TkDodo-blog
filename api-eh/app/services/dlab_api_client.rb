@@ -32,7 +32,7 @@ class DlabApiClient < DlabApiBase
     sort_order_by = search_params[:order_by] || DEFAULT_SORT_ORDER_BY
     size = search_params[:size] || DEFAULT_SIZE
     merged_params = { type: 'TVEpisode', offset: offset, isFuzzy: true, ignoreRange: ignore_range,
-                      order: sort_order, order_by: sort_order_by, size: size }
+                      order: sort_order, orderBy: sort_order_by, size: size }
     merged_params.merge!(search_query_hash(search_params))
 
     res = client.get "/#{VERSION}/s/extended.json", INTERNAL_PARAMS.merge(merged_params)
