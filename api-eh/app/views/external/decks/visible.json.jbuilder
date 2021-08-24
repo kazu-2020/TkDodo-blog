@@ -13,7 +13,7 @@ json.identifierGroup do
 end
 
 json.set! 'playlists' do
-  json.array! @playlists.each do |playlist|
+  json.array! @playlists.first(10).each do |playlist|
     json.partial! partial: 'external/decks/playlist',
                   locals: { playlist: playlist, area: @area, deck_type: 'visible', object_type: @object_type }
   end
