@@ -6,15 +6,15 @@
     <div class="card:hidden h-full">
       <!-- < width:241px-->
       <div class="xxxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
-        <div class="pb-2 grid grid-cols-12 gap-3 mb-auto">
-          <div class="col-span-12">
+        <div class="pb-2 grid grid-cols-1 mb-auto">
+          <div class="col-span-1">
             <img
               decoding="async"
               src="<%= event_image_src %>"
               class="rounded-sm"
               alt="<%= @event_data[:name] %>"/>
             <div class="my-2"></div>
-            <div class="text-xs">
+            <div class="text-xs line-clamp-1">
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
             <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= @event_data[:name] %></div>
@@ -26,7 +26,7 @@
       <div class="invisible xxxs:visible flex flex-col justify-between h-full p-3">
         <div class="pb-2 flex mb-auto h-full">
           <div class="flex-auto">
-            <div class="text-xs">
+            <div class="text-xs line-clamp-2">
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
 
@@ -84,7 +84,7 @@
               class="rounded-sm"
               alt="<%= @event_data[:name] %>"/>
             <div class="my-2"></div>
-            <div class="text-xs">
+            <div class="text-xs line-clamp-2">
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
 
@@ -97,11 +97,11 @@
         </div>
       </div>
 
-      <!-- >= width:276px -->
+      <!-- >= width:241px -->
       <div class="invisible xxs:visible h-full p-3">
-        <div class="pb-2 grid grid-cols-12 gap-3 mb-auto h-full">
-          <div class="xxs:col-span-6 xs:col-span-8">
-            <div class="text-xs">
+        <div class="pb-2 flex mb-auto h-full">
+          <div class="flex-auto">
+            <div class="text-xs line-clamp-2">
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
 
@@ -134,7 +134,7 @@
               </span>
             </div>
           </div>
-          <div class="xxs:col-span-6 xs:col-span-4 flex flex-col justify-between">
+          <div class="w-32 xxs:w-48 flex-none flex flex-col justify-between ml-3">
             <div>
               <img
                 decoding="async"

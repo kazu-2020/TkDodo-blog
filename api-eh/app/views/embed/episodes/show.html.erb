@@ -82,7 +82,7 @@
               src="<%= episode_image_src %>"
               class="rounded-sm"
               alt="<%= @episode_data[:name] %>"/>
-            <div class="text-xs mt-1">
+            <div class="text-xs mt-1 line-clamp-2">
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
             <div class="font-bold text-sm mt-1 w-54 line-clamp-2"><%= @episode_data[:name] %></div>
