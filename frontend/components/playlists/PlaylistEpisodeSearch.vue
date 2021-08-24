@@ -186,14 +186,18 @@ export default Vue.extend({
     sortType(): string {
       switch (this.sortTypeNum) {
         case 0:
-          return 'scoreDesc'
+          return 'score_desc'
         case 1:
-          return 'dateDesc'
+          return 'dateModified_desc'
         case 2:
-          return 'dateAsc'
+          return 'dateModified_asc'
         default:
-          return 'scoreDesc'
+          return 'score_desc'
       }
+    },
+    sortTypeQuery(): string {
+      const splittedSortType = this.sortType.split('_')
+      return `order_by=${splittedSortType[0]}&order=${splittedSortType[1]}`
     },
     queryKey(): string {
       switch (this.queryKeyNum) {
@@ -267,7 +271,7 @@ export default Vue.extend({
         this.searchOffset = 0
       }
 
-      let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&sort_type=${this.sortType}&ignore_range=${this.ignoreRange}&size=${this.pageSize}`
+      let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&${this.sortTypeQuery}&ignore_range=${this.ignoreRange}&size=${this.pageSize}`
       if (this.filterService) {
         // FIXME: e2 を加えると BadRequest になるため、一旦除外
         searchUrl = searchUrl + '&service=g1,g2,e1,e3'
