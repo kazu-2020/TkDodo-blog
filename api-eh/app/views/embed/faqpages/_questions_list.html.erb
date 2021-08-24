@@ -1,0 +1,13 @@
+<ol class="list-none text-gray-350">
+  <% @faq_page_data[:questions].take(take).each_with_index do |question, idx| %>
+    <li class="<%= idx == 0 ? 'mb-5' : '' %>">
+      <div class="question flex text-white">
+        <span class="material-icons" style="font-size: 18px;">help</span>
+        <span class="ml-1 text-sm line-clamp-<%= question_line %>"><%= question[:name] %></span>
+      </div>
+      <div class="answer mt-1">
+        <span class="text-sm line-clamp-<%= answer_line %>"><%= question[:acceptedAnswer].first[:text] %></span>
+      </div>
+    </li>
+  <% end %>
+</ol>
