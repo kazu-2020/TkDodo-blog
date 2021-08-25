@@ -20,8 +20,8 @@ Rails.application.routes.draw do
 
     scope :l do
       scope :bundle do
-        get 'pl/:playlist_id/types', to: 'external/playlists#list_bundle'
-        get 'id/:playlist_uid/types', to: 'external/playlists#list_bundle'
+        get 'pl/:playlist_id/types', to: 'external/playlists#l_bundle'
+        get 'id/:playlist_uid/types', to: 'external/playlists#l_bundle'
       end
 
       get 'tvepisode/pl/:playlist_id', to: 'external/playlists#episodes', as: :episodes_external_playlist
