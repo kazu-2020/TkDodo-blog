@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class External::PlaylistsController < ApplicationController
-  rescue_from ActionController::UnknownFormat, ActionView::MissingTemplate do
+  rescue_from ActionController::UnknownFormat, ActionView::MissingTemplate, ActiveRecord::RecordNotFound do
     render json: { message: '該当リソースは見つかりませんでした' }, status: 404
   end
 
@@ -54,17 +54,34 @@ class External::PlaylistsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def episodes
-    playlist_id = convert_playlist_id(params[:playlist_id])
-    @playlist = Playlist.friendly.find(playlist_id)
+    if params[:playlist_id].present?
+      playlist_id = convert_playlist_id(params[:playlist_id])
+      @playlist = Playlist.friendly.find(playlist_id)
+    elsif params[:playlist_uid].present?
+      playlist_uid = params[:playlist_uid].gsub('.json', '')
+      @playlist = Playlist.find_by!(string_id: playlist_uid)
+    else
+      raise ActiveRecord::RecordNotFound
+    end
+
     @offset = (params[:offset] || 0).to_i
     @size = (params[:size] || 10).to_i
   end
+  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def faq_pages
-    playlist_id = convert_playlist_id(params[:playlist_id])
-    @playlist = Playlist.friendly.find(playlist_id)
+    if params[:playlist_id].present?
+      playlist_id = convert_playlist_id(params[:playlist_id])
+      @playlist = Playlist.friendly.find(playlist_id)
+    elsif params[:playlist_uid].present?
+      playlist_uid = params[:playlist_uid].gsub('.json', '')
+      @playlist = Playlist.find_by!(string_id: playlist_uid)
+    else
+      raise ActiveRecord::RecordNotFound
+    end
 
     @faq_pages =
       @playlist.playlist_items.kept.map do |item|
@@ -78,8 +95,15 @@ class External::PlaylistsController < ApplicationController
   end
 
   def events
-    playlist_id = convert_playlist_id(params[:playlist_id])
-    @playlist = Playlist.friendly.find(playlist_id)
+    if params[:playlist_id].present?
+      playlist_id = convert_playlist_id(params[:playlist_id])
+      @playlist = Playlist.friendly.find(playlist_id)
+    elsif params[:playlist_uid].present?
+      playlist_uid = params[:playlist_uid].gsub('.json', '')
+      @playlist = Playlist.find_by!(string_id: playlist_uid)
+    else
+      raise ActiveRecord::RecordNotFound
+    end
 
     @events =
       @playlist.playlist_items.kept.map do |item|
@@ -93,8 +117,15 @@ class External::PlaylistsController < ApplicationController
   end
 
   def howtos
-    playlist_id = convert_playlist_id(params[:playlist_id])
-    @playlist = Playlist.friendly.find(playlist_id)
+    if params[:playlist_id].present?
+      playlist_id = convert_playlist_id(params[:playlist_id])
+      @playlist = Playlist.friendly.find(playlist_id)
+    elsif params[:playlist_uid].present?
+      playlist_uid = params[:playlist_uid].gsub('.json', '')
+      @playlist = Playlist.find_by!(string_id: playlist_uid)
+    else
+      raise ActiveRecord::RecordNotFound
+    end
 
     @howtos =
       @playlist.playlist_items.kept.map do |item|
@@ -106,7 +137,7 @@ class External::PlaylistsController < ApplicationController
     @offset = (params[:offset] || 0).to_i
     @size = (params[:size] || 10).to_i
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
