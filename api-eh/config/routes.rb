@@ -28,10 +28,10 @@ Rails.application.routes.draw do
       get 'faqpage/pl/:playlist_id', to: 'external/playlists#faq_pages', as: :faqpages_external_playlist
       get 'event/pl/:playlist_id', to: 'external/playlists#events', as: :events_external_playlist
       get 'howto/pl/:playlist_id', to: 'external/playlists#howtos', as: :howtos_external_playlist
-      get 'tvepisode/id/:playlist_uid', to: 'external/playlists#episodes'
-      get 'faqpage/id/:playlist_uid', to: 'external/playlists#faq_pages'
-      get 'event/id/:playlist_uid', to: 'external/playlists#events'
-      get 'howto/id/:playlist_uid', to: 'external/playlists#howtos'
+      get 'tvepisode/id/:playlist_uid', to: 'external/playlists#episodes', as: :episodes_external_playlist_uid
+      get 'faqpage/id/:playlist_uid', to: 'external/playlists#faq_pages', as: :faqpages_external_playlist_uid
+      get 'event/id/:playlist_uid', to: 'external/playlists#events', as: :events_external_playlist_uid
+      get 'howto/id/:playlist_uid', to: 'external/playlists#howtos', as: :howtos_external_playlist_uid
     end
   end
 
