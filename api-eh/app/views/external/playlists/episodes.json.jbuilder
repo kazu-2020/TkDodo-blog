@@ -9,6 +9,7 @@ episodes =
 json.count count
 json.set_raw! :result, episodes.to_json
 
+# rubocop: disable Layout/LineLength
 if params[:playlist_id]
   if count > @offset + @size
     json.nextUrl "#{episodes_external_playlist_url(@playlist.original_id)}.json?offset=#{@offset + @size}&size=#{@size}"
@@ -24,3 +25,4 @@ else
     json.prevUrl "#{episodes_external_playlist_uid_url(@playlist.string_id)}.json?offset=#{@offset - @size}&size=#{@size}"
   end
 end
+# rubocop: enable Layout/LineLength
