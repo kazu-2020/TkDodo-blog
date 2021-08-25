@@ -1,64 +1,178 @@
 <% content_for(:title, @howto_data[:name]) %>
 
-<style>
-    .embed-howto {
-        height: 340px;
-        min-width: 240px;
-    }
-</style>
-
 <div class="embed embed-howto rounded-sm shadow-md text-white border border-gray-450">
   <a href="<%= @howto_data[:url] %>" target="_blank">
-    <div class="p-3 grid grid-cols-12 gap-3 mb-auto" style="height: 298px;">
-      <div class="col-span-7">
-        <div>
-          <span class="text-xs" style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+    <!-- - height:250px -->
+    <div class="card:hidden h-full">
+      <!-- < width:241px-->
+      <div class="xxxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
+        <div class="grid grid-cols-12 gap-3 mb-auto">
+          <div class="col-span-12">
+            <img
+              decoding="async"
+              src="<%= howto_image_src %>"
+              class="rounded-sm"
+              alt="<%= @howto_data[:name] %>"/>
+            <div class="my-2"></div>
+            <div class="text-xs line-clamp-1">
+              <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+            </div>
+            <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= @howto_data[:name] %></div>
+          </div>
         </div>
-        <div class="font-bold text-lg mt-1 mb-2"><%= @howto_data[:name] %></div>
-        <div class="text-gray-350 text-sm line-clamp-3">
-          <%= @howto_data[:description] %>
-        </div>
-      </div>
-      <div class="col-span-5 pl-4">
-        <img
-          decoding="async"
-          src="<%= @howto_data.dig(:image, :medium, :url) %>"
-          data-v-7e59b65e=""
-          class="rounded-sm"
-          alt="<%= @howto_data[:name] %>"/>
       </div>
 
-      <div class="steps col-span-12">
-        <% @howto_data[:section].each do |section| %>
-          <div
-            class="col-span-12 border-t border-gray-350 pt-2"
-          >
-            <div class="flex font-bold mb-2">
-              <span class="material-icons">
-                format_list_numbered
-              </span>
-              <span class="ml-3"><%= section[:name] %></span>
+      <!-- >= width:241px -->
+      <div class="invisible xxxs:visible flex flex-col justify-between h-full p-3">
+        <div class="flex mb-auto h-full">
+          <div class="flex-auto flex flex-col">
+            <div class="text-xs line-clamp-2">
+              <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
-            <ol class="step-list list-decimal list-inside text-gray-350">
-              <% section[:step].take(3).each do |step| %>
-                <li class="mb-1">
-                  <span class="ml-1"><%= step[:name] %></span>
-                </li>
-              <% end %>
-            </ol>
+
+            <div class="font-bold text-md mt-1 mb-2 line-clamp-2">
+              <%= @howto_data[:name] %>
+            </div>
+
+            <div class="text-gray-350 text-sm mt-2 line-clamp-3">
+              <%= @howto_data[:description] %>
+            </div>
+
+            <div class="mt-2">
+            </div>
           </div>
-        <% end %>
+          <div class="w-32 xxs:w-48 flex-none flex flex-col justify-between ml-3">
+            <div>
+              <img
+                decoding="async"
+                src="<%= howto_image_src %>"
+                class="rounded-sm"
+                alt="<%= @howto_data[:name] %>"/>
+              <div class="mt-2">
+                <button
+                  class="w-full bg-yellow-500 hover:bg-yellow-400 text-white py-2 sm:px-10 rounded-sm text-xs"
+                >
+                  詳しく見る
+                </button>
+              </div>
+            </div>
+            <div class="flex justify-end">
+              <%= render 'shared/embed_logo' %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <%= render 'shared/embed_footer' %>
+
+    <!-- >= height:251px -->
+    <div class="small:hidden h-full">
+      <!-- < width:241px-->
+      <div class="xxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
+        <div class="grid grid-cols-12 gap-3 mb-auto">
+          <div class="col-span-12">
+            <img
+              decoding="async"
+              src="<%= howto_image_src %>"
+              class="rounded-sm"
+              alt="<%= @howto_data[:name] %>"/>
+            <div class="my-2"></div>
+            <div class="text-xs line-clamp-2">
+              <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+            </div>
+
+            <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= @howto_data[:name] %></div>
+
+            <div class="text-gray-350 text-xs mt-2 line-clamp-2"><%= @howto_data[:description] %></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- >= width:241px -->
+      <div class="invisible xxs:visible h-full p-3">
+        <div class="flex mb-auto h-full">
+          <div class="flex-auto flex flex-col">
+            <div class="flex-none">
+              <div class="text-xs line-clamp-2">
+                <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+              </div>
+
+              <div class="font-bold text-md mt-1 mb-2 line-clamp-2">
+                <%= @howto_data[:name] %>
+              </div>
+
+              <div class="text-gray-350 text-sm my-2 line-clamp-3">
+                <%= @howto_data[:description] %>
+              </div>
+            </div>
+            <div class="steps h-full">
+              <% @howto_data[:section].each do |section| %>
+                <div class="h-full border-t border-gray-350 pt-2">
+                  <div class="flex items-center font-bold mb-2">
+                    <span class="material-icons">
+                      format_list_numbered
+                    </span>
+                    <span class="ml-2 text-sm"><%= section[:name] %></span>
+                  </div>
+                  <ol class="step-list list-decimal list-inside text-gray-350">
+                    <% section[:step].take(8).each do |step| %>
+                      <li class="mb-1 flex">
+                        <span class="text-sm line-clamp-1"><%= step[:name] %></span>
+                      </li>
+                    <% end %>
+                  </ol>
+                </div>
+              <% end %>
+              <!--              <div id="bokashi" class="relative" style="bottom: 0; background-color: red;"></div>-->
+            </div>
+          </div>
+          <div class="w-32 xxs:w-48 flex-none flex flex-col justify-between ml-3">
+            <div>
+              <img
+                decoding="async"
+                src="<%= howto_image_src %>"
+                class="rounded-sm"
+                alt="<%= @howto_data[:name] %>"/>
+              <div class="mt-2">
+                <button
+                  class="w-full bg-yellow-500 hover:bg-yellow-400 text-white py-2 sm:px-10 rounded-sm text-xs"
+                >
+                  詳しく見る
+                </button>
+              </div>
+            </div>
+            <div class="flex justify-end">
+              <%= render 'shared/embed_logo' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </a>
 </div>
 
 <% content_for(:style) do %>
   <style>
+      .embed-howto {
+          height: <%= @height %>px;
+          overflow: hidden;
+          min-width: 240px;
+      }
+
+      @media (max-height: 250px) {
+          .small\:hidden {
+              display: none !important;
+          }
+      }
+
+      @media (min-height: 251px) {
+          .card\:hidden {
+              display: none !important;
+          }
+      }
+
       .steps {
-          max-height: 300px;
-          overflow: scroll;
+          /*max-height: 300px;*/
+          overflow: hidden;
       }
 
       .steps ol {
@@ -85,8 +199,8 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 22px;
-          width: 22px;
+          height: 18px;
+          width: 18px;
           color: #333;
           font-size: 85%;
           line-height: 1;
@@ -95,21 +209,26 @@
           left: 0;
       }
 
+      /* 一番最後のステップをぼかす用（ステップ数が少ない場合でもぼけるように） */
       .step-list::after {
           display: block;
-          position: absolute;
-          background: linear-gradient(
-                  180deg,
-                  rgba(20, 20, 20, 0) 50%,
-                  rgba(57, 57, 57, 0.8) 80%,
-                  rgba(57, 57, 57, 0.9) 90%,
-                  #343434 100%
-          );
-          top: 195px;
-          left: 1px;
-          right: 1px;
-          height: 80px;
-          max-width: 618px;
+          position: relative;
+          background: linear-gradient(180deg, rgba(20, 20, 20, 0) 25%, #343434 90%);
+          bottom: 27px;
+          height: 24px;
+          max-width: 100%;
+          content: '';
+      }
+
+      /* ステップの最大の高さをはみ出る場合用 */
+      .steps::after  {
+          display: block;
+          position: relative;
+          background: linear-gradient(180deg, rgba(20, 20, 20, 0) 25%, #343434 90%);
+          backdrop-filter: blur(1px);
+          bottom: 20px;
+          height: 24px;
+          max-width: 100%;
           content: '';
       }
   </style>
