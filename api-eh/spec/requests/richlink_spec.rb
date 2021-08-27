@@ -15,7 +15,7 @@ describe RichlinkController, type: :request do
 
     it 'returns success response' do
       playlist_id = format('%010<number>d', number: playlist.id)
-      get richlink_url, params: { url: "https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/eh-#{playlist_id}" }
+      get richlink_url, params: { url: "https://dev-www-eh.nr.nhk.jp/p/pl/eh-#{playlist_id}" }
 
       expect(response.status).to eq 200
       expect(response.body).to_not include 'Error'

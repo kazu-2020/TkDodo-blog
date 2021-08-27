@@ -531,10 +531,10 @@ export default Vue.extend({
       return !!okushibuVideo
     },
     playlistWebPreviewUrl(selectedPlaylist: any): string {
-      return `https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/${selectedPlaylist?.originalId}`
+      return `https://dev-www-eh.nr.nhk.jp/p/pl/${selectedPlaylist?.originalId}`
     },
     playlistSitePreviewUrl(selectedPlaylist: any): string {
-      return `https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/${selectedPlaylist?.originalId}/site`
+      return `https://dev-www-eh.nr.nhk.jp/p/pl/${selectedPlaylist?.originalId}/site`
     },
     serviceLogoUrl(item: any) {
       return item?.releasedEvent?.publishedOn?.images?.badgeSmall?.url || ''

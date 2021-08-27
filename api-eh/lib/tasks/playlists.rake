@@ -18,4 +18,9 @@ namespace :playlists do
   task update_subtypes: :environment do
     Playlist.all.each(&:update_sub_type_count!)
   end
+
+  desc '記事中に含まれる GitHub Pages のURLを書き換える One-Shot Job'
+  task replace_article_url: :environment do
+    Playlist.all.each(&:replace_article_body_urls)
+  end
 end

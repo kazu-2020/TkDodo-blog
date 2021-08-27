@@ -72,7 +72,7 @@ json.nseries do
     end
   end
 
-  json.url "https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/#{@playlist.original_id}"
+  json.url "https://dev-www-eh.nr.nhk.jp/p/pl/#{@playlist.original_id}"
 
   if @playlist.same_as.present?
     json.sameAs do
