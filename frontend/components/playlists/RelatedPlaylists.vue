@@ -94,14 +94,14 @@ export default Vue.extend({
       switch (playlist.identifierGroup.typeOfList) {
         case 'search':
           if (extractedKeyword.length > 1) {
-            return `https://psychic-eureka-90cdb0a4.pages.github.io/search/${extractedKeyword[1]}`
+            return `https://dev-www-eh.nr.nhk.jp/search/${extractedKeyword[1]}`
           } else {
-            return 'https://psychic-eureka-90cdb0a4.pages.github.io'
+            return 'https://dev-www-eh.nr.nhk.jp'
           }
         case 'series':
-          return `https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/${playlist.id}/series`
+          return `https://dev-www-eh.nr.nhk.jp/p/pl/${playlist.id}/series`
         default:
-          return `https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/${playlist.id}`
+          return `https://dev-www-eh.nr.nhk.jp/p/pl/${playlist.id}`
       }
     },
   },

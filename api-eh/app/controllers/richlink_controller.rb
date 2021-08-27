@@ -64,9 +64,8 @@ class RichlinkController < ApplicationController
     richlink_params[:url].match?(playlist_page_url_regex)
   end
 
-  # FIXME: ドメインが振られたら変更する
   def playlist_page_url_regex
-    %r{https?://psychic-eureka-90cdb0a4.pages.github.io/p/pl/eh-([A-Z0-9]{10})}
+    %r{https?://dev-www-eh.nr.nhk.jp/p/pl/eh-([A-Z0-9]{10})}
   end
 
   # @param [String] title

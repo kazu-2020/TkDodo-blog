@@ -318,10 +318,10 @@ export default Vue.extend({
       return article.replace(/\n\n/g, '<br/>')
     },
     playlistWebPreviewUrl(): string {
-      return `https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/${this.playlist?.originalId}`
+      return `https://dev-www-eh.nr.nhk.jp/p/pl/${this.playlist?.originalId}`
     },
     playlistSitePreviewUrl(): string {
-      return `https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/${this.playlist?.originalId}/site`
+      return `https://dev-www-eh.nr.nhk.jp/p/pl/${this.playlist?.originalId}/site`
     },
   },
   mounted() {

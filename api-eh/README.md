@@ -43,25 +43,31 @@ https://github.com/d7lab/aw-editorialhands/tree/master/api-eh/infra/dev/terrafor
 
 [Terrafrom README](https://github.com/d7lab/aw-editorialhands/blob/master/api-eh/infra/dev/terraform/README.md) を参照してください。
 
-## Rubyのバージョンアップ
-参考PR: https://github.com/d7lab/aw-editorialhands/pull/644
+## Ruby のバージョンアップ
+
+参考 PR: https://github.com/d7lab/aw-editorialhands/pull/644
 
 ## エンドポイントについて
+
 **/d6.6**
+
 - TBD
 
 **/oembed**
+
 - [oEmbed](https://oembed.com/) に準拠したレスポンスを返します。
-- example:  https://dev-api-eh.nr.nhk.jp/oembed?url=https://www.nhk.jp/p/ts/6X8L7Z8VK8/episode/te/JP8Z34KPLL/
+- example: https://dev-api-eh.nr.nhk.jp/oembed?url=https://www.nhk.jp/p/ts/6X8L7Z8VK8/episode/te/JP8Z34KPLL/
 
 **/embed**
-- パスの情報から動的に構築したHTMLを返します。
-- oEmbed APIではiframe内にこのコンテンツを設定したHTMLプロパティを返却します。
+
+- パスの情報から動的に構築した HTML を返します。
+- oEmbed API では iframe 内にこのコンテンツを設定した HTML プロパティを返却します。
 - example: https://dev-api-eh.nr.nhk.jp/embed/te/7MKRXXKMML/faqpage/20
 
 **/richlink**
+
 - プレイリスト新標準専用
-- パラメータのURLからカード化に必要な情報をogpなどから取得してJSONを返します。
-  - ogpがなければ、メタのtitle, descriptionから情報を取得します。
-  - パラメータにプレイリスト新標準のURLが設定された場合は、DBから情報を取得します。
-- example: https://dev-api-eh.nr.nhk.jp/richlink?url=https://psychic-eureka-90cdb0a4.pages.github.io/p/pl/eh-0000000030
+- パラメータの URL からカード化に必要な情報を ogp などから取得して JSON を返します。
+  - ogp がなければ、メタの title, description から情報を取得します。
+  - パラメータにプレイリスト新標準の URL が設定された場合は、DB から情報を取得します。
+- example: https://dev-api-eh.nr.nhk.jp/richlink?url=https://dev-www-eh.nr.nhk.jp/p/pl/eh-0000000030
