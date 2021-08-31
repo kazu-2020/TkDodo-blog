@@ -89,15 +89,7 @@ export default Vue.extend({
         })
     },
     externalPlaylistUrl(playlist: any): string {
-      const extractedKeyword = /^「(.+)」/.exec(playlist.name) || []
-
       switch (playlist.identifierGroup.typeOfList) {
-        case 'search':
-          if (extractedKeyword.length > 1) {
-            return `https://dev-www-eh.nr.nhk.jp/search/${extractedKeyword[1]}`
-          } else {
-            return 'https://dev-www-eh.nr.nhk.jp'
-          }
         case 'series':
           return `https://dev-www-eh.nr.nhk.jp/p/pl/${playlist.id}/series`
         default:
