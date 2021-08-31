@@ -40,6 +40,13 @@ Rails.application.routes.draw do
         get 'id/:playlist_uid/types', to: 'external/playlists#ll_bundle'
       end
     end
+
+    scope :lll do
+      scope :bundle do
+        get 'pl/:playlist_id/types', to: 'external/playlists#lll_bundle'
+        get 'id/:playlist_uid/types', to: 'external/playlists#lll_bundle'
+      end
+    end
   end
 
   resources :playlists, except: %i[new edit], format: 'json' do
