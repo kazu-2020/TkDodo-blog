@@ -19,9 +19,9 @@ class OembedDebuggerController < ApplicationController
   end
 
   def featured_item
-    # シリーズやプレイリストのみ
-    # FIXME: 一旦Seriesだけ実装
-    @src = '/embed/ts/W3W8WRN8M3?layout_pattern=featured_item'
+    @type = params[:type] || 'pl' # or 'ts'
+    @id = params[:id] || 'eh-0000000005' # or 'W3W8WRN8M3'
+    @src = "/embed/#{@type}/#{@id}?layout_pattern=featured_item"
   end
 
   def host
