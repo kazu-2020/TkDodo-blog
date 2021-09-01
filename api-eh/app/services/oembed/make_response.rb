@@ -26,6 +26,8 @@ class Oembed::MakeResponse
   def responser
     if series_url?
       Oembed::Response::Series.new(url: url, height: height)
+    elsif playlist_url?
+      Oembed::Response::Playlist.new(url: url, height: height)
     elsif episode_url?
       Oembed::Response::Episode.new(url: url, height: height)
     elsif howto_url?
@@ -46,6 +48,14 @@ class Oembed::MakeResponse
   # @return [TrueClass, FalseClass]
   def series_url?
     url.match?(%r{https?://.*nhk.jp.*/p/.*ts/[A-Z0-9]{10}/?$})
+  end
+
+  # @example
+  #   https://dev-www-eh.nr.nhk.jp/p/pl/eh-0000000030
+  #   https://dev-www-eh.nr.nhk.jp/p/pl/ts-N8GR183W9M/series
+  # @return [TrueClass, FalseClass]
+  def playlist_url?
+    url.match?(%r{https?://dev-www-eh.nr.nhk.jp/p/pl/eh-([A-Z0-9]{10})})
   end
 
   # @example

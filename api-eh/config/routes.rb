@@ -86,6 +86,7 @@ Rails.application.routes.draw do
   get '/oembed', to: 'oembed#index'
   namespace :embed do
     get 'ts/:series_id', to: 'series#show'
+    get 'pl/:playlist_id', to: 'playlists#show'
     get 'ts/:series_id/episode/te/:episode_id', to: 'episodes#show'
     get 'te/:episode_id/howto/:id', to: 'howtos#show'
     get 'te/:episode_id/event/:id', to: 'events#show'
@@ -95,6 +96,7 @@ Rails.application.routes.draw do
   get '/richlink', to: 'richlink#index'
 
   get 'oembed_debugger/summary'
+  get 'oembed_debugger/featured_item'
 
   post '/slack/incoming_webhook', to: 'slack#incoming_webhook', format: 'json'
   get '/editor/fetch_link', to: 'editors#fetch_link', as: :fetch_link_editor, format: 'json'
