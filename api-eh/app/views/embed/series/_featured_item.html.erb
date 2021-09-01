@@ -1,3 +1,86 @@
 <% content_for(:title, @series_data[:name]) %>
 
-h1 FeaturedItem
+<div class="embed embed-featured-item rounded-sm shadow-md text-white" style="background-color: #837B6E;">
+  <a href="<%= @series_data[:url] %>" target="_blank">
+    <div class="scrim"></div>
+    <div class="blur_gradient"></div>
+    <div class="upper">
+      <img
+        decoding="async"
+        src="<%= @series_data.dig(:logo, :medium, :url) %>"
+        class="rounded-sm"
+        alt="<%= @series_data[:name] %>"/>
+    </div>
+    <div class="bottom p-2">
+      <div class="series_content">
+        <% line_clamp_size = @height.to_i < 420 ? '1' : '2' %>
+        <div class="text-xxs text-bold" style="color: <%= @series_data.dig(:style, :primaryLight) %>">
+          <span class="line-clamp-<%= line_clamp_size %>">
+            <%= @series_data.dig(:detailedCatch) %>
+          </span>
+        </div>
+        <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-<%= line_clamp_size %>"><%= @series_data.dig(:name) %></div>
+      </div>
+      <div class="my-3">
+        <hr class="border-gray-350">
+      </div>
+      <div class="episode_content">
+        <div class="text-xxs my-2">
+          <small>このプレイリストに含まれるエピソード</small>
+        </div>
+
+        <div class="flex">
+          <div class="w-20">
+            <img
+              decoding="async"
+              src="<%= episode_image_src %>"
+              class="rounded-sm"
+              alt="<%= @episode_data[:name] %>"/>
+          </div>
+          <div class="ml-2 font-bold text-xs line-clamp-2"><%= @episode_data.dig(:name) %></div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+
+<% content_for(:style) do %>
+  <style>
+      .embed-featured-item {
+          min-height: 385px;
+          max-height: 482px;
+          height: <%= @height %>px;
+          overflow: hidden;
+          width: 240px;
+      }
+
+      .scrim {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 50%;
+          width: 100%;
+          /* 下から上に黒グラデ0%-40% */
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+      }
+
+      .blur_gradient {
+          z-index: 10;
+          position: absolute;
+          top: 220px;
+          height: 25%;
+          width: 100%;
+          /*background: linear-gradient(to top, #837B6E, transparent);*/
+          backdrop-filter: blur(2px); /* 一旦境界をにじませるだけに */
+      }
+
+      .upper {
+          position: relative;
+      }
+
+      .bottom {
+          position: relative;
+          z-index: 20;
+      }
+  </style>
+<% end %>
