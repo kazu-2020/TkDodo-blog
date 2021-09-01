@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_19_171800) do
+ActiveRecord::Schema.define(version: 2021_09_01_164500) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 2021_07_19_171800) do
     t.integer "total_time", default: 0, comment: "プレイリストの総時間"
     t.integer "playable_total_time", default: 0, comment: "プレイリスト再生可能時間"
     t.string "layout_pattern", default: "summary", null: false, comment: "レイアウトパターン"
+    t.string "publish_level", default: "notyet", null: false, comment: "publish level"
     t.text "marked_header", comment: "ヘッダー"
     t.text "article_body", size: :medium, comment: "記事本文"
     t.text "marked_body", size: :medium, comment: "記事本文（マークダウン）"

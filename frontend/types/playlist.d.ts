@@ -51,4 +51,5 @@ export interface Playlist {
   contributor: Array<Object>
   article: Article
   layoutPattern: string
+  publishLevel: string
 }
