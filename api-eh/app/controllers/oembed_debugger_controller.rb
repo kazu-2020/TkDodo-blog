@@ -18,6 +18,12 @@ class OembedDebuggerController < ApplicationController
     end
   end
 
+  def featured_item
+    # シリーズやプレイリストのみ
+    # FIXME: 一旦Seriesだけ実装
+    @src = '/embed/ts/W3W8WRN8M3?layout_pattern=featured_item'
+  end
+
   def host
     Rails.env.development? ? 'http://localhost:8888' : 'https://dev-api-eh.nr.nhk.jp'
   end
