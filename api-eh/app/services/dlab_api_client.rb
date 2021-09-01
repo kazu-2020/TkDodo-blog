@@ -87,6 +87,17 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
+  # エピソードをシリーズ指定で取得する
+  #
+  # @param [String] type: 'tvepisode' or 'radioepisode'
+  # @param [String] series_id: シリーズID
+  # @param [String] request_type: t or l
+  def episode_from_series(type:, series_id:, request_type: :t, query: {})
+    res = client.get "/#{VERSION}/#{request_type}/#{type.downcase}episode/ts/#{series_id}.json",
+                     INTERNAL_PARAMS.merge(query)
+    handle_response(res)
+  end
+
   # エピソードをブロードキャストイベント指定で取得する
   #
   # @param [String] type: 'tvepisode' or 'radioepisode'
