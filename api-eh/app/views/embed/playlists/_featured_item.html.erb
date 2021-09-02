@@ -67,11 +67,13 @@
       .blur_gradient {
           z-index: 10;
           position: absolute;
-          top: 220px;
-          height: 25%;
-          width: 100%;
+          top: 200px;
+          height: 20%;
+          width: 99%;
           /*background: linear-gradient(to top, #837B6E, transparent);*/
-          backdrop-filter: blur(2px); /* 一旦境界をにじませるだけに */
+          backdrop-filter: blur(5px); /* 一旦境界をにじませるだけに */
+          opacity: 85%;
+          margin-left: 1px; /* これを入れないとblurの左端が暗くなる */
       }
 
       .upper {
