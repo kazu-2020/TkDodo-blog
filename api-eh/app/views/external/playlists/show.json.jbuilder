@@ -20,6 +20,7 @@ end
 
 json.additionalProperty do
   json.layoutPattern @playlist.layout_pattern
+  json.publishLevel @playlist.publish_level
 end
 
 if @playlist.deck.present?

@@ -1,8 +1,9 @@
-FROM cypress/browsers:node12.14.1-chrome83-ff77
+FROM cypress/browsers:node12.19.0-chrome86-ff82
 
 ENV APP_HOME /app
 
 # 日本語フォント表示用にnoto-cjkを追加
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN apt-get update --allow-releaseinfo-change
 RUN apt-get install --no-install-recommends -y fonts-noto fonts-noto-cjk
 
