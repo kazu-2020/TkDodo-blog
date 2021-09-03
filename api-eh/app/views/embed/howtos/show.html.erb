@@ -105,23 +105,23 @@
               </div>
             </div>
             <div class="steps h-full">
-              <% @howto_data[:section].each do |section| %>
                 <div class="h-full border-t border-gray-350 pt-2">
-                  <div class="flex items-center font-bold mb-2">
-                    <span class="material-icons">
-                      format_list_numbered
-                    </span>
-                    <span class="ml-2 text-sm"><%= section[:name] %></span>
-                  </div>
-                  <ol class="step-list list-decimal list-inside text-gray-350">
-                    <% section[:step].take(8).each do |step| %>
-                      <li class="mb-1 flex">
-                        <span class="text-sm line-clamp-1"><%= step[:name] %></span>
-                      </li>
-                    <% end %>
-                  </ol>
+                  <% @howto_data[:section].each do |section| %>
+                    <div class="flex items-center font-bold mb-2">
+                      <span class="material-icons">
+                        format_list_numbered
+                      </span>
+                      <span class="ml-2 text-sm"><%= section[:name] %></span>
+                    </div>
+                    <ol class="step-list list-decimal list-inside text-gray-350">
+                      <% section[:step].take(8).each do |step| %>
+                        <li class="mb-1 flex">
+                          <span class="text-sm line-clamp-1"><%= step[:name] %></span>
+                        </li>
+                      <% end %>
+                    </ol>
+                  <% end %>
                 </div>
-              <% end %>
             </div>
           </div>
           <div class="w-32 xxs:w-48 flex-none flex flex-col justify-between ml-3">
@@ -205,17 +205,6 @@
           position: absolute;
           top: 0;
           left: 0;
-      }
-
-      /* 一番最後のステップをぼかす用（ステップ数が少ない場合でもぼけるように） */
-      .step-list::after {
-          display: block;
-          position: relative;
-          background: linear-gradient(180deg, rgba(20, 20, 20, 0) 25%, #343434 90%);
-          bottom: 27px;
-          height: 24px;
-          max-width: 100%;
-          content: '';
       }
 
       /* ステップの最大の高さをはみ出る場合用 */
