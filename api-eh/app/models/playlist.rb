@@ -18,7 +18,9 @@ class Playlist < ApplicationRecord
   PUBLISHED_STATES = %i[draft waiting_for_publish published secret].freeze
   AUTHOR_TYPES = %i[Person Organization].freeze
   PUBLISHER_TYPES = AUTHOR_TYPES
+  PUBLISH_LEVELS = %i[notyet ready limited gone full].freeze
 
+  enum publish_level: PUBLISH_LEVELS.each_with_object({}) { |s, h| h[s] = s.to_s }
   enum published_state: PUBLISHED_STATES.each_with_object({}) { |s, h| h[s] = s.to_s }
 
   has_many :playlist_items,
