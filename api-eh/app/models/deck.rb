@@ -22,7 +22,7 @@ class Deck < ApplicationRecord
   end
 
   def deck_id(type)
-    "#{item_type}-#{type}-#{is_r5? ? 'r5-' : ''}#{area}"
+    "#{item_type}-#{is_r5? ? 'r5' : 'r6'}-#{type}-#{area}"
   end
 
   private

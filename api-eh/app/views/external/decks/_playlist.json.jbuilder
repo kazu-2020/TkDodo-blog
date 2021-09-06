@@ -66,4 +66,5 @@ else
   json.sameAs nil
 end
 
-json.url "https://dev-api-eh.nr.nhk.jp/d6.6/t/nplaylist/pl/#{playlist.original_id}.json?area=#{area}"
+base_url = 'https://dev-api-eh.nr.nhk.jp/d6.6/t/nplaylist'
+json.url base_url + "/pl/#{playlist.original_id}.json?area=#{area}&type=#{object_type}"
