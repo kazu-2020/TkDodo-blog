@@ -12,12 +12,14 @@ describe External::DecksController, type: :request do
     end
 
     context 'when contains valid area' do
-      context 'and path is "editorial"' do
-        it 'pathes include "dk" and returns success response' do
-          get '/d6.6/t/ndeck/dk/recommend-editorial.json', params: { area: area }
+      context 'and path is "tv"' do
+        it 'pathes does not include "dk" and returns success response' do
+          get '/d6.6/t/ndeck/dk/recommend-r6-tv-130.json'
           expect(response.status).to eq 200
         end
+      end
 
+      context 'and path is "editorial"' do
         it 'pathes does not include "dk" and returns success response' do
           get '/d6.6/t/ndeck/recommend/editorial.json', params: { area: area }
           expect(response.status).to eq 200
@@ -25,16 +27,6 @@ describe External::DecksController, type: :request do
       end
 
       context 'and path is "visible"' do
-        it 'pathes include "dk" and returns success response' do
-          get '/d6.6/t/ndeck/dk/recommend-visible.json', params: { area: area }
-          expect(response.status).to eq 200
-        end
-
-        it 'pathes include "dk" and "r5" returns success response' do
-          get '/d6.6/t/ndeck/dk/recommend-visible-r5.json', params: { area: area }
-          expect(response.status).to eq 200
-        end
-
         it 'pathes does not include "dk" and returns success response' do
           get '/d6.6/t/ndeck/recommend/visible.json', params: { area: area }
           expect(response.status).to eq 200
@@ -46,11 +38,6 @@ describe External::DecksController, type: :request do
       let(:invalid_area) { 0 }
 
       context 'and path is "editorial"' do
-        it 'pathes include "dk" and returns success response' do
-          get '/d6.6/t/ndeck/dk/recommend-editorial.json', params: { area: invalid_area }
-          expect(response.status).to eq 404
-        end
-
         it 'pathes does not include "dk" and returns success response' do
           get '/d6.6/t/ndeck/recommend/editorial.json', params: { area: invalid_area }
           expect(response.status).to eq 404
@@ -58,11 +45,6 @@ describe External::DecksController, type: :request do
       end
 
       context 'and path is "visible"' do
-        it 'pathes include "dk" and returns success response' do
-          get '/d6.6/t/ndeck/dk/recommend-visible.json', params: { area: invalid_area }
-          expect(response.status).to eq 404
-        end
-
         it 'pathes does not include "dk" and returns success response' do
           get '/d6.6/t/ndeck/recommend/visible.json', params: { area: invalid_area }
           expect(response.status).to eq 404
