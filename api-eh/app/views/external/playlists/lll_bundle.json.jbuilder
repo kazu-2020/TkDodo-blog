@@ -17,23 +17,25 @@ if @playlist.output_item_list_to_bundle && @playlist.output_episode_to_bundle
   end
 end
 
-if @playlist.output_item_list_to_bundle && @playlist.output_event_to_bundle
-  json.event do
-    json.active true
-    json.available @playlist.event_count.positive?
+if @playlist.full?
+  if @playlist.output_item_list_to_bundle && @playlist.output_event_to_bundle
+    json.event do
+      json.active true
+      json.available @playlist.event_count.positive?
+    end
   end
-end
 
-if @playlist.output_item_list_to_bundle && @playlist.output_faq_page_to_bundle
-  json.faqpage do
-    json.active true
-    json.available @playlist.faq_page_count.positive?
+  if @playlist.output_item_list_to_bundle && @playlist.output_faq_page_to_bundle
+    json.faqpage do
+      json.active true
+      json.available @playlist.faq_page_count.positive?
+    end
   end
-end
 
-if @playlist.output_item_list_to_bundle && @playlist.output_how_to_to_bundle
-  json.howto do
-    json.active true
-    json.available @playlist.how_to_count.positive?
+  if @playlist.output_item_list_to_bundle && @playlist.output_how_to_to_bundle
+    json.howto do
+      json.active true
+      json.available @playlist.how_to_count.positive?
+    end
   end
 end
