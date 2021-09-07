@@ -412,6 +412,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.7)
     unicode-display_width (2.0.0)
+    vcr (6.0.0)
     web-console (4.1.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -471,6 +472,7 @@ DEPENDENCIES
   spring
   tailwindcss-rails
   tzinfo-data
+  vcr
   web-console (>= 4.1.0)
   webpacker (~> 5.0)
 

@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6/t/event/id/94.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '897'
+      connection:
+      - keep-alive
+      date:
+      - Tue, 07 Sep 2021 02:30:42 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      etag:
+      - '"381-QWIGsdCbDwD4yEyGBnUA/GMg/1E"'
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 89a79abdcd1ed6464a36bc9e0c9decdc.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT12-C5
+      x-amz-cf-id:
+      - y95jp1GWTx6NAVVbht2dbKpT7Xo4DfVQUSfNnHKvpwhqKwitHwHa7Q==
+    body:
+      encoding: UTF-8
+      string: '{"type":"Event","id":"94","name":"水郷祭","description":"花火をたくさん打ち上げます","startDate":"2021-08-07T20:00:00+09:00","endDate":"2021-08-08T22:00:00+09:00","eventAttendanceMode":"offline","postalAddress":"島根県松江市ほげほげ","place":"宍道湖","eventStatus":"scheduled","image":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/event/te/GV711R4WQV/GV711R4WQV-eyecatch_6a0c631426747bd282cd63b8ef64a415.jpg","width":1920,"height":1080},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/event/te/GV711R4WQV/GV711R4WQV-eyecatch_c978b092cddd2495c9eef4ca5e288c56.jpg","width":640,"height":360}},"dateCreated":"2020-09-17T14:57:30+09:00","dateModified":"2021-04-07T14:47:09+09:00","identifierGroup":{"seriesId":"D4VPQVK78M","episodeId":"GV711R4WQV"},"undefinedSection":[],"offersSameAs":"","url":"https://dev-www.nhk.jp/p/ts/D4VPQVK78M/event/94/"}'
+  recorded_at: Tue, 07 Sep 2021 02:30:42 GMT
+recorded_with: VCR 6.0.0
