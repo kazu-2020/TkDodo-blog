@@ -1,14 +1,11 @@
-<% content_for(:title, @playlist.name) %>
-
 <div class="embed embed-featured-item rounded-sm shadow-md text-white" style="background-color: <%= @playlist.selected_palette %>;">
   <a href="<%= @url %>" target="_blank">
     <div class="scrim"></div>
-    <div class="blur_gradient"></div>
     <div class="upper">
       <img
         decoding="async"
         src="<%= @playlist.logo_image_url %>"
-        class="rounded-sm"
+        class="rounded-sm mask-image"
         alt="<%= @episode_data.dig(:name) %>"/>
     </div>
     <div class="bottom p-2">
@@ -22,7 +19,7 @@
         <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-<%= line_clamp_size %>"><%= @playlist.name %></div>
       </div>
       <div class="my-3">
-        <hr class="border-gray-350">
+        <hr class="opacity-50">
       </div>
       <div class="episode_content">
         <div class="text-xxs my-2">
@@ -64,18 +61,6 @@
           background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
       }
 
-      .blur_gradient {
-          z-index: 10;
-          position: absolute;
-          top: 200px;
-          height: 20%;
-          width: 99%;
-          /*background: linear-gradient(to top, #837B6E, transparent);*/
-          backdrop-filter: blur(5px); /* 一旦境界をにじませるだけに */
-          opacity: 85%;
-          margin-left: 1px; /* これを入れないとblurの左端が暗くなる */
-      }
-
       .upper {
           position: relative;
       }
@@ -83,6 +68,11 @@
       .bottom {
           position: relative;
           z-index: 20;
+      }
+
+      .mask-image {
+          -webkit-mask-image: linear-gradient(black 50%, transparent 100%);
+          mask-image: linear-gradient(black 50%, transparent 100%);
       }
   </style>
 <% end %>
