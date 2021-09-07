@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       end
 
       scope :ndeck do
-        get 'dk/:deck_id', to: 'external/decks#show', constraints: { deck_id: /recommend-(visible|editorial)(-r5)?/ }
+        get 'dk/:deck_id', to: 'external/decks#show_migrated', constraints: { deck_id: /recommend-r(5|6)-tv-130/ }
         get 'recommend/:deck_id', to: 'external/decks#show'
       end
 
@@ -32,6 +32,12 @@ Rails.application.routes.draw do
       get 'faqpage/id/:playlist_uid', to: 'external/playlists#faq_pages', as: :faqpages_external_playlist_uid
       get 'event/id/:playlist_uid', to: 'external/playlists#events', as: :events_external_playlist_uid
       get 'howto/id/:playlist_uid', to: 'external/playlists#howtos', as: :howtos_external_playlist_uid
+
+      scope :nplaylist do
+        get 'dk/:deck_id', to: 'external/playlists#index',
+                           constraints: { deck_id: /recommend-r(5|6)-tv-130/ },
+                           as: :external_playlists
+      end
     end
 
     scope :ll do

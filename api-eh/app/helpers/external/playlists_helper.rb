@@ -57,6 +57,9 @@ module External::PlaylistsHelper
       base_url + "/visible#{deck.is_r5? ? '-r5' : ''}.json?area=#{deck.area}&type=#{object_type}"
     when /editorial/
       base_url + "/editorial#{deck.is_r5? ? '-r5' : ''}.json?area=#{deck.area}&type=#{object_type}"
+    when /tv/
+      base_url = 'https://dev-api-eh.nr.nhk.jp/d6.6/t/ndeck/dk'
+      base_url + "/recommend-#{deck.is_r5? ? 'r5' : 'r6'}-tv-130.json?type=#{object_type}"
     else
       ''
     end
