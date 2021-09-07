@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.nr.nhk.jp/r6/t/faqpage/id/49.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '318'
+      connection:
+      - keep-alive
+      date:
+      - Tue, 07 Sep 2021 02:30:42 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      etag:
+      - '"13e-8t6xpwRSvbATWvSPAsPRS/J/tt0"'
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 0d9c3a04ccebd3e629c5b22a32b50694.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P4
+      x-amz-cf-id:
+      - XiGUIkoNSOilQrJmnQp4bT_jrxvg3gyft_ALmW6fjVxliSgbT5ax0Q==
+    body:
+      encoding: UTF-8
+      string: '{"type":"FAQPage","id":"49","name":"このエピソードのよくあるご質問","questions":[],"identifierGroup":{"seriesId":"WJ9WG8YL24","episodeId":"JWLZP5RV7V"},"url":"https://www.nhk.jp/p/ts/WJ9WG8YL24/episode/te/JWLZP5RV7V/","dateCreated":"2020-03-27T14:15:24+09:00","dateModified":"2020-03-27T14:16:04+09:00"}'
+  recorded_at: Tue, 07 Sep 2021 02:30:42 GMT
+recorded_with: VCR 6.0.0

@@ -1,0 +1,72 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.nr.nhk.jp/r6/t/howto/id/49.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      date:
+      - Tue, 07 Sep 2021 02:30:39 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      etag:
+      - W/"28b6-/4VcDJ9HDNZDqmRQkaEknwKli4g"
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 f1f4afba4268f1486380be4c4394d85c.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P4
+      x-amz-cf-id:
+      - Tk7sn7iH84bcoDQ-mEPLXWGe0Qh1Xffy_hdHVO5R2jSFnOVdCiVpFw==
+    body:
+      encoding: UTF-8
+      string: '{"type":"HowTo","id":"49","name":"サボテンブローチの作り方","description":"\t樹脂粘土でつくるサボテンのキラキラブローチ！
+        形も色も自由自在！","tool":[],"supply":[{"name":"・アクリル絵の具（緑）・樹脂粘土・ブローチピン・つまようじ・キラキラパーツ","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-supply_53c084d88d39f10084e11beb2830ec8e.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-supply_d99006320f9d13cc5ef69c42fa90104e.png","width":640,"height":360}}}],"totalTime":"P0D","estimatedCost":"","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-eyecatch_d2afe1fc4bfdf38a00c57b180a6456dc.jpg","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-eyecatch_5a04ae92d518b4bf4c48484e51b73216.jpg","width":640,"height":360}},"section":[{"name":"作り方","step":[{"name":"クリアホルダーをカット","text":"サボテンは樹脂粘土で作ります。粘土をカットする“ナイフ”をクリアホルダーで作ります。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_4222a4f1258cf7491e9ea72f77bcb6b6.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_f2215e42379c5b3b7ca7f9ce5efda7b1.png","width":640,"height":360}},"substep":[{"type":"HowToDirection","text":"長さは3cm×12cmぐらい。"}]},{"name":"樹脂粘土","text":"樹脂粘土にアクリル絵の具で色をつけます。\n","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_ee7515da41e1c4fc848ef2b942936a87.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_ab49ec95b9422181375151a1a0e61112.png","width":640,"height":360}},"substep":[{"type":"HowToDirection","text":"樹脂粘土はいなりずし１コ分ぐらい。"}]},{"name":"まるめる","text":"色を混ぜて、しっかりもんでまるめます。　","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_f03f5103cf31d0ad3ae5445263d9ef99.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_d891943c4c5e964a4b4b4242ea2518d8.png","width":640,"height":360}},"substep":[]},{"name":"平らにする準備","text":"クリアフォルダーに2本の鉛筆をはさんで、その間に粘土を置きます。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_b6157b538eef28d8a574146d54f007dd.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_678d4c870d0ea49a929974421c1e6a25.png","width":640,"height":360}},"substep":[]},{"name":"平らにする","text":"ラップの芯を転がして粘土を平らにします。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_683a0a211e7c78eb49765b84496ac445.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_bdb62282992541011355906fe0f92866.png","width":640,"height":360}},"substep":[]},{"name":"しずくの形にカット","text":"最初に作ったクリアフォルダーの帯を使ってサボテンのパーツを切り出します。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_bff8278e78faddb34429d0055cc2d2f3.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_75cb61170470e5583298418317170411.png","width":640,"height":360}},"substep":[{"type":"HowToDirection","text":"帯でしずくの形を作って上から押さえれば切れるよ。"},{"type":"HowToDirection","text":"サボテンの完成をイメージして、本体１コ、枝3コを作ります。"}]},{"name":"まるみ","text":"かどは指でまるみをつけます。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_5b5b0c29f0f2476c9df061ece25e4036.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_6f4f4821d6cd0e80e13a9600e40b20cd.png","width":640,"height":360}},"substep":[]},{"name":"はしをカット","text":"サボテンの枝のつけねにあたる部分をカットします","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_f131623919d93ab8dcd940652b39ee3e.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_50296ded33a93007a9719ce358be3304.png","width":640,"height":360}},"substep":[]},{"name":"乾かす","text":"30分ぐらい乾かします。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_42a94b5b7eb052c5a3ade8686ad4db37.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_35c6601db0c83784ec79d3612628d56b.png","width":640,"height":360}},"substep":[]},{"name":"つまようじをカット","text":"つまようじを1cmぐらいの長さに斜めカット。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_bd4090c25185bd9aade5f2ad8d587445.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_9a2594a77fd10c583d64ebedb2d45775.png","width":640,"height":360}},"substep":[{"type":"HowToDirection","text":"サボテンの枝の数だけ作ります。"}]},{"name":"接着","text":"枝パーツの小さいほうのつけねに接着剤をちょこんとつけます。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_f81a28015fd4cc93477de780f86afc8a.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_f149b287b628b549eb0077f3aff1fc2b.png","width":640,"height":360}},"substep":[]},{"name":"つまようじ","text":"接着剤をつけたところにカットしたつまようじを半分ぐらい刺します。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_7408de44ca2d404dc1f8aea65125e932.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_3632245eafef978a42a37f65b620a386.png","width":640,"height":360}},"substep":[]},{"name":"組み立て","text":"本体につまようじを刺してくっつけます。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_c597e7e4f124bd7e21e22a89bc5458df.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_21803313f5dcf389cd6c099bc58914ad.png","width":640,"height":360}},"substep":[]},{"name":"乾かす","text":"バランスよくくっつけて１日乾かします。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_7a8757c3b8711a3c409e6c25f6a8dfe3.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_f1f4bbaa6af64ae5d65169930f9d2c86.png","width":640,"height":360}},"substep":[]},{"name":"キラキラパーツの準備","text":"サボテンにくっつけるキラキラパーツを選びます。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_6235f4e81d84dfd36e4ea34cb13d3ddf.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_8479276165bb9fdaa918e148342e2ee2.png","width":640,"height":360}},"substep":[]},{"name":"飾る","text":"接着剤でキラキラパーツをつけていきます。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_5b24db7799b87ec6c275854bffadbe24.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_05711eb405ea8ad41203e0dea5f06ef9.png","width":640,"height":360}},"substep":[{"type":"HowToDirection","text":"さきにサボテンのほうに接着剤をつけておくとやりやすいよ。"},{"type":"HowToDirection","text":"大きくて鮮やかなパーツでサボテンの花の感じがでるよ。"}]},{"name":"ブローチピン","text":"仕上げはブローチピンの取り付けです。接着剤でつけます。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_55381da3b2f0bf57d38a50839f67700d.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_b733a0a2641d2e6689daa5b3935706f8.png","width":640,"height":360}},"substep":[]},{"name":"ブローチピン","text":"向きに気をつけてブローチピンをとりつけ乾かします。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_4059d1639e769890f2db5aec902fa6a0.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_d979543b3bdf8b9c06e63368cc804a57.png","width":640,"height":360}},"substep":[]},{"name":"完成","text":"接着剤が乾けば完成です。","image":{"main":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_d79c9a26ec8dd9149334d053ccc5235a.png","width":1920,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/howto/te/8X5KKJ1W5Y/8X5KKJ1W5Y-step_cf9be404653afba297db0e3948049457.png","width":640,"height":360}},"substep":[]}]}],"identifierGroup":{"seriesId":"E5Q48579J3","episodeId":"8X5KKJ1W5Y"},"dateCreated":"2021-03-15T12:46:06+09:00","dateModified":"2021-03-19T19:56:04+09:00","url":"https://www.nhk.jp/p/ts/E5Q48579J3/howto/49/"}'
+  recorded_at: Tue, 07 Sep 2021 02:30:39 GMT
+recorded_with: VCR 6.0.0
