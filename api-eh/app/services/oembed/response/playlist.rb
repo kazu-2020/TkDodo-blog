@@ -6,7 +6,7 @@ class Oembed::Response::Playlist
   # rubocop:disable Metrics/MethodLength
   def response
     playlist = Playlist.find(extract_playlist_id)
-    src = "#{src_host}/embed/#{extract_playlist_url}?layout_pattern=#{playlist.layout_pattern}"
+    src = "#{src_host}/embed/#{extract_playlist_url}?layout_pattern=#{playlist.layout_pattern&.underscore}"
     height ||= 210
     {
       version: '1.0',
