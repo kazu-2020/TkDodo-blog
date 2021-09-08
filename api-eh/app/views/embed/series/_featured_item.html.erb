@@ -11,7 +11,7 @@
     <div class="bottom p-2">
       <div class="series_content">
         <% line_clamp_size = @height.to_i < 420 ? '1' : '2' %>
-        <div class="text-xxs text-bold" style="color: <%= @series_data.dig(:style, :primaryLight) %>">
+        <div class="text-xxs text-bold opacity-80">
           <span class="line-clamp-<%= line_clamp_size %>">
             <%= @series_data.dig(:detailedCatch) %>
           </span>
@@ -23,7 +23,7 @@
       </div>
       <div class="episode_content">
         <div class="text-xxs my-2">
-          <small>このプレイリストに含まれるエピソード</small>
+          <small class="opacity-80">このプレイリストに含まれるエピソード</small>
         </div>
 
         <div class="flex">
