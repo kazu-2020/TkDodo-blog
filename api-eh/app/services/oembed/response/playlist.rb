@@ -7,10 +7,10 @@ class Oembed::Response::Playlist
   def response
     playlist = Playlist.find(extract_playlist_id)
     src = "#{src_host}/embed/#{extract_playlist_url}?layout_pattern=#{playlist.layout_pattern&.underscore}"
-    height ||= 210
+    height ||= 385
     {
       version: '1.0',
-      width: '100%',
+      width: '240px',
       height: height,
       type: 'rich',
       provider_name: 'NHK',
