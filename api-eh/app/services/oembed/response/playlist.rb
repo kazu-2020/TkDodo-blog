@@ -10,7 +10,7 @@ class Oembed::Response::Playlist
     height ||= 385
     {
       version: '1.0',
-      width: '240px',
+      width: 240,
       height: height,
       type: 'rich',
       provider_name: 'NHK',
@@ -20,7 +20,7 @@ class Oembed::Response::Playlist
       thumbnail_width: 640,
       thumbnail_height: 360,
       thumbnail_url: playlist.logo_image_url,
-      html: "<iframe width=\"100%\" height=\"#{height}\" src=\"#{src}\" style=\"border: 0;\"></iframe>"
+      html: "<iframe width=\"240\" height=\"#{height}\" src=\"#{src}\" style=\"border: 0;\"></iframe>"
     }
   end
   # rubocop:enable Metrics/MethodLength
