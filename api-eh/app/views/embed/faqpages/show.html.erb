@@ -1,27 +1,7 @@
 <% content_for(:title, @faq_page_data[:name]) %>
 
-<style>
-    .embed-faqpage {
-        height: <%= @height %>px;
-        overflow: hidden;
-        min-width: 240px;
-    }
-
-    @media (max-height: 250px) {
-        .small\:hidden {
-            display: none !important;
-        }
-    }
-
-    @media (min-height: 251px) {
-        .card\:hidden {
-            display: none !important;
-        }
-    }
-</style>
-
 <div class="embed embed-faqpage rounded-sm shadow-md text-white border border-gray-450">
-  <a href="<%= faq_page_url %>" target="_blank">
+  <a href="<%= @faq_page_data[:url] %>" target="_blank">
     <!-- - height:250px -->
     <div class="card:hidden h-full">
       <!-- < width:241px-->
@@ -127,3 +107,25 @@
     </div>
   </a>
 </div>
+
+<% content_for(:style) do %>
+  <style>
+      .embed-faqpage {
+          height: <%= @height %>px;
+          overflow: hidden;
+          min-width: 240px;
+      }
+
+      @media (max-height: 250px) {
+          .small\:hidden {
+              display: none !important;
+          }
+      }
+
+      @media (min-height: 251px) {
+          .card\:hidden {
+              display: none !important;
+          }
+      }
+  </style>
+<% end %>
