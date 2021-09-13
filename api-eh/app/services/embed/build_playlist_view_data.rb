@@ -42,6 +42,7 @@ class Embed::BuildPlaylistViewData
                                 name: @playlist.name,
                                 logo_image_url: @playlist.logo_image_url,
                                 detailed_catch: @playlist.detailed_catch,
+                                key_color: @playlist.selected_palette,
                                 episode_data: episode_data)
   end
 end
