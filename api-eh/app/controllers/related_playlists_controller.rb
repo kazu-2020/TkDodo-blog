@@ -20,8 +20,7 @@ class RelatedPlaylistsController < ApplicationController
     rescue DlabApiBase::NotFound
       nil
     end
-    # FIXME: フロントでカルーセル対応の後、12個制限をやめる
-    @related_playlists = @related_playlists.flatten.uniq { |playlist| playlist[:id] }.first(12)
+    @related_playlists = @related_playlists.flatten.uniq { |playlist| playlist[:id] }
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
