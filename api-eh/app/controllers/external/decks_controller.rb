@@ -6,6 +6,7 @@ class External::DecksController < ApplicationController
   end
 
   DEFAULT_AREA = 130
+  DEFAULT_SIZE = 10
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
   def show
@@ -47,6 +48,7 @@ class External::DecksController < ApplicationController
     media_action = (params[:mediaAction] || '').split(',')
     order = params[:order] || 'desc'
     order_by = params[:orderBy] || 'dateModified'
+    @size = (params[:size] || DEFAULT_SIZE).to_i
 
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
     render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(order)
