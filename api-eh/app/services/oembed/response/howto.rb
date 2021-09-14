@@ -11,7 +11,7 @@ class Oembed::Response::Howto
     raise DlabApiClient::NotFound if episode_id.blank?
 
     src = "#{src_host}/embed/te/#{episode_id}/howto/#{extract_howto_id}"
-    height ||= 340
+    height ||= 210
     {
       version: '1.0',
       width: '100%',
