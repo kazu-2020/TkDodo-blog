@@ -1,22 +1,33 @@
 <template>
   <div :class="relatedPlaylistKlass">
     <h4 class="mb-2">似ているプレイリスト</h4>
-    <v-row class="mb-2">
-      <v-col v-for="playlist in relatedPlaylists" :key="playlist.id" cols="2">
-        <a :href="externalPlaylistUrl(playlist)" target="_blank">
+    <div class="d-flex flex-wrap mb-5">
+      <v-card
+        v-for="playlist in relatedPlaylists"
+        :key="playlist.id"
+        outlined
+        rounded
+        class="mr-1 mb-1"
+        style="height: 32px; overflow: hidden"
+      >
+        <a
+          :href="externalPlaylistUrl(playlist)"
+          target="_blank"
+          class="text-decoration-none"
+        >
           <v-img
             :src="playlist.logo.medium.url"
             :alt="playlist.name"
-            max-width="120"
-            class="mb-1"
+            max-width="30"
+            class="mb-1 d-inline-block"
             lazy-src="https://placehold.jp/3d4070/ffffff/120x120.png?text=NoImage"
           />
-          <div class="body-2" style="max-width: 120px">
+          <span class="body-2 pl-1 pr-2" style="position: relative; top: -13px">
             {{ playlist.name }}
-          </div>
+          </span>
         </a>
-      </v-col>
-    </v-row>
+      </v-card>
+    </div>
   </div>
 </template>
 
