@@ -5,14 +5,8 @@ class OembedDebuggerController < ApplicationController
     @type = params[:type] || 'episode'
 
     case @type
-    when 'episode'
-      episode
-    when 'event'
-      event
-    when 'howto'
-      howto
-    when 'faqpage'
-      faqpage
+    when 'episode', 'event', 'howto', 'faqpage', 'series', 'playlist'
+      send(@type)
     else
       raise Error
     end
@@ -71,5 +65,14 @@ class OembedDebuggerController < ApplicationController
     @series_data = client.series(type: 'tv', series_id: @faq_page_data.dig(:identifierGroup, :seriesId))
 
     @src = "#{host}/embed/te/#{@faq_page_data.dig(:identifierGroup, :episodeId)}/faqpage/#{@id}"
+  end
+
+  def series
+    @id = params[:id] || 'R88ZYP985X'
+
+    client = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp')
+    @series_data = client.series(type: 'tv', series_id: @id)
+
+    @src = "#{host}/embed/ts/#{@id}"
   end
 end
