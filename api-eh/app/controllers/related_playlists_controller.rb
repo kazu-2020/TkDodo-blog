@@ -20,7 +20,10 @@ class RelatedPlaylistsController < ApplicationController
     rescue DlabApiBase::NotFound
       nil
     end
-    @related_playlists = @related_playlists.flatten.uniq { |playlist| playlist[:id] }
+    @related_playlists =
+      @related_playlists.flatten.uniq { |playlist| playlist[:id] }
+                        .sort { |a, b| a[:identifierGroup][:typeOfList] <=> b[:identifierGroup][:typeOfList] }
+                        .reverse
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
