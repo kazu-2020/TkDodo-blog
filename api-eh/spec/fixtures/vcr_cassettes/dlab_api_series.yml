@@ -1,0 +1,71 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.nr.nhk.jp/r6/t/tvseries/ts/R71NJ4MV53.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      date:
+      - Wed, 15 Sep 2021 08:45:51 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      etag:
+      - W/"1253-m2hYZgEy+Imo+A1KBLc6R/KfyQg"
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 e47b43971a4fe3d8e6ac20fb2a92327c.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT12-C3
+      x-amz-cf-id:
+      - PpGKOIWwDR730pdUGdSauAF6F3EZSFoGXCkWYx64oD0wt9MMX17lDg==
+    body:
+      encoding: UTF-8
+      string: '{"type":"TVSeries","id":"R71NJ4MV53","name":"光秀のスマホ","detailedSeriesNameRuby":"みつひでのすまほ","identifierGroup":{"seriesId":"R71NJ4MV53","seriesName":"光秀のスマホ","hashtag":[],"siteId":"6622","serviceId":["g1","g2"],"aliasId":"mitsuhide-smapho","formatGenre":[{"id":"03","name":"ドラマ"}],"mediaAssetUrls":["https://movie-a.nhk.or.jp/json/R71NJ4MV53.json"]},"identifierGroupEx":{"seriesGroupId":"VGKWQN2MP3","seriesGroupName":"光秀のスマホ","seriesNameTemp":"光秀のスマホ"},"keywords":["武将たち","スマホ","フォロワー数争い","スマホ画面","愛娘・玉","心の内","光秀","秀吉","信長","戦国時代","し烈","パワハラ鬼電"],"description":"武将たちがスマホを駆使して群雄割拠する戦国時代。\r\n光秀のスマホに映し出される、信長からのパワハラ鬼電、秀吉とのし烈なフォロワー数争い、愛娘・玉とのスタンプでこぼれる本音…etc\r\nあの光秀の心の内がスマホ画面から明らかに！？\r\n（このドラマはフィクションです）","detailedCatch":"スマホを手放せない明智光秀が戦国時代を駆け抜ける！","style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#307BA0","linkDark":"#4DC4FF","primaryLight":"#3D9BC9","primaryDark":"#4DC4FF"},"dateCreated":"2020-10-03T06:46:51+09:00","dateModified":"2020-10-29T13:27:13+09:00","actors":[],"contributors":[],"logo":{"main":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-logo_018e21c8a5c55fe6c22b172bcb77c014.png","width":1080,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-logo_edc82efb39db4c6bf9f653c8ae676ec1.png","width":640,"height":640}},"eyecatch":{"main":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-eyecatch_cff86f26146bf229bee93988ff5623d5.png","width":1920,"height":1080},"tver":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-eyecatch_8262b42a1f98b0540340b16de887db7f.png","width":928,"height":522},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-eyecatch_847a792503528160178f8debf7ca2dd6.png","width":640,"height":360}},"hero":{"main":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-hero_94618a1f908469838fe8704ad3f8b697.png","width":1920,"height":640},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-hero_8fde904c7e4e8f4cdb35d30d0ed82be4.png","width":1080,"height":360}},"videos":[],"releasedEvent":{},"citations":[],"detailedTimetable":[{"description":"","isRerun":false,"publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}}],"url":"https://www.nhk.jp/p/ts/R71NJ4MV53/","sameAs":[{"name":"公式Twitter「スマホを持ってる明智光秀＠NHK公式」","url":"https://twitter.com/nhk_mitsuhide"},{"name":"どーがレージ「光秀のスマホ」","url":"https://www.nhk.or.jp/d-garage/program/?program=265"}],"detailedMemo":[],"additionalProperty":{"publishLevel":"full","layoutPattern":"summary","episodeOrder":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[]}}'
+  recorded_at: Wed, 15 Sep 2021 08:45:51 GMT
+recorded_with: VCR 6.0.0

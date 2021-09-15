@@ -9,8 +9,8 @@ class Embed::SeriesController < EmbedController
                                                                                        query: { size: 1 })
     @episode_data = res[:result].first
     @series_data = @episode_data[:partOfSeries]
-    @height = embed_series_params[:height] || 385
     set_layout_pattern
+    @height = embed_series_params[:height] || Oembed::Response::Series::DEFAULT_HEIGHT[@layout_pattern.to_sym]
 
     render 'embed/not_found', status: :not_found and return if @episode_data.blank?
   rescue DlabApiBase::NotFound
@@ -24,7 +24,7 @@ class Embed::SeriesController < EmbedController
   end
 
   def set_layout_pattern
-    is_exist_pattern = %w[summary large_image featured_item item_list].include?(embed_series_params[:layout_pattern])
+    is_exist_pattern = %w[summary largeImage featuredItem itemList].include?(embed_series_params[:layout_pattern])
     @layout_pattern = is_exist_pattern ? embed_series_params[:layout_pattern] : 'summary'
   end
 end

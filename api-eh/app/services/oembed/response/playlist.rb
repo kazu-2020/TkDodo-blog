@@ -3,11 +3,18 @@
 class Oembed::Response::Playlist
   include Oembed::Response::Respondable
 
+  DEFAULT_HEIGHT = {
+    summary: 210,
+    featuredItem: 385,
+    itemList: 210,
+    largeImage: 210
+  }.freeze
+
   # rubocop:disable Metrics/MethodLength
   def response
     playlist = Playlist.find(extract_playlist_id)
-    src = "#{src_host}/embed/#{extract_playlist_url}?layout_pattern=#{playlist.layout_pattern&.underscore}"
-    height ||= 385
+    src = "#{src_host}/embed/#{extract_playlist_url}?layout_pattern=#{playlist.layout_pattern}"
+    height ||= DEFAULT_HEIGHT[playlist.layout_pattern.to_sym] || 210
     {
       version: '1.0',
       width: 240,
