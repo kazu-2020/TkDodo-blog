@@ -18,7 +18,7 @@ class Oembed::Response::Series
     layout_pattern = res.dig(:additionalProperty, :layoutPattern)
 
     src = "#{src_host}/embed/#{extract_series_url}?layout_pattern=#{layout_pattern}"
-    height ||= DEFAULT_HEIGHT[layout_pattern.to_sym]
+    height ||= DEFAULT_HEIGHT[layout_pattern.to_sym] || 210
     {
       version: '1.0',
       width: '100%',

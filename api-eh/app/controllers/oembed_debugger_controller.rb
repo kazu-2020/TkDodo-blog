@@ -75,4 +75,10 @@ class OembedDebuggerController < ApplicationController
 
     @src = "#{host}/embed/ts/#{@id}"
   end
+
+  def playlist
+    @id = params[:id] || '30'
+    @playlist = Playlist.find(@id)
+    @src = "#{host}/embed/pl/#{@id}"
+  end
 end
