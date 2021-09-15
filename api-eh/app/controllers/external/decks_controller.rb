@@ -8,7 +8,7 @@ class External::DecksController < ApplicationController
   DEFAULT_AREA = 130
   DEFAULT_SIZE = 10
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     @request_url = request.url
     @area = params[:area]
@@ -35,6 +35,7 @@ class External::DecksController < ApplicationController
       else
         @deck.playlists.draft
       end
+    @playlists = @playlists.has_article if media_action.include?('read')
     @object_type = params[:type] || 'tvepisode'
 
     case order_by
@@ -48,14 +49,12 @@ class External::DecksController < ApplicationController
 
     case params[:deck_id]
     when /tv/
-      render 'recommend-tv', format: 'json', handlers: 'jbuilder'
+      render 'recommend_tv', format: 'json', handlers: 'jbuilder'
     else
       render json: { message: 'デッキが見つかりませんでした' }, status: 404
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show_migrated
     @request_url = request.url
     @area = DEFAULT_AREA
