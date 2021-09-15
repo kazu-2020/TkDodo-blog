@@ -5,8 +5,10 @@ require 'rails_helper'
 describe OembedController, type: :request do
   describe 'Series url' do
     it 'returns success response' do
-      get oembed_path, params: { url: 'https://www.nhk.jp/p/mitsuhide-smapho/ts/R71NJ4MV53' }
-      expect(response.status).to eq 200
+      VCR.use_cassette('dlab_api_series') do
+        get oembed_path, params: { url: 'https://www.nhk.jp/p/mitsuhide-smapho/ts/R71NJ4MV53' }
+        expect(response.status).to eq 200
+      end
     end
   end
 
