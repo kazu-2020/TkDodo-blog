@@ -15,7 +15,7 @@ class OembedDebuggerController < ApplicationController
   def featured_item
     @type = params[:type] || 'pl' # or 'ts'
     @id = params[:id] || 'eh-0000000005' # or 'W3W8WRN8M3'
-    @src = "/embed/#{@type}/#{@id}?layout_pattern=featured_item"
+    @src = "/embed/#{@type}/#{@id}?layout_pattern=featuredItem"
   end
 
   def host
