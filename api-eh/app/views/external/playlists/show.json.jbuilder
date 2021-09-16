@@ -86,7 +86,7 @@ end
 unless @is_min_mode
   # rubocop:disable Metrics/BlockLength
   subtype_item_count = 0
-  json.items @playlist.playlist_items.kept.first(10).each do |playlist_item|
+  json.items @playlist.playlist_items.kept.first(@size).each do |playlist_item|
     episode_data = fetch_episode_data(playlist_item: playlist_item, force_fetch: true)
 
     case @object_type
@@ -116,7 +116,7 @@ unless @is_min_mode
       next unless events[:result].present?
 
       events[:result].each do |event|
-        next if subtype_item_count == 10
+        next if subtype_item_count == @size
 
         json_data = ::MultiJson.load(event.to_json)
         json_data.each_key do |key|
@@ -129,7 +129,7 @@ unless @is_min_mode
       next unless howtos[:result].present?
 
       howtos[:result].each do |howto|
-        next if subtype_item_count == 10
+        next if subtype_item_count == @size
 
         json_data = ::MultiJson.load(howto.to_json)
         json_data.each_key do |key|
@@ -142,7 +142,7 @@ unless @is_min_mode
       next unless faq_pages[:result].present?
 
       faq_pages[:result].each do |faq_page|
-        next if subtype_item_count == 10
+        next if subtype_item_count == @size
 
         json_data = ::MultiJson.load(faq_page.to_json)
         json_data.each_key do |key|
@@ -163,13 +163,13 @@ end
 
 case @object_type
 when 'event'
-  json.itemUrl "#{events_external_playlist_url(@playlist.original_id)}.json?size=10&offset=0"
+  json.itemUrl "#{events_external_playlist_url(@playlist.original_id)}.json?size=#{@size}&offset=0"
 when 'howto'
-  json.itemUrl "#{howtos_external_playlist_url(@playlist.original_id)}.json?size=10&offset=0"
+  json.itemUrl "#{howtos_external_playlist_url(@playlist.original_id)}.json?size=#{@size}&offset=0"
 when 'faqpage'
-  json.itemUrl "#{faqpages_external_playlist_url(@playlist.original_id)}.json?size=10&offset=0"
+  json.itemUrl "#{faqpages_external_playlist_url(@playlist.original_id)}.json?size=#{@size}&offset=0"
 else
-  json.itemUrl "#{episodes_external_playlist_url(@playlist.original_id)}.json?size=10&offset=0"
+  json.itemUrl "#{episodes_external_playlist_url(@playlist.original_id)}.json?size=#{@size}&offset=0"
 end
 
 json.playlisticle do
