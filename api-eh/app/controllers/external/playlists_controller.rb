@@ -6,6 +6,7 @@ class External::PlaylistsController < ApplicationController
   end
 
   DEFAULT_AREA = 130
+  DEFAULT_SIZE = 10
 
   # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
   def index
@@ -13,7 +14,7 @@ class External::PlaylistsController < ApplicationController
     is_r5 = !(params[:deck_id] =~ /r5/).nil?
     @deck = Deck.find_by(area: @area, is_r5: is_r5)
     @offset = (params[:offset] || 0).to_i
-    @size = (params[:size] || 10).to_i
+    @size = (params[:size] || DEFAULT_SIZE).to_i
     media_action = (params[:mediaAction] || '').split(',')
     order = params[:order] || 'desc'
     order_by = params[:orderBy] || 'dateModified'
@@ -64,6 +65,7 @@ class External::PlaylistsController < ApplicationController
     @area = params[:area]
     @request_url = request.url
     @is_min_mode = params[:is_min_mode] == '1'
+    @size = (params[:itemlistSize] || DEFAULT_SIZE).to_i
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -138,7 +140,7 @@ class External::PlaylistsController < ApplicationController
     end
 
     @offset = (params[:offset] || 0).to_i
-    @size = (params[:size] || 10).to_i
+    @size = (params[:size] || DEFAULT_SIZE).to_i
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -162,7 +164,7 @@ class External::PlaylistsController < ApplicationController
         []
       end.flatten
     @offset = (params[:offset] || 0).to_i
-    @size = (params[:size] || 10).to_i
+    @size = (params[:size] || DEFAULT_SIZE).to_i
   end
 
   def events
@@ -184,7 +186,7 @@ class External::PlaylistsController < ApplicationController
         []
       end.flatten
     @offset = (params[:offset] || 0).to_i
-    @size = (params[:size] || 10).to_i
+    @size = (params[:size] || DEFAULT_SIZE).to_i
   end
 
   def howtos
@@ -206,7 +208,7 @@ class External::PlaylistsController < ApplicationController
         []
       end.flatten
     @offset = (params[:offset] || 0).to_i
-    @size = (params[:size] || 10).to_i
+    @size = (params[:size] || DEFAULT_SIZE).to_i
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 

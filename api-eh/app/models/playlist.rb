@@ -68,6 +68,7 @@ class Playlist < ApplicationRecord
   before_create :set_default_color
   after_create :link_article_images
   before_save :generate_derivatives
+  before_save :trim_name
 
   class << self
     def assign_from_series(series_id)
@@ -316,6 +317,10 @@ class Playlist < ApplicationRecord
   end
 
   private
+
+  def trim_name
+    self.name = name.gsub(/(^[[:space:]]+)|([[:space:]]+$)/, '')
+  end
 
   def generate_string_id
     self.string_id = SecureRandom.uuid
