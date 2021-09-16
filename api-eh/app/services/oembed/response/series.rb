@@ -3,11 +3,11 @@
 class Oembed::Response::Series
   include Oembed::Response::Respondable
 
-  DEFAULT_HEIGHT = {
-    summary: 210,
-    featuredItem: 385,
-    itemList: 210,
-    largeImage: 210
+  DEFAULT_SIZE = {
+    summary: { height: 210, width: '100%' },
+    featuredItem: { height: 385, width: '240' },
+    itemList: { height: 210, width: '100%' },
+    largeImage: { height: 210, width: '100%' }
   }.freeze
 
   # rubocop:disable Metrics/MethodLength
@@ -18,10 +18,11 @@ class Oembed::Response::Series
     layout_pattern = res.dig(:additionalProperty, :layoutPattern)
 
     src = "#{src_host}/embed/#{extract_series_url}?layout_pattern=#{layout_pattern}"
-    height ||= DEFAULT_HEIGHT[layout_pattern.to_sym] || 210
+    height ||= DEFAULT_SIZE[layout_pattern.to_sym][:height] || 210
+    width ||= DEFAULT_SIZE[layout_pattern.to_sym][:width] || '100%'
     {
       version: '1.0',
-      width: '100%',
+      width: width,
       height: height,
       type: 'rich',
       provider_name: 'NHK',
@@ -31,7 +32,7 @@ class Oembed::Response::Series
       thumbnail_width: 640,
       thumbnail_height: 360,
       thumbnail_url: 'https://placehold.jp/640x360.png',
-      html: "<iframe width=\"100%\" height=\"#{height}\" src=\"#{src}\" style=\"border: 0;\"></iframe>"
+      html: "<iframe width=\"#{width}\" height=\"#{height}\" src=\"#{src}\" style=\"border: 0;\"></iframe>"
     }
   end
   # rubocop:enable Metrics/MethodLength

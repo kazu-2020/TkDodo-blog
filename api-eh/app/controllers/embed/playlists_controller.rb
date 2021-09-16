@@ -5,9 +5,10 @@ class Embed::PlaylistsController < EmbedController
     playlist_id = params[:playlist_id].delete_prefix('eh-').to_i
     @playlist = Playlist.find(playlist_id)
     @url = "https://dev-www-eh.nr.nhk.jp/p/pl/#{@playlist.original_id}"
-    @episode_data = @playlist.playlist_items.first.cached_data.symbolize_keys
+    @episode_data = @playlist.playlist_items.first&.cached_data&.symbolize_keys
     set_layout_pattern
-    @height = embed_playlists_params[:height] || Oembed::Response::Playlist::DEFAULT_HEIGHT[@layout_pattern.to_sym]
+    @height = embed_playlists_params[:height] ||
+              Oembed::Response::Playlist::DEFAULT_SIZE[@layout_pattern.to_sym][:height]
 
     render 'embed/not_found', status: :not_found and return if @episode_data.blank?
   rescue DlabApiBase::NotFound
