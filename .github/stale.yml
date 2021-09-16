@@ -1,7 +1,7 @@
 # Number of days of inactivity before an issue becomes stale
 daysUntilStale: 28
 # Number of days of inactivity before a stale issue is closed
-daysUntilClose: 7
+daysUntilClose: 14
 # Issues with these labels will never be considered stale
 exemptLabels:
   - pinned
@@ -12,6 +12,6 @@ staleLabel: stale
 markComment: >
   この issue は、しばらく動きが無いようです。
   stale ラベルをつけますので、継続した議論等が必要な場合には、情報のアップデートをお願いします。
-  コメントやstaleラベルを外さない場合、７日後にissue をクローズします。
+  コメントやstaleラベルを外さない場合、14日後にissue をクローズします。
 # Comment to post when closing a stale issue. Set to `false` to disable
 closeComment: false
