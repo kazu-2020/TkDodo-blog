@@ -92,23 +92,53 @@
         <div class="preview-container container-fluid mt-4 pa-2 white rounded">
           <basic-information-view :playlist="playlist" />
           <v-col cols="12">
+            <div class="body-2 font-weight-bold">リスト</div>
             <v-list dense>
               <v-list-item
                 v-for="item in playlistItems"
                 :key="item.id"
                 class="px-0"
               >
-                <v-list-item-icon class="mr-1">
+                <v-list-item-icon class="mr-3">
                   <v-img
                     :src="eyecatchUrl(item)"
-                    lazy-src="https://placehold.jp/50x28.png"
-                    width="50"
-                    height="28"
-                    class="episode-image"
-                  />
+                    lazy-src="https://placehold.jp/100x56.png"
+                    width="100"
+                    height="56"
+                  >
+                    <div
+                      v-if="!hasVideo(item)"
+                      class="no_video d-flex justify-center align-center"
+                    >
+                      <div>視聴不可</div>
+                    </div>
+                  </v-img>
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title v-text="item.name" />
+                  <v-list-item-title
+                    style="font-size: 14px"
+                    v-text="item.name"
+                  />
+                  <v-list-item-subtitle
+                    style="font-size: 12px; margin-top: 2px"
+                  >
+                    <span style="position: relative">
+                      <img
+                        :src="serviceLogoUrl(item)"
+                        style="height: 12px; position: relative; top: 1px"
+                      />
+                    </span>
+                    {{ seriesName(item) }}
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle
+                    style="
+                      font-size: 12px;
+                      margin-top: 2px;
+                      padding-bottom: 2px;
+                    "
+                  >
+                    直近放送日: {{ startDate(item) }}
+                  </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -134,6 +164,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import moment from 'moment'
 import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
@@ -259,12 +290,38 @@ export default Vue.extend({
     }
   },
   methods: {
-    eyecatchUrl(item: any): string {
-      if (item.eyecatch !== undefined) {
-        return item.eyecatch.medium.url
+    startDate(item: any): string {
+      const date = item?.detailedRecentEvent?.startDate || ''
+
+      if (date.length === 0) {
+        return '-'
       } else {
-        return 'https://placehold.jp/50x28.png'
+        moment.locale('ja')
+        return moment(date).format('YYYY年MM月DD日(ddd) HH:mm')
       }
+    },
+    eyecatchUrl(item: any): string {
+      if (item?.eyecatch !== undefined) {
+        return item.eyecatch.medium.url
+      }
+      if (item?.partOfSeries?.eyecatch !== undefined) {
+        return item.partOfSeries.eyecatch.medium.url
+      }
+
+      return 'https://placehold.jp/50x28.png'
+    },
+    hasVideo(episode: any) {
+      const videos = episode?.videos || []
+      const okushibuVideo = videos.find(
+        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
+      )
+      return !!okushibuVideo
+    },
+    serviceLogoUrl(item: any) {
+      return item?.releasedEvent?.publishedOn?.images?.badgeSmall?.url || ''
+    },
+    seriesName(item: any): string {
+      return item?.partOfSeries?.name || ''
     },
     changeTab(nextTab: PlaylistTab) {
       this.currentTab = nextTab
