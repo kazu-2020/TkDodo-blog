@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RelatedPlaylistsController < ApplicationController
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
   def index
     episode_ids = params[:episode_ids].split(',')
     keywords = params[:keywords].split(',')
@@ -22,8 +22,9 @@ class RelatedPlaylistsController < ApplicationController
     end
     @related_playlists =
       @related_playlists.flatten.uniq { |playlist| playlist[:id] }
+                        .reject { |playlist| %w[series schedule].include?(playlist[:identifierGroup][:typeOfList]) }
                         .sort { |a, b| a[:identifierGroup][:typeOfList] <=> b[:identifierGroup][:typeOfList] }
                         .reverse
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
 end
