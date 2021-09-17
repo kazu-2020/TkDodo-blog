@@ -64,6 +64,19 @@ module Embed::EventHelper
     '開催中'
   end
 
+  # @return [String]
+  def event_status_label
+    statuses = {
+      scheduled: '確定',
+      cancelled: 'キャンセル',
+      postponed: '延期・日程未定',
+      reScheduled: '日程変更',
+      movedOnline: 'オンライン開催へ変更'
+    }
+
+    statuses[@event_data[:eventStatus]&.to_sym]
+  end
+
   private
 
   # @return [Date]
