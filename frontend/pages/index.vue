@@ -476,11 +476,14 @@ export default Vue.extend({
       this.selectedPlaylist = playlist
     },
     eyecatchUrl(item: any): string {
-      if (item.eyecatch !== undefined) {
+      if (item?.eyecatch !== undefined) {
         return item.eyecatch.medium.url
-      } else {
-        return 'https://placehold.jp/100x56.png'
       }
+      if (item?.partOfSeries?.eyecatch !== undefined) {
+        return item.partOfSeries.eyecatch.medium.url
+      }
+
+      return 'https://placehold.jp/100x56.png'
     },
     fetchEpisodes(): void {
       if (this.selectedPlaylist === undefined) return

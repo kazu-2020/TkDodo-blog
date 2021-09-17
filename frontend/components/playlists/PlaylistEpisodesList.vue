@@ -32,7 +32,7 @@
           </td>
           <td justify="center" align="center">
             <v-img
-              :src="eyecatchUrl(item.eyecatch)"
+              :src="eyecatchUrl(item)"
               lazy-src="https://placehold.jp/71x40.png"
               width="71"
               class="ma-2 episode-image"
@@ -107,12 +107,15 @@ export default Vue.extend({
     deleteEpisode(episode: any) {
       this.$emit('delete-episode', episode)
     },
-    eyecatchUrl(eyecatch: any) {
-      if (eyecatch !== undefined) {
-        return eyecatch.medium.url
-      } else {
-        return 'https://placehold.jp/71x40.png'
+    eyecatchUrl(item: any) {
+      if (item?.eyecatch !== undefined) {
+        return item.eyecatch.medium.url
       }
+      if (item?.partOfSeries?.eyecatch !== undefined) {
+        return item.partOfSeries.eyecatch.medium.url
+      }
+
+      return 'https://placehold.jp/71x40.png'
     },
     seriesName(episode: any) {
       return episode?.partOfSeries?.name || ''

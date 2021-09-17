@@ -97,9 +97,9 @@
         <v-list-item-icon class="mr-3 my-3">
           <v-img
             :src="eyecatchUrl(item)"
-            lazy-src="https://placehold.jp/71x40.png"
-            width="71"
-            height="40"
+            lazy-src="https://placehold.jp/100x56.png"
+            width="100"
+            height="56"
           >
             <div v-if="!hasVideo(item)" class="no-video">視聴不可</div>
           </v-img>
@@ -241,11 +241,14 @@ export default Vue.extend({
       this.selectedPlaylist = playlist
     },
     eyecatchUrl(item: any): string {
-      if (item.eyecatch !== undefined) {
+      if (item?.eyecatch !== undefined) {
         return item.eyecatch.medium.url
-      } else {
-        return 'https://placehold.jp/50x28.png'
       }
+      if (item?.partOfSeries?.eyecatch !== undefined) {
+        return item.partOfSeries.eyecatch.medium.url
+      }
+
+      return 'https://placehold.jp/100x56.png'
     },
     fetchEpisodes(): void {
       if (this.selectedPlaylist === undefined) return

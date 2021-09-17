@@ -43,8 +43,15 @@ export default Vue.extend({
     },
   },
   methods: {
-    episodeThumbnailUrl(episode: any): string {
-      return episode.eyecatch?.medium?.url || 'https://placehold.jp/71x40.png'
+    episodeThumbnailUrl(item: any): string {
+      if (item?.eyecatch !== undefined) {
+        return item.eyecatch.medium.url
+      }
+      if (item?.partOfSeries?.eyecatch !== undefined) {
+        return item.partOfSeries.eyecatch.medium.url
+      }
+
+      return 'https://placehold.jp/71x40.png'
     },
     showSeriesName(): void {
       this.isShowSeriesName = true

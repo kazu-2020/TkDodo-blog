@@ -203,13 +203,6 @@ export default Vue.extend({
     logoImageUrl(playlist: any) {
       return playlist.logo?.medium?.url || this.dummyImage(playlist.dateCreated)
     },
-    eyecatchUrl(item: any): string {
-      if (item.eyecatch !== undefined) {
-        return item.eyecatch.medium.url
-      } else {
-        return 'https://placehold.jp/50x28.png'
-      }
-    },
     actorContributorName(data: any): string {
       return data.person?.name || data.organization?.name || ''
     },
