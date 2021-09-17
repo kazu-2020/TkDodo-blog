@@ -9,7 +9,9 @@
           :key="`sereis-format-genre-${seriesFormatGenre.id}`"
           class="genre-badge series-format-genre-badge"
         >
-          {{ seriesFormatGenre.name }}
+          <div style="width: 105%; text-align: center">
+            {{ seriesFormatGenre.name }}
+          </div>
         </div>
         <div v-if="seriesFormatGenres.length === 0" class="genre-badge">-</div>
       </div>
@@ -21,7 +23,9 @@
           :key="`sereis-theme-genre-${seriesThemeGenre.id}`"
           class="genre-badge series-theme-genre-badge"
         >
-          {{ seriesThemeGenre.name }}
+          <div style="width: 105%; text-align: center">
+            {{ seriesThemeGenre.name }}
+          </div>
         </div>
         <div v-if="seriesThemeGenres.length === 0" class="genre-badge">-</div>
       </div>
@@ -35,7 +39,9 @@
           :key="`episode-format-genre-${episodeFormatGenre.id}`"
           class="genre-badge episode-format-genre-badge"
         >
-          {{ episodeFormatGenre.name }}
+          <div style="width: 105%; text-align: center">
+            {{ episodeFormatGenre.name }}
+          </div>
         </div>
         <div v-if="episodeFormatGenres.length === 0" class="genre-badge">-</div>
       </div>
@@ -47,7 +53,9 @@
           :key="`episode-theme-genre-${episodeThemeGenre.id}`"
           class="genre-badge episode-theme-genre-badge"
         >
-          {{ episodeThemeGenre.name }}
+          <div style="width: 105%; text-align: center">
+            {{ episodeThemeGenre.name }}
+          </div>
         </div>
         <div v-if="episodeThemeGenres.length === 0" class="genre-badge">-</div>
       </div>
@@ -60,7 +68,9 @@
         :key="`broadcast-genre-${broadcastGenre.id}`"
         class="genre-badge broadcast-genre-badge"
       >
-        {{ broadcastGenre.name }}
+        <div style="width: 105%; text-align: center">
+          {{ broadcastGenre.name }}
+        </div>
       </div>
     </div>
   </v-col>

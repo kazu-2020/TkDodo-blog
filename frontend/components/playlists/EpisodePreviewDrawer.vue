@@ -114,7 +114,9 @@
                   v-if="relatedPlaylist.formatGenreName.length !== 0"
                   class="genre-badge format-genre-badge"
                 >
-                  {{ relatedPlaylist.formatGenreName }}
+                  <div style="width: 105%; text-align: center">
+                    {{ relatedPlaylist.formatGenreName }}
+                  </div>
                 </div>
                 <div v-if="relatedPlaylist.formatGenreName.length === 0">-</div>
               </div>
@@ -125,7 +127,9 @@
                   v-if="relatedPlaylist.themeGenreName.length !== 0"
                   class="genre-badge theme-genre-badge"
                 >
-                  {{ relatedPlaylist.themeGenreName }}
+                  <div style="width: 105%; text-align: center">
+                    {{ relatedPlaylist.themeGenreName }}
+                  </div>
                 </div>
                 <div
                   v-if="relatedPlaylist.themeGenreName.length === 0"
