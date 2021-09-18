@@ -1,5 +1,5 @@
 <div class="embed embed-series rounded-sm shadow-md text-white border border-gray-450">
-  <a href="<%= @series_data[:url] %>" target="_blank">
+  <a href="<%= view_data.url %>" target="_blank">
     <!-- <= height:250px -->
     <div class="card:hidden h-full">
       <!-- < width:241px-->
@@ -8,11 +8,11 @@
           <div class="col-span-12">
             <img
               decoding="async"
-              src="<%= @series_data.dig(:eyecatch, :medium, :url) %>"
+              src="<%= view_data.eyecatch_image_url %>"
               class="rounded-sm"
-              alt="<%= @series_data[:name] %>"/>
+              alt="<%= view_data.name %>"/>
             <div class="my-2"></div>
-            <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= @series_data[:name] %></div>
+            <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= view_data.name %></div>
           </div>
         </div>
       </div>
@@ -24,9 +24,9 @@
             <div>
               <img
                 decoding="async"
-                src="<%= @series_data.dig(:eyecatch, :medium, :url) %>"
+                src="<%= view_data.eyecatch_image_url %>"
                 class="rounded-sm"
-                alt="<%= @series_data[:name] %>"/>
+                alt="<%= view_data.name %>"/>
 
               <div class="mt-2">
                 <button
@@ -39,9 +39,9 @@
             <%= render 'shared/embed_logo' %>
           </div>
           <div class="flex-auto ml-3">
-            <div class="font-bold text-md mt-1 mb-2 line-clamp-2"><%= @series_data[:name] %></div>
+            <div class="font-bold text-md mt-1 mb-2 line-clamp-2"><%= view_data.name %></div>
             <div class="text-gray-350 text-xs mt-2 line-clamp-6">
-              <%= @series_data[:description] %>
+              <%= view_data.description %>
             </div>
           </div>
         </div>
@@ -56,12 +56,12 @@
           <div class="col-span-12">
             <img
               decoding="async"
-              src="<%= @series_data.dig(:eyecatch, :medium, :url) %>"
+              src="<%= view_data.eyecatch_image_url %>"
               class="rounded-sm"
-              alt="<%= @series_data[:name] %>"/>
-            <div class="font-bold text-sm mt-1 w-54 line-clamp-2"><%= @series_data[:name] %></div>
+              alt="<%= view_data.name %>"/>
+            <div class="font-bold text-sm mt-1 w-54 line-clamp-2"><%= view_data.name %></div>
             <div class="text-gray-350 text-xs mt-2 line-clamp-4">
-              <%= @series_data[:description] %>
+              <%= view_data.description %>
             </div>
           </div>
         </div>
@@ -74,9 +74,9 @@
             <div>
               <img
                 decoding="async"
-                src="<%= @series_data.dig(:eyecatch, :medium, :url) %>"
+                src="<%= view_data.eyecatch_image_url %>"
                 class="rounded-sm"
-                alt="<%= @series_data[:name] %>"/>
+                alt="<%= view_data.name %>"/>
 
               <div class="mt-3">
                 <button
@@ -89,9 +89,9 @@
             <%= render 'shared/embed_logo' %>
           </div>
           <div class="flex-auto ml-3">
-            <div class="font-bold text-md mt-1 mb-2 line-clamp-2"><%= @series_data[:name] %></div>
+            <div class="font-bold text-md mt-1 mb-2 line-clamp-2"><%= view_data.name %></div>
             <div class="text-gray-350 text-xs mt-2 line-clamp-6">
-              <%= @series_data[:description] %>
+              <%= view_data.description %>
             </div>
           </div>
         </div>

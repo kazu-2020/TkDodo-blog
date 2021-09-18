@@ -1,20 +1,12 @@
 # frozen_string_literal: true
 
 class Embed::SeriesController < EmbedController
-  def show # rubocop:disable Metrics/AbcSize
-    series_id = params[:series_id]
-    res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').episode_from_series(type: 'tv',
-                                                                                       series_id: series_id,
-                                                                                       request_type: :l,
-                                                                                       query: { size: 1 })
-    @episode_data = res[:result].first
-    @series_data = @episode_data[:partOfSeries]
+  def show
     set_layout_pattern
+    @view_data = Embed::BuildSeriesViewData.new(series_id: params[:series_id], layout_pattern: @layout_pattern).call
     @height = embed_series_params[:height] || Oembed::Response::Series::DEFAULT_SIZE[@layout_pattern.to_sym][:height]
 
-    render 'embed/not_found', status: :not_found and return if @episode_data.blank?
-  rescue DlabApiBase::NotFound
-    render 'embed/not_found', status: :not_found
+    render 'embed/not_found', status: :not_found if @view_data.blank?
   end
 
   private
