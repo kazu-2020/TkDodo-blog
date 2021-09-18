@@ -1,0 +1,71 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.nr.nhk.jp/r6/t/tvepisode/te/B7ZJX92J2N.json?extendedEntities=true&ignoreRange=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      date:
+      - Sat, 18 Sep 2021 06:11:55 GMT
+      cache-control:
+      - max-age=30
+      etag:
+      - W/"27a7-BaJ4xogc5SH5O94Tc5xffAaXR1s"
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - RefreshHit from cloudfront
+      via:
+      - 1.1 c6a39a61a5883d63c301bf090ead6951.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P4
+      x-amz-cf-id:
+      - HvcoMh1aoxOIsbHfjBepBmQcdHiWhx0s-GQQuIZNIJljLYh5_JQ2Cw==
+    body:
+      encoding: UTF-8
+      string: '{"type":"TVEpisode","id":"B7ZJX92J2N","name":"(1)「#これからは信長の時代でしょ」","identifierGroup":{"episodeId":"B7ZJX92J2N","seriesId":"R71NJ4MV53","episodeName":"(1)「#これからは信長の時代でしょ」","seriesName":"光秀のスマホ","hashtag":[],"siteId":"6622","serviceId":["g1","g2"],"aliasId":"mitsuhide-smapho","formatGenreTag":[{"id":"03","name":"ドラマ"}],"themeGenreTag":[{"id":"031","name":"国内ドラマ"}]},"identifierGroupEx":{"seriesGroupId":"VGKWQN2MP3","seriesGroupName":"光秀のスマホ","episodeNameTemp":"(1)「#これからは信長の時代でしょ」","seriesNameTemp":"光秀のスマホ","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2020-10-12T23:40:00+09:00","releasedEventEndDateTemp":"2020-10-12T23:45:00+09:00"},"keywords":["SF","鬼電","秀吉","大河ドラマ","全6話","同僚秀吉","上司信長","スマホ","光秀","明智光秀","戦国時代","光秀目線","SNS","スマホ画面","史上初","時代劇","きっと応援","信長","フォロワー数","既読無視","ネットニュース","麒麟がくる","フォロワー数争い","イラ","裏アカ","エゴサ"],"description":"誤爆！裏アカ！既読無視！明智光秀がスマホを駆使して戦国時代を駆け抜ける！上司信長からの鬼電！同僚秀吉とのフォロワー数争い！スマホ画面だけで描く戦国ＳＦ時代劇！（ＮＨＫプラスでは5分完全版が見られます）\r\n\r\n“もしも明智光秀がスマホを持っていたら…”。史上初！スマホ画面＝光秀目線だけで描く戦国ＳＦ時代劇（全６話）。信長と〈ＳＮＳで〉出会い、秀吉と〈フォロワー数で〉しのぎを削り、〈ネットニュースで〉歴史に名を残すべく、戦国時代を〈エゴサしながら〉駆け抜ける！大河ドラマ『麒麟がくる』とは全然ちがう、イラつくけれどなんか親しみ感じちゃう光秀を、きっと応援〈＝フォロー〉したくなる！","dateCreated":"2020-10-03T06:46:52+09:00","dateModified":"2021-09-15T18:39:46+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"R71NJ4MV53","name":"光秀のスマホ","detailedSeriesNameRuby":"みつひでのすまほ","identifierGroup":{"seriesId":"R71NJ4MV53","seriesName":"光秀のスマホ","hashtag":[],"siteId":"6622","serviceId":["g1","g2"],"aliasId":"mitsuhide-smapho","formatGenre":[{"id":"03","name":"ドラマ"}],"mediaAssetUrls":["https://movie-a.nhk.or.jp/json/R71NJ4MV53.json"]},"identifierGroupEx":{"seriesGroupId":"VGKWQN2MP3","seriesGroupName":"光秀のスマホ","seriesNameTemp":"光秀のスマホ"},"url":"https://www.nhk.jp/p/ts/R71NJ4MV53/","description":"武将たちがスマホを駆使して群雄割拠する戦国時代。\r\n光秀のスマホに映し出される、信長からのパワハラ鬼電、秀吉とのし烈なフォロワー数争い、愛娘・玉とのスタンプでこぼれる本音…etc\r\nあの光秀の心の内がスマホ画面から明らかに！？\r\n（このドラマはフィクションです）","detailedCatch":"スマホを手放せない明智光秀が戦国時代を駆け抜ける！","logo":{"main":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-logo_018e21c8a5c55fe6c22b172bcb77c014.png","width":1080,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-logo_edc82efb39db4c6bf9f653c8ae676ec1.png","width":640,"height":640}},"eyecatch":{"main":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-eyecatch_cff86f26146bf229bee93988ff5623d5.png","width":1920,"height":1080},"tver":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-eyecatch_8262b42a1f98b0540340b16de887db7f.png","width":928,"height":522},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-eyecatch_847a792503528160178f8debf7ca2dd6.png","width":640,"height":360}},"hero":{"main":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-hero_94618a1f908469838fe8704ad3f8b697.png","width":1920,"height":640},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/R71NJ4MV53/R71NJ4MV53-hero_8fde904c7e4e8f4cdb35d30d0ed82be4.png","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#307BA0","linkDark":"#4DC4FF","primaryLight":"#3D9BC9","primaryDark":"#4DC4FF"},"additionalProperty":{"publishLevel":"full","layoutPattern":"summary","episodeOrder":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[]}},"releasedEvent":{"startDate":"2020-10-12T23:40:00+09:00","endDate":"2020-10-12T23:45:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedRecentEvent":{"id":"g1-130-2021091905168","startDate":"2021-09-19T23:45:00+09:00","endDate":"2021-09-19T23:50:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedComingEvent":{"id":"g1-130-2021091905168","startDate":"2021-09-19T23:45:00+09:00","endDate":"2021-09-19T23:50:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"keyvisuals":[],"eyecatch":{"main":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/B7ZJX92J2N/B7ZJX92J2N-eyecatch_990be6334528981c070ffca546f617dd.png","width":1920,"height":1080},"tver":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/B7ZJX92J2N/B7ZJX92J2N-eyecatch_a404402af0012406a21cf2d6197163f5.png","width":928,"height":522},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/B7ZJX92J2N/B7ZJX92J2N-eyecatch_009e279124da847e2cb2befbf3e1f277.png","width":640,"height":360}},"videos":[],"citations":[],"url":"https://www.nhk.jp/p/ts/R71NJ4MV53/episode/te/B7ZJX92J2N/","sameAs":[],"detailedMemo":[]}'
+  recorded_at: Sat, 18 Sep 2021 06:11:55 GMT
+recorded_with: VCR 6.0.0
