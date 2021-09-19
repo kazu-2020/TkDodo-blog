@@ -26,16 +26,20 @@
           <small class="opacity-80">このプレイリストに含まれるエピソード</small>
         </div>
 
-        <div class="flex">
-          <div class="w-20">
-            <img
-              decoding="async"
-              src="<%= view_data.episode_eyecatch_image_url %>"
-              class="rounded-sm"
-              alt="<%= view_data.episode_name %>"/>
+        <% if view_data.episode_name.present? %>
+          <div class="flex">
+            <div class="w-20">
+              <img
+                decoding="async"
+                src="<%= view_data.episode_eyecatch_image_url %>"
+                class="rounded-sm"
+                alt="<%= view_data.episode_name %>"/>
+            </div>
+            <div class="ml-2 font-bold text-xs line-clamp-2"><%= view_data.episode_name %></div>
           </div>
-          <div class="ml-2 font-bold text-xs line-clamp-2"><%= view_data.episode_name %></div>
-        </div>
+        <% else %>
+          <small>エピソードがありません</small>
+        <% end %>
       </div>
     </div>
   </a>
