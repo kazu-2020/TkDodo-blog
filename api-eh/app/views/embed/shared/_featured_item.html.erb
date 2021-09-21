@@ -4,19 +4,19 @@
     <div class="upper">
       <img
         decoding="async"
-        src="<%= view_data.series_logo_image_url %>"
+        src="<%= view_data.logo_image_url %>"
         class="rounded-sm mask-image"
-        alt="<%= view_data.series_name %>"/>
+        alt="<%= view_data.name %>"/>
     </div>
     <div class="bottom p-2">
       <div class="series_content">
         <% line_clamp_size = @height.to_i < 420 ? '1' : '2' %>
         <div class="text-xxs text-bold opacity-80">
           <span class="line-clamp-<%= line_clamp_size %>">
-            <%= view_data.series_detailed_catch %>
+            <%= view_data.detailed_catch %>
           </span>
         </div>
-        <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-<%= line_clamp_size %>"><%= view_data.series_name %></div>
+        <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-<%= line_clamp_size %>"><%= view_data.name %></div>
       </div>
       <div class="my-3">
         <hr class="opacity-50">
@@ -26,16 +26,16 @@
           <small class="opacity-80">このプレイリストに含まれるエピソード</small>
         </div>
 
-        <% if view_data.episode_name.present? %>
+        <% if view_data.episode_data.present? %>
           <div class="flex">
             <div class="w-20">
               <img
                 decoding="async"
-                src="<%= view_data.episode_eyecatch_image_url %>"
+                src="<%= episode_image_src(view_data.episode_data) %>"
                 class="rounded-sm"
-                alt="<%= view_data.episode_name %>"/>
+                alt="<%= view_data.episode_data[:name] %>"/>
             </div>
-            <div class="ml-2 font-bold text-xs line-clamp-2"><%= view_data.episode_name %></div>
+            <div class="ml-2 font-bold text-xs line-clamp-2"><%= view_data.episode_data[:name] %></div>
           </div>
         <% else %>
           <small>エピソードがありません</small>

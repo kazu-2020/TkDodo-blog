@@ -30,7 +30,7 @@ describe EmbedController, type: :request do
   end
 
   describe 'Playlist' do
-    let(:playlist) { create(:playlist) }
+    let(:playlist) { create(:playlist, :with_playlist_item) }
     let(:playlist_id) { format('%010<number>d', number: playlist.id) }
 
     describe 'summary' do
@@ -45,9 +45,15 @@ describe EmbedController, type: :request do
     describe 'featuredItem' do
       let(:layout_pattern) { 'featuredItem' }
 
+      before do
+        playlist.playlist_items.first.update(episode_id: 'GXLN8793GK')
+      end
+
       it 'returns success response' do
-        get "/embed/pl/#{playlist_id}", params: { layout_pattern: layout_pattern }
-        expect(response.status).to eq 200
+        VCR.use_cassette('embed_spec_pl_featured_item') do
+          get "/embed/pl/#{playlist_id}", params: { layout_pattern: layout_pattern }
+          expect(response.status).to eq 200
+        end
       end
     end
   end

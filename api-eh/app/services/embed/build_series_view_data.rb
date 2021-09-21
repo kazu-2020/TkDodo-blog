@@ -27,23 +27,18 @@ class Embed::BuildSeriesViewData
                            description: res[:description])
   end
 
-  def featured_item_view_data # rubocop:disable Metrics/MethodLength
+  def featured_item_view_data
     res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').episode_from_series(type: 'tv',
                                                                                        series_id: @series_id,
                                                                                        request_type: :l,
                                                                                        query: { size: 1 })
     episode_data = res[:result].first
     series_data = episode_data[:partOfSeries]
-    episode_eyecatch_image_url = episode_data.dig(:eyecatch, :medium, :url) ||
-                                 episode_data.dig(:eyecatch, :tver, :url) ||
-                                 episode_data.dig(:eyecatch, :main, :url) ||
-                                 episode_data.dig(:partOfSeries, :eyecatch, :medium, :url)
 
     Embed::FeaturedItemData.new(url: series_data[:url],
-                                series_name: series_data[:name],
-                                series_logo_image_url: series_data.dig(:logo, :medium, :url),
-                                series_detailed_catch: series_data[:detailedCatch],
-                                episode_name: episode_data[:name],
-                                episode_eyecatch_image_url: episode_eyecatch_image_url)
+                                name: series_data[:name],
+                                logo_image_url: series_data.dig(:logo, :medium, :url),
+                                detailed_catch: series_data[:detailedCatch],
+                                episode_data: episode_data)
   end
 end

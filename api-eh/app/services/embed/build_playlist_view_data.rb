@@ -29,17 +29,19 @@ class Embed::BuildPlaylistViewData
   end
 
   def featured_item_view_data
-    episode_data = @playlist.playlist_items.first&.cached_data&.symbolize_keys # FIXME: API引き直した方が良さそう
-    episode_eyecatch_image_url = episode_data.dig(:eyecatch, :medium, :url) ||
-                                 episode_data.dig(:eyecatch, :tver, :url) ||
-                                 episode_data.dig(:eyecatch, :main, :url) ||
-                                 episode_data.dig(:partOfSeries, :eyecatch, :medium, :url)
+    episode_id = @playlist.playlist_items.first&.episode_id
+    # cache dataが古い可能性があるので、APIからEpisode情報を引き直す
+    episode_data = if episode_id
+                     DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp')
+                                  .episode(type: 'tv', episode_id: episode_id)
+                   else
+                     {}
+                   end
 
     Embed::FeaturedItemData.new(url: @url,
-                                series_name: @playlist.name,
-                                series_logo_image_url: @playlist.logo_image_url,
-                                series_detailed_catch: @playlist.detailed_catch,
-                                episode_name: episode_data[:name],
-                                episode_eyecatch_image_url: episode_eyecatch_image_url)
+                                name: @playlist.name,
+                                logo_image_url: @playlist.logo_image_url,
+                                detailed_catch: @playlist.detailed_catch,
+                                episode_data: episode_data)
   end
 end

@@ -3,11 +3,10 @@ class Embed::FeaturedItemData
   include ActiveModel::Attributes
 
   attribute :url, :string
-  attribute :series_name, :string
-  attribute :series_logo_image_url, :string
-  attribute :series_detailed_catch, :string
-  attribute :episode_name, :string
-  attribute :episode_eyecatch_image_url, :string
+  attribute :name, :string
+  attribute :logo_image_url, :string
+  attribute :detailed_catch, :string
+  attribute :episode_data
 
-  alias title series_name
+  alias title name
 end
