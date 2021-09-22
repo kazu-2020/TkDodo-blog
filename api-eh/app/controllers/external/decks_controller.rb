@@ -36,6 +36,7 @@ class External::DecksController < ApplicationController
         @deck.playlists.draft
       end
     @playlists = @playlists.has_article if media_action.include?('read')
+    @playlists = @playlists.has_visible_items if media_action.include?('watch')
     @object_type = params[:type] || 'tvepisode'
 
     case order_by
@@ -80,6 +81,7 @@ class External::DecksController < ApplicationController
         @deck.playlists.draft
       end
     @playlists = @playlists.has_article if media_action.include?('read')
+    @playlists = @playlists.has_visible_items if media_action.include?('watch')
 
     case order_by
     when 'dateModified'

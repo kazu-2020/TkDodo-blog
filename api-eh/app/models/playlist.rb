@@ -45,6 +45,7 @@ class Playlist < ApplicationRecord
   scope :of, ->(deck) { where(deck: deck) }
   scope :has_article, -> { where('marked_body IS NOT NULL') }
   scope :no_article, -> { where('marked_body IS NULL') }
+  scope :has_visible_items, -> { joins(:playlist_items).merge(PlaylistItem.playable).distinct }
   scope :name_like, ->(query) { where('name LIKE ?', "%#{query}%") }
 
   validates :name, presence: true
