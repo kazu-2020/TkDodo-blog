@@ -65,7 +65,8 @@ class External::PlaylistsController < ApplicationController
     @area = params[:area]
     @request_url = request.url
     @is_min_mode = params[:is_min_mode] == '1'
-    @size = (params[:itemlistSize] || DEFAULT_SIZE).to_i
+    @size = (params[:itemSize] || DEFAULT_SIZE).to_i
+    @offset = (params[:itemOffset] || 0).to_i
   end
   # rubocop:enable Metrics/AbcSize
 

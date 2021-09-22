@@ -68,3 +68,4 @@ end
 
 base_url = 'https://dev-api-eh.nr.nhk.jp/d6.6/t/nplaylist'
 json.url base_url + "/pl/#{playlist.original_id}.json?area=#{area}&type=#{object_type}"
+json.itemUrl base_url + "/l/tvepisode/pl/#{playlist.original_id}.json?size=10&offset=0"
