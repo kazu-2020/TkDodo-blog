@@ -30,8 +30,6 @@ class External::DecksController < ApplicationController
     @playlists =
       if params[:theme_genre_code]
         @deck.playlists.draft.where(theme_genre_code: params[:theme_genre_code])
-      elsif is_r5
-        @deck.playlists.draft.where(updated_at: (1.week.ago..DateTime.now)).recent
       else
         @deck.playlists.draft
       end
@@ -74,12 +72,7 @@ class External::DecksController < ApplicationController
       return
     end
 
-    @playlists =
-      if is_r5
-        @deck.playlists.draft.where(updated_at: (1.week.ago..DateTime.now)).recent
-      else
-        @deck.playlists.draft
-      end
+    @playlists = @deck.playlists.draft
     @playlists = @playlists.has_article if media_action.include?('read')
     @playlists = @playlists.has_visible_items if media_action.include?('watch')
 
