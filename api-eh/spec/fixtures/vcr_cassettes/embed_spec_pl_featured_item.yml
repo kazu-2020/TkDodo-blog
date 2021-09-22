@@ -1,0 +1,72 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.nr.nhk.jp/r6/t/tvepisode/te/GXLN8793GK.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      date:
+      - Sun, 19 Sep 2021 02:37:38 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      etag:
+      - W/"27ff-qzM/OsjVS5VnDSH1UpusFGn/qWI"
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 3a963020e2f0fa2986cf768697d0cf6f.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P4
+      x-amz-cf-id:
+      - FKJ07Gz3JFLMubr0UpPheQZK43SyhoMzyHwAdT5fSrEfYdJPGLTBNw==
+    body:
+      encoding: UTF-8
+      string: '{"type":"TVEpisode","id":"GXLN8793GK","name":"「白磁」","episodeNumber":517,"identifierGroup":{"episodeId":"GXLN8793GK","seriesId":"3LWMJVY79P","episodeName":"「白磁」","seriesName":"美の壺","hashtag":["#美の壺"],"siteId":"0263","serviceId":["s3"],"aliasId":"tsubo","themeGenreTag":[{"id":"080","name":"くらし全般"},{"id":"094","name":"文化"},{"id":"096","name":"芸術"}]},"identifierGroupEx":{"seriesGroupId":"N7GPL1X5JQ","seriesGroupName":"美の壺","episodeNameTemp":"「白磁」","seriesNameTemp":"美の壺","releasedEventServiceIdTemp":"s3","releasedEventStartDateTemp":"2020-10-30T19:30:00+09:00","releasedEventEndDateTemp":"2020-10-30T20:00:00+09:00"},"keywords":[],"description":"食卓から世界を魅了！究極の色と形「白磁」の器。透けるほどの薄さ、色香漂う地肌。４００年前、佐賀・有田の奇跡の土が生んだ最初の磁器。白色を極限まで引き立たせる究極の“ろくろの技”。ゆるぎない輪郭線の美。近代陶芸の巨人・富本憲吉が遺した“ろうそくの炎”の極意とは？民藝家、柳宗悦が魅せられた朝鮮白磁の神秘。幻の大壺「満月壺」の復活に挑む！世界が絶賛した白磁作家の“白き宇宙の器”とは？＜Ｆｉｌｅ５１７＞","dateCreated":"2020-09-15T18:26:23+09:00","dateModified":"2020-12-15T00:12:37+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"3LWMJVY79P","name":"美の壺","detailedSeriesNameRuby":"びのつぼ","identifierGroup":{"seriesId":"3LWMJVY79P","seriesName":"美の壺","hashtag":["#美の壺"],"siteId":"0263","serviceId":["s3"],"aliasId":"tsubo","formatGenre":[{"id":"02","name":"ドキュメンタリー"}],"themeGenre":[{"id":"096","name":"芸術"}]},"identifierGroupEx":{"seriesGroupId":"N7GPL1X5JQ","seriesGroupName":"美の壺","seriesNameTemp":"美の壺"},"url":"https://www.nhk.jp/p/ts/3LWMJVY79P/","description":"普段使いの器から家具、着物、料理、建築に至るまで、衣食住、人の暮らしを彩ってきた美のアイテムを取り上げていきます。\r\n古今東西の美しいものの魅力を、洒落たジャズとともに、贅沢かつ知的に伝えます。日本人ならではの暮らしの知恵やこだわりは、見る者を豊かな気持ちにしてくれるはずです。\r\n番組ではそれぞれのアイテムの選び方・鑑賞法を、いくつかの「ツボ」に絞ってわかりやすく解説していきます。\r\n目指すは実際に使える「美術の鑑賞マニュアル」。\r\nこの番組で紹介したツボを覚えていただけば、骨董店や美術館でも、ひとかどの「通」として振る舞うことができるかも・・・。","detailedCatch":"今年は15周年！これからも暮らしの中に隠れた
+        多彩な美を伝えます！","logo":{"main":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/3LWMJVY79P/3LWMJVY79P-logo_7c2c8b96ec24f163d722a6263b1a219f.png","width":1080,"height":1080},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/3LWMJVY79P/3LWMJVY79P-logo_90b81f07fed860d8ca648853d3b12fb2.png","width":640,"height":640}},"eyecatch":{"main":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/3LWMJVY79P/3LWMJVY79P-eyecatch_a6c12a6c3049c874d55d1bfc95437688.png","width":1920,"height":1080},"tver":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/3LWMJVY79P/3LWMJVY79P-eyecatch_a558cb8178cc6fc76c0f0583543ac33c.png","width":928,"height":522},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/3LWMJVY79P/3LWMJVY79P-eyecatch_e84ddfa4a02c177f95e546773e7e44b8.png","width":640,"height":360}},"hero":{"main":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/3LWMJVY79P/3LWMJVY79P-hero_f40ec4b0fd1b7405c80588ac1fc60001.png","width":1920,"height":640},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvseries/ts/3LWMJVY79P/3LWMJVY79P-hero_83390c87a8c4c98e7e811867e77b009b.png","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#9E6D00","linkDark":"#F6AA00","primaryLight":"#C68900","primaryDark":"#F6AA00"},"additionalProperty":{"publishLevel":"full","layoutPattern":"summary","episodeOrder":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[]}},"releasedEvent":{"startDate":"2020-10-30T19:30:00+09:00","endDate":"2020-10-30T20:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHKBSプレミアム","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-badge_s.png","width":100,"height":50},"badge":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-logo_m.png","width":640,"height":640},"logo":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"s3","serviceName":"NHKBSプレミアム","shortenedName":"NHKBSプレミアム","shortenedDisplayName":"BSプレミアム"}}},"detailedRecentEvent":{"startDate":"2020-10-30T19:30:00+09:00","endDate":"2020-10-30T20:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHKBSプレミアム","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-badge_s.png","width":100,"height":50},"badge":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-logo_m.png","width":640,"height":640},"logo":{"url":"https://www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"s3","serviceName":"NHKBSプレミアム","shortenedName":"NHKBSプレミアム","shortenedDisplayName":"BSプレミアム"}}},"keyvisuals":[],"eyecatch":{"main":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatch_39c07636103bc854cd0d474791f2c593.jpg","width":1920,"height":1080},"tver":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatch_2e43ef54787d80daebf3f399d3b06e5a.jpg","width":928,"height":522},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatch_cd3429a8667d4aede97032aa8e97dbb4.jpg","width":640,"height":360}},"eyecatches":[{"main":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatches_68d845ee41d82758cc2fe1ba9bef7aa1.jpg","width":1920,"height":1080},"tver":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatches_f0de0d18ee3bc44d80e0c86399157f1d.jpg","width":928,"height":522},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatches_70152e475abf2ea403dfec77e86b9055.jpg","width":640,"height":360}},{"main":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatches_eeb3e511e07a2973e99a28ce5a37a8f8.jpg","width":1920,"height":1080},"tver":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatches_707e88d165e4181321ed6fd4ac212ee3.jpg","width":928,"height":522},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatches_bb0b4a4b89a12d733a9adc4487085cad.jpg","width":640,"height":360}},{"main":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatches_4f84a173524eb37c217f5d13941a7a6e.jpg","width":1920,"height":1080},"tver":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatches_f2d9abb79f9d959126cc7853140821bd.jpg","width":928,"height":522},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatches_0490ea4228fb75507b585397e4957fec.jpg","width":640,"height":360}},{"main":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatches_80016ed12c238896cc135ab2ed166305.jpg","width":1920,"height":1080},"tver":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatches_5bcc51ad5eebc9aca57cc2a5790d8f9d.jpg","width":928,"height":522},"medium":{"url":"https://www.nhk.jp/static/assets/images/tvepisode/te/GXLN8793GK/GXLN8793GK-eyecatches_25522a78d1d97e730c482842e434c798.jpg","width":640,"height":360}}],"videos":[],"citations":[],"url":"https://www.nhk.jp/p/ts/3LWMJVY79P/episode/te/GXLN8793GK/","sameAs":[],"detailedMemo":[]}'
+  recorded_at: Sun, 19 Sep 2021 02:37:38 GMT
+recorded_with: VCR 6.0.0

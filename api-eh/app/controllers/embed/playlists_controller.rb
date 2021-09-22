@@ -1,18 +1,14 @@
 # frozen_string_literal: true
 
 class Embed::PlaylistsController < EmbedController
-  def show # rubocop:disable Metrics/AbcSize
-    playlist_id = params[:playlist_id].delete_prefix('eh-').to_i
-    @playlist = Playlist.find(playlist_id)
-    @url = "https://dev-www-eh.nr.nhk.jp/p/pl/#{@playlist.original_id}"
-    @episode_data = @playlist.playlist_items.first&.cached_data&.symbolize_keys
+  def show
     set_layout_pattern
+    playlist_id = params[:playlist_id].delete_prefix('eh-').to_i
+    @view_data = Embed::BuildPlaylistViewData.new(playlist_id: playlist_id, layout_pattern: @layout_pattern).call
     @height = embed_playlists_params[:height] ||
               Oembed::Response::Playlist::DEFAULT_SIZE[@layout_pattern.to_sym][:height]
 
-    render 'embed/not_found', status: :not_found and return if @episode_data.blank?
-  rescue DlabApiBase::NotFound
-    render 'embed/not_found', status: :not_found
+    render 'embed/not_found', status: :not_found if @view_data.blank?
   end
 
   private

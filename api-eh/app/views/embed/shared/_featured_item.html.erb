@@ -1,22 +1,22 @@
-<div class="embed embed-featured-item rounded-sm shadow-md text-white" style="background-color: <%= @playlist.selected_palette %>;">
-  <a href="<%= @url %>" target="_blank">
+<div class="embed embed-featured-item rounded-sm shadow-md text-white" style="background-color: #837B6E;">
+  <a href="<%= view_data.url %>" target="_blank">
     <div class="scrim"></div>
     <div class="upper">
       <img
         decoding="async"
-        src="<%= @playlist.logo_image_url %>"
+        src="<%= view_data.logo_image_url %>"
         class="rounded-sm mask-image"
-        alt="<%= @episode_data.dig(:name) %>"/>
+        alt="<%= view_data.name %>"/>
     </div>
     <div class="bottom p-2">
       <div class="series_content">
         <% line_clamp_size = @height.to_i < 420 ? '1' : '2' %>
         <div class="text-xxs text-bold opacity-80">
           <span class="line-clamp-<%= line_clamp_size %>">
-            <%= @playlist.detailed_catch %>
+            <%= view_data.detailed_catch %>
           </span>
         </div>
-        <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-<%= line_clamp_size %>"><%= @playlist.name %></div>
+        <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-<%= line_clamp_size %>"><%= view_data.name %></div>
       </div>
       <div class="my-3">
         <hr class="opacity-50">
@@ -26,16 +26,20 @@
           <small class="opacity-80">このプレイリストに含まれるエピソード</small>
         </div>
 
-        <div class="flex">
-          <div class="w-20">
-            <img
-              decoding="async"
-              src="<%= episode_image_src %>"
-              class="rounded-sm"
-              alt="<%= @episode_data[:name] %>"/>
+        <% if view_data.episode_data.present? %>
+          <div class="flex">
+            <div class="w-20">
+              <img
+                decoding="async"
+                src="<%= episode_image_src(view_data.episode_data) %>"
+                class="rounded-sm"
+                alt="<%= view_data.episode_data[:name] %>"/>
+            </div>
+            <div class="ml-2 font-bold text-xs line-clamp-2"><%= view_data.episode_data[:name] %></div>
           </div>
-          <div class="ml-2 font-bold text-xs line-clamp-2"><%= @episode_data[:name] %></div>
-        </div>
+        <% else %>
+          <small>エピソードがありません</small>
+        <% end %>
       </div>
     </div>
   </a>
@@ -71,8 +75,8 @@
       }
 
       .mask-image {
-          -webkit-mask-image: linear-gradient(black 66%, transparent 100%);
-          mask-image: linear-gradient(black 66%, transparent 100%);
+          -webkit-mask-image: linear-gradient(black 50%, transparent 100%);
+          mask-image: linear-gradient(black 50%, transparent 100%);
       }
   </style>
 <% end %>
