@@ -85,8 +85,8 @@ end
 
 unless @is_min_mode
   # rubocop:disable Metrics/BlockLength
-  subtype_item_count = 0
-  json.items @playlist.playlist_items.kept.first(@size).each do |playlist_item|
+  item_count = 0
+  json.items @playlist.playlist_items.kept.each do |playlist_item|
     episode_data = fetch_episode_data(playlist_item: playlist_item, force_fetch: true)
 
     case @object_type
@@ -98,78 +98,117 @@ unless @is_min_mode
       video_json_data = ::MultiJson.load(broadcast_event.to_json)['video'].first
       next if video_json_data.nil?
 
+      if item_count < @offset
+        item_count += 1
+        next
+      end
+      next if item_count == @size + @offset
+
       video_json_data.each_key do |key|
         json.set_raw! key, video_json_data[key].to_json
       end
+      item_count += 1
     when 'broadcastevent'
       options = @area.present? ? { area: @area } : {}
       broadcast_event = fetch_boradcast_event(episode_data, options)
       next if broadcast_event.nil?
+
+      if item_count < @offset
+        item_count += 1
+        next
+      end
+      next if item_count == @size + @offset
 
       json_data = ::MultiJson.load(broadcast_event.to_json)
 
       json_data.each_key do |key|
         json.set_raw! key, json_data[key].to_json
       end
+      item_count += 1
     when 'event'
       events = fetch_event(episode_data)
-      next unless events[:result].present?
+      next unless events&.[](:result).present?
 
       events[:result].each do |event|
-        next if subtype_item_count == @size
+        if item_count < @offset
+          item_count += 1
+          next
+        end
+        next if item_count == @size + @offset
 
         json_data = ::MultiJson.load(event.to_json)
         json_data.each_key do |key|
           json.set_raw! key, json_data[key].to_json
         end
-        subtype_item_count += 1
+        item_count += 1
       end
     when 'howto'
       howtos = fetch_howto(episode_data)
-      next unless howtos[:result].present?
+      next unless howtos&.[](:result).present?
 
       howtos[:result].each do |howto|
-        next if subtype_item_count == @size
+        if item_count < @offset
+          item_count += 1
+          next
+        end
+        next if item_count == @size + @offset
 
         json_data = ::MultiJson.load(howto.to_json)
         json_data.each_key do |key|
           json.set_raw! key, json_data[key].to_json
         end
-        subtype_item_count += 1
+        item_count += 1
       end
     when 'faqpage'
       faq_pages = fetch_faq_page(episode_data)
-      next unless faq_pages[:result].present?
+      next unless faq_pages&.[](:result).present?
 
       faq_pages[:result].each do |faq_page|
-        next if subtype_item_count == @size
+        if item_count < @offset
+          item_count += 1
+          next
+        end
+        next if item_count == @size + @offset
 
         json_data = ::MultiJson.load(faq_page.to_json)
         json_data.each_key do |key|
           json.set_raw! key, json_data[key].to_json
         end
-        subtype_item_count += 1
+        item_count += 1
       end
     else
+      if item_count < @offset
+        item_count += 1
+        next
+      end
+      next if item_count == @size + @offset
+
       json_data = ::MultiJson.load(episode_data.to_json)
 
       json_data.each_key do |key|
         json.set_raw! key, json_data[key].to_json
       end
+      item_count += 1
     end
   end
   # rubocop:enable Metrics/BlockLength
 end
 
+item_url_params =
+  { size: params[:itemSize].nil? ? nil : @size, offset: params[:itemOffset].nil? ? nil : @offset }
+  .delete_if { |_, v| v.nil? }
+  .to_param
+item_url_params = "?#{item_url_params}" if item_url_params.size.positive?
+
 case @object_type
 when 'event'
-  json.itemUrl "#{events_external_playlist_url(@playlist.original_id)}.json?size=#{@size}&offset=0"
+  json.itemUrl "#{events_external_playlist_url(@playlist.original_id)}.json#{item_url_params}"
 when 'howto'
-  json.itemUrl "#{howtos_external_playlist_url(@playlist.original_id)}.json?size=#{@size}&offset=0"
+  json.itemUrl "#{howtos_external_playlist_url(@playlist.original_id)}.json#{item_url_params}"
 when 'faqpage'
-  json.itemUrl "#{faqpages_external_playlist_url(@playlist.original_id)}.json?size=#{@size}&offset=0"
+  json.itemUrl "#{faqpages_external_playlist_url(@playlist.original_id)}.json#{item_url_params}"
 else
-  json.itemUrl "#{episodes_external_playlist_url(@playlist.original_id)}.json?size=#{@size}&offset=0"
+  json.itemUrl "#{episodes_external_playlist_url(@playlist.original_id)}.json#{item_url_params}"
 end
 
 json.playlisticle do
