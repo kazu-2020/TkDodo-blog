@@ -23,4 +23,9 @@ namespace :playlists do
   task replace_article_url: :environment do
     Playlist.all.each(&:replace_article_body_urls)
   end
+
+  desc '記事中に含まれるエピソードのアイキャッチを更新'
+  task refresh_article_body_episode_data: :environment do
+    Playlist.all.each(&:refresh_article_body_episode_data).each(&:save)
+  end
 end

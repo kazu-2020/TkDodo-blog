@@ -77,14 +77,18 @@ class TypeSelectBuilder {
       this.CSS.playlistItem
     ).build()
     const episode = this.data.tvEpisode
+    const eyecatch =
+      episode.eyecatch === undefined
+        ? episode.partOfSeries.eyecatch
+        : episode.eyecatch
 
     const episodeThumbnail = new HTMLElementBuilder(
       'div',
       this.CSS.playlistItemThumbnail
     ).build()
     const imageUrl =
-      episode.eyecatch && episode.eyecatch.medium
-        ? episode.eyecatch.medium.url
+      eyecatch && eyecatch.medium
+        ? eyecatch.medium.url
         : 'https://via.placeholder.com/160x90'
 
     episodeThumbnail.style.backgroundImage = 'url(' + imageUrl + ')'

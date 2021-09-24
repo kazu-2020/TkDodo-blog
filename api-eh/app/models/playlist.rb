@@ -317,6 +317,30 @@ class Playlist < ApplicationRecord
     save
   end
 
+  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
+  def refresh_article_body_episode_data
+    return if editor_data&.[]('blocks').nil?
+
+    client = DlabApiClient.new
+
+    editor_data['blocks'] = editor_data['blocks'].map do |block|
+      next block if block['type'] != 'multiTypeEpisode'
+
+      episode_id = block['data']['episodeId']
+      data =
+        begin
+          client.episode_bundle(type: 'tv', episode_id: episode_id)
+        rescue DlabApiClient::NotFound
+          {}
+        end
+      block['data']['episode']['eyecatch'] =
+        data[:tvepisode][0][:eyecatch] || data[:tvepisode][0][:partOfSeries][:eyecatch]
+      block
+    end
+    editor_data
+  end
+  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
+
   private
 
   def trim_name
