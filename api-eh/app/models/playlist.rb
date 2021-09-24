@@ -317,7 +317,7 @@ class Playlist < ApplicationRecord
     save
   end
 
-  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def refresh_article_body_episode_data
     return if editor_data&.[]('blocks').nil?
 
@@ -333,13 +333,13 @@ class Playlist < ApplicationRecord
         rescue DlabApiClient::NotFound
           {}
         end
-      block['data']['episode']['eyecatch'] =
-        data[:tvepisode][0][:eyecatch] || data[:tvepisode][0][:partOfSeries][:eyecatch]
+      episode = data&.[](:tvepisode)&.[](0)
+      block['data']['episode']['eyecatch'] = episode[:eyecatch] || episode[:partOfSeries][:eyecatch] if episode.present?
       block
     end
     editor_data
   end
-  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
   private
 
