@@ -266,10 +266,15 @@ export default class MultiTypeEpisode {
    * エピソードブロックへの切り替え処理
    */
   _switchToEpisodeBlock(that, episode) {
+    const eyecatch =
+      episode.eyecatch === undefined
+        ? episode.partOfSeries.eyecatch
+        : episode.eyecatch
+
     that.data = Object.assign(that.data, {
       link: episode.url,
       episode: {
-        eyecatch: episode.eyecatch,
+        eyecatch,
         name: episode.name,
         description: episode.description,
       },
@@ -367,10 +372,15 @@ export default class MultiTypeEpisode {
     that.episodeBundle = response
     const episode = response.tvEpisode
 
+    const eyecatch =
+      episode.eyecatch === undefined
+        ? episode.partOfSeries.eyecatch
+        : episode.eyecatch
+
     that.data = Object.assign(that.data, {
       link: episode.url,
       episode: {
-        eyecatch: episode.eyecatch,
+        eyecatch,
         name: episode.name,
         description: episode.description,
         firstBroadcastDate: episode.releasedEvent.startDate,
