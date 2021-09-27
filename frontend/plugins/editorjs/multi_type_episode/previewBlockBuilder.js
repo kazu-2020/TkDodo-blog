@@ -179,7 +179,7 @@ class PreviewBlockBuilder {
       this.CSS.linkContentDateText
     ).build()
 
-    const date = this.momentWrapper(this.data.episode.firstBroadcastData)
+    const date = this.momentWrapper(this.data.episode.firstBroadcastDate)
     dateText.textContent = '初回放送日：' + date.format('YYYY年MM月DD日(ddd)')
 
     firstBroadcastDateBlock.appendChild(dateText)
