@@ -18,6 +18,12 @@ class OembedDebuggerController < ApplicationController
     @src = "/embed/#{@type}/#{@id}?layout_pattern=featuredItem"
   end
 
+  def item_list
+    @type = params[:type] || 'pl' # or 'ts'
+    @id = params[:id] || 'eh-0000000030' # or 'W3W8WRN8M3'
+    @src = "/embed/#{@type}/#{@id}?layout_pattern=itemList"
+  end
+
   def host
     Rails.env.development? ? 'http://localhost:8888' : 'https://dev-api-eh.nr.nhk.jp'
   end
