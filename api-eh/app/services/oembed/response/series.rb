@@ -6,7 +6,7 @@ class Oembed::Response::Series
   DEFAULT_SIZE = {
     summary: { height: 210, width: '100%' },
     featuredItem: { height: 385, width: '240' },
-    itemList: { height: 210, width: '100%' },
+    itemList: { height: 210, width: '240' },
     largeImage: { height: 210, width: '100%' }
   }.freeze
 
