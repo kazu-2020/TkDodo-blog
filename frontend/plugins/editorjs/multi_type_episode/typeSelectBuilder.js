@@ -186,12 +186,22 @@ class TypeSelectBuilder {
         'div',
         this.CSS.playlistItemThumbnail
       ).build()
-      const imageUrl =
-        howTo.image && howTo.image.length >= 1
-          ? howTo.image[0].thumbnail[0].url
-          : 'https://via.placeholder.com/160x90'
 
-      howToThumbnail.style.backgroundImage = 'url(' + imageUrl + ')'
+      const howtoImage = howTo.image
+      const episode = this.data.tvEpisode
+      const eyecatch =
+        episode.eyecatch === undefined
+          ? episode.partOfSeries.eyecatch
+          : episode.eyecatch
+
+      let thumbnailImageUrl = 'https://via.placeholder.com/160x90'
+      if (howtoImage && howtoImage.medium && howtoImage.medium.url) {
+        thumbnailImageUrl = howtoImage.medium.url
+      } else if (eyecatch && eyecatch.medium && eyecatch.medium.url) {
+        thumbnailImageUrl = eyecatch.medium.url
+      }
+
+      howToThumbnail.style.backgroundImage = 'url(' + thumbnailImageUrl + ')'
 
       const howToTitle = new HTMLElementBuilder(
         'div',
@@ -237,12 +247,22 @@ class TypeSelectBuilder {
         'div',
         this.CSS.playlistItemThumbnail
       ).build()
-      const imageUrl =
-        event.image && event.image.medium
-          ? event.image.medium.url
-          : 'https://via.placeholder.com/160x90'
 
-      eventThumbnail.style.backgroundImage = 'url(' + imageUrl + ')'
+      const eventImage = event.image
+      const episode = this.data.tvEpisode
+      const eyecatch =
+        episode.eyecatch === undefined
+          ? episode.partOfSeries.eyecatch
+          : episode.eyecatch
+
+      let thumbnailImageUrl = 'https://via.placeholder.com/160x90'
+      if (eventImage && eventImage.medium && eventImage.medium.url) {
+        thumbnailImageUrl = eventImage.medium.url
+      } else if (eyecatch && eyecatch.medium && eyecatch.medium.url) {
+        thumbnailImageUrl = eyecatch.medium.url
+      }
+
+      eventThumbnail.style.backgroundImage = 'url(' + thumbnailImageUrl + ')'
 
       const eventTitle = new HTMLElementBuilder(
         'div',

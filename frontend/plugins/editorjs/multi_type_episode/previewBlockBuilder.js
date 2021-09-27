@@ -179,7 +179,7 @@ class PreviewBlockBuilder {
       this.CSS.linkContentDateText
     ).build()
 
-    const date = this.momentWrapper(this.data.episode.firstBroadcastData)
+    const date = this.momentWrapper(this.data.episode.firstBroadcastDate)
     dateText.textContent = '初回放送日：' + date.format('YYYY年MM月DD日(ddd)')
 
     firstBroadcastDateBlock.appendChild(dateText)
@@ -374,17 +374,16 @@ class PreviewBlockBuilder {
 
     leftColumn.appendChild(thumbnailBlock)
 
-    const images = this.data.howTo.image
+    const howtoImage = this.data.howTo.image
+    const episodeImage = this.data.episode.eyecatch
 
-    const thumbnailImageUrl =
-      images &&
-      images.length > 0 &&
-      images[0] &&
-      images[0].thumbnail &&
-      images[0].thumbnail.length > 0 &&
-      images[0].thumbnail[0].url
-        ? images[0].thumbnail[0].url
-        : 'https://via.placeholder.com/160x90'
+    let thumbnailImageUrl = 'https://via.placeholder.com/160x90'
+    if (howtoImage && howtoImage.medium && howtoImage.medium.url) {
+      thumbnailImageUrl = howtoImage.medium.url
+    } else if (episodeImage && episodeImage.medium && episodeImage.medium.url) {
+      thumbnailImageUrl = episodeImage.medium.url
+    }
+
     const thumbnailImage = new HTMLElementBuilder(
       'img',
       this.CSS.linkContentThumbnailImage,
