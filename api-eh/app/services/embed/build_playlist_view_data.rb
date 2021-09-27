@@ -14,6 +14,8 @@ class Embed::BuildPlaylistViewData
       summary_view_data
     when 'featuredItem'
       featured_item_view_data
+    when 'itemList'
+      item_list_view_data
     end
   rescue DlabApiClient::NotFound
     nil
@@ -42,7 +44,22 @@ class Embed::BuildPlaylistViewData
                                 name: @playlist.name,
                                 logo_image_url: @playlist.logo_image_url,
                                 detailed_catch: @playlist.detailed_catch,
-                                key_color: @playlist.selected_palette,
+                                key_color: @playlist.primary_light_color,
                                 episode_data: episode_data)
+  end
+
+  def item_list_view_data
+    episodes = []
+    @playlist.playlist_items.take(Embed::ItemListData::MAX_EPISODE_SIZE).each do |ep|
+      # cache dataが古い可能性があるので、APIからEpisode情報を引き直す
+      episodes << DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').episode(type: 'tv',
+                                                                                   episode_id: ep.episode_id)
+    end
+
+    Embed::ItemListData.new(url: @url,
+                            name: @playlist.name,
+                            hero_image_url: @playlist.hero_image_url,
+                            key_color: @playlist.primary_light_color,
+                            episodes: episodes)
   end
 end

@@ -12,6 +12,8 @@ class Embed::BuildSeriesViewData
       summary_view_data
     when 'featuredItem'
       featured_item_view_data
+    when 'itemList'
+      item_list_view_data
     end
   rescue DlabApiClient::NotFound
     nil
@@ -39,6 +41,22 @@ class Embed::BuildSeriesViewData
                                 name: series_data[:name],
                                 logo_image_url: series_data.dig(:logo, :medium, :url),
                                 detailed_catch: series_data[:detailedCatch],
+                                key_color: series_data.dig(:style, :primaryLight),
                                 episode_data: episode_data)
+  end
+
+  def item_list_view_data
+    res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').episode_from_series(type: 'tv',
+                                                                                       series_id: @series_id,
+                                                                                       request_type: :l,
+                                                                                       query: { size: 3 })
+    episode_data = res[:result].first
+    series_data = episode_data[:partOfSeries]
+
+    Embed::ItemListData.new(url: series_data[:url],
+                            name: series_data[:name],
+                            hero_image_url: series_data.dig(:hero, :medium, :url),
+                            key_color: series_data.dig(:style, :primaryLight),
+                            episodes: res[:result])
   end
 end
