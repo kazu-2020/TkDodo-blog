@@ -374,17 +374,16 @@ class PreviewBlockBuilder {
 
     leftColumn.appendChild(thumbnailBlock)
 
-    const images = this.data.howTo.image
+    const howtoImage = this.data.howTo.image
+    const episodeImage = this.data.episode.eyecatch
 
-    const thumbnailImageUrl =
-      images &&
-      images.length > 0 &&
-      images[0] &&
-      images[0].thumbnail &&
-      images[0].thumbnail.length > 0 &&
-      images[0].thumbnail[0].url
-        ? images[0].thumbnail[0].url
-        : 'https://via.placeholder.com/160x90'
+    let thumbnailImageUrl = 'https://via.placeholder.com/160x90'
+    if (howtoImage && howtoImage.medium && howtoImage.medium.url) {
+      thumbnailImageUrl = howtoImage.medium.url
+    } else if (episodeImage && episodeImage.medium && episodeImage.medium.url) {
+      thumbnailImageUrl = episodeImage.medium.url
+    }
+
     const thumbnailImage = new HTMLElementBuilder(
       'img',
       this.CSS.linkContentThumbnailImage,
