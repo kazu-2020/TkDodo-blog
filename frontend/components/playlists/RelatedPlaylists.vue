@@ -2,31 +2,11 @@
   <div :class="relatedPlaylistKlass">
     <h4 class="mb-2">似ているプレイリスト</h4>
     <div class="d-flex flex-wrap mb-5">
-      <v-card
+      <related-playlist
         v-for="playlist in relatedPlaylists"
         :key="playlist.id"
-        outlined
-        rounded
-        class="mr-1 mb-1"
-        style="height: 32px; overflow: hidden"
-      >
-        <a
-          :href="externalPlaylistUrl(playlist)"
-          target="_blank"
-          class="text-decoration-none"
-        >
-          <v-img
-            :src="playlist.logo.medium.url"
-            :alt="playlist.name"
-            max-width="30"
-            class="mb-1 d-inline-block"
-            lazy-src="https://placehold.jp/3d4070/ffffff/120x120.png?text=NoImage"
-          />
-          <span class="body-2 pl-1 pr-2" style="position: relative; top: -13px">
-            {{ playlist.name }}
-          </span>
-        </a>
-      </v-card>
+        :playlist="playlist"
+      />
     </div>
   </div>
 </template>
@@ -34,6 +14,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import qs from 'qs'
+import RelatedPlaylist from '~/components/playlists/RelatedPlaylist.vue'
 
 interface DataType {
   relatedPlaylists: object[]
@@ -41,6 +22,9 @@ interface DataType {
 
 export default Vue.extend({
   name: 'RelatedPlaylists',
+  components: {
+    RelatedPlaylist,
+  },
   props: {
     items: {
       type: Array,
