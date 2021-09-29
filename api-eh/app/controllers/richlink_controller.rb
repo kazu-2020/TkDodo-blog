@@ -5,12 +5,7 @@ class RichlinkController < ApplicationController
   def index
     raise DlabApiBase::InternalServerError if richlink_params[:url].blank?
 
-    json = playlist_page_url? ? parse_playlist : parse_html
-    if json
-      render json: json
-    else
-      render json: { message: "Error. url: #{richlink_params[:url]}" }
-    end
+    playlist_page_url? ? parse_playlist : parse_html
   rescue
     render json: { message: "Error. url: #{richlink_params[:url]}" }
   end
@@ -27,9 +22,10 @@ class RichlinkController < ApplicationController
     playlist_id = richlink_params[:url][playlist_page_url_regex, 1].to_i
     pl = Playlist.find(playlist_id)
 
-    { title: pl.name,
-      description: pl.description,
-      image: pl.eyecatch_image_url || pl.dummy_image_url('eyecatch') }
+    @title = pl.name
+    @description = pl.description
+    @image = pl.eyecatch_image_url || pl.dummy_image_url('eyecatch')
+    @date = pl.published_at
   end
 
   def parse_html
@@ -37,8 +33,6 @@ class RichlinkController < ApplicationController
     return nil unless res&.success?
 
     make_json(res)
-  rescue
-    nil
   end
 
   # @param [Faraday::Response] res
@@ -50,9 +44,10 @@ class RichlinkController < ApplicationController
     html = Nokogiri::HTML.parse(res.body.to_s.toutf8)
 
     title = ogp&.title || ogp&.site_name || html.title.to_s
-    { title: title,
-      description: ogp&.description || html.css('//head/meta[name="description"]/@content')&.to_s,
-      image: ogp&.image&.url || default_image_url_by(title: title) }
+    @title = title
+    @description = ogp&.description || html.css('//head/meta[name="description"]/@content')&.to_s
+    @image = ogp&.image&.url || default_image_url_by(title: title)
+    @date = Time.zone.parse(res.headers['Last-Modified'])
   end
   # rubocop:enable Metrics/AbcSize,Metrics/CyclomaticComplexity
 
