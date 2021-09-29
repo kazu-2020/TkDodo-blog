@@ -77,10 +77,13 @@ class TypeSelectBuilder {
       this.CSS.playlistItem
     ).build()
     const episode = this.data.tvEpisode
-    const eyecatch =
+    let eyecatch =
       episode.eyecatch === undefined
-        ? episode.partOfSeries.eyecatch
+        ? this._keyvisualToEyecatchConverter(episode)
         : episode.eyecatch
+    if (eyecatch === undefined) {
+      eyecatch = episode.partOfSeries.eyecatch
+    }
 
     const episodeThumbnail = new HTMLElementBuilder(
       'div',
@@ -189,10 +192,13 @@ class TypeSelectBuilder {
 
       const howtoImage = howTo.image
       const episode = this.data.tvEpisode
-      const eyecatch =
+      let eyecatch =
         episode.eyecatch === undefined
-          ? episode.partOfSeries.eyecatch
+          ? this._keyvisualToEyecatchConverter(episode)
           : episode.eyecatch
+      if (eyecatch === undefined) {
+        eyecatch = episode.partOfSeries.eyecatch
+      }
 
       let thumbnailImageUrl = 'https://via.placeholder.com/160x90'
       if (howtoImage && howtoImage.medium && howtoImage.medium.url) {
@@ -250,10 +256,13 @@ class TypeSelectBuilder {
 
       const eventImage = event.image
       const episode = this.data.tvEpisode
-      const eyecatch =
+      let eyecatch =
         episode.eyecatch === undefined
-          ? episode.partOfSeries.eyecatch
+          ? this._keyvisualToEyecatchConverter(episode)
           : episode.eyecatch
+      if (eyecatch === undefined) {
+        eyecatch = episode.partOfSeries.eyecatch
+      }
 
       let thumbnailImageUrl = 'https://via.placeholder.com/160x90'
       if (eventImage && eventImage.medium && eventImage.medium.url) {
@@ -327,6 +336,23 @@ class TypeSelectBuilder {
       faqPageItem.appendChild(selectFaqPageButton)
 
       this.nodes.typeSelectHolder.appendChild(faqPageItem)
+    }
+  }
+
+  /**
+   * keyvisual と eyecatch のデータ構造をあわせる
+   */
+  _keyvisualToEyecatchConverter(episode) {
+    if (episode.keyvisuals[0] === undefined) {
+      return undefined
+    } else {
+      return {
+        medium: {
+          url: episode.keyvisuals[0].small.url,
+          width: episode.keyvisuals[0].small.width,
+          height: episode.keyvisuals[0].small.height,
+        },
+      }
     }
   }
 }

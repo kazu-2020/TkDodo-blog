@@ -266,10 +266,13 @@ export default class MultiTypeEpisode {
    * エピソードブロックへの切り替え処理
    */
   _switchToEpisodeBlock(that, episode) {
-    const eyecatch =
+    let eyecatch =
       episode.eyecatch === undefined
-        ? episode.partOfSeries.eyecatch
+        ? that._keyvisualToEyecatchConverter(episode)
         : episode.eyecatch
+    if (eyecatch === undefined) {
+      eyecatch = episode.partOfSeries.eyecatch
+    }
 
     that.data = Object.assign(that.data, {
       link: episode.url,
@@ -363,6 +366,23 @@ export default class MultiTypeEpisode {
   }
 
   /**
+   * keyvisual と eyecatch のデータ構造をあわせる
+   */
+  _keyvisualToEyecatchConverter(episode) {
+    if (episode.keyvisuals[0] === undefined) {
+      return undefined
+    } else {
+      return {
+        medium: {
+          url: episode.keyvisuals[0].small.url,
+          width: episode.keyvisuals[0].small.width,
+          height: episode.keyvisuals[0].small.height,
+        },
+      }
+    }
+  }
+
+  /**
    * エピソード取得成功したときの処理
    */
   onSuccessFetchingEpisode(that, response) {
@@ -372,10 +392,15 @@ export default class MultiTypeEpisode {
     that.episodeBundle = response
     const episode = response.tvEpisode
 
-    const eyecatch =
+    let eyecatch =
       episode.eyecatch === undefined
-        ? episode.partOfSeries.eyecatch
+        ? that._keyvisualToEyecatchConverter(episode)
         : episode.eyecatch
+    if (eyecatch === undefined) {
+      eyecatch = episode.partOfSeries.eyecatch
+    }
+    console.log(episode)
+    console.log(that._keyvisualToEyecatchConverter(episode))
 
     that.data = Object.assign(that.data, {
       link: episode.url,
