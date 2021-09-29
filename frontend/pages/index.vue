@@ -478,8 +478,9 @@ export default Vue.extend({
     eyecatchUrl(item: any): string {
       if (item?.eyecatch !== undefined) {
         return item.eyecatch.medium.url
-      }
-      if (item?.partOfSeries?.eyecatch !== undefined) {
+      } else if ((item?.keyvisuals || [])[0] !== undefined) {
+        return item.keyvisuals[0].small.url
+      } else if (item?.partOfSeries?.eyecatch !== undefined) {
         return item.partOfSeries.eyecatch.medium.url
       }
 
