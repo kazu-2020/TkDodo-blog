@@ -2,6 +2,7 @@
   <div
     class="mx-auto pa-2 clearfix"
     style="background-color: white; border-radius: 4px; cursor: pointer"
+    :style="`border-left: 3px solid ${primaryColor};`"
     outlined
     light
     @click="clickPlaylistItem"
@@ -106,6 +107,9 @@ export default Vue.extend({
     playlistName(): string {
       const name = this.playlist?.name || ''
       return name.length > 24 ? name.slice(0, 24) + '…' : name
+    },
+    primaryColor(): string {
+      return this.playlist.style.selectedPalette
     },
   },
   methods: {
