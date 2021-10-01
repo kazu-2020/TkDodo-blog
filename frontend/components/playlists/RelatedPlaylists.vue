@@ -79,7 +79,6 @@ export default Vue.extend({
           },
         })
         .then((res) => {
-          console.log(res)
           this.relatedPlaylists = res.data.playlists
         })
     },

@@ -40,6 +40,10 @@
             <div class="text--primary">
               {{ playlistDescription }}
             </div>
+            <div v-show="itemCount" class="text--primary mt-2">
+              <div v-if="itemCount === 0">エピソードなし</div>
+              <div v-else>{{ itemCount }}つのエピソード</div>
+            </div>
           </v-card-text>
           <v-card-actions>
             <v-btn text color="primary" @click="openPreviewPage"
@@ -57,6 +61,7 @@ import Vue from 'vue'
 
 interface DataType {
   showPopOver: boolean
+  itemCount: number | undefined
 }
 
 export default Vue.extend({
@@ -71,11 +76,22 @@ export default Vue.extend({
   data(): DataType {
     return {
       showPopOver: false,
+      itemCount: undefined,
     }
   },
   computed: {
     playlistDescription(): string {
       return this.playlist.description || '(説明なし)'
+    },
+  },
+  watch: {
+    showPopOver: {
+      async handler(newVal: boolean) {
+        if (newVal && this.itemCount === undefined) {
+          await this.fetchEpisodeItems(this.playlist.url)
+        }
+      },
+      immediate: true,
     },
   },
   methods: {
@@ -89,6 +105,14 @@ export default Vue.extend({
     },
     openPreviewPage(): void {
       window.open(this.externalPlaylistUrl(this.playlist), '_blank')
+    },
+    fetchEpisodeItems(url: string) {
+      this.$axios.get(url).then((res) => {
+        const itemUrl = res.data.itemUrl
+        this.$axios.get(itemUrl).then((res2) => {
+          this.itemCount = res2.data.count
+        })
+      })
     },
   },
 })
