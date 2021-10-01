@@ -40,7 +40,7 @@
             <div class="text--primary">
               {{ playlistDescription }}
             </div>
-            <div v-show="itemCount" class="text--primary mt-2">
+            <div v-show="itemCount !== undefined" class="text--primary mt-2">
               <div v-if="itemCount === 0">エピソードなし</div>
               <div v-else>{{ itemCount }}つのエピソード</div>
             </div>
