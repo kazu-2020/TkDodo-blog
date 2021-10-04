@@ -5,25 +5,47 @@
     <!-- - height:250px -->
     <div class="card:hidden h-full">
       <!-- < width:241px-->
-      <div class="xxxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
-        <div class="grid grid-cols-1 mb-auto">
-          <div class="col-span-1">
-            <img
-              decoding="async"
-              src="<%= event_image_src %>"
-              class="rounded-sm"
-              alt="<%= @event_data[:name] %>"/>
-            <div class="my-2"></div>
-            <div class="text-xs line-clamp-1">
+      <div class="xxxs:hidden xs:hidden h-full p-3">
+        <div class="flex flex-col justify-between mb-auto h-full">
+          <div class="flex-auto">
+            <div class="text-xs line-clamp-2">
               <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
             </div>
-            <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= @event_data[:name] %></div>
+
+            <div class="font-bold text-md mt-1 mb-2 line-clamp-2">
+              <%= @event_data[:name] %>
+            </div>
+
+            <div class="text-gray-350 text-xs">
+              <span class="align-middle"><%= event_datetime_label %></span>
+            </div>
+
+            <% unless blank_event_offers? %>
+              <div class="mt-2">
+                <span class="bg-blue-600 text-xxs p-1 pl-2 mr-1 rounded-sm text-white text-center">
+                  <%= event_offer_status_label %>
+                </span>
+              </div>
+            <% end %>
+            <div class="mt-2">
+              <span class="border border-opacity-20 text-xxs p-1 rounded-sm text-white text-center">
+                <%= event_date_status_label %>
+              </span>
+              <% if event_status_label.present? %>
+                <span class="ml-1 border border-opacity-20 text-xxs p-1 rounded-sm text-white text-center">
+                  <%= event_status_label %>
+                </span>
+              <% end %>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <%= render 'shared/embed_logo' %>
           </div>
         </div>
       </div>
 
       <!-- >= width:241px -->
-      <div class="invisible xxxs:visible flex flex-col justify-between h-full p-3">
+      <div class="invisible xxxs:visible h-full p-3">
         <div class="flex mb-auto h-full">
           <div class="flex-auto">
             <div class="text-xs line-clamp-2">
@@ -38,15 +60,22 @@
               <span class="align-middle"><%= event_datetime_label %></span>
             </div>
 
-            <div class="mt-2">
-              <% unless blank_event_offers? %>
-                <span class="bg-blue-600 text-xs p-1 pl-2 mr-1 rounded-sm text-white" style="font-size: 10px;">
+            <% unless blank_event_offers? %>
+              <div class="mt-2">
+                <span class="bg-blue-600 text-xxs p-1 pl-2 mr-1 rounded-sm text-white text-center">
                   <%= event_offer_status_label %>
                 </span>
-              <% end %>
-              <span class="border border-gray-350 text-xs p-1 rounded-sm text-white text-center" style="font-size: 10px;">
+              </div>
+            <% end %>
+            <div class="mt-2">
+              <span class="border border-opacity-20 text-xxs p-1 rounded-sm text-white text-center">
                 <%= event_date_status_label %>
               </span>
+              <% if event_status_label.present? %>
+                <span class="ml-1 border border-opacity-20 text-xxs p-1 rounded-sm text-white text-center">
+                  <%= event_status_label %>
+                </span>
+              <% end %>
             </div>
           </div>
           <div class="w-32 xxs:w-48 flex-none flex flex-col justify-between ml-3">
@@ -75,7 +104,7 @@
     <!-- >= height:251px -->
     <div class="small:hidden h-full">
       <!-- < width:241px-->
-      <div class="xxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
+      <div class="xxs:hidden xs:hidden h-full p-3">
         <div class="grid grid-cols-12 gap-3 mb-auto">
           <div class="col-span-12">
             <img
@@ -123,14 +152,19 @@
               <span class="align-middle"><%= @event_data[:postalAddress] %></span>
             </div>
 
-            <div class="mt-2">
-              <% unless blank_event_offers? %>
-                <span class="bg-blue-600 text-xs p-1 pl-2 mr-1 rounded-sm text-white" style="font-size: 10px;">
+            <% unless blank_event_offers? %>
+              <div class="mt-2">
+                <span class="bg-blue-600 text-xxs p-1 pl-2 mr-1 rounded-sm text-white text-center">
                   <%= event_offer_status_label %>
                 </span>
-              <% end %>
-              <span class="border border-gray-350 text-xs p-1 rounded-sm text-white text-center" style="font-size: 10px;">
+              </div>
+            <% end %>
+            <div class="mt-2">
+              <span class="border border-opacity-20 text-xxs p-1 rounded-sm text-white text-center">
                 <%= event_date_status_label %>
+              </span>
+              <span class="ml-1 border border-opacity-20 text-xxs p-1 rounded-sm text-white text-center">
+                <%= event_status_label %>
               </span>
             </div>
           </div>
