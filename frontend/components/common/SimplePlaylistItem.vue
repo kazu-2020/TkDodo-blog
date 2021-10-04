@@ -124,7 +124,7 @@ export default Vue.extend({
       return this.formattedDate(this.playlist.dateModified)
     },
     primaryColor(): string {
-      return this.playlist.style.selectedPalette
+      return this.playlist.style.primaryLight
     },
   },
   methods: {
