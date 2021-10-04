@@ -30,7 +30,9 @@
                 }"
                 elevation="4"
                 v-on="on"
-              />
+              >
+                <v-icon color="white">mdi-palette</v-icon>
+              </v-btn>
             </template>
             <v-color-picker
               v-model="freePaletteColor"
@@ -90,7 +92,7 @@ export default Vue.extend({
       freePaletteColor: (this as any).isSelectedColorByPalette(
         this.selectedPalette
       )
-        ? '#FFFFFF'
+        ? '#000000'
         : this.selectedPalette,
     }
   },
