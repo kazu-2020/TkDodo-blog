@@ -257,6 +257,7 @@ import {
   adjustPrimaryLightColor,
   adjustLinkDarkColor,
   adjustLinkLightColor,
+  PALETTE_BASE_COLORS,
 } from '@/utils/adjustColor'
 import qs from 'qs'
 import ColorPalette from '~/components/playlists/ColorPalette.vue'
@@ -329,7 +330,11 @@ export default Vue.extend({
       hashtag: this.playlist.hashtag || [],
       formatGenre: this.playlist.formatGenre || '',
       themeGenre: this.playlist.themeGenre || '',
-      selectedPalette: this.playlist.selectedPalette || '#ffffff',
+      selectedPalette:
+        this.playlist.selectedPalette ||
+        PALETTE_BASE_COLORS[
+          Math.floor(Math.random() * PALETTE_BASE_COLORS.length)
+        ],
       primaryLightColor: this.playlist.primaryLightColor || '#ffffff',
       primaryDarkColor: this.playlist.primaryDarkColor || '#ffffff',
       linkLightColor: this.playlist.linkLightColor || '#ffffff',

@@ -74,20 +74,8 @@ import {
   adjustPrimaryLightColor,
   adjustLinkDarkColor,
   adjustLinkLightColor,
+  PALETTE_BASE_COLORS,
 } from '@/utils/adjustColor'
-
-const PALETTE_BASE_COLORS: Array<String> = [
-  '#faf100',
-  '#f6aa00',
-  '#ff2800',
-  '#990099',
-  '#005aff',
-  '#03af7a',
-  '#ff8082',
-  '#4dc4ff',
-  '#804000',
-  '#84919e',
-]
 
 export default Vue.extend({
   props: {
