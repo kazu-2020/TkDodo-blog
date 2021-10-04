@@ -5,19 +5,21 @@
     <!-- - height:250px -->
     <div class="card:hidden h-full">
       <!-- < width:241px-->
-      <div class="xxxs:hidden xs:hidden flex flex-col justify-between h-full p-3">
-        <div class="grid grid-cols-12 gap-3 mb-auto">
-          <div class="col-span-12">
-            <img
-              decoding="async"
-              src="<%= howto_image_src %>"
-              class="rounded-sm"
-              alt="<%= @howto_data[:name] %>"/>
-            <div class="my-2"></div>
-            <div class="text-xs line-clamp-1">
-              <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+      <div class="xxxs:hidden xs:hidden h-full p-3">
+        <div class="flex mb-auto h-full">
+          <div class="flex flex-col justify-between">
+            <div>
+              <div class="text-xs line-clamp-2">
+                <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+              </div>
+              <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-3"><%= @howto_data[:name] %></div>
+              <div class="text-gray-350 text-sm mt-2 line-clamp-3">
+                <%= @howto_data[:description] %>
+              </div>
             </div>
-            <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= @howto_data[:name] %></div>
+            <div class="flex justify-end">
+              <%= render 'shared/embed_logo' %>
+            </div>
           </div>
         </div>
       </div>
