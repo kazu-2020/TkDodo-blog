@@ -1,4 +1,5 @@
-<div class="embed embed-featured-item rounded-sm shadow-md text-white" style="background-color: <%= view_data.key_color %>;">
+<!--<div class="embed embed-featured-item rounded-sm shadow-md text-white" style="background-color: <%#= view_data.key_color %>;">-->
+<div class="embed embed-featured-item rounded-sm shadow-md text-white" data-controller="key-color">
   <a href="<%= view_data.url %>" target="_blank">
     <div class="scrim"></div>
     <div class="upper">
@@ -6,7 +7,8 @@
         decoding="async"
         src="<%= view_data.logo_image_url %>"
         class="rounded-sm mask-image"
-        alt="<%= view_data.name %>"/>
+        alt="<%= view_data.name %>"
+        data-key-color-target="image" />
     </div>
     <div class="bottom p-2">
       <div class="series_content">

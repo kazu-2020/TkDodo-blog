@@ -3,5 +3,5 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import KeyColorController from "./key_color_controller"
+application.register("key-color", KeyColorController)
