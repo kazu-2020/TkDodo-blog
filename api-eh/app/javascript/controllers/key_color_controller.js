@@ -12,7 +12,7 @@ export default class extends Controller {
     if (img.complete) {
       this.element.style.backgroundColor = colorThief.getColor(img);
     } else {
-      image.addEventListener('load', function() {
+      img.addEventListener('load', function() {
         this.element.style.backgroundColor = colorThief.getColor(img);
       });
     }
