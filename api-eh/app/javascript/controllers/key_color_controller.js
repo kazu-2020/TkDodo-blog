@@ -8,13 +8,9 @@ export default class extends Controller {
     const colorThief = new ColorThief();
     const img = this.imageTarget;
     img.crossOrigin = 'Anonymous';
-
-    if (img.complete) {
-      this.element.style.backgroundColor = colorThief.getColor(img);
-    } else {
-      img.addEventListener('load', function() {
-        this.element.style.backgroundColor = colorThief.getColor(img);
-      });
-    }
+    img.addEventListener('load', () => {
+      const color = colorThief.getColor(img);
+      this.element.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+    });
   }
 }
