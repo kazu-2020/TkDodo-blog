@@ -7,11 +7,14 @@ export default class extends Controller {
   connect() {
     const colorThief = new ColorThief();
     const img = this.imageTarget;
-    let googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
     img.crossOrigin = 'Anonymous';
-    img.src = googleProxyURL + encodeURIComponent(img.src);
-    img.addEventListener('load', () => {
+
+    if (img.complete) {
       this.element.style.backgroundColor = colorThief.getColor(img);
-    });
+    } else {
+      image.addEventListener('load', function() {
+        this.element.style.backgroundColor = colorThief.getColor(img);
+      });
+    }
   }
 }
