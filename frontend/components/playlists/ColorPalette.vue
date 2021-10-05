@@ -30,7 +30,9 @@
                 }"
                 elevation="4"
                 v-on="on"
-              />
+              >
+                <v-icon color="white">mdi-palette</v-icon>
+              </v-btn>
             </template>
             <v-color-picker
               v-model="freePaletteColor"
@@ -74,20 +76,8 @@ import {
   adjustPrimaryLightColor,
   adjustLinkDarkColor,
   adjustLinkLightColor,
+  PALETTE_BASE_COLORS,
 } from '@/utils/adjustColor'
-
-const PALETTE_BASE_COLORS: Array<String> = [
-  '#faf100',
-  '#f6aa00',
-  '#ff2800',
-  '#990099',
-  '#005aff',
-  '#03af7a',
-  '#ff8082',
-  '#4dc4ff',
-  '#804000',
-  '#84919e',
-]
 
 export default Vue.extend({
   props: {
@@ -102,7 +92,7 @@ export default Vue.extend({
       freePaletteColor: (this as any).isSelectedColorByPalette(
         this.selectedPalette
       )
-        ? '#FFFFFF'
+        ? '#000000'
         : this.selectedPalette,
     }
   },
