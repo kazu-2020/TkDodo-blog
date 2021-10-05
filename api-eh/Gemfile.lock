@@ -401,6 +401,8 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stimulus-rails (0.6.0)
+      rails (>= 6.0.0)
     tailwindcss-rails (0.3.3)
       rails (>= 6.0.0)
     text-table (1.2.4)
@@ -470,6 +472,7 @@ DEPENDENCIES
   shrine!
   slack-incoming-webhooks
   spring
+  stimulus-rails
   tailwindcss-rails
   tzinfo-data
   vcr
