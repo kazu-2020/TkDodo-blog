@@ -11,4 +11,10 @@ class Embed::ItemListData
   attribute :episodes # @type [Array] episodes EpisodeのHash（APIのレスポンス）の配列
 
   alias title name
+
+  def base64_image_src
+    return if hero_image_url.blank?
+
+    "data:image/png;base64,#{Base64.strict_encode64(URI.open(hero_image_url).read)}" # rubocop:disable Security/Open
+  end
 end
