@@ -86,7 +86,13 @@ end
 unless @is_min_mode
   # rubocop:disable Metrics/BlockLength
   item_count = 0
-  json.items @playlist.playlist_items.kept.each do |playlist_item|
+  items =
+    if (params[:mediaAction] || '').split(',').include?('watch')
+      @playlist.playlist_items.playable.kept
+    else
+      @playlist.playlist_items.kept
+    end
+  json.items items.each do |playlist_item|
     episode_data = fetch_episode_data(playlist_item: playlist_item, force_fetch: true)
 
     case @object_type
@@ -194,8 +200,10 @@ unless @is_min_mode
   # rubocop:enable Metrics/BlockLength
 end
 
+media_action_params = (params[:mediaAction] || '').split(',')
 item_url_params =
-  { size: params[:itemSize].nil? ? nil : @size, offset: params[:itemOffset].nil? ? nil : @offset }
+  { size: params[:itemSize].nil? ? nil : @size, offset: params[:itemOffset].nil? ? nil : @offset,
+    availableOn: media_action_params.include?('watch') ? 'okushibu' : nil }
   .delete_if { |_, v| v.nil? }
   .to_param
 item_url_params = "?#{item_url_params}" if item_url_params.size.positive?

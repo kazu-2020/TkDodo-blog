@@ -15,7 +15,8 @@ end
 json.set! 'playlists' do
   json.array! @playlists.first(@size).each do |playlist|
     json.partial! partial: 'external/decks/playlist',
-                  locals: { playlist: playlist, area: @area, deck_type: 'tv', object_type: @object_type }
+                  locals: { playlist: playlist, area: @area, deck_type: 'tv', object_type: @object_type,
+                            media_action: params[:mediaAction] }
   end
 end
 

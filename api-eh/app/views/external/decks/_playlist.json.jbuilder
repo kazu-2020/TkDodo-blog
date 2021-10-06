@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+media_action ||= nil
+
 json.dateCreated playlist.created_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
 json.dateModified playlist.updated_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
 json.description playlist.description
@@ -66,6 +68,19 @@ else
   json.sameAs nil
 end
 
-base_url = 'https://dev-api-eh.nr.nhk.jp/d6.6/t/nplaylist'
-json.url base_url + "/pl/#{playlist.original_id}.json?area=#{area}&type=#{object_type}"
-json.itemUrl base_url + "/l/tvepisode/pl/#{playlist.original_id}.json?size=10&offset=0"
+base_url = 'https://dev-api-eh.nr.nhk.jp/d6.6'
+
+url_params =
+  { area: area, type: object_type, mediaAction: media_action }
+  .delete_if { |_, v| v.nil? }
+  .to_param
+url_params = "?#{url_params}"
+json.url base_url + "/t/nplaylist/pl/#{playlist.original_id}.json#{url_params}"
+
+media_action_params = media_action&.split(',') || []
+item_url_params =
+  { size: 10, offset: 0, availableOn: media_action_params.include?('watch') ? 'okushibu' : nil }
+  .delete_if { |_, v| v.nil? }
+  .to_param
+item_url_params = "?#{item_url_params}"
+json.itemUrl base_url + "/l/tvepisode/pl/#{playlist.original_id}.json#{item_url_params}"
