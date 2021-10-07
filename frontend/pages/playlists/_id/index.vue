@@ -159,6 +159,10 @@
               button-color="#000000"
               :playlist-id="playlist.originalId"
             />
+            <layout-pattern-dialog
+              button-color="#000000"
+              :playlist-id="playlist.originalId"
+            />
             <v-tooltip bottom>
               <template #activator="{ on, attrs }">
                 <v-btn
@@ -215,6 +219,7 @@ import { EpisodeData } from '@/types/episode_data'
 import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
 import ListEditTab from '~/components/playlists/ListEditTab.vue'
 import PlaylistJsonDialog from '~/components/playlists/PlaylistJsonDialog.vue'
+import LayoutPatternDialog from '~/components/playlists/LayoutPatternDialog.vue'
 import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
 import HorizontalBasicInformationView from '~/components/playlists/HorizontalBasicInformationView.vue'
@@ -247,6 +252,7 @@ export default Vue.extend({
     HorizontalBasicInformationView,
     ListEditTab,
     PlaylistJsonDialog,
+    LayoutPatternDialog,
     PlaylistStepper,
     SeriesMetaEditTab,
     ArticleSavedDialog,
