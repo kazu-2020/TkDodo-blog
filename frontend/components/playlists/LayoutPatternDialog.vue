@@ -8,12 +8,30 @@
     <v-card class="playlist_json_dialog">
       <v-card-title>
         <span class="headline"> layoutPattern </span>
+        <small class="ml-3 font-weight-bold">
+          <a
+            :href="`${apiBaseUrl}/oembed?url=https://dev-www-eh.nr.nhk.jp/p/pl/${playlistId}`"
+            target="_blank"
+            >oEmbed API</a
+          >
+          <v-icon>mdi-open-in-new</v-icon>
+        </small>
       </v-card-title>
       <v-card-text>
         <v-container>
           <v-row>
             <v-col cols="12">
-              <h2 class="mb-2">Summary</h2>
+              <h2 class="mb-2">
+                Summary<small>
+                  <a
+                    :href="`${apiBaseUrl}/embed/pl/${playlistId}?layout_pattern=summary`"
+                    class="ml-2"
+                    target="_blank"
+                    >contents</a
+                  >
+                  <v-icon>mdi-open-in-new</v-icon>
+                </small>
+              </h2>
               <iframe
                 width="100%"
                 height="210"
@@ -22,7 +40,18 @@
               />
             </v-col>
             <v-col cols="12">
-              <h2 class="mb-2">FeaturedItem</h2>
+              <h2 class="mb-2">
+                FeaturedItem
+                <small>
+                  <a
+                    :href="`${apiBaseUrl}/embed/pl/${playlistId}?layout_pattern=featuredItem`"
+                    class="ml-2"
+                    target="_blank"
+                    >contents</a
+                  >
+                  <v-icon>mdi-open-in-new</v-icon>
+                </small>
+              </h2>
               <iframe
                 width="240"
                 height="385"
@@ -31,7 +60,18 @@
               />
             </v-col>
             <v-col cols="12">
-              <h2 class="mb-2">ItemList</h2>
+              <h2 class="mb-2">
+                ItemList
+                <small>
+                  <a
+                    :href="`${apiBaseUrl}/embed/pl/${playlistId}?layout_pattern=itemList`"
+                    class="ml-2"
+                    target="_blank"
+                    >contents</a
+                  >
+                  <v-icon>mdi-open-in-new</v-icon>
+                </small>
+              </h2>
               <iframe
                 width="240"
                 height="210"
