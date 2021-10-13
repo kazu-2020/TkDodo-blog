@@ -70,6 +70,7 @@ class Playlist < ApplicationRecord
   after_create :link_article_images
   before_save :generate_derivatives
   before_save :trim_name
+  before_save :assign_sub_type_count
 
   class << self
     def assign_from_series(series_id)
@@ -286,7 +287,7 @@ class Playlist < ApplicationRecord
   end
   # rubocop: enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
 
-  def update_sub_type_count!
+  def assign_sub_type_count
     client = DlabApiClient.new
 
     result = { event_count: 0, how_to_count: 0, faq_page_count: 0 }
@@ -304,8 +305,6 @@ class Playlist < ApplicationRecord
       result[:how_to_count] += data.dig(:howto, :count) || 0
     end
     assign_attributes(result)
-
-    save!(touch: false)
   end
 
   def replace_article_body_urls

@@ -16,7 +16,10 @@ namespace :playlists do
 
   desc 'プレイリストの SubType カウントの集計'
   task update_subtypes: :environment do
-    Playlist.all.each(&:update_sub_type_count!)
+    Playlist.all.each do |playlist|
+      playlist.assign_sub_type_count
+      playlist.save
+    end
   end
 
   desc '記事中に含まれる GitHub Pages のURLを書き換える One-Shot Job'
