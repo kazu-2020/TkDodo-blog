@@ -30,6 +30,13 @@ describe EmbedController, type: :request do
   end
 
   describe 'Playlist' do
+    before do
+      client = instance_double(DlabApiClient)
+      allow(DlabApiClient).to receive(:new).and_return(client)
+      allow(client).to receive(:episode_list_bundle).with(type: 'tv', episode_id: anything).and_return({})
+      allow(client).to receive(:episode).with(type: 'tv', episode_id: anything).and_return({})
+    end
+
     let(:playlist) { create(:playlist, :with_playlist_item) }
     let(:playlist_id) { format('%010<number>d', number: playlist.id) }
 

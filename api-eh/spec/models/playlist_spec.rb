@@ -292,6 +292,12 @@ describe Playlist, type: :model do
   end
 
   describe '#rebuild_episode_list_to' do
+    before do
+      client = instance_double(DlabApiClient)
+      allow(DlabApiClient).to receive(:new).and_return(client)
+      allow(client).to receive(:episode_list_bundle).with(type: 'tv', episode_id: anything).and_return({})
+    end
+
     let(:playlist) { create(:playlist, :with_playlist_items) }
 
     context 'when new episodes added' do
