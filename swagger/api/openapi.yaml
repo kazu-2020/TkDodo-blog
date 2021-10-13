@@ -1,0 +1,523 @@
+openapi: 3.0.0
+info:
+  version: 6.6
+  title: d6.6 API
+  description: >-
+    EditorialHands で作成したプレイリスト/デッキを出力することを主目的としたAPIバージョン
+servers:
+  - url: https://dev-api-eh.nr.nhk.jp/d6.6
+  - url: http://localhost:8888/d6.6
+paths:
+  /t/nplaylist/pl/{playlistId}:
+    get:
+      description: >
+        リコメンドプレイリストの id ( eh-XXXX ) 引き
+      operationId: getTNpalylistPlId
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: eh-XXXX 形式のID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NPlaylist"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /t/nplaylist/id/{playlistUid}:
+    get:
+      description: >
+        リコメンドプレイリストの uid (ハッシュ値) 引き
+      operationId: getTNpalylistPlUid
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: ハッシュ値形式のID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NPlaylist"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /t/ndeck/dk/{deckId}:
+    get:
+      description: >
+        デッキの....
+      operationId: getTNdeckDkId
+      tags:
+        - deck
+      parameters:
+        - name: deckId
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /t/ndeck/recommend/{deckId}:
+    get:
+      description: >
+        デッキの....
+      operationId: getTNdeckRecommendId
+      tags:
+        - deck
+      parameters:
+        - name: deckId
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /t/bundle/pl/{playlistId}:
+    get:
+      description: >
+        サブタイプを含む全てのプレイリストデータ取得
+      operationId: getTBundlePlId
+      tags:
+        - playlist
+        - bundle
+        - subtype
+      parameters:
+        - name: playlistId
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/bundle/pl/{playlistId}/types:
+    get:
+      description: >
+        特定プレイリストのサブタイプ有無情報の id ( eh-XXXX ) 引き
+      operationId: getLBundlePlIdTypes
+      tags:
+        - playlist
+        - bundle
+        - subtype
+      parameters:
+        - name: playlistId
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/bundle/id/{playlistUid}/types:
+    get:
+      description: >
+        特定プレイリストのサブタイプ有無情報の uid (ハッシュ値) 引き
+      operationId: getLBundlePlUidTypes
+      tags:
+        - playlist
+        - bundle
+      parameters:
+        - name: playlistUid
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Double:
+      type: string
+      example: TODO
+    NPlaylist:
+      type: object
+      properties:
+        type:
+          type: string
+          example: NPlaylist
+        id:
+          type: string
+          example: eh-0000000030
+        name:
+          type: string
+          example: オトッペ
+        detailedSeriesNameRuby:
+          type: string
+          example: ｵﾄｯﾍﾟ
+        identifierGroup:
+          type: object
+          properties:
+            playlistUid:
+              type: string
+              example: e6ea81b5-b6bf-4d09-aed6-9538fcd703dd
+            playlistId:
+              type: string
+              example: eh-0000000030
+            playlistName:
+              type: string
+              example: オトッペ
+            typeOfList:
+              type: string
+              example: recommend
+            modeOfItem:
+              type: string
+              example: tv
+            typeOfItem:
+              type: string
+              example: TVEpisode
+            hashtag:
+              type: array
+              items:
+                type: string
+                example: "#ハッシュタグ1"
+            aliasId:
+              type: string
+              example: alias-1
+            formatGenre:
+              type: array
+              items:
+                $ref: "#/components/schemas/FormatGenre"
+            themeGenre:
+              type: array
+              items:
+                $ref: "#/components/schemas/ThemeGenre"
+        additionalProperty:
+          type: object
+          properties:
+            layoutPattern:
+              $ref: "#/components/schemas/LayoutPattern"
+            publishLevel:
+              $ref: "#/components/schemas/PublishLevel"
+        relatedDeck:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                example: NDeck
+              id:
+                type: string
+                example: recommend-r6-visible-130
+              name:
+                type: string
+                example: 番組まとめ（東京）
+              description:
+                type: string
+                example: 説明が入ります。
+              identifierGroup:
+                type: object
+                properties:
+                  deckUid:
+                    type: string
+                    example: 2b189c70-b39f-4f64-bace-39dab02e3e52
+                  deckId:
+                    type: string
+                    example: recommend-r6-visible-130
+                  deckName:
+                    type: string
+                    example: 番組まとめ（東京）
+                  typeOfDeck:
+                    type: string
+                    example: recommend
+              url:
+                type: string
+                example: https://example.com
+        keywords:
+          type: array
+          items:
+            type: string
+            example: キーワード1
+        description:
+          type: string
+          example: 説明
+        detailedCatch:
+          type: string
+          example: キャッチコピー
+        style:
+          type: object
+          properties:
+            primaryLight:
+              type: string
+              example: "#9b9500"
+            primaryDark:
+              type: string
+              example: "#faf100"
+            textLight:
+              type: string
+              example: "#000000"
+            textDark:
+              type: string
+              example: "#FFFFFF"
+            linkLight:
+              type: string
+              example: "#7b7700"
+            linkDark:
+              type: string
+              example: "#faf100"
+        dateCreated:
+          type: string
+          example: "2020-09-17T12:24:33+09:00"
+        datePublished:
+          type: string
+          example: "2020-09-17T12:24:33+09:00"
+        dateModified:
+          type: string
+          example: "2020-09-17T12:24:33+09:00"
+        actor:
+          type: array
+          items:
+            type: string
+            example: TODO
+        contributor:
+          type: array
+          items:
+            type: string
+            example: TODO
+        logo:
+          $ref: "#/components/schemas/ImageObjects"
+        eyecatch:
+          $ref: "#/components/schemas/ImageObjects"
+        hero:
+          $ref: "#/components/schemas/ImageObjects"
+        citations:
+          type: array
+          items:
+            $ref: "#/components/schemas/Citation"
+        sameAs:
+          type: array
+          items:
+            $ref: "#/components/schemas/SameAs"
+        items:
+          type: array
+          items:
+            type: string
+            example: TODO
+        itemUrl:
+          type: string
+          example: https://example.com
+        playlisticle:
+          $ref: "#/components/schemas/Playlisticle"
+    Playlisticle:
+      type: object
+      properties:
+        mainEntityOfPage:
+          type: string
+          example: ""
+        name:
+          type: string
+          example: オトッペ
+        headline:
+          type: string
+          example: ヘッドライン
+        keywords:
+          type: string
+          example: キーワード1,キーワード2
+        description:
+          type: string
+          example: 概要説明
+        articleBody:
+          type: string
+          example: 記事本文
+        detailedArticleBody:
+          type: object
+          properties:
+            markedHeader:
+              type: string
+              example: ヘッダーテキスト
+            markedBody:
+              type: string
+              example: 本文
+            markedFooter:
+              type: string
+              example: フッターテキスト
+        author:
+          type: string
+          example: Organization
+        authorName:
+          type: string
+          example: デジタルラボ
+        publisher:
+          type: string
+          example: Organization
+        publisherName:
+          type: string
+          example: NHK
+        dateCreated:
+          type: string
+          example: "2020-09-17T12:24:33+09:00"
+        datePublished:
+          type: string
+          example: "2020-09-17T12:24:33+09:00"
+        dateModified:
+          type: string
+          example: "2020-09-17T12:24:33+09:00"
+    SameAs:
+      type: object
+      properties:
+        name:
+          type: string
+          name: 同一リンク1
+        url:
+          type: string
+          name: https://example.com
+    Citation:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          name: リンク1
+        url:
+          type: string
+          name: https://example.com
+    ImageObjects:
+      type: object
+      properties:
+        main:
+          $ref: "#/components/schemas/ImageObject"
+        medium:
+          $ref: "#/components/schemas/ImageObject"
+        large:
+          $ref: "#/components/schemas/ImageObject"
+        small:
+          $ref: "#/components/schemas/ImageObject"
+    ImageObject:
+      type: object
+      properties:
+        url:
+          type: string
+          example: "https://d1zefghvqpvnvt.cloudfront.net/shrine/production/assets/images/13683c710de0a6b25ef2424cc621ecd7.png"
+        width:
+          type: integer
+          example: 1080
+        height:
+          type: integer
+          example: 1080
+    PublishLevel:
+      type: string
+      description: 公開レベル
+      example: full
+      enum:
+        - notyet
+        - ready
+        - full
+        - limited
+        - gone
+    LayoutPattern:
+      type: string
+      description: oEmbed 表示パターン
+      example: summary
+      enum:
+        - summary
+        - itemList
+        - featuredItem
+        - largeImage
+    FormatGenre:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 04
+        name:
+          type: string
+          example: アニメ
+    ThemeGenre:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 070
+        name:
+          type: string
+          example: 音楽全般
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 該当リソースは見つかりませんでした
+externalDocs:
+  description: aw-editorialhands GitHub repo.
+  url: https://github.com/d7lab/aw-editorialhands
