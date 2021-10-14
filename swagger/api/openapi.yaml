@@ -10,8 +10,9 @@ servers:
 paths:
   /t/nplaylist/pl/{playlistId}:
     get:
+      summary: リコメンドプレイリストの id ( eh-XXXX ) 引き
       description: >
-        リコメンドプレイリストの id ( eh-XXXX ) 引き
+        EditorialHands で作成したプレイリストの id ( eh-XXXX ) 引き
       operationId: getTNpalylistPlId
       tags:
         - playlist
@@ -20,6 +21,38 @@ paths:
           in: path
           description: eh-XXXX 形式のID
           required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: プレイリストに含まれるエピソードをどのタイプで取得するかの指定
+          required: false
+          default: tvepisode
+          schema:
+            type: string
+            enum:
+              - tvepisode
+              - videoobject
+              - broadcastevent
+        - name: area
+          in: query
+          description: エリアコード指定
+          required: false
+          default: 130
+          schema:
+            type: string
+        - name: itemSize
+          in: query
+          description: プレイリスト内のエピソード返却数
+          required: false
+          default: 10
+          schema:
+            type: string
+        - name: itemOffset
+          in: query
+          description: プレイリスト内のエピソード返却時オフセット
+          required: false
+          default: 0
           schema:
             type: string
       responses:
@@ -37,8 +70,9 @@ paths:
                 $ref: "#/components/schemas/Error"
   /t/nplaylist/id/{playlistUid}:
     get:
+      summary: リコメンドプレイリストの uid (ハッシュ値) 引き
       description: >
-        リコメンドプレイリストの uid (ハッシュ値) 引き
+        EditorialHands で作成したプレイリストの uid (ハッシュ値) 引き
       operationId: getTNpalylistIdUid
       tags:
         - playlist
@@ -47,6 +81,38 @@ paths:
           in: path
           description: ハッシュ値形式のID
           required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: プレイリストに含まれるエピソードをどのタイプで取得するかの指定
+          required: false
+          default: tvepisode
+          schema:
+            type: string
+            enum:
+              - tvepisode
+              - videoobject
+              - broadcastevent
+        - name: area
+          in: query
+          description: エリアコード指定
+          required: false
+          default: 130
+          schema:
+            type: string
+        - name: itemSize
+          in: query
+          description: プレイリスト内のエピソード返却数
+          required: false
+          default: 10
+          schema:
+            type: string
+        - name: itemOffset
+          in: query
+          description: プレイリスト内のエピソード返却時オフセット
+          required: false
+          default: 0
           schema:
             type: string
       responses:
