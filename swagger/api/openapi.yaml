@@ -39,7 +39,7 @@ paths:
     get:
       description: >
         リコメンドプレイリストの uid (ハッシュ値) 引き
-      operationId: getTNpalylistPlUid
+      operationId: getTNpalylistIdUid
       tags:
         - playlist
       parameters:
@@ -123,8 +123,6 @@ paths:
       operationId: getTBundlePlId
       tags:
         - playlist
-        - bundle
-        - subtype
       parameters:
         - name: playlistId
           in: path
@@ -152,8 +150,6 @@ paths:
       operationId: getLBundlePlIdTypes
       tags:
         - playlist
-        - bundle
-        - subtype
       parameters:
         - name: playlistId
           in: path
@@ -178,10 +174,9 @@ paths:
     get:
       description: >
         特定プレイリストのサブタイプ有無情報の uid (ハッシュ値) 引き
-      operationId: getLBundlePlUidTypes
+      operationId: getLBundleIdUidTypes
       tags:
         - playlist
-        - bundle
       parameters:
         - name: playlistUid
           in: path
@@ -202,7 +197,358 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /ll/bundle/pl/{playlistId}/types:
+    get:
+      description: >
+        ...の id ( eh-XXXX ) 引き
+      operationId: getLlBundlePlIdTypes
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /ll/bundle/id/{playlistUid}/types:
+    get:
+      description: >
+        ...の uid (ハッシュ値) 引き
+      operationId: getLlBundleIdUidTypes
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /lll/bundle/id/{playlistUid}/types:
+    get:
+      description: >
+        ...の uid (ハッシュ値) 引き
+      operationId: getLllBundleIdUidTypes
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /lll/bundle/pl/{playlistId}/types:
+    get:
+      description: >
+        ...の id ( eh-XXXX ) 引き
+      operationId: getLllBundlePlIdTypes
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
+  /l/nplaylist/dk/{deckId}:
+    get:
+      description: >
+        ...
+      operationId: getLNplaylistDkId
+      tags:
+        - playlist
+      parameters:
+        - name: deckId
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/tvepisode/pl/{playlistId}:
+    get:
+      description: >
+        特定プレイリストのエピソード情報の id ( eh-XXXX ) 引き
+      operationId: getLTvepisodePlId
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/tvepisode/id/{playlistUid}:
+    get:
+      description: >
+        特定プレイリストのエピソード情報の uid (ハッシュ値) 引き
+      operationId: getLTvepisodeIdUid
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/faqpage/pl/{playlistId}:
+    get:
+      description: >
+        特定プレイリストのFAQPage 情報の id ( eh-XXXX ) 引き
+      operationId: getLFaqpagePlId
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/faqpage/id/{playlistUid}:
+    get:
+      description: >
+        特定プレイリストのFAQPage 情報の uid (ハッシュ値) 引き
+      operationId: getLFaqpageIdUid
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/event/pl/{playlistId}:
+    get:
+      description: >
+        特定プレイリストのイベント情報の id ( eh-XXXX ) 引き
+      operationId: getLEventPlId
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/event/id/{playlistUid}:
+    get:
+      description: >
+        特定プレイリストのイベント情報の uid (ハッシュ値) 引き
+      operationId: getLEventIdUid
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/howto/pl/{playlistId}:
+    get:
+      description: >
+        特定プレイリストのハウツー情報の id ( eh-XXXX ) 引き
+      operationId: getLHowtoPlId
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/howto/id/{playlistUid}:
+    get:
+      description: >
+        特定プレイリストのハウツー情報の uid (ハッシュ値) 引き
+      operationId: getLHowtoIdUid
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: TODO
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Double"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     Double:
