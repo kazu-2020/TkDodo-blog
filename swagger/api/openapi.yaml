@@ -405,25 +405,100 @@ paths:
                 $ref: "#/components/schemas/Error"
   /l/nplaylist/dk/{deckId}.json:
     get:
+      summary: デッキに属するプレイリストのデータリストを返却する
       description: >
-        ...
+        デッキに属するプレイリストのデータリストを返却する。deckId により 各APIバージョンごとのリコメンドプレイリスト一覧が取得可能。
       operationId: getLNplaylistDkId
       tags:
         - playlist
       parameters:
         - name: deckId
           in: path
-          description: TODO
+          description: プレイリストタイプ/API ver/メディアの種類/エリアコードをハイフンでつないだデッキID
           required: true
           schema:
             type: string
+            enum:
+              - recommend-r6-tv-130
+              - recommend-r5-tv-130
+        - name: type
+          in: query
+          description: プレイリストに含むエピソードをどのタイプで取得するかの指定
+          required: false
+          default: tvepisode
+          schema:
+            type: string
+            enum:
+              - tvepisode
+              - videoobject
+              - broadcastevent
+        - name: mediaAction
+          in: query
+          description: 特定のメディアデータを持っているプレイリストのみを取得するためのフィルター。カンマ区切りで複数指定可能
+          required: false
+          default: null
+          schema:
+            type: string
+            enum:
+              - watch
+              - read
+        - name: order
+          in: query
+          description: プレイリストを返却する際の照準降順の指定
+          required: false
+          default: desc
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: orderBy
+          in: query
+          description: どのカラムを使用しソートをかけるかの指定
+          required: false
+          default: dateModified
+          schema:
+            type: string
+            enum:
+              - dateModified
+              - dateCreated
+        - name: size
+          in: query
+          description: 一度に返却するプレイリストの数
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: プレイリストを返却するにあたり、どのプレイリストから返却するかのオフセット
+          required: false
+          default: 0
+          schema:
+            type: integer
       responses:
         200:
           description: 正常なレスポンス
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Double"
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  result:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: "#/components/schemas/CommonNSeries"
+                        - $ref: "#/components/schemas/DeckNSeriesAdditional"
+                  nextUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/nplaylist/dk/recommend-r6-tv-130.json?offset=10&size=10
+                  prevUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/nplaylist/dk/recommend-r6-tv-130.json?offset=0&size=10
         default:
           description: unexpected error
           content:
@@ -750,7 +825,7 @@ components:
             available:
               type: boolean
               example: true
-    NSeries:
+    CommonNSeries:
       type: object
       properties:
         type:
@@ -762,9 +837,6 @@ components:
         name:
           type: string
           example: オトッペ
-        detailedSeriesNameRuby:
-          type: string
-          example: ｵﾄｯﾍﾟ
         identifierGroup:
           type: object
           properties:
@@ -844,11 +916,6 @@ components:
               url:
                 type: string
                 example: https://example.com
-        keywords:
-          type: array
-          items:
-            type: string
-            example: キーワード1
         description:
           type: string
           example: 説明
@@ -879,36 +946,58 @@ components:
         dateCreated:
           type: string
           example: "2020-09-17T12:24:33+09:00"
-        datePublished:
-          type: string
-          example: "2020-09-17T12:24:33+09:00"
         dateModified:
           type: string
           example: "2020-09-17T12:24:33+09:00"
-        actor:
-          type: array
-          items:
-            type: string
-            example: TODO
-        contributor:
-          type: array
-          items:
-            type: string
-            example: TODO
         logo:
           $ref: "#/components/schemas/ImageObjects"
         eyecatch:
           $ref: "#/components/schemas/ImageObjects"
         hero:
           $ref: "#/components/schemas/ImageObjects"
-        citations:
-          type: array
-          items:
-            $ref: "#/components/schemas/Citation"
         sameAs:
           type: array
           items:
             $ref: "#/components/schemas/SameAs"
+    NSeries:
+      allOf:
+        - $ref: "#/components/schemas/CommonNSeries"
+        - type: object
+          properties:
+            detailedSeriesNameRuby:
+              type: string
+              example: ｵﾄｯﾍﾟ
+            keywords:
+              type: array
+              items:
+                type: string
+                example: キーワード1
+            datePublished:
+              type: string
+              example: "2020-09-17T12:24:33+09:00"
+            actor:
+              type: array
+              items:
+                type: string
+                example: TODO
+            contributor:
+              type: array
+              items:
+                type: string
+                example: TODO
+            citations:
+              type: array
+              items:
+                $ref: "#/components/schemas/Citation"
+    DeckNSeriesAdditional:
+      type: object
+      properties:
+        url:
+          type: string
+          example: https://example.com/d6.6/t/nplaylist/pl/eh-0000000999.json?area=130&type=tvepisode
+        itemUrl:
+          type: string
+          example: https://example.com/d6.6/l/tvepisode/pl/eh-0000000999.json?offset=0&size=10
     NPlaylist:
       allOf:
         - $ref: "#/components/schemas/NSeries"
