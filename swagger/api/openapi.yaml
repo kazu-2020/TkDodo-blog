@@ -8,7 +8,7 @@ servers:
   - url: https://dev-api-eh.nr.nhk.jp/d6.6
   - url: http://localhost:8888/d6.6
 paths:
-  /t/nplaylist/pl/{playlistId}:
+  /t/nplaylist/pl/{playlistId}.json:
     get:
       summary: リコメンドプレイリストの id ( eh-XXXX ) 引き
       description: >
@@ -68,7 +68,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /t/nplaylist/id/{playlistUid}:
+  /t/nplaylist/id/{playlistUid}.json:
     get:
       summary: リコメンドプレイリストの uid (ハッシュ値) 引き
       description: >
@@ -128,7 +128,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /t/ndeck/dk/{deckId}:
+  /t/ndeck/dk/{deckId}.json:
     get:
       description: >
         デッキの....
@@ -155,7 +155,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /t/ndeck/recommend/{deckId}:
+  /t/ndeck/recommend/{deckId}.json:
     get:
       description: >
         デッキの....
@@ -182,17 +182,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /t/bundle/pl/{playlistId}:
+  /t/bundle/pl/{playlistId}.json:
     get:
+      summary: サブタイプを含むリコメンドプレイリストの id ( eh-XXXX )引き
       description: >
-        サブタイプを含む全てのプレイリストデータ取得
+        EditorialHandsで作成したプレイリストおよびそのプレイリストに紐づくサブタイプの取得
       operationId: getTBundlePlId
       tags:
         - playlist
       parameters:
         - name: playlistId
           in: path
-          description: TODO
+          description: eh-XXXX 形式のID
           required: true
           schema:
             type: string
@@ -202,24 +203,50 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Double"
+                type: object
+                properties:
+                  nseries:
+                    $ref: "#/components/schemas/NSeries"
+                  narticle:
+                    $ref: "#/components/schemas/Playlisticle"
+                  tvepisode:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  faqpage:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  event:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  howto:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
         default:
           description: unexpected error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /l/bundle/pl/{playlistId}/types:
+  /l/bundle/pl/{playlistId}/types.json:
     get:
+      summary: リコメンドプレイリストにおけるプレイリストと記事の保持数取得の id ( eh-XXXX ) 引き
       description: >
-        特定プレイリストのサブタイプ有無情報の id ( eh-XXXX ) 引き
+        EditorialHands で作成したプレイリストにおけるプレイリストと記事の保持数取得の id ( eh-XXXX ) 引き
       operationId: getLBundlePlIdTypes
       tags:
         - playlist
       parameters:
         - name: playlistId
           in: path
-          description: TODO
+          description: eh-XXXX 形式のID
           required: true
           schema:
             type: string
@@ -229,24 +256,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Double"
+                $ref: "#/components/schemas/LBundle"
         default:
           description: unexpected error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /l/bundle/id/{playlistUid}/types:
+  /l/bundle/id/{playlistUid}/types.json:
     get:
+      summary: リコメンドプレイリストにおけるプレイリストと記事の保持数取得の uid (ハッシュ値) 引き
       description: >
-        特定プレイリストのサブタイプ有無情報の uid (ハッシュ値) 引き
+        EditorialHands で作成したプレイリストにおけるプレイリストと記事の保持数取得の uid (ハッシュ値) 引き
       operationId: getLBundleIdUidTypes
       tags:
         - playlist
       parameters:
         - name: playlistUid
           in: path
-          description: TODO
+          description: ハッシュ値形式のID
           required: true
           schema:
             type: string
@@ -256,24 +284,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Double"
+                $ref: "#/components/schemas/LBundle"
         default:
           description: unexpected error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /ll/bundle/pl/{playlistId}/types:
+  /ll/bundle/pl/{playlistId}/types.json:
     get:
+      summary: リコメンドプレイリストにおけるエピソードおよびサブタイプの保持数取得の id ( eh-XXXX ) 引き
       description: >
-        ...の id ( eh-XXXX ) 引き
+        EditorialHands で作成したプレイリストにおけるエピソードおよびサブタイプの保持数取得の id ( eh-XXXX ) 引き
       operationId: getLlBundlePlIdTypes
       tags:
         - playlist
       parameters:
         - name: playlistId
           in: path
-          description: TODO
+          description: eh-XXXX 形式のID
           required: true
           schema:
             type: string
@@ -283,24 +312,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Double"
+                $ref: "#/components/schemas/LlBundle"
         default:
           description: unexpected error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /ll/bundle/id/{playlistUid}/types:
+  /ll/bundle/id/{playlistUid}/types.json:
     get:
+      summary: リコメンドプレイリストにおけるエピソードおよびサブタイプの保持数取得の uid (ハッシュ値) 引き
       description: >
-        ...の uid (ハッシュ値) 引き
+        EditorialHands で作成したプレイリストにおけるエピソードおよびサブタイプの保持数取得の uid (ハッシュ値) 引き
       operationId: getLlBundleIdUidTypes
       tags:
         - playlist
       parameters:
         - name: playlistUid
           in: path
-          description: TODO
+          description: ハッシュ値形式のID
           required: true
           schema:
             type: string
@@ -310,51 +340,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Double"
+                $ref: "#/components/schemas/LlBundle"
         default:
           description: unexpected error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /lll/bundle/id/{playlistUid}/types:
+  /lll/bundle/pl/{playlistId}/types.json:
     get:
+      summary: リコメンドプレイリストのサイト表示可否情報の id ( eh-XXXX ) 引き
       description: >
-        ...の uid (ハッシュ値) 引き
-      operationId: getLllBundleIdUidTypes
-      tags:
-        - playlist
-      parameters:
-        - name: playlistUid
-          in: path
-          description: TODO
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: 正常なレスポンス
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Double"
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /lll/bundle/pl/{playlistId}/types:
-    get:
-      description: >
-        ...の id ( eh-XXXX ) 引き
+        EditorialHands で作成したプレイリストのサイト表示可否情報の id ( eh-XXXX ) 引き
       operationId: getLllBundlePlIdTypes
       tags:
         - playlist
       parameters:
         - name: playlistId
           in: path
-          description: TODO
+          description: eh-XXXX 形式のID
           required: true
           schema:
             type: string
@@ -364,15 +368,42 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Double"
+                $ref: "#/components/schemas/LllBundle"
         default:
           description: unexpected error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-
-  /l/nplaylist/dk/{deckId}:
+  /lll/bundle/id/{playlistUid}/types.json:
+    get:
+      summary: リコメンドプレイリストのサイト表示可否情報の uid (ハッシュ値) 引き
+      description: >
+        EditorialHands で作成したプレイリストのサイト表示可否情報の uid (ハッシュ値) 引き
+      operationId: getLllBundleIdUidTypes
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: ハッシュ値形式のID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LllBundle"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/nplaylist/dk/{deckId}.json:
     get:
       description: >
         ...
@@ -399,7 +430,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /l/tvepisode/pl/{playlistId}:
+  /l/tvepisode/pl/{playlistId}.json:
     get:
       description: >
         特定プレイリストのエピソード情報の id ( eh-XXXX ) 引き
@@ -426,7 +457,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /l/tvepisode/id/{playlistUid}:
+  /l/tvepisode/id/{playlistUid}.json:
     get:
       description: >
         特定プレイリストのエピソード情報の uid (ハッシュ値) 引き
@@ -453,7 +484,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /l/faqpage/pl/{playlistId}:
+  /l/faqpage/pl/{playlistId}.json:
     get:
       description: >
         特定プレイリストのFAQPage 情報の id ( eh-XXXX ) 引き
@@ -480,7 +511,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /l/faqpage/id/{playlistUid}:
+  /l/faqpage/id/{playlistUid}.json:
     get:
       description: >
         特定プレイリストのFAQPage 情報の uid (ハッシュ値) 引き
@@ -507,7 +538,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /l/event/pl/{playlistId}:
+  /l/event/pl/{playlistId}.json:
     get:
       description: >
         特定プレイリストのイベント情報の id ( eh-XXXX ) 引き
@@ -534,7 +565,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /l/event/id/{playlistUid}:
+  /l/event/id/{playlistUid}.json:
     get:
       description: >
         特定プレイリストのイベント情報の uid (ハッシュ値) 引き
@@ -561,7 +592,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /l/howto/pl/{playlistId}:
+  /l/howto/pl/{playlistId}.json:
     get:
       description: >
         特定プレイリストのハウツー情報の id ( eh-XXXX ) 引き
@@ -588,7 +619,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /l/howto/id/{playlistUid}:
+  /l/howto/id/{playlistUid}.json:
     get:
       description: >
         特定プレイリストのハウツー情報の uid (ハッシュ値) 引き
@@ -620,7 +651,106 @@ components:
     Double:
       type: string
       example: TODO
-    NPlaylist:
+    LBundle:
+      type: object
+      properties:
+        nplaylist:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 1
+        narticle:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 1
+    LlBundle:
+      type: object
+      properties:
+        tvepisode:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 1
+        faqpage:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 1
+        howto:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 1
+        event:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 1
+    LllBundle:
+      type: object
+      properties:
+        nplaylist:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            available:
+              type: boolean
+              example: true
+        narticle:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            available:
+              type: boolean
+              example: true
+        tvepisode:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            available:
+              type: boolean
+              example: true
+        faqpage:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            available:
+              type: boolean
+              example: true
+        howto:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            available:
+              type: boolean
+              example: true
+        event:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            available:
+              type: boolean
+              example: true
+    NSeries:
       type: object
       properties:
         type:
@@ -779,16 +909,21 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/SameAs"
-        items:
-          type: array
-          items:
-            type: string
-            example: TODO
-        itemUrl:
-          type: string
-          example: https://example.com
-        playlisticle:
-          $ref: "#/components/schemas/Playlisticle"
+    NPlaylist:
+      allOf:
+        - $ref: "#/components/schemas/NSeries"
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: string
+                example: TODO
+            itemUrl:
+              type: string
+              example: https://example.com
+            playlisticle:
+              $ref: "#/components/schemas/Playlisticle"
     Playlisticle:
       type: object
       properties:
