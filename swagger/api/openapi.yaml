@@ -1423,11 +1423,6 @@ components:
         - $ref: "#/components/schemas/NSeries"
         - type: object
           properties:
-            items:
-              type: array
-              items:
-                type: string
-                example: TODO
             itemUrl:
               type: string
               example: https://example.com
