@@ -130,25 +130,84 @@ paths:
                 $ref: "#/components/schemas/Error"
   /t/ndeck/dk/{deckId}.json:
     get:
+      summary: デッキの詳細情報
       description: >
-        デッキの....
+        r5, r6 のデッキの詳細情報取得
       operationId: getTNdeckDkId
       tags:
         - deck
       parameters:
         - name: deckId
           in: path
-          description: TODO
+          description: プレイリストタイプ/API ver/メディアの種類/エリアコードをハイフンでつないだデッキID
           required: true
           schema:
             type: string
+            enum:
+              - recommend-r6-tv-130
+              - recommend-r5-tv-130
+        - name: type
+          in: query
+          description: playlistUrl に引き継ぐ type の指定
+          required: false
+          default: tvepisode
+          schema:
+            type: string
+            enum:
+              - tvepisode
+              - videoobject
+              - broadcastevent
+        - name: mediaAction
+          in: query
+          description: playlistUrl に引き継ぐ mediaAction の指定
+          required: false
+          default: null
+          schema:
+            type: string
+            enum:
+              - watch
+              - read
+        - name: order
+          in: query
+          description: playlistUrl に引き継ぐ order の指定
+          required: false
+          default: desc
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: orderBy
+          in: query
+          description: playlistUrl に引き継ぐ orderBy の指定
+          required: false
+          default: dateModified
+          schema:
+            type: string
+            enum:
+              - dateModified
+              - dateCreated
+        - name: playlistSize
+          in: query
+          description: playlistUrl に引き継ぐ size パラメーターの値
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: position
+          in: query
+          description: palylistUrl に引き継ぐ offset を決定するための値。例えばこの値が 15 であり、size が10の場合は offset は 10 として計算される。
+          required: false
+          default: null
+          schema:
+            type: integer
       responses:
         200:
           description: 正常なレスポンス
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Double"
+                $ref: "#/components/schemas/Deck"
         default:
           description: unexpected error
           content:
@@ -157,25 +216,91 @@ paths:
                 $ref: "#/components/schemas/Error"
   /t/ndeck/recommend/{deckId}.json:
     get:
+      summary: デッキの詳細情報
       description: >
-        デッキの....
+        r5, r6 のデッキの詳細情報取得
       operationId: getTNdeckRecommendId
       tags:
         - deck
       parameters:
         - name: deckId
           in: path
-          description: TODO
+          description: API ver/メディアの種類/エリアコードをハイフンでつないだデッキID
           required: true
           schema:
             type: string
+            enum:
+              - r6-tv-130
+              - r5-tv-130
+        - name: area
+          in: query
+          description: エリアコード指定
+          required: false
+          default: 130
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: playlistUrl に引き継ぐ type の指定
+          required: false
+          default: tvepisode
+          schema:
+            type: string
+            enum:
+              - tvepisode
+              - videoobject
+              - broadcastevent
+        - name: mediaAction
+          in: query
+          description: playlistUrl に引き継ぐ mediaAction の指定
+          required: false
+          default: null
+          schema:
+            type: string
+            enum:
+              - watch
+              - read
+        - name: order
+          in: query
+          description: playlistUrl に引き継ぐ order の指定
+          required: false
+          default: desc
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: orderBy
+          in: query
+          description: playlistUrl に引き継ぐ orderBy の指定
+          required: false
+          default: dateModified
+          schema:
+            type: string
+            enum:
+              - dateModified
+              - dateCreated
+        - name: playlistSize
+          in: query
+          description: playlistUrl に引き継ぐ size パラメーターの値
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: position
+          in: query
+          description: palylistUrl に引き継ぐ offset を決定するための値。例えばこの値が 15 であり、size が10の場合は offset は 10 として計算される。
+          required: false
+          default: null
+          schema:
+            type: integer
       responses:
         200:
           description: 正常なレスポンス
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Double"
+                $ref: "#/components/schemas/Deck"
         default:
           description: unexpected error
           content:
@@ -444,7 +569,7 @@ paths:
               - read
         - name: order
           in: query
-          description: プレイリストを返却する際の照準降順の指定
+          description: プレイリストを返却する際の昇順降順の指定
           required: false
           default: desc
           schema:
@@ -981,9 +1106,6 @@ paths:
                 $ref: "#/components/schemas/Error"
 components:
   schemas:
-    Double:
-      type: string
-      example: TODO
     LBundle:
       type: object
       properties:
@@ -1083,6 +1205,46 @@ components:
             available:
               type: boolean
               example: true
+    Deck:
+      type: object
+      properties:
+        type:
+          type: string
+          example: NPlaylist
+        id:
+          type: string
+          example: eh-0000000030
+        name:
+          type: string
+          example: オトッペ
+        description:
+          type: string
+          example: 説明
+        identifierGroup:
+          type: object
+          properties:
+            deckUid:
+              type: string
+              example: 2b189c70-b39f-4f64-bace-39dab02e3e52
+            deckId:
+              type: string
+              example: recommend-r6-tv-130
+            deckName:
+              type: string
+              example: 番組まとめ (東京)
+            typeOfDeck:
+              type: string
+              example: recommend
+        playlistUrl:
+          type: string
+          example: https://example.com/d6.6/l/nplaylist/dk/recommend-r6-tv-130.json?offset=0&order=desc&orderBy=dateModified&size=10&type=tvepisode#position=1
+        sameAs:
+          type: array
+          items:
+            $ref: "#/components/schemas/SameAs"
+        url:
+          type: string
+          example: https://example.com/d6.6/t/ndeck/dk/recommend-r6-tv-130.json?type=tvepisode&order=desc&orderBy=dateModified&playlistSize=10
     CommonNSeries:
       type: object
       properties:
