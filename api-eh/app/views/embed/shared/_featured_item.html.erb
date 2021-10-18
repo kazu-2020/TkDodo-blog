@@ -3,47 +3,52 @@
      data-key-color-target="setBackgroundColor"
 >
   <a href="<%= view_data.url %>" target="_blank">
-    <div class="scrim"></div>
-    <div class="upper">
-      <img
-        decoding="async"
-        src="<%= view_data.base64_image_src %>"
-        class="rounded-sm mask-image"
-        alt="<%= view_data.name %>"
-        data-key-color-target="image" />
-    </div>
-    <div class="bottom p-2">
-      <div class="series_content">
-        <% line_clamp_size = @height.to_i < 420 ? '1' : '2' %>
-        <div class="text-xxs text-bold opacity-80">
+    <div class="flex flex-col h-full">
+      <div class="relative">
+        <div class="upper--scrim"></div>
+        <img
+          decoding="async"
+          src="<%= view_data.base64_image_src %>"
+          class="rounded-sm"
+          alt="<%= view_data.name %>"
+          data-key-color-target="image" />
+      </div>
+      <div class="relative flex-grow">
+        <div class="bottom--scrim"></div>
+        <div class="bottom--contents absolute p-2">
+          <div class="series_content">
+            <% line_clamp_size = @height.to_i < 420 ? '1' : '2' %>
+            <div class="text-xxs text-bold opacity-80">
           <span class="line-clamp-<%= line_clamp_size %>">
             <%= view_data.detailed_catch %>
           </span>
-        </div>
-        <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-<%= line_clamp_size %>"><%= view_data.name %></div>
-      </div>
-      <div class="my-3">
-        <hr class="opacity-50">
-      </div>
-      <div class="episode_content">
-        <div class="text-xxs my-2">
-          <small class="opacity-80">このプレイリストに含まれるエピソード</small>
-        </div>
-
-        <% if view_data.episode_data.present? %>
-          <div class="flex">
-            <div class="w-20">
-              <img
-                decoding="async"
-                src="<%= episode_image_src(view_data.episode_data) %>"
-                class="rounded-sm"
-                alt="<%= view_data.episode_data[:name] %>"/>
             </div>
-            <div class="ml-2 font-bold text-xs line-clamp-2"><%= view_data.episode_data[:name] %></div>
+            <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-<%= line_clamp_size %>"><%= view_data.name %></div>
           </div>
-        <% else %>
-          <small>エピソードがありません</small>
-        <% end %>
+          <div class="my-3">
+            <hr class="opacity-50">
+          </div>
+          <div class="episode_content">
+            <div class="text-xxs my-2">
+              <small class="opacity-80">このプレイリストに含まれるエピソード</small>
+            </div>
+
+            <% if view_data.episode_data.present? %>
+              <div class="flex">
+                <div class="w-20">
+                  <img
+                    decoding="async"
+                    src="<%= episode_image_src(view_data.episode_data) %>"
+                    class="rounded-sm"
+                    alt="<%= view_data.episode_data[:name] %>"/>
+                </div>
+                <div class="ml-2 font-bold text-xs line-clamp-2"><%= view_data.episode_data[:name] %></div>
+              </div>
+            <% else %>
+              <small>エピソードがありません</small>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </a>
@@ -59,28 +64,22 @@
           width: 240px;
       }
 
-      .scrim {
+      .upper--scrim {
           position: absolute;
           bottom: 0;
           left: 0;
           height: 50%;
           width: 100%;
-          /* 下から上に黒グラデ0%-40% */
           background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
       }
 
-      .upper {
-          position: relative;
-      }
-
-      .bottom {
-          position: relative;
-          z-index: 20;
-      }
-
-      .mask-image {
-          -webkit-mask-image: linear-gradient(black 50%, transparent 100%);
-          mask-image: linear-gradient(black 50%, transparent 100%);
+      .bottom--scrim {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          background: rgba(0, 0, 0, 0.4);
       }
   </style>
 <% end %>
