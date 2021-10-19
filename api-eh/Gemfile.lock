@@ -276,6 +276,7 @@ GEM
     parallel (1.20.1)
     parser (3.0.1.1)
       ast (~> 2.4.1)
+    pathname (0.1.0)
     pipedream (0.4.5)
       activesupport
       aws-mfa-secure
@@ -459,6 +460,7 @@ DEPENDENCIES
   multi_json
   mysql2 (~> 0.5)
   ogp
+  pathname (= 0.1.0)
   pipedream
   pry-byebug
   puma (~> 5.0)

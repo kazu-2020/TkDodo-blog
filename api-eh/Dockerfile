@@ -32,7 +32,6 @@ RUN apk upgrade && \
     zlib-dev
 
 RUN gem install bundler
-RUN gem update
 
 ENV APP_HOME /app
 RUN mkdir $APP_HOME
