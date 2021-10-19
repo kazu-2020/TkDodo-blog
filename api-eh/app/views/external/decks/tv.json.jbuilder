@@ -12,14 +12,6 @@ json.identifierGroup do
   json.typeOfDeck @deck.item_type
 end
 
-json.set! 'playlists' do
-  json.array! @playlists.first(@size).each do |playlist|
-    json.partial! partial: 'external/decks/playlist',
-                  locals: { playlist: playlist, area: @area, deck_type: 'tv', object_type: @object_type,
-                            media_action: params[:mediaAction] }
-  end
-end
-
 deck_id = params[:deck_id].split('-').unshift('recommend').uniq.join('-')
 position = [(params[:position] || 1).to_i, 1].max
 offset = ((position - 1) / 10).to_i * 10
