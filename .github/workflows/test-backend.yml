@@ -16,16 +16,16 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build the Docker compose
-        run: docker-compose build
+        run: docker compose build
         working-directory: ${{env.working-directory}}
       - name: Run setup
-        run: docker-compose run rails bin/setup
+        run: docker compose run rails bin/setup
         working-directory: ${{env.working-directory}}
       - name: Run Lint
-        run: docker-compose run rails bundle exec rubocop
+        run: docker compose run rails bundle exec rubocop
         working-directory: ${{env.working-directory}}
       - name: Run Rspec
-        run: docker-compose run rails bundle exec rspec
+        run: docker compose run rails bundle exec rspec
         working-directory: ${{env.working-directory}}
       - name: action-slack
         uses: 8398a7/action-slack@v3
