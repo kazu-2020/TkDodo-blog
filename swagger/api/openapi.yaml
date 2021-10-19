@@ -1,0 +1,1574 @@
+openapi: 3.0.0
+info:
+  version: 6.6
+  title: d6.6 API
+  description: >-
+    EditorialHands で作成したプレイリスト/デッキを出力することを主目的としたAPIバージョン
+servers:
+  - url: https://dev-api-eh.nr.nhk.jp/d6.6
+  - url: http://localhost:8888/d6.6
+paths:
+  /t/nplaylist/pl/{playlistId}.json:
+    get:
+      summary: リコメンドプレイリストの id ( eh-XXXX ) 引き
+      description: >
+        EditorialHands で作成したプレイリストの id ( eh-XXXX ) 引き
+      operationId: getTNpalylistPlId
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: eh-XXXX 形式のID
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: プレイリストに含まれるエピソードをどのタイプで取得するかの指定
+          required: false
+          default: tvepisode
+          schema:
+            type: string
+            enum:
+              - tvepisode
+              - videoobject
+              - broadcastevent
+        - name: area
+          in: query
+          description: エリアコード指定
+          required: false
+          default: 130
+          schema:
+            type: string
+        - name: itemSize
+          in: query
+          description: プレイリスト内のエピソード返却数
+          required: false
+          default: 10
+          schema:
+            type: string
+        - name: itemOffset
+          in: query
+          description: プレイリスト内のエピソード返却時オフセット
+          required: false
+          default: 0
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NPlaylist"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /t/nplaylist/id/{playlistUid}.json:
+    get:
+      summary: リコメンドプレイリストの uid (ハッシュ値) 引き
+      description: >
+        EditorialHands で作成したプレイリストの uid (ハッシュ値) 引き
+      operationId: getTNpalylistIdUid
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: ハッシュ値形式のID
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: プレイリストに含まれるエピソードをどのタイプで取得するかの指定
+          required: false
+          default: tvepisode
+          schema:
+            type: string
+            enum:
+              - tvepisode
+              - videoobject
+              - broadcastevent
+        - name: area
+          in: query
+          description: エリアコード指定
+          required: false
+          default: 130
+          schema:
+            type: string
+        - name: itemSize
+          in: query
+          description: プレイリスト内のエピソード返却数
+          required: false
+          default: 10
+          schema:
+            type: string
+        - name: itemOffset
+          in: query
+          description: プレイリスト内のエピソード返却時オフセット
+          required: false
+          default: 0
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NPlaylist"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /t/ndeck/dk/{deckId}.json:
+    get:
+      summary: デッキの詳細情報
+      description: >
+        r5, r6 のデッキの詳細情報取得
+      operationId: getTNdeckDkId
+      tags:
+        - deck
+      parameters:
+        - name: deckId
+          in: path
+          description: プレイリストタイプ/API ver/メディアの種類/エリアコードをハイフンでつないだデッキID
+          required: true
+          schema:
+            type: string
+            enum:
+              - recommend-r6-tv-130
+              - recommend-r5-tv-130
+        - name: type
+          in: query
+          description: playlistUrl に引き継ぐ type の指定
+          required: false
+          default: tvepisode
+          schema:
+            type: string
+            enum:
+              - tvepisode
+              - videoobject
+              - broadcastevent
+        - name: mediaAction
+          in: query
+          description: playlistUrl に引き継ぐ mediaAction の指定
+          required: false
+          default: null
+          schema:
+            type: string
+            enum:
+              - watch
+              - read
+        - name: order
+          in: query
+          description: playlistUrl に引き継ぐ order の指定
+          required: false
+          default: desc
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: orderBy
+          in: query
+          description: playlistUrl に引き継ぐ orderBy の指定
+          required: false
+          default: dateModified
+          schema:
+            type: string
+            enum:
+              - dateModified
+              - dateCreated
+        - name: playlistSize
+          in: query
+          description: playlistUrl に引き継ぐ size パラメーターの値
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: position
+          in: query
+          description: palylistUrl に引き継ぐ offset を決定するための値。例えばこの値が 15 であり、size が10の場合は offset は 10 として計算される。
+          required: false
+          default: null
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Deck"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /t/ndeck/recommend/{deckId}.json:
+    get:
+      summary: デッキの詳細情報
+      description: >
+        r5, r6 のデッキの詳細情報取得
+      operationId: getTNdeckRecommendId
+      tags:
+        - deck
+      parameters:
+        - name: deckId
+          in: path
+          description: API ver/メディアの種類/エリアコードをハイフンでつないだデッキID
+          required: true
+          schema:
+            type: string
+            enum:
+              - r6-tv-130
+              - r5-tv-130
+        - name: area
+          in: query
+          description: エリアコード指定
+          required: false
+          default: 130
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: playlistUrl に引き継ぐ type の指定
+          required: false
+          default: tvepisode
+          schema:
+            type: string
+            enum:
+              - tvepisode
+              - videoobject
+              - broadcastevent
+        - name: mediaAction
+          in: query
+          description: playlistUrl に引き継ぐ mediaAction の指定
+          required: false
+          default: null
+          schema:
+            type: string
+            enum:
+              - watch
+              - read
+        - name: order
+          in: query
+          description: playlistUrl に引き継ぐ order の指定
+          required: false
+          default: desc
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: orderBy
+          in: query
+          description: playlistUrl に引き継ぐ orderBy の指定
+          required: false
+          default: dateModified
+          schema:
+            type: string
+            enum:
+              - dateModified
+              - dateCreated
+        - name: playlistSize
+          in: query
+          description: playlistUrl に引き継ぐ size パラメーターの値
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: position
+          in: query
+          description: palylistUrl に引き継ぐ offset を決定するための値。例えばこの値が 15 であり、size が10の場合は offset は 10 として計算される。
+          required: false
+          default: null
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Deck"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /t/bundle/pl/{playlistId}.json:
+    get:
+      summary: サブタイプを含むリコメンドプレイリストの id ( eh-XXXX )引き
+      description: >
+        EditorialHandsで作成したプレイリストおよびそのプレイリストに紐づくサブタイプの取得
+      operationId: getTBundlePlId
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: eh-XXXX 形式のID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nseries:
+                    $ref: "#/components/schemas/NSeries"
+                  narticle:
+                    $ref: "#/components/schemas/Playlisticle"
+                  tvepisode:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  faqpage:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  event:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  howto:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/bundle/pl/{playlistId}/types.json:
+    get:
+      summary: リコメンドプレイリストにおけるプレイリストと記事の保持数取得の id ( eh-XXXX ) 引き
+      description: >
+        EditorialHands で作成したプレイリストにおけるプレイリストと記事の保持数取得の id ( eh-XXXX ) 引き
+      operationId: getLBundlePlIdTypes
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: eh-XXXX 形式のID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LBundle"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/bundle/id/{playlistUid}/types.json:
+    get:
+      summary: リコメンドプレイリストにおけるプレイリストと記事の保持数取得の uid (ハッシュ値) 引き
+      description: >
+        EditorialHands で作成したプレイリストにおけるプレイリストと記事の保持数取得の uid (ハッシュ値) 引き
+      operationId: getLBundleIdUidTypes
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: ハッシュ値形式のID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LBundle"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /ll/bundle/pl/{playlistId}/types.json:
+    get:
+      summary: リコメンドプレイリストにおけるエピソードおよびサブタイプの保持数取得の id ( eh-XXXX ) 引き
+      description: >
+        EditorialHands で作成したプレイリストにおけるエピソードおよびサブタイプの保持数取得の id ( eh-XXXX ) 引き
+      operationId: getLlBundlePlIdTypes
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: eh-XXXX 形式のID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LlBundle"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /ll/bundle/id/{playlistUid}/types.json:
+    get:
+      summary: リコメンドプレイリストにおけるエピソードおよびサブタイプの保持数取得の uid (ハッシュ値) 引き
+      description: >
+        EditorialHands で作成したプレイリストにおけるエピソードおよびサブタイプの保持数取得の uid (ハッシュ値) 引き
+      operationId: getLlBundleIdUidTypes
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: ハッシュ値形式のID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LlBundle"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /lll/bundle/pl/{playlistId}/types.json:
+    get:
+      summary: リコメンドプレイリストのサイト表示可否情報の id ( eh-XXXX ) 引き
+      description: >
+        EditorialHands で作成したプレイリストのサイト表示可否情報の id ( eh-XXXX ) 引き
+      operationId: getLllBundlePlIdTypes
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: eh-XXXX 形式のID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LllBundle"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /lll/bundle/id/{playlistUid}/types.json:
+    get:
+      summary: リコメンドプレイリストのサイト表示可否情報の uid (ハッシュ値) 引き
+      description: >
+        EditorialHands で作成したプレイリストのサイト表示可否情報の uid (ハッシュ値) 引き
+      operationId: getLllBundleIdUidTypes
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: ハッシュ値形式のID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LllBundle"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/nplaylist/dk/{deckId}.json:
+    get:
+      summary: デッキに属するプレイリストのデータリストを返却する
+      description: >
+        デッキに属するプレイリストのデータリストを返却する。deckId により 各APIバージョンごとのリコメンドプレイリスト一覧が取得可能。
+      operationId: getLNplaylistDkId
+      tags:
+        - playlist
+      parameters:
+        - name: deckId
+          in: path
+          description: プレイリストタイプ/API ver/メディアの種類/エリアコードをハイフンでつないだデッキID
+          required: true
+          schema:
+            type: string
+            enum:
+              - recommend-r6-tv-130
+              - recommend-r5-tv-130
+        - name: type
+          in: query
+          description: プレイリストに含むエピソードをどのタイプで取得するかの指定
+          required: false
+          default: tvepisode
+          schema:
+            type: string
+            enum:
+              - tvepisode
+              - videoobject
+              - broadcastevent
+        - name: mediaAction
+          in: query
+          description: 特定のメディアデータを持っているプレイリストのみを取得するためのフィルター。カンマ区切りで複数指定可能
+          required: false
+          default: null
+          schema:
+            type: string
+            enum:
+              - watch
+              - read
+        - name: order
+          in: query
+          description: プレイリストを返却する際の昇順降順の指定
+          required: false
+          default: desc
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: orderBy
+          in: query
+          description: どのカラムを使用しソートをかけるかの指定
+          required: false
+          default: dateModified
+          schema:
+            type: string
+            enum:
+              - dateModified
+              - dateCreated
+        - name: size
+          in: query
+          description: 一度に返却するプレイリストの数
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: プレイリストを返却するにあたり、どのプレイリストから返却するかのオフセット
+          required: false
+          default: 0
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  result:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: "#/components/schemas/CommonNSeries"
+                        - $ref: "#/components/schemas/DeckNSeriesAdditional"
+                  nextUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/nplaylist/dk/recommend-r6-tv-130.json?offset=10&size=10
+                  prevUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/nplaylist/dk/recommend-r6-tv-130.json?offset=0&size=10
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/tvepisode/pl/{playlistId}.json:
+    get:
+      summary: リコメンドプレイリストのエピソード情報の id ( eh-XXXX ) 引き
+      description: >
+        EditorialHands で作成した特定プレイリストのエピソード情報 id ( eh-XXXX ) 引き
+      operationId: getLTvepisodePlId
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: eh-XXXX 形式のID
+          required: true
+          schema:
+            type: string
+        - name: availableOn
+          in: query
+          description: 再生可能なエピソードだけを返却するかどうかのフィルター
+          required: false
+          default: null
+          schema:
+            type: string
+            enum:
+              - okushibu
+        - name: size
+          in: query
+          description: 一度に返却するエピソードの数
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: エピソードを返却するにあたり、どのエピソードから返却するかのオフセット
+          required: false
+          default: 0
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  result:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  nextUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/tvepisode/pl/eh-1234567890.json?offset=10&size=10
+                  prevUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/tvepisode/pl/eh-1234567890.json?offset=0&size=10
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/tvepisode/id/{playlistUid}.json:
+    get:
+      summary: リコメンドプレイリストのエピソード情報の uid (ハッシュ値) 引き
+      description: >
+        EditorialHands で作成した特定プレイリストのエピソード情報 uid (ハッシュ値) 引き
+      operationId: getLTvepisodeIdUid
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: ハッシュ値形式のID
+          required: true
+          schema:
+            type: string
+        - name: availableOn
+          in: query
+          description: 再生可能なエピソードだけを返却するかどうかのフィルター
+          required: false
+          default: null
+          schema:
+            type: string
+            enum:
+              - okushibu
+        - name: size
+          in: query
+          description: 一度に返却するエピソードの数
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: エピソードを返却するにあたり、どのエピソードから返却するかのオフセット
+          required: false
+          default: 0
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  result:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  nextUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/tvepisode/id/ad6f1840-49a7-4bd1-bb35-104014ca4c2e.json?offset=10&size=10
+                  prevUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/tvepisode/id/ad6f1840-49a7-4bd1-bb35-104014ca4c2e.json?offset=0&size=10
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/faqpage/pl/{playlistId}.json:
+    get:
+      summary: リコメンドプレイリストのFAQPage情報の id ( eh-XXXX ) 引き
+      description: >
+        EditorialHands で作成した特定プレイリストのFAQPage情報 id ( eh-XXXX ) 引き
+      operationId: getLFaqpagePlId
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: eh-XXXX 形式のID
+          required: true
+          schema:
+            type: string
+        - name: size
+          in: query
+          description: 一度に返却するFAQPageの数
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: FAQPageを返却するにあたり、どのFAQPageから返却するかのオフセット
+          required: false
+          default: 0
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  result:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  nextUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/faqpage/pl/eh-1234567890.json?offset=10&size=10
+                  prevUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/faqpage/pl/eh-1234567890.json?offset=0&size=10
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/faqpage/id/{playlistUid}.json:
+    get:
+      summary: リコメンドプレイリストのFAQPage情報の uid (ハッシュ値) 引き
+      description: >
+        EditorialHands で作成した特定プレイリストのFAQPage情報 uid (ハッシュ値) 引き
+      operationId: getLFaqpageIdUid
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: ハッシュ値形式のID
+          required: true
+          schema:
+            type: string
+        - name: size
+          in: query
+          description: 一度に返却するFAQPageの数
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: FAQPageを返却するにあたり、どのFAQPageから返却するかのオフセット
+          required: false
+          default: 0
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  result:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  nextUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/faqpage/id/ad6f1840-49a7-4bd1-bb35-104014ca4c2e.json?offset=10&size=10
+                  prevUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/faqpage/id/ad6f1840-49a7-4bd1-bb35-104014ca4c2e.json?offset=0&size=10
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/event/pl/{playlistId}.json:
+    get:
+      summary: リコメンドプレイリストのイベント情報の id ( eh-XXXX ) 引き
+      description: >
+        EditorialHands で作成した特定プレイリストのイベント情報 id ( eh-XXXX ) 引き
+      operationId: getLEventPlId
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: eh-XXXX 形式のID
+          required: true
+          schema:
+            type: string
+        - name: size
+          in: query
+          description: 一度に返却するイベントの数
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: イベントを返却するにあたり、どのイベントから返却するかのオフセット
+          required: false
+          default: 0
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  result:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  nextUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/event/pl/eh-1234567890.json?offset=10&size=10
+                  prevUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/event/pl/eh-1234567890.json?offset=0&size=10
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/event/id/{playlistUid}.json:
+    get:
+      summary: リコメンドプレイリストのイベント情報の uid (ハッシュ値) 引き
+      description: >
+        EditorialHands で作成した特定プレイリストのイベント情報 uid (ハッシュ値) 引き
+      operationId: getLEventIdUid
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: ハッシュ値形式のID
+          required: true
+          schema:
+            type: string
+        - name: size
+          in: query
+          description: 一度に返却するイベントの数
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: イベントを返却するにあたり、どのイベントから返却するかのオフセット
+          required: false
+          default: 0
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  result:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  nextUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/event/id/ad6f1840-49a7-4bd1-bb35-104014ca4c2e.json?offset=10&size=10
+                  prevUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/event/id/ad6f1840-49a7-4bd1-bb35-104014ca4c2e.json?offset=0&size=10
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/howto/pl/{playlistId}.json:
+    get:
+      summary: リコメンドプレイリストのハウツー情報の id ( eh-XXXX ) 引き
+      description: >
+        EditorialHands で作成した特定プレイリストのハウツー情報 id ( eh-XXXX ) 引き
+      operationId: getLHowtoPlId
+      tags:
+        - playlist
+      parameters:
+        - name: playlistId
+          in: path
+          description: eh-XXXX 形式のID
+          required: true
+          schema:
+            type: string
+        - name: size
+          in: query
+          description: 一度に返却するハウツーの数
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: ハウツーを返却するにあたり、どのハウツーから返却するかのオフセット
+          required: false
+          default: 0
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  result:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  nextUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/howto/pl/eh-1234567890.json?offset=10&size=10
+                  prevUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/howto/pl/eh-1234567890.json?offset=0&size=10
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /l/howto/id/{playlistUid}.json:
+    get:
+      summary: リコメンドプレイリストのハウツー情報の uid (ハッシュ値) 引き
+      description: >
+        EditorialHands で作成した特定プレイリストのハウツー情報 uid (ハッシュ値) 引き
+      operationId: getLHowtoIdUid
+      tags:
+        - playlist
+      parameters:
+        - name: playlistUid
+          in: path
+          description: ハッシュ値形式のID
+          required: true
+          schema:
+            type: string
+        - name: size
+          in: query
+          description: 一度に返却するハウツーの数
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: ハウツーを返却するにあたり、どのハウツーから返却するかのオフセット
+          required: false
+          default: 0
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  result:
+                    type: array
+                    items:
+                      type: string
+                      example: レスポンス内容は r6 の内容のままです
+                  nextUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/howto/id/ad6f1840-49a7-4bd1-bb35-104014ca4c2e.json?offset=10&size=10
+                  prevUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/howto/id/ad6f1840-49a7-4bd1-bb35-104014ca4c2e.json?offset=0&size=10
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    LBundle:
+      type: object
+      properties:
+        nplaylist:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 1
+        narticle:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 1
+    LlBundle:
+      type: object
+      properties:
+        tvepisode:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 1
+        faqpage:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 1
+        howto:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 1
+        event:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 1
+    LllBundle:
+      type: object
+      properties:
+        nplaylist:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            available:
+              type: boolean
+              example: true
+        narticle:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            available:
+              type: boolean
+              example: true
+        tvepisode:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            available:
+              type: boolean
+              example: true
+        faqpage:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            available:
+              type: boolean
+              example: true
+        howto:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            available:
+              type: boolean
+              example: true
+        event:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            available:
+              type: boolean
+              example: true
+    Deck:
+      type: object
+      properties:
+        type:
+          type: string
+          example: NPlaylist
+        id:
+          type: string
+          example: eh-0000000030
+        name:
+          type: string
+          example: オトッペ
+        description:
+          type: string
+          example: 説明
+        identifierGroup:
+          type: object
+          properties:
+            deckUid:
+              type: string
+              example: 2b189c70-b39f-4f64-bace-39dab02e3e52
+            deckId:
+              type: string
+              example: recommend-r6-tv-130
+            deckName:
+              type: string
+              example: 番組まとめ (東京)
+            typeOfDeck:
+              type: string
+              example: recommend
+        playlistUrl:
+          type: string
+          example: https://example.com/d6.6/l/nplaylist/dk/recommend-r6-tv-130.json?offset=0&order=desc&orderBy=dateModified&size=10&type=tvepisode#position=1
+        sameAs:
+          type: array
+          items:
+            $ref: "#/components/schemas/SameAs"
+        url:
+          type: string
+          example: https://example.com/d6.6/t/ndeck/dk/recommend-r6-tv-130.json?type=tvepisode&order=desc&orderBy=dateModified&playlistSize=10
+    CommonNSeries:
+      type: object
+      properties:
+        type:
+          type: string
+          example: NPlaylist
+        id:
+          type: string
+          example: eh-0000000030
+        name:
+          type: string
+          example: オトッペ
+        identifierGroup:
+          type: object
+          properties:
+            playlistUid:
+              type: string
+              example: e6ea81b5-b6bf-4d09-aed6-9538fcd703dd
+            playlistId:
+              type: string
+              example: eh-0000000030
+            playlistName:
+              type: string
+              example: オトッペ
+            typeOfList:
+              type: string
+              example: recommend
+            modeOfItem:
+              type: string
+              example: tv
+            typeOfItem:
+              type: string
+              example: TVEpisode
+            hashtag:
+              type: array
+              items:
+                type: string
+                example: "#ハッシュタグ1"
+            aliasId:
+              type: string
+              example: alias-1
+            formatGenre:
+              type: array
+              items:
+                $ref: "#/components/schemas/FormatGenre"
+            themeGenre:
+              type: array
+              items:
+                $ref: "#/components/schemas/ThemeGenre"
+        additionalProperty:
+          type: object
+          properties:
+            layoutPattern:
+              $ref: "#/components/schemas/LayoutPattern"
+            publishLevel:
+              $ref: "#/components/schemas/PublishLevel"
+        relatedDeck:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                example: NDeck
+              id:
+                type: string
+                example: recommend-r6-visible-130
+              name:
+                type: string
+                example: 番組まとめ（東京）
+              description:
+                type: string
+                example: 説明が入ります。
+              identifierGroup:
+                type: object
+                properties:
+                  deckUid:
+                    type: string
+                    example: 2b189c70-b39f-4f64-bace-39dab02e3e52
+                  deckId:
+                    type: string
+                    example: recommend-r6-visible-130
+                  deckName:
+                    type: string
+                    example: 番組まとめ（東京）
+                  typeOfDeck:
+                    type: string
+                    example: recommend
+              url:
+                type: string
+                example: https://example.com
+        description:
+          type: string
+          example: 説明
+        detailedCatch:
+          type: string
+          example: キャッチコピー
+        style:
+          type: object
+          properties:
+            primaryLight:
+              type: string
+              example: "#9b9500"
+            primaryDark:
+              type: string
+              example: "#faf100"
+            textLight:
+              type: string
+              example: "#000000"
+            textDark:
+              type: string
+              example: "#FFFFFF"
+            linkLight:
+              type: string
+              example: "#7b7700"
+            linkDark:
+              type: string
+              example: "#faf100"
+        dateCreated:
+          type: string
+          example: "2020-09-17T12:24:33+09:00"
+        dateModified:
+          type: string
+          example: "2020-09-17T12:24:33+09:00"
+        logo:
+          $ref: "#/components/schemas/ImageObjects"
+        eyecatch:
+          $ref: "#/components/schemas/ImageObjects"
+        hero:
+          $ref: "#/components/schemas/ImageObjects"
+        sameAs:
+          type: array
+          items:
+            $ref: "#/components/schemas/SameAs"
+    NSeries:
+      allOf:
+        - $ref: "#/components/schemas/CommonNSeries"
+        - type: object
+          properties:
+            detailedSeriesNameRuby:
+              type: string
+              example: ｵﾄｯﾍﾟ
+            keywords:
+              type: array
+              items:
+                type: string
+                example: キーワード1
+            datePublished:
+              type: string
+              example: "2020-09-17T12:24:33+09:00"
+            actor:
+              type: array
+              items:
+                type: string
+                example: TODO
+            contributor:
+              type: array
+              items:
+                type: string
+                example: TODO
+            citations:
+              type: array
+              items:
+                $ref: "#/components/schemas/Citation"
+    DeckNSeriesAdditional:
+      type: object
+      properties:
+        url:
+          type: string
+          example: https://example.com/d6.6/t/nplaylist/pl/eh-1234567890.json?area=130&type=tvepisode
+        itemUrl:
+          type: string
+          example: https://example.com/d6.6/l/tvepisode/pl/eh-1234567890.json?offset=0&size=10
+    NPlaylist:
+      allOf:
+        - $ref: "#/components/schemas/NSeries"
+        - type: object
+          properties:
+            itemUrl:
+              type: string
+              example: https://example.com
+            playlisticle:
+              $ref: "#/components/schemas/Playlisticle"
+    Playlisticle:
+      type: object
+      properties:
+        mainEntityOfPage:
+          type: string
+          example: ""
+        name:
+          type: string
+          example: オトッペ
+        headline:
+          type: string
+          example: ヘッドライン
+        keywords:
+          type: string
+          example: キーワード1,キーワード2
+        description:
+          type: string
+          example: 概要説明
+        articleBody:
+          type: string
+          example: 記事本文
+        detailedArticleBody:
+          type: object
+          properties:
+            markedHeader:
+              type: string
+              example: ヘッダーテキスト
+            markedBody:
+              type: string
+              example: 本文
+            markedFooter:
+              type: string
+              example: フッターテキスト
+        author:
+          type: string
+          example: Organization
+        authorName:
+          type: string
+          example: デジタルラボ
+        publisher:
+          type: string
+          example: Organization
+        publisherName:
+          type: string
+          example: NHK
+        dateCreated:
+          type: string
+          example: "2020-09-17T12:24:33+09:00"
+        datePublished:
+          type: string
+          example: "2020-09-17T12:24:33+09:00"
+        dateModified:
+          type: string
+          example: "2020-09-17T12:24:33+09:00"
+    SameAs:
+      type: object
+      properties:
+        name:
+          type: string
+          name: 同一リンク1
+        url:
+          type: string
+          name: https://example.com
+    Citation:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          name: リンク1
+        url:
+          type: string
+          name: https://example.com
+    ImageObjects:
+      type: object
+      properties:
+        main:
+          $ref: "#/components/schemas/ImageObject"
+        medium:
+          $ref: "#/components/schemas/ImageObject"
+        large:
+          $ref: "#/components/schemas/ImageObject"
+        small:
+          $ref: "#/components/schemas/ImageObject"
+    ImageObject:
+      type: object
+      properties:
+        url:
+          type: string
+          example: "https://d1zefghvqpvnvt.cloudfront.net/shrine/production/assets/images/13683c710de0a6b25ef2424cc621ecd7.png"
+        width:
+          type: integer
+          example: 1080
+        height:
+          type: integer
+          example: 1080
+    PublishLevel:
+      type: string
+      description: 公開レベル
+      example: full
+      enum:
+        - notyet
+        - ready
+        - full
+        - limited
+        - gone
+    LayoutPattern:
+      type: string
+      description: oEmbed 表示パターン
+      example: summary
+      enum:
+        - summary
+        - itemList
+        - featuredItem
+        - largeImage
+    FormatGenre:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 04
+        name:
+          type: string
+          example: アニメ
+    ThemeGenre:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 070
+        name:
+          type: string
+          example: 音楽全般
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 該当リソースは見つかりませんでした
+externalDocs:
+  description: aw-editorialhands GitHub repo.
+  url: https://github.com/d7lab/aw-editorialhands
