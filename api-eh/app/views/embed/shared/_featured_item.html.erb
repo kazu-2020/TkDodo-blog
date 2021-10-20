@@ -9,13 +9,14 @@
         <img
           decoding="async"
           src="<%= view_data.base64_image_src %>"
-          class="rounded-sm"
+          class="rounded-sm w-full object-cover"
           alt="<%= view_data.name %>"
-          data-key-color-target="image" />
+          data-key-color-target="image"
+          style="height: 240px;" />
       </div>
       <div class="relative flex-grow">
         <div class="bottom--scrim"></div>
-        <div class="bottom--contents absolute p-2">
+        <div class="bottom--contents absolute p-2 w-full">
           <div class="series_content">
             <% line_clamp_size = @height.to_i < 420 ? '1' : '2' %>
             <div class="text-xxs text-bold opacity-80">
@@ -61,7 +62,7 @@
           max-height: 482px;
           height: <%= @height %>px;
           overflow: hidden;
-          width: 240px;
+          width: 100%;
       }
 
       .upper--scrim {
