@@ -194,9 +194,9 @@ paths:
           default: 10
           schema:
             type: integer
-        - name: position
+        - name: playlistOffset
           in: query
-          description: palylistUrl に引き継ぐ offset を決定するための値。例えばこの値が 15 であり、size が10の場合は offset は 10 として計算される。
+          description: palylistUrl に引き継ぐ offset を決定するための値
           required: false
           default: null
           schema:
@@ -287,9 +287,9 @@ paths:
           default: 10
           schema:
             type: integer
-        - name: position
+        - name: playlistOffset
           in: query
-          description: palylistUrl に引き継ぐ offset を決定するための値。例えばこの値が 15 であり、size が10の場合は offset は 10 として計算される。
+          description: palylistUrl に引き継ぐ offset を決定するための値
           required: false
           default: null
           schema:
@@ -1237,7 +1237,7 @@ components:
               example: recommend
         playlistUrl:
           type: string
-          example: https://example.com/d6.6/l/nplaylist/dk/recommend-r6-tv-130.json?offset=0&order=desc&orderBy=dateModified&size=10&type=tvepisode#position=1
+          example: https://example.com/d6.6/l/nplaylist/dk/recommend-r6-tv-130.json?offset=0&order=desc&orderBy=dateModified&size=10&type=tvepisode
         sameAs:
           type: array
           items:
