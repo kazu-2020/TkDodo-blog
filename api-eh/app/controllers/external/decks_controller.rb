@@ -7,6 +7,7 @@ class External::DecksController < ApplicationController
 
   DEFAULT_AREA = 130
   DEFAULT_SIZE = 10
+  DEFAULT_OFFSET = 0
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
@@ -18,6 +19,7 @@ class External::DecksController < ApplicationController
     order = params[:order] || 'desc'
     order_by = params[:orderBy] || 'dateModified'
     @size = (params[:playlistSize] || DEFAULT_SIZE).to_i
+    @offset = (params[:playlistOffset] || DEFAULT_OFFSET).to_i
 
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
     render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(order)
@@ -63,6 +65,7 @@ class External::DecksController < ApplicationController
     order = params[:order] || 'desc'
     order_by = params[:orderBy] || 'dateModified'
     @size = (params[:playlistSize] || DEFAULT_SIZE).to_i
+    @offset = (params[:playlistOffset] || DEFAULT_OFFSET).to_i
 
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
     render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(order)
