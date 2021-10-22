@@ -20,4 +20,9 @@ class DlabR65ApiClient < DlabApiBase
     res = client.get "/#{VERSION}/t/ndeck/search/tv.json", { keyword: keyword }
     handle_response(res)
   end
+
+  def get(url)
+    res = client.get url
+    handle_response(res)
+  end
 end
