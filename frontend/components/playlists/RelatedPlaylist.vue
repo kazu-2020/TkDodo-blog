@@ -42,7 +42,22 @@
             </div>
             <div v-show="itemCount !== undefined" class="text--primary mt-2">
               <div v-if="itemCount === 0">エピソードなし</div>
-              <div v-else>{{ itemCount }}つのエピソード</div>
+              <div v-else>
+                <div
+                  v-for="item in items"
+                  :key="`relatedPlaylist${item.id}`"
+                  style="
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    max-width: 300px;
+                  "
+                >
+                  <span style="margin-right: 5px"> - </span>
+                  <a :href="item.url" target="_blank">{{ item.name }} </a>
+                </div>
+                <div v-if="itemCount > 10">他 {{ itemCount - 10 }}件</div>
+              </div>
             </div>
           </v-card-text>
           <v-card-actions>
@@ -58,10 +73,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { EpisodeData } from '@/types/episode_data'
 
 interface DataType {
   showPopOver: boolean
   itemCount: number | undefined
+  items: EpisodeData[]
 }
 
 export default Vue.extend({
@@ -77,6 +94,7 @@ export default Vue.extend({
     return {
       showPopOver: false,
       itemCount: undefined,
+      items: [],
     }
   },
   computed: {
@@ -111,6 +129,7 @@ export default Vue.extend({
         const itemUrl = res.data.itemUrl
         this.$axios.get(itemUrl).then((res2) => {
           this.itemCount = res2.data.count
+          this.items = res2.data.result
         })
       })
     },
