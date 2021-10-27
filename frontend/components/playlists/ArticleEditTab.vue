@@ -14,6 +14,10 @@
         <hr class="dotted_hr" />
       </v-col>
       <v-col cols="12">
+        <v-alert dense outlined type="warning" class="content-title caption">
+          <!-- eslint-disable-next-line no-irregular-whitespace vue/no-parsing-error -->
+          コピーした文章や半角記号などは意図しない表示になる場合があります。半角記号（#　-　+　'　[　]　(　)　<　>　!　/　~　|　*　^　　.など）を起点に表示が意図通りになっていない場合は、全角文字に変更するか、その半角記号の前に\（バックスラッシュ・半角）を入力してみてください。
+        </v-alert>
         <h3 class="content-title">記事本文</h3>
         <span class="character-counter float-right grey--text">
           {{ counter }} 文字
