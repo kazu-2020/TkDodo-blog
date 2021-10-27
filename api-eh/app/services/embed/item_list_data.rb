@@ -2,7 +2,7 @@ class Embed::ItemListData
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  MAX_EPISODE_SIZE = 3
+  MAX_EPISODE_SIZE = 100
 
   attribute :url, :string
   attribute :name, :string
