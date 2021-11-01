@@ -1,3 +1,3 @@
-<% content_for(:title, @view_data.title) %>
+<% content_for(:title, @view_component.title) %>
 
-<%= render "embed/shared/#{@layout_pattern.underscore}", view_data: @view_data %>
+<%= render @view_component %>
