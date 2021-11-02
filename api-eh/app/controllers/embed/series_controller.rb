@@ -2,21 +2,16 @@
 
 class Embed::SeriesController < EmbedController
   def show
-    set_layout_pattern
-    @view_data = Embed::BuildSeriesViewData.new(series_id: params[:series_id], layout_pattern: @layout_pattern).call
-    @height = embed_series_params[:height] || Oembed::Response::Series::DEFAULT_SIZE[@layout_pattern.to_sym][:height]
+    @view_component = Embed::SeriesViewComponentBuilder.new(series_id: embed_params[:series_id],
+                                                            height: embed_params[:height],
+                                                            layout_pattern: embed_params[:layout_pattern]).call
 
-    render 'embed/not_found', status: :not_found if @view_data.blank?
+    render 'embed/not_found', status: :not_found if @view_component.blank?
   end
 
   private
 
-  def embed_series_params
+  def embed_params
     params.permit(:series_id, :height, :layout_pattern)
-  end
-
-  def set_layout_pattern
-    is_exist_pattern = %w[summary largeImage featuredItem itemList].include?(embed_series_params[:layout_pattern])
-    @layout_pattern = is_exist_pattern ? embed_series_params[:layout_pattern] : 'summary'
   end
 end

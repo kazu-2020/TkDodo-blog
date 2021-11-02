@@ -42,6 +42,7 @@ gem 'shrine', github: 'shrinerb/shrine'
 gem 'slack-incoming-webhooks'
 gem 'stimulus-rails'
 gem 'tailwindcss-rails'
+gem 'view_component', require: 'view_component/engine'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
