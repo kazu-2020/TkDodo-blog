@@ -60,6 +60,7 @@ class Embed::SeriesViewComponentBuilder
 
     Embed::ItemListComponent.new(url: series_data[:url],
                                  name: series_data[:name],
+                                 detailed_catch: series_data[:detailedCatch],
                                  hero_image_url: series_data.dig(:hero, :medium, :url),
                                  key_color: series_data.dig(:style, :primaryLight),
                                  episodes: res[:result],

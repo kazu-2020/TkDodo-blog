@@ -3,13 +3,14 @@
 class Embed::ItemListComponent < ViewComponent::Base
   include Embed::EpisodesHelper
 
-  attr_reader :url, :name, :hero_image_url, :key_color, :episodes, :height
+  attr_reader :url, :name, :detailed_catch, :hero_image_url, :key_color, :episodes, :height
   alias title name
 
-  def initialize(url:, name:, hero_image_url:, key_color:, episodes:, height:) # rubocop:disable Metrics/ParameterLists
+  def initialize(url:, name:, detailed_catch:, hero_image_url:, key_color:, episodes:, height:) # rubocop:disable Metrics/ParameterLists
     super
     @url = url
     @name = name
+    @detailed_catch = detailed_catch
     @hero_image_url = hero_image_url
     @key_color = key_color
     @episodes = episodes

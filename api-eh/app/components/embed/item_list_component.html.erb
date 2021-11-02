@@ -19,6 +19,7 @@
       <div class="bottom relative">
         <div class="bottom--scrim"></div>
         <div class="p-2 relative z-10">
+          <div class="text-xxs text-bold opacity-80 h-3 mb-1"><span class="line-clamp-1"><%= detailed_catch %></span></div>
           <div class="font-bold text-sm w-54 line-clamp-1"><%= name %></div>
         </div>
         <% if episodes.blank? %>
@@ -58,7 +59,7 @@
 <% content_for(:style) do %>
   <style>
       .embed-featured-item {
-          min-height: 180px;
+          min-height: 200px;
           height: <%= height %>px;
           overflow: hidden;
           width: 100%;
@@ -89,7 +90,7 @@
       .episode-content {
           overflow: scroll;
           /* エピソードリストの高さ = 全体の高さ - upperの高さ - 見出しの高さ - footerの高さ */
-          height: <%= height.to_i - 80 - 36 - (height.to_i > 250 ? 56 : 0) %>px;
+          height: <%= height.to_i - 80 - 52 - (height.to_i > 250 ? 56 : 0) %>px;
       }
   </style>
 <% end %>

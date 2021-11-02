@@ -63,6 +63,7 @@ class Embed::PlaylistViewComponentBuilder
 
     Embed::ItemListComponent.new(url: @url,
                                  name: @playlist.name,
+                                 detailed_catch: @playlist.detailed_catch,
                                  hero_image_url: @playlist.hero_image_url,
                                  key_color: @playlist.primary_light_color,
                                  episodes: episodes,
