@@ -54,7 +54,8 @@ class Embed::PlaylistViewComponentBuilder
 
   def build_item_list_view_component
     episodes = []
-    @playlist.playlist_items.take(Embed::ItemListData::MAX_EPISODE_SIZE).each do |ep|
+    item_list_size = 10 # Seriesに合わせて10件（APIで1度に引けるEpisodeの数）
+    @playlist.playlist_items.take(item_list_size).each do |ep|
       # cache dataが古い可能性があるので、APIからEpisode情報を引き直す
       episodes << DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').episode(type: 'tv',
                                                                                    episode_id: ep.episode_id)

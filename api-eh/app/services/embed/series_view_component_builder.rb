@@ -50,10 +50,11 @@ class Embed::SeriesViewComponentBuilder
   end
 
   def build_item_list_view_component
+    item_list_size = 10 # APIで1度に引けるEpisodeの数
     res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').episode_from_series(type: 'tv',
                                                                                        series_id: @series_id,
                                                                                        request_type: :l,
-                                                                                       query: { size: 3 })
+                                                                                       query: { size: item_list_size })
     episode_data = res[:result].first
     series_data = episode_data[:partOfSeries]
 
