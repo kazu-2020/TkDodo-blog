@@ -1,0 +1,96 @@
+<div class="embed embed-featured-item rounded-sm shadow-md text-white"
+     data-controller="key-color"
+     data-key-color-target="setBackgroundColor"
+>
+  <a href="<%= url %>" target="_blank">
+    <div class="flex flex-col justify-between h-full">
+      <div class="upper relative">
+        <div class="upper--scrim"></div>
+        <div>
+          <img
+            decoding="async"
+            src="<%= base64_image_src %>"
+            class="rounded-sm w-full object-cover"
+            alt="<%= name %>"
+            data-key-color-target="image"
+            style="height: 80px;"/>
+        </div>
+      </div>
+      <div class="bottom relative">
+        <div class="bottom--scrim"></div>
+        <div class="p-2 relative z-10">
+          <div class="text-xxs text-bold opacity-80 h-3 mb-1"><span class="line-clamp-1"><%= detailed_catch %></span></div>
+          <div class="font-bold text-sm w-54 line-clamp-1"><%= name %></div>
+        </div>
+        <% if episodes.blank? %>
+          <div class="flex h-full items-center justify-center">
+            <small>エピソードがありません</small>
+          </div>
+        <% else %>
+          <div class="episode-content w-full p-2 pt-0 space-y-1">
+            <% episodes.each do |episode| %>
+              <div class="episode-item-wrapper w-full relative">
+                <div class="episode-item-zabuton w-full h-14 rounded-sm shadow-sm" style="filter: brightness(0.5);border: 1px solid rgba(159, 159, 159, .2);"
+                     data-key-color-target="setBackgroundColor" data-opacity="0.8"></div>
+                <div class="episode-item absolute top-0 z-10 w-full h-14 flex p-2 items-center">
+                  <div class="w-16 flex-none">
+                    <img
+                      decoding="async"
+                      src="<%= episode_image_src(episode) %>"
+                      class="rounded-sm"
+                      alt="<%= episode.dig(:name) %>"/>
+                  </div>
+                  <div class="ml-2 text-xs line-clamp-2"><%= episode.dig(:name) %></div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <% if height.to_i > 250 %>
+          <div class="footer p-3 relative z-10">
+            <%= render 'shared/embed_footer' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </a>
+</div>
+
+<% content_for(:style) do %>
+  <style>
+      .embed-featured-item {
+          min-height: 200px;
+          height: <%= height %>px;
+          overflow: hidden;
+          width: 100%;
+      }
+
+      .upper--scrim {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 50%;
+          width: 100%;
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+      }
+
+      .bottom--scrim {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          background: rgba(0, 0, 0, 0.4);
+      }
+
+      .upper {
+          height: 80px;
+      }
+
+      .episode-content {
+          overflow: scroll;
+          /* エピソードリストの高さ = 全体の高さ - upperの高さ - 見出しの高さ - footerの高さ */
+          height: <%= height.to_i - 80 - 52 - (height.to_i > 250 ? 56 : 0) %>px;
+      }
+  </style>
+<% end %>
