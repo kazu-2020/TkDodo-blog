@@ -72,6 +72,9 @@ class PlaylistItem < ApplicationRecord
   end
 
   def set_has_video(data)
-    self.has_video = data[:videos].find { |video| video.dig(:identifierGroup, :environmentId) == 'okushibu' }.present?
+    self.has_video = data[:videos].find do |video|
+      video.dig(:identifierGroup, :environmentId) == 'okushibu' &&
+        video.dig(:detailedContentStatus, :contentStatus) == 'ready'
+    end.present?
   end
 end
