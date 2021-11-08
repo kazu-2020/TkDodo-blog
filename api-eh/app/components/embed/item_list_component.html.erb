@@ -16,36 +16,38 @@
             style="height: 80px;"/>
         </div>
       </div>
-      <div class="bottom relative">
+      <div class="bottom relative flex-grow">
         <div class="bottom--scrim"></div>
-        <div class="p-2 relative z-10">
-          <div class="text-xxs text-bold opacity-80 h-3 mb-1"><span class="line-clamp-1"><%= detailed_catch %></span></div>
-          <div class="font-bold text-sm w-54 line-clamp-1"><%= name %></div>
-        </div>
-        <% if episodes.blank? %>
-          <div class="flex h-full items-center justify-center">
-            <small>エピソードがありません</small>
+        <div class="bottom-contents relative z-10">
+          <div class="p-2">
+            <div class="text-xxs text-bold opacity-80 mb-1"><p class="truncate"><%= detailed_catch %></p></div>
+            <div class="font-bold text-sm w-54 line-clamp-1"><%= name %></div>
           </div>
-        <% else %>
-          <div class="episode-content w-full p-2 pt-0 space-y-1">
-            <% episodes.each do |episode| %>
-              <div class="episode-item-wrapper w-full relative">
-                <div class="episode-item-zabuton w-full h-14 rounded-sm shadow-sm" style="filter: brightness(0.5);border: 1px solid rgba(159, 159, 159, .2);"
-                     data-key-color-target="setBackgroundColor" data-opacity="0.8"></div>
-                <div class="episode-item absolute top-0 z-10 w-full h-14 flex p-2 items-center">
-                  <div class="w-16 flex-none">
-                    <img
-                      decoding="async"
-                      src="<%= episode_image_src(episode) %>"
-                      class="rounded-sm"
-                      alt="<%= episode.dig(:name) %>"/>
+          <% if episodes.blank? %>
+            <div class="flex h-full items-center justify-center">
+              <small>エピソードがありません</small>
+            </div>
+          <% else %>
+            <div class="episode-content w-full p-2 pt-0 space-y-1">
+              <% episodes.each do |episode| %>
+                <div class="episode-item-wrapper w-full relative">
+                  <div class="episode-item-zabuton w-full h-14 rounded-sm shadow-sm" style="filter: brightness(0.5);border: 1px solid rgba(159, 159, 159, .2);"
+                       data-key-color-target="setBackgroundColor" data-opacity="0.8"></div>
+                  <div class="episode-item absolute top-0 z-10 w-full h-14 flex p-2 items-center">
+                    <div class="w-16 flex-none">
+                      <img
+                        decoding="async"
+                        src="<%= episode_image_src(episode) %>"
+                        class="rounded-sm"
+                        alt="<%= episode.dig(:name) %>"/>
+                    </div>
+                    <div class="ml-2 text-xs line-clamp-2"><%= episode.dig(:name) %></div>
                   </div>
-                  <div class="ml-2 text-xs line-clamp-2"><%= episode.dig(:name) %></div>
                 </div>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
         <% if height.to_i > 250 %>
           <div class="footer p-3 relative z-10">
             <%= render 'shared/embed_footer' %>
