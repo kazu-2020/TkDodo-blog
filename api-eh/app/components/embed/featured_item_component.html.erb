@@ -18,13 +18,9 @@
         <div class="bottom--scrim"></div>
         <div class="bottom--contents absolute p-2 w-full">
           <div class="series_content">
-            <% line_clamp_size = height.to_i < 420 ? '1' : '2' %>
-            <div class="text-xxs text-bold opacity-80">
-              <span class="line-clamp-<%= line_clamp_size %>">
-                <%= detailed_catch %>
-              </span>
-            </div>
-            <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-<%= line_clamp_size %>"><%= name %></div>
+            <% ellipsis_class = height.to_i < 420 ? 'truncate' : 'line-clamp-2' %>
+            <p class="text-xxs opacity-80 <%= ellipsis_class %>"><%= detailed_catch %></p>
+            <div class="font-bold text-sm mt-1 mb-2 w-54 <%= ellipsis_class %>"><%= name %></div>
           </div>
           <div class="my-3">
             <hr class="opacity-50">
