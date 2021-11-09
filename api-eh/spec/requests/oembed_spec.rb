@@ -4,9 +4,11 @@ require 'rails_helper'
 
 describe OembedController, type: :request do
   describe 'Series url' do
+    let(:series_id) { 'R71NJ4MV53' }
+
     it 'returns success response' do
       VCR.use_cassette('dlab_api_series') do
-        get oembed_path, params: { url: 'https://www.nhk.jp/p/mitsuhide-smapho/ts/R71NJ4MV53' }
+        get oembed_path, params: { url: "https://www.nhk.jp/p/mitsuhide-smapho/ts/#{series_id}" }
         expect(response.status).to eq 200
       end
     end
@@ -19,6 +21,17 @@ describe OembedController, type: :request do
       playlist_id = format('%010<number>d', number: playlist.id)
       get oembed_path, params: { url: "https://dev-www-eh.nr.nhk.jp/p/pl/eh-#{playlist_id}" }
       expect(response.status).to eq 200
+    end
+  end
+
+  describe 'Playlist(Series) url' do
+    let(:series_id) { 'R71NJ4MV53' }
+
+    it 'returns success response' do
+      VCR.use_cassette('dlab_api_series') do
+        get oembed_path, params: { url: "https://dev-www-eh.nr.nhk.jp/p/pl/ts-#{series_id}" }
+        expect(response.status).to eq 200
+      end
     end
   end
 

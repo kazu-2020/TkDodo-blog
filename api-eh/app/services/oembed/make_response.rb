@@ -22,12 +22,13 @@ class Oembed::MakeResponse
 
   private
 
-  # rubocop:disable Metrics/AbcSize
-  def responser
+  def responser # rubocop:disable all
     if series_url?
       Oembed::Response::Series.new(url: url, height: height)
     elsif playlist_url?
       Oembed::Response::Playlist.new(url: url, height: height)
+    elsif series_playlist_url?
+      Oembed::Response::SeriesPlaylist.new(url: url, height: height)
     elsif episode_url?
       Oembed::Response::Episode.new(url: url, height: height)
     elsif howto_url?
@@ -40,7 +41,6 @@ class Oembed::MakeResponse
       Oembed::Response::Dummy.new(url: url, height: height)
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # @example
   #   https://www.nhk.jp/p/gendai/ts/WV5PLY8R43/
@@ -52,10 +52,16 @@ class Oembed::MakeResponse
 
   # @example
   #   https://dev-www-eh.nr.nhk.jp/p/pl/eh-0000000030
-  #   https://dev-www-eh.nr.nhk.jp/p/pl/ts-N8GR183W9M/series
   # @return [TrueClass, FalseClass]
   def playlist_url?
     url.match?(%r{https?://dev-www-eh.nr.nhk.jp/p/pl/eh-([A-Z0-9]{10})})
+  end
+
+  # @example
+  #   https://dev-www-eh.nr.nhk.jp/p/pl/ts-N8GR183W9M/series
+  # @return [TrueClass, FalseClass]
+  def series_playlist_url?
+    url.match?(%r{https?://dev-www-eh.nr.nhk.jp/p/pl/ts-([A-Z0-9]{10})})
   end
 
   # @example
