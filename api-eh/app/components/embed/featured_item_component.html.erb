@@ -5,28 +5,26 @@
   <a href="<%= url %>" target="_blank">
     <div class="flex flex-col h-full">
       <div class="relative">
-        <div class="upper--scrim"></div>
         <img
           decoding="async"
           src="<%= base64_image_src %>"
-          class="rounded-sm w-full object-cover"
+          class="rounded-sm w-full object-cover mask-image"
           alt="<%= name %>"
           data-key-color-target="image"
           style="height: 240px;" />
       </div>
       <div class="relative flex-grow">
-        <div class="bottom--scrim"></div>
         <div class="bottom--contents absolute p-2 w-full">
           <div class="series_content">
             <% ellipsis_class = height.to_i < 420 ? 'truncate' : 'line-clamp-2' %>
             <p class="text-xxs opacity-80 <%= ellipsis_class %>"><%= detailed_catch %></p>
             <div class="font-bold text-sm mt-1 mb-2 w-54 <%= ellipsis_class %>"><%= name %></div>
           </div>
-          <div class="my-3">
+          <div class="my-2">
             <hr class="opacity-50">
           </div>
           <div class="episode_content">
-            <div class="text-xxs my-2">
+            <div class="text-xxs my-1">
               <small class="opacity-80">このプレイリストに含まれるエピソード</small>
             </div>
 
@@ -59,24 +57,22 @@
           height: <%= height %>px;
           overflow: hidden;
           width: 100%;
+          padding: 6px;
       }
 
-      .upper--scrim {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          height: 50%;
-          width: 100%;
-          background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
-      }
-
-      .bottom--scrim {
+      .embed-featured-item::before {
+          content: "";
           position: absolute;
           bottom: 0;
           left: 0;
           height: 100%;
           width: 100%;
           background: rgba(0, 0, 0, 0.4);
+      }
+
+      .mask-image {
+          -webkit-mask-image: linear-gradient(#000 70%, rgba(0, 0, 0, .8) 80%, transparent 100%);
+          mask-image: linear-gradient(#000 70%, rgba(0, 0, 0, .8) 80%, transparent 100%);
       }
   </style>
 <% end %>
