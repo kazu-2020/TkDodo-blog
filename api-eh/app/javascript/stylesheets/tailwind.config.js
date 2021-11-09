@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontSize: {
-        xxs: ['.65rem', '1rem'],
+        xxs: ['.6rem', '.9rem'],
       }
     },
     screens: {
