@@ -24,10 +24,10 @@
   "dependencies": {
     "@babel/preset-env": "^7.14.7",
     "@codexteam/ajax": "^4.2.0",
-    "@editorjs/editorjs": "2.19.1",
-    "@editorjs/embed": "^2.4.0",
+    "@editorjs/editorjs": "2.22.3",
+    "@editorjs/embed": "^2.4.6",
     "@editorjs/header": "^2.6.1",
-    "@editorjs/image": "^2.6.0",
+    "@editorjs/image": "^2.6.1",
     "@editorjs/link": "^2.3.1",
     "@editorjs/list": "^1.6.2",
     "@nuxtjs/auth": "^4.9.1",
