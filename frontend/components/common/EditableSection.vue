@@ -220,4 +220,9 @@ export default {
 .codex-editor--narrow .codex-editor__redactor {
   margin-right: 0;
 }
+
+.ce-conversion-tool__icon svg {
+  width: 15px;
+  height: 15px;
+}
 </style>

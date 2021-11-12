@@ -6,7 +6,17 @@ export default class DescriptionLinkTool extends LinkTool {
     return false
   }
 
+  static get conversionConfig() {
+    return {
+      export: 'text',
+      import: 'link',
+    }
+  }
+
   render() {
+    if (this.data.link !== '' && Object.keys(this.data.meta).length === 0) {
+      this.data.meta = { description: '' }
+    }
     const wrapper = super.render()
 
     if (this.data.link) {
@@ -180,8 +190,17 @@ export default class DescriptionLinkTool extends LinkTool {
 
   allowDomain(link) {
     const domains = ['nhk.jp', 'nhk.or.jp', 'www.nhk-ondemand.jp']
-    const url = new URL(link)
-
-    return domains.some((domain) => url.hostname.includes(domain))
+    try {
+      const url = new URL(link)
+      return domains.some((domain) => url.hostname.includes(domain))
+    } catch (error) {
+      if (error instanceof TypeError) {
+        this.api.notifier.show({
+          message: 'URLではない文字列は変換できません',
+          style: 'error',
+        })
+      }
+      throw error
+    }
   }
 }
