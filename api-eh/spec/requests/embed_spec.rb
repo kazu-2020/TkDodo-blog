@@ -27,6 +27,17 @@ describe EmbedController, type: :request do
         end
       end
     end
+
+    describe 'itemList' do
+      let(:layout_pattern) { 'itemList' }
+
+      it 'returns success response' do
+        VCR.use_cassette('embed_spec_ts_item_list') do
+          get "/embed/ts/#{series_id}", params: { layout_pattern: layout_pattern }
+          expect(response.status).to eq 200
+        end
+      end
+    end
   end
 
   describe 'Playlist' do
@@ -44,7 +55,7 @@ describe EmbedController, type: :request do
       let(:layout_pattern) { 'summary' }
 
       it 'returns success response' do
-        get "/embed/pl/#{playlist_id}", params: { layout_pattern: layout_pattern }
+        get "/embed/pl/eh-#{playlist_id}", params: { layout_pattern: layout_pattern }
         expect(response.status).to eq 200
       end
     end
@@ -58,7 +69,59 @@ describe EmbedController, type: :request do
 
       it 'returns success response' do
         VCR.use_cassette('embed_spec_pl_featured_item') do
-          get "/embed/pl/#{playlist_id}", params: { layout_pattern: layout_pattern }
+          get "/embed/pl/eh-#{playlist_id}", params: { layout_pattern: layout_pattern }
+          expect(response.status).to eq 200
+        end
+      end
+    end
+
+    describe 'itemList' do
+      let(:layout_pattern) { 'itemList' }
+
+      before do
+        playlist.playlist_items.first.update(episode_id: 'GXLN8793GK')
+      end
+
+      it 'returns success response' do
+        VCR.use_cassette('embed_spec_pl_featured_item') do
+          get "/embed/pl/eh-#{playlist_id}", params: { layout_pattern: layout_pattern }
+          expect(response.status).to eq 200
+        end
+      end
+    end
+  end
+
+  describe 'SeriesPlaylist' do
+    let(:series_id) { 'R71NJ4MV53' }
+
+    describe 'summary' do
+      let(:layout_pattern) { 'summary' }
+
+      it 'returns success response' do
+        VCR.use_cassette('dlab_api_series') do
+          get "/embed/pl/ts-#{series_id}", params: { layout_pattern: layout_pattern }
+          expect(response.status).to eq 200
+        end
+      end
+    end
+
+    describe 'featuredItem' do
+      let(:layout_pattern) { 'featuredItem' }
+
+      it 'returns success response' do
+        VCR.use_cassette('dlab_api_episode_from_series') do
+          get "/embed/pl/ts-#{series_id}", params: { layout_pattern: layout_pattern }
+          expect(response.status).to eq 200
+        end
+      end
+    end
+
+    describe 'itemList' do
+      let(:layout_pattern) { 'itemList' }
+
+      it 'returns success response' do
+        VCR.use_cassette('embed_spec_ts_item_list') do
+          get "/embed/pl/ts-#{series_id}", params: { layout_pattern: layout_pattern }
           expect(response.status).to eq 200
         end
       end
