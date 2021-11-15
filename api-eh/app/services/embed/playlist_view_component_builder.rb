@@ -36,7 +36,7 @@ class Embed::PlaylistViewComponentBuilder < Embed::ViewComponentBuilder
                                      height: @height)
   end
 
-  def build_item_list_view_component
+  def build_item_list_view_component # rubocop:disable Metrics/AbcSize
     episodes = []
     item_list_size = 10 # Seriesに合わせて10件（APIでデフォルトで1度に引けるEpisodeの数）
     playlist.playlist_items.take(item_list_size).each do |ep|
