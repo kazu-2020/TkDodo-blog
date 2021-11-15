@@ -20,14 +20,14 @@ class Embed::PlaylistsController < EmbedController
 
   def build_playlist_view_component
     playlist_id = embed_params[:playlist_id].delete_prefix('eh-').to_i
-    Embed::PlaylistViewComponentBuilder.new(playlist_id: playlist_id,
+    Embed::PlaylistViewComponentBuilder.new(resource_id: playlist_id,
                                             height: embed_params[:height],
                                             layout_pattern: embed_params[:layout_pattern]).call
   end
 
   def build_series_view_component
     series_id = embed_params[:playlist_id].delete_prefix('ts-')
-    Embed::SeriesViewComponentBuilder.new(series_id: series_id,
+    Embed::SeriesViewComponentBuilder.new(resource_id: series_id,
                                           height: embed_params[:height],
                                           layout_pattern: embed_params[:layout_pattern]).call
   end
