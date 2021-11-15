@@ -2,7 +2,7 @@
 
 class Embed::SeriesController < EmbedController
   def show
-    @view_component = Embed::SeriesViewComponentBuilder.new(series_id: embed_params[:series_id],
+    @view_component = Embed::SeriesViewComponentBuilder.new(resource_id: embed_params[:series_id],
                                                             height: embed_params[:height],
                                                             layout_pattern: embed_params[:layout_pattern]).call
 
