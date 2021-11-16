@@ -31,8 +31,8 @@
         <% else %>
           <div class="episode-content w-full p-0 space-y-1">
             <% episodes.each do |episode| %>
-              <a href="<%= episode.dig(:url) %>" target="_blank">
-                <div class="episode-item-wrapper w-full relative">
+              <div class="episode-item-wrapper w-full relative">
+                <a href="<%= episode.dig(:url) %>" target="_blank">
                   <div class="episode-item-zabuton w-full h-14 rounded-sm shadow-sm" style="filter: brightness(0.5);border: 1px solid rgba(159, 159, 159, .2);"
                        data-key-color-target="setBackgroundColor" data-opacity="0.8"></div>
                   <div class="episode-item absolute top-0 z-10 w-full h-14 flex p-2 items-center">
@@ -45,8 +45,8 @@
                     </div>
                     <div class="ml-2 text-xs line-clamp-2"><%= episode.dig(:name) %></div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </div>
             <% end %>
           </div>
         <% end %>
