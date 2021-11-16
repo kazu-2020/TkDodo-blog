@@ -1,16 +1,15 @@
-<div class="embed embed-featured-item rounded-sm shadow-md text-white"
+<div class="embed embed-item-list rounded-sm shadow-md text-white"
      data-controller="key-color"
      data-key-color-target="setBackgroundColor"
 >
   <div class="flex flex-col justify-between h-full">
     <div class="upper relative">
       <a href="<%= url %>" target="_blank">
-        <div class="upper--scrim"></div>
         <div>
           <img
             decoding="async"
             src="<%= base64_image_src %>"
-            class="rounded-sm w-full object-cover"
+            class="rounded-sm w-full object-cover mask-image"
             alt="<%= name %>"
             data-key-color-target="image"
             style="height: 80px;"/>
@@ -18,7 +17,6 @@
       </a>
     </div>
     <div class="bottom relative flex-grow">
-      <div class="bottom--scrim"></div>
       <div class="bottom-contents relative z-10">
         <div class="p-2">
           <a href="<%= url %>" target="_blank">
@@ -31,7 +29,7 @@
             <small>エピソードがありません</small>
           </div>
         <% else %>
-          <div class="episode-content w-full p-2 pt-0 space-y-1">
+          <div class="episode-content w-full p-0 space-y-1">
             <% episodes.each do |episode| %>
               <a href="<%= episode.dig(:url) %>" target="_blank">
                 <div class="episode-item-wrapper w-full relative">
@@ -66,23 +64,16 @@
 
 <% content_for(:style) do %>
   <style>
-      .embed-featured-item {
+      .embed-item-list {
           min-height: 200px;
           height: <%= height %>px;
           overflow: hidden;
           width: 100%;
+          padding: 6px;
       }
 
-      .upper--scrim {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          height: 50%;
-          width: 100%;
-          background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-      }
-
-      .bottom--scrim {
+      .embed-item-list::before {
+          content: "";
           position: absolute;
           bottom: 0;
           left: 0;
@@ -99,6 +90,11 @@
           overflow: scroll;
           /* エピソードリストの高さ = 全体の高さ - upperの高さ - 見出しの高さ - footerの高さ */
           height: <%= height.to_i - 80 - 52 - (height.to_i > 250 ? 56 : 0) %>px;
+      }
+
+      .mask-image {
+          -webkit-mask-image: linear-gradient(#000 50%, rgba(0, 0, 0, .8) 60%, transparent 100%);
+          mask-image: linear-gradient(#000 50%, rgba(0, 0, 0, .8) 60%, transparent 100%);
       }
   </style>
 <% end %>
