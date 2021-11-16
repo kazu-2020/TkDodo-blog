@@ -5,18 +5,16 @@
   <div class="flex flex-col justify-between h-full">
     <div class="upper relative">
       <a href="<%= url %>" target="_blank">
-        <div>
-          <img
-            decoding="async"
-            src="<%= base64_image_src %>"
-            class="rounded-sm w-full object-cover mask-image"
-            alt="<%= name %>"
-            data-key-color-target="image"
-            style="height: 80px;"/>
-        </div>
+        <img
+          decoding="async"
+          src="<%= base64_image_src %>"
+          class="rounded-sm w-full object-cover mask-image"
+          alt="<%= name %>"
+          data-key-color-target="image"
+          style="height: 80px;"/>
       </a>
     </div>
-    <div class="bottom relative flex-grow">
+    <div class="bottom relative flex-grow flex flex-col justify-between">
       <div class="bottom-contents relative z-10">
         <div class="p-2">
           <a href="<%= url %>" target="_blank">
@@ -52,7 +50,7 @@
         <% end %>
       </div>
       <% if height.to_i > 250 %>
-        <div class="footer p-3 relative z-10">
+        <div class="footer p-1 relative z-10">
           <a href="<%= url %>" target="_blank">
             <%= render 'shared/embed_footer' %>
           </a>
@@ -89,7 +87,7 @@
       .episode-content {
           overflow: scroll;
           /* エピソードリストの高さ = 全体の高さ - upperの高さ - 見出しの高さ - footerの高さ */
-          height: <%= height.to_i - 80 - 52 - (height.to_i > 250 ? 56 : 0) %>px;
+          height: <%= height.to_i - 80 - 52 - (height.to_i > 250 ? 46 : 0) %>px;
       }
 
       .mask-image {
