@@ -16,7 +16,7 @@
     </div>
     <div class="bottom relative flex-grow flex flex-col justify-between">
       <div class="bottom-contents relative z-10">
-        <div class="p-2">
+        <div class="p-2 h-14">
           <a href="<%= url %>" target="_blank">
             <div class="text-xxs text-bold opacity-80 mb-1"><p class="truncate"><%= detailed_catch %></p></div>
             <div class="font-bold text-sm w-54 line-clamp-1"><%= name %></div>
@@ -86,8 +86,14 @@
 
       .episode-content {
           overflow: scroll;
-          /* エピソードリストの高さ = 全体の高さ - upperの高さ - 見出しの高さ - footerの高さ */
-          height: <%= height.to_i - 80 - 52 - (height.to_i > 250 ? 46 : 0) %>px;
+          /* エピソードリストの高さ = 全体の高さ - upperの高さ - 見出しの高さ - footerの高さ - paddingの幅 */
+          <%
+            upper_height = 80
+            heading_height = 56
+            footer_height = 46
+            padding_width = 6 * 2
+          %>
+          height: <%= height.to_i - upper_height - heading_height - (height.to_i > 250 ? footer_height : 0) - padding_width %>px;
       }
 
       .mask-image {
