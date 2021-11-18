@@ -178,24 +178,7 @@
                   <v-icon>mdi-file-document-outline</v-icon>
                 </v-btn>
               </template>
-              <span>ペライチ プレビュー</span>
-            </v-tooltip>
-            <v-tooltip bottom>
-              <template #activator="{ on, attrs }">
-                <v-btn
-                  :href="playlistSitePreviewUrl"
-                  icon
-                  small
-                  color="#000000"
-                  class="ml-2"
-                  target="_blank"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon>mdi-sitemap</v-icon>
-                </v-btn>
-              </template>
-              <span>サイト プレビュー</span>
+              <span>プレイリスト型新標準ページ プレビュー</span>
             </v-tooltip>
           </v-col>
         </div>
@@ -325,9 +308,6 @@ export default Vue.extend({
     },
     playlistWebPreviewUrl(): string {
       return `https://dev-www-eh.nr.nhk.jp/p/pl/${this.playlist?.originalId}`
-    },
-    playlistSitePreviewUrl(): string {
-      return `https://dev-www-eh.nr.nhk.jp/p/pl/${this.playlist?.originalId}/site`
     },
   },
   mounted() {
