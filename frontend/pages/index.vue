@@ -138,23 +138,7 @@
                   <v-icon>mdi-file-document-outline</v-icon>
                 </v-btn>
               </template>
-              <span>ペライチ プレビュー</span>
-            </v-tooltip>
-            <v-tooltip bottom>
-              <template #activator="{ on, attrs }">
-                <v-btn
-                  :href="playlistSitePreviewUrl(selectedPlaylist)"
-                  small
-                  fab
-                  outlined
-                  target="_blank"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon>mdi-sitemap</v-icon>
-                </v-btn>
-              </template>
-              <span>サイト プレビュー</span>
+              <span>プレイリスト型新標準ページ プレビュー</span>
             </v-tooltip>
           </v-col>
         </v-row>
@@ -201,23 +185,7 @@
                   <v-icon>mdi-file-document-outline</v-icon>
                 </v-btn>
               </template>
-              <span>ペライチ プレビュー</span>
-            </v-tooltip>
-            <v-tooltip bottom>
-              <template #activator="{ on, attrs }">
-                <v-btn
-                  :href="playlistSitePreviewUrl(selectedPlaylist)"
-                  small
-                  fab
-                  outlined
-                  target="_blank"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon>mdi-sitemap</v-icon>
-                </v-btn>
-              </template>
-              <span>サイト プレビュー</span>
+              <span>プレイリスト型新標準ページ プレビュー</span>
             </v-tooltip>
           </v-col>
         </v-row>
@@ -536,9 +504,6 @@ export default Vue.extend({
     },
     playlistWebPreviewUrl(selectedPlaylist: any): string {
       return `https://dev-www-eh.nr.nhk.jp/p/pl/${selectedPlaylist?.originalId}`
-    },
-    playlistSitePreviewUrl(selectedPlaylist: any): string {
-      return `https://dev-www-eh.nr.nhk.jp/p/pl/${selectedPlaylist?.originalId}/site`
     },
     serviceLogoUrl(item: any) {
       return item?.releasedEvent?.publishedOn?.images?.badgeSmall?.url || ''
