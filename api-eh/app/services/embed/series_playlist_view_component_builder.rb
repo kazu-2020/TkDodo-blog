@@ -37,15 +37,19 @@ class Embed::SeriesPlaylistViewComponentBuilder < Embed::ViewComponentBuilder
                                                                                        series_id: @resource_id,
                                                                                        request_type: :l,
                                                                                        query: { size: item_list_size })
-    episode_data = res[:result].first
-    series_data = episode_data[:partOfSeries]
+    episodes = res[:result]
+    series_data = episodes.first[:partOfSeries]
+
+    # episodeのurlを上書き
+    # https://dev-www-eh.nr.nhk.jp/p/pl/ts-xxxxxx#{episode_id}
+    episodes.each { |episode| episode[:url] = "#{url}/episode##{episode[:id]}" }
 
     Embed::ItemListComponent.new(url: url,
                                  name: series_data[:name],
                                  detailed_catch: series_data[:detailedCatch],
                                  hero_image_url: series_data.dig(:hero, :medium, :url),
                                  key_color: series_data.dig(:style, :primaryLight),
-                                 episodes: res[:result],
+                                 episodes: episodes,
                                  height: @height)
   end
 end
