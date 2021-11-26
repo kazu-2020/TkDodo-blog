@@ -120,7 +120,7 @@ describe EmbedController, type: :request do
       let(:layout_pattern) { 'itemList' }
 
       it 'returns success response' do
-        VCR.use_cassette('embed_spec_ts_item_list') do
+        VCR.use_cassette('embed_spec_d65_item_list') do
           get "/embed/pl/ts-#{series_id}", params: { layout_pattern: layout_pattern }
           expect(response.status).to eq 200
         end
