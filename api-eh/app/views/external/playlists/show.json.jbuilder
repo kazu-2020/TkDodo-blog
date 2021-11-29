@@ -86,7 +86,8 @@ end
 media_action_params = (params[:mediaAction] || '').split(',')
 item_url_params =
   { size: params[:itemSize].nil? ? nil : @size, offset: params[:itemOffset].nil? ? nil : @offset,
-    availableOn: media_action_params.include?('watch') ? 'okushibu' : nil }
+    availableOn: media_action_params.include?('watch') ? 'okushibu' : nil,
+    order: params[:itemOrder].nil? ? nil : @order }
   .delete_if { |_, v| v.nil? }
   .to_param
 item_url_params = "?#{item_url_params}" if item_url_params.size.positive?
