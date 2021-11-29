@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DlabPlApiClient < DlabApiBase
-  API_ENDPOINT = 'https://pl.nhk.jp'
+  API_ENDPOINT = 'https://api-plus.nhk.jp'
 
   VERSION = 'd5'
 
