@@ -14,13 +14,13 @@
           style="height: 240px;" />
       </div>
       <div class="relative flex-grow">
-        <div class="bottom--contents absolute p-2 w-full">
+        <div class="bottom--contents absolute px-2 w-full">
           <div class="series_content">
             <% ellipsis_class = height.to_i < 420 ? 'truncate' : 'line-clamp-2' %>
             <p class="text-xxs opacity-80 <%= ellipsis_class %>"><%= detailed_catch %></p>
-            <div class="font-bold text-sm mt-1 mb-2 w-54 <%= ellipsis_class %>"><%= name %></div>
+            <div class="font-bold text-sm mt-1 mb-1 w-54 <%= ellipsis_class %>"><%= name %></div>
           </div>
-          <div class="my-2">
+          <div class="my-1">
             <hr class="opacity-50">
           </div>
           <div class="episode_content">
@@ -30,14 +30,17 @@
 
             <% if episode_data.present? %>
               <div class="flex">
-                <div class="w-20">
+                <div class="w-16">
                   <img
                     decoding="async"
                     src="<%= episode_image_src(episode_data) %>"
                     class="rounded-sm"
                     alt="<%= episode_data[:name] %>"/>
                 </div>
-                <div class="ml-2 font-bold text-xs line-clamp-2"><%= episode_data[:name] %></div>
+                <div class="ml-2 flex-1">
+                  <div class="font-bold text-xs line-clamp-3"><%= episode_data[:name] %></div>
+                  <div class="mt-1 text-xs text-gray-450 line-clamp-1"><%= episode_data.dig(:partOfSeries, :name) %></div>
+                </div>
               </div>
             <% else %>
               <small>エピソードがありません</small>
