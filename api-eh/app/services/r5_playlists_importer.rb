@@ -40,7 +40,7 @@ class R5PlaylistsImporter
   def recommend_playlist_ids
     return @recommend_playlist_ids if @recommend_playlist_ids.present?
 
-    res = r5_client.deck(area_id: AREA_ID)
+    res = r5_client.deck(area_id: '000')
     @recommend_playlist_ids =
       res.dig(:config, :playlists, :recommend).map do |playlist|
         playlist[:playlist_id]
