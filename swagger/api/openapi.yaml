@@ -209,16 +209,30 @@ paths:
               - dateCreated
         - name: playlistSize
           in: query
-          description: playlistUrl に引き継ぐ size パラメーターの値
+          description: playlistUrl にて一度に取得するプレイリストの数を指定するパラメーター
           required: false
           default: 10
           schema:
             type: integer
         - name: playlistOffset
           in: query
-          description: palylistUrl に引き継ぐ offset を決定するための値
+          description: palylistUrl にて一度に取得するプレイリストのオフセットを指定するパラメーター
           required: false
           default: null
+          schema:
+            type: integer
+        - name: itemSize
+          in: query
+          description: playlistUrl に内に含まれる itemUrl にて、エピソード数を指定するパラメーター
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: itemOffset
+          in: query
+          description: playlistUrl に内に含まれる itemUrl にて、エピソードのオフセットを指定するパラメーター
+          required: false
+          default: 0
           schema:
             type: integer
       responses:
@@ -302,16 +316,30 @@ paths:
               - dateCreated
         - name: playlistSize
           in: query
-          description: playlistUrl に引き継ぐ size パラメーターの値
+          description: playlistUrl にて一度に取得するプレイリストの数を指定するパラメーター
           required: false
           default: 10
           schema:
             type: integer
         - name: playlistOffset
           in: query
-          description: palylistUrl に引き継ぐ offset を決定するための値
+          description: palylistUrl にて一度に取得するプレイリストのオフセットを指定するパラメーター
           required: false
           default: null
+          schema:
+            type: integer
+        - name: itemSize
+          in: query
+          description: playlistUrl に内に含まれる itemUrl にて、エピソード数を指定するパラメーター
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: itemOffset
+          in: query
+          description: playlistUrl に内に含まれる itemUrl にて、エピソードのオフセットを指定するパラメーター
+          required: false
+          default: 0
           schema:
             type: integer
       responses:

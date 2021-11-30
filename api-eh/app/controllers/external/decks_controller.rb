@@ -20,6 +20,8 @@ class External::DecksController < ApplicationController
     order_by = params[:orderBy] || 'dateModified'
     @size = (params[:playlistSize] || DEFAULT_SIZE).to_i
     @offset = (params[:playlistOffset] || DEFAULT_OFFSET).to_i
+    @item_size = (params[:itemSize] || DEFAULT_SIZE).to_i
+    @item_offset = (params[:itemOffset] || DEFAULT_OFFSET).to_i
 
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
     render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(order)
@@ -66,6 +68,8 @@ class External::DecksController < ApplicationController
     order_by = params[:orderBy] || 'dateModified'
     @size = (params[:playlistSize] || DEFAULT_SIZE).to_i
     @offset = (params[:playlistOffset] || DEFAULT_OFFSET).to_i
+    @item_size = (params[:itemSize] || DEFAULT_SIZE).to_i
+    @item_offset = (params[:itemOffset] || DEFAULT_OFFSET).to_i
 
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
     render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(order)

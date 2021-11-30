@@ -15,6 +15,9 @@ class External::PlaylistsController < ApplicationController
     @deck = Deck.find_by(area: @area, is_r5: is_r5)
     @offset = (params[:offset] || 0).to_i
     @size = (params[:size] || DEFAULT_SIZE).to_i
+    @item_offset = (params[:itemOffset] || 0).to_i
+    @item_size = (params[:itemSize] || DEFAULT_SIZE).to_i
+
     media_action = (params[:mediaAction] || '').split(',')
     order = params[:order] || 'desc'
     order_by = params[:orderBy] || 'dateModified'

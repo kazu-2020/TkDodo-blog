@@ -14,9 +14,9 @@ end
 
 deck_id = params[:deck_id].split('-').unshift('recommend').uniq.join('-')
 
-next_url_params = params.permit(:area, :type, :mediaAction, :order, :orderBy).merge(offset: @offset,
-                                                                                    size: @size).to_param
-json.playlistUrl "#{external_playlists_url(deck_id: deck_id)}.json?#{next_url_params.to_param}"
+url_params = params.permit(:area, :type, :mediaAction, :order, :orderBy)
+                   .merge(itemOffset: @item_offset, itemSize: @item_size, size: @size, offset: @offset).to_param
+json.playlistUrl "#{external_playlists_url(deck_id: deck_id)}.json?#{url_params.to_param}"
 
 json.sameAs do
   json.array! [
