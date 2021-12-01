@@ -41,6 +41,16 @@ paths:
           default: 130
           schema:
             type: string
+        - name: mediaAction
+          in: query
+          description: itemUrl に引き継ぐ mediaAction の指定
+          required: false
+          default: null
+          schema:
+            type: string
+            enum:
+              - watch
+              - read
         - name: itemSize
           in: query
           description: プレイリスト内のエピソード返却数
@@ -111,6 +121,16 @@ paths:
           default: 130
           schema:
             type: string
+        - name: mediaAction
+          in: query
+          description: itemUrl に引き継ぐ mediaAction の指定
+          required: false
+          default: null
+          schema:
+            type: string
+            enum:
+              - watch
+              - read
         - name: itemSize
           in: query
           description: プレイリスト内のエピソード返却数
