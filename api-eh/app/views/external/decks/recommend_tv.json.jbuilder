@@ -19,7 +19,7 @@ merge_param = { itemOffset: @item_offset, itemSize: @item_size, size: @size, off
               .delete_if { |_, v| v.nil? }
 url_params = params.permit(:area, :type, :mediaAction).merge(merge_param).to_param
 
-json.playlistUrl "#{external_playlists_url(deck_id: deck_id)}.json?#{url_params.to_param}"
+json.playlistUrl "#{external_playlists_url(deck_id: @deck.deck_id('tv'))}.json?#{url_params.to_param}"
 
 json.sameAs do
   json.array! [

@@ -64,7 +64,7 @@ class External::PlaylistsController < ApplicationController
       raise ActiveRecord::RecordNotFound
     end
     @order = params[:itemOrder] || 'desc'
-    render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(order)
+    render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(@order)
 
     @object_type = params[:type] || 'tvepisode'
     @area = params[:area]
