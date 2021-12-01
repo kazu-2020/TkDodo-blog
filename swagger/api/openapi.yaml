@@ -187,7 +187,7 @@ paths:
             enum:
               - watch
               - read
-        - name: order
+        - name: playlistOrder
           in: query
           description: playlistUrl に引き継ぐ order の指定
           required: false
@@ -197,7 +197,7 @@ paths:
             enum:
               - asc
               - desc
-        - name: orderBy
+        - name: playlistOrderBy
           in: query
           description: playlistUrl に引き継ぐ orderBy の指定
           required: false
@@ -235,6 +235,16 @@ paths:
           default: 0
           schema:
             type: integer
+        - name: itemOrder
+          in: query
+          description: playlistUrl に内に含まれる itemUrl にて、エピソードの順序を指定するパラメーター
+          required: false
+          default: desc
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
       responses:
         200:
           description: 正常なレスポンス
@@ -294,7 +304,7 @@ paths:
             enum:
               - watch
               - read
-        - name: order
+        - name: playlistOrder
           in: query
           description: playlistUrl に引き継ぐ order の指定
           required: false
@@ -304,7 +314,7 @@ paths:
             enum:
               - asc
               - desc
-        - name: orderBy
+        - name: playlistOrderBy
           in: query
           description: playlistUrl に引き継ぐ orderBy の指定
           required: false
@@ -342,6 +352,16 @@ paths:
           default: 0
           schema:
             type: integer
+        - name: itemOrder
+          in: query
+          description: playlistUrl に内に含まれる itemUrl にて、エピソードの順序を指定するパラメーター
+          required: false
+          default: desc
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
       responses:
         200:
           description: 正常なレスポンス

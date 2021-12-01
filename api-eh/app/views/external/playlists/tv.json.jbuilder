@@ -11,7 +11,8 @@ json.count count
 json.result(@playlists[min_position...max_position] || []) do |playlist|
   json.partial! partial: 'external/decks/playlist',
                 locals: { playlist: playlist, area: @area, deck_type: 'tv', object_type: @object_type,
-                          media_action: params[:mediaAction], size: @item_size, offset: @item_offset }
+                          media_action: params[:mediaAction], size: @item_size, offset: @item_offset,
+                          item_order: params[:itemOrder] }
 end
 
 json.nextUrl "#{external_playlists_url(deck_id: @deck_id)}.json?#{next_url_params.to_param}" if count > @offset + @size

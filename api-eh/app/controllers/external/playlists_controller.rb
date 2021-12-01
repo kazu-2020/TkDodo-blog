@@ -17,6 +17,7 @@ class External::PlaylistsController < ApplicationController
     @size = (params[:size] || DEFAULT_SIZE).to_i
     @item_offset = (params[:itemOffset] || 0).to_i
     @item_size = (params[:itemSize] || DEFAULT_SIZE).to_i
+    @item_order = params[:itemOrder] || 'asc'
 
     media_action = (params[:mediaAction] || '').split(',')
     order = params[:order] || 'desc'
@@ -24,6 +25,7 @@ class External::PlaylistsController < ApplicationController
 
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
     render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(order)
+    render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(@item_order)
 
     unless %w[dateModified dateCreated].include?(order_by)
       render json: { message: '無効なパラメーターが指定されています' }, status: 400
