@@ -52,9 +52,7 @@ class External::PlaylistsController < ApplicationController
       render json: { message: 'デッキが見つかりませんでした' }, status: 404
     end
   end
-  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
   def show
     if params[:playlist_id].present?
       playlist_id = convert_playlist_id(params[:playlist_id])
@@ -75,7 +73,7 @@ class External::PlaylistsController < ApplicationController
     @size = (params[:itemSize] || DEFAULT_SIZE).to_i
     @offset = (params[:itemOffset] || 0).to_i
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
 
   def bundle
     if params[:playlist_id].present?

@@ -15,7 +15,6 @@ class External::DecksController < ApplicationController
     @area = params[:area]
     is_r5 = !(params[:deck_id] =~ /r5/).nil?
     @deck = Deck.find_by(area: @area, is_r5: is_r5)
-    media_action = (params[:mediaAction] || '').split(',')
     @order = params[:playlistOrder] || 'desc'
     @order_by = params[:playlistOrderBy] || 'dateModified'
     @size = (params[:playlistSize] || DEFAULT_SIZE).to_i
