@@ -3,16 +3,15 @@
 class Oembed::Response::Series
   include Oembed::Response::Respondable
 
-  # rubocop:disable Metrics/MethodLength
-  def response
+  def response # rubocop:disable Metrics/MethodLength
     res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').series(type: 'tv', series_id: extract_series_id)
     raise DlabApiClient::NotFound if res.blank?
 
     layout_pattern = res.dig(:additionalProperty, :layoutPattern)
 
     src = "#{src_host}/embed/#{extract_series_url}?layout_pattern=#{layout_pattern}"
-    height ||= Embed::LayoutPattern.DEFAULT_SIZE[layout_pattern.to_sym][:height] || 210
-    width ||= Embed::LayoutPattern.DEFAULT_SIZE[layout_pattern.to_sym][:width] || '100%'
+    height ||= Embed::LayoutPattern::DEFAULT_SIZE[layout_pattern.to_sym][:height] || 210
+    width ||= Embed::LayoutPattern::DEFAULT_SIZE[layout_pattern.to_sym][:width] || '100%'
     {
       version: '1.0',
       width: width,
@@ -28,7 +27,6 @@ class Oembed::Response::Series
       html: "<iframe width=\"#{width}\" height=\"#{height}\" src=\"#{src}\" style=\"border: 0;\"></iframe>"
     }
   end
-  # rubocop:enable Metrics/MethodLength
 
   private
 

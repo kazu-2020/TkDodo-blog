@@ -13,6 +13,8 @@ class Embed::ViewComponentBuilder
       build_featured_item_view_component
     when 'itemList'
       build_item_list_view_component
+    when 'largeImage'
+      build_large_image_view_component
     end
   rescue DlabApiClient::NotFound
     nil
@@ -29,6 +31,10 @@ class Embed::ViewComponentBuilder
   end
 
   def build_item_list_view_component
+    raise NotImplementedError, "You must implement #{self.class}##{__method__}"
+  end
+
+  def build_large_image_view_component
     raise NotImplementedError, "You must implement #{self.class}##{__method__}"
   end
 end

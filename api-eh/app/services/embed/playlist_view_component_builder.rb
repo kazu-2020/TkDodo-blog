@@ -53,4 +53,20 @@ class Embed::PlaylistViewComponentBuilder < Embed::ViewComponentBuilder
                                  episodes: episodes,
                                  height: @height)
   end
+
+  def build_large_image_view_component
+    episode_id = playlist.playlist_items.first&.episode_id
+    # cache dataが古い可能性があるので、APIからEpisode情報を引き直す
+    episode_data = if episode_id
+                     DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp')
+                                  .episode(type: 'tv', episode_id: episode_id)
+                   else
+                     {}
+                   end
+
+    Embed::LargeImageComponent.new(url: url,
+                                   name: playlist.name,
+                                   episode_data: episode_data,
+                                   height: @height)
+  end
 end

@@ -44,4 +44,18 @@ class Embed::SeriesViewComponentBuilder < Embed::ViewComponentBuilder
                                  episodes: res[:result],
                                  height: @height)
   end
+
+  def build_large_image_view_component
+    res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp').episode_from_series(type: 'tv',
+                                                                                       series_id: @resource_id,
+                                                                                       request_type: :l,
+                                                                                       query: { size: 1 })
+    episode_data = res[:result].first
+    series_data = episode_data[:partOfSeries]
+
+    Embed::LargeImageComponent.new(url: series_data[:url],
+                                   name: series_data[:name],
+                                   episode_data: episode_data,
+                                   height: @height)
+  end
 end
