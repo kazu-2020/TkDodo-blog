@@ -79,7 +79,8 @@ json.url base_url + "/t/nplaylist/pl/#{playlist.original_id}.json#{url_params}"
 
 media_action_params = media_action&.split(',') || []
 item_url_params =
-  { size: 10, offset: 0, availableOn: media_action_params.include?('watch') ? 'okushibu' : nil }
+  { size: size, offset: offset, availableOn: media_action_params.include?('watch') ? 'okushibu' : nil,
+    order: item_order.nil? ? nil : item_order }
   .delete_if { |_, v| v.nil? }
   .to_param
 item_url_params = "?#{item_url_params}"
