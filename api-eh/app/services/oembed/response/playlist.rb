@@ -3,19 +3,11 @@
 class Oembed::Response::Playlist
   include Oembed::Response::Respondable
 
-  DEFAULT_SIZE = {
-    summary: { height: 210, width: '100%' },
-    featuredItem: { height: 385, width: '240' },
-    itemList: { height: 210, width: '240' },
-    largeImage: { height: 210, width: '100%' }
-  }.freeze
-
-  # rubocop:disable Metrics/MethodLength
-  def response
+  def response # rubocop:disable Metrics/MethodLength
     playlist = Playlist.find(extract_playlist_id)
     src = "#{src_host}/embed/#{extract_playlist_url}?layout_pattern=#{playlist.layout_pattern}"
-    height ||= DEFAULT_SIZE[playlist.layout_pattern.to_sym][:height] || 210
-    width ||= DEFAULT_SIZE[playlist.layout_pattern.to_sym][:width] || '100%'
+    height ||= Embed::LayoutPattern::DEFAULT_SIZE[playlist.layout_pattern.to_sym][:height] || 210
+    width ||= Embed::LayoutPattern::DEFAULT_SIZE[playlist.layout_pattern.to_sym][:width] || '100%'
     {
       version: '1.0',
       width: width,
@@ -31,7 +23,6 @@ class Oembed::Response::Playlist
       html: "<iframe width=\"#{width}\" height=\"#{height}\" src=\"#{src}\" style=\"border: 0;\"></iframe>"
     }
   end
-  # rubocop:enable Metrics/MethodLength
 
   private
 

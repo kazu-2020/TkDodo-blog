@@ -24,6 +24,12 @@ class OembedDebuggerController < ApplicationController
     @src = "/embed/#{@type}/#{@id}?layout_pattern=itemList"
   end
 
+  def large_image
+    @type = params[:type] || 'pl' # or 'ts'
+    @id = params[:id] || 'ts-W3W8WRN8M3' # or 'W3W8WRN8M3'
+    @src = "/embed/#{@type}/#{@id}?layout_pattern=largeImage"
+  end
+
   def host
     Rails.env.development? ? 'http://localhost:8888' : 'https://dev-api-eh.nr.nhk.jp'
   end

@@ -104,6 +104,7 @@ Rails.application.routes.draw do
   get 'oembed_debugger/summary'
   get 'oembed_debugger/featured_item'
   get 'oembed_debugger/item_list'
+  get 'oembed_debugger/large_image'
 
   post '/slack/incoming_webhook', to: 'slack#incoming_webhook', format: 'json'
   get '/editor/fetch_link', to: 'editors#fetch_link', as: :fetch_link_editor, format: 'json'

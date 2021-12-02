@@ -38,6 +38,17 @@ describe EmbedController, type: :request do
         end
       end
     end
+
+    describe 'largeImage' do
+      let(:layout_pattern) { 'largeImage' }
+
+      it 'returns success response' do
+        VCR.use_cassette('dlab_api_episode_from_series') do
+          get "/embed/ts/#{series_id}", params: { layout_pattern: layout_pattern }
+          expect(response.status).to eq 200
+        end
+      end
+    end
   end
 
   describe 'Playlist' do
@@ -77,6 +88,21 @@ describe EmbedController, type: :request do
 
     describe 'itemList' do
       let(:layout_pattern) { 'itemList' }
+
+      before do
+        playlist.playlist_items.first.update(episode_id: 'GXLN8793GK')
+      end
+
+      it 'returns success response' do
+        VCR.use_cassette('embed_spec_pl_featured_item') do
+          get "/embed/pl/eh-#{playlist_id}", params: { layout_pattern: layout_pattern }
+          expect(response.status).to eq 200
+        end
+      end
+    end
+
+    describe 'largeImage' do
+      let(:layout_pattern) { 'largeImage' }
 
       before do
         playlist.playlist_items.first.update(episode_id: 'GXLN8793GK')
