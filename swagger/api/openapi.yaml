@@ -10,7 +10,7 @@ servers:
 paths:
   /t/nplaylist/pl/{playlistId}.json:
     get:
-      summary: リコメンドプレイリストの id ( eh-XXXX ) 引き
+      summary: レコメンドプレイリストの id ( eh-XXXX ) 引き
       description: >
         EditorialHands で作成したプレイリストの id ( eh-XXXX ) 引き
       operationId: getTNpalylistPlId
@@ -41,6 +41,16 @@ paths:
           default: 130
           schema:
             type: string
+        - name: mediaAction
+          in: query
+          description: itemUrl に引き継ぐ mediaAction の指定
+          required: false
+          default: null
+          schema:
+            type: string
+            enum:
+              - watch
+              - read
         - name: itemSize
           in: query
           description: プレイリスト内のエピソード返却数
@@ -55,6 +65,16 @@ paths:
           default: 0
           schema:
             type: string
+        - name: itemOrder
+          in: query
+          description: itemUrl に引き継ぐ order の指定
+          required: false
+          default: desc
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
       responses:
         200:
           description: 正常なレスポンス
@@ -70,7 +90,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /t/nplaylist/id/{playlistUid}.json:
     get:
-      summary: リコメンドプレイリストの uid (ハッシュ値) 引き
+      summary: レコメンドプレイリストの uid (ハッシュ値) 引き
       description: >
         EditorialHands で作成したプレイリストの uid (ハッシュ値) 引き
       operationId: getTNpalylistIdUid
@@ -101,6 +121,16 @@ paths:
           default: 130
           schema:
             type: string
+        - name: mediaAction
+          in: query
+          description: itemUrl に引き継ぐ mediaAction の指定
+          required: false
+          default: null
+          schema:
+            type: string
+            enum:
+              - watch
+              - read
         - name: itemSize
           in: query
           description: プレイリスト内のエピソード返却数
@@ -115,6 +145,16 @@ paths:
           default: 0
           schema:
             type: string
+        - name: itemOrder
+          in: query
+          description: itemUrl に引き継ぐ order の指定
+          required: false
+          default: desc
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
       responses:
         200:
           description: 正常なレスポンス
@@ -167,7 +207,7 @@ paths:
             enum:
               - watch
               - read
-        - name: order
+        - name: playlistOrder
           in: query
           description: playlistUrl に引き継ぐ order の指定
           required: false
@@ -177,7 +217,7 @@ paths:
             enum:
               - asc
               - desc
-        - name: orderBy
+        - name: playlistOrderBy
           in: query
           description: playlistUrl に引き継ぐ orderBy の指定
           required: false
@@ -189,18 +229,42 @@ paths:
               - dateCreated
         - name: playlistSize
           in: query
-          description: playlistUrl に引き継ぐ size パラメーターの値
+          description: playlistUrl にて一度に取得するプレイリストの数を指定するパラメーター
           required: false
           default: 10
           schema:
             type: integer
         - name: playlistOffset
           in: query
-          description: palylistUrl に引き継ぐ offset を決定するための値
+          description: palylistUrl にて一度に取得するプレイリストのオフセットを指定するパラメーター
           required: false
           default: null
           schema:
             type: integer
+        - name: itemSize
+          in: query
+          description: playlistUrl に内に含まれる itemUrl にて、エピソード数を指定するパラメーター
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: itemOffset
+          in: query
+          description: playlistUrl に内に含まれる itemUrl にて、エピソードのオフセットを指定するパラメーター
+          required: false
+          default: 0
+          schema:
+            type: integer
+        - name: itemOrder
+          in: query
+          description: playlistUrl に内に含まれる itemUrl にて、エピソードの順序を指定するパラメーター
+          required: false
+          default: desc
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
       responses:
         200:
           description: 正常なレスポンス
@@ -260,7 +324,7 @@ paths:
             enum:
               - watch
               - read
-        - name: order
+        - name: playlistOrder
           in: query
           description: playlistUrl に引き継ぐ order の指定
           required: false
@@ -270,7 +334,7 @@ paths:
             enum:
               - asc
               - desc
-        - name: orderBy
+        - name: playlistOrderBy
           in: query
           description: playlistUrl に引き継ぐ orderBy の指定
           required: false
@@ -282,18 +346,42 @@ paths:
               - dateCreated
         - name: playlistSize
           in: query
-          description: playlistUrl に引き継ぐ size パラメーターの値
+          description: playlistUrl にて一度に取得するプレイリストの数を指定するパラメーター
           required: false
           default: 10
           schema:
             type: integer
         - name: playlistOffset
           in: query
-          description: palylistUrl に引き継ぐ offset を決定するための値
+          description: palylistUrl にて一度に取得するプレイリストのオフセットを指定するパラメーター
           required: false
           default: null
           schema:
             type: integer
+        - name: itemSize
+          in: query
+          description: playlistUrl に内に含まれる itemUrl にて、エピソード数を指定するパラメーター
+          required: false
+          default: 10
+          schema:
+            type: integer
+        - name: itemOffset
+          in: query
+          description: playlistUrl に内に含まれる itemUrl にて、エピソードのオフセットを指定するパラメーター
+          required: false
+          default: 0
+          schema:
+            type: integer
+        - name: itemOrder
+          in: query
+          description: playlistUrl に内に含まれる itemUrl にて、エピソードの順序を指定するパラメーター
+          required: false
+          default: desc
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
       responses:
         200:
           description: 正常なレスポンス
@@ -309,7 +397,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /t/bundle/pl/{playlistId}.json:
     get:
-      summary: サブタイプを含むリコメンドプレイリストの id ( eh-XXXX )引き
+      summary: サブタイプを含むレコメンドプレイリストの id ( eh-XXXX )引き
       description: >
         EditorialHandsで作成したプレイリストおよびそのプレイリストに紐づくサブタイプの取得
       operationId: getTBundlePlId
@@ -362,7 +450,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /l/bundle/pl/{playlistId}/types.json:
     get:
-      summary: リコメンドプレイリストにおけるプレイリストと記事の保持数取得の id ( eh-XXXX ) 引き
+      summary: レコメンドプレイリストにおけるプレイリストと記事の保持数取得の id ( eh-XXXX ) 引き
       description: >
         EditorialHands で作成したプレイリストにおけるプレイリストと記事の保持数取得の id ( eh-XXXX ) 引き
       operationId: getLBundlePlIdTypes
@@ -390,7 +478,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /l/bundle/id/{playlistUid}/types.json:
     get:
-      summary: リコメンドプレイリストにおけるプレイリストと記事の保持数取得の uid (ハッシュ値) 引き
+      summary: レコメンドプレイリストにおけるプレイリストと記事の保持数取得の uid (ハッシュ値) 引き
       description: >
         EditorialHands で作成したプレイリストにおけるプレイリストと記事の保持数取得の uid (ハッシュ値) 引き
       operationId: getLBundleIdUidTypes
@@ -418,7 +506,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /ll/bundle/pl/{playlistId}/types.json:
     get:
-      summary: リコメンドプレイリストにおけるエピソードおよびサブタイプの保持数取得の id ( eh-XXXX ) 引き
+      summary: レコメンドプレイリストにおけるエピソードおよびサブタイプの保持数取得の id ( eh-XXXX ) 引き
       description: >
         EditorialHands で作成したプレイリストにおけるエピソードおよびサブタイプの保持数取得の id ( eh-XXXX ) 引き
       operationId: getLlBundlePlIdTypes
@@ -446,7 +534,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /ll/bundle/id/{playlistUid}/types.json:
     get:
-      summary: リコメンドプレイリストにおけるエピソードおよびサブタイプの保持数取得の uid (ハッシュ値) 引き
+      summary: レコメンドプレイリストにおけるエピソードおよびサブタイプの保持数取得の uid (ハッシュ値) 引き
       description: >
         EditorialHands で作成したプレイリストにおけるエピソードおよびサブタイプの保持数取得の uid (ハッシュ値) 引き
       operationId: getLlBundleIdUidTypes
@@ -474,7 +562,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /lll/bundle/pl/{playlistId}/types.json:
     get:
-      summary: リコメンドプレイリストのサイト表示可否情報の id ( eh-XXXX ) 引き
+      summary: レコメンドプレイリストのサイト表示可否情報の id ( eh-XXXX ) 引き
       description: >
         EditorialHands で作成したプレイリストのサイト表示可否情報の id ( eh-XXXX ) 引き
       operationId: getLllBundlePlIdTypes
@@ -502,7 +590,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /lll/bundle/id/{playlistUid}/types.json:
     get:
-      summary: リコメンドプレイリストのサイト表示可否情報の uid (ハッシュ値) 引き
+      summary: レコメンドプレイリストのサイト表示可否情報の uid (ハッシュ値) 引き
       description: >
         EditorialHands で作成したプレイリストのサイト表示可否情報の uid (ハッシュ値) 引き
       operationId: getLllBundleIdUidTypes
@@ -532,7 +620,7 @@ paths:
     get:
       summary: デッキに属するプレイリストのデータリストを返却する
       description: >
-        デッキに属するプレイリストのデータリストを返却する。deckId により 各APIバージョンごとのリコメンドプレイリスト一覧が取得可能。
+        デッキに属するプレイリストのデータリストを返却する。deckId により 各APIバージョンごとのレコメンドプレイリスト一覧が取得可能。
       operationId: getLNplaylistDkId
       tags:
         - playlist
@@ -632,7 +720,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /l/tvepisode/pl/{playlistId}.json:
     get:
-      summary: リコメンドプレイリストのエピソード情報の id ( eh-XXXX ) 引き
+      summary: レコメンドプレイリストのエピソード情報の id ( eh-XXXX ) 引き
       description: >
         EditorialHands で作成した特定プレイリストのエピソード情報 id ( eh-XXXX ) 引き
       operationId: getLTvepisodePlId
@@ -698,7 +786,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /l/tvepisode/id/{playlistUid}.json:
     get:
-      summary: リコメンドプレイリストのエピソード情報の uid (ハッシュ値) 引き
+      summary: レコメンドプレイリストのエピソード情報の uid (ハッシュ値) 引き
       description: >
         EditorialHands で作成した特定プレイリストのエピソード情報 uid (ハッシュ値) 引き
       operationId: getLTvepisodeIdUid
@@ -764,7 +852,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /l/faqpage/pl/{playlistId}.json:
     get:
-      summary: リコメンドプレイリストのFAQPage情報の id ( eh-XXXX ) 引き
+      summary: レコメンドプレイリストのFAQPage情報の id ( eh-XXXX ) 引き
       description: >
         EditorialHands で作成した特定プレイリストのFAQPage情報 id ( eh-XXXX ) 引き
       operationId: getLFaqpagePlId
@@ -821,7 +909,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /l/faqpage/id/{playlistUid}.json:
     get:
-      summary: リコメンドプレイリストのFAQPage情報の uid (ハッシュ値) 引き
+      summary: レコメンドプレイリストのFAQPage情報の uid (ハッシュ値) 引き
       description: >
         EditorialHands で作成した特定プレイリストのFAQPage情報 uid (ハッシュ値) 引き
       operationId: getLFaqpageIdUid
@@ -878,7 +966,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /l/event/pl/{playlistId}.json:
     get:
-      summary: リコメンドプレイリストのイベント情報の id ( eh-XXXX ) 引き
+      summary: レコメンドプレイリストのイベント情報の id ( eh-XXXX ) 引き
       description: >
         EditorialHands で作成した特定プレイリストのイベント情報 id ( eh-XXXX ) 引き
       operationId: getLEventPlId
@@ -935,7 +1023,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /l/event/id/{playlistUid}.json:
     get:
-      summary: リコメンドプレイリストのイベント情報の uid (ハッシュ値) 引き
+      summary: レコメンドプレイリストのイベント情報の uid (ハッシュ値) 引き
       description: >
         EditorialHands で作成した特定プレイリストのイベント情報 uid (ハッシュ値) 引き
       operationId: getLEventIdUid
@@ -992,7 +1080,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /l/howto/pl/{playlistId}.json:
     get:
-      summary: リコメンドプレイリストのハウツー情報の id ( eh-XXXX ) 引き
+      summary: レコメンドプレイリストのハウツー情報の id ( eh-XXXX ) 引き
       description: >
         EditorialHands で作成した特定プレイリストのハウツー情報 id ( eh-XXXX ) 引き
       operationId: getLHowtoPlId
@@ -1049,7 +1137,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /l/howto/id/{playlistUid}.json:
     get:
-      summary: リコメンドプレイリストのハウツー情報の uid (ハッシュ値) 引き
+      summary: レコメンドプレイリストのハウツー情報の uid (ハッシュ値) 引き
       description: >
         EditorialHands で作成した特定プレイリストのハウツー情報 uid (ハッシュ値) 引き
       operationId: getLHowtoIdUid
