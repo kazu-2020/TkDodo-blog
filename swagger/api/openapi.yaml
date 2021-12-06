@@ -772,6 +772,9 @@ paths:
                     items:
                       type: string
                       example: レスポンス内容は r6 の内容のままです
+                  resultUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/tvepisode/pl/eh-1234567890.json?offset=0&size=10
                   nextUrl:
                     type: string
                     example: https://example.com/d6.6/l/tvepisode/pl/eh-1234567890.json?offset=10&size=10
@@ -838,6 +841,9 @@ paths:
                     items:
                       type: string
                       example: レスポンス内容は r6 の内容のままです
+                  resultUrl:
+                    type: string
+                    example: https://example.com/d6.6/l/tvepisode/id/ad6f1840-49a7-4bd1-bb35-104014ca4c2e.json?offset=0&size=10
                   nextUrl:
                     type: string
                     example: https://example.com/d6.6/l/tvepisode/id/ad6f1840-49a7-4bd1-bb35-104014ca4c2e.json?offset=10&size=10
