@@ -20,6 +20,7 @@ episodes =
 
 json.count count
 json.set_raw! :result, episodes.to_json
+json.resultUrl request.url
 
 # rubocop: disable Layout/LineLength
 if params[:playlist_id]
