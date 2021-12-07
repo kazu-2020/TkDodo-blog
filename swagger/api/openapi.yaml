@@ -294,8 +294,8 @@ paths:
           schema:
             type: string
             enum:
-              - r6-tv-130
-              - r5-tv-130
+              - r6-tv
+              - r5-tv
         - name: area
           in: query
           description: エリアコード指定
@@ -1363,15 +1363,6 @@ components:
             playlistName:
               type: string
               example: オトッペ
-            typeOfList:
-              type: string
-              example: recommend
-            modeOfItem:
-              type: string
-              example: tv
-            typeOfItem:
-              type: string
-              example: TVEpisode
             hashtag:
               type: array
               items:
@@ -1395,6 +1386,15 @@ components:
               $ref: "#/components/schemas/LayoutPattern"
             publishLevel:
               $ref: "#/components/schemas/PublishLevel"
+            typeOfList:
+              type: string
+              example: recommend
+            modeOfItem:
+              type: string
+              example: tv
+            typeOfItem:
+              type: string
+              example: TVEpisode
         relatedDeck:
           type: array
           items:
