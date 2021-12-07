@@ -6,7 +6,10 @@
         <div v-show="hasPlaylistId" class="chips">
           <published-state-badge class="my-1" :playlist="playlist" />
           <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
-            ID: {{ omittedPlaylisitId }}
+            Id: {{ playlisitId }}
+          </v-chip>
+          <v-chip class="my-1" color="primary" small @click="copyPlaylistUId">
+            UId: {{ omittedPlaylisitUId }}
           </v-chip>
           <v-chip
             v-if="playlistSeriesId"
@@ -128,9 +131,12 @@ export default Vue.extend({
     playlistName(): string {
       return this.playlist?.name || ''
     },
-    omittedPlaylisitId(): string {
+    omittedPlaylisitUId(): string {
       const playlistId = this.playlist?.id || ''
       return playlistId.length > 8 ? playlistId.slice(0, 8) + '...' : playlistId
+    },
+    playlisitId(): string {
+      return this.playlist?.originalId || ''
     },
     playlistSeriesId(): string | undefined {
       return this.playlist?.originalSeriesId
@@ -146,9 +152,15 @@ export default Vue.extend({
     },
   },
   methods: {
-    copyPlaylistId(): void {
+    copyPlaylistUId(): void {
       if (navigator.clipboard) {
         navigator.clipboard.writeText(this.playlist.id)
+        this.snackbar = true
+      }
+    },
+    copyPlaylistId(): void {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(this.playlist.originalId)
         this.snackbar = true
       }
     },
