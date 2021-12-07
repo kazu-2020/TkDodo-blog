@@ -294,8 +294,8 @@ paths:
           schema:
             type: string
             enum:
-              - r6-tv-130
-              - r5-tv-130
+              - r6-tv
+              - r5-tv
         - name: area
           in: query
           description: エリアコード指定
