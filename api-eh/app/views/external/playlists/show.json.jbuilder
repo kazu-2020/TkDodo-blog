@@ -32,7 +32,7 @@ if @playlist.deck.present?
       json.name @playlist.deck.name
       json.description @playlist.deck.description
       json.identifierGroup do
-        json.deckUId @playlist.deck.deck_uid(deck_id)
+        json.deckUId @playlist.deck.visible_uid
         json.deckId deck_id
         json.deckName @playlist.deck.name
         json.typeOfDeck @playlist.deck.item_type
