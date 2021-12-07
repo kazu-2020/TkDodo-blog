@@ -24,10 +24,7 @@ url_params = params.permit(:area, :type, :mediaAction).merge(merge_param).to_par
 json.playlistUrl "#{external_playlists_url(deck_id: deck_id)}.json?#{url_params.to_param}"
 
 json.sameAs do
-  json.array! [
-    "https://www.nhk.jp/d/dk/recommend-tv-#{@area}",
-    "https://dev-preview-eh.nr.nhk.jp/d/dk/recommend-tv-#{@area}"
-  ]
+  json.array! []
 end
 
 json.url @request_url
