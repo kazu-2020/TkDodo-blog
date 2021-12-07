@@ -247,14 +247,6 @@ class Playlist < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
-  def deck_ids
-    return [] unless deck.present?
-
-    ids = [deck.deck_id('visible')]
-    ids << deck.deck_id('editorial') if has_article?
-    ids
-  end
-
   def update_playable_total_time!
     self.playable_total_time = playlist_items.playable.sum(&:duration)
     save!
