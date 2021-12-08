@@ -24,7 +24,7 @@
           <div class="flex flex-col justify-between">
             <div>
               <div class="text-xxs text-bold line-clamp-2">
-                <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+                <span style="color: <%= episode_series_primary_light %>"><%= episode_series_name %></span>
               </div>
               <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-3"><%= @episode_data[:name] %></div>
               <div class="text-gray-350 text-xs mt-2">
@@ -60,7 +60,7 @@
           </div>
           <div class="flex-auto ml-3">
             <div class="text-xs line-clamp-2">
-              <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+              <span style="color: <%= episode_series_primary_light %>"><%= episode_series_name %></span>
             </div>
             <div class="font-bold text-md mt-1 mb-2 line-clamp-2"><%= @episode_data[:name] %></div>
             <div class="text-gray-350 text-xs mt-2">
@@ -87,7 +87,7 @@
               class="rounded-sm"
               alt="<%= @episode_data[:name] %>"/>
             <div class="text-xs mt-1 line-clamp-2">
-              <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+              <span style="color: <%= episode_series_primary_light %>"><%= episode_series_name %></span>
             </div>
             <div class="font-bold text-sm mt-1 w-54 line-clamp-2"><%= @episode_data[:name] %></div>
             <div class="text-gray-350 text-xs">
@@ -121,7 +121,7 @@
           </div>
           <div class="flex-auto ml-3">
             <div class="text-xs line-clamp-2">
-              <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+              <span style="color: <%= episode_series_primary_light %>"><%= episode_series_name %></span>
             </div>
             <div class="font-bold text-md mt-1 mb-2 line-clamp-2"><%= @episode_data[:name] %></div>
             <div class="text-gray-350 text-xs mt-2">
