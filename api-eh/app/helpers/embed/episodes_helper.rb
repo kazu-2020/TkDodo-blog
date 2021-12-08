@@ -12,6 +12,9 @@ module Embed::EpisodesHelper
     episode_data.dig(:partOfSeries, :name)
   end
 
+  def episode_series_primary_light(episode_data = @episode_data)
+    episode_data.dig(:partOfSeries, :style, :primaryLight)
+  end
 
   private
 

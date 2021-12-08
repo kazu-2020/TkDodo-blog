@@ -9,7 +9,7 @@
         <div class="flex flex-col justify-between mb-auto h-full">
           <div class="flex-auto">
             <div class="text-xs line-clamp-2">
-              <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+              <span style="color: <%= episode_series_primary_light %>"><%= episode_series_name %></span>
             </div>
 
             <div class="font-bold text-md mt-1 mb-2 line-clamp-2">
@@ -49,7 +49,7 @@
         <div class="flex mb-auto h-full">
           <div class="flex-auto">
             <div class="text-xs line-clamp-2">
-              <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+              <span style="color: <%= episode_series_primary_light %>"><%= episode_series_name %></span>
             </div>
 
             <div class="font-bold text-md mt-1 mb-2 line-clamp-2">
@@ -114,7 +114,7 @@
               alt="<%= @event_data[:name] %>"/>
             <div class="my-2"></div>
             <div class="text-xs line-clamp-2">
-              <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+              <span style="color: <%= episode_series_primary_light %>"><%= episode_series_name %></span>
             </div>
 
             <div class="font-bold text-sm mt-1 mb-2 w-54 line-clamp-2"><%= @event_data[:name] %></div>
@@ -131,7 +131,7 @@
         <div class="flex mb-auto h-full">
           <div class="flex-auto">
             <div class="text-xs line-clamp-2">
-              <span style="color: <%= @episode_data.dig(:partOfSeries, :style, :primaryLight) %>"><%= @episode_data.dig(:identifierGroup, :seriesName) %></span>
+              <span style="color: <%= episode_series_primary_light %>"><%= episode_series_name %></span>
             </div>
 
             <div class="font-bold text-md mt-1 mb-2 line-clamp-2">
