@@ -8,6 +8,11 @@ module Embed::EpisodesHelper
       '//via.placeholder.com/640x360'
   end
 
+  def episode_series_name(episode_data = @episode_data)
+    episode_data.dig(:partOfSeries, :name)
+  end
+
+
   private
 
   # TODO: episodeのeyecatchが無かった時にseriesのeyecatchを表示する

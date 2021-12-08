@@ -35,7 +35,7 @@
                        data-key-color-target="setBackgroundColor" data-opacity="0.8"></div>
                   <div class="episode-item absolute top-0 z-10 w-full h-14 p-2">
                     <div class="text-xs truncate mb-1"><%= episode.dig(:name) %></div>
-                    <div class="text-xs text-gray-450 truncate"><%= episode.dig(:partOfSeries, :name) %></div>
+                    <div class="text-xs text-gray-450 truncate"><%= episode_series_name(episode) %></div>
                   </div>
                 </a>
               </div>
