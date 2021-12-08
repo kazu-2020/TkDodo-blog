@@ -15,12 +15,17 @@ class External::PlaylistsController < ApplicationController
     @deck = Deck.find_by(area: @area, is_r5: is_r5)
     @offset = (params[:offset] || 0).to_i
     @size = (params[:size] || DEFAULT_SIZE).to_i
+    @item_offset = (params[:itemOffset] || 0).to_i
+    @item_size = (params[:itemSize] || DEFAULT_SIZE).to_i
+    @item_order = params[:itemOrder] || 'asc'
+
     media_action = (params[:mediaAction] || '').split(',')
     order = params[:order] || 'desc'
     order_by = params[:orderBy] || 'dateModified'
 
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
     render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(order)
+    render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(@item_order)
 
     unless %w[dateModified dateCreated].include?(order_by)
       render json: { message: '無効なパラメーターが指定されています' }, status: 400
@@ -47,9 +52,7 @@ class External::PlaylistsController < ApplicationController
       render json: { message: 'デッキが見つかりませんでした' }, status: 404
     end
   end
-  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
   def show
     if params[:playlist_id].present?
       playlist_id = convert_playlist_id(params[:playlist_id])
@@ -60,6 +63,8 @@ class External::PlaylistsController < ApplicationController
     else
       raise ActiveRecord::RecordNotFound
     end
+    @order = params[:itemOrder] || 'desc'
+    render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(@order)
 
     @object_type = params[:type] || 'tvepisode'
     @area = params[:area]
@@ -68,7 +73,7 @@ class External::PlaylistsController < ApplicationController
     @size = (params[:itemSize] || DEFAULT_SIZE).to_i
     @offset = (params[:itemOffset] || 0).to_i
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
 
   def bundle
     if params[:playlist_id].present?
@@ -128,7 +133,7 @@ class External::PlaylistsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def episodes
     if params[:playlist_id].present?
       playlist_id = convert_playlist_id(params[:playlist_id])
@@ -139,11 +144,13 @@ class External::PlaylistsController < ApplicationController
     else
       raise ActiveRecord::RecordNotFound
     end
-
+    @playlist_items = PlaylistItem.where(playlist_id: @playlist.id).kept
     @offset = (params[:offset] || 0).to_i
     @size = (params[:size] || DEFAULT_SIZE).to_i
+    @order = params[:order] || 'asc'
+    render json: { message: '無効なパラメーターが指定されています' }, status: 400 and return unless %w[asc desc].include?(@order)
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def faq_pages

@@ -9,9 +9,6 @@ json.identifierGroup do
   json.playlistUId @playlist.string_id
   json.playlistId @playlist.original_id
   json.playlistName @playlist.name
-  json.typeOfList 'recommend'
-  json.modeOfItem 'tv'
-  json.typeOfItem type_of_item(@object_type)
   json.hashtag @playlist.hashtags
   json.aliasId @playlist.alias_id || ''
   json.formatGenre format_genre(@playlist)
@@ -21,6 +18,9 @@ end
 json.additionalProperty do
   json.layoutPattern @playlist.layout_pattern
   json.publishLevel @playlist.publish_level
+  json.typeOfList 'recommend'
+  json.modeOfItem 'tv'
+  json.typeOfItem type_of_item(@object_type)
 end
 
 if @playlist.deck.present?
@@ -32,7 +32,7 @@ if @playlist.deck.present?
       json.name @playlist.deck.name
       json.description @playlist.deck.description
       json.identifierGroup do
-        json.deckUId @playlist.deck.deck_uid(deck_id)
+        json.deckUId @playlist.deck.visible_uid
         json.deckId deck_id
         json.deckName @playlist.deck.name
         json.typeOfDeck @playlist.deck.item_type
@@ -86,7 +86,8 @@ end
 media_action_params = (params[:mediaAction] || '').split(',')
 item_url_params =
   { size: params[:itemSize].nil? ? nil : @size, offset: params[:itemOffset].nil? ? nil : @offset,
-    availableOn: media_action_params.include?('watch') ? 'okushibu' : nil }
+    availableOn: media_action_params.include?('watch') ? 'okushibu' : nil,
+    order: params[:itemOrder].nil? ? nil : @order }
   .delete_if { |_, v| v.nil? }
   .to_param
 item_url_params = "?#{item_url_params}" if item_url_params.size.positive?

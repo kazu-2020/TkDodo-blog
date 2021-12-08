@@ -12,10 +12,14 @@ json.identifierGroup do
   json.typeOfDeck @deck.item_type
 end
 
-next_url_params = params.permit(:area, :type, :mediaAction, :order, :orderBy).merge(offset: @offset,
-                                                                                    size: @size).to_param
-url = "#{external_playlists_url(deck_id: @deck.deck_id('tv'))}.json?#{next_url_params.to_param}"
-json.playlistUrl url
+merge_param = { itemOffset: @item_offset, itemSize: @item_size, size: @size, offset: @offset,
+                order: params[:playlistOrder].nil? ? nil : @order,
+                orderBy: params[:playlistOrderBy].nil? ? nil : @order_by,
+                itemOrder: params[:itemOrder].nil? ? nil : @item_order }
+              .delete_if { |_, v| v.nil? }
+url_params = params.permit(:area, :type, :mediaAction).merge(merge_param).to_param
+
+json.playlistUrl "#{external_playlists_url(deck_id: @deck.deck_id('tv'))}.json?#{url_params.to_param}"
 
 json.sameAs do
   json.array! [

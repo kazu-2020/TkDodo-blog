@@ -15,9 +15,6 @@ json.identifierGroup do
   json.playlistUId playlist.string_id
   json.playlistId playlist.original_id
   json.playlistName playlist.name
-  json.typeOfList 'recommend'
-  json.modeOfItem 'tv'
-  json.typeOfItem type_of_item(object_type)
   json.hashtag playlist.hashtags
   json.aliasId playlist.alias_id || ''
   json.formatGenre format_genre(playlist)
@@ -27,6 +24,9 @@ end
 json.additionalProperty do
   json.layoutPattern playlist.layout_pattern
   json.publishLevel playlist.publish_level
+  json.typeOfList 'recommend'
+  json.modeOfItem 'tv'
+  json.typeOfItem type_of_item(object_type)
 end
 
 if playlist.deck.present?
@@ -38,7 +38,7 @@ if playlist.deck.present?
       json.name playlist.deck.name
       json.description playlist.deck.description
       json.identifierGroup do
-        json.deckUId playlist.deck.deck_uid(deck_id)
+        json.deckUId playlist.deck.visible_uid
         json.deckId deck_id
         json.deckName playlist.deck.name
         json.typeOfDeck playlist.deck.item_type
@@ -79,7 +79,8 @@ json.url base_url + "/t/nplaylist/pl/#{playlist.original_id}.json#{url_params}"
 
 media_action_params = media_action&.split(',') || []
 item_url_params =
-  { size: 10, offset: 0, availableOn: media_action_params.include?('watch') ? 'okushibu' : nil }
+  { size: size, offset: offset, availableOn: media_action_params.include?('watch') ? 'okushibu' : nil,
+    order: item_order.nil? ? nil : item_order }
   .delete_if { |_, v| v.nil? }
   .to_param
 item_url_params = "?#{item_url_params}"

@@ -27,9 +27,17 @@
             class="my-1 playlist-id"
             color="primary"
             small
+            @click="copyPlaylistUId"
+          >
+            UId: {{ playlistUId }}
+          </v-chip>
+          <v-chip
+            class="my-1 playlist-id"
+            color="primary"
+            small
             @click="copyPlaylistId"
           >
-            ID: {{ playlistId }}
+            Id: {{ playlistId }}
           </v-chip>
           <v-chip
             v-if="playlistSeriesId"
@@ -170,8 +178,11 @@ export default Vue.extend({
     playlistSeriesId(): string | undefined {
       return this.playlist?.originalSeriesId
     },
-    playlistId(): string {
+    playlistUId(): string {
       return this.playlist?.id || ''
+    },
+    playlistId(): string {
+      return this.playlist?.originalId || ''
     },
     playlistDescription(): string | undefined {
       return this.playlist?.description?.slice(0, 50)
@@ -184,9 +195,15 @@ export default Vue.extend({
     },
   },
   methods: {
-    copyPlaylistId(): void {
+    copyPlaylistUId(): void {
       if (navigator.clipboard) {
         navigator.clipboard.writeText(this.playlist.id)
+        this.snackbar = true
+      }
+    },
+    copyPlaylistId(): void {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(this.playlist.originalId)
         this.snackbar = true
       }
     },
