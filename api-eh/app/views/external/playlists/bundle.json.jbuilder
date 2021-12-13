@@ -36,7 +36,7 @@ json.nseries do
         json.name @playlist.deck.name
         json.description @playlist.deck.description
         json.identifierGroup do
-          json.deckUId playlist.deck.visible_uid
+          json.deckUId @playlist.deck.visible_uid
           json.deckId deck_id
           json.deckName @playlist.deck.name
           json.typeOfDeck @playlist.deck.item_type
