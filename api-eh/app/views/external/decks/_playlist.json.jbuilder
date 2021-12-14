@@ -62,7 +62,6 @@ json.type 'NPlaylist'
 if playlist.same_as.present?
   json.sameAs do
     json.array! playlist.same_as do |same_as|
-      json.id same_as.id
       json.name same_as.name
       json.url same_as.url
     end
