@@ -12,10 +12,6 @@ Rails.application.routes.draw do
         get 'dk/:deck_id', to: 'external/decks#show_migrated', constraints: { deck_id: /recommend-r(5|6)-tv-130/ }
         get 'recommend/:deck_id', to: 'external/decks#show', constraints: { deck_id: /r(5|6)-tv/ }
       end
-
-      scope :bundle do
-        get 'pl/:playlist_id', to: 'external/playlists#bundle'
-      end
     end
 
     scope :l do
