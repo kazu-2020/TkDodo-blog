@@ -395,59 +395,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /t/bundle/pl/{playlistId}.json:
-    get:
-      summary: サブタイプを含むレコメンドプレイリストの id ( eh-XXXX )引き
-      description: >
-        EditorialHandsで作成したプレイリストおよびそのプレイリストに紐づくサブタイプの取得
-      operationId: getTBundlePlId
-      tags:
-        - playlist
-      parameters:
-        - name: playlistId
-          in: path
-          description: eh-XXXX 形式のID
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: 正常なレスポンス
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  nseries:
-                    $ref: "#/components/schemas/NSeries"
-                  narticle:
-                    $ref: "#/components/schemas/Playlisticle"
-                  tvepisode:
-                    type: array
-                    items:
-                      type: string
-                      example: レスポンス内容は r6 の内容のままです
-                  faqpage:
-                    type: array
-                    items:
-                      type: string
-                      example: レスポンス内容は r6 の内容のままです
-                  event:
-                    type: array
-                    items:
-                      type: string
-                      example: レスポンス内容は r6 の内容のままです
-                  howto:
-                    type: array
-                    items:
-                      type: string
-                      example: レスポンス内容は r6 の内容のままです
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
   /l/bundle/pl/{playlistId}/types.json:
     get:
       summary: レコメンドプレイリストにおけるプレイリストと記事の保持数取得の id ( eh-XXXX ) 引き
