@@ -32,7 +32,7 @@ class Playlist < ApplicationRecord
   has_many :playlist_hashtags, dependent: :destroy
 
   has_many :article_images, dependent: :destroy
-  has_one :same_as, dependent: :destroy
+  has_many :same_as, dependent: :destroy
   accepts_nested_attributes_for :same_as, allow_destroy: true
 
   has_many :citations, dependent: :destroy
@@ -105,7 +105,7 @@ class Playlist < ApplicationRecord
       assign_series_color(playlist, series[:style])
       assign_series_images(playlist, series)
 
-      playlist.build_same_as(name: series[:name], url: series[:url])
+      playlist.same_as.build(name: series[:name], url: series[:url])
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 

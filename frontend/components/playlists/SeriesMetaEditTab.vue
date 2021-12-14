@@ -280,7 +280,7 @@ interface DataType {
   linkLightColor: string
   linkDarkColor: string
   aliasId: string
-  sameAs: Object
+  sameAs: Object[]
   citations: Object[]
   layoutPattern: string
   publishLevel: string
@@ -339,12 +339,7 @@ export default Vue.extend({
       primaryDarkColor: this.playlist.primaryDarkColor || '#ffffff',
       linkLightColor: this.playlist.linkLightColor || '#ffffff',
       linkDarkColor: this.playlist.linkDarkColor || '#ffffff',
-      sameAs: this.playlist.sameAs || {
-        id: null,
-        name: null,
-        url: null,
-        _destroy: 0,
-      },
+      sameAs: this.playlist.sameAs || [],
       citations: this.playlist.citations || [],
       aliasId: this.playlist.aliasId || '',
       valid: true,
