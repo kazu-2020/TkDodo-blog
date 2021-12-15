@@ -76,8 +76,10 @@ json.url "https://dev-www-eh.nr.nhk.jp/p/pl/#{@playlist.original_id}"
 
 if @playlist.same_as.present?
   json.sameAs do
-    json.name @playlist.same_as.name
-    json.url @playlist.same_as.url
+    json.array! @playlist.same_as do |same_as|
+      json.name same_as.name
+      json.url same_as.url
+    end
   end
 else
   json.sameAs nil

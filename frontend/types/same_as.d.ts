@@ -3,4 +3,5 @@ export interface SameAs {
   name: string
   url: string
   _destroy: number
+  sameAsIndex?: number
 }

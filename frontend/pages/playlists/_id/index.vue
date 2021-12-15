@@ -479,29 +479,25 @@ export default Vue.extend({
         }
       }
 
-      if (this.playlist.sameAs?.id) {
-        data.append(
-          'playlist[same_as_attributes][id]',
-          this.playlist.sameAs.id.toString()
-        )
-      }
-      if (this.playlist.sameAs?.name) {
-        data.append(
-          'playlist[same_as_attributes][name]',
-          this.playlist.sameAs?.name
-        )
-      }
-      if (this.playlist.sameAs?.url) {
-        data.append(
-          'playlist[same_as_attributes][url]',
-          this.playlist.sameAs.url
-        )
-      }
-      if (this.playlist.sameAs?._destroy) {
-        data.append(
-          'playlist[same_as_attributes][_destroy]',
-          this.playlist.sameAs._destroy.toString()
-        )
+      for (const sameAs of this.playlist.sameAs) {
+        if (sameAs.id) {
+          data.append(
+            'playlist[same_as_attributes][][id]',
+            sameAs.id.toString()
+          )
+        }
+        if (sameAs.name) {
+          data.append('playlist[same_as_attributes][][name]', sameAs.name)
+        }
+        if (sameAs.url) {
+          data.append('playlist[same_as_attributes][][url]', sameAs.url)
+        }
+        if (sameAs._destroy) {
+          data.append(
+            'playlist[same_as_attributes][][_destroy]',
+            sameAs._destroy.toString()
+          )
+        }
       }
 
       for (const citation of this.playlist.citations) {

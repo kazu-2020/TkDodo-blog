@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_13_013513) do
+ActiveRecord::Schema.define(version: 2021_12_14_155700) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2021_12_13_013513) do
 
   create_table "playlists", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
-    t.string "detailed_name_ruby", comment: "名前のルビ（ふりがな）"
+    t.string "detailed_name_ruby"
     t.text "description", comment: "説明"
     t.text "headline", comment: "見出し"
     t.text "hero_image_data", comment: "ヒーローイメージ画像データ"
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 2021_12_13_013513) do
     t.string "original_series_id", comment: "プレイリスト生成元のシリーズID"
     t.string "alias_id", comment: "短縮URL"
     t.string "d5_playlist_id", comment: "r5 デッキのプレイリストID"
-    t.integer "playlist_items_count", default: 0, null: false, comment: "エピソード数"
+    t.integer "playlist_items_count", default: 0, null: false
     t.integer "playable_playlist_items_count", default: 0, comment: "再生可能なエピソード数"
     t.integer "faq_page_count", default: 0, null: false, comment: "FAQページ数"
     t.integer "how_to_count", default: 0, null: false, comment: "ハウツー数"
@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(version: 2021_12_13_013513) do
     t.string "publisher_type", comment: "Person or Organization"
     t.string "publisher_name", comment: "発行者名"
     t.string "published_state", default: "draft", null: false, comment: "公開状態"
-    t.datetime "reserve_publish_time_at", comment: "予約公開日"
+    t.datetime "reserve_publish_time_at"
     t.datetime "reserve_finish_time_at", comment: "公開終了日時"
     t.datetime "published_at", comment: "公開日時"
     t.datetime "created_at", precision: 6, null: false
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 2021_12_13_013513) do
     t.string "url", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["playlist_id"], name: "idx_playlist_id", unique: true
+    t.index ["playlist_id"], name: "index_same_as_on_playlist_id"
   end
 
   add_foreign_key "playlist_hashtags", "playlists"

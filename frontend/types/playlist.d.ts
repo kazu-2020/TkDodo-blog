@@ -43,7 +43,7 @@ export interface Playlist {
   outputEventToBundle: boolean
   outputFaqPageToBundle: boolean
   items: Array<EpisodeData>
-  sameAs: SameAs
+  sameAs: Array<SameAs>
   citations: Array<Citation>
   originalSeriesId: string
   aliasId: string

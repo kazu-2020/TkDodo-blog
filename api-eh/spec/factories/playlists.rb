@@ -13,7 +13,7 @@ FactoryBot.define do
 
     trait :with_same_as do
       after(:build) do |playlist|
-        playlist.same_as = FactoryBot.build(:same_as)
+        playlist.same_as = [FactoryBot.build(:same_as)]
       end
     end
 
