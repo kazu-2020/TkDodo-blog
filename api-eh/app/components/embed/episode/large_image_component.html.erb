@@ -1,5 +1,7 @@
+<% content_for(:title, episode_data[:name]) %>
+
 <div class="embed embed-large-image relative bg-no-repeat" style="background-image: url(<%= episode_image_src %>);">
-  <a href="<%= url %>" target="_blank">
+  <a href="<%= episode_data[:url] %>" target="_blank">
     <div class="absolute top-0 w-full h-full">
       <div class="flex flex-col justify-between p-3 w-full h-full">
         <div class="name">
