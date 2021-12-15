@@ -6,7 +6,12 @@ class Embed::LayoutPattern
     largeImage: { height: 360, width: '640' }
   }.freeze
 
-  TYPES = %w[summary largeImage featuredItem itemList].freeze
+  SUMMARY = 'summary'.freeze
+  LARGE_IMAGE = 'largeImage'.freeze
+  FEATURED_ITEM = 'featuredItem'.freeze
+  ITEM_LIST = 'itemList'.freeze
+
+  TYPES = [SUMMARY, LARGE_IMAGE, FEATURED_ITEM, ITEM_LIST].freeze
 
   # @param [String] pattern
   def self.exist_pattern?(pattern)
