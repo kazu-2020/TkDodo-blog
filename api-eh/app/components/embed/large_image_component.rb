@@ -3,7 +3,7 @@
 class Embed::LargeImageComponent < ViewComponent::Base
   include Embed::EpisodesHelper
 
-  attr_reader :url, :name, :logo_image_url, :detailed_catch, :key_color, :episode_data, :height
+  attr_reader :url, :name, :episode_data, :height
   alias title name
 
   # @param [String] url
