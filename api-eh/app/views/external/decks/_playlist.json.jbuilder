@@ -24,8 +24,8 @@ end
 json.additionalProperty do
   json.layoutPattern playlist.layout_pattern
   json.publishLevel playlist.publish_level
-  json.typeOfList 'recommend'
-  json.modeOfItem 'tv'
+  json.typeOfList playlist.type_of_list
+  json.modeOfItem playlist.mode_of_item
   json.typeOfItem type_of_item(object_type)
 end
 
