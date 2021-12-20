@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
 class DlabApiClient < DlabApiBase
-  API_ENDPOINT = 'https://dev-api.nr.nhk.jp'
+  API_ENDPOINT =
+    if Rails.env.development? || Rails.env.test? || Rails.env.staging?
+      'https://dev-api.nr.nhk.jp'
+    elsif Rails.env.production?
+      'https://api.nr.nhk.jp'
+    else
+      'dummy'
+    end
+
   VERSION = 'r6'
   INTERNAL_PARAMS = { extendedEntities: true, ignoreRange: true }.freeze
   DEFAULT_OFFSET = 0
