@@ -39,12 +39,8 @@ class OembedDebuggerController < ApplicationController
   def episode
     @id = params[:id] || 'MY514KPKKM'
 
-    res = DlabApiClient.new.episode_bundle(type: 'tv', episode_id: @id, query: { ignoreRange: false })
-    @episode_data = res[:tvepisode].first
-    # @event_data = res[:event]&.first
-    # @faq_page_data = res[:faqpage]&.first
-    # @howto_data = res[:howto]&.first
-    series_id = res.dig(:tvseries, :id)
+    @episode_data = DlabApiClient.new.episode(type: 'tv', episode_id: @id, query: { ignoreRange: false })
+    series_id = @episode_data.dig(:partOfSeries, :id)
     @src = "#{host}/embed/ts/#{series_id}/episode/te/#{@id}"
   end
 

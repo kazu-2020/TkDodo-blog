@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 json.success 1
-json.tvSeries @result[:tvseries]
-json.tvEpisode @result[:tvepisode]&.first
-json.set_raw! :recipes, (@result[:recipe] || []).to_json
-json.set_raw! :howTos, (@result[:howto] || []).to_json
-json.set_raw! :events, (@result[:event] || []).to_json
-json.set_raw! :faqpage, (@result[:faqpage] || []).to_json
+json.tvSeries @result[:tvepisode]&.[](:result)&.[](0)&.[](:partOfSeries)
+json.tvEpisode @result[:tvepisode]&.[](:result)&.[](0)
+json.set_raw! :recipes, (@result[:recipe]&.[](:result) || []).to_json
+json.set_raw! :howTos, (@result[:howto]&.[](:result) || []).to_json
+json.set_raw! :events, (@result[:event]&.[](:result) || []).to_json
+json.set_raw! :faqpage, (@result[:faqpage]&.[](:result) || []).to_json

@@ -1,15 +1,7 @@
 # frozen_string_literal: true
 
 class DlabApiClient < DlabApiBase
-  API_ENDPOINT =
-    if Rails.env.development? || Rails.env.test? || Rails.env.staging?
-      'https://dev-api.nr.nhk.jp'
-    elsif Rails.env.production?
-      'https://api.nr.nhk.jp'
-    else
-      'dummy'
-    end
-
+  API_ENDPOINT = 'https://dev-api.nr.nhk.jp'
   VERSION = 'r6'
   INTERNAL_PARAMS = { extendedEntities: true, ignoreRange: true }.freeze
   DEFAULT_OFFSET = 0
@@ -54,8 +46,8 @@ class DlabApiClient < DlabApiBase
   # @param [String] type: 'tv' or 'radio'
   # @param [String] episode_id: エピソードID
   # @param [Hash] query
-  def episode_bundle(type:, episode_id:, query: {})
-    res = client.get "/#{VERSION}/t/bundle/#{type.downcase.first}e/#{episode_id}.json", INTERNAL_PARAMS.merge(query)
+  def episode_l_bundle(type:, episode_id:, query: {})
+    res = client.get "/#{VERSION}/l/bundle/#{type.downcase.first}e/#{episode_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 
@@ -130,8 +122,8 @@ class DlabApiClient < DlabApiBase
   # Howto データをリクエストする
   #
   # @param [String] howto_id: ハウツーID
-  def howto(howto_id:)
-    res = client.get "/#{VERSION}/t/howto/id/#{howto_id}.json", INTERNAL_PARAMS
+  def howto(howto_id:, query: {})
+    res = client.get "/#{VERSION}/t/howto/id/#{howto_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 
@@ -146,8 +138,8 @@ class DlabApiClient < DlabApiBase
   # Event データをリクエストする
   #
   # @param [String] event_id: イベントID
-  def event(event_id:)
-    res = client.get "/#{VERSION}/t/event/id/#{event_id}.json", INTERNAL_PARAMS
+  def event(event_id:, query: {})
+    res = client.get "/#{VERSION}/t/event/id/#{event_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 
@@ -162,8 +154,8 @@ class DlabApiClient < DlabApiBase
   # FAQPage データをリクエストする
   #
   # @param [String] faq_page_id: FAQPage ID
-  def faq_page(faq_page_id:)
-    res = client.get "/#{VERSION}/t/faqpage/id/#{faq_page_id}.json", INTERNAL_PARAMS
+  def faq_page(faq_page_id:, query: {})
+    res = client.get "/#{VERSION}/t/faqpage/id/#{faq_page_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 

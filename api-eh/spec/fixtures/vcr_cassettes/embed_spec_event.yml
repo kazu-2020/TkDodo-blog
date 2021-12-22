@@ -68,4 +68,144 @@ http_interactions:
       encoding: UTF-8
       string: '{"tvseries":{"type":"TVSeries","id":"D4VPQVK78M","name":"グッドモーニング島根","detailedSeriesNameRuby":"","identifierGroup":{"seriesId":"D4VPQVK78M","seriesName":"グッドモーニング島根","hashtag":[],"serviceId":["g1","g2"]},"identifierGroupEx":{"seriesGroupId":"Y5L2M2J9JY","seriesGroupName":"おはよう島根","seriesNameTemp":"おはよう島根"},"keywords":[],"description":"aaa","detailedCatch":"","style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#9A6B00","linkDark":"#F6AA00","primaryLight":"#C28600","primaryDark":"#F6AA00"},"dateCreated":"2020-03-21T14:41:55+09:00","dateModified":"2021-08-20T12:38:48+09:00","actors":[],"contributors":[{"person":{"roleName":"author","name":"てすと太郎","detailedNameRuby":"","familyName":"てすと","givenName":"太郎","detailedFamilyNameRuby":"","detailedGivenNameRuby":"","detailedAdditionalNameRuby":"","occupationName":"","description":""}}],"logo":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-logo_c7b07a2582feeb0f88ffd038c70d9522.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-logo_323c3df9ea342a77bc2a6a25a938ff82.jpg","width":640,"height":640}},"eyecatch":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-eyecatch_c5c184c1acd05c4be8bbd9dd4aa383a3.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-eyecatch_da2e814de737215323bc5e03a6328cca.jpg","width":928,"height":522},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-eyecatch_71dedccbd6fa1f1e7262098de72afdef.jpg","width":640,"height":360}},"hero":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-hero_6e681895641046acf44eb93c3b7d0e7c.jpg","width":1920,"height":640},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-hero_cf2e975a3dda8650714a4bad26dd1694.jpg","width":1080,"height":360}},"videos":[],"releasedEvent":{},"citations":[],"detailedTimetable":[{"description":"","isRerun":false,"publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},{"description":"","isRerun":false,"publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g2/g2-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g2/g2-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g2/g2-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g2/g2-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g2/g2-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g2/g2-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g2/g2-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g2/g2-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g2/g2-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g2/g2-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g2","serviceName":"NHK総合2","shortenedName":"NHK総合2","shortenedDisplayName":"総合"}}}],"url":"https://dev-www.nhk.jp/p/ts/D4VPQVK78M/","sameAs":[],"detailedMemo":[],"additionalProperty":{"publishLevel":"full","layoutPattern":"summary","episodeOrder":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[]}},"tvepisode":[{"type":"TVEpisode","id":"GV711R4WQV","name":"2021年4月7日","identifierGroup":{"episodeId":"GV711R4WQV","seriesId":"D4VPQVK78M","episodeName":"2021年4月7日","seriesName":"グッドモーニング島根","hashtag":[],"serviceId":["g1","g2"],"formatGenreTag":[{"id":"01","name":"報道"}],"themeGenreTag":[{"id":"014","name":"地域"}]},"identifierGroupEx":{"seriesGroupId":"Y5L2M2J9JY","seriesGroupName":"おはよう島根","episodeNameTemp":"2021年4月7日","seriesNameTemp":"おはよう島根","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2021-04-07T07:45:00+09:00","releasedEventEndDateTemp":"2021-04-07T08:00:00+09:00"},"keywords":[],"description":"▽島根のニュース　▽気象情報","dateCreated":"2021-03-21T07:02:03+09:00","dateModified":"2021-09-16T18:04:29+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"D4VPQVK78M","name":"グッドモーニング島根","detailedSeriesNameRuby":"","identifierGroup":{"seriesId":"D4VPQVK78M","seriesName":"グッドモーニング島根","hashtag":[],"serviceId":["g1","g2"]},"identifierGroupEx":{"seriesGroupId":"Y5L2M2J9JY","seriesGroupName":"おはよう島根","seriesNameTemp":"おはよう島根"},"url":"https://dev-www.nhk.jp/p/ts/D4VPQVK78M/","description":"aaa","detailedCatch":"","logo":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-logo_c7b07a2582feeb0f88ffd038c70d9522.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-logo_323c3df9ea342a77bc2a6a25a938ff82.jpg","width":640,"height":640}},"eyecatch":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-eyecatch_c5c184c1acd05c4be8bbd9dd4aa383a3.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-eyecatch_da2e814de737215323bc5e03a6328cca.jpg","width":928,"height":522},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-eyecatch_71dedccbd6fa1f1e7262098de72afdef.jpg","width":640,"height":360}},"hero":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-hero_6e681895641046acf44eb93c3b7d0e7c.jpg","width":1920,"height":640},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-hero_cf2e975a3dda8650714a4bad26dd1694.jpg","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#9A6B00","linkDark":"#F6AA00","primaryLight":"#C28600","primaryDark":"#F6AA00"},"additionalProperty":{"publishLevel":"full","layoutPattern":"summary","episodeOrder":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[]}},"releasedEvent":{"startDate":"2021-04-07T07:45:00+09:00","endDate":"2021-04-07T08:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedRecentEvent":{"startDate":"2021-04-07T07:45:00+09:00","endDate":"2021-04-07T08:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"keyvisuals":[],"videos":[],"citations":[],"url":"https://dev-www.nhk.jp/p/ts/D4VPQVK78M/episode/te/GV711R4WQV/","sameAs":[],"detailedMemo":[]}],"event":[{"type":"Event","id":"94","name":"水郷祭","description":"花火をたくさん打ち上げます","startDate":"2021-08-07T20:00:00+09:00","endDate":"2021-08-08T22:00:00+09:00","eventAttendanceMode":"offline","postalAddress":"島根県松江市ほげほげ","place":"宍道湖","eventStatus":"postponed","image":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/event/te/GV711R4WQV/GV711R4WQV-eyecatch_6a0c631426747bd282cd63b8ef64a415.jpg","width":1920,"height":1080},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/event/te/GV711R4WQV/GV711R4WQV-eyecatch_c978b092cddd2495c9eef4ca5e288c56.jpg","width":640,"height":360}},"dateCreated":"2020-09-17T14:57:30+09:00","dateModified":"2021-09-16T18:04:29+09:00","identifierGroup":{"seriesId":"D4VPQVK78M","episodeId":"GV711R4WQV"},"undefinedSection":[],"offersValidFrom":"2021-09-14T17:55:00+09:00","offersValidThrough":"2021-10-01T17:55:00+09:00","offersSameAs":"","url":"https://dev-www.nhk.jp/p/ts/D4VPQVK78M/event/94/"}],"faqpage":[],"nnotice":[],"blogposting":[],"howto":[],"blog":[{"type":"Blog","id":"pweODGdvYx","name":"島根のブログ","shortTitle":"test","description":"島根についてのとてもおもしろいブログ","eyecatch":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/blog/ts/D4VPQVK78M/D4VPQVK78M-eyecatch_9dcee9e96d3094874e4fb676133e7d54.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-www.nhk.jp/static/assets/images/blog/ts/D4VPQVK78M/D4VPQVK78M-eyecatch_feec86afcbf686c81bf42c7db61a3f7b.jpg","width":928,"height":522},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/blog/ts/D4VPQVK78M/D4VPQVK78M-eyecatch_84ed0be2f79da0ecfaefb6879bee06a4.jpg","width":640,"height":360}},"dateCreated":"2020-11-18T16:14:00+09:00","dateModified":"2021-08-20T12:38:48+09:00","identifierGroup":{"blogId":"pweODGdvYx","blogName":"島根のブログ","shortTitle":"test","tvSeriesId":"D4VPQVK78M","tvSeriesName":"グッドモーニング島根","seriesId":"D4VPQVK78M","isVisible":true,"viewType":"card","feedType":"full","numOfField":10},"url":"https://dev-www.nhk.jp/p/ts/D4VPQVK78M/blog/bl/pweODGdvYx/"}]}'
   recorded_at: Sat, 18 Sep 2021 06:11:13 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6/t/tvepisode/te/GV711R4WQV.json?extendedEntities=true&ignoreRange=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      date:
+      - Wed, 22 Dec 2021 07:27:08 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"24f88c5"'
+      etag:
+      - W/"1a1c-WEwuWUHdt8/DuWnug+WKImx7WV4"
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 79d771190d1d4a25574af501a083c90a.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT12-C5
+      x-amz-cf-id:
+      - Ahv0s1N-cux9EHgti9M7Lr3m2G63T-tw1eLAiX72epV8mNtwbPvpJw==
+    body:
+      encoding: UTF-8
+      string: '{"type":"TVEpisode","id":"GV711R4WQV","name":"2021年4月7日","identifierGroup":{"episodeId":"GV711R4WQV","tvEpisodeId":"GV711R4WQV","seriesId":"D4VPQVK78M","tvSeriesId":"D4VPQVK78M","episodeName":"2021年4月7日","tvEpisodeName":"2021年4月7日","seriesName":"グッドモーニング島根","tvSeriesName":"グッドモーニング島根","hashtag":[],"serviceId":["g1","g2"],"formatGenreTag":[{"id":"01","name":"報道"}],"themeGenreTag":[{"id":"014","name":"地域"}]},"identifierGroupEx":{"seriesGroupId":"Y5L2M2J9JY","tvSeriesGroupId":"Y5L2M2J9JY","seriesGroupName":"おはよう島根","tvSeriesGroupName":"おはよう島根","episodeNameTemp":"2021年4月7日","tvEpisodeNameTemp":"2021年4月7日","seriesNameTemp":"おはよう島根","tvSeriesNameTemp":"おはよう島根","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2021-04-07T07:45:00+09:00","releasedEventEndDateTemp":"2021-04-07T08:00:00+09:00"},"keywords":[],"description":"▽島根のニュース　▽気象情報","dateCreated":"2021-03-21T07:02:03+09:00","dateModified":"2021-09-16T18:04:29+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"D4VPQVK78M","name":"グッドモーニング島根","detailedSeriesNameRuby":"","identifierGroup":{"seriesId":"D4VPQVK78M","tvSeriesId":"D4VPQVK78M","seriesName":"グッドモーニング島根","tvSeriesName":"グッドモーニング島根","hashtag":[],"serviceId":["g1","g2"]},"identifierGroupEx":{"seriesGroupId":"Y5L2M2J9JY","tvSeriesGroupId":"Y5L2M2J9JY","seriesGroupName":"おはよう島根","tvSeriesGroupName":"おはよう島根","seriesNameTemp":"おはよう島根","tvSeriesNameTemp":"おはよう島根"},"url":"https://dev-www.nhk.jp/p/ts/D4VPQVK78M/","description":"aaa","detailedCatch":"","logo":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-logo_c7b07a2582feeb0f88ffd038c70d9522.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-logo_323c3df9ea342a77bc2a6a25a938ff82.jpg","width":640,"height":640}},"eyecatch":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-eyecatch_c5c184c1acd05c4be8bbd9dd4aa383a3.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-eyecatch_da2e814de737215323bc5e03a6328cca.jpg","width":928,"height":522},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-eyecatch_71dedccbd6fa1f1e7262098de72afdef.jpg","width":640,"height":360}},"hero":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-hero_6e681895641046acf44eb93c3b7d0e7c.jpg","width":1920,"height":640},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/D4VPQVK78M/D4VPQVK78M-hero_cf2e975a3dda8650714a4bad26dd1694.jpg","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#9A6B00","linkDark":"#F6AA00","primaryLight":"#C28600","primaryDark":"#F6AA00"},"additionalProperty":{"publishLevel":"full","layoutPattern":"summary","episodeOrder":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[],"seriesPackStatus":"notPacked"}},"releasedEvent":{"startDate":"2021-04-07T07:45:00+09:00","endDate":"2021-04-07T08:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedRecentEvent":{"startDate":"2021-04-07T07:45:00+09:00","endDate":"2021-04-07T08:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"keyvisuals":[],"videos":[],"citations":[],"url":"https://dev-www.nhk.jp/p/ts/D4VPQVK78M/episode/te/GV711R4WQV/","sameAs":[],"detailedMemo":[]}'
+  recorded_at: Wed, 22 Dec 2021 07:27:08 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6/t/event/id/94.json?extendedEntities=true&ignoreRange=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      date:
+      - Wed, 22 Dec 2021 07:27:08 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"24f88c5"'
+      etag:
+      - W/"415-znhgdFrjn27QP3Wl1ZZYCb5xRZY"
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 3324cffdbe64c84e117777de2182476d.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT12-C5
+      x-amz-cf-id:
+      - XzM_az0C9-iu0UkjzGEZLPWQ8wxBf_ymrynmfsZH3iURWDj2jU3lgA==
+    body:
+      encoding: UTF-8
+      string: '{"type":"Event","id":"94","name":"水郷祭","description":"花火をたくさん打ち上げます","startDate":"2021-08-07T20:00:00+09:00","endDate":"2021-08-08T22:00:00+09:00","eventAttendanceMode":"offline","postalAddress":"島根県松江市ほげほげ","place":"宍道湖","eventStatus":"postponed","image":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/event/te/GV711R4WQV/GV711R4WQV-eyecatch_6a0c631426747bd282cd63b8ef64a415.jpg","width":1920,"height":1080},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/event/te/GV711R4WQV/GV711R4WQV-eyecatch_c978b092cddd2495c9eef4ca5e288c56.jpg","width":640,"height":360}},"dateCreated":"2020-09-17T14:57:30+09:00","dateModified":"2021-09-16T18:04:29+09:00","identifierGroup":{"seriesId":"D4VPQVK78M","tvSeriesId":"D4VPQVK78M","episodeId":"GV711R4WQV","tvEpisodeId":"GV711R4WQV"},"undefinedSection":[],"offersValidFrom":"2021-09-14T17:55:00+09:00","offersValidThrough":"2021-10-01T17:55:00+09:00","offersSameAs":"","url":"https://dev-www.nhk.jp/p/ts/D4VPQVK78M/event/94/"}'
+  recorded_at: Wed, 22 Dec 2021 07:27:08 GMT
 recorded_with: VCR 6.0.0

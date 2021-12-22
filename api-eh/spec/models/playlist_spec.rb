@@ -413,7 +413,7 @@ describe Playlist, type: :model do
           end
         client = instance_double(DlabApiClient)
         allow(DlabApiClient).to receive(:new).and_return(client)
-        allow(client).to receive(:episode_bundle).with(type: 'tv', episode_id: 'PG3Z16Q145').and_return(json)
+        allow(client).to receive(:episode_l_bundle).with(type: 'tv', episode_id: 'PG3Z16Q145').and_return(json)
       end
 
       it 'retruns episodes array' do
