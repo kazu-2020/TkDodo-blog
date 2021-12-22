@@ -16,7 +16,7 @@ class EpisodesController < ApplicationController
   end
 
   def bundle
-    @result = client.episode_bundle(type: 'tv', episode_id: params[:id])
+    @result = client.episode_l_bundle(type: 'tv', episode_id: params[:id], query: { size: 10 })
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength

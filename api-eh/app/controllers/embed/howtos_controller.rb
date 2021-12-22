@@ -2,10 +2,8 @@
 
 class Embed::HowtosController < EmbedController
   def show
-    res = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp')
-                       .episode_bundle(type: 'tv', episode_id: params[:episode_id], query: { ignoreRange: false })
-    set_episode_data(res)
-    set_howto_data(res)
+    set_episode_data
+    set_howto_data
     set_height
 
     render 'embed/not_found', status: :not_found and return if @episode_data.blank? || @howto_data.blank?
@@ -19,12 +17,16 @@ class Embed::HowtosController < EmbedController
     @height = embed_howto_params[:height] || 210
   end
 
-  def set_episode_data(api_response)
-    @episode_data = api_response[:tvepisode].first
+  def set_episode_data
+    @episode_data = DlabApiClient.new
+                                 .episode(type: 'tv',
+                                          episode_id: embed_howto_params[:episode_id],
+                                          query: { ignoreRange: false })
   end
 
-  def set_howto_data(api_response)
-    @howto_data = api_response[:howto].find { |h| h[:id] == embed_howto_params[:id] }
+  def set_howto_data
+    @howto_data = DlabApiClient.new
+                               .howto(howto_id: embed_howto_params[:id], query: { ignoreRange: false })
   end
 
   def embed_howto_params

@@ -240,7 +240,7 @@ class Playlist < ApplicationRecord
                                        .map { |block| block['data']['episodeId'] }
     client = DlabApiClient.new
     episode_ids.map do |episode_id|
-      client.episode_bundle(type: 'tv', episode_id: episode_id)[:tvepisode][0]
+      client.episode_l_bundle(type: 'tv', episode_id: episode_id)[:tvepisode][:result][0]
     rescue DlabApiBase::NotFound, NoMethodError
       nil
     end.flatten.compact
@@ -256,28 +256,6 @@ class Playlist < ApplicationRecord
     self.playable_playlist_items_count = playlist_items.playable.size
     save!
   end
-
-  # rubocop: disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-  def bundle
-    result = {
-      tvepisode: [],
-      event: [],
-      howto: [],
-      faqpage: []
-    }
-
-    client = DlabApiClient.new
-    playlist_items.each do |item|
-      data = client.episode_bundle(type: 'tv', episode_id: item.episode_id)
-
-      result[:tvepisode] << data[:tvepisode][0] if data[:tvepisode] && !data[:tvepisode].empty?
-      result[:faqpage] += data[:faqpage] if data[:faqpage] && !data[:faqpage].empty?
-      result[:event] += data[:event] if data[:event] && !data[:event].empty?
-      result[:howto] += data[:howto] if data[:howto] && !data[:howto].empty?
-    end
-    result
-  end
-  # rubocop: enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
 
   def assign_sub_type_count
     client = DlabApiClient.new
@@ -320,11 +298,11 @@ class Playlist < ApplicationRecord
       episode_id = block['data']['episodeId']
       data =
         begin
-          client.episode_bundle(type: 'tv', episode_id: episode_id)
+          client.episode_l_bundle(type: 'tv', episode_id: episode_id)
         rescue DlabApiClient::NotFound
           {}
         end
-      episode = data&.[](:tvepisode)&.[](0)
+      episode = data&.[](:tvepisode)&.[](:result)&.[](0)
       block['data']['episode']['eyecatch'] = episode[:eyecatch] || episode[:partOfSeries][:eyecatch] if episode.present?
       block
     end
