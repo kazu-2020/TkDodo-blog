@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SlackController < ApplicationController
-  SLACK_CHANNEL = 'bz-rebase-nhk-labo-app-notify'
+  SLACK_CHANNEL = 'lab-nhk-labo-app-notify'
 
   def incoming_webhook
     slack.channel = SLACK_CHANNEL
