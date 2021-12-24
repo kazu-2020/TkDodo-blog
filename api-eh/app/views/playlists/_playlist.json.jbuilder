@@ -20,13 +20,11 @@ json.textDark playlist.text_dark_color
 json.linkLight playlist.link_light_color
 json.linkDark playlist.text_dark_color
 
-if playlist.same_as.present?
-  json.sameAs do
-    json.array! playlist.same_as do |same_as|
-      json.id same_as.id
-      json.name same_as.name
-      json.url same_as.url
-    end
+json.sameAs do
+  json.array! playlist.same_as do |same_as|
+    json.id same_as.id
+    json.name same_as.name
+    json.url same_as.url
   end
 end
 
