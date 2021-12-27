@@ -36,12 +36,12 @@ export interface Playlist {
   hasHowTo: boolean
   hasEvent: boolean
   hasFaqPage: boolean
-  outputItemListToBundle: boolean
-  outputEpisodeToBundle: boolean
-  outputArticleToBundle: boolean
-  outputHowToToBundle: boolean
-  outputEventToBundle: boolean
-  outputFaqPageToBundle: boolean
+  deliverItemListToApi: boolean
+  deliverEpisodeToApi: boolean
+  deliverArticleToApi: boolean
+  deliverHowToToApi: boolean
+  deliverEventToApi: boolean
+  deliverFaqPageToApi: boolean
   items: Array<EpisodeData>
   sameAs: Array<SameAs>
   citations: Array<Citation>
