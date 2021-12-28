@@ -105,24 +105,26 @@ else
   json.itemUrl "#{episodes_external_playlist_url(@playlist.original_id)}.json#{item_url_params}"
 end
 
-json.playlisticle do
-  json.mainEntityOfPage ''
-  json.name @playlist.name
-  json.headline @playlist.headline
-  json.keywords @playlist.keywords
-  json.description @playlist.description
-  json.articleBody @playlist.article_body
-  json.detailedArticleBody do
-    json.markedHeader @playlist.marked_header
-    json.markedBody @playlist.marked_body
-    json.markedFooter @playlist.marked_footer
-  end
+if @playlist.deliver_article_via_api
+  json.playlisticle do
+    json.mainEntityOfPage ''
+    json.name @playlist.name
+    json.headline @playlist.headline
+    json.keywords @playlist.keywords
+    json.description @playlist.description
+    json.articleBody @playlist.article_body
+    json.detailedArticleBody do
+      json.markedHeader @playlist.marked_header
+      json.markedBody @playlist.marked_body
+      json.markedFooter @playlist.marked_footer
+    end
 
-  json.author @playlist.author_type
-  json.authorName @playlist.author_name
-  json.publisher @playlist.publisher_type
-  json.publisherType @playlist.publisher_name
-  json.dateCreated @playlist.created_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
-  json.datePublished @playlist.published_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
-  json.dateModified @playlist.updated_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
+    json.author @playlist.author_type
+    json.authorName @playlist.author_name
+    json.publisher @playlist.publisher_type
+    json.publisherType @playlist.publisher_name
+    json.dateCreated @playlist.created_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
+    json.datePublished @playlist.published_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
+    json.dateModified @playlist.updated_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
+  end
 end
