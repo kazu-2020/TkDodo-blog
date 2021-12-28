@@ -71,6 +71,7 @@ class Playlist < ApplicationRecord
   before_save :generate_derivatives
   before_save :trim_name
   before_save :assign_sub_type_count
+  before_save :keep_api_flag_consistent
 
   class << self
     def assign_from_series(series_id)
@@ -314,6 +315,10 @@ class Playlist < ApplicationRecord
 
   def trim_name
     self.name = name.gsub(/(^[[:space:]]+)|([[:space:]]+$)/, '')
+  end
+
+  def keep_api_flag_consistent
+    self.deliver_article_via_api = false unless has_article?
   end
 
   def generate_string_id
