@@ -314,12 +314,12 @@ export default Vue.extend({
   },
   data(): DataType {
     const selectedTypes = []
-    if (this.playlist.deliverItemListToApi) selectedTypes.push('itemlist')
-    if (this.playlist.deliverEpisodeToApi) selectedTypes.push('tvepisode')
-    if (this.playlist.deliverArticleToApi) selectedTypes.push('narticle')
-    if (this.playlist.deliverHowToToApi) selectedTypes.push('howto')
-    if (this.playlist.deliverEventToApi) selectedTypes.push('event')
-    if (this.playlist.deliverFaqPageToApi) selectedTypes.push('faqpage')
+    if (this.playlist.deliverItemListViaApi) selectedTypes.push('itemlist')
+    if (this.playlist.deliverEpisodeViaApi) selectedTypes.push('tvepisode')
+    if (this.playlist.deliverArticleViaApi) selectedTypes.push('narticle')
+    if (this.playlist.deliverHowToViaApi) selectedTypes.push('howto')
+    if (this.playlist.deliverEventViaApi) selectedTypes.push('event')
+    if (this.playlist.deliverFaqPageViaApi) selectedTypes.push('faqpage')
 
     return {
       name: this.playlist.name || '',
@@ -407,7 +407,7 @@ export default Vue.extend({
       return this.playlist.hasEvent
     },
     disableItemListSubset(): boolean {
-      return !this.playlist.deliverItemListToApi
+      return !this.playlist.deliverItemListViaApi
     },
     episodeIds(): string[] {
       return this.playlist.items.map((item: any) => item.id)
@@ -578,26 +578,27 @@ export default Vue.extend({
     selectedTypes: {
       handler(newValue) {
         if (
-          this.playlist.deliverItemListToApi ===
+          this.playlist.deliverItemListViaApi ===
             newValue.includes('itemlist') &&
-          this.playlist.deliverEpisodeToApi ===
+          this.playlist.deliverEpisodeViaApi ===
             newValue.includes('tvepisode') &&
-          this.playlist.deliverArticleToApi === newValue.includes('narticle') &&
-          this.playlist.deliverHowToToApi === newValue.includes('howto') &&
-          this.playlist.deliverEventToApi === newValue.includes('event') &&
-          this.playlist.deliverFaqPageToApi === newValue.includes('faqpage')
+          this.playlist.deliverArticleViaApi ===
+            newValue.includes('narticle') &&
+          this.playlist.deliverHowToViaApi === newValue.includes('howto') &&
+          this.playlist.deliverEventViaApi === newValue.includes('event') &&
+          this.playlist.deliverFaqPageViaApi === newValue.includes('faqpage')
         ) {
           return
         }
 
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, {
-          deliverItemListToApi: newValue.includes('itemlist'),
-          deliverEpisodeToApi: newValue.includes('tvepisode'),
-          deliverArticleToApi: newValue.includes('narticle'),
-          deliverHowToToApi: newValue.includes('howto'),
-          deliverEventToApi: newValue.includes('event'),
-          deliverFaqPageToApi: newValue.includes('faqpage'),
+          deliverItemListViaApi: newValue.includes('itemlist'),
+          deliverEpisodeViaApi: newValue.includes('tvepisode'),
+          deliverArticleViaApi: newValue.includes('narticle'),
+          deliverHowToViaApi: newValue.includes('howto'),
+          deliverEventViaApi: newValue.includes('event'),
+          deliverFaqPageViaApi: newValue.includes('faqpage'),
         })
         this.$emit('update-series', playlist)
       },
