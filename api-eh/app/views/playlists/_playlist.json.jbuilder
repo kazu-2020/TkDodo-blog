@@ -50,12 +50,12 @@ json.browsableItemCount playlist.browsable_item_count
 json.hasHowTo playlist.playlist_items.any?(&:has_how_to)
 json.hasEvent playlist.playlist_items.any?(&:has_event)
 json.hasFaqPage playlist.playlist_items.any?(&:has_faq_page)
-json.outputItemListToBundle playlist.output_item_list_to_bundle
-json.outputEpisodeToBundle playlist.output_episode_to_bundle
-json.outputFaqPageToBundle playlist.output_faq_page_to_bundle
-json.outputArticleToBundle playlist.output_article_to_bundle
-json.outputHowToToBundle playlist.output_how_to_to_bundle
-json.outputEventToBundle playlist.output_event_to_bundle
+json.deliverItemListViaApi playlist.deliver_item_list_via_api
+json.deliverEpisodeViaApi playlist.deliver_episode_via_api
+json.deliverFaqPageViaApi playlist.deliver_faq_page_via_api
+json.deliverArticleViaApi playlist.deliver_article_via_api
+json.deliverHowToViaApi playlist.deliver_how_to_via_api
+json.deliverEventViaApi playlist.deliver_event_via_api
 
 json.article do
   json.header playlist.marked_header

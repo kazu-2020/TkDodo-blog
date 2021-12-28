@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_14_155700) do
+ActiveRecord::Schema.define(version: 2021_12_27_175500) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -117,12 +117,12 @@ ActiveRecord::Schema.define(version: 2021_12_14_155700) do
     t.text "marked_body", size: :medium, comment: "記事本文（マークダウン）"
     t.text "marked_footer", comment: "フッター"
     t.json "editor_data", comment: "editorのjsonデータ"
-    t.boolean "output_item_list_to_bundle", default: false, comment: "bundle にてNItemListを出力するかのフラグ"
-    t.boolean "output_episode_to_bundle", default: true, comment: "bundle にてエピソードを出力するかのフラグ"
-    t.boolean "output_faq_page_to_bundle", default: false, comment: "bundle にてFAQを出力するかのフラグ"
-    t.boolean "output_article_to_bundle", default: false, comment: "bundle にて記事を出力するかのフラグ"
-    t.boolean "output_how_to_to_bundle", default: false, comment: "bundle にてハウツーを出力するかのフラグ"
-    t.boolean "output_event_to_bundle", default: false, comment: "bundle にてイベントを出力するかのフラグ"
+    t.boolean "deliver_item_list_via_api", default: false, comment: "bundle にてNItemListを出力するかのフラグ"
+    t.boolean "deliver_episode_via_api", default: true, comment: "bundle にてエピソードを出力するかのフラグ"
+    t.boolean "deliver_faq_page_via_api", default: false, comment: "bundle にてFAQを出力するかのフラグ"
+    t.boolean "deliver_article_via_api", default: false, comment: "bundle にて記事を出力するかのフラグ"
+    t.boolean "deliver_how_to_via_api", default: false, comment: "bundle にてハウツーを出力するかのフラグ"
+    t.boolean "deliver_event_via_api", default: false, comment: "bundle にてイベントを出力するかのフラグ"
     t.string "author_type", comment: "Person or Organization"
     t.string "author_name", comment: "著者名"
     t.string "publisher_type", comment: "Person or Organization"
