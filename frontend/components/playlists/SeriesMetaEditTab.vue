@@ -394,6 +394,7 @@ export default Vue.extend({
       return (
         this.playlist.article.header ||
         this.playlist.article.plainBody ||
+        this.playlist.article.body.blocks.length > 0 ||
         this.playlist.article.footer
       )
     },
