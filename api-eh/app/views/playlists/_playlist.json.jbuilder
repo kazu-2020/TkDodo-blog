@@ -53,7 +53,7 @@ json.hasFaqPage playlist.playlist_items.any?(&:has_faq_page)
 json.deliverItemListViaApi playlist.deliver_item_list_via_api
 json.deliverEpisodeViaApi playlist.deliver_episode_via_api
 json.deliverFaqPageViaApi playlist.deliver_faq_page_via_api
-json.deliverArticleViaApi playlist.deliver_article_via_api
+json.deliverArticleViaApi playlist.deliver_article_via_api && playlist.has_article?
 json.deliverHowToViaApi playlist.deliver_how_to_via_api
 json.deliverEventViaApi playlist.deliver_event_via_api
 

@@ -105,7 +105,7 @@ else
   json.itemUrl "#{episodes_external_playlist_url(@playlist.original_id)}.json#{item_url_params}"
 end
 
-if @playlist.deliver_article_via_api
+if @playlist.deliver_article_via_api && @playlist.has_article?
   json.playlisticle do
     json.mainEntityOfPage ''
     json.name @playlist.name
