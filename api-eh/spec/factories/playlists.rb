@@ -10,6 +10,13 @@ FactoryBot.define do
     published_state { 'draft' }
     sequence(:alias_id) { |i| "ALIAS-ID#{i}" }
     association :deck
+    publish_level { Playlist::PUBLISH_LEVELS.sample }
+    deliver_item_list_via_api { [true, false].sample }
+    deliver_episode_via_api { [true, false].sample }
+    deliver_faq_page_via_api { [true, false].sample }
+    deliver_article_via_api { [true, false].sample }
+    deliver_how_to_via_api { [true, false].sample }
+    deliver_event_via_api { [true, false].sample }
 
     trait :with_same_as do
       after(:build) do |playlist|
