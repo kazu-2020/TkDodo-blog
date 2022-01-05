@@ -5,15 +5,21 @@ json.tvepisode do
 end
 
 if @playlist.full?
-  json.faqpage do
-    json.count @playlist.faq_page_count
+  if @playlist.deliver_faq_page_via_api
+    json.faqpage do
+      json.count @playlist.faq_page_count
+    end
   end
 
-  json.howto do
-    json.count @playlist.how_to_count
+  if @playlist.deliver_how_to_via_api
+    json.howto do
+      json.count @playlist.how_to_count
+    end
   end
 
-  json.event do
-    json.count @playlist.event_count
+  if @playlist.deliver_event_via_api
+    json.event do
+      json.count @playlist.event_count
+    end
   end
 end

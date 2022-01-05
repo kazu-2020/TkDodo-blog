@@ -88,7 +88,7 @@ item_url_params =
 item_url_params = "?#{item_url_params}"
 json.itemUrl base_url + "/l/tvepisode/pl/#{playlist.original_id}.json#{item_url_params}"
 
-if playlist.deliver_article_via_api
+if playlist.deliver_article_via_api && playlist.has_article?
   json.playlisticle do
     json.mainEntityOfPage ''
     json.name playlist.name
