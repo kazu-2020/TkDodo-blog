@@ -50,7 +50,6 @@ paths:
             type: string
             enum:
               - watch
-              - read
         - name: itemSize
           in: query
           description: プレイリスト内のエピソード返却数
@@ -130,7 +129,6 @@ paths:
             type: string
             enum:
               - watch
-              - read
         - name: itemSize
           in: query
           description: プレイリスト内のエピソード返却数
