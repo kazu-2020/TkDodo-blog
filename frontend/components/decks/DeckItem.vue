@@ -40,22 +40,26 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row class="mx-2 mb-2">
-      <v-col cols="2">プレイリスト名が入ります。プレイリスト名が入ります</v-col>
-      <v-col cols="2">
-        プレイリスト名が入ります。プレイリスト名が入ります</v-col
+    <v-row v-if="playlists.length === 0" align="center" class="height-100">
+      <v-container fill-height fluid>
+        <v-row v-if="isError" align="center" justify="center"
+          ><v-col class="body-2">エラーが発生しました</v-col></v-row
+        >
+        <v-row v-else-if="isFetched" align="center" justify="center"
+          ><v-col class="body-2">エピソードはありません</v-col></v-row
+        >
+        <v-row v-else align="center" justify="center"
+          ><v-col><v-progress-circular indeterminate color="amber" /></v-col
+        ></v-row>
+      </v-container>
+    </v-row>
+    <v-row v-else class="mx-2 mb-2" dense>
+      <v-col
+        v-for="playlist in playlists"
+        :key="`${playlist.id}-deck-item`"
+        cols="1"
       >
-      <v-col cols="2">
-        プレイリスト名が入ります。プレイリスト名が入ります</v-col
-      >
-      <v-col cols="2">
-        プレイリスト名が入ります。プレイリスト名が入ります</v-col
-      >
-      <v-col cols="2">
-        プレイリスト名が入ります。プレイリスト名が入ります</v-col
-      >
-      <v-col cols="2">
-        プレイリスト名が入ります。プレイリスト名が入ります
+        <deck-playlist-list-item :playlist="playlist" />
       </v-col>
     </v-row>
   </v-card>
@@ -64,14 +68,32 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
+import { Playlist } from '~/types/playlist'
+import DeckPlaylistListItem from '~/components/decks/DeckPlaylistListItem.vue'
+
+interface DataType {
+  playlists: Playlist[]
+  isError: boolean
+  isFetched: boolean
+}
 
 export default Vue.extend({
+  components: {
+    DeckPlaylistListItem,
+  },
   props: {
     deck: {
       type: Object,
       required: true,
       default: () => {},
     },
+  },
+  data(): DataType {
+    return {
+      playlists: [],
+      isError: false,
+      isFetched: false,
+    }
   },
   computed: {
     totalTime(): string {
@@ -91,9 +113,27 @@ export default Vue.extend({
       return this.formattedDate(this.deck.dateModified)
     },
   },
+  mounted() {
+    this.fetchPlaylists()
+  },
   methods: {
     formattedDate(_time: string): string {
       return moment(_time).format('YYYY/MM/DD HH:mm')
+    },
+    fetchPlaylists() {
+      if (this.playlists.length !== 0) return
+
+      this.$axios
+        .get(`/playlists?deck_id=${this.deck.id}&per=12`)
+        .then((res) => {
+          this.playlists = res.data.playlists
+        })
+        .catch(() => {
+          this.isError = true
+        })
+        .finally(() => {
+          this.isFetched = true
+        })
     },
   },
 })
