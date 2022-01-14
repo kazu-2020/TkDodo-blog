@@ -51,6 +51,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :decks, only: [:index], format: 'json' do
+    member do
+      get :playlists
+    end
+  end
+
   resources :playlists, except: %i[new edit], format: 'json' do
     collection do
       post :import_from_series

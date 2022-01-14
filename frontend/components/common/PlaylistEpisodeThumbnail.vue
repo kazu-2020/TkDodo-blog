@@ -12,6 +12,10 @@
         position: absolute;
         bottom: 0;
         width: 100%;
+        color: white;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
       "
       class="pa-1 caption"
     >

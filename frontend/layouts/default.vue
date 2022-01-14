@@ -43,6 +43,22 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <v-menu offset-y>
+        <template #activator="{ on }">
+          <v-btn color="transparent" depressed tile height="64" v-on="on">
+            <v-icon class="mr-3">mdi-table</v-icon>
+            デッキ
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item :to="'/decks'">
+            <v-list-item-title>一覧</v-list-item-title>
+          </v-list-item>
+          <v-list-item :to="'/decks/new'">
+            <v-list-item-title> 新規作成 </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <new-playlist-dialog
         :is-show-dialog="isShowNewPlaylistDialog"
         @hide-new-playlist-dialog="isShowNewPlaylistDialog = false"
