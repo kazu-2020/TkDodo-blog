@@ -43,17 +43,35 @@
     <v-row v-if="playlists.length === 0" align="center" class="height-100">
       <v-container fill-height fluid>
         <v-row v-if="isError" align="center" justify="center"
-          ><v-col class="body-2">エラーが発生しました</v-col></v-row
+          ><v-col class="body-2 mb-4" cols="2"
+            >エラーが発生しました</v-col
+          ></v-row
         >
         <v-row v-else-if="isFetched" align="center" justify="center"
-          ><v-col class="body-2">エピソードはありません</v-col></v-row
+          ><v-col class="body-2 mb-4" cols="2"
+            >エピソードはありません</v-col
+          ></v-row
         >
         <v-row v-else align="center" justify="center"
-          ><v-col><v-progress-circular indeterminate color="amber" /></v-col
+          ><v-col cols="1" class="mb-4"
+            ><v-progress-circular indeterminate color="amber" /></v-col
         ></v-row>
       </v-container>
     </v-row>
     <v-row v-else class="mx-2 mb-2" dense>
+      <v-btn
+        v-show="hasPreviousPage"
+        class="mx-2"
+        fab
+        absolute
+        left
+        small
+        color="primary"
+        style="top: 200px; left: -5px"
+        @click="loadPreviousPage"
+      >
+        <v-icon dark> mdi-arrow-left-thick </v-icon>
+      </v-btn>
       <v-col
         v-for="playlist in playlists"
         :key="`${playlist.id}-deck-item`"
@@ -61,6 +79,19 @@
       >
         <deck-playlist-list-item :playlist="playlist" />
       </v-col>
+      <v-btn
+        v-show="hasNextPage"
+        class="mx-2"
+        fab
+        absolute
+        right
+        small
+        color="primary"
+        style="top: 200px; right: -5px"
+        @click="loadNextPage"
+      >
+        <v-icon dark> mdi-arrow-right-thick </v-icon>
+      </v-btn>
     </v-row>
   </v-card>
 </template>
@@ -75,6 +106,8 @@ interface DataType {
   playlists: Playlist[]
   isError: boolean
   isFetched: boolean
+  nextUrl: string | undefined
+  prevUrl: string | undefined
 }
 
 export default Vue.extend({
@@ -93,6 +126,8 @@ export default Vue.extend({
       playlists: [],
       isError: false,
       isFetched: false,
+      nextUrl: undefined,
+      prevUrl: undefined,
     }
   },
   computed: {
@@ -112,21 +147,37 @@ export default Vue.extend({
     lastUpdateDate(): string {
       return this.formattedDate(this.deck.dateModified)
     },
+    hasPreviousPage(): boolean {
+      return this.prevUrl !== undefined
+    },
+    hasNextPage(): boolean {
+      return this.nextUrl !== undefined
+    },
   },
   mounted() {
-    this.fetchPlaylists()
+    if (this.playlists.length !== 0) return
+
+    this.fetchPlaylists(`/playlists?deck_id=${this.deck.id}&per=12`)
   },
   methods: {
     formattedDate(_time: string): string {
       return moment(_time).format('YYYY/MM/DD HH:mm')
     },
-    fetchPlaylists() {
-      if (this.playlists.length !== 0) return
-
+    fetchPlaylists(url: string): void {
       this.$axios
-        .get(`/playlists?deck_id=${this.deck.id}&per=12`)
+        .get(url)
         .then((res) => {
           this.playlists = res.data.playlists
+          if (res.data.pagination.nextPage) {
+            this.nextUrl = `/playlists?deck_id=${this.deck.id}&per=12&page=${res.data.pagination.nextPage}`
+          } else {
+            this.nextUrl = undefined
+          }
+          if (res.data.pagination.previousPage) {
+            this.prevUrl = `/playlists?deck_id=${this.deck.id}&per=12&page=${res.data.pagination.previousPage}`
+          } else {
+            this.prevUrl = undefined
+          }
         })
         .catch(() => {
           this.isError = true
@@ -134,6 +185,16 @@ export default Vue.extend({
         .finally(() => {
           this.isFetched = true
         })
+    },
+    loadPreviousPage(): void {
+      if (this.prevUrl === undefined) return
+
+      this.fetchPlaylists(this.prevUrl)
+    },
+    loadNextPage(): void {
+      if (this.nextUrl === undefined) return
+
+      this.fetchPlaylists(this.nextUrl)
     },
   },
 })

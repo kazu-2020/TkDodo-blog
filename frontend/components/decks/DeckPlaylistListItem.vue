@@ -5,9 +5,13 @@
     style="background-color: #f1f0ed"
   >
     <v-img :src="logoImageUrl" aspect-ratio="1" class="mb-2" />
-    <a class="body-2 playlist_title mb-2">
+    <nuxt-link
+      class="body-2 playlist_title mb-2"
+      :to="`/playlists/${playlist.id}`"
+      style="text-decoration: none; font-weight: bold"
+    >
       {{ playlist.name }}
-    </a>
+    </nuxt-link>
     <div v-if="episodes.length === 0" align="center" class="height-100">
       <v-row v-if="isError" align="center" justify="center"
         ><v-col class="body-2">エラーが発生しました</v-col></v-row
