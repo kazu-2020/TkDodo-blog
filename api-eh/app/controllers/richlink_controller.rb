@@ -29,7 +29,7 @@ class RichlinkController < ApplicationController
   end
 
   def parse_html
-    res = Faraday.get(richlink_params[:url])
+    res = Faraday.new(richlink_params[:url], ssl: { verify: false }).get
     return nil unless res&.success?
 
     make_json_params(res)
