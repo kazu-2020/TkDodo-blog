@@ -7,9 +7,12 @@ class PlaylistsController < ApplicationController
   DEFAULT_PAGE = 1
   DEFAULT_PER  = 50
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def index
-    @playlists = if params[:area].present?
+    @playlists = if params[:deck_id].present?
+                   deck = Deck.find_by(id: params[:deck_id])
+                   Playlist.of(deck)
+                 elsif params[:area].present?
                    deck = Deck.find_by(area: params[:area], is_r5: true)
                    Playlist.of(deck)
                  else
@@ -24,7 +27,7 @@ class PlaylistsController < ApplicationController
     @playlists = @playlists.name_like(params[:query]) if params[:query]
     @playlists = @playlists.recent.page(@page).per(@per)
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def show
     @playlist = Playlist.friendly.find(params[:id])

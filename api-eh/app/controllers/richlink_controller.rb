@@ -6,8 +6,8 @@ class RichlinkController < ApplicationController
     raise DlabApiBase::InternalServerError if richlink_params[:url].blank?
 
     playlist_page_url? ? parse_playlist : parse_html
-  rescue
-    render json: { message: "Error. url: #{richlink_params[:url]}" }
+  rescue => e
+    render json: { message: "Error: #{e.message}, url: #{richlink_params[:url]}" }
   end
 
   private
@@ -29,15 +29,14 @@ class RichlinkController < ApplicationController
   end
 
   def parse_html
-    res = Faraday.get(richlink_params[:url])
+    res = Faraday.new(richlink_params[:url], ssl: { verify: false }).get
     return nil unless res&.success?
 
-    make_json(res)
+    make_json_params(res)
   end
 
   # @param [Faraday::Response] res
-  # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
-  def make_json(res)
+  def make_json_params(res) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     ogp = ogp(res.body)
 
     require 'kconv'
@@ -47,9 +46,8 @@ class RichlinkController < ApplicationController
     @title = title
     @description = ogp&.description || html.css('//head/meta[name="description"]/@content')&.to_s
     @image = ogp&.image&.url || default_image_url_by(title: title)
-    @date = Time.zone.parse(res.headers['Last-Modified'])
+    @date = Time.zone.parse(res.headers['Last-Modified']) if res.headers['Last-Modified'].present?
   end
-  # rubocop:enable Metrics/AbcSize,Metrics/CyclomaticComplexity
 
   def richlink_params
     params.permit(:url)

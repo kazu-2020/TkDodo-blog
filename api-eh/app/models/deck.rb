@@ -14,6 +14,10 @@ class Deck < ApplicationRecord
     "#{item_type}-#{is_r5? ? 'r5' : 'r6'}-#{type}-#{area}"
   end
 
+  def total_time
+    playlists.pluck(:total_time).sum
+  end
+
   private
 
   def set_uids
