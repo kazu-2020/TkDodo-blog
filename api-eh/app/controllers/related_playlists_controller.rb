@@ -28,8 +28,8 @@ class RelatedPlaylistsController < ApplicationController
     end
     @related_playlists =
       @related_playlists.flatten.uniq { |playlist| playlist[:id] }
-                        .reject { |playlist| %w[series schedule].include?(playlist[:identifierGroup][:typeOfList]) }
-                        .sort { |a, b| a[:identifierGroup][:typeOfList] <=> b[:identifierGroup][:typeOfList] }
+                        .reject { |playlist| %w[series schedule].include?(playlist[:additionalProperty][:typeOfList]) }
+                        .sort { |a, b| a[:additionalProperty][:typeOfList] <=> b[:additionalProperty][:typeOfList] }
                         .reverse
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
