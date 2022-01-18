@@ -129,7 +129,6 @@ export default Vue.extend({
       rightDrawer: false,
       title: 'EditorialHands',
       isShowNewPlaylistDialog: false,
-      isShowNewSeriesPlaylistDialog: false,
       modeIcon: 'mdi-brightness-7',
     }
   },

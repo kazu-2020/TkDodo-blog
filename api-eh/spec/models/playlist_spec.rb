@@ -421,25 +421,4 @@ describe Playlist, type: :model do
       end
     end
   end
-
-  describe '.assign_from_series' do
-    let(:series_id) { '6X8L7Z8VK8' }
-    subject(:playlist) { Playlist.assign_from_series(series_id) }
-
-    before do
-      json =
-        File.open(Rails.root.join('spec/fixtures/payloads/ts_bundle_6X8L7Z8VK8.json')) do |file|
-          json_string = file.read
-          JSON.parse(json_string, symbolize_names: true)
-        end
-      client = instance_double(DlabApiClient)
-      allow(DlabApiClient).to receive(:new).and_return(client)
-      allow(client).to receive(:series_bundle).with(type: 'tv', series_id: series_id).and_return(json)
-    end
-
-    it 'builds playlist from series' do
-      expect(subject.name).to eq('オトッペ')
-      expect(subject.playlist_items.size).to eq(8)
-    end
-  end
 end
