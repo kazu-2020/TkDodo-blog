@@ -59,7 +59,6 @@ Rails.application.routes.draw do
 
   resources :playlists, except: %i[new edit], format: 'json' do
     collection do
-      post :import_from_series
       post :upload_article_image_by_url
       post :upload_article_image_by_file
     end

@@ -25,9 +25,6 @@
               新規作成
             </v-list-item-title>
           </v-list-item>
-          <v-list-item @click="isShowNewSeriesPlaylistDialog = true">
-            <v-list-item-title> シリーズプレイリスト作成 </v-list-item-title>
-          </v-list-item>
         </v-list>
       </v-menu>
       <v-menu offset-y>
@@ -62,10 +59,6 @@
       <new-playlist-dialog
         :is-show-dialog="isShowNewPlaylistDialog"
         @hide-new-playlist-dialog="isShowNewPlaylistDialog = false"
-      />
-      <new-series-playlist-dialog
-        :is-show-dialog="isShowNewSeriesPlaylistDialog"
-        @hide-new-series-playlist-dialog="isShowNewSeriesPlaylistDialog = false"
       />
     </v-app-bar>
     <v-main class="ivory-background">
@@ -108,7 +101,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import NewPlaylistDialog from '~/components/common/NewPlaylistDialog.vue'
-import NewSeriesPlaylistDialog from '~/components/common/NewSeriesPlaylistDialog.vue'
 
 interface DataType {
   clipped: boolean
@@ -119,14 +111,12 @@ interface DataType {
   rightDrawer: boolean
   title: string
   isShowNewPlaylistDialog: boolean
-  isShowNewSeriesPlaylistDialog: boolean
   modeIcon: string
 }
 
 export default Vue.extend({
   name: 'LayoutDefault',
   components: {
-    NewSeriesPlaylistDialog,
     NewPlaylistDialog,
   },
   data(): DataType {
