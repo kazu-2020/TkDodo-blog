@@ -16,6 +16,7 @@ class EpisodesController < ApplicationController
   end
 
   def bundle
+    client = DlabApiClient.new(api_endpoint: 'https://api.nr.nhk.jp')
     @result = client.episode_l_bundle(type: 'tv', episode_id: params[:id], query: { size: 10 })
   end
 
@@ -53,9 +54,5 @@ class EpisodesController < ApplicationController
 
   def search_params
     params.permit(:word, :concern, :keyword, :offset, :ignore_range, :order, :order_by, :size, :service)
-  end
-
-  def client
-    @client ||= DlabApiClient.new
   end
 end

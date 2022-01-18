@@ -49,18 +49,6 @@ class PlaylistsController < ApplicationController
     end
   end
 
-  def import_from_series
-    @playlist = Playlist.assign_from_series(playlist_params[:original_series_id])
-    @playlist.deck = Deck.find_by(is_r5: false)
-
-    begin
-      @playlist.save!
-      render json: @playlist, status: :created
-    rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
-      render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
-    end
-  end
-
   def update
     if @playlist.update(converted_params)
       if params[:enable_list_update]

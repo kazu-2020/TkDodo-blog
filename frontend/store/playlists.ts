@@ -85,11 +85,6 @@ export const actions = actionTree(
           commit('setPlaylist', { playlist: response.data.playlist })
         )
     },
-    async createPlaylistFromSeries({ commit }, payload) {
-      await this.$axios
-        .post('/playlists/import_from_series', payload)
-        .then((response) => commit('setPlaylist', { playlist: response.data }))
-    },
     async deletePlaylist({ commit }, playlist) {
       await this.$axios
         .delete(`/playlists/${playlist.id}`)
