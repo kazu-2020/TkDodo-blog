@@ -18,6 +18,21 @@ export const mutations = mutationTree(state, {
   setEditingDeck(state, { deck }) {
     state.editingDeck = deck
   },
+  deleteEditingDeckPlaylist(state, playlist) {
+    state.editingDeck.playlists.splice(
+      state.editingDeck.playlists.indexOf(playlist),
+      1
+    )
+  },
+  updateEditingDeck(state, deck) {
+    state.editingDeck = deck
+  },
+  addEditingDeckPlaylist(state, playlist) {
+    state.editingDeck.playlists.push(playlist)
+  },
+  updateEditingDeckPlaylists(state, playlists) {
+    state.editingDeck.playlists = playlists
+  },
 })
 export const actions = actionTree(
   { state, getters, mutations },
@@ -37,6 +52,18 @@ export const actions = actionTree(
     },
     setEditingDeck({ commit }, playlist) {
       commit('setEditingDeck', { playlist })
+    },
+    deleteEditingDeckPlaylist({ commit }, playlist) {
+      commit('deleteEditingDeckPlaylist', playlist)
+    },
+    addEditingDeckPlaylist({ commit }, playlist) {
+      commit('addEditingDeckPlaylist', playlist)
+    },
+    updateEditingDeck({ commit }, playlist) {
+      commit('updateEditingDeck', playlist)
+    },
+    updateEditingDeckPlaylists({ commit }, playlists) {
+      commit('updateEditingDeckPlaylists', playlists)
     },
   }
 )

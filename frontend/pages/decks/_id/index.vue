@@ -82,7 +82,7 @@ import { Deck } from '~/types/deck'
 import { DeckTab } from '~/models/definitions'
 import DeckStepper from '~/components/decks/DeckStepper.vue'
 import DeckPlaylistsEditTab from '~/components/decks/DeckPlaylistsEditTab.vue'
-// import unloadAlertMixin from '~/components/common/unloadAlertMixin'
+import unloadAlertMixin from '~/components/common/unloadAlertMixin'
 
 interface Breadcrumb {
   text: string
@@ -102,7 +102,7 @@ export default Vue.extend({
     DeckStepper,
     DeckPlaylistsEditTab,
   },
-  // mixins: [unloadAlertMixin],
+  mixins: [unloadAlertMixin],
   async asyncData({ store, params, error }) {
     await store.dispatch('decks/fetchDeck', params.id).catch((e) => {
       if (e.response.status === 404) {
@@ -155,19 +155,76 @@ export default Vue.extend({
       ;(this as any).showUnloadAlert()
       this.hasUnsavedPlaylist = true
     },
-    updatePlaylists(episodes: any) {
+    updatePlaylists(playlists: any) {
       this.resetUnloadAlert()
-      this.$store.dispatch('playlists/updateEditingPlaylistEpisodes', episodes)
+      this.$store.dispatch('decks/updateEditingDeckPlaylists', playlists)
     },
-    addPlaylist(episode: any) {
+    addPlaylist(playlist: any) {
       this.resetUnloadAlert()
-      this.$store.dispatch('playlists/addEditingPlaylistEpisode', episode)
+      this.$store.dispatch('decks/addEditingDeckPlaylist', playlist)
     },
-    deletePlaylist(episode: any) {
+    deletePlaylist(playlist: any) {
       this.resetUnloadAlert()
-      this.$store.dispatch('playlists/deleteEditingPlaylistEpisode', episode)
+      this.$store.dispatch('decks/deleteEditingDeckPlaylist', playlist)
     },
-    save() {},
+    save() {
+      const data = new FormData()
+
+      // このパラメーターを有効にすることで、Decks#update でプレイリストの更新もできるようにする
+      data.append('enable_list_update', '1')
+
+      if (this.deck.playlists.length > 0) {
+        for (const playlist of this.deck.playlists) {
+          data.append('deck[playlists][]', playlist.id as string)
+        }
+      }
+
+      for (const sameAs of this.deck.sameAs) {
+        if (sameAs.id) {
+          data.append('deck[same_as_attributes][][id]', sameAs.id.toString())
+        }
+        if (sameAs.name) {
+          data.append('deck[same_as_attributes][][name]', sameAs.name)
+        }
+        if (sameAs.url) {
+          data.append('deck[same_as_attributes][][url]', sameAs.url)
+        }
+        if (sameAs._destroy) {
+          data.append(
+            'deck[same_as_attributes][][_destroy]',
+            sameAs._destroy.toString()
+          )
+        }
+      }
+
+      this.$store.dispatch('loading/startLoading', {
+        success: '保存しました',
+        error: '保存失敗しました',
+      })
+
+      this.$axios
+        .put(`/decks/${this.deck.id}`, data)
+        .then((response) => {
+          this.$store.dispatch('loading/succeedLoading')
+          this.$store.dispatch(
+            'playlists/setEditingDeck',
+            (response as any).data.deck
+          )
+
+          this.$store.subscribeAction({
+            after: (action, _state) => {
+              if (action.type !== 'playlists/setEditingDeck') return
+              ;(this as any).notShowUnloadAlert()
+            },
+          })
+
+          this.hasUnsavedPlaylist = false
+          this.hasUnsavedDeck = false
+        })
+        .catch((_error) => {
+          this.$store.dispatch('loading/failLoading')
+        })
+    },
   },
 })
 </script>
