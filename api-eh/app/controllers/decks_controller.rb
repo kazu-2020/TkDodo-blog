@@ -5,6 +5,11 @@ class DecksController < ApplicationController
     @decks = Deck.all
   end
 
+  def show
+    @deck = Deck.find_by(id: params[:id])
+    render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
+  end
+
   def playlists
     @deck = Deck.find_by(id: params[:id])
 

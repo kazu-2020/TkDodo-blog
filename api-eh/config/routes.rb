@@ -51,7 +51,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :decks, only: [:index], format: 'json' do
+  resources :decks, only: [:index, :show], format: 'json' do
     member do
       get :playlists
     end
