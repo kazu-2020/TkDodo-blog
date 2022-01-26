@@ -9,7 +9,6 @@ FactoryBot.define do
     selected_palette { '#ffffff' }
     published_state { 'draft' }
     sequence(:alias_id) { |i| "ALIAS-ID#{i}" }
-    association :deck
     publish_level { Playlist::PUBLISH_LEVELS.sample }
     deliver_item_list_via_api { [true, false].sample }
     deliver_episode_via_api { [true, false].sample }

@@ -14,6 +14,7 @@ describe PlaylistsController, type: :request do
 
   describe 'POST #create' do
     let(:params) { { playlist: { name: 'cool name' } } }
+    before { create(:deck) }
 
     it 'creates new playlist' do
       expect do
