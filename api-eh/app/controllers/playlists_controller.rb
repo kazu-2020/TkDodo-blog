@@ -11,10 +11,10 @@ class PlaylistsController < ApplicationController
   def index
     @playlists = if params[:deck_id].present?
                    deck = Deck.find_by(id: params[:deck_id])
-                   Playlist.of(deck)
+                   deck.playlists
                  elsif params[:area].present?
                    deck = Deck.find_by(area: params[:area], is_r5: true)
-                   Playlist.of(deck)
+                   deck.playlists
                  else
                    Playlist.original
                  end
@@ -37,7 +37,7 @@ class PlaylistsController < ApplicationController
 
   def create
     @playlist = Playlist.new(converted_params)
-    @playlist.deck = Deck.find_by(is_r5: false)
+    @playlist.decks << Deck.find_by(is_r5: false)
     begin
       @playlist.save!
       if params[:enable_list_update]
