@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Deck < ApplicationRecord
-  has_many :playlists, dependent: :destroy
+  has_many :deck_playlists, -> { order(position: :asc) }
+  has_many :playlists, through: :deck_playlists
 
   validates :name, presence: true
   validates :area, presence: true

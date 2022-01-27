@@ -28,6 +28,9 @@ class Playlist < ApplicationRecord
            dependent: :destroy
   accepts_nested_attributes_for :playlist_items, allow_destroy: true
 
+  has_many :deck_playlists, -> { order(position: :asc) }
+  has_many :decks, through: :deck_playlists
+
   has_many :playlist_keywords, dependent: :destroy
   has_many :playlist_hashtags, dependent: :destroy
 
@@ -38,11 +41,8 @@ class Playlist < ApplicationRecord
   has_many :citations, dependent: :destroy
   accepts_nested_attributes_for :citations, allow_destroy: true
 
-  belongs_to :deck, optional: true
-
   scope :recent, -> { order(updated_at: :desc) }
   scope :original, -> { where('d5_playlist_id IS NULL') }
-  scope :of, ->(deck) { where(deck: deck) }
   scope :has_article, -> { where('marked_body IS NOT NULL') }
   scope :no_article, -> { where('marked_body IS NULL') }
   scope :has_visible_items, -> { joins(:playlist_items).merge(PlaylistItem.playable).distinct }
