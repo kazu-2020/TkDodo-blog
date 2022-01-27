@@ -111,11 +111,27 @@ variable "web_acl" {
   }
 }
 
+variable "elasticache" {
+  default = {
+    "dev.node_type"        = "cache.t2.small"
+    "staging.node_type"    = "cache.t2.small"
+    "production.node_type" = "cache.t2.small"
+  }
+}
+
 variable "cf_alb_pre_shared_key" {
   default = {
     "dev.id"        = "dev_key"
     "staging.id"    = "staging_key"
     "production.id" = "production_key"
+  }
+}
+
+variable "redis_cluster_id_key" {
+  default = {
+    "dev.key"        = "dev"
+    "staging.key"    = "stg"
+    "production.key" = "prd"
   }
 }
 
