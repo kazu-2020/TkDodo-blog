@@ -1,11 +1,12 @@
 namespace :playlists do
+  # FIXME: 削除しても良さそう
   desc 'プレイリストの再生時間や再生可能エピソード数の更新'
   task recalculate_playlist_item_duration: :environment do
     PlaylistItem.kept.all.each(&:fetch_data)
 
     Playlist.all.each do |playlist|
-      playlist.update_playable_total_time!
-      playlist.update_playable_playlist_items_count!
+      playlist.playable_total_time
+      playlist.playable_playlist_items_count
     end
   end
 
@@ -14,11 +15,11 @@ namespace :playlists do
     R5PlaylistsImporter.new.execute
   end
 
+  # FIXME: 削除しても良さそう
   desc 'プレイリストの SubType カウントの集計'
   task update_subtypes: :environment do
     Playlist.all.each do |playlist|
-      playlist.assign_sub_type_count
-      playlist.save
+      playlist.sub_types_count
     end
   end
 

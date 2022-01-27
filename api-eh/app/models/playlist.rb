@@ -7,6 +7,7 @@ class Playlist < ApplicationRecord
   include GenreMountable
   include ArticleFormattable
   include ApiStatable
+  include PlaylistCachable
 
   friendly_id :string_id
 
@@ -67,7 +68,6 @@ class Playlist < ApplicationRecord
   after_create :link_article_images
   before_save :generate_derivatives
   before_save :trim_name
-  before_save :assign_sub_type_count
 
   def original_id
     "eh-#{format('%010d', id)}"
@@ -156,36 +156,6 @@ class Playlist < ApplicationRecord
     end.flatten.compact
   end
   # rubocop:enable Metrics/AbcSize
-
-  def update_playable_total_time!
-    self.playable_total_time = playlist_items.playable.sum(&:duration)
-    save!
-  end
-
-  def update_playable_playlist_items_count!
-    self.playable_playlist_items_count = playlist_items.playable.size
-    save!
-  end
-
-  def assign_sub_type_count
-    client = DlabApiClient.new
-
-    result = { event_count: 0, how_to_count: 0, faq_page_count: 0 }
-
-    playlist_items.each do |item|
-      data =
-        begin
-          client.episode_list_bundle(type: 'tv', episode_id: item.episode_id)
-        rescue DlabApiClient::NotFound
-          {}
-        end
-
-      result[:faq_page_count] += data.dig(:faqpage, :count) || 0
-      result[:event_count] += data.dig(:event, :count) || 0
-      result[:how_to_count] += data.dig(:howto, :count) || 0
-    end
-    assign_attributes(result)
-  end
 
   def replace_article_body_urls
     editor_data_text = editor_data.to_json.to_s
