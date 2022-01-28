@@ -64,12 +64,11 @@
           sm="12"
           class="mt-4 series-container-wrapper"
         >
-          <!-- <series-meta-edit-tab
-            :playlist="playlist"
-            @update-series="updateSeries"
-            @update-validation="updateSeriesTabValidation"
-          /> -->
-          deck
+          <deck-meta-edit-tab
+            :deck="deck"
+            @update-deck="updateDeck"
+            @update-validation="updateDeckTabValidation"
+          />
         </v-col>
       </v-row>
     </div>
@@ -82,6 +81,7 @@ import { Deck } from '~/types/deck'
 import { DeckTab } from '~/models/definitions'
 import DeckStepper from '~/components/decks/DeckStepper.vue'
 import DeckPlaylistsEditTab from '~/components/decks/DeckPlaylistsEditTab.vue'
+import DeckMetaEditTab from '~/components/decks/DeckMetaEditTab.vue'
 import unloadAlertMixin from '~/components/common/unloadAlertMixin'
 
 interface Breadcrumb {
@@ -101,6 +101,7 @@ export default Vue.extend({
   components: {
     DeckStepper,
     DeckPlaylistsEditTab,
+    DeckMetaEditTab,
   },
   mixins: [unloadAlertMixin],
   async asyncData({ store, params, error }) {
@@ -155,6 +156,16 @@ export default Vue.extend({
       ;(this as any).showUnloadAlert()
       this.hasUnsavedPlaylist = true
     },
+    updateDeckTabValidation(valid: boolean) {
+      this.isValidDeckTab = valid
+    },
+    updateDeck(deck: any) {
+      if (this.currentTab === DeckTab.deck) {
+        ;(this as any).showUnloadAlert()
+        this.hasUnsavedDeck = true
+      }
+      this.$store.dispatch('decks/updateEditingDeck', deck)
+    },
     updatePlaylists(playlists: any) {
       this.resetUnloadAlert()
       this.$store.dispatch('decks/updateEditingDeckPlaylists', playlists)
@@ -168,10 +179,21 @@ export default Vue.extend({
       this.$store.dispatch('decks/deleteEditingDeckPlaylist', playlist)
     },
     save() {
+      const body: { [key: string]: string | undefined } = {
+        name: this.deck.name,
+        description: this.deck.description,
+      }
+
       const data = new FormData()
 
       // このパラメーターを有効にすることで、Decks#update でプレイリストの更新もできるようにする
       data.append('enable_list_update', '1')
+
+      for (const key in body) {
+        if (body[key] !== null && body[key] !== undefined) {
+          data.append(`deck[${key}]`, body[key] as string)
+        }
+      }
 
       if (this.deck.playlists.length > 0) {
         for (const playlist of this.deck.playlists) {

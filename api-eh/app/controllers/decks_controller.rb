@@ -35,7 +35,6 @@ class DecksController < ApplicationController
   private
 
   def deck_params
-    params.require(:deck)
-          .permit(:name, :playlists)
+    params.require(:deck).permit(:name, :description, :playlists)
   end
 end

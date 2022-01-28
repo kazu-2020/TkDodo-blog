@@ -9,6 +9,9 @@ export const state = () => ({
 export const getters = getterTree(state, {
   allDecks: (state) => state.allDecks,
   editingDeck: (state) => state.editingDeck,
+  sameAs(_state, _getters, _rootState, rootGetters) {
+    return rootGetters['sameAs/all']
+  },
 })
 
 export const mutations = mutationTree(state, {
