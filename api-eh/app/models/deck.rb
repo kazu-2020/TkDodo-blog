@@ -4,6 +4,8 @@ class Deck < ApplicationRecord
   has_many :deck_playlists, -> { order(position: :asc) }
   has_many :playlists, through: :deck_playlists
   accepts_nested_attributes_for :playlists
+  has_many :deck_same_as, dependent: :destroy
+  accepts_nested_attributes_for :deck_same_as, allow_destroy: true
 
   validates :name, presence: true
   validates :visible_uid, presence: true

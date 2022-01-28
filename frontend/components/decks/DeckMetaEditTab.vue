@@ -28,7 +28,7 @@
           <!-- sameAs -->
           <v-row dense class="my-5">
             <v-col cols="12">
-              <h3>
+              <h3 class="mb-3">
                 リンク(同一内容)<small class="text--secondary"> - SameAs</small>
               </h3>
             </v-col>

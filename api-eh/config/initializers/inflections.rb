@@ -12,6 +12,6 @@
 
 # These inflection rules are supported but not enabled by default:
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-  inflect.uncountable %w[same_as]
+  inflect.uncountable %w[same_as deck_same_as]
   #   inflect.acronym 'RESTful'
 end

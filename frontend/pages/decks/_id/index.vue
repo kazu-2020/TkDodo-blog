@@ -201,23 +201,26 @@ export default Vue.extend({
         }
       }
 
-      // for (const sameAs of this.deck.sameAs) {
-      //   if (sameAs.id) {
-      //     data.append('deck[same_as_attributes][][id]', sameAs.id.toString())
-      //   }
-      //   if (sameAs.name) {
-      //     data.append('deck[same_as_attributes][][name]', sameAs.name)
-      //   }
-      //   if (sameAs.url) {
-      //     data.append('deck[same_as_attributes][][url]', sameAs.url)
-      //   }
-      //   if (sameAs._destroy) {
-      //     data.append(
-      //       'deck[same_as_attributes][][_destroy]',
-      //       sameAs._destroy.toString()
-      //     )
-      //   }
-      // }
+      for (const sameAs of this.deck.sameAs) {
+        if (sameAs.id) {
+          data.append(
+            'deck[deck_same_as_attributes][][id]',
+            sameAs.id.toString()
+          )
+        }
+        if (sameAs.name) {
+          data.append('deck[deck_same_as_attributes][][name]', sameAs.name)
+        }
+        if (sameAs.url) {
+          data.append('deck[deck_same_as_attributes][][url]', sameAs.url)
+        }
+        if (sameAs._destroy) {
+          data.append(
+            'deck[deck_same_as_attributes][][_destroy]',
+            sameAs._destroy.toString()
+          )
+        }
+      }
 
       this.$store.dispatch('loading/startLoading', {
         success: '保存しました',
