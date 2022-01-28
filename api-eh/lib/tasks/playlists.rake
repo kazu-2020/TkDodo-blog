@@ -31,4 +31,9 @@ namespace :playlists do
   task refresh_article_body_episode_data: :environment do
     Playlist.all.each(&:refresh_article_body_episode_data).each(&:save)
   end
+
+  desc '全てのプレイリストのapi_stateを「公開」に変更する'
+  task open_api_state_all: :environment do
+    Playlist.update_all(api_state: :open)
+  end
 end
