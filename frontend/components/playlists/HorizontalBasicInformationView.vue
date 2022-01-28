@@ -15,7 +15,7 @@
       </v-col>
       <v-col cols="2" md="2" sm="2" xs="6">
         <div v-show="hasPlaylistId" class="chips">
-          <published-state-badge class="my-1" :playlist="playlist" />
+          <api-state-badge class="my-1" :playlist="playlist" />
           <span
             v-if="playlist.browsableItemCount === 0"
             style="font-size: 12px; color: black"
@@ -127,7 +127,7 @@
 import Vue from 'vue'
 import moment from 'moment'
 import PlaylistPreviewEpisodesCarousel from '~/components/playlists/PlaylistPreviewEpisodesCarousel.vue'
-import PublishedStateBadge from '~/components/playlists/PublishedStateBadge.vue'
+import ApiStateBadge from '~/components/playlists/ApiStateBadge.vue'
 
 interface DataType {
   snackbar: boolean
@@ -137,7 +137,7 @@ export default Vue.extend({
   name: 'HorizontalBasicInformationView',
   components: {
     PlaylistPreviewEpisodesCarousel,
-    PublishedStateBadge,
+    ApiStateBadge,
   },
   props: {
     playlist: {

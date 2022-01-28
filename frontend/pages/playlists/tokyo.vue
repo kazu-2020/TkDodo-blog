@@ -155,7 +155,7 @@ export default Vue.extend({
     await store.dispatch('playlists/fetchD5Playlists', {
       area: '130',
       page: 1,
-      publishedState: 'draft',
+      apiState: 'open',
     })
   },
   data(): DataType {

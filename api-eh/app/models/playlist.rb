@@ -3,7 +3,6 @@
 # TODO: module, concern 等に切り出す
 # rubocop:disable Metrics/ClassLength
 class Playlist < ApplicationRecord
-  class InvalidPublishedStateTransitionError < StandardError; end
   extend FriendlyId
   include GenreMountable
   include ArticleFormattable
@@ -16,13 +15,11 @@ class Playlist < ApplicationRecord
   include HeroUploader::Attachment(:hero_image)
 
   VALID_COLOR_REGEX = /\A#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\z/.freeze
-  PUBLISHED_STATES = %i[draft waiting_for_publish published secret].freeze
   AUTHOR_TYPES = %i[Person Organization].freeze
   PUBLISHER_TYPES = AUTHOR_TYPES
   PUBLISH_LEVELS = %i[notyet ready limited gone full].freeze
 
   enum publish_level: PUBLISH_LEVELS.each_with_object({}) { |s, h| h[s] = s.to_s }
-  enum published_state: PUBLISHED_STATES.each_with_object({}) { |s, h| h[s] = s.to_s }
 
   has_many :playlist_items,
            -> { order(position: :asc) },
@@ -50,7 +47,6 @@ class Playlist < ApplicationRecord
   scope :name_like, ->(query) { where('name LIKE ?', "%#{query}%") }
 
   validates :name, presence: true
-  validates :published_state, presence: true, inclusion: { in: PUBLISHED_STATES.map(&:to_s) }
   %w[selected_palette primary_light_color primary_dark_color
      text_light_color text_dark_color link_light_color link_dark_color].each do |color_attribute|
     validates color_attribute.to_sym, format: { with: VALID_COLOR_REGEX },

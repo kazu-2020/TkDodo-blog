@@ -25,9 +25,7 @@ module ApiStatable
   end
 
   def presence_open_scheduled_at
-    if api_state_waiting? && open_scheduled_at.blank?
-      errors.add(:open_scheduled_at, "はapi_stateがwaitingの場合、必須です")
-    end
+    errors.add(:open_scheduled_at, 'はapi_stateがwaitingの場合、必須です') if api_state_waiting? && open_scheduled_at.blank?
   end
 
   def update_publish_state(attributes)

@@ -3,7 +3,7 @@
 json.id playlist.string_id
 json.originalId playlist.original_id
 json.name playlist.name
-json.publishedState playlist.published_state
+json.apiState playlist.api_state
 json.detailedNameRuby playlist.detailed_name_ruby
 json.description playlist.description
 json.headline playlist.headline

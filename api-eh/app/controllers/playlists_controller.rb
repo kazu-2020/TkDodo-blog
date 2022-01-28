@@ -18,11 +18,11 @@ class PlaylistsController < ApplicationController
                  else
                    Playlist.original
                  end
-    case params[:published_state]
-    when 'draft'
-      @playlists = @playlists.draft
-    when 'secret'
-      @playlists = @playlists.secret
+    case params[:api_state]
+    when 'open'
+      @playlists = @playlists.api_state_open
+    when 'close'
+      @playlists = @playlists.api_state_close
     end
     @playlists = @playlists.name_like(params[:query]) if params[:query]
     @playlists = @playlists.recent.page(@page).per(@per)
@@ -126,7 +126,7 @@ class PlaylistsController < ApplicationController
                   :deliver_how_to_via_api, :deliver_event_via_api, :deliver_item_list_via_api,
                   :reserve_publish_time_at, :reserve_finish_time_at, :layout_pattern, :publish_level,
                   :original_series_id, :alias_id, :marked_header, :editor_data, :marked_footer,
-                  :author_type, :author_name, :publisher_type, :publisher_name, :published_state,
+                  :author_type, :author_name, :publisher_type, :publisher_name, :api_state,
                   same_as_attributes: %i[id name url _destroy], citations_attributes: %i[id name url _destroy],
                   playlist_items_attributes: %i[episode_id],
                   keywords: [], hashtags: [])

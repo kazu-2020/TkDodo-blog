@@ -59,8 +59,8 @@ export const mutations = mutationTree(state, {
 export const actions = actionTree(
   { state, getters, mutations },
   {
-    async fetchPlaylists({ commit }, { page, publishedState, query }) {
-      let url = `/playlists?page=${page}&published_state=${publishedState}`
+    async fetchPlaylists({ commit }, { page, apiState, query }) {
+      let url = `/playlists?page=${page}&api_state=${apiState}`
       if (query) {
         url += `&query=${query}`
       }

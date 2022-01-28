@@ -4,7 +4,7 @@
       <v-col cols="6" class="pr-0">
         <h2 class="playlist-title">{{ playlistName }}</h2>
         <div v-show="hasPlaylistId" class="chips">
-          <published-state-badge class="my-1" :playlist="playlist" />
+          <api-state-badge class="my-1" :playlist="playlist" />
           <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
             Id: {{ playlisitId }}
           </v-chip>
@@ -92,7 +92,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
-import PublishedStateBadge from '~/components/playlists/PublishedStateBadge.vue'
+import ApiStateBadge from '~/components/playlists/ApiStateBadge.vue'
 
 interface DataType {
   snackbar: boolean
@@ -101,7 +101,7 @@ interface DataType {
 export default Vue.extend({
   name: 'BasicInformationView',
   components: {
-    PublishedStateBadge,
+    ApiStateBadge,
   },
   props: {
     playlist: {

@@ -32,7 +32,7 @@ class External::PlaylistsController < ApplicationController
       return
     end
 
-    @playlists = @deck.playlists.draft
+    @playlists = @deck.playlists.api_state_open
     @playlists = @playlists.has_article if media_action.include?('read')
 
     case order_by

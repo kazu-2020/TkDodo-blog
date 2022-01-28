@@ -430,7 +430,7 @@ export default Vue.extend({
         author_name: this.playlist.article.authorName,
         publisher_name: this.playlist.article.publisherName,
         publisher_type: this.playlist.article.publisherType,
-        published_state: this.playlist.publishedState,
+        api_state: this.playlist.apiState,
         layout_pattern: this.playlist.layoutPattern,
         publish_level: this.playlist.publishLevel,
       }
