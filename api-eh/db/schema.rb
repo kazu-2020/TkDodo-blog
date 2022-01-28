@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_25_142800) do
+ActiveRecord::Schema.define(version: 2022_01_28_015313) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -137,8 +137,9 @@ ActiveRecord::Schema.define(version: 2022_01_25_142800) do
     t.string "publisher_type", comment: "Person or Organization"
     t.string "publisher_name", comment: "発行者名"
     t.string "published_state", default: "draft", null: false, comment: "公開状態"
-    t.datetime "reserve_publish_time_at", comment: "予約公開日"
-    t.datetime "reserve_finish_time_at", comment: "公開終了日時"
+    t.integer "api_state", default: 0, null: false, comment: "APIの公開状態 close: 0, open: 1, waiting: 2"
+    t.datetime "open_scheduled_at", comment: "予約公開日"
+    t.datetime "close_scheduled_at", comment: "公開終了日時"
     t.datetime "published_at", comment: "公開日時"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
