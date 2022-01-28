@@ -50,8 +50,8 @@ export const actions = actionTree(
         })
       })
     },
-    setEditingDeck({ commit }, playlist) {
-      commit('setEditingDeck', { playlist })
+    setEditingDeck({ commit }, deck) {
+      commit('setEditingDeck', { deck })
     },
     deleteEditingDeckPlaylist({ commit }, playlist) {
       commit('deleteEditingDeckPlaylist', playlist)
@@ -59,8 +59,8 @@ export const actions = actionTree(
     addEditingDeckPlaylist({ commit }, playlist) {
       commit('addEditingDeckPlaylist', playlist)
     },
-    updateEditingDeck({ commit }, playlist) {
-      commit('updateEditingDeck', playlist)
+    updateEditingDeck({ commit }, deck) {
+      commit('updateEditingDeck', deck)
     },
     updateEditingDeckPlaylists({ commit }, playlists) {
       commit('updateEditingDeckPlaylists', playlists)

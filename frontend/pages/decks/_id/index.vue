@@ -175,27 +175,27 @@ export default Vue.extend({
 
       if (this.deck.playlists.length > 0) {
         for (const playlist of this.deck.playlists) {
-          data.append('deck[playlists][]', playlist.id as string)
+          data.append('deck[playlists][]', playlist.internalId)
         }
       }
 
-      for (const sameAs of this.deck.sameAs) {
-        if (sameAs.id) {
-          data.append('deck[same_as_attributes][][id]', sameAs.id.toString())
-        }
-        if (sameAs.name) {
-          data.append('deck[same_as_attributes][][name]', sameAs.name)
-        }
-        if (sameAs.url) {
-          data.append('deck[same_as_attributes][][url]', sameAs.url)
-        }
-        if (sameAs._destroy) {
-          data.append(
-            'deck[same_as_attributes][][_destroy]',
-            sameAs._destroy.toString()
-          )
-        }
-      }
+      // for (const sameAs of this.deck.sameAs) {
+      //   if (sameAs.id) {
+      //     data.append('deck[same_as_attributes][][id]', sameAs.id.toString())
+      //   }
+      //   if (sameAs.name) {
+      //     data.append('deck[same_as_attributes][][name]', sameAs.name)
+      //   }
+      //   if (sameAs.url) {
+      //     data.append('deck[same_as_attributes][][url]', sameAs.url)
+      //   }
+      //   if (sameAs._destroy) {
+      //     data.append(
+      //       'deck[same_as_attributes][][_destroy]',
+      //       sameAs._destroy.toString()
+      //     )
+      //   }
+      // }
 
       this.$store.dispatch('loading/startLoading', {
         success: '保存しました',
@@ -207,13 +207,13 @@ export default Vue.extend({
         .then((response) => {
           this.$store.dispatch('loading/succeedLoading')
           this.$store.dispatch(
-            'playlists/setEditingDeck',
+            'decks/setEditingDeck',
             (response as any).data.deck
           )
 
           this.$store.subscribeAction({
             after: (action, _state) => {
-              if (action.type !== 'playlists/setEditingDeck') return
+              if (action.type !== 'decks/setEditingDeck') return
               ;(this as any).notShowUnloadAlert()
             },
           })

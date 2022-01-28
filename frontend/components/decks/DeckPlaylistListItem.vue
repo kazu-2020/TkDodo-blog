@@ -17,7 +17,7 @@
         ><v-col class="body-2">エラーが発生しました</v-col></v-row
       >
       <v-row v-else-if="isFetched" align="center" justify="center"
-        ><v-col class="body-2">エピソードはありません</v-col></v-row
+        ><v-col class="body-2">プレイリストはありません</v-col></v-row
       >
       <v-row v-else align="center" justify="center"
         ><v-col><v-progress-circular indeterminate color="amber" /></v-col

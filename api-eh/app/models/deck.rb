@@ -44,22 +44,22 @@ class Deck < ApplicationRecord
 
   def add_playlists!(playlist_ids)
     playlist_ids.each do |playlist_id|
-      playlists.create!(playlist_id: playlist_id)
+      deck_playlists.create!(deck_id: id, playlist_id: playlist_id)
     end
   end
 
   def remove_playlists!(playlist_ids)
     playlist_ids.each do |playlist_id|
-      playlists.find_by(playlist_id: playlist_id).destroy!
+      deck_playlists.find_by(deck_id: id, playlist_id: playlist_id).destroy!
     end
   end
 
   def reorder_playlists(new_playlist_order)
-    new_playlist_order.each_with_index do |playlist, i|
-      next if playlist == reload.playlists[i].id
+    new_playlist_order.each_with_index do |playlist_id, i|
+      next if playlist_id == reload.playlists[i].id
 
-      sort_target_playlist = playlists.find_by(playlist_id: playlist)
-      sort_target_playlist.set_list_position(i + 1)
+      sort_target_deck_playlist = deck_playlists.find_by(deck_id: id, playlist_id: playlist_id)
+      sort_target_deck_playlist.set_list_position(i + 1)
     end
   end
 end

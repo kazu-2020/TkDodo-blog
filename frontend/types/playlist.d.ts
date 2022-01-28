@@ -6,6 +6,7 @@ import { Article } from './article'
 export interface Playlist {
   id: string
   originalId: string
+  internalId: string
   name: string
   detailedNameRuby: string
   description: string

@@ -49,7 +49,7 @@
         >
         <v-row v-else-if="isFetched" align="center" justify="center"
           ><v-col class="body-2 mb-4" cols="2"
-            >エピソードはありません</v-col
+            >プレイリストはありません</v-col
           ></v-row
         >
         <v-row v-else align="center" justify="center"
