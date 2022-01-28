@@ -7,6 +7,7 @@ class Playlist < ApplicationRecord
   extend FriendlyId
   include GenreMountable
   include ArticleFormattable
+  include ApiStatable
 
   friendly_id :string_id
 
@@ -99,28 +100,6 @@ class Playlist < ApplicationRecord
   def dummy_image_url(image_type)
     image_seed = created_at.day.digits.first + 1
     "https://dev-eh.nr.nhk.jp/dummy/default#{image_seed}/default#{image_seed}-#{image_type}.png"
-  end
-
-  def wait_for_publish!(reserve_publish_time_at)
-    raise InvalidPublishedStateTransitionError if reserve_publish_time_at.nil? || !(draft? || secret?)
-
-    self.reserve_publish_time_at = reserve_publish_time_at
-    waiting_for_publish!
-  end
-
-  def publish!(time = Time.current)
-    raise InvalidPublishedStateTransitionError unless waiting_for_publish? || secret?
-
-    self.reserve_publish_time_at = nil
-    self.published_at = time unless published_at
-    published!
-  end
-
-  def make_secret!
-    raise InvalidPublishedStateTransitionError unless published? || waiting_for_publish?
-
-    self.reserve_publish_time_at = nil
-    secret!
   end
 
   def rebuild_episode_list_to(episodes)
