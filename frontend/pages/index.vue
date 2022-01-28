@@ -31,7 +31,7 @@
               item-text="text"
               item-value="state"
               class="pt-16 pl-4"
-              style="max-width: 100px; display: table-cell"
+              style="max-width: 180px; display: table-cell"
               dense
               solo
             />
@@ -350,8 +350,8 @@ export default Vue.extend({
     },
     apiStateFilters(): Array<Object> {
       return [
-        { state: 'open', text: '公開のみ' },
-        { state: 'close', text: '非公開のみ' },
+        { state: 'open', text: 'API公開中のみ' },
+        { state: 'close', text: 'API非公開のみ' },
         { state: '', text: '全て' },
       ]
     },

@@ -17,7 +17,7 @@ export default Vue.extend({
   },
   computed: {
     apiState(): string {
-      return this.playlist?.apiState === 'open' ? '公開' : '非公開'
+      return this.playlist?.apiState === 'open' ? 'API公開中' : 'API非公開'
     },
     apiStateColor(): string {
       return this.playlist?.apiState === 'open' ? 'blue-grey' : 'grey'
