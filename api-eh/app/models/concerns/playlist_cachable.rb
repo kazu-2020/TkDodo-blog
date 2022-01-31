@@ -7,7 +7,7 @@ module PlaylistCachable
   included do # rubocop:disable Metrics/BlockLength
     def total_time
       Rails.cache.fetch("#{cache_key_with_version}/total_time", expires_in: CACHED_DATA_TTL) do
-        playlist_items.kept.sum(:duration)
+        playlist_items.kept.map(&:duration).sum
       end
     end
 
@@ -19,7 +19,7 @@ module PlaylistCachable
 
     def playable_total_time
       Rails.cache.fetch("#{cache_key_with_version}/playable_total_time", expires_in: CACHED_DATA_TTL) do
-        playlist_items.kept.playable.sum(:duration)
+        playlist_items.kept.playable.map(&:duration).sum
       end
     end
 

@@ -18,7 +18,7 @@ class R5PlaylistsImporter
         begin
           episode = r6_client.episode_from_broadcast_event(type: 'tvepisode', broadcast_event_id: broadcast_event_id)
           playlist_item = playlist.playlist_items.find_or_create_by(episode_id: episode[:id])
-          playlist_item.fetch_data
+          playlist_item.fetch_bundle_data
         rescue DlabApiBase::NotFound
           # TODO: do something
         end

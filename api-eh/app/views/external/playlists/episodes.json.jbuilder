@@ -11,13 +11,9 @@ playlist_items = @playlist_items.where(position: min_position..max_position).ord
 
 episodes =
   if params[:availableOn] == 'okushibu'
-    playlist_items.playable.map do |item|
-      fetch_episode_data(playlist_item: item, force_fetch: true)
-    end
+    playlist_items.playable.map(&:episode_data)
   else
-    playlist_items.map do |item|
-      fetch_episode_data(playlist_item: item, force_fetch: true)
-    end
+    playlist_items.map(&:episode_data)
   end
 
 json.count count
