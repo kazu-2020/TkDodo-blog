@@ -113,9 +113,9 @@ variable "web_acl" {
 
 variable "elasticache" {
   default = {
-    "dev.node_type"        = "cache.t2.small"
-    "staging.node_type"    = "cache.t2.small"
-    "production.node_type" = "cache.t2.small"
+    "dev.node_type"        = "cache.t4g.small"
+    "staging.node_type"    = "cache.t4g.small"
+    "production.node_type" = "cache.t4g.small"
   }
 }
 
