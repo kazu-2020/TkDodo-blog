@@ -169,7 +169,7 @@
               <h3>d6.6 API への公開/非公開</h3>
             </v-col>
             <v-col cols="12" sm="6" md="3">
-              <v-checkbox v-model="publishedState" label="公開する" />
+              <v-checkbox v-model="apiState" label="公開する" />
             </v-col>
           </v-row>
           <v-row dense class="my-5">
@@ -289,7 +289,7 @@ interface DataType {
   aliasIdRules: Function[]
   formatGenreList: Object[]
   themeGenreList: Object[]
-  publishedState: boolean
+  apiState: boolean
   selectedTypes: string[]
   episodeCount: number
   faqPageCount: number
@@ -378,7 +378,7 @@ export default Vue.extend({
         { value: '096', text: '芸術' },
         { value: '110', text: '福祉全般' },
       ],
-      publishedState: this.playlist.publishedState === 'draft',
+      apiState: this.playlist.apiState === 'open',
       selectedTypes,
       episodeCount: 0,
       faqPageCount: 0,
@@ -387,8 +387,8 @@ export default Vue.extend({
     }
   },
   computed: {
-    convertedPublishedState(): string {
-      return this.publishedState ? 'draft' : 'secret'
+    convertedApiState(): string {
+      return this.apiState ? 'open' : 'close'
     },
     hasArticle(): boolean {
       return (
@@ -433,7 +433,7 @@ export default Vue.extend({
         this.sameAs = newVal.sameAs
         this.citations = newVal.citations
         this.aliasId = newVal.aliasId
-        this.publishedState = newVal.publishedState === 'draft'
+        this.apiState = newVal.apiState === 'open'
         this.layoutPattern = newVal.layoutPattern
         this.publishLevel = newVal.publishLevel
 
@@ -565,13 +565,13 @@ export default Vue.extend({
         this.$emit('update-series', playlist)
       },
     },
-    publishedState: {
+    apiState: {
       handler() {
-        if (this.playlist.publishedState === this.convertedPublishedState)
-          return
+        if (this.playlist.apiState === this.convertedApiState) return
+
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, {
-          publishedState: this.convertedPublishedState,
+          apiState: this.convertedApiState,
         })
         this.$emit('update-series', playlist)
       },

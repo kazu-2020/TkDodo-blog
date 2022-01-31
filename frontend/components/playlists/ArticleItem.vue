@@ -16,7 +16,7 @@
     <div class="title float-left ml-6 article-info">
       <a class="playlist-title">
         <span class="playlist-name">{{ playlistName }}</span>
-        <published-state-badge class="" :playlist="playlist" />
+        <api-state-badge class="" :playlist="playlist" />
         <span
           v-if="playlist.browsableItemCount === 0"
           style="font-size: 12px; color: black"
@@ -64,12 +64,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
-import PublishedStateBadge from '~/components/playlists/PublishedStateBadge.vue'
+import ApiStateBadge from '~/components/playlists/ApiStateBadge.vue'
 
 export default Vue.extend({
   name: 'ArticleItem',
   components: {
-    PublishedStateBadge,
+    ApiStateBadge,
   },
   props: {
     playlist: {

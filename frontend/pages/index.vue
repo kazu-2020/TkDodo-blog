@@ -26,12 +26,12 @@
               />
             </div>
             <v-select
-              v-model="selectedPublishedStateFilter"
-              :items="publishedStateFilters"
+              v-model="selectedApiStateFilter"
+              :items="apiStateFilters"
               item-text="text"
               item-value="state"
               class="pt-16 pl-4"
-              style="max-width: 100px; display: table-cell"
+              style="max-width: 180px; display: table-cell"
               dense
               solo
             />
@@ -284,7 +284,7 @@ interface DataType {
   selectedPlaylistItems: EpisodeData[]
   selectedPlaylistActorContributor: Object[]
   width: number
-  selectedPublishedStateFilter: string
+  selectedApiStateFilter: string
   searchKeyword: string | undefined
   isShowLoadingDialog: boolean
 }
@@ -300,7 +300,7 @@ export default Vue.extend({
   async asyncData({ store }) {
     await store.dispatch('playlists/fetchPlaylists', {
       page: 1,
-      publishedState: 'draft',
+      apiState: 'open',
     })
   },
   data(): DataType {
@@ -313,7 +313,7 @@ export default Vue.extend({
       selectedPlaylistItems: [],
       selectedPlaylistActorContributor: [],
       width: window.innerWidth,
-      selectedPublishedStateFilter: 'draft',
+      selectedApiStateFilter: 'open',
       searchKeyword: undefined,
       isShowLoadingDialog: false,
     }
@@ -348,10 +348,10 @@ export default Vue.extend({
 
       return actors.concat(contributors)
     },
-    publishedStateFilters(): Array<Object> {
+    apiStateFilters(): Array<Object> {
       return [
-        { state: 'draft', text: '下書きのみ' },
-        { state: 'secret', text: '非公開のみ' },
+        { state: 'open', text: 'API公開中のみ' },
+        { state: 'close', text: 'API非公開のみ' },
         { state: '', text: '全て' },
       ]
     },
@@ -362,7 +362,7 @@ export default Vue.extend({
         this.isShowLoadingDialog = true
         this.$store.dispatch('playlists/fetchPlaylists', {
           page: newValue,
-          publishedState: this.selectedPublishedStateFilter,
+          apiState: this.selectedApiStateFilter,
         })
       },
     },
@@ -387,13 +387,13 @@ export default Vue.extend({
         this.fetchActorContributor()
       },
     },
-    selectedPublishedStateFilter: {
+    selectedApiStateFilter: {
       handler(newValue) {
         this.isShowLoadingDialog = true
         this.page = 1
         this.$store.dispatch('playlists/fetchPlaylists', {
           page: 1,
-          publishedState: newValue,
+          apiState: newValue,
           query: this.searchKeyword,
         })
       },
@@ -405,7 +405,7 @@ export default Vue.extend({
           this.page = 1
           this.$store.dispatch('playlists/fetchPlaylists', {
             page: 1,
-            publishedState: this.selectedPublishedStateFilter,
+            apiState: this.selectedApiStateFilter,
           })
         }
       },
@@ -478,7 +478,7 @@ export default Vue.extend({
       this.isShowLoadingDialog = true
       this.$store.dispatch('playlists/fetchPlaylists', {
         page: 1,
-        publishedState: this.selectedPublishedStateFilter,
+        apiState: this.selectedApiStateFilter,
         query: this.searchKeyword,
       })
     },

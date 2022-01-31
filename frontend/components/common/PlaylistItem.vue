@@ -15,7 +15,7 @@
               <v-card-title class="title mb-1">
                 <a class="playlist-title">
                   <span class="playlist-name">{{ playlist.name }}</span>
-                  <published-state-badge class="ma-2" :playlist="playlist" />
+                  <api-state-badge class="ma-2" :playlist="playlist" />
                   <span
                     v-if="playlist.browsableItemCount === 0"
                     style="font-size: 12px; color: black"
@@ -52,7 +52,7 @@
 import Vue from 'vue'
 import moment from 'moment'
 import PlaylistEpisodesCarousel from '~/components/common/PlaylistEpisodesCarousel.vue'
-import PublishedStateBadge from '~/components/playlists/PublishedStateBadge.vue'
+import ApiStateBadge from '~/components/playlists/ApiStateBadge.vue'
 
 interface DataType {
   episodePreviewNum: number
@@ -62,7 +62,7 @@ export default Vue.extend({
   name: 'PlaylistItem',
   components: {
     PlaylistEpisodesCarousel,
-    PublishedStateBadge,
+    ApiStateBadge,
   },
   props: {
     playlist: {
