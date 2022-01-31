@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2022_01_28_071345) do
-=======
 ActiveRecord::Schema.define(version: 2022_01_28_175400) do
->>>>>>> c429f7e9 (デッキの same as を保存できるようにする)
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
