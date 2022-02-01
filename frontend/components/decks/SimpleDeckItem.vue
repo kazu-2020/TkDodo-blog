@@ -7,7 +7,7 @@
     @click="clickDeckItem"
   >
     <v-row>
-      <v-col cols="3">
+      <v-col cols="4">
         <v-img
           :src="logoImageUrl"
           class="deck_logo_image mr-3 elevation-3 float-left"
@@ -25,7 +25,7 @@
         <v-chip label small color="pink" class="white--text">公開中</v-chip>
         <v-chip outlined label small>ラベル</v-chip>
       </v-col>
-      <v-col cols="6">管理メモが入ります。</v-col>
+      <v-col cols="5">管理メモが入ります。</v-col>
     </v-row>
   </div>
 </template>
@@ -66,7 +66,7 @@ export default Vue.extend({
 </script>
 <style scoped>
 .deck-title .deck-name {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   line-height: 1.7rem;
 }
