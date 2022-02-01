@@ -70,6 +70,58 @@
             @update-validation="updateDeckTabValidation"
           />
         </v-col>
+        <v-col cols="3" class="preview-container-wrapper hidden-md-and-down">
+          <div
+            class="preview-container container-fluid mt-4 pa-2 white rounded"
+          >
+            <div
+              class="base-information pa-3 rounded"
+              style="border: 1px solid #d3d3d3"
+            >
+              <v-row>
+                <v-col cols="6" class="pr-0">
+                  <h2 class="deck-name">{{ deck.name }}</h2>
+                </v-col>
+                <v-col
+                  v-if="deckDescription"
+                  cols="12"
+                  class="body-2 py-2"
+                  style="word-wrap: break-word"
+                >
+                  <div class="body-3 font-weight-bold mb-2">説明</div>
+                  {{ deckDescription }}
+                </v-col>
+              </v-row>
+            </div>
+            <v-divider />
+            <v-col cols="12">
+              <div class="body-2 font-weight-bold">プレイリスト</div>
+              <v-list dense>
+                <v-list-item
+                  v-for="playlist in deck.playlists"
+                  :key="`${playlist.id}-preview`"
+                  class="px-0 pb-2"
+                >
+                  <v-list-item-icon class="mr-3">
+                    <v-img
+                      :src="logoUrl(playlist)"
+                      lazy-src="https://placehold.jp/50x50.png"
+                      width="50"
+                      height="50"
+                    />
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title
+                      style="font-size: 14px"
+                      class="pt-4"
+                      v-text="playlist.name"
+                    />
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-col>
+          </div>
+        </v-col>
       </v-row>
     </div>
   </v-layout>
@@ -146,6 +198,9 @@ export default Vue.extend({
     preventSaveButton(): boolean {
       return !this.isValidDeckTab
     },
+    deckDescription(): string | undefined {
+      return this.deck?.description
+    },
   },
   methods: {
     changeTab(nextTab: DeckTab) {
@@ -177,6 +232,15 @@ export default Vue.extend({
     deletePlaylist(playlist: any) {
       this.resetUnloadAlert()
       this.$store.dispatch('decks/deleteEditingDeckPlaylist', playlist)
+    },
+    logoUrl(item: any): string {
+      if (item?.logo !== undefined) {
+        return item.logo.medium.url
+      } else if (item?.partOfSeries?.logo !== undefined) {
+        return item.partOfSeries.logo.medium.url
+      }
+
+      return 'https://placehold.jp/50x50.png'
     },
     save() {
       const body: { [key: string]: string | undefined } = {
@@ -253,3 +317,10 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.deck-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+</style>
