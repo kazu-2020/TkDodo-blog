@@ -1,8 +1,8 @@
 count =
   if params[:availableOn] == 'okushibu'
-    @playlist.playlist_items.playable.kept.count
+    @playlist.playable_playlist_items_count
   else
-    @playlist.playlist_items.kept.count
+    @playlist.playlist_items_count
   end
 
 min_position = @offset + 1     # position は 1 始まり
@@ -11,7 +11,7 @@ playlist_items = @playlist_items.where(position: min_position..max_position).ord
 
 episodes =
   if params[:availableOn] == 'okushibu'
-    playlist_items.playable.map(&:episode_data)
+    playlist_items.select(&:has_video).map(&:episode_data)
   else
     playlist_items.map(&:episode_data)
   end

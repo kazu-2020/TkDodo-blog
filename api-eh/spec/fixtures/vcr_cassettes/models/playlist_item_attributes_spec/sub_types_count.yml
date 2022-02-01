@@ -1,0 +1,207 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6/l/bundle/te/WWXQGK6938/types.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '47'
+      connection:
+      - keep-alive
+      date:
+      - Tue, 01 Feb 2022 08:07:30 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"5029c00"'
+      etag:
+      - '"2f-/mGlhbCsy5iewqcXwUenfVt0j9Q"'
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 18f059cc720c45df74b2b169cc11e80c.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-C3
+      x-amz-cf-id:
+      - bJpXep_D91eZ9qAYc-El7nNUkyzolA1DGDR2RxWiitDfPdvJuDIItA==
+    body:
+      encoding: UTF-8
+      string: '{"tvepisode":{"count":1},"faqpage":{"count":1}}'
+  recorded_at: Tue, 01 Feb 2022 08:07:30 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6/l/bundle/te/KZ2MN6PXRJ/types.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '45'
+      connection:
+      - keep-alive
+      date:
+      - Tue, 01 Feb 2022 08:07:30 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"5029c00"'
+      etag:
+      - '"2d-JPA8tBPRTvO5pz+46r92b72gv7w"'
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 a2d35280b13f9dd748143653e99e5ab2.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-C3
+      x-amz-cf-id:
+      - hqif8V5SxAL2Vd30Imn9eyzE2qnB2iLNK_IGPIeBVd3z6LitzMTYLA==
+    body:
+      encoding: UTF-8
+      string: '{"tvepisode":{"count":1},"howto":{"count":1}}'
+  recorded_at: Tue, 01 Feb 2022 08:07:30 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6/l/bundle/te/XKNVY22PNP/types.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '45'
+      connection:
+      - keep-alive
+      date:
+      - Tue, 01 Feb 2022 08:07:31 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"5029c00"'
+      etag:
+      - '"2d-LU3Oz6lGf0ygU5GOZHsFC0wWV3E"'
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 6c975066fe15346e8f90e573dcb2c32c.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-C3
+      x-amz-cf-id:
+      - usgBSkUH7AyHuYj0O2NpzS-bramU7_9J23TP4G_0mFhWkXtM1d8v3A==
+    body:
+      encoding: UTF-8
+      string: '{"tvepisode":{"count":1},"event":{"count":1}}'
+  recorded_at: Tue, 01 Feb 2022 08:07:31 GMT
+recorded_with: VCR 6.0.0

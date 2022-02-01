@@ -7,7 +7,7 @@ class Playlist < ApplicationRecord
   include GenreMountable
   include ArticleFormattable
   include ApiStatable
-  include PlaylistCachable
+  include PlaylistItemAttributes
 
   friendly_id :string_id
 
@@ -44,7 +44,6 @@ class Playlist < ApplicationRecord
   scope :original, -> { where('d5_playlist_id IS NULL') }
   scope :has_article, -> { where('marked_body IS NOT NULL') }
   scope :no_article, -> { where('marked_body IS NULL') }
-  scope :has_visible_items, -> { joins(:playlist_items).merge(PlaylistItem.playable).distinct }
   scope :name_like, ->(query) { where('name LIKE ?', "%#{query}%") }
 
   validates :name, presence: true
@@ -87,10 +86,6 @@ class Playlist < ApplicationRecord
 
   def has_article?
     marked_body.present?
-  end
-
-  def browsable_item_count
-    playlist_items.kept.pluck(:has_video).select { |has_video| has_video }.size
   end
 
   def dummy_image_url(image_type)
