@@ -35,10 +35,6 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" class="hidden-lg-and-up preview-container-wrapper">
-          <!-- <horizontal-basic-information-view :playlist="playlist" /> -->
-          information-view
-        </v-col>
         <v-col
           v-show="isPlaylistsEditing"
           cols="9"
@@ -201,6 +197,9 @@ export default Vue.extend({
     deckDescription(): string | undefined {
       return this.deck?.description
     },
+  },
+  mounted() {
+    ;(this as any).notShowUnloadAlert()
   },
   methods: {
     changeTab(nextTab: DeckTab) {
