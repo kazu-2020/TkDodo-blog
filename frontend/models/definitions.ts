@@ -3,3 +3,8 @@ export enum PlaylistTab {
   article = 'article',
   series = 'series',
 }
+
+export enum DeckTab {
+  playlists = 'playlists',
+  deck = 'deck',
+}

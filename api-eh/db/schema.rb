@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_28_071345) do
+ActiveRecord::Schema.define(version: 2022_01_28_175400) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(version: 2022_01_28_071345) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["deck_id"], name: "index_deck_playlists_on_deck_id"
+  end
+
+  create_table "deck_same_as", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "deck_id", null: false
+    t.string "name", null: false
+    t.string "url", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["deck_id"], name: "index_deck_same_as_on_deck_id"
   end
 
   create_table "decks", charset: "utf8mb4", force: :cascade do |t|
