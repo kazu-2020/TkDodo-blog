@@ -11,14 +11,6 @@ module PlaylistsHelper
     act_list.flatten.map { |act| act[:name] }.uniq
   end
 
-  def fetch_episode_data(playlist_item:, force_fetch: false)
-    if playlist_item.has_cached_json? && !force_fetch
-      playlist_item.cached_json
-    else
-      playlist_item.fetch_data
-    end
-  end
-
   def fetch_broadcast_event(episode_id)
     client = DlabApiClient.new
     res = client.broadcast_event_from_episode_id(episode_id)
@@ -29,8 +21,7 @@ module PlaylistsHelper
   def fetch_unique_actors(playlist)
     actors =
       playlist.playlist_items.kept.map do |playlist_item|
-        episode_data = fetch_episode_data(playlist_item: playlist_item, force_fetch: true)
-        episode_data[:actors]
+        playlist_item.episode_data[:actors]
       end.flatten
 
     actors.uniq do |actor|
@@ -41,8 +32,7 @@ module PlaylistsHelper
   # rubocop:disable Metrics/AbcSize
   def fetch_unique_contributors(playlist)
     contributors = playlist.playlist_items.kept.map do |playlist_item|
-      episode_data = fetch_episode_data(playlist_item: playlist_item, force_fetch: true)
-      episode_data[:contributors]
+      playlist_item.episode_data[:contributors]
     end.flatten
 
     person_array = contributors.select { |contributor| contributor[:person].present? }

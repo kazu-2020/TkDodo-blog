@@ -1,0 +1,76 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6/l/bundle/te/WWXQGK6938.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      date:
+      - Tue, 01 Feb 2022 08:16:48 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"5029c00"'
+      etag:
+      - W/"1ac6-UIuTnqv9SgXv431YvrsUiJhoJWU"
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 219d0ad0ca0f00674a69e52f5f2719a0.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-C3
+      x-amz-cf-id:
+      - A2fjPNi6yAVzm2O0c-8-OZGhgGIoHWS7QC3GO0VM3lnsgIf_h6D4rg==
+    body:
+      encoding: UTF-8
+      string: '{"tvepisode":{"result":[{"type":"TVEpisode","id":"WWXQGK6938","name":"総集編
+        (4)「本能寺編」","identifierGroup":{"episodeId":"WWXQGK6938","tvEpisodeId":"WWXQGK6938","seriesId":"5W22RN77X7","tvSeriesId":"5W22RN77X7","episodeName":"総集編
+        (4)「本能寺編」","tvEpisodeName":"総集編 (4)「本能寺編」","seriesName":"麒麟(きりん)がくる","tvSeriesName":"麒麟(きりん)がくる","hashtag":[],"serviceId":["g1","g2","s3"],"formatGenreTag":[{"id":"03","name":"ドラマ"}],"themeGenreTag":[{"id":"031","name":"国内ドラマ"}]},"identifierGroupEx":{"seriesGroupId":"YX1WJWNX9G","tvSeriesGroupId":"YX1WJWNX9G","seriesGroupName":"麒麟(きりん)がくる","tvSeriesGroupName":"麒麟(きりん)がくる","episodeNameTemp":"総集編
+        (4)「本能寺編」","tvEpisodeNameTemp":"総集編 (4)「本能寺編」","seriesNameTemp":"麒麟(きりん)がくる","tvSeriesNameTemp":"麒麟(きりん)がくる","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2021-02-23T16:20:00+09:00","releasedEventEndDateTemp":"2021-02-23T17:35:00+09:00"},"keywords":[],"description":"総集編最終回。３８回から４４回まで。将軍を退け、権力をほしいままにする信長は、ついに帝までをも排除しようとする。物語は本能寺へ。","dateCreated":"2021-02-09T06:34:54+09:00","dateModified":"2022-01-18T16:36:18+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"5W22RN77X7","name":"麒麟(きりん)がくる","detailedSeriesNameRuby":"","identifierGroup":{"seriesId":"5W22RN77X7","tvSeriesId":"5W22RN77X7","seriesName":"麒麟(きりん)がくる","tvSeriesName":"麒麟(きりん)がくる","hashtag":[],"serviceId":["g1","g2","s3"]},"identifierGroupEx":{"seriesGroupId":"YX1WJWNX9G","tvSeriesGroupId":"YX1WJWNX9G","seriesGroupName":"麒麟(きりん)がくる","tvSeriesGroupName":"麒麟(きりん)がくる","seriesNameTemp":"麒麟(きりん)がくる","tvSeriesNameTemp":"麒麟(きりん)がくる"},"url":"https://dev-www.nhk.jp/p/ts/5W22RN77X7/","description":"本能寺の変を起こした明智光秀を通して描かれる戦国絵巻。仁のある政治をする為政者が現れると降り立つ聖なる獣・麒麟（きりん）を呼ぶのは、一体どの戦国武将なのか…新たな時代の大河ドラマが今始まる！\r\n2020年1月19日から2021年2月7日まで放送した。全44回。総集編あり。","detailedCatch":"","logo":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/5W22RN77X7/5W22RN77X7-logo_ec0dcc2f9ae9a84150447fee7cb84d5c.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/5W22RN77X7/5W22RN77X7-logo_1eb4875e31dd69de0d1681168fa86383.jpg","width":640,"height":640},"small":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/5W22RN77X7/5W22RN77X7-logo_b8fd61e3b54638fd9b662b7a01966e87.jpg","width":200,"height":200}},"eyecatch":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/5W22RN77X7/5W22RN77X7-eyecatch_497edcec01beee8337b92ebc4c3ba137.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/5W22RN77X7/5W22RN77X7-eyecatch_ae20674c5783b9609e710e493667bf72.jpg","width":928,"height":522},"large":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/5W22RN77X7/5W22RN77X7-eyecatch_7a2013af136da971f7f407a40455040b.jpg","width":1280,"height":720},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/5W22RN77X7/5W22RN77X7-eyecatch_567351bdd79f833c06508b0e8d1e79c9.jpg","width":640,"height":360},"small":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/5W22RN77X7/5W22RN77X7-eyecatch_436b3cb6d24a3b39efb4404a94308a37.jpg","width":320,"height":180}},"hero":{"main":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/5W22RN77X7/5W22RN77X7-hero_b959a5a258f0e2615bbd46b9f8684775.jpg","width":1920,"height":640},"medium":{"url":"https://dev-www.nhk.jp/static/assets/images/tvseries/ts/5W22RN77X7/5W22RN77X7-hero_aa9ceff59379d7b26cddc0d303d6d3a7.jpg","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#990099","linkDark":"#C46BC4","primaryLight":"#990099","primaryDark":"#B13CB1"},"additionalProperty":{"publishLevel":"full","layoutPattern":"summary","episodeOrder":"episodeNumber","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[],"seriesPackStatus":"notPacked"}},"releasedEvent":{"startDate":"2020-02-06T11:31:00+09:00"},"detailedRecentEvent":{"startDate":"2021-07-31T21:10:00+09:00","endDate":"2021-07-31T22:25:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHKBSプレミアム","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s3/s3-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"s3","serviceName":"NHKBSプレミアム","shortenedName":"NHKBSプレミアム","shortenedDisplayName":"BSプレミアム"}}},"keyvisuals":[],"videos":[],"citations":[],"url":"https://dev-www.nhk.jp/p/ts/5W22RN77X7/episode/te/WWXQGK6938/","sameAs":[],"detailedMemo":[]}],"count":1},"faqpage":{"result":[{"type":"FAQPage","id":"77726","name":"このエピソードのよくあるご質問","questions":[],"identifierGroup":{"seriesId":"5W22RN77X7","tvSeriesId":"5W22RN77X7","episodeId":"WWXQGK6938","tvEpisodeId":"WWXQGK6938"},"url":"https://dev-www.nhk.jp/p/ts/5W22RN77X7/episode/te/WWXQGK6938/","dateCreated":"2022-01-18T16:36:13+09:00","dateModified":"2022-01-18T16:36:18+09:00"}],"resultUrl":"https://dev-api.nr.nhk.jp/r6/l/faqpage/te/WWXQGK6938.json?offset=0&size=1","count":1}}'
+  recorded_at: Tue, 01 Feb 2022 08:16:48 GMT
+recorded_with: VCR 6.0.0

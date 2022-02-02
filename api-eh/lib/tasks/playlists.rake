@@ -1,12 +1,13 @@
 namespace :playlists do
+  # FIXME: 削除しても良さそう
   desc 'プレイリストの再生時間や再生可能エピソード数の更新'
   task recalculate_playlist_item_duration: :environment do
-    PlaylistItem.kept.all.each(&:fetch_data)
-
-    Playlist.all.each do |playlist|
-      playlist.update_playable_total_time!
-      playlist.update_playable_playlist_items_count!
-    end
+    # PlaylistItem.kept.all.each(&:fetch_bundle_data)
+    #
+    # Playlist.all.each do |playlist|
+    #   playlist.playable_total_time
+    #   playlist.playable_playlist_items_count
+    # end
   end
 
   desc 'r5 プレイリストの取り込み'
@@ -14,12 +15,12 @@ namespace :playlists do
     R5PlaylistsImporter.new.execute
   end
 
+  # FIXME: 削除しても良さそう
   desc 'プレイリストの SubType カウントの集計'
   task update_subtypes: :environment do
-    Playlist.all.each do |playlist|
-      playlist.assign_sub_type_count
-      playlist.save
-    end
+    # Playlist.all.each do |playlist|
+    #   playlist.sub_types_count
+    # end
   end
 
   desc '記事中に含まれる GitHub Pages のURLを書き換える One-Shot Job'

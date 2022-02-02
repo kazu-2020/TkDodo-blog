@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-episode_data ||= fetch_episode_data(playlist_item: episode, force_fetch: true)
+episode_data ||= episode.episode_data
 
 if episode_data.present?
   json.type episode_data[:type]
