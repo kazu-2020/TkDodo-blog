@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 # TODO: module, concern 等に切り出す
-# rubocop:disable Metrics/ClassLength
-class Playlist < ApplicationRecord
+class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   extend FriendlyId
   include GenreMountable
   include ArticleFormattable
@@ -137,8 +136,7 @@ class Playlist < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
-  def article_contains_episodes
+  def article_contains_episodes # rubocop:disable Metrics/AbcSize
     return [] unless editor_data.present?
 
     episode_ids = editor_data['blocks'].select { |block| block['type'] == 'multiTypeEpisode' }
@@ -150,7 +148,6 @@ class Playlist < ApplicationRecord
       nil
     end.flatten.compact
   end
-  # rubocop:enable Metrics/AbcSize
 
   def replace_article_body_urls
     editor_data_text = editor_data.to_json.to_s
@@ -161,8 +158,7 @@ class Playlist < ApplicationRecord
     save
   end
 
-  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
-  def refresh_article_body_episode_data
+  def refresh_article_body_episode_data # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     return if editor_data&.[]('blocks').nil?
 
     client = DlabApiClient.new
@@ -183,7 +179,6 @@ class Playlist < ApplicationRecord
     end
     editor_data
   end
-  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
   private
 
@@ -195,17 +190,15 @@ class Playlist < ApplicationRecord
     self.string_id = SecureRandom.uuid
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  def set_default_color
-    self.selected_palette    = '#ffffff' if selected_palette.nil?
+  def set_default_color # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    self.selected_palette = '#ffffff' if selected_palette.nil?
     self.primary_light_color = '#757575' if primary_light_color.nil?
-    self.primary_dark_color  = '#999999' if primary_dark_color.nil?
-    self.text_light_color    = '#000000' if text_light_color.nil?
-    self.text_dark_color     = '#ffffff' if text_dark_color.nil?
-    self.link_light_color    = '#000000' if link_light_color.nil?
-    self.link_dark_color     = '#ffffff' if link_dark_color.nil?
+    self.primary_dark_color = '#999999' if primary_dark_color.nil?
+    self.text_light_color = '#000000' if text_light_color.nil?
+    self.text_dark_color = '#ffffff' if text_dark_color.nil?
+    self.link_light_color = '#000000' if link_light_color.nil?
+    self.link_dark_color = '#ffffff' if link_dark_color.nil?
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   def add_playlist_items!(episode_ids)
     episode_ids.each do |episode_id|
@@ -250,14 +243,13 @@ class Playlist < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
-  def link_article_images
+  def link_article_images # rubocop:disable Metrics/AbcSize
     return if editor_data.blank?
 
     image_urls = editor_data['blocks'].select { |block| block['type'] == 'image' }
                                       .map { |block| block['data']['file']['url'] }
                                       .map { |url| URI.parse(url) }
-    image_names = image_urls.map { |uri| File.basename(uri.path)  }
+    image_names = image_urls.map { |uri| File.basename(uri.path) }
 
     image_names.each do |image_name|
       article_image = ArticleImage.find_by(image_id: image_name)
@@ -265,6 +257,4 @@ class Playlist < ApplicationRecord
       article_image.save
     end
   end
-  # rubocop:enable Metrics/AbcSize
 end
-# rubocop:enable Metrics/ClassLength
