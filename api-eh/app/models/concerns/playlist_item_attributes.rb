@@ -9,7 +9,7 @@ module PlaylistItemAttributes
     after_save :force_fetch_sub_types_count
 
     def total_time
-      @total_time ||= playlist_items.kept.map(&:duration).sum
+      @total_time ||= playlist_items.kept.map(&:duration)&.sum
     end
 
     def playlist_items_count
@@ -17,11 +17,11 @@ module PlaylistItemAttributes
     end
 
     def playable_total_time
-      @playable_total_time ||= playable_playlist_items.map(&:duration).sum
+      @playable_total_time ||= playable_playlist_items.map(&:duration)&.sum
     end
 
     def playable_playlist_items_count
-      @playable_playlist_items_count ||= playable_playlist_items.size
+      @playable_playlist_items_count ||= playable_playlist_items&.size
     end
 
     def playable_playlist_items
