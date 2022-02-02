@@ -54,6 +54,9 @@
           <v-list-item :to="'/decks/new'">
             <v-list-item-title> 新規作成 </v-list-item-title>
           </v-list-item>
+          <v-list-item :to="'/decks/viewer'">
+            <v-list-item-title> デッキビューア </v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
       <new-playlist-dialog

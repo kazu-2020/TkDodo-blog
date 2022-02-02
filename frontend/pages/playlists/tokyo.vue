@@ -139,6 +139,7 @@ import BasicInformationView from '~/components/playlists/BasicInformationView.vu
 import SimplePlaylistItem from '~/components/common/SimplePlaylistItem.vue'
 import { Playlist } from '~/types/playlist'
 import { EpisodeData } from '~/types/episode_data'
+import ParseEpisodeHelper from '~/utils/ParseEpisodeHelper'
 
 interface DataType {
   page: number
@@ -221,11 +222,7 @@ export default Vue.extend({
       }
     },
     hasVideo(episode: any) {
-      const videos = episode?.videos || []
-      const okushibuVideo = videos.find(
-        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
-      )
-      return !!okushibuVideo
+      return ParseEpisodeHelper.hasVideo(episode)
     },
     deleteSelectedPlaylist(): void {
       this.$store.dispatch('loading/startLoading', {
