@@ -48,6 +48,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
+import ParseEpisodeHelper from '~/utils/ParseEpisodeHelper'
 
 moment.locale('ja')
 
@@ -109,11 +110,7 @@ export default Vue.extend({
       ).slice(-2)}`
     },
     hasVideo(episode: any) {
-      const videos = episode?.videos || []
-      const okushibuVideo = videos.find(
-        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
-      )
-      return !!okushibuVideo
+      return ParseEpisodeHelper.hasVideo(episode)
     },
     clickEpisode() {
       this.$emit('select-episode', this.episode)

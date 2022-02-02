@@ -274,6 +274,7 @@ import ArticleItem from '~/components/playlists/ArticleItem.vue'
 import PlaylistIndexBasicInformationView from '~/components/playlists/PlaylistIndexBasicInformationView.vue'
 import { Playlist } from '~/types/playlist'
 import { EpisodeData } from '~/types/episode_data'
+import ParseEpisodeHelper from '~/utils/ParseEpisodeHelper'
 
 interface DataType {
   page: number
@@ -496,11 +497,7 @@ export default Vue.extend({
       }
     },
     hasVideo(episode: any) {
-      const videos = episode?.videos || []
-      const okushibuVideo = videos.find(
-        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
-      )
-      return !!okushibuVideo
+      return ParseEpisodeHelper.hasVideo(episode)
     },
     playlistWebPreviewUrl(selectedPlaylist: any): string {
       return `https://dev-www-eh.nr.nhk.jp/p/pl/${selectedPlaylist?.originalId}`
