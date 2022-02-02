@@ -176,6 +176,7 @@ import SeriesMetaEditTab from '~/components/playlists/SeriesMetaEditTab.vue'
 import { PlaylistTab } from '~/models/definitions'
 import unloadAlertMixin from '~/components/common/unloadAlertMixin'
 import ArticleSavedDialog from '~/components/playlists/ArticleSavedDialog.vue'
+import ParseEpisodeHelper from '~/utils/ParseEpisodeHelper'
 
 interface Breadcrumb {
   text: string
@@ -311,11 +312,7 @@ export default Vue.extend({
       return 'https://placehold.jp/50x28.png'
     },
     hasVideo(episode: any) {
-      const videos = episode?.videos || []
-      const okushibuVideo = videos.find(
-        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
-      )
-      return !!okushibuVideo
+      return ParseEpisodeHelper.hasVideo(episode)
     },
     serviceLogoUrl(item: any) {
       return item?.releasedEvent?.publishedOn?.images?.badgeSmall?.url || ''

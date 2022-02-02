@@ -70,6 +70,7 @@
 import Vue from 'vue'
 import moment from 'moment'
 import draggable from 'vuedraggable'
+import ParseEpisodeHelper from '~/utils/ParseEpisodeHelper'
 
 export default Vue.extend({
   name: 'PlaylistEpisodesList',
@@ -137,11 +138,7 @@ export default Vue.extend({
       ).slice(-2)}`
     },
     hasVideo(episode: any) {
-      const videos = episode?.videos || []
-      const okushibuVideo = videos.find(
-        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
-      )
-      return !!okushibuVideo
+      return ParseEpisodeHelper.hasVideo(episode)
     },
   },
 })
