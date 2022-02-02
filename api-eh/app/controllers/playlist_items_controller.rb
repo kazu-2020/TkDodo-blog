@@ -3,7 +3,10 @@
 class PlaylistItemsController < ApplicationController
   before_action :set_playlist
 
-  def index; end
+  def index
+    @playlist_items = @playlist.playlist_items.kept
+    @playlist_items = @playlist_items.first(params[:limit].to_i) if params[:limit]
+  end
 
   def bulk_update
     episodes = params.require(:playlist_items).map { |e| e[:id] }
