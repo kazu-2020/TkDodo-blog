@@ -1,7 +1,6 @@
 json.id deck.id
 json.name deck.name
 json.description deck.description
-json.totalTime deck.total_time
 json.playlistCount deck.playlists.count
 json.label '東京'
 json.playlists do

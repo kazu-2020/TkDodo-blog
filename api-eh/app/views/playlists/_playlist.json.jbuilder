@@ -44,7 +44,6 @@ json.items do
 end
 json.partial! 'shared/playlist_images', playlist: playlist
 json.itemNum playlist.playlist_items_count
-json.totalTime playlist.total_time
 json.layoutPattern playlist.layout_pattern
 json.publishLevel playlist.publish_level
 json.browsableItemCount playlist.browsable_item_count
