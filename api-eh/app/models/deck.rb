@@ -18,7 +18,7 @@ class Deck < ApplicationRecord
   end
 
   def total_time
-    playlists.pluck(:total_time).sum
+    playlists.sum(&:total_time)
   end
 
   def rebuild_playlists_to(new_playlists)
