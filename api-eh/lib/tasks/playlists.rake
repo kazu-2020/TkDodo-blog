@@ -10,11 +10,6 @@ namespace :playlists do
     # end
   end
 
-  desc 'r5 プレイリストの取り込み'
-  task import_r5_playlists: :environment do
-    R5PlaylistsImporter.new.execute
-  end
-
   # FIXME: 削除しても良さそう
   desc 'プレイリストの SubType カウントの集計'
   task update_subtypes: :environment do

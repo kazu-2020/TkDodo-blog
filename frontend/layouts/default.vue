@@ -30,19 +30,6 @@
       <v-menu offset-y>
         <template #activator="{ on }">
           <v-btn color="transparent" depressed tile height="64" v-on="on">
-            <v-icon class="mr-3">mdi-access-point</v-icon>
-            r5 プレイリスト
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item :to="'/playlists/tokyo'">
-            <v-list-item-title>東京</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      <v-menu offset-y>
-        <template #activator="{ on }">
-          <v-btn color="transparent" depressed tile height="64" v-on="on">
             <v-icon class="mr-3">mdi-table</v-icon>
             デッキ
           </v-btn>
