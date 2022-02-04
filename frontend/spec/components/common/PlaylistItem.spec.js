@@ -29,42 +29,6 @@ describe('components/common/PlaylistItem.vue', () => {
     expect(wrapper.vm).toBeTruthy()
   })
 
-  describe('computed totalTime', () => {
-    it('変換された時間を返却する', () => {
-      const wrapper = mount(PlaylistItem, {
-        localVue,
-        vuetify,
-        stubs: {
-          NuxtLink: RouterLinkStub,
-        },
-        mocks: {
-          $axios: {
-            get: () => Promise.resolve({ data: { items: [] } }),
-          },
-        },
-        propsData: { playlist: { totalTime: 5715 } },
-      })
-      expect(wrapper.vm.totalTime).toBe('01:35:15')
-    })
-
-    it('totalTime が null でも所定の結果を返却する', () => {
-      const wrapper = mount(PlaylistItem, {
-        localVue,
-        vuetify,
-        stubs: {
-          NuxtLink: RouterLinkStub,
-        },
-        mocks: {
-          $axios: {
-            get: () => Promise.resolve({ data: { items: [] } }),
-          },
-        },
-        propsData: { playlist: {} },
-      })
-      expect(wrapper.vm.totalTime).toBe('--:--:--')
-    })
-  })
-
   describe('computed logoImageUrl', () => {
     describe('プレイリストにロゴ情報がない', () => {
       it('default1 の画像を返却する', () => {

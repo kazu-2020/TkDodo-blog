@@ -2,10 +2,6 @@
   <v-card flat>
     <v-row class="mx-1 mt-1">
       <v-col cols="auto" class="mr-auto">
-        <v-icon>mdi-clock-time-four-outline</v-icon>
-        <span class="body-2 mr-2" style="color: rgba(0, 0, 0, 0.54)">
-          プレイリスト時間数: {{ totalTime }}
-        </span>
         <v-icon>mdi-monitor</v-icon>
         <span class="body-2 mr-2" style="color: rgba(0, 0, 0, 0.54)">
           プレイリスト数: {{ deck.playlistCount }}
@@ -131,19 +127,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    totalTime(): string {
-      if (!this.deck.totalTime) {
-        return '--:--:--'
-      }
-      const seconds = this.deck.totalTime % 60
-      const totalMinutes = (this.deck.totalTime - seconds) / 60
-      const minutes = totalMinutes % 60
-      const hours = Math.floor(totalMinutes / 60)
-
-      return `${('00' + hours).slice(-2)}:${('00' + minutes).slice(-2)}:${(
-        '00' + seconds
-      ).slice(-2)}`
-    },
     lastUpdateDate(): string {
       return this.formattedDate(this.deck.dateModified)
     },

@@ -25,10 +25,6 @@
                 </a>
               </v-card-title>
               <v-card-text class="card-list-item pb-1">
-                番組総時間:
-                <span>{{ totalTime }}</span>
-              </v-card-text>
-              <v-card-text class="card-list-item pb-1">
                 <div class="last_updated_at d-inline">
                   <v-icon>mdi-update</v-icon>
                   {{ lastUpdateDate }} 更新
@@ -77,19 +73,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    totalTime(): string {
-      if (!this.playlist.totalTime) {
-        return '--:--:--'
-      }
-      const seconds = this.playlist.totalTime % 60
-      const totalMinutes = (this.playlist.totalTime - seconds) / 60
-      const minutes = totalMinutes % 60
-      const hours = Math.floor(totalMinutes / 60)
-
-      return `${('00' + hours).slice(-2)}:${('00' + minutes).slice(-2)}:${(
-        '00' + seconds
-      ).slice(-2)}`
-    },
     logoImageUrl(): string {
       return this.playlist.logo?.medium?.url || this.dummyImage
     },
