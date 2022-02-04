@@ -60,9 +60,7 @@ if playlist.hero_image_url
     end
   end
 end
-json.itemNum playlist.playlist_items_count
-json.playableItemNum playlist.playable_playlist_items_count
-json.browsableItemCount playlist.browsable_item_count
+json.itemNum playlist.playlist_items.count
 json.layoutPattern playlist.layout_pattern
 json.originalSeriesId playlist.original_series_id if playlist.original_series_id
 json.datePublished playlist.published_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')

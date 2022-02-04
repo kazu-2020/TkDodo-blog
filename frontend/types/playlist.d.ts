@@ -33,7 +33,7 @@ export interface Playlist {
   removeLogoImage: boolean
   removeEyecatchImage: boolean
   removeHeroImage: boolean
-  browsableItemCount: number
+  browsableItemCount?: number
   hasHowTo: boolean
   hasEvent: boolean
   hasFaqPage: boolean
