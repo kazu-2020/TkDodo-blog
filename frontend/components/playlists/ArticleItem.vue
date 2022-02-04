@@ -17,12 +17,6 @@
       <a class="playlist-title">
         <span class="playlist-name">{{ playlistName }}</span>
         <api-state-badge class="" :playlist="playlist" />
-        <span
-          v-if="playlist.browsableItemCount === 0"
-          style="font-size: 12px; color: black"
-        >
-          <v-icon>mdi-video-off-outline</v-icon>
-        </span>
       </a>
       <div
         v-if="isArticlePresent"
