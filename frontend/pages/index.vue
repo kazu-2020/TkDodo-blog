@@ -333,11 +333,6 @@ export default Vue.extend({
     selectedPlaylistId(): string {
       return this.selectedPlaylist ? this.selectedPlaylist.id : ''
     },
-    selectedPlaylistBrowsableItemCount(): number {
-      return this.selectedPlaylist
-        ? this.selectedPlaylist.browsableItemCount
-        : 0
-    },
     drawerWidth(): number {
       const halfSize = this.width * 0.95
       return Math.min(halfSize, 520)
