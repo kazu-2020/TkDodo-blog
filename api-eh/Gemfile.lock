@@ -164,6 +164,7 @@ GEM
       zeitwerk
     colormath (0.1.2)
     concurrent-ruby (1.1.9)
+    connection_pool (2.2.5)
     content_disposition (1.0.0)
     counter_culture (2.8.0)
       activerecord (>= 4.2)
@@ -178,7 +179,10 @@ GEM
       activerecord (>= 4.2, < 7)
     down (5.2.2)
       addressable (~> 2.5)
+    e2mmap (0.1.0)
     erubi (1.10.0)
+    et-orbi (1.2.6)
+      tzinfo
     excon (0.84.0)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
@@ -218,6 +222,11 @@ GEM
     formatador (0.3.0)
     friendly_id (5.4.2)
       activerecord (>= 4.0.0)
+    fugit (1.5.2)
+      et-orbi (~> 1.1, >= 1.1.8)
+      raabro (~> 1.4)
+    get_process_mem (0.2.7)
+      ffi (~> 1.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.10)
@@ -268,6 +277,10 @@ GEM
     nokogiri (1.11.7)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
+    nokogiri (1.11.7-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.11.7-x86_64-linux)
+      racc (~> 1.4)
     oga (3.3)
       ast
       ruby-ll (~> 2.1)
@@ -299,6 +312,7 @@ GEM
     public_suffix (4.0.6)
     puma (5.3.2)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.5.2)
     rack (2.2.3)
     rack-cors (1.1.1)
@@ -383,6 +397,8 @@ GEM
     ruby-vips (2.1.2)
       ffi (~> 1.12)
     ruby2_keywords (0.0.4)
+    rufus-scheduler (3.8.1)
+      fugit (~> 1.1, >= 1.1.6)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -394,6 +410,20 @@ GEM
       sprockets-rails
       tilt
     semantic_range (3.0.0)
+    sidekiq (6.4.0)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
+    sidekiq-scheduler (3.1.1)
+      e2mmap
+      redis (>= 3, < 5)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 3)
+      thwait
+      tilt (>= 1.4.0)
+    sidekiq-worker-killer (1.0.0)
+      get_process_mem (~> 0.2.1)
+      sidekiq (>= 5)
     slack-incoming-webhooks (0.3.0)
     spring (2.1.1)
     sprockets (4.0.2)
@@ -409,6 +439,8 @@ GEM
       rails (>= 6.0.0)
     text-table (1.2.4)
     thor (1.1.0)
+    thwait (0.2.0)
+      e2mmap
     tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
@@ -478,6 +510,9 @@ DEPENDENCIES
   rubocop (= 1.9.0)
   sass-rails (>= 6)
   shrine!
+  sidekiq
+  sidekiq-scheduler
+  sidekiq-worker-killer
   slack-incoming-webhooks
   spring
   stimulus-rails
