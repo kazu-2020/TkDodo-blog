@@ -2,7 +2,9 @@ json.id deck.id
 json.name deck.name
 json.description deck.description
 json.playlistCount deck.playlists.count
-json.label '東京'
+json.deckLabelId deck.deck_label_id
+json.deckLabelDisplayName deck.deck_label&.display_name
+json.adminMemo deck.admin_memo
 json.playlists do
   json.array! deck.playlists, partial: 'playlists/simple_playlist', as: :playlist
 end
