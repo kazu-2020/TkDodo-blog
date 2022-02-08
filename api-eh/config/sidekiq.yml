@@ -1,0 +1,23 @@
+---
+# database.ymlのpool数-1で設定
+:concurrency: 4
+staging:
+  :concurrency: 4
+production:
+  :concurrency: 4
+
+queues:
+  - p10  # emergency 緊急的に実行するジョブにのみ適用する
+  - p9   # 監視
+  - p8   # 一時ジョブ
+  - p7   # 画像アップロード関連
+  - p6   # 通知
+  - p5   # バッチ
+  - p4   # 優先度: 高
+  - p3   # 優先度: 中
+  - p2   # 優先度: 低（デフォルト）
+  - p1   # 優先度: 最低
+
+:max_retries: 10
+
+pidfile: ./tmp/sidekiq.pid
