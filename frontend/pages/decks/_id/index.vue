@@ -182,7 +182,7 @@ export default Vue.extend({
         {
           text: 'デッキ一覧',
           disabled: false,
-          href: '/',
+          href: '/decks',
         },
         {
           text: this.deck.name,
