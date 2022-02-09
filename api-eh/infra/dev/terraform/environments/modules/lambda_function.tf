@@ -18,7 +18,7 @@ resource "aws_lambda_function" "add_security_headers" {
   role             = aws_iam_role.iam_lambda_edge.arn
   handler          = "index.handler"
   source_code_hash = data.archive_file.add_security_headers.output_base64sha256
-  runtime          = "nodejs10.x"
+  runtime          = "nodejs12.x"
 
   publish          = true
 
