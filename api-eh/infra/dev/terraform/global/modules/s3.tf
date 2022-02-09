@@ -37,7 +37,7 @@ EOF
 }
 
 resource "aws_s3_bucket_public_access_block" "resources_bucket" {
-  bucket = "${aws_s3_bucket.resources_bucket.id}"
+  bucket = aws_s3_bucket.resources_bucket.id
 
   block_public_acls       = true
   block_public_policy     = true

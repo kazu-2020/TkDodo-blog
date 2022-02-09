@@ -28,6 +28,6 @@ variable "region" {
 
 module "app" {
   source = "./modules"
-  region = "${var.region}"
-  name   = "${var.name}"
+  region = var.region
+  name   = var.name
 }

@@ -9,7 +9,7 @@ resource "aws_wafregional_regex_match_set" "block_regexp_match" {
       type = "HEADER"
     }
 
-    regex_pattern_set_id = "${aws_wafregional_regex_pattern_set.block_regexp_pattern.id}"
+    regex_pattern_set_id = aws_wafregional_regex_pattern_set.block_regexp_pattern.id
     text_transformation  = "NONE"
   }
 }
@@ -37,7 +37,7 @@ resource "aws_wafregional_rule" "alb_rule" {
   metric_name = "${replace(var.name, "-", "")}${terraform.workspace}albacl"
 
   predicate {
-    data_id = "${aws_wafregional_regex_match_set.block_regexp_match.id}"
+    data_id = aws_wafregional_regex_match_set.block_regexp_match.id
     negated = false
     type    = "RegexMatch"
   }
@@ -49,7 +49,7 @@ resource "aws_wafregional_rule" "alb_ip_rule" {
   depends_on  = [aws_wafregional_ipset.allow_ipset]
 
   predicate {
-    data_id = "${aws_wafregional_ipset.allow_ipset.id}"
+    data_id = aws_wafregional_ipset.allow_ipset.id
     negated = false
     type    = "IPMatch"
   }
@@ -70,7 +70,7 @@ resource "aws_wafregional_web_acl" "alb_acl" {
     }
 
     priority = 1
-    rule_id  = "${aws_wafregional_rule.alb_ip_rule.id}"
+    rule_id  = aws_wafregional_rule.alb_ip_rule.id
   }
   rule {
     action {
@@ -78,11 +78,11 @@ resource "aws_wafregional_web_acl" "alb_acl" {
     }
 
     priority = 2
-    rule_id  = "${aws_wafregional_rule.alb_rule.id}"
+    rule_id  = aws_wafregional_rule.alb_rule.id
   }
 }
 
 resource "aws_wafregional_web_acl_association" "acl_assoc" {
-  resource_arn = "${aws_alb.alb.arn}"
-  web_acl_id   = "${aws_wafregional_web_acl.alb_acl.id}"
+  resource_arn = aws_alb.alb.arn
+  web_acl_id   = aws_wafregional_web_acl.alb_acl.id
 }
