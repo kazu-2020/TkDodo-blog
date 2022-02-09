@@ -6,6 +6,7 @@ class Deck < ApplicationRecord
   accepts_nested_attributes_for :playlists
   has_many :deck_same_as, dependent: :destroy
   accepts_nested_attributes_for :deck_same_as, allow_destroy: true
+  belongs_to :deck_label, optional: true
 
   validates :name, presence: true
   validates :visible_uid, presence: true

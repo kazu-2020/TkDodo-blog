@@ -10,7 +10,9 @@
         <span class="body-2 mr-2" style="color: rgba(0, 0, 0, 0.54)">
           {{ lastUpdateDate }} 更新
         </span>
-        <v-chip outlined label small>東京</v-chip>
+        <v-chip v-if="deckLabelDisplayName !== ''" outlined label small>{{
+          deckLabelDisplayName
+        }}</v-chip>
       </v-col>
       <v-col cols="auto">
         <v-btn
@@ -135,6 +137,9 @@ export default Vue.extend({
     },
     hasNextPage(): boolean {
       return this.nextUrl !== undefined
+    },
+    deckLabelDisplayName(): string {
+      return this.deck.deckLabelDisplayName || ''
     },
   },
   mounted() {

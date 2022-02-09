@@ -65,7 +65,13 @@
         </v-col>
         <v-col cols="3">
           <v-chip label small color="pink" class="white--text">公開中</v-chip>
-          <v-chip outlined label small>ラベル</v-chip>
+          <v-chip
+            v-if="selectedDeckLabelDisplayName !== ''"
+            outlined
+            label
+            small
+            >{{ selectedDeckLabelDisplayName }}</v-chip
+          >
         </v-col>
         <v-col cols="12">
           {{ selectedDeckDescription }}
@@ -73,7 +79,7 @@
         <v-col cols="12">
           <v-btn
             :to="{
-              name: 'decks-id',
+              name: 'decks-id-adminConfig',
               params: { id: selectedDeckId },
             }"
             nuxt
@@ -187,6 +193,9 @@ export default Vue.extend({
     },
     selectedDeckId(): string {
       return this.selectedDeck?.id || ''
+    },
+    selectedDeckLabelDisplayName(): string {
+      return this.selectedDeck?.deckLabelDisplayName || ''
     },
   },
   methods: {

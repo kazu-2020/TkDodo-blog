@@ -57,6 +57,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :deck_labels, only: :index, format: 'json'
+
   resources :playlists, except: %i[new edit], format: 'json' do
     collection do
       post :upload_article_image_by_url
