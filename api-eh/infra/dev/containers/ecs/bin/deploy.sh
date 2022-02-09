@@ -62,10 +62,10 @@ up_web() {
   # sidekiq
   echo sidekiq serivce update start
   # sidekiqのタスク定義生成
-  ruby ./api-eh/infra/dev/containers/dev/ecs/gen_task_def.rb \
-    --env_file ./api-eh/infra/dev/containers/dev/ecs/${ENV}.env.gen \
-    --secrets-file ./api-eh/infra/dev/containers/dev/ecs/secrets.yml \
-    --task-definition-template ./api-eh/infra/dev/containers/dev/ecs/task-definition-template-sidekiq.json | jq '.' > task-definitions-sidekiq.json
+  ruby ./api-eh/infra/dev/containers/ecs/gen_task_def.rb \
+    --env_file ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen \
+    --secrets-file ./api-eh/infra/dev/containers/ecs/secrets.yml \
+    --task-definition-template ./api-eh/infra/dev/containers/ecs/task-definition-template-sidekiq.json | jq '.' > task-definitions-sidekiq.json
   cat task-definitions-sidekiq.json
 
   # sidekiqタスク定義登録
