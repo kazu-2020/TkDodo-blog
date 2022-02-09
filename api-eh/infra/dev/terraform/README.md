@@ -1,5 +1,7 @@
 # 環境構築
 
+**※terraform公式のDockerはまだないので、M1 macではdocker-compose runでterraformを実行すると不安定です。tfenvなどでローカルにterraformをインストールしてください。**
+
 ## terraform 構成
 
 ### 共通
