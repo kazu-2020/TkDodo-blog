@@ -3,7 +3,6 @@ resource "aws_elasticache_subnet_group" "redis-subnet" {
   subnet_ids = [
     lookup(var.subnet_private_a, terraform.workspace),
     lookup(var.subnet_private_c, terraform.workspace),
-    # "${lookup(var.subnet_private_d, "${terraform.workspace}")}"
   ]
 }
 
@@ -17,7 +16,7 @@ resource "aws_elasticache_cluster" "redis" {
   port                 = 6379
   subnet_group_name    = "${local.env_resource_prefix}-redis-subnet"
   security_group_ids = [
-    "${aws_security_group.redis.id}"
+    aws_security_group.redis.id
   ]
 
   tags = {
