@@ -78,6 +78,12 @@ resource "aws_ecs_service" "ecs_sidekiq" {
   platform_version                   = "1.4.0"
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent         = 200
+  enable_execute_command             = true
+
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
 
   network_configuration {
     subnets = [
