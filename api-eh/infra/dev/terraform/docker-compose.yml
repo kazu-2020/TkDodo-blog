@@ -1,7 +1,7 @@
 version: '3'
 services:
   terraform:
-    image: hashicorp/terraform:0.12.31
+    image: hashicorp/terraform:0.13.7
     volumes:
       - ..:/app
     command: bash
