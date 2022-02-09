@@ -12,7 +12,7 @@ resource "aws_elasticache_cluster" "redis" {
   node_type            = lookup(var.elasticache, "${terraform.workspace}.node_type")
   num_cache_nodes      = 1
   parameter_group_name = "default.redis6.x"
-  engine_version       = "6.2"
+  engine_version       = "6.x"
   port                 = 6379
   subnet_group_name    = "${local.env_resource_prefix}-redis-subnet"
   security_group_ids = [
