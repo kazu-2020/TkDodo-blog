@@ -4,7 +4,7 @@ resource "aws_cloudwatch_log_group" "log_group" {
 
   tags = {
     Name        = "${local.env_resource_prefix}-lg"
-    Stack       = "${var.name}"
-    Environment = "${terraform.workspace}"
+    Stack       = var.name
+    Environment = terraform.workspace
   }
 }

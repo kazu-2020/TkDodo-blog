@@ -1,5 +1,5 @@
 terraform {
-  required_version = "= 0.12.12"
+  required_version = "= 0.12.31"
 
   backend "s3" {
     bucket               = "tomigaya-dev-terraform"
@@ -28,6 +28,6 @@ variable "region" {
 
 module "app" {
   source = "./modules"
-  region = "${var.region}"
-  name   = "${var.name}"
+  region = var.region
+  name   = var.name
 }

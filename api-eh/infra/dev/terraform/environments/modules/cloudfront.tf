@@ -25,8 +25,8 @@ resource "aws_s3_bucket" "assets" {
 
   tags = {
     Name        = "${local.env_resource_prefix}-assets"
-    Stack       = "${var.name}"
-    Environment = "${terraform.workspace}"
+    Stack       = var.name
+    Environment = terraform.workspace
   }
 
   policy = <<EOF
@@ -52,21 +52,21 @@ resource "aws_cloudfront_distribution" "front_distribution" {
   is_ipv6_enabled     = true
   comment             = "${local.env_resource_prefix}-distribution"
   default_root_object = ""
-  web_acl_id          = "${lookup(var.web_acl, "${terraform.workspace}.id")}"
+  web_acl_id          = lookup(var.web_acl, "${terraform.workspace}.id")
 
   tags = {
     Name        = "${local.env_resource_prefix}-distribution"
-    Stack       = "${var.name}"
-    Environment = "${terraform.workspace}"
+    Stack       = var.name
+    Environment = terraform.workspace
   }
 
   origin {
-    domain_name = "${aws_alb.alb.dns_name}"
-    origin_id   = "${aws_alb.alb.id}"
+    domain_name = aws_alb.alb.dns_name
+    origin_id   = aws_alb.alb.id
 
     custom_header {
       name  = "x-pre-shared-key"
-      value = "${lookup(var.cf_alb_pre_shared_key, "${terraform.workspace}.id")}"
+      value = lookup(var.cf_alb_pre_shared_key, "${terraform.workspace}.id")
     }
 
     custom_origin_config {
@@ -82,7 +82,7 @@ resource "aws_cloudfront_distribution" "front_distribution" {
   default_cache_behavior {
     allowed_methods  = ["HEAD", "DELETE", "POST", "GET", "OPTIONS", "PUT", "PATCH"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${aws_alb.alb.id}"
+    target_origin_id = aws_alb.alb.id
     compress         = true
 
     forwarded_values {
@@ -109,8 +109,8 @@ resource "aws_cloudfront_distribution" "front_distribution" {
   #----------------------------------------------------------
   # assets設定
   origin {
-    domain_name = "${aws_s3_bucket.assets.bucket_domain_name}"
-    origin_id   = "${aws_s3_bucket.assets.id}"
+    domain_name = aws_s3_bucket.assets.bucket_domain_name
+    origin_id   = aws_s3_bucket.assets.id
 
     s3_origin_config {
       origin_access_identity = "origin-access-identity/cloudfront/${aws_cloudfront_origin_access_identity.assets.id}"
@@ -126,7 +126,7 @@ resource "aws_cloudfront_distribution" "front_distribution" {
   ordered_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${aws_s3_bucket.assets.id}"
+    target_origin_id = aws_s3_bucket.assets.id
     compress         = true
     path_pattern     = "packs/*"
 
@@ -147,8 +147,8 @@ resource "aws_cloudfront_distribution" "front_distribution" {
   #----------------------------------------------------------
   # resources設定
   origin {
-    domain_name = "${data.terraform_remote_state.shared_resources.outputs.resources_bucket.bucket_domain_name}"
-    origin_id   = "${data.terraform_remote_state.shared_resources.outputs.resources_bucket.id}"
+    domain_name = data.terraform_remote_state.shared_resources.outputs.resources_bucket.bucket_domain_name
+    origin_id   = data.terraform_remote_state.shared_resources.outputs.resources_bucket.id
 
     s3_origin_config {
       origin_access_identity = "origin-access-identity/cloudfront/${data.terraform_remote_state.shared_resources.outputs.resources_bucket.origin_access_identity_id}"
@@ -158,7 +158,7 @@ resource "aws_cloudfront_distribution" "front_distribution" {
   ordered_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${data.terraform_remote_state.shared_resources.outputs.resources_bucket.id}"
+    target_origin_id = data.terraform_remote_state.shared_resources.outputs.resources_bucket.id
     path_pattern     = "static/assets/*"
 
     compress = true
@@ -187,12 +187,12 @@ resource "aws_cloudfront_distribution" "front_distribution" {
     }
   }
   aliases = [
-    "${lookup(var.domain, "${terraform.workspace}")}",
+    lookup(var.domain, terraform.workspace),
   ]
   viewer_certificate {
     # cloudfront_default_certificate = true
 
-    acm_certificate_arn      = "${var.cf_certificate_arn}"
+    acm_certificate_arn      = var.cf_certificate_arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2018"
   }

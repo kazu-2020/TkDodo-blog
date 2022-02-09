@@ -1,13 +1,12 @@
 resource "aws_alb" "alb" {
   name = "${local.env_resource_prefix}-lb"
   security_groups = [
-    "${lookup(var.lb_security_group, "${terraform.workspace}")}"
+    lookup(var.lb_security_group, terraform.workspace)
   ]
 
   subnets = [
-    "${lookup(var.subnet_public_a, "${terraform.workspace}")}",
-    "${lookup(var.subnet_public_c, "${terraform.workspace}")}"
-    #    "${lookup(var.subnet_public_d, "${terraform.workspace}")}"
+    lookup(var.subnet_public_a, terraform.workspace),
+    lookup(var.subnet_public_c, terraform.workspace)
   ]
 
   internal                   = false
@@ -17,8 +16,8 @@ resource "aws_alb" "alb" {
 
   tags = {
     Name        = "${local.env_resource_prefix}-lb"
-    Stack       = "${var.name}"
-    Environment = "${terraform.workspace}"
+    Stack       = var.name
+    Environment = terraform.workspace
   }
   # access_logs {
   #   bucket = "${var.bucket}"
@@ -29,7 +28,7 @@ resource "aws_alb_target_group" "alb" {
   name        = "${local.env_resource_prefix}-tg"
   port        = 80
   protocol    = "HTTP"
-  vpc_id      = "${lookup(var.vpc_id, "${terraform.workspace}")}"
+  vpc_id      = lookup(var.vpc_id, terraform.workspace)
   target_type = "ip"
 
   # ALBがインスタンスを登録解除する前に待つ時間(デフォルトは300秒なので長い)
@@ -46,31 +45,31 @@ resource "aws_alb_target_group" "alb" {
 
   tags = {
     Name        = "${local.env_resource_prefix}-tg"
-    Stack       = "${var.name}"
-    Environment = "${terraform.workspace}"
+    Stack       = var.name
+    Environment = terraform.workspace
   }
 }
 
 resource "aws_alb_listener" "alb_443" {
-  load_balancer_arn = "${aws_alb.alb.arn}"
+  load_balancer_arn = aws_alb.alb.arn
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2015-05"
-  certificate_arn   = "${var.alb_certificate_arn}"
+  certificate_arn   = var.alb_certificate_arn
 
   default_action {
-    target_group_arn = "${aws_alb_target_group.alb.arn}"
+    target_group_arn = aws_alb_target_group.alb.arn
     type             = "forward"
   }
 }
 
 resource "aws_alb_listener" "alb" {
-  load_balancer_arn = "${aws_alb.alb.arn}"
+  load_balancer_arn = aws_alb.alb.arn
   port              = "80"
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = "${aws_alb_target_group.alb.arn}"
+    target_group_arn = aws_alb_target_group.alb.arn
     type             = "forward"
   }
 }
