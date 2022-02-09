@@ -66,7 +66,7 @@ up_web() {
     --env_file ./api-eh/infra/dev/containers/dev/ecs/${ENV}.env.gen \
     --secrets-file ./api-eh/infra/dev/containers/dev/ecs/secrets.yml \
     --task-definition-template ./api-eh/infra/dev/containers/dev/ecs/task-definition-template-sidekiq.json | jq '.' > task-definitions-sidekiq.json
-  # cat task-definitions-sidekiq.json
+  cat task-definitions-sidekiq.json
 
   # sidekiqタスク定義登録
   aws ecs register-task-definition \
