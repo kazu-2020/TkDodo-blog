@@ -15,8 +15,10 @@ if [ -n "$ENV" -a "$ENV" = "dev" ]; then
   export RAILS_CPU=512     # .5 vCPU
   export TOTAL_MEMORY=2048 # 1024 MB
   export RAILS_MEMORY=2048
+  export SIDEKIQ_MEMORY=2048
   export ALB_TARGET_ARN=dummy
   export DESIRED_COUNT=1
+  export DESIRED_COUNT_SIDEKIQ=1
 
   # コンテナに渡す環境変数(circleciで設定)
   cat < ./api-eh/infra/dev/containers/ecs/common.env > ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen
@@ -55,6 +57,34 @@ up_web() {
     --desired-count ${DESIRED_COUNT}
 
   echo end up web
+
+  ###############################################################################
+  # sidekiq
+  echo sidekiq serivce update start
+  # sidekiqのタスク定義生成
+  ruby ./api-eh/infra/dev/containers/dev/ecs/gen_task_def.rb \
+    --env_file ./api-eh/infra/dev/containers/dev/ecs/${ENV}.env.gen \
+    --secrets-file ./api-eh/infra/dev/containers/dev/ecs/secrets.yml \
+    --task-definition-template ./api-eh/infra/dev/containers/dev/ecs/task-definition-template-sidekiq.json | jq '.' > task-definitions-sidekiq.json
+  # cat task-definitions-sidekiq.json
+
+  # sidekiqタスク定義登録
+  aws ecs register-task-definition \
+    --cli-input-json file://task-definitions-sidekiq.json
+
+  # sidekiqの最新のタスク定義確認
+  local latest_task_definition_sidekiq=$(latest_task_definition ${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME})
+
+  # 最新のタスク定義でsidekiqのサービス更新
+  aws ecs update-service \
+    --cluster ${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}-ecs-cluster \
+    --service ${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}-service-sidekiq \
+    --enable-execute-command \
+    --deployment-configuration "deploymentCircuitBreaker={enable=true,rollback=true}" \
+    --task-definition ${latest_task_definition_sidekiq} \
+    --desired-count ${DESIRED_COUNT_SIDEKIQ}
+
+  echo sidekiq service update end
 }
 export -f up_web
 

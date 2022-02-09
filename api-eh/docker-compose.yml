@@ -1,4 +1,14 @@
 version: "3"
+
+x-base_rails: &base_rails
+  build:
+    context: .
+  volumes:
+    - .:/app
+    - bundle:/bundle
+  tmpfs:
+    - /tmp
+
 services:
   db:
     image: mysql:5.7
@@ -11,11 +21,8 @@ services:
     volumes:
       - db-data:/var/lib/mysql
   rails:
-    build: .
+    <<: *base_rails
     command: bash -c "rm -f ./tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
-    volumes:
-      - .:/app
-      - bundle:/bundle
     ports:
       - "8888:3000"
     environment:
@@ -24,6 +31,19 @@ services:
       - REDIS_URL=redis://redis:6379
     depends_on:
       - db
+      - redis
+    tty: true
+    stdin_open: true
+  sidekiq:
+    <<: *base_rails
+    command: /app/bin/start_sidekiq.sh
+    environment:
+      - DB_HOST=db
+      - REDIS_URL=redis://redis:6379
+      - LOCAL_DOCKER_COMPOSE_MODE=1
+    depends_on:
+      - db
+      - redis
     tty: true
     stdin_open: true
   redis:
