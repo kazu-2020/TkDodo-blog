@@ -8,7 +8,7 @@
             "name": "sidekiq",
             "image": "${CONTAINER_REGISTRY}/${APP_NAME}-app:${SHA1}",
             "cpu": 0,
-            "memory": "${SIDEKIQ_MEMORY}",
+            "memory": ${SIDEKIQ_MEMORY},
             "links": [],
             "essential": true,
             "entryPoint": [],
