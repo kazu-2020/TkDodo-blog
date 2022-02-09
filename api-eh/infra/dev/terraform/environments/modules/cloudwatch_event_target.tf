@@ -18,11 +18,11 @@ resource "aws_cloudwatch_event_target" "playlist_recalculate_playlist_item_durat
     platform_version          = "1.4.0"
     network_configuration {
       subnets = [
-        "${lookup(var.subnet_private_a, "${terraform.workspace}")}",
-        "${lookup(var.subnet_private_c, "${terraform.workspace}")}",
+        lookup(var.subnet_private_a, terraform.workspace),
+        lookup(var.subnet_private_c, terraform.workspace),
       ]
       security_groups = [
-        "${lookup(var.app_security_group, "${terraform.workspace}")}",
+        lookup(var.app_security_group, terraform.workspace),
       ]
       assign_public_ip = true
     }
@@ -49,11 +49,11 @@ resource "aws_cloudwatch_event_target" "playlist_items_change_status_of_zombifie
     platform_version          = "1.4.0"
     network_configuration {
       subnets = [
-        "${lookup(var.subnet_private_a, "${terraform.workspace}")}",
-        "${lookup(var.subnet_private_c, "${terraform.workspace}")}",
+        lookup(var.subnet_private_a, terraform.workspace),
+        lookup(var.subnet_private_c, terraform.workspace),
       ]
       security_groups = [
-        "${lookup(var.app_security_group, "${terraform.workspace}")}",
+        lookup(var.app_security_group, terraform.workspace),
       ]
       assign_public_ip = true
     }
@@ -80,11 +80,11 @@ resource "aws_cloudwatch_event_target" "playlists_update_subtypes" {
     platform_version          = "1.4.0"
     network_configuration {
       subnets = [
-        "${lookup(var.subnet_private_a, "${terraform.workspace}")}",
-        "${lookup(var.subnet_private_c, "${terraform.workspace}")}",
+        lookup(var.subnet_private_a, terraform.workspace),
+        lookup(var.subnet_private_c, terraform.workspace),
       ]
       security_groups = [
-        "${lookup(var.app_security_group, "${terraform.workspace}")}",
+        lookup(var.app_security_group, terraform.workspace),
       ]
       assign_public_ip = true
     }

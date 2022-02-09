@@ -1,6 +1,6 @@
 resource "aws_security_group" "redis" {
   name   = "${local.env_resource_prefix}-redis-sg"
-  vpc_id = "${lookup(var.vpc_id, "${terraform.workspace}")}"
+  vpc_id = lookup(var.vpc_id, terraform.workspace)
 
   ingress {
     from_port = 6379
@@ -8,7 +8,7 @@ resource "aws_security_group" "redis" {
     protocol  = "tcp"
 
     security_groups = [
-      "${lookup(var.app_security_group, "${terraform.workspace}")}"
+      lookup(var.app_security_group, terraform.workspace)
     ]
   }
 
@@ -21,7 +21,7 @@ resource "aws_security_group" "redis" {
 
   tags = {
     Name        = "${local.env_resource_prefix}-redis-sg"
-    Stack       = "${var.name}"
-    Environment = "${terraform.workspace}"
+    Stack       = var.name
+    Environment = terraform.workspace
   }
 }
