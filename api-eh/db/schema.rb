@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_07_172100) do
+ActiveRecord::Schema.define(version: 2022_02_09_174500) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -116,7 +116,8 @@ ActiveRecord::Schema.define(version: 2022_02_07_172100) do
     t.string "text_dark_color", comment: "ダークモードテキストカラー"
     t.string "link_light_color", comment: "ライトモードリンクカラー"
     t.string "link_dark_color", comment: "ダークモードリンクカラー"
-    t.string "string_id", comment: "プレイリスト文字列ID"
+    t.string "string_id", comment: "プレイリスト文字列ID（eh始まり)"
+    t.string "string_uid", comment: "プレイリスト文字列ID（ハッシュ値）"
     t.integer "deck_id", comment: "デッキID"
     t.string "original_series_id", comment: "プレイリスト生成元のシリーズID"
     t.string "alias_id", comment: "短縮URL"
@@ -147,7 +148,7 @@ ActiveRecord::Schema.define(version: 2022_02_07_172100) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["alias_id"], name: "index_playlists_on_alias_id", unique: true
-    t.index ["string_id"], name: "index_playlists_on_string_id", unique: true
+    t.index ["string_uid"], name: "index_playlists_on_string_uid", unique: true
   end
 
   create_table "same_as", charset: "utf8mb4", force: :cascade do |t|

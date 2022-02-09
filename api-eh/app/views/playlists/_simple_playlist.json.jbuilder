@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-json.id playlist.string_id
-json.originalId playlist.original_id
-json.internalId playlist.id
+json.playlistUId playlist.string_uid
+json.stringId playlist.string_id
+json.primaryId playlist.id
 json.name playlist.name
 json.apiState playlist.api_state
 json.detailedNameRuby playlist.detailed_name_ruby

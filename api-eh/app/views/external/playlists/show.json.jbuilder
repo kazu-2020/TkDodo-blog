@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 json.type 'NPlaylist'
-json.id @playlist.original_id
+json.id @playlist.string_id
 json.name @playlist.name
 json.detailedSeriesNameRuby @playlist.detailed_name_ruby
 
 json.identifierGroup do
-  json.playlistUId @playlist.string_id
-  json.playlistId @playlist.original_id
+  json.playlistUId @playlist.string_uid
+  json.playlistId @playlist.string_id
   json.playlistName @playlist.name
   json.hashtag @playlist.hashtags
   json.aliasId @playlist.alias_id || ''
@@ -72,7 +72,7 @@ json.citations do
   end
 end
 
-json.url "https://dev-www-eh.nr.nhk.jp/p/pl/#{@playlist.original_id}"
+json.url "https://dev-www-eh.nr.nhk.jp/p/pl/#{@playlist.string_id}"
 
 if @playlist.same_as.present?
   json.sameAs do
@@ -96,13 +96,13 @@ item_url_params = "?#{item_url_params}" if item_url_params.size.positive?
 
 case @object_type
 when 'event'
-  json.itemUrl "#{events_external_playlist_url(@playlist.original_id)}.json#{item_url_params}"
+  json.itemUrl "#{events_external_playlist_url(@playlist.string_id)}.json#{item_url_params}"
 when 'howto'
-  json.itemUrl "#{howtos_external_playlist_url(@playlist.original_id)}.json#{item_url_params}"
+  json.itemUrl "#{howtos_external_playlist_url(@playlist.string_id)}.json#{item_url_params}"
 when 'faqpage'
-  json.itemUrl "#{faqpages_external_playlist_url(@playlist.original_id)}.json#{item_url_params}"
+  json.itemUrl "#{faqpages_external_playlist_url(@playlist.string_id)}.json#{item_url_params}"
 else
-  json.itemUrl "#{episodes_external_playlist_url(@playlist.original_id)}.json#{item_url_params}"
+  json.itemUrl "#{episodes_external_playlist_url(@playlist.string_id)}.json#{item_url_params}"
 end
 
 if @playlist.deliver_article_via_api && @playlist.has_article?

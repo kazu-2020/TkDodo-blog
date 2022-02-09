@@ -14,7 +14,7 @@
       <draggable v-model="playlists" tag="tbody">
         <tr
           v-for="playlist in playlists"
-          :key="playlist.id"
+          :key="playlist.playlistUId"
           style="cursor: pointer"
         >
           <td>

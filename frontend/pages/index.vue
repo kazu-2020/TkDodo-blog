@@ -331,7 +331,7 @@ export default Vue.extend({
       return article.replace(/\n\n/g, '<br/>')
     },
     selectedPlaylistId(): string {
-      return this.selectedPlaylist ? this.selectedPlaylist.id : ''
+      return this.selectedPlaylist ? this.selectedPlaylist.playlistUId : ''
     },
     drawerWidth(): number {
       const halfSize = this.width * 0.95
@@ -455,7 +455,7 @@ export default Vue.extend({
       if (this.selectedPlaylistItems.length !== 0) return
 
       this.$axios
-        .get(`/playlists/${this.selectedPlaylist.id}/playlist_items`)
+        .get(`/playlists/${this.selectedPlaylist.playlistUId}/playlist_items`)
         .then((res) => {
           this.selectedPlaylistItems = res.data.items
         })
@@ -465,7 +465,9 @@ export default Vue.extend({
       if (this.selectedPlaylistActorContributor.length !== 0) return
 
       this.$axios
-        .get(`/playlists/${this.selectedPlaylist.id}/actors_and_contributors`)
+        .get(
+          `/playlists/${this.selectedPlaylist.playlistUId}/actors_and_contributors`
+        )
         .then((res) => {
           this.selectedPlaylistActorContributor = res.data
         })
@@ -495,7 +497,7 @@ export default Vue.extend({
       return ParseEpisodeHelper.hasVideo(episode)
     },
     playlistWebPreviewUrl(selectedPlaylist: any): string {
-      return `https://dev-www-eh.nr.nhk.jp/p/pl/${selectedPlaylist?.originalId}`
+      return `https://dev-www-eh.nr.nhk.jp/p/pl/${selectedPlaylist?.stringId}`
     },
     serviceLogoUrl(item: any) {
       return item?.releasedEvent?.publishedOn?.images?.badgeSmall?.url || ''

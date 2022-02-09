@@ -2,7 +2,7 @@
   <div>
     <v-list three-line>
       <template v-for="playlist in filteredPlaylists">
-        <v-list-item :key="`${playlist.id}-dp-preview`">
+        <v-list-item :key="`${playlist.playlistUId}-dp-preview`">
           <v-list-item-avatar tile>
             <v-img :src="logoUrl(playlist)" />
           </v-list-item-avatar>

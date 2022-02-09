@@ -32,4 +32,9 @@ namespace :playlists do
   task open_api_state_all: :environment do
     Playlist.update_all(api_state: :open)
   end
+
+  desc 'プレイリストの string_id を生成して保存する'
+  task set_string_id: :environment do
+    Playlist.all.each(&:save_string_id)
+  end
 end
