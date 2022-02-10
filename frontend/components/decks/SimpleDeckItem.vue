@@ -27,7 +27,7 @@
           deckLabelDisplayName
         }}</v-chip>
       </v-col>
-      <v-col cols="5">管理メモが入ります。</v-col>
+      <v-col cols="5">{{ deckAdminMemo }}</v-col>
     </v-row>
   </div>
 </template>
@@ -51,6 +51,9 @@ export default Vue.extend({
     },
     deckLabelDisplayName(): string {
       return this.deck.deckLabelDisplayName || ''
+    },
+    deckAdminMemo(): string {
+      return this.deck.adminMemo || ''
     },
     logoImageUrl(): string {
       return this.deck.logo?.medium?.url || this.dummyImage
