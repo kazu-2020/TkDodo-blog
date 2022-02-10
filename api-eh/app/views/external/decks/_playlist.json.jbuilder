@@ -9,7 +9,7 @@ json.detailedCatch playlist.detailed_catch
 
 json.partial! 'shared/playlist_images', playlist: playlist
 
-json.playlistUId playlist.string_id
+json.id playlist.string_id
 
 json.identifierGroup do
   json.playlistUId playlist.string_uid

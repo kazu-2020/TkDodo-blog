@@ -4,7 +4,7 @@
     <div class="d-flex flex-wrap mb-5">
       <related-playlist
         v-for="playlist in relatedPlaylists"
-        :key="playlist.playlistUId"
+        :key="playlist.stringId"
         :playlist="playlist"
       />
     </div>
