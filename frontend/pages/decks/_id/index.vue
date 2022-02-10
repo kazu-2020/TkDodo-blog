@@ -95,7 +95,7 @@
               <v-list dense>
                 <v-list-item
                   v-for="playlist in deck.playlists"
-                  :key="`${playlist.id}-preview`"
+                  :key="`${playlist.playlistUId}-preview`"
                   class="px-0 pb-2"
                 >
                   <v-list-item-icon class="mr-3">
@@ -260,7 +260,7 @@ export default Vue.extend({
 
       if (this.deck.playlists.length > 0) {
         for (const playlist of this.deck.playlists) {
-          data.append('deck[playlists][]', playlist.internalId)
+          data.append('deck[playlists][]', playlist.primaryId)
         }
       }
 

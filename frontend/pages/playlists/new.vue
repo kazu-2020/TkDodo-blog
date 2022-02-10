@@ -511,7 +511,7 @@ export default Vue.extend({
           this.hasUnsavedArticle = false
           this.hasUnsavedSeries = false
 
-          this.$router.push(`/playlists/${this.playlist.id}`)
+          this.$router.push(`/playlists/${this.playlist.playlistUId}`)
         })
         .catch((_error) => {
           this.$store.dispatch('loading/failLoading')

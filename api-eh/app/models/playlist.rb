@@ -8,7 +8,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include ApiStatable
   include PlaylistItemAttributes
 
-  friendly_id :string_id
+  friendly_id :string_uid
 
   include LogoUploader::Attachment(:logo_image)
   include EyecatchUploader::Attachment(:eyecatch_image)
@@ -61,15 +61,12 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validate :require_author_name_and_type
   validate :require_publisher_and_type
 
-  before_create :generate_string_id
+  before_create :generate_string_uid
   before_create :set_default_color
   after_create :link_article_images
+  after_create :save_string_id
   before_save :generate_derivatives
   before_save :trim_name
-
-  def original_id
-    "eh-#{format('%010d', id)}"
-  end
 
   def format_genre_name
     return '' unless format_genre_code
@@ -180,14 +177,19 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     editor_data
   end
 
+  def save_string_id
+    self.string_id = "eh-#{format('%010d', id)}"
+    save
+  end
+
   private
 
   def trim_name
     self.name = name.gsub(/(^[[:space:]]+)|([[:space:]]+$)/, '')
   end
 
-  def generate_string_id
-    self.string_id = SecureRandom.uuid
+  def generate_string_uid
+    self.string_uid = SecureRandom.uuid
   end
 
   def set_default_color # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity

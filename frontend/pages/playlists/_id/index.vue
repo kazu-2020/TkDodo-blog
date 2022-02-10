@@ -157,11 +157,11 @@
           <v-col cols="12">
             <playlist-json-dialog
               button-color="#000000"
-              :playlist-id="playlist.originalId"
+              :playlist-id="playlist.stringId"
             />
             <layout-pattern-dialog
               button-color="#000000"
-              :playlist-id="playlist.originalId"
+              :playlist-id="playlist.stringId"
             />
             <v-tooltip bottom>
               <template #activator="{ on, attrs }">
@@ -289,7 +289,7 @@ export default Vue.extend({
         {
           text: this.playlist.name,
           disabled: true,
-          href: `/playlists/${this.playlist.id}`,
+          href: `/playlists/${this.playlist.playlistUId}`,
         },
       ]
     },
@@ -308,7 +308,7 @@ export default Vue.extend({
       return article.replace(/\n\n/g, '<br/>')
     },
     playlistWebPreviewUrl(): string {
-      return `https://dev-www-eh.nr.nhk.jp/p/pl/${this.playlist?.originalId}`
+      return `https://dev-www-eh.nr.nhk.jp/p/pl/${this.playlist?.stringId}`
     },
   },
   mounted() {
@@ -524,7 +524,7 @@ export default Vue.extend({
       })
 
       this.$axios
-        .put(`/playlists/${this.playlist.id}`, data)
+        .put(`/playlists/${this.playlist.playlistUId}`, data)
         .then((response) => {
           this.$store.dispatch('loading/succeedLoading')
           this.$store.dispatch(

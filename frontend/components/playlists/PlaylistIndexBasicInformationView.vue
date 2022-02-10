@@ -138,16 +138,16 @@ export default Vue.extend({
       return this.actorsAndContributors.length !== 0
     },
     hasPlaylistId(): boolean {
-      return this.playlist?.id !== undefined
+      return this.playlist?.playlistUId !== undefined
     },
     playlistName(): string {
       return this.playlist?.name || ''
     },
     playlistId(): string {
-      return this.playlist?.originalId || ''
+      return this.playlist?.stringId || ''
     },
     omittedPlaylisitUId(): string {
-      const playlistId = this.playlist?.id || ''
+      const playlistId = this.playlist?.playlistUId || ''
       return playlistId.length > 8 ? playlistId.slice(0, 8) + '...' : playlistId
     },
     playlistSeriesId(): string | undefined {
@@ -166,13 +166,13 @@ export default Vue.extend({
   methods: {
     copyPlaylistUId(): void {
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(this.playlist.id)
+        navigator.clipboard.writeText(this.playlist.playlistUId)
         this.snackbar = true
       }
     },
     copyPlaylistId(): void {
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(this.playlist.originalId)
+        navigator.clipboard.writeText(this.playlist.stringId)
         this.snackbar = true
       }
     },

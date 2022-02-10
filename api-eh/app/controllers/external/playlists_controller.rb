@@ -59,7 +59,7 @@ class External::PlaylistsController < ApplicationController
       @playlist = Playlist.friendly.find(playlist_id)
     elsif params[:playlist_uid].present?
       playlist_uid = params[:playlist_uid].gsub('.json', '')
-      @playlist = Playlist.find_by(string_id: playlist_uid)
+      @playlist = Playlist.find_by(string_uid: playlist_uid)
     else
       raise ActiveRecord::RecordNotFound
     end
@@ -86,7 +86,7 @@ class External::PlaylistsController < ApplicationController
       render 'series_l_bundle'
     elsif params[:playlist_uid].present?
       playlist_uid = params[:playlist_uid].gsub('.json', '')
-      @playlist = Playlist.find_by!(string_id: playlist_uid)
+      @playlist = Playlist.find_by!(string_uid: playlist_uid)
     else
       raise ActiveRecord::RecordNotFound
     end
@@ -100,7 +100,7 @@ class External::PlaylistsController < ApplicationController
       @playlist = Playlist.friendly.find(playlist_id)
     elsif params[:playlist_uid].present?
       playlist_uid = params[:playlist_uid].gsub('.json', '')
-      @playlist = Playlist.find_by!(string_id: playlist_uid)
+      @playlist = Playlist.find_by!(string_uid: playlist_uid)
     else
       raise ActiveRecord::RecordNotFound
     end
@@ -114,7 +114,7 @@ class External::PlaylistsController < ApplicationController
       @playlist = Playlist.friendly.find(playlist_id)
     elsif params[:playlist_uid].present?
       playlist_uid = params[:playlist_uid].gsub('.json', '')
-      @playlist = Playlist.find_by!(string_id: playlist_uid)
+      @playlist = Playlist.find_by!(string_uid: playlist_uid)
     else
       raise ActiveRecord::RecordNotFound
     end
@@ -128,7 +128,7 @@ class External::PlaylistsController < ApplicationController
       @playlist = Playlist.friendly.find(playlist_id)
     elsif params[:playlist_uid].present?
       playlist_uid = params[:playlist_uid].gsub('.json', '')
-      @playlist = Playlist.find_by!(string_id: playlist_uid)
+      @playlist = Playlist.find_by!(string_uid: playlist_uid)
     else
       raise ActiveRecord::RecordNotFound
     end
@@ -147,7 +147,7 @@ class External::PlaylistsController < ApplicationController
       @playlist = Playlist.friendly.find(playlist_id)
     elsif params[:playlist_uid].present?
       playlist_uid = params[:playlist_uid].gsub('.json', '')
-      @playlist = Playlist.find_by!(string_id: playlist_uid)
+      @playlist = Playlist.find_by!(string_uid: playlist_uid)
     else
       raise ActiveRecord::RecordNotFound
     end
@@ -169,7 +169,7 @@ class External::PlaylistsController < ApplicationController
       @playlist = Playlist.friendly.find(playlist_id)
     elsif params[:playlist_uid].present?
       playlist_uid = params[:playlist_uid].gsub('.json', '')
-      @playlist = Playlist.find_by!(string_id: playlist_uid)
+      @playlist = Playlist.find_by!(string_uid: playlist_uid)
     else
       raise ActiveRecord::RecordNotFound
     end
@@ -191,7 +191,7 @@ class External::PlaylistsController < ApplicationController
       @playlist = Playlist.friendly.find(playlist_id)
     elsif params[:playlist_uid].present?
       playlist_uid = params[:playlist_uid].gsub('.json', '')
-      @playlist = Playlist.find_by!(string_id: playlist_uid)
+      @playlist = Playlist.find_by!(string_uid: playlist_uid)
     else
       raise ActiveRecord::RecordNotFound
     end

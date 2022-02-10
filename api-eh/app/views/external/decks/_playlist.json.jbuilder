@@ -9,11 +9,11 @@ json.detailedCatch playlist.detailed_catch
 
 json.partial! 'shared/playlist_images', playlist: playlist
 
-json.id playlist.original_id
+json.id playlist.string_id
 
 json.identifierGroup do
-  json.playlistUId playlist.string_id
-  json.playlistId playlist.original_id
+  json.playlistUId playlist.string_uid
+  json.playlistId playlist.string_id
   json.playlistName playlist.name
   json.hashtag playlist.hashtags
   json.aliasId playlist.alias_id || ''
@@ -77,7 +77,7 @@ url_params =
   .delete_if { |_, v| v.nil? }
   .to_param
 url_params = "?#{url_params}"
-json.url base_url + "/t/nplaylist/pl/#{playlist.original_id}.json#{url_params}"
+json.url base_url + "/t/nplaylist/pl/#{playlist.string_id}.json#{url_params}"
 
 media_action_params = media_action&.split(',') || []
 item_url_params =
@@ -86,7 +86,7 @@ item_url_params =
   .delete_if { |_, v| v.nil? }
   .to_param
 item_url_params = "?#{item_url_params}"
-json.itemUrl base_url + "/l/tvepisode/pl/#{playlist.original_id}.json#{item_url_params}"
+json.itemUrl base_url + "/l/tvepisode/pl/#{playlist.string_id}.json#{item_url_params}"
 
 if playlist.deliver_article_via_api && playlist.has_article?
   json.playlisticle do
