@@ -1,5 +1,5 @@
 terraform {
-  required_version = "= 0.14.11"
+  required_version = "= 0.15.5"
 
   backend "s3" {
     bucket               = "tomigaya-dev-terraform"
