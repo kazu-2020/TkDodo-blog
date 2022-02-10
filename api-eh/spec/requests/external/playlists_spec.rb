@@ -7,7 +7,7 @@ describe External::PlaylistsController, type: :request do
     let(:playlist) { create(:playlist) }
 
     it 'returns success response' do
-      get "/d6.6/t/nplaylist/id/#{playlist.string_id}.json"
+      get "/d6.6/t/nplaylist/id/#{playlist.string_uid}.json"
       expect(response.status).to eq 200
     end
   end
@@ -16,7 +16,7 @@ describe External::PlaylistsController, type: :request do
     let(:playlist) { create(:playlist) }
 
     it do
-      get "/d6.6/l/bundle/pl/#{playlist.original_id}/types.json"
+      get "/d6.6/l/bundle/pl/#{playlist.string_id}/types.json"
       expect(response.status).to eq 200
       body = JSON.parse(response.body, symbolize_names: true)
       expect(body.key?(:narticle)).to eq playlist.deliver_article_via_api?
@@ -30,7 +30,7 @@ describe External::PlaylistsController, type: :request do
       let(:publish_level) { :full }
 
       it do
-        get "/d6.6/ll/bundle/pl/#{playlist.original_id}/types.json"
+        get "/d6.6/ll/bundle/pl/#{playlist.string_id}/types.json"
         expect(response.status).to eq 200
         body = JSON.parse(response.body, symbolize_names: true)
         expect(body.key?(:faqpage)).to eq playlist.deliver_faq_page_via_api?
@@ -43,7 +43,7 @@ describe External::PlaylistsController, type: :request do
       let(:publish_level) { Playlist::PUBLISH_LEVELS.reject { |v| v == :full }.sample }
 
       it do
-        get "/d6.6/ll/bundle/pl/#{playlist.original_id}/types.json"
+        get "/d6.6/ll/bundle/pl/#{playlist.string_id}/types.json"
         expect(response.status).to eq 200
         body = JSON.parse(response.body, symbolize_names: true)
         expect(body).to_not include(:faqpage)
@@ -60,7 +60,7 @@ describe External::PlaylistsController, type: :request do
       let(:publish_level) { :full }
 
       it do
-        get "/d6.6/lll/bundle/pl/#{playlist.original_id}/types.json"
+        get "/d6.6/lll/bundle/pl/#{playlist.string_id}/types.json"
         expect(response.status).to eq 200
 
         body = JSON.parse(response.body, symbolize_names: true)
@@ -75,7 +75,7 @@ describe External::PlaylistsController, type: :request do
       let(:publish_level) { Playlist::PUBLISH_LEVELS.reject { |v| v == :full }.sample }
 
       it do
-        get "/d6.6/lll/bundle/pl/#{playlist.original_id}/types.json"
+        get "/d6.6/lll/bundle/pl/#{playlist.string_id}/types.json"
         expect(response.status).to eq 200
 
         body = JSON.parse(response.body, symbolize_names: true)

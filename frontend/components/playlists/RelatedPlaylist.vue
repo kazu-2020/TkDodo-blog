@@ -116,9 +116,9 @@ export default Vue.extend({
     externalPlaylistUrl(playlist: any): string {
       switch (playlist.identifierGroup.typeOfList) {
         case 'series':
-          return `https://dev-www-eh.nr.nhk.jp/p/pl/${playlist.id}/series`
+          return `https://dev-www-eh.nr.nhk.jp/p/pl/${playlist.stringId}/series`
         default:
-          return `https://dev-www-eh.nr.nhk.jp/p/pl/${playlist.id}`
+          return `https://dev-www-eh.nr.nhk.jp/p/pl/${playlist.stringId}`
       }
     },
     openPreviewPage(): void {

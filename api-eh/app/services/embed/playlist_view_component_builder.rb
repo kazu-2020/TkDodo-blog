@@ -1,6 +1,6 @@
 class Embed::PlaylistViewComponentBuilder < Embed::ViewComponentBuilder
   def url
-    @url ||= "https://dev-www-eh.nr.nhk.jp/p/pl/#{playlist.original_id}"
+    @url ||= "https://dev-www-eh.nr.nhk.jp/p/pl/#{playlist.string_id}"
   end
 
   def playlist

@@ -162,7 +162,7 @@ export default Vue.extend({
       return this.actorsAndContributors.length !== 0
     },
     hasPlaylistId(): boolean {
-      return this.playlist?.id !== undefined
+      return this.playlist?.playlistUId !== undefined
     },
     playlistItems(): Array<Object> {
       const items = this.playlist.items || []
@@ -179,10 +179,10 @@ export default Vue.extend({
       return this.playlist?.originalSeriesId
     },
     playlistUId(): string {
-      return this.playlist?.id || ''
+      return this.playlist?.playlistUId || ''
     },
     playlistId(): string {
-      return this.playlist?.originalId || ''
+      return this.playlist?.stringId || ''
     },
     playlistDescription(): string | undefined {
       return this.playlist?.description?.slice(0, 50)
@@ -197,13 +197,13 @@ export default Vue.extend({
   methods: {
     copyPlaylistUId(): void {
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(this.playlist.id)
+        navigator.clipboard.writeText(this.playlist.playlistUId)
         this.snackbar = true
       }
     },
     copyPlaylistId(): void {
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(this.playlist.originalId)
+        navigator.clipboard.writeText(this.playlist.stringId)
         this.snackbar = true
       }
     },

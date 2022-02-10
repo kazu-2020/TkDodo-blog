@@ -73,13 +73,13 @@
         <v-row class="px-4">
           <v-col
             v-for="relatedPlaylist in relatedPlaylists"
-            :key="relatedPlaylist.id"
+            :key="relatedPlaylist.playlistUId"
             cols="6"
           >
             <nuxt-link
               :to="{
                 name: 'playlists-id',
-                params: { id: relatedPlaylist.id },
+                params: { id: relatedPlaylist.playlistUId },
               }"
               class="body-2 related-playlist-title"
             >
@@ -89,7 +89,7 @@
               <nuxt-link
                 :to="{
                   name: 'playlists-id',
-                  params: { id: relatedPlaylist.id },
+                  params: { id: relatedPlaylist.playlistUId },
                 }"
               >
                 <v-img
@@ -100,7 +100,7 @@
                   class="playlist-image"
                 />
                 <div
-                  v-if="playlist.id === relatedPlaylist.id"
+                  v-if="playlist.playlistUId === relatedPlaylist.playlistUId"
                   class="current-playlist-badge"
                 >
                   現在編集中

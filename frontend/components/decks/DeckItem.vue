@@ -72,7 +72,7 @@
       </v-btn>
       <v-col
         v-for="playlist in playlists"
-        :key="`${playlist.id}-deck-item`"
+        :key="`${playlist.primaryId}-deck-item`"
         cols="1"
       >
         <deck-playlist-list-item :playlist="playlist" />

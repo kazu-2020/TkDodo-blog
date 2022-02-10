@@ -87,7 +87,7 @@ export const actions = actionTree(
     },
     async deletePlaylist({ commit }, playlist) {
       await this.$axios
-        .delete(`/playlists/${playlist.id}`)
+        .delete(`/playlists/${playlist.playlistUId}`)
         .then((response) => {
           console.log('status:', response.status)
           commit('removePlaylist', playlist)
@@ -107,7 +107,7 @@ export const actions = actionTree(
     async saveEditingPlaylistEpisodes({ commit, state }) {
       await this.$axios
         .post(
-          `/playlists/${state.editingPlaylist.id}/playlist_items/bulk_update`,
+          `/playlists/${state.editingPlaylist.playlistUId}/playlist_items/bulk_update`,
           {
             playlist_items: state.editingPlaylist.items,
           }

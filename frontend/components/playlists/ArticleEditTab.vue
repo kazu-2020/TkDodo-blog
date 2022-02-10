@@ -25,7 +25,7 @@
         <editable-section
           key="sandbox2"
           section-id="sandbox2"
-          :playlist-id="playlist.id"
+          :playlist-id="playlist.playlistUId"
           :initial-data="body"
           class="mb-8"
           :image-by-file-endpoint="imageByFileEndpoint"
@@ -132,10 +132,10 @@ export default Vue.extend({
       return this.playlist.name
     },
     imageByUrlEndpoint() {
-      return `/playlists/${this.playlist.id}/upload_article_image_by_url`
+      return `/playlists/${this.playlist.playlistUId}/upload_article_image_by_url`
     },
     imageByFileEndpoint() {
-      return `/playlists/${this.playlist.id}/upload_article_image_by_file`
+      return `/playlists/${this.playlist.playlistUId}/upload_article_image_by_file`
     },
     diffEpisodeItems() {
       const playlistItems = this.playlist.items || []

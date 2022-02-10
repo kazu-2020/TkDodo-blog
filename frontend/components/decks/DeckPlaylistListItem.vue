@@ -7,7 +7,7 @@
     <v-img :src="logoImageUrl" aspect-ratio="1" class="mb-2" />
     <nuxt-link
       class="body-2 playlist_title mb-2"
-      :to="`/playlists/${playlist.id}`"
+      :to="`/playlists/${playlist.playlistUId}`"
       style="text-decoration: none; font-weight: bold"
     >
       {{ playlist.name }}
@@ -85,7 +85,7 @@ export default Vue.extend({
       if (this.episodes.length !== 0) return
 
       this.$axios
-        .get(`/playlists/${this.playlist.id}/playlist_items`)
+        .get(`/playlists/${this.playlist.playlistUId}/playlist_items`)
         .then((res) => {
           this.episodes = res.data.items
         })

@@ -4,7 +4,7 @@
     <div class="d-flex flex-wrap mb-5">
       <related-playlist
         v-for="playlist in relatedPlaylists"
-        :key="playlist.id"
+        :key="playlist.stringId"
         :playlist="playlist"
       />
     </div>
@@ -85,9 +85,9 @@ export default Vue.extend({
     externalPlaylistUrl(playlist: any): string {
       switch (playlist.identifierGroup.typeOfList) {
         case 'series':
-          return `https://dev-www-eh.nr.nhk.jp/p/pl/${playlist.id}/series`
+          return `https://dev-www-eh.nr.nhk.jp/p/pl/${playlist.stringId}/series`
         default:
-          return `https://dev-www-eh.nr.nhk.jp/p/pl/${playlist.id}`
+          return `https://dev-www-eh.nr.nhk.jp/p/pl/${playlist.stringId}`
       }
     },
   },
