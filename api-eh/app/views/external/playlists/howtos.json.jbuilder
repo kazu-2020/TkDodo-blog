@@ -19,6 +19,6 @@ else
   end
   if @offset.positive?
     json.prevUrl "#{howtos_external_playlist_uid_url(@playlist.string_uid)}.json?offset=#{@offset - @size}&size=#{@size}"
-  endgi
+  end
   # rubocop: enable Layout/LineLength
 end
