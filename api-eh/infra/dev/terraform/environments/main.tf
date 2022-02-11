@@ -1,5 +1,5 @@
 terraform {
-  required_version = "= 0.13.7"
+  required_version = "= 1.1.5"
 
   backend "s3" {
     bucket               = "tomigaya-dev-terraform"
@@ -10,13 +10,10 @@ terraform {
 }
 
 provider "aws" {
-  version = "~> 3.74.1"
   region  = "ap-northeast-1"
 }
 
-provider "template" {
-  version = "= 2.1.2"
-}
+provider "template" {}
 
 variable "name" {
   default = "api-eh"
