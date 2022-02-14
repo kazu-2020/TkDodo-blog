@@ -32,6 +32,7 @@ class SidekiqBaseJob
   end
 
   def perform(*)
-    PaperTrail.request.whodunnit = self.class.name.underscore
+    # FIXME: 変更履歴実装時に考える
+    # PaperTrail.request.whodunnit = self.class.name.underscore
   end
 end
