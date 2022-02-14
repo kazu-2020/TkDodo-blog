@@ -1,3 +1,6 @@
 NullJob:
   at: '3001/01/01'
   description: '空のjob'
+SendUpdateNotificationJob:
+  every: '1h'
+  description: '更新通知メッセージを送信する'
