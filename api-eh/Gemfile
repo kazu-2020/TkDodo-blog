@@ -23,6 +23,7 @@ gem 'pathname', '0.1.0'
 
 gem 'acts_as_list'
 gem 'asset_sync'
+gem 'aws-sdk-sns'
 gem 'chroma'
 gem 'colormath'
 gem 'counter_culture'

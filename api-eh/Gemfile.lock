@@ -120,6 +120,9 @@ GEM
       aws-sdk-core (~> 3, >= 3.112.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
+    aws-sdk-sns (1.42.0)
+      aws-sdk-core (~> 3, >= 3.112.0)
+      aws-sigv4 (~> 1.1)
     aws-sdk-ssm (1.111.0)
       aws-sdk-core (~> 3, >= 3.112.0)
       aws-sigv4 (~> 1.1)
@@ -476,6 +479,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_list
   asset_sync
+  aws-sdk-sns
   bootsnap (>= 1.4.4)
   chroma
   cody
