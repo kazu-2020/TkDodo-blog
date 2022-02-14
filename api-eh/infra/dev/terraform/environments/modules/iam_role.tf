@@ -45,6 +45,16 @@ resource "aws_iam_role_policy" "app_role_policy" {
             ]
         },
         {
+            "Sid": "sns01",
+            "Effect": "Allow",
+            "Action": [
+              "SNS:Publish"
+            ],
+            "Resource": [
+              "${aws_sns_topic.update.arn}"
+            ]
+        },
+        {
           "Effect": "Allow",
           "Action": [
             "ssmmessages:CreateControlChannel",
@@ -157,4 +167,3 @@ resource "aws_iam_role_policy_attachment" "lambda_edge_service" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   role       = aws_iam_role.iam_lambda_edge.id
 }
-
