@@ -9,7 +9,7 @@ class Embed::PlaylistsController < EmbedController
   private
 
   def build_view_component
-    if embed_params[:playlist_id].start_with?('eh-')
+    if embed_params[:playlist_id].start_with?('recommend-tep-')
       build_playlist_view_component
     elsif embed_params[:playlist_id].start_with?('ts-')
       build_series_view_component
@@ -19,7 +19,7 @@ class Embed::PlaylistsController < EmbedController
   end
 
   def build_playlist_view_component
-    playlist_id = embed_params[:playlist_id].delete_prefix('eh-').to_i
+    playlist_id = embed_params[:playlist_id].delete_prefix('recommend-tep-').to_i
     Embed::PlaylistViewComponentBuilder.new(resource_id: playlist_id,
                                             height: embed_params[:height],
                                             layout_pattern: embed_params[:layout_pattern]).call
