@@ -178,7 +178,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def save_string_id
-    self.string_id = "eh-#{format('%010d', id)}"
+    self.string_id = "recommend-tep-#{format('%010d', id)}"
     save
   end
 
