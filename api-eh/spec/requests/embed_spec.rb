@@ -66,7 +66,7 @@ describe EmbedController, type: :request do
       let(:layout_pattern) { 'summary' }
 
       it 'returns success response' do
-        get "/embed/pl/eh-#{playlist_id}", params: { layout_pattern: layout_pattern }
+        get "/embed/pl/recommend-tep-#{playlist_id}", params: { layout_pattern: layout_pattern }
         expect(response.status).to eq 200
       end
     end
@@ -80,7 +80,7 @@ describe EmbedController, type: :request do
 
       it 'returns success response' do
         VCR.use_cassette('embed_spec_pl_featured_item') do
-          get "/embed/pl/eh-#{playlist_id}", params: { layout_pattern: layout_pattern }
+          get "/embed/pl/recommend-tep-#{playlist_id}", params: { layout_pattern: layout_pattern }
           expect(response.status).to eq 200
         end
       end
@@ -95,7 +95,7 @@ describe EmbedController, type: :request do
 
       it 'returns success response' do
         VCR.use_cassette('embed_spec_pl_featured_item') do
-          get "/embed/pl/eh-#{playlist_id}", params: { layout_pattern: layout_pattern }
+          get "/embed/pl/recommend-tep-#{playlist_id}", params: { layout_pattern: layout_pattern }
           expect(response.status).to eq 200
         end
       end
@@ -110,7 +110,7 @@ describe EmbedController, type: :request do
 
       it 'returns success response' do
         VCR.use_cassette('embed_spec_pl_featured_item') do
-          get "/embed/pl/eh-#{playlist_id}", params: { layout_pattern: layout_pattern }
+          get "/embed/pl/recommend-tep-#{playlist_id}", params: { layout_pattern: layout_pattern }
           expect(response.status).to eq 200
         end
       end

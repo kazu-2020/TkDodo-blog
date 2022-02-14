@@ -19,7 +19,7 @@ describe OembedController, type: :request do
 
     it 'returns success response' do
       playlist_id = format('%010<number>d', number: playlist.id)
-      get oembed_path, params: { url: "https://dev-www-eh.nr.nhk.jp/p/pl/eh-#{playlist_id}" }
+      get oembed_path, params: { url: "https://dev-www-eh.nr.nhk.jp/p/pl/recommend-tep-#{playlist_id}" }
       expect(response.status).to eq 200
     end
   end

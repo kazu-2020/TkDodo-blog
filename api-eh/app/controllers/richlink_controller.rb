@@ -58,7 +58,7 @@ class RichlinkController < ApplicationController
   end
 
   def playlist_page_url_regex
-    %r{https?://dev-www-eh.nr.nhk.jp/p/pl/eh-([A-Z0-9]{10})}
+    %r{https?://dev-www-eh.nr.nhk.jp/p/pl/recommend-tep-([A-Z0-9]{10})}
   end
 
   # @param [String] title

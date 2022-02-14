@@ -51,10 +51,10 @@ class Oembed::MakeResponse
   end
 
   # @example
-  #   https://dev-www-eh.nr.nhk.jp/p/pl/eh-0000000030
+  #   https://dev-www-eh.nr.nhk.jp/p/pl/recommend-tep-0000000030
   # @return [TrueClass, FalseClass]
   def playlist_url?
-    url.match?(%r{https?://dev-www-eh.nr.nhk.jp/p/pl/eh-([A-Z0-9]{10})})
+    url.match?(%r{https?://dev-www-eh.nr.nhk.jp/p/pl/recommend-tep-([A-Z0-9]{10})})
   end
 
   # @example

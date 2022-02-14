@@ -28,10 +28,10 @@ class Oembed::Response::Playlist
 
   # @return [String] dev-embed.nr.nhk.jp用のURL pl/ 以降
   def extract_playlist_url
-    url[%r{https?://dev-www-eh.nr.nhk.jp/p/(pl/eh-[A-Z0-9]{10})}, 1]
+    url[%r{https?://dev-www-eh.nr.nhk.jp/p/(pl/recommend-tep-[A-Z0-9]{10})}, 1]
   end
 
   def extract_playlist_id
-    url[%r{https?://dev-www-eh.nr.nhk.jp/p/pl/eh-([A-Z0-9]{10})}, 1].to_i
+    url[%r{https?://dev-www-eh.nr.nhk.jp/p/pl/recommend-tep-([A-Z0-9]{10})}, 1].to_i
   end
 end

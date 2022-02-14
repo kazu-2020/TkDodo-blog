@@ -14,13 +14,13 @@ class OembedDebuggerController < ApplicationController
 
   def featured_item
     @type = params[:type] || 'pl' # or 'ts'
-    @id = params[:id] || 'eh-0000000005' # or 'W3W8WRN8M3'
+    @id = params[:id] || 'recommend-tep-0000000005' # or 'W3W8WRN8M3'
     @src = "/embed/#{@type}/#{@id}?layout_pattern=featuredItem"
   end
 
   def item_list
     @type = params[:type] || 'pl' # or 'ts'
-    @id = params[:id] || 'eh-0000000030' # or 'W3W8WRN8M3'
+    @id = params[:id] || 'recommend-tep-0000000030' # or 'W3W8WRN8M3'
     @src = "/embed/#{@type}/#{@id}?layout_pattern=itemList"
   end
 
