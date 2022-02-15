@@ -9,13 +9,12 @@ class Deck < ApplicationRecord
   belongs_to :deck_label, optional: true
 
   validates :name, presence: true
-  validates :visible_uid, presence: true
-  validates :editorial_uid, presence: true
+  validates :deck_uid, presence: true
 
   before_validation :set_uids
 
   def deck_id(type)
-    "#{item_type}-#{is_r5? ? 'r5' : 'r6'}-#{type}-#{area}"
+    "#{type_of_deck}-#{is_r5? ? 'r5' : 'r6'}-#{type}-#{area}"
   end
 
   def total_time
@@ -41,8 +40,7 @@ class Deck < ApplicationRecord
   private
 
   def set_uids
-    self.visible_uid = SecureRandom.uuid if visible_uid.blank?
-    self.editorial_uid = SecureRandom.uuid if editorial_uid.blank?
+    self.deck_uid = SecureRandom.uuid if deck_uid.blank?
   end
 
   def add_playlists!(playlist_ids)
