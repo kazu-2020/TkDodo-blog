@@ -138,6 +138,10 @@ export default Vue.extend({
         const originalDeck = Object.assign({}, (this as any).deck)
         const deck = Object.assign(originalDeck, { interfix: newVal })
         this.$emit('update-deck', deck)
+
+        if (this.deck.interfix !== '' && this.deck.interfix !== newVal) {
+          this.$emit('change-deck-interfix')
+        }
       },
     },
     sameAs: {

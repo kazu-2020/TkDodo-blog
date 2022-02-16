@@ -49,18 +49,18 @@ class Deck < ApplicationRecord
     self.type_of_item ||= 'TVEpisode'
   end
 
-  def set_initial_deck_id
+  def set_initial_deck_id(with_save: true)
     return if id.nil?
 
     self.deck_id = "#{type_of_deck}-#{mode_of_item}-for-#{interfix}-#{format('%010d', id)}"
-    save
+    save if with_save
   end
 
   def set_deck_id
     if will_save_change_to_attribute?('type_of_deck') ||
        will_save_change_to_attribute?('mode_of_item') ||
        will_save_change_to_attribute?('interfix')
-      set_initial_deck_id
+      set_initial_deck_id(with_save: false)
     end
   end
 
