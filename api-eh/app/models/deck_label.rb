@@ -1,2 +1,0 @@
-class DeckLabel < ApplicationRecord
-end

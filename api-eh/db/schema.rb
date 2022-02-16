@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_09_174500) do
+ActiveRecord::Schema.define(version: 2022_02_15_155400) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -26,13 +26,6 @@ ActiveRecord::Schema.define(version: 2022_02_09_174500) do
     t.integer "playlist_id", null: false
     t.string "name", null: false
     t.string "url", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "deck_labels", charset: "utf8mb4", force: :cascade do |t|
-    t.string "display_name", null: false, comment: "表示名"
-    t.string "name", null: false, comment: "ラベル（英数）"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -58,12 +51,14 @@ ActiveRecord::Schema.define(version: 2022_02_09_174500) do
   create_table "decks", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.text "description", comment: "デッキの説明"
-    t.integer "deck_label_id", comment: "デッキラベル ID"
+    t.string "deck_id", comment: "計測用の deckId"
     t.string "area"
-    t.string "item_type", default: "recommend", comment: "デッキを構成するプレイリストのタイプ"
+    t.string "type_of_deck", default: "recommend", comment: "デッキを構成するプレイリストのタイプ"
+    t.string "mode_of_item", default: "tv", comment: "デッキを構成するプレイリストのアイテムモード"
+    t.string "type_of_item", default: "TVEpisode", comment: "デッキを構成するプレイリストのアイテムタイプ"
     t.boolean "is_r5", default: false, null: false, comment: "r5 相当のデッキか"
-    t.string "visible_uid", comment: "Editorial APIレスポンス時のUID"
-    t.string "editorial_uid", comment: "Visible APIレスポンス時のUID"
+    t.string "interfix", comment: "deckId の中間接辞"
+    t.string "deck_uid", comment: "デッキ uid"
     t.string "admin_memo", comment: "管理メモ"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -9,13 +9,16 @@ class Deck < ApplicationRecord
   belongs_to :deck_label, optional: true
 
   validates :name, presence: true
-  validates :visible_uid, presence: true
-  validates :editorial_uid, presence: true
+  validates :deck_uid, presence: true
+  validates :interfix, presence: true
 
-  before_validation :set_uids
+  before_validation :set_default_values
+  before_save :set_deck_id
 
-  def deck_id(type)
-    "#{item_type}-#{is_r5? ? 'r5' : 'r6'}-#{type}-#{area}"
+  after_create :set_initial_deck_id
+
+  def d66_deck_id(type)
+    "#{type_of_deck}-#{is_r5? ? 'r5' : 'r6'}-#{type}-#{area}"
   end
 
   def total_time
@@ -40,9 +43,25 @@ class Deck < ApplicationRecord
 
   private
 
-  def set_uids
-    self.visible_uid = SecureRandom.uuid if visible_uid.blank?
-    self.editorial_uid = SecureRandom.uuid if editorial_uid.blank?
+  def set_default_values
+    self.deck_uid = SecureRandom.uuid if deck_uid.blank?
+    self.mode_of_item ||= 'tv'
+    self.type_of_item ||= 'TVEpisode'
+  end
+
+  def set_initial_deck_id(with_save: true)
+    return if id.nil?
+
+    self.deck_id = "#{type_of_deck}-#{mode_of_item}-for-#{interfix}-#{format('%010d', id)}"
+    save if with_save
+  end
+
+  def set_deck_id
+    if will_save_change_to_attribute?('type_of_deck') ||
+       will_save_change_to_attribute?('mode_of_item') ||
+       will_save_change_to_attribute?('interfix')
+      set_initial_deck_id(with_save: false)
+    end
   end
 
   def add_playlists!(playlist_ids)

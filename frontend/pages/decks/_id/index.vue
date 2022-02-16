@@ -28,7 +28,7 @@
             elevation="0"
             color="accent"
             :disabled="preventSaveButton"
-            @click="save"
+            @click="clickSaveButton"
           >
             保存する
           </v-btn>
@@ -64,6 +64,7 @@
             :deck="deck"
             @update-deck="updateDeck"
             @update-validation="updateDeckTabValidation"
+            @change-deck-interfix="changeDeckInterfix"
           />
         </v-col>
         <v-col cols="3" class="preview-container-wrapper hidden-md-and-down">
@@ -143,6 +144,7 @@ interface DataType {
   hasUnsavedPlaylist: boolean
   hasUnsavedDeck: boolean
   isValidDeckTab: boolean
+  isChangeDeckInterfix: boolean
 }
 
 export default Vue.extend({
@@ -165,6 +167,7 @@ export default Vue.extend({
       hasUnsavedPlaylist: false,
       hasUnsavedDeck: false,
       isValidDeckTab: true,
+      isChangeDeckInterfix: false,
     }
   },
   computed: {
@@ -213,6 +216,9 @@ export default Vue.extend({
     updateDeckTabValidation(valid: boolean) {
       this.isValidDeckTab = valid
     },
+    changeDeckInterfix() {
+      this.isChangeDeckInterfix = true
+    },
     updateDeck(deck: any) {
       if (this.currentTab === DeckTab.deck) {
         ;(this as any).showUnloadAlert()
@@ -241,10 +247,22 @@ export default Vue.extend({
 
       return 'https://placehold.jp/50x50.png'
     },
+    clickSaveButton() {
+      if (this.isChangeDeckInterfix) {
+        const message =
+          'deckId の値に変更がありました。保存してもよろしいですか？'
+        if (window.confirm(message)) {
+          this.save()
+        }
+      } else {
+        this.save()
+      }
+    },
     save() {
       const body: { [key: string]: string | undefined } = {
         name: this.deck.name,
         description: this.deck.description,
+        interfix: this.deck.interfix,
       }
 
       const data = new FormData()
@@ -308,6 +326,7 @@ export default Vue.extend({
 
           this.hasUnsavedPlaylist = false
           this.hasUnsavedDeck = false
+          this.isChangeDeckInterfix = false
         })
         .catch((_error) => {
           this.$store.dispatch('loading/failLoading')

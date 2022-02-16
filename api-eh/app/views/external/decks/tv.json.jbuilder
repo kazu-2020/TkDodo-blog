@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 json.type 'NDeck'
-json.id @deck.deck_id('tv')
+json.id @deck.d66_deck_id('tv')
 json.name @deck.name
 json.description @deck.description
 
 json.identifierGroup do
-  json.deckUId @deck.visible_uid
-  json.deckId @deck.deck_id('tv')
+  json.deckUId @deck.deck_uid
+  json.deckId @deck.d66_deck_id('tv')
   json.deckName @deck.name
-  json.typeOfDeck @deck.item_type
+  json.typeOfDeck @deck.type_of_deck
 end
 
 deck_id = params[:deck_id].split('-').unshift('recommend').uniq.join('-')

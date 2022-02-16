@@ -26,16 +26,16 @@ end
 if @playlist.decks.present?
   json.relatedDeck do
     json.array! @playlist.decks do |deck|
-      deck_id = deck.deck_id('visible')
+      deck_id = deck.d66_deck_id('visible')
       json.type 'NDeck'
       json.id deck_id
       json.name deck.name
       json.description deck.description
       json.identifierGroup do
-        json.deckUId deck.visible_uid
+        json.deckUId deck.deck_uid
         json.deckId deck_id
         json.deckName deck.name
-        json.typeOfDeck deck.item_type
+        json.typeOfDeck deck.type_of_deck
       end
       json.url deck_url(deck, deck_id, @object_type)
     end
