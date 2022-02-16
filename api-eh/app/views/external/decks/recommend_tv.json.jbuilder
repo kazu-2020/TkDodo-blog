@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 json.type 'NDeck'
-json.id @deck.deck_id('tv')
+json.id @deck.d66_deck_id('tv')
 json.name @deck.name
 json.description @deck.description
 
 json.identifierGroup do
   json.deckUId @deck.deck_uid
-  json.deckId @deck.deck_id('tv')
+  json.deckId @deck.d66_deck_id('tv')
   json.deckName @deck.name
   json.typeOfDeck @deck.type_of_deck
 end
@@ -19,7 +19,7 @@ merge_param = { itemOffset: @item_offset, itemSize: @item_size, size: @size, off
               .delete_if { |_, v| v.nil? }
 url_params = params.permit(:area, :type, :mediaAction).merge(merge_param).to_param
 
-json.playlistUrl "#{external_playlists_url(deck_id: @deck.deck_id('tv'))}.json?#{url_params.to_param}"
+json.playlistUrl "#{external_playlists_url(deck_id: @deck.d66_deck_id('tv'))}.json?#{url_params.to_param}"
 
 json.sameAs do
   json.array! []

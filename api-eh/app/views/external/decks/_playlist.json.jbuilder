@@ -32,7 +32,7 @@ end
 if playlist.decks.present?
   json.relatedDeck do
     json.array! playlist.decks do |deck|
-      deck_id = deck.deck_id(deck_type)
+      deck_id = deck.d66_deck_id(deck_type)
       json.type 'NDeck'
       json.id deck_id
       json.name deck.name

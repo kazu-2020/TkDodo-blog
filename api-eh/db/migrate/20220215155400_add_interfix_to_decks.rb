@@ -4,8 +4,8 @@ class AddInterfixToDecks < ActiveRecord::Migration[6.1]
     remove_column :decks, :deck_label_id, :integer, after: :description, comment: 'デッキラベル ID'
     rename_column :decks, :item_type, :type_of_deck
     change_column_comment :decks, :type_of_deck, 'デッキを構成するプレイリストのタイプ'
-    add_column :decks, :mode_of_item, :string, after: :type_of_deck, comment: 'デッキを構成するプレイリストのアイテムモード'
-    add_column :decks, :type_of_item, :string, after: :mode_of_item, comment: 'デッキを構成するプレイリストのアイテムタイプ'
+    add_column :decks, :mode_of_item, :string, default: 'tv', after: :type_of_deck, comment: 'デッキを構成するプレイリストのアイテムモード'
+    add_column :decks, :type_of_item, :string, default: 'TVEpisode', after: :mode_of_item, comment: 'デッキを構成するプレイリストのアイテムタイプ'
     add_column :decks, :deck_id, :string, after: :description, comment: '計測用の deckId'
     remove_column :decks, :editorial_uid
     rename_column :decks, :visible_uid, :deck_uid

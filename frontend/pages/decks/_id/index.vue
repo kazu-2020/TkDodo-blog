@@ -245,6 +245,7 @@ export default Vue.extend({
       const body: { [key: string]: string | undefined } = {
         name: this.deck.name,
         description: this.deck.description,
+        interfix: this.deck.interfix,
       }
 
       const data = new FormData()
