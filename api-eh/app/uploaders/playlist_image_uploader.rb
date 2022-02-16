@@ -2,28 +2,7 @@
 
 require 'image_processing/mini_magick'
 
-class ImageUploader < Shrine
-  ALLOWED_TYPES = %w[image/jpeg image/png image/gif image/webp].freeze
-  MAX_SIZE = 10 * 1024 * 1024 # 10 MB
-
-  plugin :remove_attachment # adds the remove_<name> accessor to model, removes the attached file if it set a true
-  plugin :store_dimensions, analyzer: :mini_magick
-  plugin :url_options, store: { host: Rails.application.config.shrine_config[:default_url], public: true }
-  plugin :validation_helpers, default_messages: {
-    max_size: ->(max) { I18n.t('errors.file.max_size', max: max) },
-    max_width: ->(max) { I18n.t('errors.file.max_width', max: max) },
-    max_height: ->(max)  { I18n.t('errors.file.max_height', max: max) },
-    mime_type_inclusion: ->(list) { I18n.t('errors.file.mime_type_inclusion', list: list) }
-  } # validation用のヘルパーメソッドを追加するプラグイン
-
-  Attacher.validate do
-    validate_max_size MAX_SIZE
-    if validate_mime_type_inclusion(ALLOWED_TYPES)
-      validate_max_width 5000
-      validate_max_height 5000
-    end
-  end
-
+class PlaylistImageUploader < ImageUploader
   # override
   # 画像を出力するパスを生成する
   #
@@ -38,11 +17,9 @@ class ImageUploader < Shrine
   # /playlist/pl/recommend-tep-0000000001/recommend-tep-0000000001-hero_X_151253151.jpg
   # /playlist/pl/recommend-tep-0000000001/recommend-tep-0000000001-role_151253151.jpg
   # /playlist/pl/recommend-tep-0000000001/recommend-tep-0000000001-role_X_151253151.jpg
-  #
-  # Article Image
-  # /playlist/pl/recommend-tep-0000000001/recommend-tep-0000000001-article_151253151.gif
   def generate_location(io, **context)
     record = context.fetch(:record)
+    context = context.deep_symbolize_keys
 
     "playlist/pl/#{record.string_id}/#{create_filename(io, context)}"
   end
@@ -52,7 +29,7 @@ class ImageUploader < Shrine
   # @param [Hash] context
   # @return [String]
   def create_filename(io, context)
-    ext = File.extname(context.dig(:metadata, :filename))&.downcase
+    ext = File.extname(context.dig(:metadata, :filename)).downcase
     ext = '.jpg' if ext == '.jpeg' # jpegとjpgを統一
 
     record = context.fetch(:record)

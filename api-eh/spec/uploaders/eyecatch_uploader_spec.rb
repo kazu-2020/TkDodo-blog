@@ -10,15 +10,17 @@ RSpec.describe EyecatchUploader, type: :model do
     create(:playlist, eyecatch_image: file)
   }
 
-  it do
-    expect(derivatives[:default]).to be_kind_of(Shrine::UploadedFile)
-    expect(derivatives[:small]).to be_kind_of(Shrine::UploadedFile)
-    expect(derivatives[:medium]).to be_kind_of(Shrine::UploadedFile)
-    expect(derivatives[:large]).to be_kind_of(Shrine::UploadedFile)
+  describe :strip do
+    it do
+      expect(derivatives[:default]).to be_kind_of(Shrine::UploadedFile)
+      expect(derivatives[:small]).to be_kind_of(Shrine::UploadedFile)
+      expect(derivatives[:medium]).to be_kind_of(Shrine::UploadedFile)
+      expect(derivatives[:large]).to be_kind_of(Shrine::UploadedFile)
 
-    # exifが消えてるか確認
-    path = File.expand_path("public/uploads/test/#{image.id}")
-    image = MiniMagick::Image.open(path)
-    expect(image.exif).to be_blank
+      # exifが消えてるか確認
+      path = File.expand_path("public/uploads/test/#{image.id}")
+      image = MiniMagick::Image.open(path)
+      expect(image.exif).to be_blank
+    end
   end
 end
