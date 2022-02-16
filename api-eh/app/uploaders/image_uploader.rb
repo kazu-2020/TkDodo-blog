@@ -38,9 +38,6 @@ class ImageUploader < Shrine
   # /playlist/pl/recommend-tep-0000000001/recommend-tep-0000000001-hero_X_151253151.jpg
   # /playlist/pl/recommend-tep-0000000001/recommend-tep-0000000001-role_151253151.jpg
   # /playlist/pl/recommend-tep-0000000001/recommend-tep-0000000001-role_X_151253151.jpg
-  #
-  # Article Image
-  # /playlist/pl/recommend-tep-0000000001/recommend-tep-0000000001-article_151253151.gif
   def generate_location(io, **context)
     record = context.fetch(:record)
 

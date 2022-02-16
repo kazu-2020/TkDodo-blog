@@ -12,8 +12,7 @@ RSpec.describe ArticleImageUploader, type: :model do
       uploader = ArticleImageUploader.new('cache')
 
       location = uploader.generate_location(nil, **make_context(article_image, :image))
-      playlist = article_image.playlist
-      expect(location).to match %r{^playlist/pl/#{playlist.string_id}/#{playlist.string_id}-article.*\.jpg}
+      expect(location).to match %r{^playlist/article_images/.*\.jpg}
     end
 
     def make_context(record, name)
