@@ -15,6 +15,19 @@ class DecksController < ApplicationController
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
   end
 
+  def create
+    @deck = Deck.new(deck_params)
+
+    begin
+      @deck.save!
+
+      playlist_ids = params.require(:deck).permit(playlists: [])[:playlists] || []
+      @deck.rebuild_playlists_to(playlist_ids)
+    rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
+      render json: { messages: @deck.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   def update
     @deck = Deck.find_by(id: params[:id])
     if @deck.update(deck_params)

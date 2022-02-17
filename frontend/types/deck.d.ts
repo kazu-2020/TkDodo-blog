@@ -2,9 +2,9 @@ import { Playlist } from 'types/playlist'
 import { SameAs } from './same_as'
 
 export interface Deck {
-  id: string
+  id?: string
   name: string
-  description: string
+  description?: string
   interfix: string
   adminMemo?: string
   sameAs: Array<SameAs>
