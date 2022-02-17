@@ -197,6 +197,7 @@ export default Vue.extend({
           error: '削除失敗しました',
         })
         this.$store.dispatch('decks/deleteDeck', this.selectedDeck)
+        this.drawer = false
       }
     },
     searchDeckWithKeyword(): void {

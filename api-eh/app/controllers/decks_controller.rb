@@ -42,6 +42,13 @@ class DecksController < ApplicationController
     end
   end
 
+  def destroy
+    @deck = Deck.find(params[:id])
+    @deck.destroy
+
+    render json: { deleted: true }
+  end
+
   def playlists
     @deck = Deck.find_by(id: params[:id])
 
