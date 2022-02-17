@@ -27,6 +27,9 @@ export const mutations = mutationTree(state, {
   setEditingDeck(state, { deck }) {
     state.editingDeck = deck
   },
+  removeDeck(state, deck) {
+    state.allDecks.splice(state.allDecks.indexOf(deck), 1)
+  },
   deleteEditingDeckPlaylist(state, playlist) {
     state.editingDeck.playlists.splice(
       state.editingDeck.playlists.indexOf(playlist),
@@ -64,6 +67,16 @@ export const actions = actionTree(
           root: true,
         })
       })
+    },
+    async deleteDeck({ commit }, deck) {
+      await this.$axios
+        .delete(`/decks/${deck.id}`)
+        .then((_response) => {
+          commit('removeDeck', deck)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
     setEditingDeck({ commit }, deck) {
       commit('setEditingDeck', { deck })
