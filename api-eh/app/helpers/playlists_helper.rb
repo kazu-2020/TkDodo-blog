@@ -11,13 +11,6 @@ module PlaylistsHelper
     act_list.flatten.map { |act| act[:name] }.uniq
   end
 
-  def fetch_broadcast_event(episode_id)
-    client = DlabApiClient.new
-    res = client.broadcast_event_from_episode_id(episode_id)
-
-    res[:result]
-  end
-
   def fetch_unique_actors(playlist)
     actors =
       playlist.playlist_items.kept.map do |playlist_item|
