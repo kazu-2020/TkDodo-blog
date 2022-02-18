@@ -155,10 +155,6 @@
           </v-col>
           <v-divider />
           <v-col cols="12">
-            <playlist-json-dialog
-              button-color="#000000"
-              :playlist-id="playlist.stringId"
-            />
             <layout-pattern-dialog
               button-color="#000000"
               :playlist-id="playlist.stringId"
@@ -201,7 +197,6 @@ import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
 import ListEditTab from '~/components/playlists/ListEditTab.vue'
-import PlaylistJsonDialog from '~/components/playlists/PlaylistJsonDialog.vue'
 import LayoutPatternDialog from '~/components/playlists/LayoutPatternDialog.vue'
 import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
@@ -235,7 +230,6 @@ export default Vue.extend({
     BasicInformationView,
     HorizontalBasicInformationView,
     ListEditTab,
-    PlaylistJsonDialog,
     LayoutPatternDialog,
     PlaylistStepper,
     SeriesMetaEditTab,
