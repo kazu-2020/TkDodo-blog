@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_15_155400) do
+ActiveRecord::Schema.define(version: 2022_02_18_105200) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -126,12 +126,13 @@ ActiveRecord::Schema.define(version: 2022_02_15_155400) do
     t.text "marked_body", size: :medium, comment: "記事本文（マークダウン）"
     t.text "marked_footer", comment: "フッター"
     t.json "editor_data", comment: "editorのjsonデータ"
-    t.boolean "deliver_item_list_via_api", default: false, comment: "bundle にてNItemListを出力するかのフラグ"
-    t.boolean "deliver_episode_via_api", default: true, comment: "bundle にてエピソードを出力するかのフラグ"
-    t.boolean "deliver_faq_page_via_api", default: false, comment: "bundle にてFAQを出力するかのフラグ"
-    t.boolean "deliver_article_via_api", default: false, comment: "bundle にて記事を出力するかのフラグ"
-    t.boolean "deliver_how_to_via_api", default: false, comment: "bundle にてハウツーを出力するかのフラグ"
-    t.boolean "deliver_event_via_api", default: false, comment: "bundle にてイベントを出力するかのフラグ"
+    t.boolean "available_acticle", default: false, comment: "artilce が available かどうか"
+    t.boolean "active_item_list", default: false, comment: "item_list の入力がアクティブかどうか"
+    t.boolean "active_episode", default: true, comment: "episode の入力がアクティブかどうか"
+    t.boolean "active_faq_page", default: false, comment: "faq_page の入力がアクティブかどうか"
+    t.boolean "active_article", default: false, comment: "article の入力がアクティブかどうか"
+    t.boolean "active_how_to", default: false, comment: "how_to の入力がアクティブかどうか"
+    t.boolean "active_event", default: false, comment: "event の入力がアクティブかどうか"
     t.string "author_type", comment: "Person or Organization"
     t.string "author_name", comment: "著者名"
     t.string "publisher_type", comment: "Person or Organization"

@@ -49,12 +49,6 @@ https://github.com/d7lab/aw-editorialhands/tree/master/api-eh/infra/dev/terrafor
 
 ## エンドポイント
 
-### d6.6 API
-
-- [Swagger](https://developer.nr.nhk.jp/api_doc/index.html?urls.primaryName=d6.6%20API) を参照
-
----
-
 ### oEmbed API
 
 - [oEmbed](https://oembed.com/) に準拠したレスポンスを返します。

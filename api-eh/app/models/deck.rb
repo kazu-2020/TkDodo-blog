@@ -17,10 +17,6 @@ class Deck < ApplicationRecord
 
   after_create :set_initial_deck_id
 
-  def d66_deck_id(type)
-    "#{type_of_deck}-#{is_r5? ? 'r5' : 'r6'}-#{type}-#{area}"
-  end
-
   def total_time
     playlists.sum(&:total_time)
   end

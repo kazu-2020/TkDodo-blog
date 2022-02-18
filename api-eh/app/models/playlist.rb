@@ -66,6 +66,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   after_create :link_article_images
   after_create :save_string_id
   before_save :generate_derivatives
+  before_save :set_available_article
   before_save :trim_name
 
   def format_genre_name
@@ -180,6 +181,10 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def save_string_id
     self.string_id = "recommend-tep-#{format('%010d', id)}"
     save
+  end
+
+  def set_available_article
+    self.available_acticle = has_article?
   end
 
   private

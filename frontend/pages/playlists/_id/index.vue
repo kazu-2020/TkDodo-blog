@@ -155,10 +155,6 @@
           </v-col>
           <v-divider />
           <v-col cols="12">
-            <playlist-json-dialog
-              button-color="#000000"
-              :playlist-id="playlist.stringId"
-            />
             <layout-pattern-dialog
               button-color="#000000"
               :playlist-id="playlist.stringId"
@@ -201,7 +197,6 @@ import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
 import ListEditTab from '~/components/playlists/ListEditTab.vue'
-import PlaylistJsonDialog from '~/components/playlists/PlaylistJsonDialog.vue'
 import LayoutPatternDialog from '~/components/playlists/LayoutPatternDialog.vue'
 import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
@@ -235,7 +230,6 @@ export default Vue.extend({
     BasicInformationView,
     HorizontalBasicInformationView,
     ListEditTab,
-    PlaylistJsonDialog,
     LayoutPatternDialog,
     PlaylistStepper,
     SeriesMetaEditTab,
@@ -416,12 +410,12 @@ export default Vue.extend({
         remove_hero_image: this.playlist.removeHeroImage?.toString(),
         marked_header: this.playlist.article.header,
         editor_data: JSON.stringify(this.playlist.article.body),
-        deliver_item_list_via_api: this.playlist.deliverItemListViaApi,
-        deliver_episode_via_api: this.playlist.deliverEpisodeViaApi,
-        deliver_article_via_api: this.playlist.deliverArticleViaApi,
-        deliver_how_to_via_api: this.playlist.deliverHowToViaApi,
-        deliver_event_via_api: this.playlist.deliverEventViaApi,
-        deliver_faq_page_via_api: this.playlist.deliverFaqPageViaApi,
+        active_item_list: this.playlist.activeItemList,
+        active_episode: this.playlist.activeEpisode,
+        active_article: this.playlist.activeArticle,
+        active_how_to: this.playlist.activeHowTo,
+        active_event: this.playlist.activeEvent,
+        active_faq_page: this.playlist.activeFaqPage,
         marked_footer: this.playlist.article.footer,
         author_type: this.playlist.article.authorType,
         author_name: this.playlist.article.authorName,
