@@ -251,7 +251,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     image_urls = editor_data['blocks'].select { |block| block['type'] == 'image' }
                                       .map { |block| block['data']['file']['url'] }
                                       .map { |url| URI.parse(url) }
-    image_names = image_urls.map { |uri| File.basename(uri.path) }
+    image_names = image_urls.map(&:path)
 
     image_names.each do |image_name|
       article_image = ArticleImage.find_by(image_id: image_name)
