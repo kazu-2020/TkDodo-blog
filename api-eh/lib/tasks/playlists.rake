@@ -37,4 +37,12 @@ namespace :playlists do
   task set_string_id: :environment do
     Playlist.all.each(&:save_string_id)
   end
+
+  desc 'プレイリストの available_article を保存する'
+  task set_available_article: :environment do
+    Playlist.order(updated_at: :asc).each do |playlist|
+      playlist.set_available_article
+      playlist.save
+    end
+  end
 end

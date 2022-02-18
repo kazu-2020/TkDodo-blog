@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(version: 2022_02_18_105200) do
     t.text "marked_body", size: :medium, comment: "記事本文（マークダウン）"
     t.text "marked_footer", comment: "フッター"
     t.json "editor_data", comment: "editorのjsonデータ"
-    t.boolean "available_acticle", comment: "artilce が available かどうか"
+    t.boolean "available_acticle", default: false, comment: "artilce が available かどうか"
     t.boolean "active_item_list", default: false, comment: "item_list の入力がアクティブかどうか"
     t.boolean "active_episode", default: true, comment: "episode の入力がアクティブかどうか"
     t.boolean "active_faq_page", default: false, comment: "faq_page の入力がアクティブかどうか"

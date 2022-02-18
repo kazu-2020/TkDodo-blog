@@ -37,12 +37,12 @@ export interface Playlist {
   hasHowTo: boolean
   hasEvent: boolean
   hasFaqPage: boolean
-  deliverItemListViaApi: boolean
-  deliverEpisodeViaApi: boolean
-  deliverArticleViaApi: boolean
-  deliverHowToViaApi: boolean
-  deliverEventViaApi: boolean
-  deliverFaqPageViaApi: boolean
+  activeItemList: boolean
+  activeEpisode: boolean
+  activeArticle: boolean
+  activeHowTo: boolean
+  activeEvent: boolean
+  activeFaqPage: boolean
   items: Array<EpisodeData>
   sameAs: Array<SameAs>
   citations: Array<Citation>

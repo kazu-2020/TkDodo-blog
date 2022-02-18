@@ -166,14 +166,14 @@
           </v-row>
           <v-row dense class="my-5">
             <v-col cols="12">
-              <h3>d6.6 API への公開/非公開</h3>
+              <h3>API への公開/非公開</h3>
             </v-col>
             <v-col cols="12" sm="6" md="3">
               <v-checkbox v-model="apiState" label="公開する" />
             </v-col>
           </v-row>
           <v-row dense class="my-5">
-            <v-col cols="12"><h3>Type ごとのAPI出力 ON/OFF</h3></v-col>
+            <v-col cols="12"><h3>Type ごとの active ON/OFF</h3></v-col>
             <v-col cols="12" sm="6" md="3" class="type-switch">
               <v-checkbox
                 v-model="selectedTypes"
@@ -314,12 +314,12 @@ export default Vue.extend({
   },
   data(): DataType {
     const selectedTypes = []
-    if (this.playlist.deliverItemListViaApi) selectedTypes.push('itemlist')
-    if (this.playlist.deliverEpisodeViaApi) selectedTypes.push('tvepisode')
-    if (this.playlist.deliverArticleViaApi) selectedTypes.push('narticle')
-    if (this.playlist.deliverHowToViaApi) selectedTypes.push('howto')
-    if (this.playlist.deliverEventViaApi) selectedTypes.push('event')
-    if (this.playlist.deliverFaqPageViaApi) selectedTypes.push('faqpage')
+    if (this.playlist.activeItemList) selectedTypes.push('itemlist')
+    if (this.playlist.activeEpisode) selectedTypes.push('tvepisode')
+    if (this.playlist.activeArticle) selectedTypes.push('narticle')
+    if (this.playlist.activeHowTo) selectedTypes.push('howto')
+    if (this.playlist.activeEvent) selectedTypes.push('event')
+    if (this.playlist.activeFaqPage) selectedTypes.push('faqpage')
 
     return {
       name: this.playlist.name || '',
@@ -408,7 +408,7 @@ export default Vue.extend({
       return this.playlist.hasEvent
     },
     disableItemListSubset(): boolean {
-      return !this.playlist.deliverItemListViaApi
+      return !this.playlist.activeItemList
     },
     episodeIds(): string[] {
       return this.playlist.items.map((item: any) => item.id)
@@ -579,27 +579,24 @@ export default Vue.extend({
     selectedTypes: {
       handler(newValue) {
         if (
-          this.playlist.deliverItemListViaApi ===
-            newValue.includes('itemlist') &&
-          this.playlist.deliverEpisodeViaApi ===
-            newValue.includes('tvepisode') &&
-          this.playlist.deliverArticleViaApi ===
-            newValue.includes('narticle') &&
-          this.playlist.deliverHowToViaApi === newValue.includes('howto') &&
-          this.playlist.deliverEventViaApi === newValue.includes('event') &&
-          this.playlist.deliverFaqPageViaApi === newValue.includes('faqpage')
+          this.playlist.activeItemList === newValue.includes('itemlist') &&
+          this.playlist.activeEpisode === newValue.includes('tvepisode') &&
+          this.playlist.activeArticle === newValue.includes('narticle') &&
+          this.playlist.activeHowTo === newValue.includes('howto') &&
+          this.playlist.activeEvent === newValue.includes('event') &&
+          this.playlist.activeFaqPage === newValue.includes('faqpage')
         ) {
           return
         }
 
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, {
-          deliverItemListViaApi: newValue.includes('itemlist'),
-          deliverEpisodeViaApi: newValue.includes('tvepisode'),
-          deliverArticleViaApi: newValue.includes('narticle'),
-          deliverHowToViaApi: newValue.includes('howto'),
-          deliverEventViaApi: newValue.includes('event'),
-          deliverFaqPageViaApi: newValue.includes('faqpage'),
+          activeItemList: newValue.includes('itemlist'),
+          activeEpisode: newValue.includes('tvepisode'),
+          activeArticle: newValue.includes('narticle'),
+          activeHowTo: newValue.includes('howto'),
+          activeEvent: newValue.includes('event'),
+          activeFaqPage: newValue.includes('faqpage'),
         })
         this.$emit('update-series', playlist)
       },

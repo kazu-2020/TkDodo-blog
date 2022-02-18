@@ -18,6 +18,6 @@ class RenameDeliverColumnAtPlaylists < ActiveRecord::Migration[6.1]
     rename_column :playlists, :deliver_event_via_api, :active_event
     change_column_comment :playlists, :active_event, 'event の入力がアクティブかどうか'
 
-    add_column :playlists, :available_acticle, :boolean, after: :editor_data, comment: 'artilce が available かどうか'
+    add_column :playlists, :available_acticle, :boolean, default: false, after: :editor_data, comment: 'artilce が available かどうか'
   end
 end
