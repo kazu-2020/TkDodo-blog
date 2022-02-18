@@ -12,7 +12,7 @@ class ImageUploader < Shrine
   plugin :validation_helpers, default_messages: {
     max_size: ->(max) { I18n.t('errors.file.max_size', max: max) },
     max_width: ->(max) { I18n.t('errors.file.max_width', max: max) },
-    max_height: ->(max)  { I18n.t('errors.file.max_height', max: max) },
+    max_height: ->(max) { I18n.t('errors.file.max_height', max: max) },
     mime_type_inclusion: ->(list) { I18n.t('errors.file.mime_type_inclusion', list: list) }
   } # validation用のヘルパーメソッドを追加するプラグイン
 
@@ -49,8 +49,7 @@ class ImageUploader < Shrine
   # @param [Hash] context
   # @return [String]
   def create_filename(io, context)
-    ext = File.extname(context.dig(:metadata, :filename))&.downcase
-    ext = '.jpg' if ext == '.jpeg' # jpegとjpgを統一
+    ext = file_extension_by(mime_type: context.dig(:metadata, :mime_type))
 
     record = context.fetch(:record)
 
@@ -75,5 +74,19 @@ class ImageUploader < Shrine
     return if %i[original default].include? context[:version]
 
     "_#{context[:version]}"
+  end
+
+  # mime_typeから拡張子を取得する
+  # NOTE: CMS1ではファイル名から拡張子を取得しているが、
+  #   EditorialHandsではエディタからのアップロード時にファイル名を加工して送信しているためmime_typeから拡張子を判定する
+  # @param [String] mime_type
+  def file_extension_by(mime_type:)
+    mime_type_file_ext_map = {
+      'image/jpeg' => '.jpg',
+      'image/png' => '.png',
+      'image/gif' => '.gif',
+      'image/webp' => '.webp'
+    }
+    mime_type_file_ext_map[mime_type]
   end
 end

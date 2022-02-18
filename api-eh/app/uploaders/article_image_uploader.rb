@@ -12,8 +12,7 @@ class ArticleImageUploader < ImageUploader
   # /playlist/article_images/151253151.gif
   def generate_location(io, **context)
     context = context.deep_symbolize_keys
-    ext = File.extname(context.dig(:metadata, :filename)).downcase
-    ext = '.jpg' if ext == '.jpeg' # jpegとjpgを統一
+    ext = file_extension_by(mime_type: context.dig(:metadata, :mime_type))
 
     "playlist/article_images/#{generate_uid(io)}#{ext}"
   end
