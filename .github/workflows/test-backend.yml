@@ -11,7 +11,7 @@ jobs:
     env:
       RAILS_ENV: test
       working-directory: ./api-eh
-      DB_NAME: aw_editorialhands_test
+      DB_NAME: editorialhands_test
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
