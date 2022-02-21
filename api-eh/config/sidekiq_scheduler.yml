@@ -4,3 +4,6 @@ NullJob:
 SendUpdateNotificationJob:
   every: '1h'
   description: '更新通知メッセージを送信する'
+RemoveTempArticleImagesJob:
+  every: '12h'
+  description: '一時的に保存された利用されていない記事画像の削除'
