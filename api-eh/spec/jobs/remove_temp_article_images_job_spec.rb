@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe RemoveTempArticleImageJob, type: :model do
+RSpec.describe RemoveTempArticleImagesJob, type: :model do
   let!(:permanent_image) { create(:article_image, :with_image) }
   let!(:temporary_image) { create(:article_image, :with_image) }
   let(:playlist) do
