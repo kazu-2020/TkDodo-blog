@@ -1,57 +1,7 @@
 Rails.application.routes.draw do
   root 'playlists#index', format: 'json'
 
-  scope :'d6.6' do
-    scope :t do
-      scope :nplaylist do
-        get 'pl/:playlist_id', to: 'external/playlists#show'
-        get 'id/:playlist_uid', to: 'external/playlists#show'
-      end
-
-      scope :ndeck do
-        get 'dk/:deck_id', to: 'external/decks#show_migrated', constraints: { deck_id: /recommend-r(5|6)-tv-130/ }
-        get 'recommend/:deck_id', to: 'external/decks#show', constraints: { deck_id: /r(5|6)-tv/ }
-      end
-    end
-
-    scope :l do
-      scope :bundle do
-        get 'pl/:playlist_id/types', to: 'external/playlists#l_bundle'
-        get 'id/:playlist_uid/types', to: 'external/playlists#l_bundle'
-      end
-
-      get 'tvepisode/pl/:playlist_id', to: 'external/playlists#episodes', as: :episodes_external_playlist
-      get 'faqpage/pl/:playlist_id', to: 'external/playlists#faq_pages', as: :faqpages_external_playlist
-      get 'event/pl/:playlist_id', to: 'external/playlists#events', as: :events_external_playlist
-      get 'howto/pl/:playlist_id', to: 'external/playlists#howtos', as: :howtos_external_playlist
-      get 'tvepisode/id/:playlist_uid', to: 'external/playlists#episodes', as: :episodes_external_playlist_uid
-      get 'faqpage/id/:playlist_uid', to: 'external/playlists#faq_pages', as: :faqpages_external_playlist_uid
-      get 'event/id/:playlist_uid', to: 'external/playlists#events', as: :events_external_playlist_uid
-      get 'howto/id/:playlist_uid', to: 'external/playlists#howtos', as: :howtos_external_playlist_uid
-
-      scope :nplaylist do
-        get 'dk/:deck_id', to: 'external/playlists#index',
-                           constraints: { deck_id: /recommend-r(5|6)-tv-130/ },
-                           as: :external_playlists
-      end
-    end
-
-    scope :ll do
-      scope :bundle do
-        get 'pl/:playlist_id/types', to: 'external/playlists#ll_bundle'
-        get 'id/:playlist_uid/types', to: 'external/playlists#ll_bundle'
-      end
-    end
-
-    scope :lll do
-      scope :bundle do
-        get 'pl/:playlist_id/types', to: 'external/playlists#lll_bundle'
-        get 'id/:playlist_uid/types', to: 'external/playlists#lll_bundle'
-      end
-    end
-  end
-
-  resources :decks, only: %i[index show update], format: 'json' do
+  resources :decks, only: %i[index show create update destroy], format: 'json' do
     member do
       get :playlists
     end

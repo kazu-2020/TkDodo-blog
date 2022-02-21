@@ -14,6 +14,17 @@
               />
             </v-col>
             <v-col cols="12">
+              <span class="mr-2">recommend-tv-for-</span>
+              <v-text-field
+                v-model="interfix"
+                :rules="interfixRules"
+                label="中間接辞  - Interfix"
+                class="deck_name d-inline-block mr-2"
+                required
+              />
+              <span>-{{ primaryId }}</span>
+            </v-col>
+            <v-col cols="12">
               <v-textarea
                 v-model="description"
                 name="catch"
@@ -46,10 +57,12 @@ import SameAsForm from '~/components/playlists/SameAsForm.vue'
 
 interface DataType {
   name: string
+  interfix: string
   description: string
   sameAs: Object[]
   valid: boolean
   nameRules: Function[]
+  interfixRules: Function[]
 }
 
 export default Vue.extend({
@@ -67,6 +80,7 @@ export default Vue.extend({
   data(): DataType {
     return {
       name: this.deck.name || '',
+      interfix: this.deck.interfix || '',
       description: this.deck.description || '',
       sameAs: this.deck.sameAs || [],
       valid: true,
@@ -75,13 +89,27 @@ export default Vue.extend({
         (v: string) =>
           (v && v.length <= 255) || '名前は255文字以下で入力してください',
       ],
+      interfixRules: [
+        (v: string) => !!v || '中間接辞は必ず入力してください',
+        (v: string) =>
+          (v && v.length <= 255) || '中間接辞は255文字以下で入力してください',
+      ],
     }
+  },
+  computed: {
+    primaryId(): string {
+      if (this.deck.id !== undefined) {
+        return ('0000000000' + this.deck.id).slice(-10)
+      }
+      return 'xxxxxxxxxx'
+    },
   },
   watch: {
     deck: {
       handler(newVal) {
         this.name = newVal.name
         this.description = newVal.description
+        this.interfix = newVal.interfix
         this.sameAs = newVal.sameAs
       },
       deep: true,
@@ -102,6 +130,18 @@ export default Vue.extend({
           description: newVal,
         })
         this.$emit('update-deck', deck)
+      },
+    },
+    interfix: {
+      handler(newVal) {
+        if (this.deck.interfix === newVal) return
+        const originalDeck = Object.assign({}, (this as any).deck)
+        const deck = Object.assign(originalDeck, { interfix: newVal })
+        this.$emit('update-deck', deck)
+
+        if (this.deck.interfix !== '' && this.deck.interfix !== newVal) {
+          this.$emit('change-deck-interfix')
+        }
       },
     },
     sameAs: {

@@ -23,9 +23,6 @@
       </v-col>
       <v-col cols="3">
         <v-chip label small color="pink" class="white--text">公開中</v-chip>
-        <v-chip v-if="deckLabelDisplayName !== ''" outlined label small>{{
-          deckLabelDisplayName
-        }}</v-chip>
       </v-col>
       <v-col cols="5">{{ deckAdminMemo }}</v-col>
     </v-row>
@@ -48,9 +45,6 @@ export default Vue.extend({
     deckName(): string {
       const name = this.deck.name || ''
       return name.length > 26 ? name.substr(0, 26) + '…' : name
-    },
-    deckLabelDisplayName(): string {
-      return this.deck.deckLabelDisplayName || ''
     },
     deckAdminMemo(): string {
       return this.deck.adminMemo || ''

@@ -15,6 +15,19 @@ class DecksController < ApplicationController
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
   end
 
+  def create
+    @deck = Deck.new(deck_params)
+
+    begin
+      @deck.save!
+
+      playlist_ids = params.require(:deck).permit(playlists: [])[:playlists] || []
+      @deck.rebuild_playlists_to(playlist_ids)
+    rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
+      render json: { messages: @deck.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   def update
     @deck = Deck.find_by(id: params[:id])
     if @deck.update(deck_params)
@@ -29,6 +42,13 @@ class DecksController < ApplicationController
     end
   end
 
+  def destroy
+    @deck = Deck.find(params[:id])
+    @deck.destroy
+
+    render json: { deleted: true }
+  end
+
   def playlists
     @deck = Deck.find_by(id: params[:id])
 
@@ -40,7 +60,7 @@ class DecksController < ApplicationController
   private
 
   def deck_params
-    params.require(:deck).permit(:name, :description, :deck_label_id, :admin_memo, :playlists,
+    params.require(:deck).permit(:name, :description, :interfix, :admin_memo, :playlists,
                                  deck_same_as_attributes: %i[id name url _destroy])
   end
 

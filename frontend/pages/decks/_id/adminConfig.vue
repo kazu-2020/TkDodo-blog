@@ -16,13 +16,6 @@
         <v-col cols="12">
           <div class="title">{{ deckName }}</div>
         </v-col>
-        <v-col cols="2">
-          <v-select
-            v-model="deckLabelId"
-            :items="labelList"
-            label="ラベル - Label"
-          />
-        </v-col>
         <v-col cols="12">
           <div class="button mb-2">公開状態</div>
           <v-chip label small color="pink" class="white--text">公開中</v-chip>
@@ -44,7 +37,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Deck } from '~/types/deck'
-import { DeckLabel } from '~/types/deckLabel'
 
 interface Breadcrumb {
   text: string
@@ -56,11 +48,6 @@ export default Vue.extend({
   name: 'DeckAdminConfig',
   async asyncData({ store, params, error }) {
     await store.dispatch('decks/fetchDeck', params.id).catch((e) => {
-      if (e.response.status === 404) {
-        error({ statusCode: 404, message: e.response.data.messages })
-      }
-    })
-    await store.dispatch('deckLabels/fetchDeckLabels').catch((e) => {
       if (e.response.status === 404) {
         error({ statusCode: 404, message: e.response.data.messages })
       }
@@ -84,27 +71,8 @@ export default Vue.extend({
     deck(): Deck {
       return this.$store.state.decks.editingDeck
     },
-    deckLabels(): DeckLabel[] {
-      return this.$store.state.deckLabels.allItems
-    },
     deckName(): string {
       return this.deck?.name || ''
-    },
-    labelList(): any[] {
-      return this.deckLabels.map((label) => {
-        return { value: label.id, text: label.displayName }
-      })
-    },
-    deckLabelId: {
-      get() {
-        return (this as any).deck.deckLabelId
-      },
-      set(newVal) {
-        const originalDeck = Object.assign({}, (this as any).deck)
-        const deck = Object.assign(originalDeck, { deckLabelId: newVal })
-
-        this.$store.dispatch('decks/updateEditingDeck', deck)
-      },
     },
     adminMemo: {
       get() {
@@ -122,7 +90,6 @@ export default Vue.extend({
     save() {
       const body: { [key: string]: string | undefined } = {
         admin_memo: this.adminMemo,
-        deck_label_id: this.deckLabelId,
       }
 
       const data = new FormData()

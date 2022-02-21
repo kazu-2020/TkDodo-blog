@@ -28,7 +28,7 @@
             elevation="0"
             color="accent"
             :disabled="preventSaveButton"
-            @click="clickSaveButton"
+            @click="save"
           >
             保存する
           </v-btn>
@@ -140,11 +140,11 @@ interface Breadcrumb {
 }
 
 interface DataType {
+  deck: Deck
   currentTab: DeckTab
   hasUnsavedPlaylist: boolean
   hasUnsavedDeck: boolean
   isValidDeckTab: boolean
-  isChangeDeckInterfix: boolean
 }
 
 export default Vue.extend({
@@ -154,26 +154,21 @@ export default Vue.extend({
     DeckMetaEditTab,
   },
   mixins: [unloadAlertMixin],
-  async asyncData({ store, params, error }) {
-    await store.dispatch('decks/fetchDeck', params.id).catch((e) => {
-      if (e.response.status === 404) {
-        error({ statusCode: 404, message: e.response.data.messages })
-      }
-    })
-  },
   data(): DataType {
     return {
+      deck: {
+        name: '',
+        interfix: '',
+        playlists: [],
+        sameAs: [],
+      },
       currentTab: DeckTab.playlists,
       hasUnsavedPlaylist: false,
       hasUnsavedDeck: false,
       isValidDeckTab: true,
-      isChangeDeckInterfix: false,
     }
   },
   computed: {
-    deck(): Deck {
-      return this.$store.state.decks.editingDeck
-    },
     isPlaylistsEditing(): boolean {
       return this.currentTab === DeckTab.playlists
     },
@@ -188,7 +183,7 @@ export default Vue.extend({
           href: '/decks',
         },
         {
-          text: this.deck.name,
+          text: 'デッキ新規作成',
           disabled: true,
           href: '#',
         },
@@ -217,26 +212,26 @@ export default Vue.extend({
       this.isValidDeckTab = valid
     },
     changeDeckInterfix() {
-      this.isChangeDeckInterfix = true
+      // do nothing
     },
     updateDeck(deck: any) {
       if (this.currentTab === DeckTab.deck) {
         ;(this as any).showUnloadAlert()
         this.hasUnsavedDeck = true
       }
-      this.$store.dispatch('decks/updateEditingDeck', deck)
+      this.deck = deck
     },
     updatePlaylists(playlists: any) {
       this.resetUnloadAlert()
-      this.$store.dispatch('decks/updateEditingDeckPlaylists', playlists)
+      this.deck.playlists = playlists
     },
     addPlaylist(playlist: any) {
       this.resetUnloadAlert()
-      this.$store.dispatch('decks/addEditingDeckPlaylist', playlist)
+      this.deck.playlists.push(playlist)
     },
     deletePlaylist(playlist: any) {
       this.resetUnloadAlert()
-      this.$store.dispatch('decks/deleteEditingDeckPlaylist', playlist)
+      this.deck.playlists.splice(this.deck.playlists.indexOf(playlist), 1)
     },
     logoUrl(item: any): string {
       if (item?.logo !== undefined) {
@@ -247,22 +242,11 @@ export default Vue.extend({
 
       return 'https://placehold.jp/50x50.png'
     },
-    clickSaveButton() {
-      if (this.isChangeDeckInterfix) {
-        const message =
-          'deckId の値に変更がありました。保存してもよろしいですか？'
-        if (window.confirm(message)) {
-          this.save()
-        }
-      } else {
-        this.save()
-      }
-    },
     save() {
       const body: { [key: string]: string | undefined } = {
-        name: this.deck.name,
-        description: this.deck.description,
-        interfix: this.deck.interfix,
+        name: this.deck?.name,
+        description: this.deck?.description,
+        interfix: this.deck?.interfix,
       }
 
       const data = new FormData()
@@ -309,24 +293,12 @@ export default Vue.extend({
       })
 
       this.$axios
-        .put(`/decks/${this.deck.id}`, data)
+        .post(`/decks`, data)
         .then((response) => {
           this.$store.dispatch('loading/succeedLoading')
-          this.$store.dispatch(
-            'decks/setEditingDeck',
-            (response as any).data.deck
-          )
+          ;(this as any).notShowUnloadAlert()
 
-          this.$store.subscribeAction({
-            after: (action, _state) => {
-              if (action.type !== 'decks/setEditingDeck') return
-              ;(this as any).notShowUnloadAlert()
-            },
-          })
-
-          this.hasUnsavedPlaylist = false
-          this.hasUnsavedDeck = false
-          this.isChangeDeckInterfix = false
+          this.$router.push(`/decks/${(response as any).data.deck.id}`)
         })
         .catch((_error) => {
           this.$store.dispatch('loading/failLoading')

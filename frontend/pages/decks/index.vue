@@ -65,13 +65,6 @@
         </v-col>
         <v-col cols="3">
           <v-chip label small color="pink" class="white--text">公開中</v-chip>
-          <v-chip
-            v-if="selectedDeckLabelDisplayName !== ''"
-            outlined
-            label
-            small
-            >{{ selectedDeckLabelDisplayName }}</v-chip
-          >
         </v-col>
         <v-col cols="12">
           {{ selectedDeckDescription }}
@@ -194,9 +187,6 @@ export default Vue.extend({
     selectedDeckId(): string {
       return this.selectedDeck?.id || ''
     },
-    selectedDeckLabelDisplayName(): string {
-      return this.selectedDeck?.deckLabelDisplayName || ''
-    },
   },
   methods: {
     deleteSelectedDeck(): void {
@@ -207,6 +197,7 @@ export default Vue.extend({
           error: '削除失敗しました',
         })
         this.$store.dispatch('decks/deleteDeck', this.selectedDeck)
+        this.drawer = false
       }
     },
     searchDeckWithKeyword(): void {

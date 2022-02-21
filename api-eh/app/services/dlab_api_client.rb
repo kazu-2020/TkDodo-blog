@@ -61,15 +61,6 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
-  # Series データ一式をリクエストする
-  #
-  # @param [String] type: 'tv' or 'radio'
-  # @param [String] series_id: シリーズID
-  def series_bundle(type:, series_id:, query: {})
-    res = client.get "/#{VERSION}/t/bundle/#{type.downcase.first}s/#{series_id}.json", INTERNAL_PARAMS.merge(query)
-    handle_response(res)
-  end
-
   # Series データをリクエストする
   #
   # @param [String] type: 'tv' or 'radio'
@@ -90,48 +81,11 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
-  # エピソードをブロードキャストイベント指定で取得する
-  #
-  # @param [String] type: 'tvepisode' or 'radioepisode'
-  # @param [String] broadcast_event_id: ブロードキャストイベントID
-  def episode_from_broadcast_event(type:, broadcast_event_id:, query: {})
-    res = client.get "/#{VERSION}/t/#{type.downcase}/be/#{broadcast_event_id}.json",
-                     INTERNAL_PARAMS.merge(query)
-    handle_response(res)
-  end
-
-  # broadcast_eventを broadcast_event_id 指定で取得する
-  #
-  # @param [String] broadcast_event_id
-  def broadcast_event(broadcast_event_id, query = {})
-    res = client.get "/#{VERSION}/t/broadcastevent/be/#{broadcast_event_id}.json",
-                     INTERNAL_PARAMS.merge(query)
-    handle_response(res)
-  end
-
-  # broadcast_eventを episode_id 指定で取得する
-  #
-  # @param [String] episode_id
-  # @param [Hash] query
-  def broadcast_event_from_episode_id(episode_id, query = {})
-    res = client.get "/#{VERSION}/t/broadcastevent/te/#{episode_id}.json",
-                     INTERNAL_PARAMS.merge(query)
-    handle_response(res)
-  end
-
   # Howto データをリクエストする
   #
   # @param [String] howto_id: ハウツーID
   def howto(howto_id:, query: {})
     res = client.get "/#{VERSION}/t/howto/id/#{howto_id}.json", INTERNAL_PARAMS.merge(query)
-    handle_response(res)
-  end
-
-  # Howto データをリクエストする
-  #
-  # @param [String] episode_id: TVEpisode id
-  def episode_howto(episode_id:)
-    res = client.get "/#{VERSION}/l/howto/te/#{episode_id}.json?size=100", INTERNAL_PARAMS
     handle_response(res)
   end
 
@@ -143,27 +97,11 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
-  # Event データをリクエストする
-  #
-  # @param [String] episode_id: TVEpisode id
-  def episode_event(episode_id:)
-    res = client.get "/#{VERSION}/l/event/te/#{episode_id}.json?size=100", INTERNAL_PARAMS
-    handle_response(res)
-  end
-
   # FAQPage データをリクエストする
   #
   # @param [String] faq_page_id: FAQPage ID
   def faq_page(faq_page_id:, query: {})
     res = client.get "/#{VERSION}/t/faqpage/id/#{faq_page_id}.json", INTERNAL_PARAMS.merge(query)
-    handle_response(res)
-  end
-
-  # FAQPage データをリクエストする
-  #
-  # @param [String] episode_id: TVEpisode id
-  def episode_faq_page(episode_id:)
-    res = client.get "/#{VERSION}/l/faqpage/te/#{episode_id}.json?size=100", INTERNAL_PARAMS
     handle_response(res)
   end
 
