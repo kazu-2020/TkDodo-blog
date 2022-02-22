@@ -24,7 +24,7 @@ class MoveImagesJob < SidekiqBaseJob
   end
 
   def move_article_images # rubocop:disable Metrics/AbcSize
-    ArticleImage.find_each do |img|
+    ArticleImage.has_playlist.find_each do |img|
       image_attacher = img.image_attacher
       next unless image_attacher.stored?
 
