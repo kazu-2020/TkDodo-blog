@@ -134,11 +134,10 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def article_contains_episodes # rubocop:disable Metrics/AbcSize
+  def article_contains_episodes
     return [] unless editor_data.present?
 
-    episode_ids = editor_data['blocks'].select { |block| block['type'] == 'multiTypeEpisode' }
-                                       .map { |block| block['data']['episodeId'] }
+    episode_ids = editor_blocks_of('multiTypeEpisode').map { |block| block['data']['episodeId'] }
     client = DlabApiClient.new
     episode_ids.map do |episode_id|
       client.episode_l_bundle(type: 'tv', episode_id: episode_id)[:tvepisode][:result][0]
@@ -185,6 +184,14 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def set_available_article
     self.available_acticle = has_article?
+  end
+
+  # @param [String] type blockのtypeの文字列
+  # @return [Array] blocksの中からtypeのブロックを抽出した配列
+  def editor_blocks_of(type)
+    return [] if editor_data.blank?
+
+    editor_data['blocks'].select { |block| block['type'] == type }
   end
 
   private
@@ -250,13 +257,12 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def link_article_images # rubocop:disable Metrics/AbcSize
+  def link_article_images
     return if editor_data.blank?
 
-    image_urls = editor_data['blocks'].select { |block| block['type'] == 'image' }
-                                      .map { |block| block['data']['file']['url'] }
-                                      .map { |url| URI.parse(url) }
-    image_names = image_urls.map { |uri| File.basename(uri.path) }
+    image_urls = editor_blocks_of('image')
+                 .map { |block| URI.parse(block['data']['file']['url']) }
+    image_names = image_urls.map(&:path)
 
     image_names.each do |image_name|
       article_image = ArticleImage.find_by(image_id: image_name)

@@ -1,8 +1,8 @@
 import EditorJS from '@editorjs/editorjs'
 import Header from '@editorjs/header'
-import ImageTool from '@editorjs/image'
 import List from '@editorjs/list'
 import Embed from '@editorjs/embed'
+import ExtendImageTool from '~/plugins/editorjs/extend_image_tool'
 
 // Original Plugins
 import MultiTypeEpisode from '~/plugins/editorjs/multi_type_episode/index.js'
@@ -44,7 +44,7 @@ const editorMixin = {
             inlineToolbar: ['bold', 'italic'],
           },
           image: {
-            class: ImageTool,
+            class: ExtendImageTool,
             config: {
               uploader: {
                 uploadByFile(file) {

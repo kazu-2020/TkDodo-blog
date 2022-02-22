@@ -23,6 +23,21 @@ describe PlaylistsController, type: :request do
         Playlist.count
       }.from(0).to(1)
     end
+
+    context 'create with article image' do
+      let(:article_image) { create(:article_image, :with_image) }
+      let(:editor_data) do
+        { time: 1_645_163_766_121,
+          blocks: [{ type: 'image', data: { file: { url: article_image.image_id } } }],
+          version: '2.19.1' }.to_json
+      end
+      let(:params) { { playlist: { name: 'cool name', editor_data: editor_data } } }
+
+      it 'returns success response' do
+        post '/playlists', params: params
+        expect(response.status).to eq 200
+      end
+    end
   end
 
   describe 'GET #show' do

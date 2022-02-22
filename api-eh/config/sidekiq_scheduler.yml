@@ -1,6 +1,12 @@
 NullJob:
   at: '3001/01/01'
-  description: '空のjob'
+  description: '空のjob（疎通確認用）'
+MoveImagesJob:
+  at: '3001/01/01'
+  description: '全プレイリストと記事画像を上げなおす。パスの仕様変更などがあった場合に利用する'
+RemoveTempArticleImagesJob:
+  every: '12h'
+  description: '一時的に保存された利用されていない記事画像の削除'
 SendUpdateNotificationJob:
   every: '1h'
   description: '更新通知メッセージを送信する'

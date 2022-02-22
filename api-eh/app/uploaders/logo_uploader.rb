@@ -2,7 +2,7 @@
 
 require 'image_processing/mini_magick'
 
-class LogoUploader < ImageUploader
+class LogoUploader < PlaylistImageUploader
   Attacher.derivatives do |original|
     magick = ImageProcessing::MiniMagick.source(original).strip
     file.replace(magick.call)

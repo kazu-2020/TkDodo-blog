@@ -8,4 +8,6 @@ class ArticleImage < ApplicationRecord
   before_save do
     self.image_id = image.id
   end
+
+  scope :has_playlist, -> { where.not(playlist_id: nil) }
 end
