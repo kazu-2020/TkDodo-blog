@@ -8,6 +8,18 @@
             @delete-playlist="deletePlaylist"
             @update-playlists="updatePlaylists"
           />
+          <div v-if="deck.playlists.length === 0" class="pa-4 text-center">
+            編成可能なプレイリストからプレイリストを追加してください
+          </div>
+        </v-col>
+      </v-row>
+      <v-row class="pt-4">
+        <v-col cols="12">
+          <all-playlists-list
+            :ignore-playlists="playlists"
+            @add-playlist="addPlaylist"
+            @select-playlist="selectPlaylist"
+          />
         </v-col>
       </v-row>
     </div>
@@ -17,11 +29,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import DeckPlaylists from '~/components/decks/DeckPlaylists.vue'
+import AllPlaylistsList from '~/components/decks/AllPlaylistsList.vue'
 
 export default Vue.extend({
   name: 'ListEditTab',
   components: {
     DeckPlaylists,
+    AllPlaylistsList,
   },
   props: {
     deck: {
@@ -29,6 +43,12 @@ export default Vue.extend({
       required: true,
       default: () => {},
     },
+  },
+  data() {
+    return {
+      selectedPlaylist: undefined,
+      previewDrawer: false,
+    }
   },
   computed: {
     playlists(): Array<Object> {
@@ -41,6 +61,10 @@ export default Vue.extend({
     },
     deletePlaylist(playlist: any) {
       this.$emit('delete-playlist', playlist)
+    },
+    selectPlaylist(playlist: any) {
+      this.selectedPlaylist = playlist
+      this.previewDrawer = true
     },
     eyecatchUrl(item: any): string {
       if (item.eyecatch !== undefined) {

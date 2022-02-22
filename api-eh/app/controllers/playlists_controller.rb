@@ -37,7 +37,7 @@ class PlaylistsController < ApplicationController
 
   def create
     @playlist = Playlist.new(converted_params)
-    @playlist.decks << Deck.find_by(is_r5: false)
+
     begin
       @playlist.save!
       if params[:enable_list_update]
