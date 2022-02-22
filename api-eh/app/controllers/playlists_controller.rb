@@ -81,7 +81,7 @@ class PlaylistsController < ApplicationController
     attacher.attach(downloaded_file)
 
     if article_image.save
-      render json: { success: 1, file: { url: article_image.image_url } }
+      render json: { success: 1, file: { url: article_image.image.id } }
     else
       head :bad_request
     end
