@@ -4,7 +4,7 @@
 @env_values = {
   AWS_DEFAULT_REGION: 'ap-northeast-1',
   SLACK_NOTIFICATION_URL: 'https://hooks.slack.com/services/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',
-  TARGET_BRANCH: 'master'
+  TARGET_BRANCH: 'develop'
 }
 @vpc_config = {
   VpcId: 'vpc-04ce451b32004288d', # tomigaya-dev-vpc

@@ -28,7 +28,7 @@ phases:
       - docker version
   build:
     commands: |
-      if [ $TARGET_BRANCH = 'master' ]; then
+      if [ $TARGET_BRANCH = 'develop' ]; then
         api-eh/infra/dev/containers/ecs/bin/build_docker.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} production /tmp
       else
         echo no build target
@@ -42,7 +42,7 @@ phases:
         exit 1
       fi
 
-      if [ $TARGET_BRANCH = 'master' ]; then
+      if [ $TARGET_BRANCH = 'develop' ]; then
         api-eh/infra/dev/containers/ecs/bin/deploy.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} dev
       else
         echo no deploy target

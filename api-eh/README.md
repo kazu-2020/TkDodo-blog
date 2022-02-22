@@ -28,20 +28,20 @@ ECS タスクスケジューラーを用いて、ジョブを定期実行して�
 
 ### Terraform へジョブを定義
 
-https://github.com/d7lab/aw-editorialhands/blob/master/api-eh/infra/dev/terraform/environments/modules/cloudwatch_event_target.tf
+https://github.com/d7lab/aw-editorialhands/blob/develop/api-eh/infra/dev/terraform/environments/modules/cloudwatch_event_target.tf
 
 EventBridge(旧 CloudWatchEvent)を通して、ECS タスクスケジューラーに登録します。
 該当ファイルに、あるような記述をコピーし、 `aws_cloudwatch_event_rule` `aws_cloudwatch_event_target` のリソースを定義してください。
 
 また、実際に実行するコマンドについては、
 
-https://github.com/d7lab/aw-editorialhands/tree/master/api-eh/infra/dev/terraform/environments/modules/cloudwatch_event_targets
+https://github.com/d7lab/aw-editorialhands/tree/develop/api-eh/infra/dev/terraform/environments/modules/cloudwatch_event_targets
 
 に json ファイルとして設置してください
 
 ### Terraform で反映
 
-[Terrafrom README](https://github.com/d7lab/aw-editorialhands/blob/master/api-eh/infra/dev/terraform/README.md) を参照してください。
+[Terrafrom README](https://github.com/d7lab/aw-editorialhands/blob/develop/api-eh/infra/dev/terraform/README.md) を参照してください。
 
 ## Ruby のバージョンアップ
 

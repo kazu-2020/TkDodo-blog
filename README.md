@@ -7,20 +7,20 @@ https://dev-eh.nr.nhk.jp/
 Nuxt.js で構成されたアプリケーション。
 AWS Amplify を用いて配信しています。
 
-[README](https://github.com/d7lab/aw-editorialhands-ui/blob/master/frontend/README.md)
+[README](https://github.com/d7lab/aw-editorialhands-ui/blob/develop/frontend/README.md)
 
 ## バックエンド
 
 Rails で構成されたアプリケーション。
 AWS 上では ECS を用いて運用しています。
 
-[README](https://github.com/d7lab/aw-editorialhands-ui/blob/master/api-eh/README.md)
+[README](https://github.com/d7lab/aw-editorialhands-ui/blob/develop/api-eh/README.md)
 
 ## E2E テスト
 
 Cypress.io による E2E テスト
 
-[README](https://github.com/d7lab/aw-editorialhands-ui/blob/master/e2e/README.md)
+[README](https://github.com/d7lab/aw-editorialhands-ui/blob/develop/e2e/README.md)
 
 ## oEmbed
 

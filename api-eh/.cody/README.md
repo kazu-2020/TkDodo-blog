@@ -46,7 +46,7 @@ $ CODY_ENV=production aws-vault exec tomigaya-prd bundle exec cody deploy
 
 #### settings.yml の編集
 
-https://github.com/d7lab/aw-editorialhands/blob/master/api-eh/.pipedream/settings.yml
+https://github.com/d7lab/aw-editorialhands/blob/develop/api-eh/.pipedream/settings.yml
 
 新しい環境(CODY_ENV)を定義します。
 
