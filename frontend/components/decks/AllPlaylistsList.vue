@@ -1,7 +1,15 @@
 <template>
   <div>
+    <v-row justify="space-between" class="px-3 pt-3">
+      <v-col cols="4" class="subtitle">編成可能なプレイリスト</v-col>
+      <v-col cols="3">
+        <div class="body-2 ml-1 text-right">全 {{ totalPlaylistsNum }} 件</div>
+      </v-col>
+    </v-row>
+    <v-col v-if="isError" cols="12">
+      <div>プレイリストの取得に失敗しました</div>
+    </v-col>
     <v-col v-if="playlists.length !== 0" cols="12">
-      <div class="body-2 ml-1">全 {{ totalPlaylistsNum }} 件</div>
       <v-simple-table>
         <template #default>
           <thead>
@@ -94,6 +102,7 @@ export default Vue.extend({
   data() {
     return {
       playlists: [],
+      isError: false,
     }
   },
   computed: {
@@ -106,6 +115,15 @@ export default Vue.extend({
   },
   methods: {
     fetchAllPlaylists(): Playlist[] {
+      this.$axios
+        .get(`/playlists?per=1000`)
+        .then((res) => {
+          this.playlists = res.data.playlists
+        })
+        .catch(() => {
+          this.isError = true
+        })
+
       return []
     },
     shouldIgnorePlaylist(playlist: Playlist) {

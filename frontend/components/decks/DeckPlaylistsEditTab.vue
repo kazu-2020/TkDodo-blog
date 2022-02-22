@@ -8,9 +8,12 @@
             @delete-playlist="deletePlaylist"
             @update-playlists="updatePlaylists"
           />
+          <div v-if="deck.playlists.length === 0" class="pa-4 text-center">
+            編成可能なプレイリストからプレイリストを追加してください
+          </div>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row class="pt-4">
         <v-col cols="12">
           <all-playlists-list
             :ignore-playlists="playlists"
