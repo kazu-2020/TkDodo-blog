@@ -126,10 +126,11 @@ export default Vue.extend({
 
       return []
     },
-    shouldIgnorePlaylist(playlist: Playlist) {
+    shouldIgnorePlaylist(playlist: any) {
       return (
         this.ignorePlaylists.find(
-          (ignorePlaylist) => playlist.primaryId === ignorePlaylist.primaryId
+          (ignorePlaylist: any) =>
+            playlist.primaryId === ignorePlaylist.primaryId
         ) !== undefined
       )
     },
@@ -139,22 +140,18 @@ export default Vue.extend({
     clickPlaylist(playlist: Playlist) {
       this.$emit('select-playlist', playlist)
     },
-    logoUrl(playlist: Playlist) {
+    logoUrl(playlist: any) {
       if (playlist?.logo !== undefined) {
         return playlist.logo.medium.url
-      } else if ((playlist?.keyvisuals || [])[0] !== undefined) {
-        return playlist.keyvisuals[0].small.url
-      } else if (playlist?.partOfSeries?.logo !== undefined) {
-        return playlist.partOfSeries.logo.medium.url
       }
 
       return 'https://placehold.jp/40x40.png'
     },
-    hasVideo(playlist: Playlist) {
+    hasVideo(playlist: any) {
       return playlist.playablePlaylistItemCount !== 0
     },
-    hasArticle(playlist: Playlist) {
-      return playlist.article.markedBody !== null
+    hasArticle(playlist: any) {
+      return playlist.article?.markedBody !== null
     },
     articleStatus(playlist: Playlist): string {
       if (this.hasArticle(playlist)) {
