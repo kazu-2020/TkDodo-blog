@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_18_105200) do
+ActiveRecord::Schema.define(version: 2022_02_24_085524) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -154,6 +154,61 @@ ActiveRecord::Schema.define(version: 2022_02_18_105200) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["playlist_id"], name: "index_same_as_on_playlist_id"
+  end
+
+  create_table "series_deck_playlists", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "series_deck_id", null: false, comment: "シリーズデッキID"
+    t.integer "series_playlist_id", null: false, comment: "シリーズプレイリストID"
+    t.integer "position", default: 1, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["series_deck_id", "series_playlist_id"], name: "index_series_deck_and_playlist_id", unique: true
+    t.index ["series_playlist_id", "position"], name: "index_series_deck_playlists_on_series_playlist_id_and_position"
+  end
+
+  create_table "series_decks", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name", null: false, comment: "デッキの名前"
+    t.text "description", comment: "デッキの説明"
+    t.string "string_id", null: false, comment: "計測用のdeckId（series-tv-for-）"
+    t.string "deck_uid", null: false, comment: "デッキ uid"
+    t.string "area"
+    t.string "type_of_deck", default: "series", null: false, comment: "デッキを構成するプレイリストのタイプ"
+    t.string "mode_of_item", default: "tv", null: false, comment: "デッキを構成するプレイリストのアイテムモード"
+    t.string "type_of_item", default: "TVEpisode", null: false, comment: "デッキを構成するプレイリストのアイテムタイプ"
+    t.string "interfix", null: false, comment: "deckId の中間接辞"
+    t.string "admin_memo", comment: "管理メモ"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "series_playlists", charset: "utf8mb4", force: :cascade do |t|
+    t.string "string_id", null: false, comment: "プレイリスト文字列ID（ts始まり)"
+    t.string "series_id", null: false, comment: "シリーズID"
+    t.string "layout_pattern", default: "summary", null: false, comment: "レイアウトパターン"
+    t.string "type_of_list", default: "series", null: false, comment: "typeOfList"
+    t.string "mode_of_item", default: "tv", null: false, comment: "modeOfItem"
+    t.text "marked_header", comment: "ヘッダー"
+    t.text "article_body", size: :medium, comment: "記事本文"
+    t.text "marked_body", size: :medium, comment: "記事本文（マークダウン）"
+    t.text "marked_footer", comment: "フッター"
+    t.json "editor_data", comment: "editorのjsonデータ"
+    t.boolean "available_article", default: false, null: false, comment: "article が available かどうか"
+    t.boolean "active_item_list", default: false, null: false, comment: "item_list の入力がアクティブかどうか"
+    t.boolean "active_episode", default: true, null: false, comment: "episode の入力がアクティブかどうか"
+    t.boolean "active_faq_page", default: false, null: false, comment: "faq_page の入力がアクティブかどうか"
+    t.boolean "active_article", default: false, null: false, comment: "article の入力がアクティブかどうか"
+    t.boolean "active_how_to", default: false, null: false, comment: "how_to の入力がアクティブかどうか"
+    t.boolean "active_event", default: false, null: false, comment: "event の入力がアクティブかどうか"
+    t.string "author_type", comment: "Person or Organization"
+    t.string "author_name", comment: "著者名"
+    t.string "publisher_type", comment: "Person or Organization"
+    t.string "publisher_name", comment: "発行者名"
+    t.integer "api_state", default: 0, null: false, comment: "APIの公開状態 close: 0, open: 1, waiting: 2"
+    t.datetime "open_scheduled_at", comment: "予約公開日時"
+    t.datetime "close_scheduled_at", comment: "公開終了日時"
+    t.datetime "published_at", comment: "API公開日時"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "playlist_hashtags", "playlists"
