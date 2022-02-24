@@ -5,7 +5,7 @@
         <v-row justify="space-between">
           <v-col cols="6">
             <div class="title mb-4 pt-2">デッキ一覧</div>
-            <v-text-field
+            <!-- <v-text-field
               v-model="searchKeyword"
               label="デッキタイトル・管理メモで検索"
               prepend-inner-icon="mdi-magnify"
@@ -14,7 +14,7 @@
               hide-details
               clearable
               @keypress.enter="searchDecktWithKeyword"
-            />
+            /> -->
           </v-col>
         </v-row>
       </v-col>
