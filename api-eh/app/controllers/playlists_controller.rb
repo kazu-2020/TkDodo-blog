@@ -56,7 +56,7 @@ class PlaylistsController < ApplicationController
         @playlist.rebuild_episode_list_to(items)
       end
 
-      @playlist.touch # nested_attrubuites だけ更新された場合のための処理
+      @playlist.touch # nested_attributes だけ更新された場合のための処理
     else
       render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
     end
@@ -124,7 +124,7 @@ class PlaylistsController < ApplicationController
                   :text_light_color, :text_dark_color, :link_light_color, :link_dark_color,
                   :active_episode, :active_article, :active_faq_page, :active_how_to, :active_event, :active_item_list,
                   :reserve_publish_time_at, :reserve_finish_time_at, :layout_pattern, :publish_level,
-                  :original_series_id, :alias_id, :marked_header, :editor_data, :marked_footer,
+                  :alias_id, :marked_header, :editor_data, :marked_footer,
                   :author_type, :author_name, :publisher_type, :publisher_name, :api_state,
                   same_as_attributes: %i[id name url _destroy], citations_attributes: %i[id name url _destroy],
                   playlist_items_attributes: %i[episode_id],

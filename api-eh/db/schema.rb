@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_24_085524) do
+ActiveRecord::Schema.define(version: 2022_02_25_023806) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -113,8 +113,6 @@ ActiveRecord::Schema.define(version: 2022_02_24_085524) do
     t.string "link_dark_color", comment: "ダークモードリンクカラー"
     t.string "string_id", comment: "プレイリスト文字列ID（eh始まり)"
     t.string "string_uid", comment: "プレイリスト文字列ID（ハッシュ値）"
-    t.integer "deck_id", comment: "デッキID"
-    t.string "original_series_id", comment: "プレイリスト生成元のシリーズID"
     t.string "alias_id", comment: "短縮URL"
     t.string "d5_playlist_id", comment: "r5 デッキのプレイリストID"
     t.string "layout_pattern", default: "summary", null: false, comment: "レイアウトパターン"
@@ -126,7 +124,7 @@ ActiveRecord::Schema.define(version: 2022_02_24_085524) do
     t.text "marked_body", size: :medium, comment: "記事本文（マークダウン）"
     t.text "marked_footer", comment: "フッター"
     t.json "editor_data", comment: "editorのjsonデータ"
-    t.boolean "available_acticle", default: false, comment: "artilce が available かどうか"
+    t.boolean "available_article", default: false, comment: "article が available かどうか"
     t.boolean "active_item_list", default: false, comment: "item_list の入力がアクティブかどうか"
     t.boolean "active_episode", default: true, comment: "episode の入力がアクティブかどうか"
     t.boolean "active_faq_page", default: false, comment: "faq_page の入力がアクティブかどうか"

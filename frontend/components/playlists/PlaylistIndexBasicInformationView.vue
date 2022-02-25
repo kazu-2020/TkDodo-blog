@@ -6,19 +6,10 @@
         <div v-show="hasPlaylistId" class="chips d-inline">
           <api-state-badge class="my-1" :playlist="playlist" />
           <v-chip class="my-1" color="primary" small @click="copyPlaylistUId">
-            UId: {{ omittedPlaylisitUId }}
+            UId: {{ omittedPlaylistUId }}
           </v-chip>
           <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
             Id: {{ playlistId }}
-          </v-chip>
-          <v-chip
-            v-if="playlistSeriesId"
-            class="my-1"
-            color="secondary"
-            small
-            @click="copySeriesId"
-          >
-            SeriesID: {{ playlistSeriesId }}
           </v-chip>
           <v-chip
             v-if="layoutPattern"
@@ -146,12 +137,9 @@ export default Vue.extend({
     playlistId(): string {
       return this.playlist?.stringId || ''
     },
-    omittedPlaylisitUId(): string {
+    omittedPlaylistUId(): string {
       const playlistId = this.playlist?.playlistUId || ''
       return playlistId.length > 8 ? playlistId.slice(0, 8) + '...' : playlistId
-    },
-    playlistSeriesId(): string | undefined {
-      return this.playlist?.originalSeriesId
     },
     playlistDetailedCatch(): string | undefined {
       return this.playlist?.detailedCatch
@@ -173,12 +161,6 @@ export default Vue.extend({
     copyPlaylistId(): void {
       if (navigator.clipboard) {
         navigator.clipboard.writeText(this.playlist.stringId)
-        this.snackbar = true
-      }
-    },
-    copySeriesId() {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(this.playlist.originalSeriesId)
         this.snackbar = true
       }
     },

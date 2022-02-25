@@ -6,10 +6,10 @@
         <div v-show="hasPlaylistId" class="chips">
           <api-state-badge class="my-1" :playlist="playlist" />
           <v-chip class="my-1" color="primary" small @click="copyPlaylistId">
-            Id: {{ playlisitId }}
+            Id: {{ playlistId }}
           </v-chip>
           <v-chip class="my-1" color="primary" small @click="copyPlaylistUId">
-            UId: {{ omittedPlaylisitUId }}
+            UId: {{ omittedPlaylistUId }}
           </v-chip>
           <v-chip
             v-if="playlistSeriesId"
@@ -131,15 +131,12 @@ export default Vue.extend({
     playlistName(): string {
       return this.playlist?.name || ''
     },
-    omittedPlaylisitUId(): string {
+    omittedPlaylistUId(): string {
       const playlistId = this.playlist?.playlistUId || ''
       return playlistId.length > 8 ? playlistId.slice(0, 8) + '...' : playlistId
     },
-    playlisitId(): string {
+    playlistId(): string {
       return this.playlist?.stringId || ''
-    },
-    playlistSeriesId(): string | undefined {
-      return this.playlist?.originalSeriesId
     },
     playlistDetailedCatch(): string | undefined {
       return this.playlist?.detailedCatch

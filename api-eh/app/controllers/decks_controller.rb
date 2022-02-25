@@ -36,7 +36,7 @@ class DecksController < ApplicationController
         @deck.rebuild_playlists_to(playlist_ids)
       end
 
-      @deck.touch # nested_attrubuites だけ更新された場合のための処理
+      @deck.touch # nested_attributes だけ更新された場合のための処理
     else
       render json: { messages: @deck.errors.full_messages }, status: :unprocessable_entity
     end
