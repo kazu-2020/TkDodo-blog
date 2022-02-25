@@ -122,25 +122,6 @@
               削除する
             </v-btn>
           </v-col>
-          <v-col cols="3">
-            <v-tooltip bottom>
-              <template #activator="{ on, attrs }">
-                <v-btn
-                  :href="playlistWebPreviewUrl(selectedPlaylist)"
-                  small
-                  fab
-                  outlined
-                  class="mr-2"
-                  target="_blank"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon>mdi-file-document-outline</v-icon>
-                </v-btn>
-              </template>
-              <span>プレイリスト型新標準ページ プレビュー</span>
-            </v-tooltip>
-          </v-col>
         </v-row>
         <v-row v-show="articleMode" justify="center">
           <v-col cols="4">
@@ -168,25 +149,6 @@
               <v-icon left>mdi-delete</v-icon>
               削除する
             </v-btn>
-          </v-col>
-          <v-col cols="3">
-            <v-tooltip bottom>
-              <template #activator="{ on, attrs }">
-                <v-btn
-                  :href="playlistWebPreviewUrl(selectedPlaylist)"
-                  small
-                  fab
-                  outlined
-                  class="mr-2"
-                  target="_blank"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon>mdi-file-document-outline</v-icon>
-                </v-btn>
-              </template>
-              <span>プレイリスト型新標準ページ プレビュー</span>
-            </v-tooltip>
           </v-col>
         </v-row>
       </v-list-item>
@@ -495,9 +457,6 @@ export default Vue.extend({
     },
     hasVideo(episode: any) {
       return ParseEpisodeHelper.hasVideo(episode)
-    },
-    playlistWebPreviewUrl(selectedPlaylist: any): string {
-      return `https://dev-www-eh.nr.nhk.jp/p/pl/${selectedPlaylist?.stringId}`
     },
     serviceLogoUrl(item: any) {
       return item?.releasedEvent?.publishedOn?.images?.badgeSmall?.url || ''

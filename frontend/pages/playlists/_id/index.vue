@@ -153,30 +153,6 @@
               <!-- eslint-enable -->
             </div>
           </v-col>
-          <v-divider />
-          <v-col cols="12">
-            <layout-pattern-dialog
-              button-color="#000000"
-              :playlist-id="playlist.stringId"
-            />
-            <v-tooltip bottom>
-              <template #activator="{ on, attrs }">
-                <v-btn
-                  :href="playlistWebPreviewUrl"
-                  icon
-                  small
-                  color="#000000"
-                  class="ml-2"
-                  target="_blank"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon>mdi-file-document-outline</v-icon>
-                </v-btn>
-              </template>
-              <span>プレイリスト型新標準ページ プレビュー</span>
-            </v-tooltip>
-          </v-col>
         </div>
       </v-col>
     </v-row>
@@ -197,7 +173,6 @@ import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
 import ListEditTab from '~/components/playlists/ListEditTab.vue'
-import LayoutPatternDialog from '~/components/playlists/LayoutPatternDialog.vue'
 import PlaylistStepper from '~/components/playlists/PlaylistStepper.vue'
 import BasicInformationView from '~/components/playlists/BasicInformationView.vue'
 import HorizontalBasicInformationView from '~/components/playlists/HorizontalBasicInformationView.vue'
@@ -230,7 +205,6 @@ export default Vue.extend({
     BasicInformationView,
     HorizontalBasicInformationView,
     ListEditTab,
-    LayoutPatternDialog,
     PlaylistStepper,
     SeriesMetaEditTab,
     ArticleSavedDialog,
@@ -300,9 +274,6 @@ export default Vue.extend({
     articlePlainBody(): string | undefined {
       const article = this.playlist?.article?.plainBody || ''
       return article.replace(/\n\n/g, '<br/>')
-    },
-    playlistWebPreviewUrl(): string {
-      return `https://dev-www-eh.nr.nhk.jp/p/pl/${this.playlist?.stringId}`
     },
   },
   mounted() {
