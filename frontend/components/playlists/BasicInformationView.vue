@@ -138,9 +138,6 @@ export default Vue.extend({
     playlisitId(): string {
       return this.playlist?.stringId || ''
     },
-    playlistSeriesId(): string | undefined {
-      return this.playlist?.originalSeriesId
-    },
     playlistDetailedCatch(): string | undefined {
       return this.playlist?.detailedCatch
     },

@@ -46,7 +46,6 @@ export interface Playlist {
   items: Array<EpisodeData>
   sameAs: Array<SameAs>
   citations: Array<Citation>
-  originalSeriesId: string
   aliasId: string
   actor: Array<Object>
   contributor: Array<Object>
