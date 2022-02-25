@@ -56,7 +56,7 @@ class PlaylistsController < ApplicationController
         @playlist.rebuild_episode_list_to(items)
       end
 
-      @playlist.touch # nested_attrubuites だけ更新された場合のための処理
+      @playlist.touch # nested_attributes だけ更新された場合のための処理
     else
       render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
     end

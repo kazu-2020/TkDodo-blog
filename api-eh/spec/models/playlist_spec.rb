@@ -148,7 +148,7 @@ describe Playlist, type: :model do
       end
     end
 
-    context 'when epidoes were reordered' do
+    context 'when episode were reordered' do
       let(:current_episode_ids) { playlist.playlist_items.pluck(:episode_id) }
       let(:episode_ids) do
         [current_episode_ids.second, 'NEWEP1', current_episode_ids.first]
