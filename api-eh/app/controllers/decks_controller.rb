@@ -60,7 +60,7 @@ class DecksController < ApplicationController
   private
 
   def deck_params
-    params.require(:deck).permit(:name, :description, :interfix, :admin_memo, :playlists,
+    params.require(:deck).permit(:name, :description, :interfix, :admin_memo, :playlists, :api_state,
                                  deck_same_as_attributes: %i[id name url _destroy])
   end
 

@@ -18,7 +18,7 @@
         </v-col>
         <v-col cols="12">
           <div class="button mb-2">公開状態</div>
-          <v-chip label small color="pink" class="white--text">公開中</v-chip>
+          <deck-api-state-badge :deck="deck" />
         </v-col>
         <v-col cols="12">
           <div class="button mb-2">管理メモ</div>
@@ -37,6 +37,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Deck } from '~/types/deck'
+import DeckApiStateBadge from '~/components/decks/DeckApiStateBadge.vue'
 
 interface Breadcrumb {
   text: string
@@ -46,6 +47,9 @@ interface Breadcrumb {
 
 export default Vue.extend({
   name: 'DeckAdminConfig',
+  components: {
+    DeckApiStateBadge,
+  },
   async asyncData({ store, params, error }) {
     await store.dispatch('decks/fetchDeck', params.id).catch((e) => {
       if (e.response.status === 404) {

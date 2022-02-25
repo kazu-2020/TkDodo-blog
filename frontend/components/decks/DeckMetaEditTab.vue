@@ -35,7 +35,14 @@
               />
             </v-col>
           </v-row>
-
+          <v-row dense class="my-5">
+            <v-col cols="12">
+              <h3>API への公開/非公開</h3>
+            </v-col>
+            <v-col cols="12" sm="6" md="3">
+              <v-checkbox v-model="apiState" label="公開する" />
+            </v-col>
+          </v-row>
           <!-- sameAs -->
           <v-row dense class="my-5">
             <v-col cols="12">
@@ -60,6 +67,7 @@ interface DataType {
   interfix: string
   description: string
   sameAs: Object[]
+  apiState: boolean
   valid: boolean
   nameRules: Function[]
   interfixRules: Function[]
@@ -83,6 +91,7 @@ export default Vue.extend({
       interfix: this.deck.interfix || '',
       description: this.deck.description || '',
       sameAs: this.deck.sameAs || [],
+      apiState: this.deck.apiState === 'open',
       valid: true,
       nameRules: [
         (v: string) => !!v || '名前は必ず入力してください',
@@ -103,6 +112,9 @@ export default Vue.extend({
       }
       return 'xxxxxxxxxx'
     },
+    convertedApiState(): string {
+      return this.apiState ? 'open' : 'close'
+    },
   },
   watch: {
     deck: {
@@ -111,6 +123,7 @@ export default Vue.extend({
         this.description = newVal.description
         this.interfix = newVal.interfix
         this.sameAs = newVal.sameAs
+        this.apiState = newVal.apiState === 'open'
       },
       deep: true,
     },
@@ -152,6 +165,18 @@ export default Vue.extend({
         this.$emit('update-deck', deck)
       },
     },
+    apiState: {
+      handler() {
+        if (this.deck.apiState === this.convertedApiState) return
+
+        const originalDeck = Object.assign({}, (this as any).deck)
+        const deck = Object.assign(originalDeck, {
+          apiState: this.convertedApiState,
+        })
+        this.$emit('update-deck', deck)
+      },
+    },
+
     valid: {
       handler(newValue) {
         this.$emit('update-validation', newValue)

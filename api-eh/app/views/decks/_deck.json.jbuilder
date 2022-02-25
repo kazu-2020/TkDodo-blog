@@ -4,6 +4,7 @@ json.description deck.description
 json.interfix deck.interfix
 json.playlistCount deck.playlists.count
 json.adminMemo deck.admin_memo
+json.apiState deck.api_state
 json.playlists do
   json.array! deck.playlists, partial: 'playlists/simple_playlist', as: :playlist
 end

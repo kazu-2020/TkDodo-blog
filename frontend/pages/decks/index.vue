@@ -64,7 +64,7 @@
           <div class="title">{{ selectedDeckName }}</div>
         </v-col>
         <v-col cols="3">
-          <v-chip label small color="pink" class="white--text">公開中</v-chip>
+          <deck-api-state-badge :deck="selectedDeck" />
         </v-col>
         <v-col cols="12">
           {{ selectedDeckDescription }}
@@ -130,6 +130,7 @@ import SimpleDeckItem from '~/components/decks/SimpleDeckItem.vue'
 import DeckPlaylistPreviewer from '~/components/decks/DeckPlaylistPreviewer.vue'
 import { Playlist } from '~/types/playlist'
 import { Deck } from '~/types/deck'
+import DeckApiStateBadge from '~/components/decks/DeckApiStateBadge.vue'
 
 interface DataType {
   drawer: boolean
@@ -148,6 +149,7 @@ export default Vue.extend({
   components: {
     SimpleDeckItem,
     DeckPlaylistPreviewer,
+    DeckApiStateBadge,
   },
   async asyncData({ store }) {
     await store.dispatch('decks/fetchDecks', {

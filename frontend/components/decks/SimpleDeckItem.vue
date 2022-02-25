@@ -22,7 +22,7 @@
         </div>
       </v-col>
       <v-col cols="3">
-        <v-chip label small color="pink" class="white--text">公開中</v-chip>
+        <deck-api-state-badge :deck="deck" />
       </v-col>
       <v-col cols="5">{{ deckAdminMemo }}</v-col>
     </v-row>
@@ -31,9 +31,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
+import DeckApiStateBadge from '~/components/decks/DeckApiStateBadge.vue'
 
 export default Vue.extend({
   name: 'SimpleDeckItem',
+  components: {
+    DeckApiStateBadge,
+  },
   props: {
     deck: {
       type: Object,

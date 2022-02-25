@@ -7,6 +7,7 @@ export interface Deck {
   description?: string
   interfix: string
   adminMemo?: string
+  apiState?: string
   sameAs: Array<SameAs>
   playlists: Array<Playlist>
 }
