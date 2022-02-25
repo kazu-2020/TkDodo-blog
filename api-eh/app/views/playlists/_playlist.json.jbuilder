@@ -69,7 +69,6 @@ json.article do
   json.publisherName playlist.publisher_name
 end
 
-json.originalSeriesId playlist.original_series_id if playlist.original_series_id
 json.aliasId playlist.alias_id
 
 json.actor fetch_unique_actors(playlist)

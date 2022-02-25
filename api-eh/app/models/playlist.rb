@@ -51,7 +51,6 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     validates color_attribute.to_sym, format: { with: VALID_COLOR_REGEX },
                                       if: proc { |pl| pl.send(color_attribute.to_sym).present? }
   end
-  validates :original_series_id, uniqueness: { case_sensitive: true }, if: :original_series_id?
   validates_uniqueness_of :alias_id, case_sensitive: false, allow_nil: true
   validates :alias_id,
             format: { with: /\A[-_a-zA-Z\d]+\z/n, allow_blank: true },
