@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Deck < ApplicationRecord
+  include ApiStatable
+
   has_many :deck_playlists, -> { order(position: :asc) }
   has_many :playlists, through: :deck_playlists
   accepts_nested_attributes_for :playlists

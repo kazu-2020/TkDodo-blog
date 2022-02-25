@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_25_023806) do
+ActiveRecord::Schema.define(version: 2022_02_25_104900) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "playlist_id", comment: "プレイリストID", unsigned: true
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2022_02_25_023806) do
     t.string "interfix", comment: "deckId の中間接辞"
     t.string "deck_uid", comment: "デッキ uid"
     t.string "admin_memo", comment: "管理メモ"
+    t.integer "api_state", default: 0, null: false, comment: "APIの公開状態 close: 0, open: 1, waiting: 2"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
