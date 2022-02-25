@@ -64,7 +64,13 @@
           <div class="title">{{ selectedDeckName }}</div>
         </v-col>
         <v-col cols="3">
-          <v-chip label small color="pink" class="white--text">公開中</v-chip>
+          <v-chip
+            label
+            small
+            :color="selectedDeckApiStateColor"
+            class="white--text"
+            >{{ selectedDeckApiStateTitle }}</v-chip
+          >
         </v-col>
         <v-col cols="12">
           {{ selectedDeckDescription }}
@@ -186,6 +192,12 @@ export default Vue.extend({
     },
     selectedDeckId(): string {
       return this.selectedDeck?.id || ''
+    },
+    selectedDeckApiStateTitle(): string {
+      return this.selectedDeck?.apiState === 'open' ? '公開中' : '非公開'
+    },
+    selectedDeckApiStateColor(): string {
+      return this.selectedDeck?.apiState === 'open' ? 'pink' : 'grey'
     },
   },
   methods: {

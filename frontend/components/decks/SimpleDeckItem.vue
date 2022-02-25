@@ -22,7 +22,9 @@
         </div>
       </v-col>
       <v-col cols="3">
-        <v-chip label small color="pink" class="white--text">公開中</v-chip>
+        <v-chip label small :color="deckApiStateColor" class="white--text">{{
+          deckApiStateTitle
+        }}</v-chip>
       </v-col>
       <v-col cols="5">{{ deckAdminMemo }}</v-col>
     </v-row>
@@ -31,9 +33,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
+import deckApiStateMixin from '~/components/decks/DeckApiStateMixin'
 
 export default Vue.extend({
   name: 'SimpleDeckItem',
+  mixins: [deckApiStateMixin],
   props: {
     deck: {
       type: Object,
