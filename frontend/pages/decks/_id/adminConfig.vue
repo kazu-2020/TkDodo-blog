@@ -18,9 +18,7 @@
         </v-col>
         <v-col cols="12">
           <div class="button mb-2">公開状態</div>
-          <v-chip label small :color="deckApiStateColor" class="white--text">{{
-            deckApiStateTitle
-          }}</v-chip>
+          <deck-api-state-badge :deck="deck" />
         </v-col>
         <v-col cols="12">
           <div class="button mb-2">管理メモ</div>
@@ -39,7 +37,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Deck } from '~/types/deck'
-import deckApiStateMixin from '~/components/decks/DeckApiStateMixin'
+import DeckApiStateBadge from '~/components/decks/DeckApiStateBadge.vue'
 
 interface Breadcrumb {
   text: string
@@ -49,7 +47,9 @@ interface Breadcrumb {
 
 export default Vue.extend({
   name: 'DeckAdminConfig',
-  mixins: [deckApiStateMixin],
+  components: {
+    DeckApiStateBadge,
+  },
   async asyncData({ store, params, error }) {
     await store.dispatch('decks/fetchDeck', params.id).catch((e) => {
       if (e.response.status === 404) {
