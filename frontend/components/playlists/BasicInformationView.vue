@@ -9,7 +9,7 @@
             Id: {{ playlisitId }}
           </v-chip>
           <v-chip class="my-1" color="primary" small @click="copyPlaylistUId">
-            UId: {{ omittedPlaylisitUId }}
+            UId: {{ omittedPlaylistUId }}
           </v-chip>
           <v-chip
             v-if="playlistSeriesId"
@@ -131,7 +131,7 @@ export default Vue.extend({
     playlistName(): string {
       return this.playlist?.name || ''
     },
-    omittedPlaylisitUId(): string {
+    omittedPlaylistUId(): string {
       const playlistId = this.playlist?.playlistUId || ''
       return playlistId.length > 8 ? playlistId.slice(0, 8) + '...' : playlistId
     },
