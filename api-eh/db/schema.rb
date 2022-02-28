@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_25_104900) do
+ActiveRecord::Schema.define(version: 2022_02_26_013109) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "playlist_id", comment: "プレイリストID", unsigned: true
+    t.bigint "playlist_id", comment: "プレイリストID"
     t.text "image_data"
     t.string "image_id", comment: "Shrine が生成する画像ID"
     t.datetime "created_at", precision: 6, null: false
@@ -23,24 +23,26 @@ ActiveRecord::Schema.define(version: 2022_02_25_104900) do
   end
 
   create_table "citations", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "playlist_id", null: false
+    t.bigint "playlist_id", null: false
     t.string "name", null: false
     t.string "url", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["playlist_id"], name: "fk_rails_a162149268"
   end
 
   create_table "deck_playlists", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "deck_id", null: false, comment: "Deck ID"
-    t.integer "playlist_id", null: false, comment: "Playlist ID"
+    t.bigint "deck_id", null: false, comment: "Deck ID"
+    t.bigint "playlist_id", null: false, comment: "Playlist ID"
     t.integer "position", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["deck_id"], name: "index_deck_playlists_on_deck_id"
+    t.index ["playlist_id"], name: "fk_rails_32de3978a5"
   end
 
   create_table "deck_same_as", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "deck_id", null: false
+    t.bigint "deck_id", null: false
     t.string "name", null: false
     t.string "url", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -74,7 +76,7 @@ ActiveRecord::Schema.define(version: 2022_02_25_104900) do
   end
 
   create_table "playlist_items", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "playlist_id", null: false
+    t.bigint "playlist_id", null: false
     t.string "episode_id", null: false
     t.string "context", comment: "アイテムの種別(Type)"
     t.string "item_id", comment: "コンテキストに紐づくアイテムのID"
@@ -147,7 +149,7 @@ ActiveRecord::Schema.define(version: 2022_02_25_104900) do
   end
 
   create_table "same_as", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "playlist_id", null: false
+    t.bigint "playlist_id", null: false
     t.string "name", null: false
     t.string "url", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -156,8 +158,8 @@ ActiveRecord::Schema.define(version: 2022_02_25_104900) do
   end
 
   create_table "series_deck_playlists", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "series_deck_id", null: false, comment: "シリーズデッキID"
-    t.integer "series_playlist_id", null: false, comment: "シリーズプレイリストID"
+    t.bigint "series_deck_id", null: false, comment: "シリーズデッキID"
+    t.bigint "series_playlist_id", null: false, comment: "シリーズプレイリストID"
     t.integer "position", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -210,6 +212,15 @@ ActiveRecord::Schema.define(version: 2022_02_25_104900) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "article_images", "playlists"
+  add_foreign_key "citations", "playlists"
+  add_foreign_key "deck_playlists", "decks"
+  add_foreign_key "deck_playlists", "playlists"
+  add_foreign_key "deck_same_as", "decks"
   add_foreign_key "playlist_hashtags", "playlists"
+  add_foreign_key "playlist_items", "playlists"
   add_foreign_key "playlist_keywords", "playlists"
+  add_foreign_key "same_as", "playlists"
+  add_foreign_key "series_deck_playlists", "series_decks"
+  add_foreign_key "series_deck_playlists", "series_playlists"
 end
