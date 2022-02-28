@@ -12,8 +12,8 @@ if ENV['USE_S3_SHRINE'] || environment_name == 'production'
     bucket: 'tomigaya-dev-aw-editorialhands-resources'
   }
 
-  cache_storage = Shrine::Storage::S3.new(prefix: "shrine/#{environment_name}/assets/cache", **s3_options)
-  store_storage = Shrine::Storage::S3.new(prefix: "shrine/#{environment_name}/assets/images", **s3_options)
+  cache_storage = Shrine::Storage::S3.new(prefix: "static/assets/cache", **s3_options)
+  store_storage = Shrine::Storage::S3.new(prefix: "static/assets/images", **s3_options)
 else
   require 'shrine/storage/file_system'
 
