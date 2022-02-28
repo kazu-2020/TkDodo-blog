@@ -26,7 +26,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
            dependent: :destroy
   accepts_nested_attributes_for :playlist_items, allow_destroy: true
 
-  has_many :deck_playlists, -> { order(position: :asc) }
+  has_many :deck_playlists, -> { order(position: :asc) }, dependent: :destroy
   has_many :decks, through: :deck_playlists
 
   has_many :playlist_keywords, dependent: :destroy
