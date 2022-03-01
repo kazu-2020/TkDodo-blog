@@ -3,8 +3,9 @@
 require 'shrine'
 
 environment_name = Rails.env
+is_tomigaya_env = ![nil, 'development', 'test'].include?(environment_name)
 
-if ENV['USE_S3_SHRINE'] || environment_name == 'production'
+if ENV['USE_S3_SHRINE'] || is_tomigaya_env
   require 'shrine/storage/s3'
 
   s3_options = {

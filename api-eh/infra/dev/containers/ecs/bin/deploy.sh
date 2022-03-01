@@ -24,7 +24,7 @@ if [ -n "$ENV" -a "$ENV" = "dev" ]; then
   cat < ./api-eh/infra/dev/containers/ecs/common.env > ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen
   cat < ./api-eh/infra/dev/containers/ecs/${ENV}.env >> ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen
   cat >> ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen  <<FIN
-RAILS_ENV=production
+RAILS_ENV=dev
 RAILS_MASTER_KEY=${RAILS_MASTER_KEY_PRODUCTION}
 FIN
 fi
