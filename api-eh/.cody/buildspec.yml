@@ -29,7 +29,7 @@ phases:
   build:
     commands: |
       if [ $TARGET_BRANCH = 'develop' ]; then
-        api-eh/infra/dev/containers/ecs/bin/build_docker.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} production /tmp
+        api-eh/infra/dev/containers/ecs/bin/build_docker.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} dev /tmp
       else
         echo no build target
         exit 1
