@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_26_013109) do
+ActiveRecord::Schema.define(version: 2022_03_01_032909) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", comment: "プレイリストID"
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2022_02_26_013109) do
 
   create_table "playlist_hashtags", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", null: false
-    t.text "name"
+    t.text "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["playlist_id"], name: "index_playlist_hashtags_on_playlist_id"
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 2022_02_26_013109) do
 
   create_table "playlist_keywords", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", null: false
-    t.text "name"
+    t.text "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["playlist_id"], name: "index_playlist_keywords_on_playlist_id"
