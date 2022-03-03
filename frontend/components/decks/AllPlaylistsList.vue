@@ -55,8 +55,11 @@
                 {{ playlist.name }}
               </td>
               <td>
-                TVEpisode: {{ playlist.itemNum }} HowTo: 0<br />
-                Event: 0 Recipe: 0
+                TVEpisode: {{ playlist.itemNum }} HowTo:
+                {{ playlist.howToCount }}
+                <br />
+                Event: {{ playlist.eventCount }} FaqPage:
+                {{ playlist.faqPageCount }}
               </td>
               <td>{{ articleStatus(playlist) }}</td>
               <td>
@@ -116,7 +119,7 @@ export default Vue.extend({
   methods: {
     fetchAllPlaylists(): Playlist[] {
       this.$axios
-        .get(`/playlists?per=1000`)
+        .get(`/playlists?per=1000&with_subtype_item_count=1`)
         .then((res) => {
           this.playlists = res.data.playlists
         })
