@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_01_032909) do
+ActiveRecord::Schema.define(version: 2022_03_03_083903) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", comment: "プレイリストID"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2022_03_01_032909) do
     t.string "name"
     t.string "detailed_name_ruby", comment: "名前のルビ（ふりがな）"
     t.text "description", comment: "説明"
-    t.text "headline", comment: "見出し"
+    t.string "headline", comment: "見出し"
     t.text "hero_image_data", comment: "ヒーローイメージ画像データ"
     t.text "eyecatch_image_data", comment: "アイキャッチ画像データ"
     t.text "logo_image_data", comment: "ロゴ画像データ"
@@ -185,29 +185,20 @@ ActiveRecord::Schema.define(version: 2022_03_01_032909) do
   create_table "series_playlists", charset: "utf8mb4", force: :cascade do |t|
     t.string "string_id", null: false, comment: "プレイリスト文字列ID（ts始まり)"
     t.string "series_id", null: false, comment: "シリーズID"
-    t.string "layout_pattern", default: "summary", null: false, comment: "レイアウトパターン"
     t.string "type_of_list", default: "series", null: false, comment: "typeOfList"
     t.string "mode_of_item", default: "tv", null: false, comment: "modeOfItem"
+    t.string "headline", comment: "見出し"
     t.text "marked_header", comment: "ヘッダー"
     t.text "article_body", size: :medium, comment: "記事本文"
     t.text "marked_body", size: :medium, comment: "記事本文（マークダウン）"
     t.text "marked_footer", comment: "フッター"
     t.json "editor_data", comment: "editorのjsonデータ"
     t.boolean "available_article", default: false, null: false, comment: "article が available かどうか"
-    t.boolean "active_item_list", default: false, null: false, comment: "item_list の入力がアクティブかどうか"
-    t.boolean "active_episode", default: true, null: false, comment: "episode の入力がアクティブかどうか"
-    t.boolean "active_faq_page", default: false, null: false, comment: "faq_page の入力がアクティブかどうか"
     t.boolean "active_article", default: false, null: false, comment: "article の入力がアクティブかどうか"
-    t.boolean "active_how_to", default: false, null: false, comment: "how_to の入力がアクティブかどうか"
-    t.boolean "active_event", default: false, null: false, comment: "event の入力がアクティブかどうか"
     t.string "author_type", comment: "Person or Organization"
     t.string "author_name", comment: "著者名"
     t.string "publisher_type", comment: "Person or Organization"
     t.string "publisher_name", comment: "発行者名"
-    t.integer "api_state", default: 0, null: false, comment: "APIの公開状態 close: 0, open: 1, waiting: 2"
-    t.datetime "open_scheduled_at", comment: "予約公開日時"
-    t.datetime "close_scheduled_at", comment: "公開終了日時"
-    t.datetime "published_at", comment: "API公開日時"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
