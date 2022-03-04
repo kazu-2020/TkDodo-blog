@@ -10,4 +10,7 @@ class ArticleImage < ApplicationRecord
   end
 
   scope :has_playlist, -> { where.not(playlist_id: nil) }
+
+  # この属性を true にすると、shrine の画像も同時に消せる
+  attribute :remove_shrine_image, :boolean, default: false
 end
