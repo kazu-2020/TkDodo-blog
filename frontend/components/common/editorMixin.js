@@ -80,6 +80,16 @@ const editorMixin = {
                   width: 640,
                   id: (ids) => ids.join('/?v='), // movie_stg/?v=<%= remote_id %>
                 },
+                richlink: {
+                  regex:
+                    /(https?:\/\/(dev-|stg-)?www\.(nhk.jp|nhk.or.jp|nhk-ondemand.jp)\/?.*)/,
+                  embedUrl:
+                    'https://dev-embed.www.nhk.jp/ogp?url=<%= remote_id %>&height=185',
+                  html: '<iframe frameborder="0" scrolling="no" align="middle" width="640" height="185" allowtransparency="true" allowfullscreen></iframe>',
+                  height: 185,
+                  width: 640,
+                  id: (ids) => ids[0],
+                },
               },
             },
           },
