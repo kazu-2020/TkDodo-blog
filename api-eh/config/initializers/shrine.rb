@@ -28,6 +28,14 @@ Shrine.storages = {
   store: store_storage # permanent
 }
 
+module KeepFilesWithDeleteOption
+  module AttacherMethods
+    def destroy?
+      record.respond_to?(:remove_shrine_image?) && record.remove_shrine_image?
+    end
+  end
+end
+
 Shrine.plugin :activerecord           # loads Active Record integration
 Shrine.plugin :cached_attachment_data # enables retaining cached file across form redisplays
 Shrine.plugin :derivatives            # allows storing processed files ("derivatives") alongside the main attached file
@@ -35,3 +43,4 @@ Shrine.plugin :determine_mime_type    # mime typeを判定してくれるプラ�
 Shrine.plugin :remote_url, max_size: 20 * 1024 * 1024
 Shrine.plugin :restore_cached_data    # extracts metadata for assigned cached files
 Shrine.plugin :validation
+Shrine.plugin KeepFilesWithDeleteOption

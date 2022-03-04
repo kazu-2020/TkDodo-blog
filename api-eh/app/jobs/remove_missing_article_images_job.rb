@@ -8,6 +8,10 @@ class RemoveMissingArticleImagesJob < SidekiqBaseJob
 
   def perform
     super
-    ArticleImage.where('created_at < ?', MISSING_ARTICLE_IMAGE_TIME_LIMIT).where(playlist_id: nil).destroy_all
+    article_images = ArticleImage.where('created_at < ?', MISSING_ARTICLE_IMAGE_TIME_LIMIT).where(playlist_id: nil)
+    article_images.each do |article_image|
+      article_image.remove_shrine_image = true
+      article_image.destroy
+    end
   end
 end
