@@ -30,6 +30,10 @@ phases:
     commands: |
       if [ $TARGET_BRANCH = 'develop' ]; then
         api-eh/infra/dev/containers/ecs/bin/build_docker.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} dev /tmp
+      elif [ $TARGET_BRANCH = 'staging' ]; then
+        api-eh/infra/stg/containers/ecs/bin/build_docker.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} staging /tmp
+      elif [ $TARGET_BRANCH = 'master' ]; then
+        api-eh/infra/prd/containers/ecs/bin/build_docker.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} production /tmp
       else
         echo no build target
         exit 1
@@ -44,6 +48,10 @@ phases:
 
       if [ $TARGET_BRANCH = 'develop' ]; then
         api-eh/infra/dev/containers/ecs/bin/deploy.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} dev
+      elif [ $TARGET_BRANCH = 'staging' ]; then
+        api-eh/infra/stg/containers/ecs/bin/deploy.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} staging
+      elif [ $TARGET_BRANCH = 'master' ]; then
+        api-eh/infra/prd/containers/ecs/bin/deploy.sh ${CODEBUILD_RESOLVED_SOURCE_VERSION} production
       else
         echo no deploy target
       fi
