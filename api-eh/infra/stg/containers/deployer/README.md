@@ -13,7 +13,7 @@ aws-vault exec nhk-tomigaya-stg -- aws ecr create-repository --repository-name a
 ### ecr にログイン
 
 ```
-aws-vault exec nhk-tomigaya-stg -- aws ecr get-login-password --profile nhk-tomigaya-stg | docker login --username AWS --password-stdin https://359601428599.dkr.ecr.ap-northeast-1.amazonaws.com
+aws-vault exec nhk-tomigaya-stg -- aws ecr get-login-password --profile nhk-tomigaya-stg | docker login --username AWS --password-stdin https://312328096018.dkr.ecr.ap-northeast-1.amazonaws.com
 ```
 
 ### docker image push
@@ -25,7 +25,7 @@ aw-editorialhands/api-eh ディレクトリにいる状態で下記コマンド
 export DEPLOYER_VERSION=v6
 
 # build containerビルド
-docker build -t 359601428599.dkr.ecr.ap-northeast-1.amazonaws.com/aw-editorialhands-deployer:${DEPLOYER_VERSION} infra/stg/containers/deployer
+docker build -t 312328096018.dkr.ecr.ap-northeast-1.amazonaws.com/aw-editorialhands-deployer:${DEPLOYER_VERSION} infra/stg/containers/deployer
 # build containerをecrにpush
-docker push 359601428599.dkr.ecr.ap-northeast-1.amazonaws.com/aw-editorialhands-deployer:${DEPLOYER_VERSION}
+docker push 312328096018.dkr.ecr.ap-northeast-1.amazonaws.com/aw-editorialhands-deployer:${DEPLOYER_VERSION}
 ```

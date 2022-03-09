@@ -22,7 +22,7 @@ $ bundle exec pipe start
 
 ## コマンド実行時の環境変数の設定
 
-CMS1 では `develop` `staging` `production` の環境が用意されており、それぞれの環境に CodePipeline の設定をデプロイするときには、以下の環境変数を設定の上、コマンドを実行してください。
+`develop` `staging` `production` の環境が用意されており、それぞれの環境に CodePipeline の設定をデプロイするときには、以下の環境変数を設定の上、コマンドを実行してください。
 
 - PIPE_ENV
   - enum: `development`, `staging`, `production`
@@ -39,11 +39,11 @@ CMS1 では `develop` `staging` `production` の環境が用意されており�
 
 ```
 # For development
-$ PIPE_ENV=development PIPELINE_TARGET_BRANCH=develop aws-vault exec tomigaya-dev bundle exec pipe deploy
+$ PIPE_ENV=development PIPELINE_TARGET_BRANCH=develop aws-vault exec nhk-tomigaya-dev bundle exec pipe deploy
 # For staging
-$ PIPE_ENV=staging PIPELINE_TARGET_BRANCH=staging aws-vault exec tomigaya-stg bundle exec pipe deploy
+$ PIPE_ENV=staging PIPELINE_TARGET_BRANCH=staging aws-vault exec nhk-tomigaya-stg bundle exec pipe deploy
 # For production
-$ PIPE_ENV=production PIPELINE_TARGET_BRANCH=master aws-vault exec tomigaya-prd bundle exec pipe deploy
+$ PIPE_ENV=production PIPELINE_TARGET_BRANCH=master aws-vault exec nhk-tomigaya-prd bundle exec pipe deploy
 ```
 
 ### 新たな環境用の CodePipeline を増やしたい場合
