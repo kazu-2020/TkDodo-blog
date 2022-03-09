@@ -29,6 +29,11 @@ test:
   port: <%= ENV['DB_PORT'] %> # 未設定でOK。host側からdocker-composeのdbを利用する場合など「4306」を設定する
   database: editorialhands_test
 
+staging:
+  <<: *default
+  database: editorialhands
+  url: <%= ENV['DATABASE_URL'] %>
+
 production:
   <<: *default
   database: editorialhands
