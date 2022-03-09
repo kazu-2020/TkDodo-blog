@@ -1,0 +1,12 @@
+STGリリース
+## NHKで確認
+
+## Upstream（しくみ）で確認
+<% pull_requests.reject { |request| request.pr.title.start_with?('Bump') }.each do |pr| -%>
+  <%= pr.to_checklist_item %>
+<% end -%>
+
+## ライブラリの更新
+<% pull_requests.select { |request| request.pr.title.start_with?('Bump') }.each do |pr| -%>
+  <%= pr.to_checklist_item %>
+<% end -%>
