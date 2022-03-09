@@ -1,0 +1,62 @@
+#!/bin/bash
+
+set -e
+
+select-cluster() {
+  aws ecs list-clusters | jq -r '.clusterArns[]' | sed 's#^.*:cluster/##' | peco --prompt "select ecs cluster > "
+}
+
+select-task() {
+  local cluster=$1
+  ${BASH_SOURCE%/*}/ecs-active-tasks ${cluster} | peco --prompt "select task > " | awk '{print $1}'
+}
+
+select-container() {
+  local cluster=$1
+  local task_id=$2
+  aws ecs describe-tasks --tasks ${task_id} --cluster ${cluster} | jq -r '.tasks[0].containers[].name' | peco --prompt "select container > "
+}
+
+read-exec-command() {
+  read -p "[default /bin/bash] > " input
+  if [ -z ${input} ]; then
+    input="/bin/bash"
+  fi
+  echo ${input}
+}
+
+cluster=$(select-cluster)
+
+if [ -z ${cluster} ]; then
+  exit 1
+fi
+
+task_id=$(select-task ${cluster})
+
+if [ -z ${task_id} ]; then
+  exit 1
+fi
+
+container=$(select-container ${cluster} ${task_id})
+
+if [ -z ${container} ]; then
+  exit 1
+fi
+
+exec_command=$(read-exec-command)
+
+if [ -z ${exec_command} ]; then
+  exit 1
+fi
+
+# echo cluster is ${cluster}
+# echo task_id is ${task_id}
+# echo container is ${container}
+# echo command is ${exec_command}
+aws ecs execute-command \
+    --cluster  ${cluster} \
+    --task ${task_id} \
+    --container ${container} \
+    --interactive \
+    --command ${exec_command}
+

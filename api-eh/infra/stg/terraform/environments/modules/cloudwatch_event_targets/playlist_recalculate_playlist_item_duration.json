@@ -1,0 +1,8 @@
+{
+  "containerOverrides": [
+    {
+      "name": "rails",
+      "command": ["/usr/src/app/bin/execute_rake.sh","playlists:recalculate_playlist_item_duration"]
+    }
+  ]
+}

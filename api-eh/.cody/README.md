@@ -22,7 +22,7 @@ $ bundle exec cody start
 
 ## コマンド実行時の環境変数の設定
 
-CMS1 では `develop` `staging` `production` の環境が用意されており、それぞれの環境に CodeBuild の設定をデプロイするときには、以下の環境変数を設定の上、コマンドを実行してください。
+`develop` `staging` `production` の環境が用意されており、それぞれの環境に CodeBuild の設定をデプロイするときには、以下の環境変数を設定の上、コマンドを実行してください。
 
 - CODY_ENV
   - enum: `development`, `staging`, `production`
@@ -33,11 +33,11 @@ CMS1 では `develop` `staging` `production` の環境が用意されており�
 
 ```
 # For development
-$ aws-vault exec tomigaya-dev bundle exec cody deploy
+$ aws-vault exec nhk-tomigaya-dev bundle exec cody deploy
 # For staging
-$ CODY_ENV=staging aws-vault exec tomigaya-stg bundle exec cody deploy
+$ CODY_ENV=staging aws-vault exec nhk-tomigaya-stg bundle exec cody deploy
 # For production
-$ CODY_ENV=production aws-vault exec tomigaya-prd bundle exec cody deploy
+$ CODY_ENV=production aws-vault exec nhk-tomigaya-prd bundle exec cody deploy
 ```
 
 ### 新たな環境用の CodeBuild を増やしたい場合
@@ -80,6 +80,9 @@ $ CODY_ENV=develop2 aws-vault exec tomigaya-prd bundle exec cody deploy
 ```
 
 これで新しい環境用の CodeBuild が用意完了となります。
+
+EHでは api-eh/ 以下にbackendアプリケーションが存在するため
+AWSコンソールから、ビルドプロジェクトを選択して編集->BuildspecからBuildspec名に `api-eh/.cody/buildspec.yml` を設定してください。
 
 ## MFA や AssumeRole を用いる場合
 

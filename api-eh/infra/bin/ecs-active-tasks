@@ -1,0 +1,21 @@
+#!/bin/sh
+
+CLUSTER_NAME=$1
+
+function usage_exit() {
+  echo "ERROR: クラスタ名を指定してください" >&2
+  echo "$(basename $0) cluster-name" >&2
+  exit 1
+}
+
+if [ -z $CLUSTER_NAME ]; then
+  usage_exit
+fi
+
+
+TASKS=$(aws ecs list-tasks --cluster $CLUSTER_NAME | jq -r '.taskArns | join(" ")')
+aws ecs describe-tasks \
+  --tasks $TASKS \
+  --cluster $CLUSTER_NAME \
+| jq -r '.tasks[] | (.taskArn + "\t" + .group)' \
+| sed 's#^.*/##g'
