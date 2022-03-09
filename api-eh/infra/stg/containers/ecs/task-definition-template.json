@@ -24,7 +24,7 @@
             ],
             "linuxParameters": {
                 "capabilities": {},
-                "stgices": []
+                "devices": []
             },
             "environment": [
             ],
