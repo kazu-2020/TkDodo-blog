@@ -24,7 +24,7 @@ if [ -n "$ENV" -a "$ENV" = "stg" ]; then
   cat < ./api-eh/infra/stg/containers/ecs/common.env > ./api-eh/infra/stg/containers/ecs/${ENV}.env.gen
   cat < ./api-eh/infra/stg/containers/ecs/${ENV}.env >> ./api-eh/infra/stg/containers/ecs/${ENV}.env.gen
   cat >> ./api-eh/infra/stg/containers/ecs/${ENV}.env.gen  <<FIN
-RAILS_ENV=stg
+RAILS_ENV=staging
 RAILS_MASTER_KEY=${RAILS_MASTER_KEY_PRODUCTION}
 FIN
 fi
