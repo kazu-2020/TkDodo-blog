@@ -3,7 +3,7 @@
 class Deck < ApplicationRecord
   include ApiStatable
 
-  has_many :deck_playlists, -> { order(position: :asc) }
+  has_many :deck_playlists, -> { order(position: :asc) }, dependent: :destroy
   has_many :playlists, through: :deck_playlists
   accepts_nested_attributes_for :playlists
   has_many :deck_same_as, dependent: :destroy
