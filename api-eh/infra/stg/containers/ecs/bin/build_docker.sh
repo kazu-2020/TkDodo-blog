@@ -26,7 +26,7 @@ time yarn install
 
 # rails 自体は production build するものの、環境変数自体は stg 向けに設定
 # source ./infra/stg/containers/ecs/${ENV}.env
-source ./infra/stg/containers/ecs/stg.env
+source ./infra/stg/containers/ecs/staging.env
 APP_DOMAIN=${APP_DOMAIN} ASSET_SYNC=true RAILS_ENV=${ENV} bundle exec rails webpacker:compile --trace
 
 echo $SHA1 > vcs_version
