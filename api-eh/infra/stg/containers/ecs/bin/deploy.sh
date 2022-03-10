@@ -11,7 +11,7 @@ export SHA1=$1
 # デプロイ環境
 export ENV=$2
 
-if [ -n "$ENV" -a "$ENV" = "stg" ]; then
+if [ -n "$ENV" -a "$ENV" = "staging" ]; then
   export RAILS_CPU=512     # .5 vCPU
   export TOTAL_MEMORY=2048 # 1024 MB
   export RAILS_MEMORY=2048
