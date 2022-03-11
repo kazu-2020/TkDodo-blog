@@ -60,6 +60,17 @@ export const actions = actionTree(
         commit('setPagination', { pagination: response.data.pagination })
       })
     },
+    async fetchSeriesDecks({ commit }, { page, query }) {
+      let url = `/series_decks?page=${page}`
+      if (query) {
+        url += `&query=${query}`
+      }
+
+      await this.$axios.get(url).then((response) => {
+        commit('setDecks', { decks: response.data.series_decks })
+        commit('setPagination', { pagination: response.data.pagination })
+      })
+    },
     async fetchDeck({ commit, dispatch }, targetId) {
       await this.$axios.get(`/decks/${targetId}`).then((response) => {
         commit('setEditingDeck', { deck: response.data.deck })

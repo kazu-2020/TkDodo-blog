@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+json.id playlist.id
 json.name playlist.name
 if playlist.logo.present?
   json.logo do

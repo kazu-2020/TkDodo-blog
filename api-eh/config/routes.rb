@@ -13,6 +13,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :series_playlists, only: [], format: 'json' do
+    member do
+      get :episodes
+    end
+  end
+
   resources :deck_labels, only: :index, format: 'json'
 
   resources :playlists, except: %i[new edit], format: 'json' do
