@@ -1,6 +1,6 @@
 {
-    "family": "${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}",
-    "executionRoleArn": "${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}_ecs",
+    "family": "${APP_PREFIX}${ENV_KEY}-${CLUSTER_APP_NAME}",
+    "executionRoleArn": "${APP_PREFIX}${ENV_KEY}-${CLUSTER_APP_NAME}_ecs",
     "taskRoleArn": "arn:aws:iam::${AWS_ACCOUNT_ID}:role/${APP_PREFIX}${ENV_KEY}-${CLUSTER_APP_NAME}-app-role",
     "networkMode": "awsvpc",
     "containerDefinitions": [
