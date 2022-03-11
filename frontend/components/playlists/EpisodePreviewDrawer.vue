@@ -152,6 +152,7 @@ import moment from 'moment'
 import { Playlist } from '@/types/playlist'
 import EpisodePreviewGenresList from '~/components/playlists/EpisodePreviewGenresList.vue'
 import FluidVideoPlayer from '~/components/common/FluidVideoPlayer.vue'
+import ParseEpisodeHelper from '~/utils/ParseEpisodeHelper'
 
 moment.locale('ja')
 
@@ -225,21 +226,10 @@ export default Vue.extend({
       return Math.min(halfSize, 400)
     },
     videoUrl(): string {
-      const videos = this.episode?.videos || []
-      const okushibuVideo = videos.find(
-        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
-      )
-      const hlsVideo = okushibuVideo.detailedContent.find(
-        (v: any) => v.name === 'hls_fmp4'
-      )
-      return hlsVideo?.contentUrl
+      return ParseEpisodeHelper.videoUrl(this.episode)
     },
     hasVideo(): boolean {
-      const videos = this.episode?.videos || []
-      const okushibuVideo = videos.find(
-        (video: any) => video.identifierGroup?.environmentId === 'okushibu'
-      )
-      return !!okushibuVideo
+      return ParseEpisodeHelper.hasVideo(this.episode)
     },
   },
   watch: {

@@ -42,6 +42,9 @@
         >視聴不可</v-chip
       >
     </td>
+    <td>
+      {{ dateModified }}
+    </td>
   </tr>
 </template>
 
@@ -85,6 +88,14 @@ export default Vue.extend({
       const date = this.episode.releasedEvent?.startDate
       if (date) {
         return moment(date).format('YYYY年M月DD日（ddd）')
+      } else {
+        return '未設定'
+      }
+    },
+    dateModified(): string {
+      const date = this.episode.dateModified
+      if (date) {
+        return moment(date).format('YYYY年M月DD日')
       } else {
         return '未設定'
       }
