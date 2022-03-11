@@ -1,7 +1,7 @@
 {
     "family": "${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}",
     "executionRoleArn": "${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}_ecs",
-    "taskRoleArn": "arn:aws:iam::${AWS_ACCOUNT_ID}:role/${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}-app-role",
+    "taskRoleArn": "arn:aws:iam::${AWS_ACCOUNT_ID}:role/${APP_PREFIX}${ENV_KEY}-${CLUSTER_APP_NAME}-app-role",
     "networkMode": "awsvpc",
     "containerDefinitions": [
         {
@@ -42,7 +42,7 @@
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}-lg",
+                    "awslogs-group": "${APP_PREFIX}${ENV_KEY}-${CLUSTER_APP_NAME}-lg",
                     "awslogs-region": "ap-northeast-1",
                     "awslogs-stream-prefix": "rails"
                 }
