@@ -89,6 +89,16 @@ export const actions = actionTree(
           console.log(error)
         })
     },
+    async deleteSeriesDeck({ commit }, deck) {
+      await this.$axios
+        .delete(`/series_decks/${deck.id}`)
+        .then((_response) => {
+          commit('removeDeck', deck)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     setEditingDeck({ commit }, deck) {
       commit('setEditingDeck', { deck })
     },

@@ -188,7 +188,7 @@ export default Vue.extend({
           success: '削除しました',
           error: '削除失敗しました',
         })
-        this.$store.dispatch('decks/deleteDeck', this.selectedDeck)
+        this.$store.dispatch('decks/deleteSeriesDeck', this.selectedDeck)
         this.drawer = false
       }
     },

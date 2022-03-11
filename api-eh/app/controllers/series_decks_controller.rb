@@ -10,6 +10,13 @@ class SeriesDecksController < ApplicationController
     @series_decks = SeriesDeck.page(@page).per(@per)
   end
 
+  def destroy
+    @series_deck = SeriesDeck.find(params[:id])
+    @series_deck.destroy
+
+    render json: { deleted: true }
+  end
+
   private
 
   def series_deck_params
