@@ -79,6 +79,11 @@ export const actions = actionTree(
         })
       })
     },
+    async fetchSeriesDeck({ commit }, targetId) {
+      await this.$axios.get(`/series_decks/${targetId}`).then((response) => {
+        commit('setEditingDeck', { deck: response.data.deck })
+      })
+    },
     async deleteDeck({ commit }, deck) {
       await this.$axios
         .delete(`/decks/${deck.id}`)

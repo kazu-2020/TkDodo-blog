@@ -10,6 +10,25 @@ class SeriesDecksController < ApplicationController
     @series_decks = SeriesDeck.page(@page).per(@per)
   end
 
+  def show
+    @series_deck = SeriesDeck.find_by(id: params[:id])
+    render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @series_deck
+  end
+
+  def update
+    @series_deck = SeriesDeck.find_by(id: params[:id])
+    if @series_deck.update(series_deck_params)
+      # if params[:enable_list_update]
+      #   playlist_ids = params.require(:series_deck).permit(playlists: [])[:playlists] || []
+      #   @series_deck.rebuild_playlists_to(playlist_ids)
+      # end
+
+      @series_deck.touch # nested_attributes だけ更新された場合のための処理
+    else
+      render json: { messages: @series_deck.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     @series_deck = SeriesDeck.find(params[:id])
     @series_deck.destroy
