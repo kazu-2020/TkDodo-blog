@@ -35,10 +35,10 @@ fi
 up_web() {
   echo start up web
   # タスク定義生成
-  ruby ./api-eh/infra/${ENV}/containers/ecs/gen_task_def.rb \
-    --env_file ./api-eh/infra/${ENV}/containers/ecs/${ENV}.env.gen \
-    --secrets-file ./api-eh/infra/${ENV}/containers/ecs/secrets.yml \
-    --task-definition-template ./api-eh/infra/${ENV}/containers/ecs/task-definition-template.json | jq '.' > task-definitions.json
+  ruby ./api-eh/infra/${ENV_KEY}/containers/ecs/gen_task_def.rb \
+    --env_file ./api-eh/infra/${ENV_KEY}/containers/ecs/${ENV}.env.gen \
+    --secrets-file ./api-eh/infra/${ENV_KEY}/containers/ecs/secrets.yml \
+    --task-definition-template ./api-eh/infra/${ENV_KEY}/containers/ecs/task-definition-template.json | jq '.' > task-definitions.json
   cat task-definitions.json
 
   # タスク定義登録
@@ -63,10 +63,10 @@ up_web() {
   # sidekiq
   echo sidekiq serivce update start
   # sidekiqのタスク定義生成
-  ruby ./api-eh/infra/${ENV}/containers/ecs/gen_task_def.rb \
-    --env_file ./api-eh/infra/${ENV}/containers/ecs/${ENV}.env.gen \
-    --secrets-file ./api-eh/infra/${ENV}/containers/ecs/secrets.yml \
-    --task-definition-template ./api-eh/infra/${ENV}/containers/ecs/task-definition-template-sidekiq.json | jq '.' > task-definitions-sidekiq.json
+  ruby ./api-eh/infra/${ENV_KEY}/containers/ecs/gen_task_def.rb \
+    --env_file ./api-eh/infra/${ENV_KEY}/containers/ecs/${ENV}.env.gen \
+    --secrets-file ./api-eh/infra/${ENV_KEY}/containers/ecs/secrets.yml \
+    --task-definition-template ./api-eh/infra/${ENV_KEY}/containers/ecs/task-definition-template-sidekiq.json | jq '.' > task-definitions-sidekiq.json
   cat task-definitions-sidekiq.json
 
   # sidekiqタスク定義登録
