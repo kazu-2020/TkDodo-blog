@@ -7,7 +7,7 @@ frontend:
         - rm -rf node_modules
         - yarn cache clean
         - yarn install
-        - amplify init --amplify "{\"envName\":\"dev\"}" --yes
+        - amplify init --amplify "{\"envName\":\"$BUILD_ENV\"}" --yes
     build:
       commands:
         - export API_URL=$API_URL
