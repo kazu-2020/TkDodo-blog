@@ -44,3 +44,7 @@ resource "aws_s3_bucket_public_access_block" "resources_bucket" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
+resource "aws_s3_bucket" "hosting_bucket" {
+  bucket = "${local.global_resource_prefix}-hosting"
+}
