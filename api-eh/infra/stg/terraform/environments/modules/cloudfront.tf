@@ -197,3 +197,99 @@ resource "aws_cloudfront_distribution" "front_distribution" {
     minimum_protocol_version = "TLSv1.2_2018"
   }
 }
+
+# front hosting 用 S3の定義もここで行っている
+resource "aws_cloudfront_distribution" "hosting_distribution" {
+  aliases                        = []
+  comment                        = "EditorialHandsのfrontend app hosting"
+  default_root_object            = "index.html"
+  enabled                        = true
+  http_version                   = "http2"
+  is_ipv6_enabled                = true
+  price_class                    = "PriceClass_All"
+  retain_on_delete               = false
+  tags                           = {}
+  tags_all                       = {}
+  wait_for_deployment = true
+  web_acl_id          = lookup(var.web_acl, "${terraform.workspace}.id")
+
+  custom_error_response {
+    error_caching_min_ttl = 0
+    error_code            = 403
+    response_code         = 0
+  }
+  custom_error_response {
+    error_caching_min_ttl = 300
+    error_code            = 400
+    response_code         = 200
+    response_page_path    = "/"
+  }
+  custom_error_response {
+    error_caching_min_ttl = 300
+    error_code            = 404
+    response_code         = 200
+    response_page_path    = "/"
+  }
+
+  default_cache_behavior {
+    allowed_methods = [
+      "DELETE",
+      "GET",
+      "HEAD",
+      "OPTIONS",
+      "PATCH",
+      "POST",
+      "PUT",
+    ]
+    cached_methods  = [
+      "GET",
+      "HEAD",
+    ]
+    compress               = true
+    target_origin_id       = "${local.env_resource_prefix}-hosting-s3"
+    viewer_protocol_policy = "redirect-to-https"
+  }
+
+  logging_config {
+    bucket          = "${local.env_resource_prefix}-hosting-log.s3.amazonaws.com"
+    include_cookies = false
+  }
+
+  ordered_cache_behavior {
+    allowed_methods = [
+      "GET",
+      "HEAD",
+    ]
+    cached_methods  = [
+      "GET",
+      "HEAD",
+    ]
+    compress               = true
+    path_pattern           = "static/assets/*"
+    target_origin_id       = "${local.env_resource_prefix}-hosting-s3"
+    viewer_protocol_policy = "redirect-to-https"
+  }
+
+  origin {
+    connection_attempts = 3
+    connection_timeout  = 10
+    domain_name         = "${local.env_resource_prefix}-hosting.s3.ap-northeast-1.amazonaws.com"
+    origin_id           = "${local.env_resource_prefix}-hosting-s3"
+
+    s3_origin_config {
+      origin_access_identity = "origin-access-identity/cloudfront/${data.terraform_remote_state.shared_resources.outputs.hosting_bucket.origin_access_identity_id}"
+    }
+  }
+
+  restrictions {
+    geo_restriction {
+      locations        = []
+      restriction_type = "none"
+    }
+  }
+
+  viewer_certificate {
+    cloudfront_default_certificate = true
+    minimum_protocol_version       = "TLSv1"
+  }
+}

@@ -45,6 +45,10 @@ resource "aws_s3_bucket_public_access_block" "resources_bucket" {
   restrict_public_buckets = true
 }
 
+resource "aws_cloudfront_origin_access_identity" "hosting_bucket" {
+  comment = "${local.global_resource_prefix}-hosting-bucket"
+}
+
 resource "aws_s3_bucket" "hosting_bucket" {
   bucket = "${local.global_resource_prefix}-hosting"
 }
