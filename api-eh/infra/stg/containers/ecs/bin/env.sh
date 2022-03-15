@@ -3,7 +3,7 @@
 # アプリケーション名
 export APP_PREFIX=tomigaya-
 export APP_NAME=editorialhands
-export CLUSTER_APP_NAME=api-eh
+export CLUSTER_APP_NAME=editorialhands
 export AWS_ACCOUNT_ID=312328096018
 # ecrのリポジトリ
 export CONTAINER_REGISTRY=${AWS_ACCOUNT_ID}.dkr.ecr.ap-northeast-1.amazonaws.com
