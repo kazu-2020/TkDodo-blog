@@ -50,5 +50,12 @@ resource "aws_cloudfront_origin_access_identity" "hosting_bucket" {
 }
 
 resource "aws_s3_bucket" "hosting_bucket" {
-  bucket = "${local.global_resource_prefix}-hosting"
+  bucket                      = "${local.global_resource_prefix}-hosting"
+  region                      = "ap-northeast-1"
+  request_payer               = "BucketOwner"
+
+  versioning {
+    enabled    = true
+    mfa_delete = false
+  }
 }
