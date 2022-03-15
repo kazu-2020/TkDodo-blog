@@ -20,9 +20,9 @@ if defined?(AssetSync)
     config.fog_directory = if Rails.env.dev?
                              'tomigaya-dev-api-eh-assets'
                            elsif Rails.env.staging?
-                             'tomigaya-stg-api-eh-assets'
+                             'tomigaya-stg-editorialhands-assets'
                            elsif Rails.env.production?
-                             'tomigaya-prd-api-eh-assets'
+                             'tomigaya-prd-editorialhands-assets'
                            elsif Rails.env.test? || Rails.env.development?
                              'dummy'
                            else
