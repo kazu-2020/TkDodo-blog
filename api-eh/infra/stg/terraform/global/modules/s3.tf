@@ -1,9 +1,9 @@
 resource "aws_cloudfront_origin_access_identity" "resources_bucket" {
-  comment = "${local.global_resource_prefix}-app-resources-bucket"
+  comment = "${local.global_resource_prefix}-resources-bucket"
 }
 
 resource "aws_s3_bucket" "resources_bucket" {
-  bucket = "${local.global_resource_prefix}-app-resources"
+  bucket = "${local.global_resource_prefix}-resources"
   acl    = "private"
 
   versioning {
@@ -29,7 +29,7 @@ resource "aws_s3_bucket" "resources_bucket" {
         "AWS": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${aws_cloudfront_origin_access_identity.resources_bucket.id}"
       },
       "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::${local.global_resource_prefix}-app-resources/*"
+      "Resource": "arn:aws:s3:::${local.global_resource_prefix}-resources/*"
     }
   ]
 }

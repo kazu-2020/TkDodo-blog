@@ -1,3 +1,8 @@
+# FIXME: 重要
+# バケットに xx-app-resourceと xx-resourcesがあって、画像用に後者を利用している
+# terrafromでは xx-app-resourcesの方を設定していた、xx-resourcesはplanで差分が出ないから管理外となっている模様
+# terrafromで xx-app-の方をリネームして辻褄を合わせようとしたが、バケットのreplaceが走ってしまい、中身が消える可能性があるので手動で対応
+# stg, prdでは対応済み
 resource "aws_cloudfront_origin_access_identity" "resources_bucket" {
   comment = "${local.global_resource_prefix}-app-resources-bucket"
 }
