@@ -241,6 +241,15 @@ resource "aws_cloudfront_distribution" "hosting_distribution" {
       "POST",
       "PUT",
     ]
+
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
+
     cached_methods  = [
       "GET",
       "HEAD",
@@ -260,6 +269,15 @@ resource "aws_cloudfront_distribution" "hosting_distribution" {
       "GET",
       "HEAD",
     ]
+
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
+
     cached_methods  = [
       "GET",
       "HEAD",
