@@ -7,7 +7,7 @@ stage 'Source' do
   github(
     source: 'd7lab/aw-editorialhands',
     branch: target_branch, # branch defaults to 'master' or the `pipe deploy --branch` option
-    auth_token: ssm('/aw-editorialhands/codepipeline/github/token')
+    auth_token: ssm('/editorialhands/codepipeline/github/token')
   )
 end
 

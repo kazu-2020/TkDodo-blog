@@ -2,6 +2,8 @@
 
 https://cody.run/
 
+[コマンドラインリファレンス](https://cody.run/reference/)
+
 ## CodeBuild の設定変更
 
 `.cody` 以下にある `project.rb` や `role.rb` に変更を加えた場合、以下のコマンドを実行し、AWS CloudFormation を通して CodeBuild の設定を変更します。
