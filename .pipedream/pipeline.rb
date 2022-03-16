@@ -13,10 +13,5 @@ end
 
 stage 'API-Build-and-Deploy' do
   codebuild(name: "api-eh-#{pipe_env}", project_name: "api-eh-#{pipe_env}")
-end
-
-unless target_branch == 'develop'
-  stage 'Frontend-Deploy-to-Staging' do
-    codebuild(name: "editorialhands-frontend-#{pipe_env}", project_name: "editorialhands-frontend-#{pipe_env}")
-  end
+  codebuild(name: "editorialhands-frontend-#{pipe_env}", project_name: "editorialhands-frontend-#{pipe_env}") unless target_branch == 'develop'
 end
