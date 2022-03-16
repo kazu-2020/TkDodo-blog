@@ -1,0 +1,21 @@
+# Build Specification Reference for CodeBuild: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
+
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12.x
+    commands:
+      - npm install -g yarn
+  preBuild:
+    commands:
+      - cd frontend
+      - rm -rf node_modules
+      - yarn cache clean
+      - yarn install
+  build:
+    commands:
+      - export API_URL=$API_URL
+      - yarn cross-env NODE_ENV=$NODE_ENV nuxt build
+      - aws s3 sync ./dist s3://$S3_HOSTING_BUCKET_NAME/ --quiet
