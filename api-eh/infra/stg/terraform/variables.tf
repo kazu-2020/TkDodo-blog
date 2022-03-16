@@ -1,9 +1,16 @@
 variable "name" {}
 variable "region" {}
 
-variable "domain" {
+variable "backend_domain" {
   default = {
     staging    = "stg-api-eh.nr.nhk.jp"
+    production = ""
+  }
+}
+
+variable "frontend_domain" {
+  default = {
+    staging    = "stg-eh.nr.nhk.jp"
     production = ""
   }
 }

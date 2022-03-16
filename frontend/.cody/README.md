@@ -1,4 +1,3 @@
-# FIXME: ちゃんと書く
 # Cody
 
 https://cody.run/
