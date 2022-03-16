@@ -73,8 +73,8 @@ resource "aws_s3_bucket" "hosting_bucket" {
                 "s3:listBucket"
             ],
             "Resource": [
-                "arn:aws:s3:::tomigaya-stg-editorialhands-hosting/*",
-                "arn:aws:s3:::tomigaya-stg-editorialhands-hosting"
+                "arn:aws:s3:::${local.global_resource_prefix}-hosting/*",
+                "arn:aws:s3:::${local.global_resource_prefix}-hosting"
             ]
         }
     ]
