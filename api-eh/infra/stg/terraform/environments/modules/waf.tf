@@ -28,7 +28,7 @@ resource "aws_wafregional_regex_pattern_set" "block_regexp_pattern" {
   name = "${local.env_resource_prefix}-block-regexp-pattern"
 
   regex_pattern_strings = [
-    "^${lookup(data.aws_ssm_parameter.cf_alb_pre_shared_key.value, "${terraform.workspace}.id")}$",
+    "^${data.aws_ssm_parameter.cf_alb_pre_shared_key.value}$",
   ]
 }
 
