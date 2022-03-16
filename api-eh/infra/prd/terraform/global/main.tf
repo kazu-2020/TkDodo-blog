@@ -14,7 +14,7 @@ provider "aws" {
 provider "template" {}
 
 variable "name" {
-  default = "aw-editorialhands"
+  default = "editorialhands"
 }
 
 variable "region" {
