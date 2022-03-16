@@ -47,6 +47,13 @@ resource "aws_s3_bucket" "assets" {
 EOF
 }
 
+# pre_shared_keyは
+# /editorialhands/${terraform.workspace}/cf_alb_pre_shared_key
+# で登録しておくこと
+data "aws_ssm_parameter" "cf_alb_pre_shared_key" {
+  name = "/${var.name}/${terraform.workspace}/cf_alb_pre_shared_key"
+}
+
 resource "aws_cloudfront_distribution" "front_distribution" {
   enabled             = true
   is_ipv6_enabled     = true
@@ -66,7 +73,7 @@ resource "aws_cloudfront_distribution" "front_distribution" {
 
     custom_header {
       name  = "x-pre-shared-key"
-      value = lookup(var.cf_alb_pre_shared_key.value, "${terraform.workspace}.id")
+      value = lookup(data.aws_ssm_parameter.cf_alb_pre_shared_key.value, "${terraform.workspace}.id")
     }
 
     custom_origin_config {
