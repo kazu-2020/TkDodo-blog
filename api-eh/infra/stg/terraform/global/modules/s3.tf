@@ -57,4 +57,27 @@ resource "aws_s3_bucket" "hosting_bucket" {
     enabled    = true
     mfa_delete = false
   }
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Id": "MyPolicy",
+    "Statement": [
+        {
+            "Sid": "HostingReadForGetBucketObjects",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${aws_cloudfront_origin_access_identity.hosting_bucket.id}"
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:listBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::tomigaya-stg-editorialhands-hosting/*",
+                "arn:aws:s3:::tomigaya-stg-editorialhands-hosting"
+            ]
+        }
+    ]
+}
+EOF
 }
