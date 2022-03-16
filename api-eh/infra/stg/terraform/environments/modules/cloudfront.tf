@@ -73,7 +73,7 @@ resource "aws_cloudfront_distribution" "front_distribution" {
 
     custom_header {
       name  = "x-pre-shared-key"
-      value = lookup(data.aws_ssm_parameter.cf_alb_pre_shared_key.value, "${terraform.workspace}.id")
+      value = data.aws_ssm_parameter.cf_alb_pre_shared_key.value
     }
 
     custom_origin_config {
