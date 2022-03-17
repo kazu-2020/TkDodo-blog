@@ -2,6 +2,7 @@
 
 iam_policy(
   'cloudformation',
+  'cloudfront',
   'ec2',
   'events',
   'ecr',
