@@ -57,4 +57,36 @@ resource "aws_s3_bucket" "hosting_bucket" {
     enabled    = true
     mfa_delete = false
   }
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Id": "MyPolicy",
+    "Statement": [
+        {
+            "Sid": "HostingReadForGetBucketObjects",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${aws_cloudfront_origin_access_identity.hosting_bucket.id}"
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:listBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::${local.global_resource_prefix}-hosting/*",
+                "arn:aws:s3:::${local.global_resource_prefix}-hosting"
+            ]
+        }
+    ]
+}
+EOF
+}
+
+resource "aws_s3_bucket_public_access_block" "hosting_bucket" {
+  bucket = aws_s3_bucket.hosting_bucket.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }

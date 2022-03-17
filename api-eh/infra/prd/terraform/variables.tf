@@ -1,7 +1,13 @@
 variable "name" {}
 variable "region" {}
 
-variable "domain" {
+variable "backend_domain" {
+  default = {
+    production = "api-eh.nr.nhk.jp"
+  }
+}
+
+variable "frontend_domain" {
   default = {
     production = "eh.nr.nhk.jp"
   }

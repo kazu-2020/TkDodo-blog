@@ -47,6 +47,13 @@ resource "aws_s3_bucket" "assets" {
 EOF
 }
 
+# pre_shared_keyは
+# /editorialhands/${terraform.workspace}/cf_alb_pre_shared_key
+# で登録しておくこと
+data "aws_ssm_parameter" "cf_alb_pre_shared_key" {
+  name = "/${var.name}/${terraform.workspace}/cf_alb_pre_shared_key"
+}
+
 resource "aws_cloudfront_distribution" "front_distribution" {
   enabled             = true
   is_ipv6_enabled     = true
@@ -66,7 +73,7 @@ resource "aws_cloudfront_distribution" "front_distribution" {
 
     custom_header {
       name  = "x-pre-shared-key"
-      value = lookup(var.cf_alb_pre_shared_key, "${terraform.workspace}.id")
+      value = data.aws_ssm_parameter.cf_alb_pre_shared_key.value
     }
 
     custom_origin_config {
@@ -187,7 +194,7 @@ resource "aws_cloudfront_distribution" "front_distribution" {
     }
   }
   aliases = [
-    lookup(var.domain, terraform.workspace),
+    lookup(var.backend_domain, terraform.workspace),
   ]
   viewer_certificate {
     # cloudfront_default_certificate = true
@@ -200,7 +207,6 @@ resource "aws_cloudfront_distribution" "front_distribution" {
 
 # front hosting用。 S3の定義もここで行っている
 resource "aws_cloudfront_distribution" "hosting_distribution" {
-  aliases                        = []
   comment                        = "EditorialHandsのfrontend app hosting"
   default_root_object            = "index.html"
   enabled                        = true
@@ -306,8 +312,12 @@ resource "aws_cloudfront_distribution" "hosting_distribution" {
     }
   }
 
+  aliases = [
+    lookup(var.frontend_domain, terraform.workspace),
+  ]
   viewer_certificate {
-    cloudfront_default_certificate = true
-    minimum_protocol_version       = "TLSv1"
+    acm_certificate_arn      = var.cf_certificate_arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2018"
   }
 }
