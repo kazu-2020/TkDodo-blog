@@ -6,4 +6,5 @@
   NODE_ENV: 'production',
   API_URL: 'https://api-eh.nr.nhk.jp',
   S3_HOSTING_BUCKET_NAME: 'tomigaya-prd-editorialhands-hosting',
+  CF_DISTRIBUTION_ID: 'E3S8OBV9WKKTF7' # FIXME: dummy
 }
