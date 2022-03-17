@@ -19,4 +19,4 @@ phases:
       - export API_URL=$API_URL
       - yarn cross-env NODE_ENV=$NODE_ENV nuxt build
       - aws s3 sync ./dist s3://$S3_HOSTING_BUCKET_NAME/ --quiet
-      - aws cloudfront create-invalidation --distribution-id $CF_DISTRIBUTION_ID --paths '/*' | > /dev/null
+      - AWS_PAGER="" aws cloudfront create-invalidation --distribution-id $CF_DISTRIBUTION_ID --paths '/*'

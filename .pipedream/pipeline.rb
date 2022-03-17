@@ -12,8 +12,9 @@ stage 'Source' do
 end
 
 stage 'Build-and-Deploy' do
+  builds = []
   builds << { name: "api-eh-#{pipe_env}", project_name: "api-eh-#{pipe_env}" }
   builds << { name: "editorialhands-frontend-#{pipe_env}", project_name: "editorialhands-frontend-#{pipe_env}" } unless target_branch == 'develop'
 
-  codebuild(builds)
+  codebuild(*builds)
 end
