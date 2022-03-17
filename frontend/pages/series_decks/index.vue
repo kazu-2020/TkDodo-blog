@@ -62,7 +62,7 @@
         <v-col cols="12">
           <v-btn
             :to="{
-              name: 'decks-id-adminConfig',
+              name: 'series_decks-id-adminConfig',
               params: { id: selectedDeckId },
             }"
             nuxt
