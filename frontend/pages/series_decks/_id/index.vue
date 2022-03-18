@@ -96,7 +96,7 @@
               <v-list dense>
                 <v-list-item
                   v-for="playlist in deck.playlists"
-                  :key="`${playlist.playlistUId}-preview`"
+                  :key="`${playlist.seriesId}-preview`"
                   class="px-0 pb-2"
                 >
                   <v-list-item-icon class="mr-3">
@@ -155,11 +155,16 @@ export default Vue.extend({
   },
   mixins: [unloadAlertMixin],
   async asyncData({ store, params, error }) {
-    await store.dispatch('decks/fetchSeriesDeck', params.id).catch((e) => {
-      if (e.response.status === 404) {
-        error({ statusCode: 404, message: e.response.data.messages })
-      }
-    })
+    await store
+      .dispatch('decks/fetchSeriesDeck', {
+        targetId: params.id,
+        withSubtypeItemCount: true,
+      })
+      .catch((e) => {
+        if (e.response.status === 404) {
+          error({ statusCode: 404, message: e.response.data.messages })
+        }
+      })
   },
   data(): DataType {
     return {

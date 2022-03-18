@@ -79,8 +79,13 @@ export const actions = actionTree(
         })
       })
     },
-    async fetchSeriesDeck({ commit }, targetId) {
-      await this.$axios.get(`/series_decks/${targetId}`).then((response) => {
+    async fetchSeriesDeck({ commit }, { targetId, withSubtypeItemCount }) {
+      let url = `/series_decks/${targetId}`
+      if (withSubtypeItemCount) {
+        url += `?with_subtype_item_count=1`
+      }
+
+      await this.$axios.get(url).then((response) => {
         commit('setEditingDeck', { deck: response.data.deck })
       })
     },

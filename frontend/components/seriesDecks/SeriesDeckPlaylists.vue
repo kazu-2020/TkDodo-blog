@@ -13,7 +13,7 @@
       <draggable v-model="playlists" tag="tbody">
         <tr
           v-for="playlist in playlists"
-          :key="playlist.playlistUId"
+          :key="`series-playlist-${playlist.seriesId}`"
           style="cursor: pointer"
         >
           <td>
@@ -68,7 +68,7 @@ import Vue from 'vue'
 import draggable from 'vuedraggable'
 
 export default Vue.extend({
-  name: 'DeckPlaylist',
+  name: 'SeriesDeckPlaylist',
   components: {
     draggable,
   },
