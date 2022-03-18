@@ -100,7 +100,7 @@ export default Vue.extend({
     },
     convertReleaseDate(releasedEvent: any) {
       if (releasedEvent) {
-        return moment(releasedEvent.startDate).format('YYYY年M月DD日（ddd）')
+        return moment(releasedEvent.startDate).format('YYYY年MM月DD日（ddd）')
       } else {
         return ''
       }
