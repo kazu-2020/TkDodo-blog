@@ -221,29 +221,6 @@
               />
             </v-col>
           </v-row>
-          <v-row dense class="my-5">
-            <v-col cols="12"><h3>Layout pattern</h3></v-col>
-            <v-col cols="12">
-              <v-radio-group v-model="layoutPattern" mandatory row>
-                <v-radio label="summary" value="summary" />
-                <v-radio label="itemList" value="itemList" />
-                <v-radio label="featuredItem" value="featuredItem" />
-                <v-radio label="largeImage" value="largeImage" />
-              </v-radio-group>
-            </v-col>
-          </v-row>
-          <v-row dense class="my-5">
-            <v-col cols="12"><h3>Publish Level</h3></v-col>
-            <v-col cols="12">
-              <v-radio-group v-model="publishLevel" mandatory row>
-                <v-radio label="notyet" value="notyet" />
-                <v-radio label="ready" value="ready" />
-                <v-radio label="full" value="full" />
-                <v-radio label="limited" value="limited" />
-                <v-radio label="gone" value="gone" />
-              </v-radio-group>
-            </v-col>
-          </v-row>
         </v-form>
       </v-col>
     </v-row>
@@ -282,8 +259,6 @@ interface DataType {
   aliasId: string
   sameAs: Object[]
   citations: Object[]
-  layoutPattern: string
-  publishLevel: string
   valid: boolean
   nameRules: Function[]
   aliasIdRules: Function[]
@@ -343,8 +318,6 @@ export default Vue.extend({
       citations: this.playlist.citations || [],
       aliasId: this.playlist.aliasId || '',
       valid: true,
-      layoutPattern: this.playlist.layoutPattern || 'summary',
-      publishLevel: this.playlist.publishLevel || 'notyet',
       nameRules: [
         (v: string) => !!v || '名前は必ず入力してください',
         (v: string) =>
@@ -434,8 +407,6 @@ export default Vue.extend({
         this.citations = newVal.citations
         this.aliasId = newVal.aliasId
         this.apiState = newVal.apiState === 'open'
-        this.layoutPattern = newVal.layoutPattern
-        this.publishLevel = newVal.publishLevel
 
         this.fetchBundleItemCount()
       },
@@ -542,26 +513,6 @@ export default Vue.extend({
         if (this.playlist.aliasId === newVal) return
         const originalPlaylist = Object.assign({}, (this as any).playlist)
         const playlist = Object.assign(originalPlaylist, { aliasId: newVal })
-        this.$emit('update-series', playlist)
-      },
-    },
-    layoutPattern: {
-      handler(newVal) {
-        if (this.playlist.layoutPattern === newVal) return
-        const originalPlaylist = Object.assign({}, (this as any).playlist)
-        const playlist = Object.assign(originalPlaylist, {
-          layoutPattern: newVal,
-        })
-        this.$emit('update-series', playlist)
-      },
-    },
-    publishLevel: {
-      handler(newVal) {
-        if (this.playlist.publishLevel === newVal) return
-        const originalPlaylist = Object.assign({}, (this as any).playlist)
-        const playlist = Object.assign(originalPlaylist, {
-          publishLevel: newVal,
-        })
         this.$emit('update-series', playlist)
       },
     },
