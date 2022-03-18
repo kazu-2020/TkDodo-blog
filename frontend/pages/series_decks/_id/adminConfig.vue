@@ -92,7 +92,7 @@ export default Vue.extend({
 
       for (const key in body) {
         if (body[key] !== null && body[key] !== undefined) {
-          data.append(`deck[${key}]`, body[key] as string)
+          data.append(`series_deck[${key}]`, body[key] as string)
         }
       }
 

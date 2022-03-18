@@ -75,7 +75,7 @@
           </v-btn>
           <v-btn
             :to="{
-              name: 'decks-id',
+              name: 'series_decks-id',
               params: { id: selectedDeckId },
             }"
             nuxt
