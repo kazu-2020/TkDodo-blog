@@ -205,9 +205,9 @@ resource "aws_cloudfront_distribution" "front_distribution" {
   }
 }
 
-# front hosting用。 S3の定義もここで行っている
+# front hosting用
 resource "aws_cloudfront_distribution" "hosting_distribution" {
-  comment                        = "EditorialHandsのfrontend app hosting"
+  comment                        = "${local.env_resource_prefix}-hosting-distribution"
   default_root_object            = "index.html"
   enabled                        = true
   http_version                   = "http2"
