@@ -90,3 +90,26 @@ resource "aws_s3_bucket_public_access_block" "hosting_bucket" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
+resource "aws_cloudfront_origin_access_identity" "hosting_log_bucket" {
+  comment = "${local.global_resource_prefix}-hosting-log-bucket"
+}
+
+resource "aws_s3_bucket" "hosting_log_bucket" {
+  bucket                      = "${local.global_resource_prefix}-hosting-log"
+  request_payer               = "BucketOwner"
+
+  versioning {
+    enabled    = true
+    mfa_delete = false
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "hosting_log_bucket" {
+  bucket = aws_s3_bucket.hosting_log_bucket.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
