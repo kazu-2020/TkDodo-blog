@@ -87,7 +87,7 @@ export default Vue.extend({
     releaseDate(): string {
       const date = this.episode.releasedEvent?.startDate
       if (date) {
-        return moment(date).format('YYYY年M月DD日（ddd）')
+        return moment(date).format('YYYY年MM月DD日（ddd）')
       } else {
         return '未設定'
       }
@@ -95,7 +95,7 @@ export default Vue.extend({
     dateModified(): string {
       const date = this.episode.dateModified
       if (date) {
-        return moment(date).format('YYYY年M月DD日')
+        return moment(date).format('YYYY年MM月DD日')
       } else {
         return '未設定'
       }
