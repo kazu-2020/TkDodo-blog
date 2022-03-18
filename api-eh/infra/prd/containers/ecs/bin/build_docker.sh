@@ -26,7 +26,7 @@ time yarn install
 
 # rails 自体は production build するものの、環境変数自体は prd 向けに設定
 # source ./infra/prd/containers/ecs/${ENV}.env
-source ./infra/prd/containers/ecs/staging.env
+source ./infra/prd/containers/ecs/production.env
 APP_DOMAIN=${APP_DOMAIN} ASSET_SYNC=true RAILS_ENV=${ENV} bundle exec rails webpacker:compile --trace
 
 echo $SHA1 > vcs_version

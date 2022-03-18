@@ -68,7 +68,7 @@ aws-vault exec nhk-tomigaya-prd -- docker-compose run --rm terraform init
 ### 環境別初期化
 
 ```
-aws-vault exec nhk-tomigaya-prd -- docker-compose run --rm terraform workspace new staging
+aws-vault exec nhk-tomigaya-prd -- docker-compose run --rm terraform workspace new production
 ```
 
 ### デプロイ
@@ -76,7 +76,7 @@ aws-vault exec nhk-tomigaya-prd -- docker-compose run --rm terraform workspace n
 - まず環境を選択
 
 ```
-aws-vault exec nhk-tomigaya-prd -- docker-compose run --rm terraform workspace select staging
+aws-vault exec nhk-tomigaya-prd -- docker-compose run --rm terraform workspace select production
 ```
 
 - その後は下記の繰り返し

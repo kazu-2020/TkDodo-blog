@@ -11,12 +11,12 @@ export SHA1=$1
 # デプロイ環境
 export ENV=$2
 
-if [ -n "$ENV" -a "$ENV" = "staging" ]; then
+if [ -n "$ENV" -a "$ENV" = "production" ]; then
   export RAILS_CPU=512     # .5 vCPU
   export TOTAL_MEMORY=2048 # 1024 MB
   export RAILS_MEMORY=2048
   export SIDEKIQ_MEMORY=2048
-  export ALB_TARGET_ARN=dummy # FIXME:
+  export ALB_TARGET_ARN=arn:aws:elasticloadbalancing:ap-northeast-1:312328096018:targetgroup/tomigaya-prd-editorialhands-tg/17fdc9864f166436
   export DESIRED_COUNT=2
   export DESIRED_COUNT_SIDEKIQ=1
   export ENV_KEY=prd
