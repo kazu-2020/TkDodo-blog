@@ -21,10 +21,10 @@ if [ -n "$ENV" -a "$ENV" = "dev" ]; then
   export DESIRED_COUNT_SIDEKIQ=1
 
   # コンテナに渡す環境変数(circleciで設定)
-  cat < ./api-eh/infra/dev/containers/ecs/common.env > ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen
-  cat < ./api-eh/infra/dev/containers/ecs/${ENV}.env >> ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen
-  cat >> ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen  <<FIN
-RAILS_ENV=dev
+  cat < ./api-eh/infra/${ENV_KEY}/containers/ecs/common.env > ./api-eh/infra/${ENV_KEY}/containers/ecs/${ENV}.env.gen
+  cat < ./api-eh/infra/${ENV_KEY}/containers/ecs/${ENV}.env >> ./api-eh/infra/${ENV_KEY}/containers/ecs/${ENV}.env.gen
+  cat >> ./api-eh/infra/${ENV_KEY}/containers/ecs/${ENV}.env.gen  <<FIN
+RAILS_ENV=${ENV}
 RAILS_MASTER_KEY=${RAILS_MASTER_KEY_PRODUCTION}
 FIN
 fi
@@ -34,10 +34,10 @@ fi
 up_web() {
   echo start up web
   # タスク定義生成
-  ruby ./api-eh/infra/dev/containers/ecs/gen_task_def.rb \
-    --env_file ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen \
-    --secrets-file ./api-eh/infra/dev/containers/ecs/secrets.yml \
-    --task-definition-template ./api-eh/infra/dev/containers/ecs/task-definition-template.json | jq '.' > task-definitions.json
+  ruby ./api-eh/infra/${ENV_KEY}/containers/ecs/gen_task_def.rb \
+    --env_file ./api-eh/infra/${ENV_KEY}/containers/ecs/${ENV}.env.gen \
+    --secrets-file ./api-eh/infra/${ENV_KEY}/containers/ecs/secrets.yml \
+    --task-definition-template ./api-eh/infra/${ENV_KEY}/containers/ecs/task-definition-template.json | jq '.' > task-definitions.json
   cat task-definitions.json
 
   # タスク定義登録
@@ -45,12 +45,12 @@ up_web() {
     --cli-input-json file://task-definitions.json
 
   # 最新のタスク定義確認
-  local latest_task_definition=$(latest_task_definition ${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME})
+  local latest_task_definition=$(latest_task_definition ${APP_PREFIX}${ENV_KEY}-${CLUSTER_APP_NAME})
 
   # 最新のタスク定義でサービス更新
   aws ecs update-service \
-    --cluster ${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}-ecs-cluster \
-    --service ${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}-service \
+    --cluster ${APP_PREFIX}${ENV_KEY}-${CLUSTER_APP_NAME}-ecs-cluster \
+    --service ${APP_PREFIX}${ENV_KEY}-${CLUSTER_APP_NAME}-service \
     --enable-execute-command \
     --deployment-configuration "deploymentCircuitBreaker={enable=true,rollback=true}" \
     --task-definition ${latest_task_definition} \
@@ -62,10 +62,10 @@ up_web() {
   # sidekiq
   echo sidekiq serivce update start
   # sidekiqのタスク定義生成
-  ruby ./api-eh/infra/dev/containers/ecs/gen_task_def.rb \
-    --env_file ./api-eh/infra/dev/containers/ecs/${ENV}.env.gen \
-    --secrets-file ./api-eh/infra/dev/containers/ecs/secrets.yml \
-    --task-definition-template ./api-eh/infra/dev/containers/ecs/task-definition-template-sidekiq.json | jq '.' > task-definitions-sidekiq.json
+  ruby ./api-eh/infra/${ENV_KEY}/containers/ecs/gen_task_def.rb \
+    --env_file ./api-eh/infra/${ENV_KEY}/containers/ecs/${ENV}.env.gen \
+    --secrets-file ./api-eh/infra/${ENV_KEY}/containers/ecs/secrets.yml \
+    --task-definition-template ./api-eh/infra/${ENV_KEY}/containers/ecs/task-definition-template-sidekiq.json | jq '.' > task-definitions-sidekiq.json
   cat task-definitions-sidekiq.json
 
   # sidekiqタスク定義登録
@@ -73,12 +73,12 @@ up_web() {
     --cli-input-json file://task-definitions-sidekiq.json
 
   # sidekiqの最新のタスク定義確認
-  local latest_task_definition_sidekiq=$(latest_task_definition ${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME})
+  local latest_task_definition_sidekiq=$(latest_task_definition ${APP_PREFIX}${ENV_KEY}-${CLUSTER_APP_NAME})
 
   # 最新のタスク定義でsidekiqのサービス更新
   aws ecs update-service \
-    --cluster ${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}-ecs-cluster \
-    --service ${APP_PREFIX}${ENV}-${CLUSTER_APP_NAME}-service-sidekiq \
+    --cluster ${APP_PREFIX}${ENV_KEY}-${CLUSTER_APP_NAME}-ecs-cluster \
+    --service ${APP_PREFIX}${ENV_KEY}-${CLUSTER_APP_NAME}-service-sidekiq \
     --enable-execute-command \
     --deployment-configuration "deploymentCircuitBreaker={enable=true,rollback=true}" \
     --task-definition ${latest_task_definition_sidekiq} \

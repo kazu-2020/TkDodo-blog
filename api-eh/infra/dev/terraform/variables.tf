@@ -1,9 +1,17 @@
 variable "name" {}
 variable "region" {}
 
-variable "domain" {
+variable "backend_domain" {
   default = {
     dev        = "dev-api-eh.nr.nhk.jp"
+    staging    = ""
+    production = ""
+  }
+}
+
+variable "frontend_domain" {
+  default = {
+    dev        = "dev-eh.nr.nhk.jp"
     staging    = ""
     production = ""
   }
@@ -137,12 +145,12 @@ variable "redis_cluster_id_key" {
 
 variable "resources_bucket" {
   default = {
-    "dev.domain"     = ""
-    "staging.domain" = ""
-    "prod.domain"    = ""
+    "dev.domain"        = ""
+    "staging.domain"    = ""
+    "production.domain" = ""
 
-    "dev.origin_path"     = "dev"
-    "staging.origin_path" = "staging"
-    "prod.origin_path"    = "production"
+    "dev.origin_path"        = "dev"
+    "staging.origin_path"    = "staging"
+    "production.origin_path" = "production"
   }
 }
