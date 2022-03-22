@@ -13,12 +13,12 @@
       </v-btn>
       <div v-else>追加済み</div>
     </td>
-    <td justify="center" align="center">
+    <td>
       <v-img
-        :src="eyecatchUrl"
-        lazy-src="https://placehold.jp/71x40.png"
-        width="71"
-        class="ma-2 episode-image"
+        :src="logoUrl"
+        lazy-src="https://placehold.jp/40x40.png"
+        width="40"
+        class="ma-2 playlist-image"
       />
     </td>
     <td>{{ playlist.name }}</td>
@@ -59,9 +59,9 @@ export default Vue.extend({
         .map((pl: any) => pl.id)
         .includes(this.playlist.id)
     },
-    eyecatchUrl(): string {
-      if (this.playlist.eyecatch !== undefined) {
-        return this.playlist.eyecatch.medium.url
+    logoUrl(): string {
+      if (this.playlist.logo !== undefined) {
+        return this.playlist.logo.medium.url
       } else if ((this.playlist.keyvisuals || [])[0] !== undefined) {
         return this.playlist.keyvisuals[0].small.url
       }

@@ -13,6 +13,11 @@
           clearable
           @keypress.enter="searchSeriesWithKeyword"
         />
+        <v-tabs v-model="tab" class="pt-1">
+          <v-tab v-for="tabItem in tabItems" :key="tabItem">
+            {{ tabItem }}
+          </v-tab>
+        </v-tabs>
       </v-col>
     </v-row>
     <v-row id="series-playlist-search-result">
@@ -23,15 +28,15 @@
             <thead>
               <tr>
                 <th />
-                <th class="text-left">シリーズ名</th>
                 <th />
+                <th class="text-left">シリーズ名</th>
                 <th class="text-left">視聴可能</th>
               </tr>
             </thead>
             <tbody>
               <series-playlist-search-result-table-row
                 v-for="playlist in playlists"
-                :key="`search-result-${playlist.id}`"
+                :key="`search-result-${playlist.seriesId}`"
                 :playlist="playlist"
                 :ignore-playlists="ignorePlaylists"
                 @add-playlist="addPlaylist"
@@ -61,7 +66,7 @@
       </v-col>
       <v-col v-else-if="isNoResult" cols="12">
         <v-alert text outlined color="deep-orange" icon="mdi-alert-outline">
-          エピソードが見つかりませんでした。 <br />
+          プレイリストは見つかりませんでした。 <br />
           他のキーワードや条件でお探しください
         </v-alert>
       </v-col>
@@ -79,6 +84,8 @@ interface DataType {
   isNoResult: boolean
   searchOffset: number
   totalSearchResult: number
+  tab: number | null
+  tabItems: string[]
 }
 
 export default Vue.extend({
@@ -110,6 +117,8 @@ export default Vue.extend({
       isNoResult: false,
       searchOffset: 0,
       totalSearchResult: 0,
+      tab: null,
+      tabItems: ['ワード', 'キーワード', '出演者名'],
     }
   },
   computed: {
@@ -133,6 +142,18 @@ export default Vue.extend({
     nextPageEndIndex(): number {
       return Math.min(this.searchOffset + this.pageSize, this.totalSearchResult)
     },
+    queryKey(): string {
+      switch (this.tab) {
+        case 0:
+          return 'word'
+        case 1:
+          return 'keyword'
+        case 2:
+          return 'concern'
+        default:
+          return 'word'
+      }
+    },
   },
   watch: {
     searchTriggerCount: {
@@ -149,6 +170,11 @@ export default Vue.extend({
         }
       },
     },
+    tab: {
+      handler() {
+        this.searchSeriesWithKeyword()
+      },
+    },
   },
   methods: {
     searchSeriesPlaylists({
@@ -163,7 +189,7 @@ export default Vue.extend({
         this.searchOffset = 0
       }
 
-      const searchUrl = `/series_playlists/search?word=${this.editingKeywords}&offset=${this.searchOffset}&size=${this.pageSize}`
+      const searchUrl = `/series_playlists/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&size=${this.pageSize}`
       this.$axios
         .get(searchUrl)
         .then((res) => {
