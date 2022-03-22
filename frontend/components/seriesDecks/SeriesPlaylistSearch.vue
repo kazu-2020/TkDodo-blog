@@ -84,7 +84,7 @@ interface DataType {
   isNoResult: boolean
   searchOffset: number
   totalSearchResult: number
-  tab: number | null
+  tab: number
   tabItems: string[]
 }
 
@@ -117,7 +117,7 @@ export default Vue.extend({
       isNoResult: false,
       searchOffset: 0,
       totalSearchResult: 0,
-      tab: null,
+      tab: 0,
       tabItems: ['ワード', 'キーワード', '出演者名'],
     }
   },
