@@ -207,7 +207,7 @@ export default Vue.extend({
     episodeRecentBroadcastDate(): string {
       const date = this.episode?.detailedRecentEvent?.startDate
       if (date) {
-        return moment(date).format('YYYY年M月DD日（ddd）HH:mm ~')
+        return moment(date).format('YYYY年MM月DD日（ddd）HH:mm ~')
       } else {
         return '-'
       }

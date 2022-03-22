@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_03_083903) do
+ActiveRecord::Schema.define(version: 2022_03_18_105200) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", comment: "プレイリストID"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 2022_03_03_083903) do
     t.string "alias_id", comment: "短縮URL"
     t.string "d5_playlist_id", comment: "r5 デッキのプレイリストID"
     t.string "layout_pattern", default: "summary", null: false, comment: "レイアウトパターン"
-    t.string "publish_level", default: "notyet", null: false, comment: "publish level"
+    t.string "publish_level", default: "full", null: false, comment: "publish level"
     t.string "type_of_list", default: "recommend", null: false, comment: "typeOfList"
     t.string "mode_of_item", default: "tv", null: false, comment: "modeOfItem"
     t.text "marked_header", comment: "ヘッダー"

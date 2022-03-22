@@ -123,9 +123,8 @@ class PlaylistsController < ApplicationController
                   :selected_palette, :primary_light_color, :primary_dark_color,
                   :text_light_color, :text_dark_color, :link_light_color, :link_dark_color,
                   :active_episode, :active_article, :active_faq_page, :active_how_to, :active_event, :active_item_list,
-                  :reserve_publish_time_at, :reserve_finish_time_at, :layout_pattern, :publish_level,
-                  :alias_id, :marked_header, :editor_data, :marked_footer,
-                  :author_type, :author_name, :publisher_type, :publisher_name, :api_state,
+                  :reserve_publish_time_at, :reserve_finish_time_at, :alias_id, :marked_header, :editor_data,
+                  :marked_footer, :author_type, :author_name, :publisher_type, :publisher_name, :api_state,
                   same_as_attributes: %i[id name url _destroy], citations_attributes: %i[id name url _destroy],
                   playlist_items_attributes: %i[episode_id],
                   keywords: [], hashtags: [])
