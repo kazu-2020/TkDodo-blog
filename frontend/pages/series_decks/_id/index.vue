@@ -155,16 +155,11 @@ export default Vue.extend({
   },
   mixins: [unloadAlertMixin],
   async asyncData({ store, params, error }) {
-    await store
-      .dispatch('decks/fetchSeriesDeck', {
-        targetId: params.id,
-        withSubtypeItemCount: true,
-      })
-      .catch((e) => {
-        if (e.response.status === 404) {
-          error({ statusCode: 404, message: e.response.data.messages })
-        }
-      })
+    await store.dispatch('decks/fetchSeriesDeck', params.id).catch((e) => {
+      if (e.response.status === 404) {
+        error({ statusCode: 404, message: e.response.data.messages })
+      }
+    })
   },
   data(): DataType {
     return {

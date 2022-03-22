@@ -13,6 +13,16 @@
           </div>
         </v-col>
       </v-row>
+      <v-row class="pt-4">
+        <v-col cols="12">
+          <series-playlist-search
+            :ignore-playlists="playlists"
+            :keywords.sync="keywords"
+            @add-playlist="addPlaylist"
+            @select-playlist="selectPlaylist"
+          />
+        </v-col>
+      </v-row>
     </div>
   </div>
 </template>
@@ -20,11 +30,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import SeriesDeckPlaylists from '~/components/seriesDecks/SeriesDeckPlaylists.vue'
+import SeriesPlaylistSearch from '~/components/seriesDecks/SeriesPlaylistSearch.vue'
 
 export default Vue.extend({
   name: 'SeriesDeckPlaylistEditTab',
   components: {
     SeriesDeckPlaylists,
+    SeriesPlaylistSearch,
   },
   props: {
     deck: {
@@ -35,6 +47,7 @@ export default Vue.extend({
   },
   data() {
     return {
+      keywords: '',
       selectedPlaylist: undefined,
       previewDrawer: false,
     }
