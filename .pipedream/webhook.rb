@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-github_token(ssm('/aw-editorialhands/codepipeline/github/token'))
+github_token(ssm('/editorialhands/codepipeline/github/token'))
