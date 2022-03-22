@@ -52,7 +52,8 @@ class SeriesDeck < ApplicationRecord
       series_playlist = playlists.find_by(series_id: series_id)
       next if series_playlist.id == reload.series_playlists[i].id
 
-      sort_target_deck_playlist = series_deck_playlists.find_by(series_deck_id: id, series_playlist_id: series_playlist.id)
+      sort_target_deck_playlist = series_deck_playlists.find_by(series_deck_id: id,
+                                                                series_playlist_id: series_playlist.id)
       sort_target_deck_playlist.set_list_position(i + 1)
     end
   end

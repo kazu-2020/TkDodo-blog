@@ -1,5 +1,5 @@
 json.result do
-  json.array! (@result[:result][:tvseries][:result] || []) do |series|
+  json.array!(@result[:result][:tvseries][:result] || []) do |series|
     json.name series[:name]
     json.seriesId series[:id]
     json.set_raw! :eyecatch, series[:eyecatch].to_json

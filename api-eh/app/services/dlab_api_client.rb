@@ -80,7 +80,8 @@ class DlabApiClient < DlabApiBase
   # @param [String] series_id: シリーズID
   # @param [Hash] query
   def series_ll_bundle_types(type:, series_id:, query: {})
-    res = client.get "/#{VERSION}/ll/bundle/#{type.downcase.first}s/#{series_id}/types.json", INTERNAL_PARAMS.merge(query)
+    res = client.get "/#{VERSION}/ll/bundle/#{type.downcase.first}s/#{series_id}/types.json",
+                     INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 
