@@ -56,8 +56,8 @@ export default Vue.extend({
   computed: {
     shouldIgnorePlaylist(): boolean {
       return this.ignorePlaylists
-        .map((pl: any) => pl.id)
-        .includes(this.playlist.id)
+        .map((pl: any) => pl.seriesId)
+        .includes(this.playlist.seriesId)
     },
     logoUrl(): string {
       if (this.playlist.logo !== undefined) {
