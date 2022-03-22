@@ -77,7 +77,7 @@ export default Vue.extend({
       return true
     },
     clickPlaylist() {
-      this.$emit('select-episode', this.episode)
+      this.$emit('select-playlist', this.playlist)
     },
   },
 })

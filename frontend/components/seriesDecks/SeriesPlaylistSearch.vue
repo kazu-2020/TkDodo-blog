@@ -189,15 +189,6 @@ export default Vue.extend({
       this.playlists.splice(this.playlists.indexOf(playlist), 1)
       this.$emit('add-playlist', playlist)
     },
-    searchWithDetail() {
-      this.menu = false
-      this.searchSeriesWithKeyword()
-    },
-    clearSearchPane() {
-      this.menu = false
-      this.editingKeywords = ''
-      this.playlists = []
-    },
     searchAdditionalPlaylists() {
       this.searchSeriesPlaylists({ clearCurrentSeriesPlaylists: false })
     },
