@@ -55,7 +55,7 @@
           unchecked: '#9e9e9e',
           disabled: '#9e9e9e',
         }"
-        width="90"
+        :width="90"
         :labels="{ checked: 'recommend', unchecked: 'series' }"
         class="mr-3"
         @change="switchDeckIndexPage"
