@@ -46,6 +46,20 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <v-spacer />
+      <toggle-button
+        v-show="shouldShowDeckSwitch"
+        :value="isDeckIndexPage"
+        :color="{
+          checked: '#9e9e9e',
+          unchecked: '#9e9e9e',
+          disabled: '#9e9e9e',
+        }"
+        width="90"
+        :labels="{ checked: 'recommend', unchecked: 'series' }"
+        class="mr-3"
+        @change="switchDeckIndexPage"
+      />
       <new-playlist-dialog
         :is-show-dialog="isShowNewPlaylistDialog"
         @hide-new-playlist-dialog="isShowNewPlaylistDialog = false"
@@ -145,10 +159,23 @@ export default Vue.extend({
     snackBarMessage(): string {
       return this.$store.state.loading.messages[this.snackBarState]
     },
+    shouldShowDeckSwitch(): boolean {
+      return this.$nuxt.$route.path === '/series_decks' || this.isDeckIndexPage
+    },
+    isDeckIndexPage(): boolean {
+      return this.$nuxt.$route.path === '/decks'
+    },
   },
   methods: {
     resetLoadingState() {
       this.$store.dispatch('loading/resetLoadingState')
+    },
+    switchDeckIndexPage() {
+      if (this.isDeckIndexPage) {
+        this.$router.push(`/series_decks`)
+      } else {
+        this.$router.push(`/decks`)
+      }
     },
   },
 })
