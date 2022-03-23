@@ -1,0 +1,8 @@
+{
+  "containerOverrides": [
+    {
+      "name": "rails",
+      "command": ["/usr/src/app/bin/execute_rake.sh","playlist_items:change_status_of_zombified_and_respawned_episodes"]
+    }
+  ]
+}

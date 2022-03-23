@@ -1,0 +1,4 @@
+version: '3'
+services:
+  terraform:
+    working_dir: /app/environments
