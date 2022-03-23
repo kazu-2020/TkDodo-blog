@@ -1,5 +1,3 @@
-import { EpisodeData } from '@/types/episode_data'
-
 export default class {
   static isOkushibuVideo(video: any) {
     return (
@@ -8,16 +6,14 @@ export default class {
     )
   }
 
-  static hasVideo(episode: EpisodeData) {
-    const videos = episode?.videos || []
+  static hasVideo(videos: any[]) {
     const okushibuVideo = videos.find((video: any) =>
       this.isOkushibuVideo(video)
     )
     return !!okushibuVideo
   }
 
-  static videoUrl(episode: EpisodeData) {
-    const videos = episode?.videos || []
+  static videoUrl(videos: any[]) {
     const okushibuVideo: any = videos.find((video: any) =>
       this.isOkushibuVideo(video)
     )

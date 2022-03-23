@@ -40,6 +40,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import ParseVideoHelper from '~/utils/ParseVideoHelper'
 
 export default Vue.extend({
   name: 'SeriesPlaylistSearchResultTableRow',
@@ -73,8 +74,9 @@ export default Vue.extend({
     addPlaylist(playlist: any): void {
       this.$emit('add-playlist', playlist)
     },
-    hasVideo(_playlist: any) {
-      return true
+    hasVideo(playlist: any) {
+      const videos = playlist?.videos || []
+      return ParseVideoHelper.hasVideo(videos)
     },
     clickPlaylist() {
       this.$emit('select-playlist', this.playlist)

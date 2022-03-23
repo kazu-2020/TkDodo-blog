@@ -12,6 +12,7 @@ if playlist.logo.present?
     end
   end
 end
+json.set_raw! :videos, playlist.videos.to_json
 
 json.itemNum playlist.episode_count
 json.howToCount playlist.how_to_count

@@ -40,8 +40,11 @@
             {{ playlist.name }}
           </td>
           <td>
-            TVEpisode: {{ playlist.itemNum }} HowTo: 0<br />
-            Event: 0 Recipe: 0
+            TVEpisode: {{ countWrapper(playlist.itemNum) }} HowTo:
+            {{ countWrapper(playlist.howToCount) }}
+            <br />
+            Event: {{ countWrapper(playlist.eventCount) }} FaqPage:
+            {{ countWrapper(playlist.faqPageCount) }}
           </td>
           <td>
             <v-chip
@@ -66,6 +69,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import draggable from 'vuedraggable'
+import ParseVideoHelper from '~/utils/ParseVideoHelper'
 
 export default Vue.extend({
   name: 'SeriesDeckPlaylist',
@@ -104,8 +108,12 @@ export default Vue.extend({
 
       return 'https://placehold.jp/40x40.png'
     },
-    hasVideo(playlist: any) {
-      return playlist.playablePlaylistItemCount !== 0
+    hasVideo(playlist: any): boolean {
+      const videos = playlist?.videos || []
+      return ParseVideoHelper.hasVideo(videos)
+    },
+    countWrapper(count: number | undefined): number | string {
+      return count === undefined ? '-' : count
     },
   },
 })

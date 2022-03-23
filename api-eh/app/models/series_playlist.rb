@@ -18,6 +18,10 @@ class SeriesPlaylist < ApplicationRecord
     series_api_response[:logo]
   end
 
+  def videos
+    series_api_response[:videos]
+  end
+
   def episodes(query: {})
     client.episode_from_series(type: 'tv', series_id: series_id, request_type: :l, query: query)
   rescue DlabApiClient::NotFound
