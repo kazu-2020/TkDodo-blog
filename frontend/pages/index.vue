@@ -236,7 +236,7 @@ import ArticleItem from '~/components/playlists/ArticleItem.vue'
 import PlaylistIndexBasicInformationView from '~/components/playlists/PlaylistIndexBasicInformationView.vue'
 import { Playlist } from '~/types/playlist'
 import { EpisodeData } from '~/types/episode_data'
-import ParseEpisodeHelper from '~/utils/ParseEpisodeHelper'
+import ParseVideoHelper from '~/utils/ParseVideoHelper'
 
 interface DataType {
   page: number
@@ -456,7 +456,8 @@ export default Vue.extend({
       }
     },
     hasVideo(episode: any) {
-      return ParseEpisodeHelper.hasVideo(episode)
+      const videos = episode.videos || []
+      return ParseVideoHelper.hasVideo(videos)
     },
     serviceLogoUrl(item: any) {
       return item?.releasedEvent?.publishedOn?.images?.badgeSmall?.url || ''

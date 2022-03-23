@@ -6,6 +6,7 @@ class DlabApiClient < DlabApiBase
   INTERNAL_PARAMS = { extendedEntities: true, ignoreRange: true }.freeze
   DEFAULT_OFFSET = 0
   DEFAULT_SIZE = 10
+  DEFAULT_TYPE = 'tvepisode'
   DEFAULT_SORT_ORDER = 'desc'
   DEFAULT_SORT_ORDER_BY = 'score'
 
@@ -17,19 +18,22 @@ class DlabApiClient < DlabApiBase
   # TVEpisode 検索APIをリクエストする
   #
   # @param [Hash] search_params
+  # rubocop: disable Metrics/AbcSize
   def search(search_params)
     offset = search_params[:offset] || DEFAULT_OFFSET
     ignore_range = search_params[:ignore_range].nil? ? true : search_params[:ignore_range]
     sort_order = search_params[:order] || DEFAULT_SORT_ORDER
     sort_order_by = search_params[:order_by] || DEFAULT_SORT_ORDER_BY
     size = search_params[:size] || DEFAULT_SIZE
-    merged_params = { type: 'TVEpisode', offset: offset, isFuzzy: true, ignoreRange: ignore_range,
+    type = search_params[:type] || DEFAULT_TYPE
+    merged_params = { type: type, offset: offset, isFuzzy: true, ignoreRange: ignore_range,
                       order: sort_order, orderBy: sort_order_by, size: size }
     merged_params.merge!(search_query_hash(search_params))
 
     res = client.get "/#{VERSION}/s/extended.json", INTERNAL_PARAMS.merge(merged_params)
     handle_response(res)
   end
+  # rubocop: enable Metrics/AbcSize
 
   # TVEpisode に紐づくサブタイプの数をリクエストする
   #
@@ -67,6 +71,17 @@ class DlabApiClient < DlabApiBase
   # @param [String] series_id: シリーズID
   def series(type:, series_id:)
     res = client.get "/#{VERSION}/t/tvseries/#{type.downcase.first}s/#{series_id}.json", INTERNAL_PARAMS
+    handle_response(res)
+  end
+
+  # Series タイプ総数一式をリクエストする
+  #
+  # @param [String] type: 'tv' or 'radio'
+  # @param [String] series_id: シリーズID
+  # @param [Hash] query
+  def series_ll_bundle_types(type:, series_id:, query: {})
+    res = client.get "/#{VERSION}/ll/bundle/#{type.downcase.first}s/#{series_id}/types.json",
+                     INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 

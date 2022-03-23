@@ -152,7 +152,7 @@ import moment from 'moment'
 import { Playlist } from '@/types/playlist'
 import EpisodePreviewGenresList from '~/components/playlists/EpisodePreviewGenresList.vue'
 import FluidVideoPlayer from '~/components/common/FluidVideoPlayer.vue'
-import ParseEpisodeHelper from '~/utils/ParseEpisodeHelper'
+import ParseVideoHelper from '~/utils/ParseVideoHelper'
 
 moment.locale('ja')
 
@@ -226,10 +226,12 @@ export default Vue.extend({
       return Math.min(halfSize, 400)
     },
     videoUrl(): string {
-      return ParseEpisodeHelper.videoUrl(this.episode)
+      const videos = this.episode?.videos || []
+      return ParseVideoHelper.videoUrl(videos)
     },
     hasVideo(): boolean {
-      return ParseEpisodeHelper.hasVideo(this.episode)
+      const videos = this.episode?.videos || []
+      return ParseVideoHelper.hasVideo(videos)
     },
   },
   watch: {

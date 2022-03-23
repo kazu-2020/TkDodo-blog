@@ -80,7 +80,9 @@ export const actions = actionTree(
       })
     },
     async fetchSeriesDeck({ commit }, targetId) {
-      await this.$axios.get(`/series_decks/${targetId}`).then((response) => {
+      const url = `/series_decks/${targetId}`
+
+      await this.$axios.get(url).then((response) => {
         commit('setEditingDeck', { deck: response.data.deck })
       })
     },

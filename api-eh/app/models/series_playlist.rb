@@ -18,10 +18,30 @@ class SeriesPlaylist < ApplicationRecord
     series_api_response[:logo]
   end
 
+  def videos
+    series_api_response[:videos]
+  end
+
   def episodes(query: {})
     client.episode_from_series(type: 'tv', series_id: series_id, request_type: :l, query: query)
   rescue DlabApiClient::NotFound
     {}
+  end
+
+  def episode_count
+    series_types_api_response[:tvepisode]&.[](:count) || 0
+  end
+
+  def how_to_count
+    series_types_api_response[:howto]&.[](:count) || 0
+  end
+
+  def event_count
+    series_types_api_response[:event]&.[](:count) || 0
+  end
+
+  def faq_page_count
+    series_types_api_response[:faqpage]&.[](:count) || 0
   end
 
   private
@@ -34,6 +54,15 @@ class SeriesPlaylist < ApplicationRecord
     @series_api_response ||=
       begin
         client.series(type: 'tv', series_id: series_id)
+      rescue DlabApiClient::NotFound
+        {}
+      end
+  end
+
+  def series_types_api_response
+    @series_types_api_response ||=
+      begin
+        client.series_ll_bundle_types(type: 'tv', series_id: series_id)
       rescue DlabApiClient::NotFound
         {}
       end

@@ -70,7 +70,7 @@
 import Vue from 'vue'
 import moment from 'moment'
 import draggable from 'vuedraggable'
-import ParseEpisodeHelper from '~/utils/ParseEpisodeHelper'
+import ParseVideoHelper from '~/utils/ParseVideoHelper'
 
 export default Vue.extend({
   name: 'PlaylistEpisodesList',
@@ -138,7 +138,8 @@ export default Vue.extend({
       ).slice(-2)}`
     },
     hasVideo(episode: any) {
-      return ParseEpisodeHelper.hasVideo(episode)
+      const videos = episode?.videos || []
+      return ParseVideoHelper.hasVideo(videos)
     },
   },
 })

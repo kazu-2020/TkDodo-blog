@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     member do
       get :episodes
     end
+
+    collection do
+      get :search
+    end
   end
 
   resources :deck_labels, only: :index, format: 'json'

@@ -43,11 +43,13 @@ interface Breadcrumb {
 export default Vue.extend({
   name: 'DeckAdminConfig',
   async asyncData({ store, params, error }) {
-    await store.dispatch('decks/fetchSeriesDeck', params.id).catch((e) => {
-      if (e.response.status === 404) {
-        error({ statusCode: 404, message: e.response.data.messages })
-      }
-    })
+    await store
+      .dispatch('decks/fetchSeriesDeck', { targetId: params.id })
+      .catch((e) => {
+        if (e.response.status === 404) {
+          error({ statusCode: 404, message: e.response.data.messages })
+        }
+      })
   },
   computed: {
     breadcrumbItems(): Breadcrumb[] {
@@ -92,7 +94,7 @@ export default Vue.extend({
 
       for (const key in body) {
         if (body[key] !== null && body[key] !== undefined) {
-          data.append(`deck[${key}]`, body[key] as string)
+          data.append(`series_deck[${key}]`, body[key] as string)
         }
       }
 

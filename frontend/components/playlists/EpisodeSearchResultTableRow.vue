@@ -51,7 +51,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import moment from 'moment'
-import ParseEpisodeHelper from '~/utils/ParseEpisodeHelper'
+import ParseVideoHelper from '~/utils/ParseVideoHelper'
 
 moment.locale('ja')
 
@@ -121,7 +121,8 @@ export default Vue.extend({
       ).slice(-2)}`
     },
     hasVideo(episode: any) {
-      return ParseEpisodeHelper.hasVideo(episode)
+      const videos = episode?.videos || []
+      return ParseVideoHelper.hasVideo(videos)
     },
     clickEpisode() {
       this.$emit('select-episode', this.episode)

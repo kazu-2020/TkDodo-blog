@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import ParseEpisodeHelper from '~/utils/ParseEpisodeHelper'
+import ParseVideoHelper from '~/utils/ParseVideoHelper'
 
 interface DataType {
   isShowSeriesName: boolean
@@ -62,7 +62,8 @@ export default Vue.extend({
       this.isShowSeriesName = false
     },
     hasVideo(episode: any) {
-      return ParseEpisodeHelper.hasVideo(episode)
+      const videos = episode?.videos || []
+      return ParseVideoHelper.hasVideo(videos)
     },
   },
 })
