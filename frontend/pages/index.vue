@@ -456,7 +456,7 @@ export default Vue.extend({
       }
     },
     hasVideo(episode: any) {
-      const videos = episode.videos || []
+      const videos = episode?.videos || []
       return ParseVideoHelper.hasVideo(videos)
     },
     serviceLogoUrl(item: any) {
