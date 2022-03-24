@@ -7,6 +7,10 @@ class SeriesDeck < ApplicationRecord
   # has_many :series_deck_same_as, dependent: :destroy
   # accepts_nested_attributes_for :series_deck_same_as, allow_destroy: true
   # belongs_to :series_deck_label, optional: true
+  before_validation :set_default_values
+
+  before_save :set_string_id
+  after_create :set_initial_string_id
 
   def rebuild_playlists_to(new_playlist_series_ids)
     current_playlists = series_playlists.pluck(:series_id)
@@ -25,6 +29,28 @@ class SeriesDeck < ApplicationRecord
   end
 
   private
+
+  def set_default_values
+    self.deck_uid = SecureRandom.uuid if deck_uid.blank?
+    self.string_id = SecureRandom.uuid
+    self.mode_of_item ||= 'tv'
+    self.type_of_item ||= 'TVEpisode'
+  end
+
+  def set_initial_string_id(with_save: true)
+    return if id.nil?
+
+    self.string_id = "#{type_of_deck}-#{mode_of_item}-for-#{interfix}-#{format('%010d', id)}"
+    save if with_save
+  end
+
+  def set_string_id
+    if will_save_change_to_attribute?('type_of_deck') ||
+       will_save_change_to_attribute?('mode_of_item') ||
+       will_save_change_to_attribute?('interfix')
+      set_initial_string_id(with_save: false)
+    end
+  end
 
   def add_playlists!(series_ids)
     series_ids.each do |series_id|

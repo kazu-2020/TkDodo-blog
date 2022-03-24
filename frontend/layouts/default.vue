@@ -48,6 +48,9 @@
           <v-list-item :to="'/series_decks'">
             <v-list-item-title>シリーズ一覧</v-list-item-title>
           </v-list-item>
+          <v-list-item :to="'/series_decks/new'">
+            <v-list-item-title>シリーズ新規作成</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
       <new-playlist-dialog

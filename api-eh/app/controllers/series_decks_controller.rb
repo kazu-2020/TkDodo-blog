@@ -15,6 +15,19 @@ class SeriesDecksController < ApplicationController
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @series_deck
   end
 
+  def create
+    @series_deck = SeriesDeck.new(series_deck_params)
+
+    begin
+      @series_deck.save!
+
+      playlist_series_ids = params.require(:series_deck).permit(playlists: [])[:playlists] || []
+      @series_deck.rebuild_playlists_to(playlist_series_ids)
+    rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
+      render json: { messages: @series_deck.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   def update
     @series_deck = SeriesDeck.find_by(id: params[:id])
     if @series_deck.update(series_deck_params)
