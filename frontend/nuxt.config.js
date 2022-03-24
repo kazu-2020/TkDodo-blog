@@ -43,7 +43,6 @@ export default {
    */
   plugins: [
     '~/plugins/vue-json-pretty',
-    '~/plugins/vue-js-toggle-button.js',
     '~/plugins/vue-scrollto.js',
     '~/plugins/vue-the-mask.js',
     '~/plugins/axios.js',
