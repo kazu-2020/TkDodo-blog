@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :series_decks, only: %i[index show update destroy], format: 'json' do
+  resources :series_decks, only: %i[index show create update destroy], format: 'json' do
     member do
       get :playlists
     end

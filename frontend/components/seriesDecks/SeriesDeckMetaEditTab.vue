@@ -14,7 +14,7 @@
               />
             </v-col>
             <v-col cols="12">
-              <span class="mr-2">recommend-tv-for-</span>
+              <span class="mr-2">series-tv-for-</span>
               <v-text-field
                 v-model="interfix"
                 :rules="interfixRules"
