@@ -10,7 +10,7 @@ if ENV['USE_S3_SHRINE'] || is_tomigaya_env
 
   bucket_name =
     if Rails.env.development? || Rails.env.dev?
-      'tomigaya-dev-aw-editorialhands-resources'
+      'tomigaya-dev-editorialhands-resources'
     elsif Rails.env.staging?
       'tomigaya-stg-editorialhands-resources'
     elsif Rails.env.production?
