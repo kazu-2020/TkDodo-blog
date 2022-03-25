@@ -270,6 +270,15 @@ resource "aws_cloudfront_distribution" "hosting_distribution" {
     include_cookies = false
   }
 
+  origin {
+    domain_name = data.terraform_remote_state.shared_resources.outputs.resources_bucket.bucket_domain_name
+    origin_id   = data.terraform_remote_state.shared_resources.outputs.resources_bucket.id
+
+    s3_origin_config {
+      origin_access_identity = "origin-access-identity/cloudfront/${data.terraform_remote_state.shared_resources.outputs.resources_bucket.origin_access_identity_id}"
+    }
+  }
+
   ordered_cache_behavior {
     allowed_methods = [
       "GET",
@@ -290,7 +299,7 @@ resource "aws_cloudfront_distribution" "hosting_distribution" {
     ]
     compress               = true
     path_pattern           = "static/assets/*"
-    target_origin_id       = "${local.env_resource_prefix}-hosting-s3"
+    target_origin_id = data.terraform_remote_state.shared_resources.outputs.resources_bucket.id
     viewer_protocol_policy = "redirect-to-https"
   }
 
