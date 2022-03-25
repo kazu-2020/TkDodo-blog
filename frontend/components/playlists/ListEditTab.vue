@@ -1,13 +1,5 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="12">
-        <related-playlists
-          :keywords="playlistKeywords"
-          :items="playlistItems"
-        />
-      </v-col>
-    </v-row>
     <div class="list-item-container container-fluid white rounded px-5 py-2">
       <v-row @click="closePreviewDrawer">
         <v-col cols="12">
@@ -91,7 +83,6 @@ import PlaylistEpisodesList from '~/components/playlists/PlaylistEpisodesList.vu
 import PlaylistEpisodeSearch from '~/components/playlists/PlaylistEpisodeSearch.vue'
 import EpisodePreviewDrawer from '~/components/playlists/EpisodePreviewDrawer.vue'
 import EpisodeSearchResultTableRow from '~/components/playlists/EpisodeSearchResultTableRow.vue'
-import RelatedPlaylists from '~/components/playlists/RelatedPlaylists.vue'
 
 interface DataType {
   keywords: string
@@ -107,7 +98,6 @@ export default Vue.extend({
     PlaylistEpisodeSearch,
     EpisodePreviewDrawer,
     EpisodeSearchResultTableRow,
-    RelatedPlaylists,
   },
   props: {
     playlist: {
