@@ -130,6 +130,6 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   config.shrine_config = {
-    default_url: 'https://d17gydtbztpxlw.cloudfront.net'
+    default_url: 'https://stg-eh.nr.nhk.jp'
   }
 end
