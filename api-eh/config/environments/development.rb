@@ -76,7 +76,7 @@ Rails.application.configure do
 
   default_url =
     if ENV['USE_S3_SHRINE']
-      'https://d1zefghvqpvnvt.cloudfront.net'
+      'https://dev-eh.nr.nhk.jp'
     else
       'http://localhost:8888'
     end
