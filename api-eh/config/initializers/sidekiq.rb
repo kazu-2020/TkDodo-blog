@@ -12,7 +12,7 @@ Sidekiq.configure_server do |config|
     SidekiqScheduler::Scheduler.instance.reload_schedule!
   end
 
-  config.error_handlers << proc { |ex, ctx_hash| SidekiqErrorNotify.call(ex, ctx_hash) }
+  # config.error_handlers << proc { |ex, ctx_hash| SidekiqErrorNotify.call(ex, ctx_hash) }
   config.server_middleware do |chain|
     # メモリ使用率が80%を超えた場合Workerをkill (1600 / 2048 ≒ 80%)
     chain.add Sidekiq::WorkerKiller, max_rss: 1600
