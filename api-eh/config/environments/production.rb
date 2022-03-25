@@ -29,7 +29,7 @@ Rails.application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
-  config.action_controller.asset_host = '//dev-api-eh.nr.nhk.jp'
+  config.action_controller.asset_host = '//api-eh.nr.nhk.jp'
   config.assets.prefix = '/dev/assets'
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
@@ -130,6 +130,6 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   config.shrine_config = {
-    default_url: 'https://d1zefghvqpvnvt.cloudfront.net'
+    default_url: 'https://eh.nr.nhk.jp'
   }
 end
