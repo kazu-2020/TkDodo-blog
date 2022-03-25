@@ -8,9 +8,20 @@ is_tomigaya_env = ![nil, 'development', 'test'].include?(environment_name)
 if ENV['USE_S3_SHRINE'] || is_tomigaya_env
   require 'shrine/storage/s3'
 
+  bucket_name =
+    if Rails.env.development? || Rails.env.dev?
+      'tomigaya-dev-aw-editorialhands-resources'
+    elsif Rails.env.staging?
+      'tomigaya-stg-editorialhands-resources'
+    elsif Rails.env.production?
+      'tomigaya-prd-editorialhands-resources'
+    else
+      'dummy'
+    end
+
   s3_options = {
     region: 'ap-northeast-1',
-    bucket: 'tomigaya-dev-aw-editorialhands-resources'
+    bucket: bucket_name
   }
 
   cache_storage = Shrine::Storage::S3.new(prefix: 'static/assets/cache', **s3_options)
