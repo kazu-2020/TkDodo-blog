@@ -18,7 +18,7 @@ if defined?(AssetSync)
     # Use http instead of https. Default should be "https" (at least for fog-aws)
     # config.fog_scheme = "http"
     config.fog_directory = if Rails.env.dev?
-                             'tomigaya-dev-api-eh-assets'
+                             'tomigaya-dev-editorialhands-assets'
                            elsif Rails.env.staging?
                              'tomigaya-stg-editorialhands-assets'
                            elsif Rails.env.production?
