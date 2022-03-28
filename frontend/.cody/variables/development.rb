@@ -6,5 +6,5 @@
   NODE_ENV: 'development',
   API_URL: 'https://dev-api-eh.nr.nhk.jp',
   S3_HOSTING_BUCKET_NAME: 'tomigaya-dev-editorialhands-hosting',
-  CF_DISTRIBUTION_ID: 'DUMMY' # FIXME: DUMMY
+  CF_DISTRIBUTION_ID: 'E24JXRGPBUCJJN'
 }
