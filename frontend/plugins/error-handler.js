@@ -37,6 +37,7 @@ export default (context, _inject) => {
     const data = {
       text: message + `\n Error occured at "${context.route.fullPath}"`,
     }
-    context.$axios.post('/slack/incoming_webhook', JSON.stringify(data))
+    console.error(text)
+    // context.$axios.post('/slack/incoming_webhook', JSON.stringify(data))
   }
 }
