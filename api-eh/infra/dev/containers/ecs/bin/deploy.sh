@@ -19,6 +19,7 @@ if [ -n "$ENV" -a "$ENV" = "dev" ]; then
   export ALB_TARGET_ARN=dummy
   export DESIRED_COUNT=1
   export DESIRED_COUNT_SIDEKIQ=1
+  export ENV_KEY=dev
 
   # コンテナに渡す環境変数(circleciで設定)
   cat < ./api-eh/infra/${ENV_KEY}/containers/ecs/common.env > ./api-eh/infra/${ENV_KEY}/containers/ecs/${ENV}.env.gen
