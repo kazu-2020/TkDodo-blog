@@ -5,7 +5,7 @@
 初回のみ
 
 ```
-aws-vault exec nhk-tomigaya-dev -- aws ecr create-repository --repository-name aw-editorialhands-deployer
+aws-vault exec nhk-tomigaya-dev -- aws ecr create-repository --repository-name editorialhands-app
 ```
 
 ## ecr へのアップロード
@@ -25,7 +25,7 @@ aw-editorialhands/api-eh ディレクトリにいる状態で下記コマンド
 export DEPLOYER_VERSION=v6
 
 # build containerビルド
-docker build -t 359601428599.dkr.ecr.ap-northeast-1.amazonaws.com/aw-editorialhands-deployer:${DEPLOYER_VERSION} infra/dev/containers/deployer
+docker build -t 359601428599.dkr.ecr.ap-northeast-1.amazonaws.com/editorialhands-app:${DEPLOYER_VERSION} infra/dev/containers/deployer
 # build containerをecrにpush
-docker push 359601428599.dkr.ecr.ap-northeast-1.amazonaws.com/aw-editorialhands-deployer:${DEPLOYER_VERSION}
+docker push 359601428599.dkr.ecr.ap-northeast-1.amazonaws.com/editorialhands-app:${DEPLOYER_VERSION}
 ```
