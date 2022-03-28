@@ -31,15 +31,15 @@ $ bundle exec cody start
   - default: `development`
   - note: `variables` のどのファイルを参照するかを決めるための環境変数
 
-### 各環境へのデプロイ例
+### 各環境へのデプロイ例-- 
 
 ```
 # For development
-$ aws-vault exec nhk-tomigaya-dev bundle exec cody deploy
+$ aws-vault exec nhk-tomigaya-dev -- bundle exec cody deploy
 # For staging
-$ CODY_ENV=staging aws-vault exec nhk-tomigaya-stg bundle exec cody deploy
+$ CODY_ENV=staging aws-vault exec nhk-tomigaya-stg -- bundle exec cody deploy
 # For production
-$ CODY_ENV=production aws-vault exec nhk-tomigaya-prd bundle exec cody deploy
+$ CODY_ENV=production aws-vault exec nhk-tomigaya-prd -- bundle exec cody deploy
 ```
 
 ### 新たな環境用の CodeBuild を増やしたい場合
@@ -78,7 +78,7 @@ develop2:
 #### CodeBuild をデプロイする
 
 ```
-$ CODY_ENV=develop2 aws-vault exec tomigaya-prd bundle exec cody deploy
+$ CODY_ENV=develop2 aws-vault exec tomigaya-prd -- bundle exec cody deploy
 ```
 
 これで新しい環境用の CodeBuild が用意完了となります。
