@@ -9,12 +9,13 @@ RSpec.describe LogoUploader, type: :model do
 
   describe :strip do
     it do
+      playlist.reload
       expect(derivatives[:default]).to be_kind_of(Shrine::UploadedFile)
       expect(derivatives[:small]).to be_kind_of(Shrine::UploadedFile)
       expect(derivatives[:medium]).to be_kind_of(Shrine::UploadedFile)
 
       # exifが消えてるか確認
-      path = File.expand_path("public/uploads/test/#{image.id}")
+      path = File.expand_path("public/uploads/test/private/#{image.id}")
       image = MiniMagick::Image.open(path)
       expect(image.exif).to be_blank
     end
