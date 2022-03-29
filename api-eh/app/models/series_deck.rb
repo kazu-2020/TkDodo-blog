@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SeriesDeck < ApplicationRecord
+  include ApiStatable
+
   has_many :series_deck_playlists, -> { order(position: :asc) }, dependent: :destroy
   has_many :series_playlists, through: :series_deck_playlists
   accepts_nested_attributes_for :series_playlists
