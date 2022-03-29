@@ -4,9 +4,6 @@ NullJob:
 AddTempSeriesDeckDataJob:
   at: '3001/01/01'
   description: 'シリーズデッキの仮データを投入する https://github.com/d7lab/aw-editorialhands/issues/965'
-MoveImagesJob:
-  at: '3001/01/01'
-  description: '全プレイリストと記事画像を上げなおす。パスの仕様変更などがあった場合に利用する'
 FillPlaylistDefaultValueJob:
   at: '3001/01/01'
   description: '全プレイリストの publish_level を full にし、layout_pattern を summary にする'
