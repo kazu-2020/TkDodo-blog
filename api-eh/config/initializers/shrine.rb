@@ -8,44 +8,49 @@ is_tomigaya_env = ![nil, 'development', 'test'].include?(environment_name)
 if ENV['USE_S3_SHRINE'] || is_tomigaya_env
   require 'shrine/storage/s3'
 
-  bucket_name =
+  base_bucket =
     if Rails.env.development? || Rails.env.dev?
-      'tomigaya-dev-editorialhands-resources'
+      'tomigaya-dev-editorialhands-images'
     elsif Rails.env.staging?
-      'tomigaya-stg-editorialhands-resources'
+      'tomigaya-stg-editorialhands-images'
     elsif Rails.env.production?
-      'tomigaya-prd-editorialhands-resources'
+      'tomigaya-prd-editorialhands-images'
     else
-      'dummy'
+      raise '設定して下さい'
     end
 
   s3_options = {
     region: 'ap-northeast-1',
-    bucket: bucket_name
+    bucket: base_bucket
   }
 
-  cache_storage = Shrine::Storage::S3.new(prefix: 'static/assets/cache', **s3_options)
-  store_storage = Shrine::Storage::S3.new(prefix: 'static/assets/images', **s3_options)
+  private_s3_options = if Rails.env.dev?
+                         s3_options.merge(bucket: 'tomigaya-dev-editorialhands-resources')
+                       elsif Rails.env.staging?
+                         s3_options.merge(bucket: 'tomigaya-stg-editorialhands-resources')
+                       elsif Rails.env.production?
+                         s3_options.merge(bucket: 'tomigaya-prd-editorialhands-resources')
+                       else
+                         raise '設定して下さい'
+                       end
+
+  public_store = Shrine::Storage::S3.new(prefix: 'static/assets/images', **s3_options)
+  private_store = Shrine::Storage::S3.new(prefix: 'static/assets/images', **private_s3_options)
+  private_cache = Shrine::Storage::S3.new(prefix: 'static/assets/cache', **private_s3_options)
 else
   require 'shrine/storage/file_system'
 
   prefix = environment_name == 'test' ? 'uploads/test' : 'uploads'
-  cache_storage = Shrine::Storage::FileSystem.new('public', prefix: "#{prefix}/cache")
-  store_storage = Shrine::Storage::FileSystem.new('public', prefix: prefix)
+  public_store = Shrine::Storage::FileSystem.new('public', prefix: "#{prefix}/public")
+  private_store = Shrine::Storage::FileSystem.new('public', prefix: "#{prefix}/private")
+  private_cache = Shrine::Storage::FileSystem.new('public', prefix: "#{prefix}/private/cache")
 end
 
 Shrine.storages = {
-  cache: cache_storage, # temporary
-  store: store_storage # permanent
+  cache: private_cache, # temporary
+  store: private_store, # permanent
+  public_store: public_store # 公開バケット
 }
-
-module KeepFilesWithDeleteOption
-  module AttacherMethods
-    def destroy?
-      record.respond_to?(:remove_shrine_image?) && record.remove_shrine_image?
-    end
-  end
-end
 
 Shrine.plugin :activerecord           # loads Active Record integration
 Shrine.plugin :cached_attachment_data # enables retaining cached file across form redisplays
@@ -54,4 +59,32 @@ Shrine.plugin :determine_mime_type    # mime typeを判定してくれるプラ�
 Shrine.plugin :remote_url, max_size: 20 * 1024 * 1024
 Shrine.plugin :restore_cached_data    # extracts metadata for assigned cached files
 Shrine.plugin :validation
+module KeepFilesWithDeleteOption
+  module AttacherMethods
+    def destroy?
+      record.respond_to?(:remove_shrine_image?) && record.remove_shrine_image?
+    end
+  end
+end
 Shrine.plugin KeepFilesWithDeleteOption
+
+# background job
+Shrine.plugin :backgrounding
+Shrine::Attacher.promote_block do
+  PromoteImageJob.perform_async(self.class.name, record.class.name, record.id, name, file_data)
+end
+Shrine::Attacher.destroy_block do
+  DestroyImageJob.perform_async(self.class.name, data)
+end
+
+# https://shrinerb.com/docs/plugins/mirroring
+# FIXME: 公開/非公開制御を実装するまで常に公開バケットにアップロードする
+# Shrine.plugin :mirroring, mirror: { store: :public_store }, upload: false
+Shrine.plugin :mirroring, mirror: { store: :public_store }
+Shrine.mirror_upload_block do |file, **_options|
+  MirrorUploadImageJob.perform_async(file.shrine_class.name, file.data)
+end
+
+Shrine.mirror_delete_block do |file|
+  MirrorDeleteImageJob.perform_async(file.shrine_class.name, file.data)
+end
