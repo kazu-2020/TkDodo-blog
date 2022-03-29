@@ -4,52 +4,82 @@ on:
   push:
     paths:
       - "api-eh/**"
-      - ".github/workflows/test-backend.yml"
+      - ".github/workflows/ci-backend.yml"
+
+env:
+  RAILS_ENV: test
+  DB_NAME: editorialhands_test
+
+defaults:
+  run:
+    working-directory: api-eh
 
 jobs:
-  lint-and-test:
-    env:
-      RAILS_ENV: test
-      working-directory: ./api-eh
-      DB_NAME: editorialhands_test
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+  prepare:
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
-      - name: Build the Docker compose
-        run: docker compose build
-        working-directory: ${{env.working-directory}}
-      - name: Run setup
-        run: docker compose run rails bin/setup
-        working-directory: ${{env.working-directory}}
-      - name: Run Lint
-        run: docker compose run rails bundle exec rubocop
-        working-directory: ${{env.working-directory}}
-      - name: Run Rspec
-        run: docker compose run rails bundle exec rspec
-        working-directory: ${{env.working-directory}}
-      - name: make schemaspy.properties
-        run: echo -e "
-          schemaspy.t=mysql\n
-          schemaspy.dp=\n
-          schemaspy.host=0.0.0.0\n
-          schemaspy.port=4306\n
-          schemaspy.db=$DB_NAME\n
-          schemaspy.u=root\n
-          schemaspy.p=\n
-          schemaspy.o=\n
-          schemaspy.s=$DB_NAME\n
-          " > /tmp/schemaspy.properties
-      - name: Prepare a dir for schemaspy output
-        run: mkdir -m 777 /tmp/output
-      - name: run schemaspy
-        run: docker run --rm --net=host -v "/tmp/output:/output" -v "/tmp/schemaspy.properties:/schemaspy.properties" schemaspy/schemaspy:latest -rails
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+          cache-dependency-path: ./api-eh/yarn.lock
+      - name: yarn install
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.2
+          bundler-cache: true
+          working-directory: ./api-eh
+      - run: bundle exec rubocop
+
+  lint-and-test:
+    runs-on: ubuntu-18.04
+    needs: prepare
+    strategy:
+      fail-fast: false
+      matrix:
+        parallelism: [ 5 ]
+        id: [ 0,1,2,3,4 ]
+    steps:
+      - uses: actions/checkout@v1
+      - name: ja_JP.UTF-8
+        run: |
+          sudo locale-gen ja_JP.UTF-8
+          sudo update-locale LANG=ja_JP.UTF-8
+      - name: Install packages
+        run: |
+          sudo apt update
+          sudo apt install ghostscript fonts-vlgothic
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+          cache-dependency-path: ./api-eh/yarn.lock
+      - name: yarn install
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.2
+          bundler-cache: true
+          working-directory: ./api-eh
+      - name: Database prepare
+        run: |
+          mysql --version
+          sudo service mysql start
+          cp -v config/database.ci.yml config/database.yml
+          bin/rails db:prepare
+      - run: bin/test_splitter -p ${{ matrix.parallelism }} -i ${{ matrix.id }} | xargs bundle exec rspec
       - uses: actions/upload-artifact@v2
         with:
           name: test-results
           retention-days: 7
           path: |
-            /tmp/output/**/*
+            api-eh/log/**/*
+            api-eh/tmp/screenshots/**/*
+            api-eh/tmp/capybara/**/*
         if: always()
       - name: action-slack
         uses: 8398a7/action-slack@v3

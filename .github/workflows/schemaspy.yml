@@ -1,0 +1,47 @@
+name: Create Database ER diagrams by schemaspy
+
+on:
+  push:
+    paths:
+      - "api-eh/db/schema.rb"
+      - ".github/workflows/schemaspy.yml"
+
+jobs:
+  schemaspy:
+    env:
+      RAILS_ENV: test
+      working-directory: ./api-eh
+      DB_NAME: editorialhands_test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build the Docker compose
+        run: docker compose build
+        working-directory: ${{env.working-directory}}
+      - name: Run setup
+        run: docker compose run rails bin/setup
+        working-directory: ${{env.working-directory}}
+      - name: make schemaspy.properties
+        run: echo -e "
+          schemaspy.t=mysql\n
+          schemaspy.dp=\n
+          schemaspy.host=0.0.0.0\n
+          schemaspy.port=4306\n
+          schemaspy.db=$DB_NAME\n
+          schemaspy.u=root\n
+          schemaspy.p=\n
+          schemaspy.o=\n
+          schemaspy.s=$DB_NAME\n
+          " > /tmp/schemaspy.properties
+      - name: Prepare a dir for schemaspy output
+        run: mkdir -m 777 /tmp/output
+      - name: run schemaspy
+        run: docker run --rm --net=host -v "/tmp/output:/output" -v "/tmp/schemaspy.properties:/schemaspy.properties" schemaspy/schemaspy:latest -rails
+      - uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          retention-days: 7
+          path: |
+            /tmp/output/**/*
+        if: always()
