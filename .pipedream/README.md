@@ -25,8 +25,8 @@ $ bundle exec pipe start
 `develop` `staging` `production` の環境が用意されており、それぞれの環境に CodePipeline の設定をデプロイするときには、以下の環境変数を設定の上、コマンドを実行してください。
 
 - PIPE_ENV
-  - enum: `development`, `staging`, `production`
-  - default: `development`
+  - enum: `dev`, `staging`, `production`
+  - default: `dev`
   - note: CodeBuild の project を指定するための環境変数
 - PIPELINE_TARGET_BRANCH
   - enum: `develop`, `staging`, `master`
@@ -39,7 +39,7 @@ $ bundle exec pipe start
 
 ```
 # For development
-$ PIPE_ENV=development PIPELINE_TARGET_BRANCH=develop aws-vault exec nhk-tomigaya-dev -- bundle exec pipe deploy
+$ PIPE_ENV=dev PIPELINE_TARGET_BRANCH=develop aws-vault exec nhk-tomigaya-dev -- bundle exec pipe deploy
 # For staging
 $ PIPE_ENV=staging PIPELINE_TARGET_BRANCH=staging aws-vault exec nhk-tomigaya-stg -- bundle exec pipe deploy
 # For production

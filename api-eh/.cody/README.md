@@ -27,15 +27,15 @@ $ bundle exec cody start
 `develop` `staging` `production` の環境が用意されており、それぞれの環境に CodeBuild の設定をデプロイするときには、以下の環境変数を設定の上、コマンドを実行してください。
 
 - CODY_ENV
-  - enum: `development`, `staging`, `production`
-  - default: `development`
+  - enum: `dev`, `staging`, `production`
+  - default: `dev`
   - note: `variables` のどのファイルを参照するかを決めるための環境変数
 
 ### 各環境へのデプロイ例-- 
 
 ```
-# For development
-$ aws-vault exec nhk-tomigaya-dev -- bundle exec cody deploy
+# For dev
+$ CODY_ENV=dev aws-vault exec nhk-tomigaya-dev -- bundle exec cody deploy
 # For staging
 $ CODY_ENV=staging aws-vault exec nhk-tomigaya-stg -- bundle exec cody deploy
 # For production

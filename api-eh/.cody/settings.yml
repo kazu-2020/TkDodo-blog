@@ -2,7 +2,7 @@ base:
   stack_naming:
     append_env: true
 
-development:
+dev:
   # aws_profile: tomigaya-dev
 
 staging:
