@@ -10,6 +10,9 @@ MoveImagesJob:
 FillPlaylistDefaultValueJob:
   at: '3001/01/01'
   description: '全プレイリストの publish_level を full にし、layout_pattern を summary にする'
+OpenAllSeriesDecksJob:
+  at: '3001/01/01'
+  description: '全シリーズデッキを公開状態にする'
 RemoveMissingArticleImagesJob:
   every: '24h'
   description: 'プレイリストに紐付いていない古い記事画像の削除'

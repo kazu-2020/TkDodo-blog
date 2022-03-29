@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_18_105200) do
+ActiveRecord::Schema.define(version: 2022_03_29_154200) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", comment: "プレイリストID"
@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(version: 2022_03_18_105200) do
     t.string "mode_of_item", default: "tv", null: false, comment: "デッキを構成するプレイリストのアイテムモード"
     t.string "type_of_item", default: "TVEpisode", null: false, comment: "デッキを構成するプレイリストのアイテムタイプ"
     t.string "interfix", null: false, comment: "deckId の中間接辞"
+    t.integer "api_state", null: false, comment: "APIの公開状態 close: 0, open: 1, waiting: 2"
     t.string "admin_memo", comment: "管理メモ"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
