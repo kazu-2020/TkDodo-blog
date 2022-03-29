@@ -4,6 +4,7 @@ json.description series_deck.description
 json.interfix series_deck.interfix
 json.playlistCount series_deck.series_playlists.select(&:active?).count
 json.adminMemo series_deck.admin_memo
+json.apiState series_deck.api_state
 json.playlists do
   json.array! series_deck.series_playlists.select(&:active?), partial: 'series_decks/simple_playlist', as: :playlist
 end
