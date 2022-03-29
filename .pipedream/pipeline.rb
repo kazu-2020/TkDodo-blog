@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-pipe_env = ENV['PIPE_ENV'] || 'development'
+pipe_env = ENV['PIPE_ENV'] || 'dev'
 target_branch = ENV['PIPELINE_TARGET_BRANCH'] || 'develop'
 
 stage 'Source' do
