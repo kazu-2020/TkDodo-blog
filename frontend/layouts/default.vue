@@ -36,20 +36,20 @@
         </template>
         <v-list>
           <v-list-item :to="'/decks'">
-            <v-list-item-title>レコメンド一覧</v-list-item-title>
+            <v-list-item-title>レコメンドデッキ一覧</v-list-item-title>
           </v-list-item>
           <v-list-item :to="'/decks/new'">
-            <v-list-item-title>レコメンド新規作成 </v-list-item-title>
+            <v-list-item-title>レコメンドデッキ新規作成</v-list-item-title>
           </v-list-item>
           <v-list-item :to="'/decks/viewer'">
-            <v-list-item-title>レコメンドデッキビューア </v-list-item-title>
+            <v-list-item-title>レコメンドデッキビューア</v-list-item-title>
           </v-list-item>
           <v-divider />
           <v-list-item :to="'/series_decks'">
-            <v-list-item-title>シリーズ一覧</v-list-item-title>
+            <v-list-item-title>シリーズデッキ一覧</v-list-item-title>
           </v-list-item>
           <v-list-item :to="'/series_decks/new'">
-            <v-list-item-title>シリーズ新規作成</v-list-item-title>
+            <v-list-item-title>シリーズデッキ新規作成</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>

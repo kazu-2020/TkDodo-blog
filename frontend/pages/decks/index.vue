@@ -66,6 +66,11 @@
         <v-col cols="3">
           <deck-api-state-badge :deck="selectedDeck" />
         </v-col>
+        <v-col cols="auto">
+          <v-chip class="my-1" color="primary" small @click="copyDeckStringId">
+            {{ selectedDeckStringId }}
+          </v-chip>
+        </v-col>
         <v-col cols="12">
           {{ selectedDeckDescription }}
         </v-col>
@@ -121,6 +126,14 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <v-snackbar v-model="snackbar" timeout="2000">
+      コピーしました
+      <template #action="{ attrs }">
+        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+          閉じる
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-layout>
 </template>
 
@@ -142,6 +155,7 @@ interface DataType {
   selectedApiStateFilter: string
   searchKeyword: string | undefined
   isShowLoadingDialog: boolean
+  snackbar: boolean
 }
 
 export default Vue.extend({
@@ -167,6 +181,7 @@ export default Vue.extend({
       isShowLoadingDialog: false,
       selectedDeck: undefined,
       selectedDeckPlaylists: [],
+      snackbar: false,
     }
   },
   computed: {
@@ -189,8 +204,17 @@ export default Vue.extend({
     selectedDeckId(): string {
       return this.selectedDeck?.id || ''
     },
+    selectedDeckStringId(): string {
+      return this.selectedDeck?.stringId || ''
+    },
   },
   methods: {
+    copyDeckStringId(): void {
+      if (navigator.clipboard && this.selectedDeck?.stringId) {
+        navigator.clipboard.writeText(this.selectedDeck.stringId)
+        this.snackbar = true
+      }
+    },
     deleteSelectedDeck(): void {
       const message = '削除したデッキは復元できません。本当に削除しますか？'
       if (window.confirm(message)) {
