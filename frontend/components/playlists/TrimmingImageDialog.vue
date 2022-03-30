@@ -77,7 +77,7 @@
                 </v-row>
               </v-col>
             </v-row>
-            <v-row v-if="inputImage.src" justify="center">
+            <v-row v-if="inputImage.src" justify="center" class="mb-3">
               <v-btn @click="clearImage">
                 <v-icon left>mdi-cancel</v-icon>画像を変更する
               </v-btn>
@@ -102,7 +102,7 @@
               </v-col>
             </v-row>
 
-            <v-row justify="center">
+            <v-row justify="center" class="mb-3">
               <v-btn @click="step = 1">
                 <v-icon left>mdi-chevron-left</v-icon>戻る
               </v-btn>
@@ -144,7 +144,7 @@
               </v-col>
             </v-row>
 
-            <v-row justify="center">
+            <v-row justify="center" class="mb-3">
               <v-btn large @click="step = 2">
                 <v-icon left>mdi-chevron-left</v-icon>戻る
               </v-btn>
