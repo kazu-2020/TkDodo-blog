@@ -263,6 +263,7 @@ export default Vue.extend({
         name: this.deck.name,
         description: this.deck.description,
         interfix: this.deck.interfix,
+        api_state: this.deck.apiState,
       }
 
       const data = new FormData()
