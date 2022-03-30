@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+require "optparse"
+
+parallelism = 3
+index = 0
+
+OptionParser.new do |opt|
+  opt.on('-p', '--parallelism val', Integer) {|v| parallelism = v }
+  opt.on('-i', '--index val', Integer) {|v| index = v }
+  opt.parse!(ARGV)
+end
+
+spec_files = Dir.glob("spec/**/*_spec.rb").sort_by { |file| File.size(file) }
+puts spec_files.select.with_index { |_, i| i % parallelism == index }.join(' ')
