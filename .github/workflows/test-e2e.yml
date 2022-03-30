@@ -25,7 +25,7 @@ jobs:
         with:
           status: ${{ job.status }}
           fields: repo,commit,message,author
-          author_name: lint-job
+          author_name: E2E Test
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
