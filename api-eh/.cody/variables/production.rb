@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-@target_linux_image = '312328096018.dkr.ecr.ap-northeast-1.amazonaws.com/editorialhands-app:v6'
+@target_linux_image = '312328096018.dkr.ecr.ap-northeast-1.amazonaws.com/editorialhands-deployer:v6'
 @env_values = {
   DOCKERHUB_USER: 'ssm:/editorialhands/production/dockerhub_user',
   DOCKERHUB_PASS: 'ssm:/editorialhands/production/dockerhub_pass',
