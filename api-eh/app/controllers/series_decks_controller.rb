@@ -52,7 +52,7 @@ class SeriesDecksController < ApplicationController
   private
 
   def series_deck_params
-    params.require(:series_deck).permit(:name, :description, :interfix, :admin_memo, :playlists)
+    params.require(:series_deck).permit(:name, :description, :interfix, :admin_memo, :playlists, :api_state)
   end
 
   def set_pagination

@@ -35,6 +35,14 @@
               />
             </v-col>
           </v-row>
+          <v-row dense class="my-5">
+            <v-col cols="12">
+              <h3>API への公開/非公開</h3>
+            </v-col>
+            <v-col cols="12" sm="6" md="3">
+              <v-checkbox v-model="apiState" label="公開する" />
+            </v-col>
+          </v-row>
         </v-form>
       </v-col>
     </v-row>
@@ -91,6 +99,9 @@ export default Vue.extend({
       }
       return 'xxxxxxxxxx'
     },
+    convertedApiState(): string {
+      return this.apiState ? 'open' : 'close'
+    },
   },
   watch: {
     deck: {
@@ -129,6 +140,17 @@ export default Vue.extend({
         if (this.deck.interfix !== '' && this.deck.interfix !== newVal) {
           this.$emit('change-deck-interfix')
         }
+      },
+    },
+    apiState: {
+      handler() {
+        if (this.deck.apiState === this.convertedApiState) return
+
+        const originalDeck = Object.assign({}, (this as any).deck)
+        const deck = Object.assign(originalDeck, {
+          apiState: this.convertedApiState,
+        })
+        this.$emit('update-deck', deck)
       },
     },
     valid: {

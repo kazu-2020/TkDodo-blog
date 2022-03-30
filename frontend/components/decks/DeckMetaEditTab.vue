@@ -176,7 +176,6 @@ export default Vue.extend({
         this.$emit('update-deck', deck)
       },
     },
-
     valid: {
       handler(newValue) {
         this.$emit('update-validation', newValue)
