@@ -3,6 +3,8 @@
 require 'image_processing/mini_magick'
 
 class ArticleImageUploader < ImageUploader
+  plugin :model, cache: false
+
   # override
   # 画像を出力するパスを生成する
   #

@@ -9,7 +9,7 @@ RSpec.describe PlaylistImageUploader, type: :model do
 
   describe :generate_location do
     it do
-      uploader = LogoUploader.new('cache')
+      uploader = PlaylistImageUploader.new('cache')
 
       location = uploader.generate_location(nil, **make_context(playlist, :logo_image))
       expect(location).to match %r{^playlist/pl/#{playlist.string_id}/#{playlist.string_id}-logo.*\.jpg}
