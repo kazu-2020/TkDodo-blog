@@ -35,13 +35,3 @@ jobs:
         working-directory: ${{env.working-directory}}
       - run: yarn test
         working-directory: ${{env.working-directory}}
-      - name: action-slack
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          fields: repo,commit,message,author
-          author_name: Test for frontend
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-        if: always()
