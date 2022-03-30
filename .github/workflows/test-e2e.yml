@@ -20,13 +20,3 @@ jobs:
         run: docker-compose run web bin/setup
       - name: run cypress
         run: docker-compose up --abort-on-container-exit --exit-code-from e2e
-      - name: action-slack
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          fields: repo,commit,message,author
-          author_name: E2E Test
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-        if: always()
