@@ -5,7 +5,7 @@ https://dev-eh.nr.nhk.jp/
 ## フロントエンド
 
 Nuxt.js で構成されたアプリケーション。
-AWS Amplify を用いて配信しています。
+CloudFront + S3 を用いて配信しています。
 
 [README](https://github.com/d7lab/aw-editorialhands-ui/blob/develop/frontend/README.md)
 
