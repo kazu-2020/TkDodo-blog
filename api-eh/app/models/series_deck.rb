@@ -33,9 +33,9 @@ class SeriesDeck < ApplicationRecord
   private
 
   def set_default_values
-    self.deck_uid = SecureRandom.uuid if deck_uid.blank?
-    self.string_id = SecureRandom.uuid if string_id.blank?
-    self.api_state = self.class.api_states[:close]
+    self.deck_uid ||= SecureRandom.uuid
+    self.string_id ||= SecureRandom.uuid
+    self.api_state ||= self.class.api_states[:close]
     self.mode_of_item ||= 'tv'
     self.type_of_item ||= 'TVEpisode'
   end
