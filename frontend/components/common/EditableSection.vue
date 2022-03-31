@@ -119,25 +119,27 @@ export default {
     },
     // Call from basicEditorMixin
     updateEditorData() {
-      this.editor
-        .save()
-        .then((outputData) => {
-          this.prune(outputData)
-          this.editorData = outputData
-          this.$emit('modify-content', {
-            sectionId: this.sectionId,
-            editorData: this.editorData,
+      setTimeout(() => {
+        this.editor
+          .save()
+          .then((outputData) => {
+            this.prune(outputData)
+            this.editorData = outputData
+            this.$emit('modify-content', {
+              sectionId: this.sectionId,
+              editorData: this.editorData,
+            })
           })
-        })
-        .catch((error) => {
-          console.log('Saving failed: ', error)
-          this.showErrorMessage(error)
-        })
-        .finally(() => {
-          if (this.editor.blocks.getBlocksCount() < 1) {
-            this.editor.blocks.insert()
-          }
-        })
+          .catch((error) => {
+            console.log('Saving failed: ', error)
+            this.showErrorMessage(error)
+          })
+          .finally(() => {
+            if (this.editor.blocks.getBlocksCount() < 1) {
+              this.editor.blocks.insert()
+            }
+          })
+      }, 200)
     },
     isIncludeEpisodeBlock(data) {
       const episodeBlock = data.blocks.find((b) =>
