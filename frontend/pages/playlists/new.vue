@@ -399,6 +399,7 @@ export default Vue.extend({
         author_name: this.playlist.article?.authorName || 'NHK',
         publisher_name: this.playlist.article?.publisherName || 'デジタルラボ',
         publisher_type: this.playlist.article?.publisherType || 'Organization',
+        api_state: this.playlist.apiState,
         layout_pattern: this.playlist.layoutPattern,
         publish_level: this.playlist.publishLevel,
       }
