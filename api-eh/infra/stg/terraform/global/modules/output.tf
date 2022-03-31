@@ -7,6 +7,14 @@ output "s3_resources_bucket" {
   }
 }
 
+output "s3_images_bucket" {
+  value = {
+    id = aws_s3_bucket.images_bucket.id
+    bucket_domain_name = aws_s3_bucket.images_bucket.bucket_domain_name
+    bucket = aws_s3_bucket.images_bucket.bucket
+  }
+}
+
 output "s3_hosting_bucket" {
   value = {
     id = aws_s3_bucket.hosting_bucket.id
