@@ -182,7 +182,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def set_available_article
-    self.available_article = has_article?
+    self.available_article = has_article? && active_article?
   end
 
   # @param [String] type blockのtypeの文字列
