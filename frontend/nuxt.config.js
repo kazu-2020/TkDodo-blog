@@ -86,10 +86,10 @@ export default {
   ],
   auth: {
     redirect: {
-      login: '/auth/sandbox', // User will be redirected to this path if login is required.
-      logout: '/auth/sandbox', // User will be redirected to this path if after logout, current route is protected.
-      callback: '/auth/callback', // User will be redirected to this path by the identity provider after login.
-      home: '/auth/sandbox', // User will be redirect to this path after login.
+      login: '/auth/login', // User will be redirected to this path if login is required.
+      logout: '/auth', // User will be redirected to this path if after logout, current route is protected.
+      callback: '/auth', // User will be redirected to this path by the identity provider after login.
+      home: '/auth', // User will be redirect to this path after login.
     },
     strategies: {
       local: false,
