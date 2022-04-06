@@ -16,3 +16,6 @@ RemoveMissingArticleImagesJob:
 SendUpdateNotificationJob:
   every: '1h'
   description: '更新通知メッセージを送信する'
+SaveAllPlaylistJob:
+  at: '3001/01/01'
+  description: '全プレイリストをsaveする'

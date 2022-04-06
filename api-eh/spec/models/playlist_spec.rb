@@ -241,4 +241,52 @@ describe Playlist, type: :model do
       end
     end
   end
+
+  describe '#available_article' do
+    let(:playlist) { create(:playlist, marked_body: marked_body, active_article: active_article) }
+    let(:marked_body) { '' }
+    let(:active_article) { true }
+
+    # active_article
+    # available_articleは active_articleが1かつ記事本文が1文字以上存在する場合にtrueになること
+    context '記事が存在する場合' do
+      let(:marked_body) { 'aaa' }
+
+      context 'active_articleが1' do
+        let(:active_article) { 1 }
+
+        it 'trueになること' do
+          expect(playlist.available_article).to be_truthy
+        end
+      end
+
+      context 'active_articleが0' do
+        let(:active_article) { 0 }
+
+        it 'falseになること' do
+          expect(playlist.available_article).to be_falsey
+        end
+      end
+    end
+
+    context '記事が存在しない場合' do
+      let(:marked_body) { '' }
+
+      context 'active_articleが1' do
+        let(:active_article) { 1 }
+
+        it 'falseになること' do
+          expect(playlist.available_article).to be_falsey
+        end
+      end
+
+      context 'active_articleが0' do
+        let(:active_article) { 0 }
+
+        it 'falseになること' do
+          expect(playlist.available_article).to be_falsey
+        end
+      end
+    end
+  end
 end
