@@ -1,33 +1,42 @@
 # aw-editorialhands
+## 概要
 
-https://dev-eh.nr.nhk.jp/
+| 環境 | URL | ブランチ |
+| -------- | -------- | -------- |
+| tomigaya-dev     | https://dev-eh.nr.nhk.jp/   | develop     |
+| tomigaya-stg     | https://stg-eh.nr.nhk.jp/   | staging     |
+| tomigaya-prd     | https://eh.nr.nhk.jp/   | master     |
 
-## フロントエンド
+### ブランチ
+各ブランチへのマージをトリガーにCodePipelineでデプロイ処理が実行されます。
+stg環境へのリリースは、git-pr-releaseを実行するための [action](https://github.com/d7lab/aw-editorialhands/actions/workflows/stg-release.yml) を用意しています。 
+
+### フロントエンド
 
 Nuxt.js で構成されたアプリケーション。
 CloudFront + S3 を用いて配信しています。
 
 [README](https://github.com/d7lab/aw-editorialhands-ui/blob/develop/frontend/README.md)
 
-## バックエンド
+### バックエンド
 
 Rails で構成されたアプリケーション。
 AWS 上では ECS を用いて運用しています。
 
 [README](https://github.com/d7lab/aw-editorialhands-ui/blob/develop/api-eh/README.md)
 
-## E2E テスト
+### E2E テスト
 
 Cypress.io による E2E テスト
 
 [README](https://github.com/d7lab/aw-editorialhands-ui/blob/develop/e2e/README.md)
 
-## oEmbed
+### oEmbed
 
-### API
+#### API
 
 https://dev-api-eh.nr.nhk.jp/oembed?url={NOLのURL}
 
-### embed page
+#### embed page
 
 https://dev-api-eh.nr.nhk.jp/embed/te/{episode_id}/{type}/{type_id}
