@@ -15,9 +15,14 @@ class Deck < ApplicationRecord
   validates :interfix, presence: true
 
   before_validation :set_default_values
+
   before_save :set_deck_id
 
   after_create :set_initial_deck_id
+
+  scope :name_or_admin_memo_like, ->(query) do
+    where('name LIKE ?', "%#{query}%").or(where('admin_memo LIKE ?', "%#{query}%"))
+  end
 
   def total_time
     playlists.sum(&:total_time)
