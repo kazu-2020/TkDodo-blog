@@ -7,8 +7,8 @@ class DecksController < ApplicationController
   DEFAULT_PER = 50
 
   def index
-    query = Deck.name_or_admin_memo_like(params[:query]) if params[:query]
-    @decks = Deck.page(@page).per(@per)
+    @decks = params[:query].present??Deck.name_or_admin_memo_like(params[:query]):Deck
+    @decks = @decks.page(@page).per(@per)
   end
 
   def show
@@ -24,6 +24,7 @@ class DecksController < ApplicationController
 
       playlist_ids = params.require(:deck).permit(playlists: [])[:playlists] || []
       @deck.rebuild_playlists_to(playlist_ids)
+      pry.byebug
     rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
       render json: { messages: @deck.errors.full_messages }, status: :unprocessable_entity
     end
