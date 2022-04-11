@@ -5,16 +5,16 @@
         <v-row justify="space-between">
           <v-col cols="6">
             <div class="title mb-4 pt-2">デッキ一覧</div>
-<!--            <v-text-field-->
-<!--              v-model="searchKeyword"-->
-<!--              label="デッキタイトル・管理メモで検索"-->
-<!--              prepend-inner-icon="mdi-magnify"-->
-<!--              solo-->
-<!--              class="deck-search"-->
-<!--              hide-details-->
-<!--              clearable-->
-<!--              @keypress.enter="searchDecktWithKeyword"-->
-<!--            />-->
+            <!-- <v-text-field
+              v-model="searchKeyword"
+              label="デッキタイトル・管理メモで検索"
+              prepend-inner-icon="mdi-magnify"
+              solo
+              class="deck-search"
+              hide-details
+              clearable
+              @keypress.enter="searchDecktWithKeyword"
+            /> -->
           </v-col>
         </v-row>
       </v-col>
@@ -226,14 +226,15 @@ export default Vue.extend({
         this.drawer = false
       }
     },
-    // searchDecktWithKeyword(): void {
-    //   this.isShowLoadingDialog = true
-    //   this.$store.dispatch('decks/fetchDecks', {
-    //     page: 1,
-    //     apiState: this.selectedApiStateFilter,
-    //     query: this.searchKeyword,
-    //   })
-    // },
+    searchDeckWithKeyword(): void {
+      // TODO: 後ほど実装する
+      this.isShowLoadingDialog = true
+      this.$store.dispatch('decks/fetchDecks', {
+        page: 1,
+        apiState: this.selectedApiStateFilter,
+        query: this.searchKeyword,
+      })
+    },
     clickDeckItem(deck: any) {
       this.drawer = true
       this.selectedDeckPlaylists = []
