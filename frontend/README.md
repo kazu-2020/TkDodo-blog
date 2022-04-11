@@ -24,7 +24,7 @@ $ yarn generate
 ```bash
 $ docker-compose build
 $ docker-compose up
-$ open http://localhost:8080
+$ open http://localhost:3000
 # コンテナ内に入る場合
 $ docker exec -it labo-playlist-editor_frontend_1 sh
 ```
