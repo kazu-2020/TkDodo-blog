@@ -7,8 +7,9 @@ class DecksController < ApplicationController
   DEFAULT_PER = 50
 
   def index
-    @decks = params[:query].present? ? Deck.name_or_admin_memo_like(params[:query]) : Deck
-    @decks = @decks.page(@page).per(@per)
+    query = params[:query].present? ? Deck.name_or_admin_memo_like(params[:query]) : Deck
+    query = query.page(@page).per(@per)
+    @decks = query
   end
 
   def show
@@ -18,10 +19,8 @@ class DecksController < ApplicationController
 
   def create
     @deck = Deck.new(deck_params)
-
     begin
       @deck.save!
-
       playlist_ids = params.require(:deck).permit(playlists: [])[:playlists] || []
       @deck.rebuild_playlists_to(playlist_ids)
     rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
@@ -36,7 +35,6 @@ class DecksController < ApplicationController
         playlist_ids = params.require(:deck).permit(playlists: [])[:playlists] || []
         @deck.rebuild_playlists_to(playlist_ids)
       end
-
       @deck.touch # nested_attributes だけ更新された場合のための処理
     else
       render json: { messages: @deck.errors.full_messages }, status: :unprocessable_entity
@@ -46,13 +44,11 @@ class DecksController < ApplicationController
   def destroy
     @deck = Deck.find(params[:id])
     @deck.destroy
-
     render json: { deleted: true }
   end
 
   def playlists
     @deck = Deck.find_by(id: params[:id])
-
     page = (params[:page] || 1).to_i
     per = (params[:per] || 10).to_i
     @playlists = @deck.playlists.page(page).per(per)
