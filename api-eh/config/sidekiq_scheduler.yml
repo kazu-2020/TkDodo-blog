@@ -14,7 +14,7 @@ RemoveMissingArticleImagesJob:
   every: '24h'
   description: 'プレイリストに紐付いていない古い記事画像の削除'
 SendUpdateNotificationJob:
-  every: '1h'
+  every: '5m'
   description: '更新通知メッセージを送信する'
 SaveAllPlaylistJob:
   at: '3001/01/01'
