@@ -28,8 +28,8 @@ describe DecksController, type: :request do
     context '検索クエリが送信されなかった場合' do
       it 'データを全件取得できること' do
         get decks_url
-        json = JSON.parse(response.body)
         expect(response.status).to eq 200
+        json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 2
         expect(json['decks'][0]).to include(expected_json)
         expect(json['decks'][1]).to include(expected_json_changed_name_and_admin_memo)
@@ -39,8 +39,8 @@ describe DecksController, type: :request do
     context '検索クエリが空の場合' do
       it 'データを全件取得できること' do
         get decks_url, params: { query: '' }
-        json = JSON.parse(response.body)
         expect(response.status).to eq 200
+        json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 2
         expect(json['decks'][0]).to include(expected_json)
         expect(json['decks'][1]).to include(expected_json_changed_name_and_admin_memo)
@@ -50,8 +50,8 @@ describe DecksController, type: :request do
     context '検索クエリがデッキタイトルおよび管理メモに部分一致する場合' do
       it '対象のデータを取得できること' do
         get decks_url, params: { query: 'デッキ' }
-        json = JSON.parse(response.body)
         expect(response.status).to eq 200
+        json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 1
         expect(json['decks'][0]).to include(expected_json_changed_name_and_admin_memo)
       end
@@ -60,6 +60,7 @@ describe DecksController, type: :request do
     context '検索クエリがデッキタイトルのみに部分一致する場合' do
       it '対象のデータを取得できること' do
         get decks_url, params: { query: '夏' }
+        expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 1
         expect(json['decks'][0]).to include(expected_json_changed_name_and_admin_memo)
@@ -69,6 +70,7 @@ describe DecksController, type: :request do
     context '検索クエリが管理メモのみに部分一致する場合' do
       it '対象のデータを取得できること' do
         get decks_url, params: { query: '冬' }
+        expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 1
         expect(json['decks'][0]).to include(expected_json_changed_name_and_admin_memo)
