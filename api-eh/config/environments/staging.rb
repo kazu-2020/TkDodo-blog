@@ -132,4 +132,16 @@ Rails.application.configure do
   config.shrine_config = {
     default_url: 'https://stg-eh.nr.nhk.jp'
   }
+
+  # NOTE: exception_notificationの設定
+  # https://github.com/smartinez87/exception_notification
+  config.middleware.use ExceptionNotification::Rack,
+                        slack: {
+                          webhook_url: ENV['SLACK_WEBHOOK_EXCEPTIONS_URL'],
+                          additional_parameters: {
+                            mrkdwn: true
+                          },
+                          additional_fields: [{ title: '環境', value: Rails.env }]
+                        },
+                        error_grouping: true
 end
