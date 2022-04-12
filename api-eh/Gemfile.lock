@@ -186,6 +186,9 @@ GEM
     erubi (1.10.0)
     et-orbi (1.2.6)
       tzinfo
+    exception_notification (4.5.0)
+      actionmailer (>= 5.2, < 8)
+      activesupport (>= 5.2, < 8)
     excon (0.84.0)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
@@ -428,6 +431,7 @@ GEM
       get_process_mem (~> 0.2.1)
       sidekiq (>= 5)
     slack-incoming-webhooks (0.3.0)
+    slack-notifier (2.4.0)
     spring (2.1.1)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -487,6 +491,7 @@ DEPENDENCIES
   counter_culture
   database_cleaner-active_record
   discard
+  exception_notification
   factory_bot
   faraday
   faraday_middleware
@@ -518,6 +523,7 @@ DEPENDENCIES
   sidekiq-scheduler
   sidekiq-worker-killer
   slack-incoming-webhooks
+  slack-notifier
   spring
   stimulus-rails
   tailwindcss-rails
