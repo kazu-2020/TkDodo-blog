@@ -8,8 +8,7 @@ class DecksController < ApplicationController
 
   def index
     query = params[:query].present? ? Deck.name_or_admin_memo_like(params[:query]) : Deck
-    query = query.page(@page).per(@per)
-    @decks = query
+    @decks = query.page(@page).per(@per)
   end
 
   def show
