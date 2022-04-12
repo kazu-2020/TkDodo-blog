@@ -26,7 +26,7 @@ class PlaylistItem < ApplicationRecord
 
   def fetch_bundle_data(force_fetch: false)
     cache_key = "#{cache_key_with_version}/fetch_bundle_data/#{episode_id}"
-    Rails.cache.fetch(cache_key, expires_in: CACHED_DATA_TTL, force: force_fetch) do
+    Rails.cache.fetch(cache_key, expires_in: CACHED_DATA_TTL, force: force_fetch, skip_nil: true) do
       DlabApiClient.new.episode_l_bundle(type: 'tv', episode_id: episode_id)
     end
   end

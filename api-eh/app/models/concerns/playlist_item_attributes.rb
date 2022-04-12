@@ -51,7 +51,8 @@ module PlaylistItemAttributes
   private
 
   def fetch_sub_types_count(force: false) # rubocop:disable Metrics/MethodLength
-    Rails.cache.fetch("#{cache_key_with_version}/fetch_sub_type_count", expires_in: CACHED_DATA_TTL, force: force) do
+    Rails.cache.fetch("#{cache_key_with_version}/fetch_sub_type_count", expires_in: CACHED_DATA_TTL, force: force,
+                                                                        skip_nil: true) do
       client = DlabApiClient.new
 
       result = { event_count: 0, how_to_count: 0, faq_page_count: 0 }
