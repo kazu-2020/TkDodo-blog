@@ -35,7 +35,7 @@ class DecksController < ApplicationController
         playlist_ids = params.require(:deck).permit(playlists: [])[:playlists] || []
         @deck.rebuild_playlists_to(playlist_ids)
       end
-      @deck.touch # nested_attributes だけ更新された場合のための処理
+      @deck.touch # nested_attributesだけ更新された場合のための処理
     else
       render json: { messages: @deck.errors.full_messages }, status: :unprocessable_entity
     end
