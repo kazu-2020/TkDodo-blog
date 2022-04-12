@@ -49,7 +49,7 @@ export default {
     '~/plugins/error-handler.js',
   ],
   router: {
-    middleware: ['auth'],
+    middleware: environment === 'development' ? [] : ['auth'],
   },
   /*
    ** Nuxt.js dev-modules
