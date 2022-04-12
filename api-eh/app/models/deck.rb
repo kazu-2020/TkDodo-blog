@@ -20,9 +20,9 @@ class Deck < ApplicationRecord
 
   after_create :set_initial_deck_id
 
-  scope :name_or_admin_memo_like, ->(query) do
+  scope :name_or_admin_memo_like, lambda { |query|
     where('name LIKE ?', "%#{query}%").or(where('admin_memo LIKE ?', "%#{query}%"))
-  end
+  }
 
   def total_time
     playlists.sum(&:total_time)
