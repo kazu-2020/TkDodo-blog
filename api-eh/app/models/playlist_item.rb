@@ -20,6 +20,7 @@ class PlaylistItem < ApplicationRecord
   def episode_data(force_fetch: false)
     bundle_res = fetch_bundle_data(force_fetch: force_fetch)
     episode_res = bundle_res[:tvepisode][:result][0]
+    episode_res[:videos] = fetch_episode_videos_data # videosだけr6.0から引き直して設定する
 
     episode_res&.deep_symbolize_keys
   end
@@ -29,6 +30,18 @@ class PlaylistItem < ApplicationRecord
     Rails.cache.fetch(cache_key, expires_in: CACHED_DATA_TTL, force: force_fetch, skip_nil: true) do
       DlabApiClient.new.episode_l_bundle(type: 'tv', episode_id: episode_id)
     end
+  end
+
+  # エピソードのvideosをr6.0から取得する
+  def fetch_episode_videos_data(force_fetch: false)
+    cache_key = "#{cache_key_with_version}/fetch_episode_data/#{episode_id}"
+    fetched_episode_data = Rails.cache.fetch(cache_key, expires_in: CACHED_DATA_TTL, force: force_fetch,
+                                                        skip_nil: true) do
+      res = PocApiClient.new.episode(type: 'tv', episode_id: episode_id)
+      res&.deep_symbolize_keys
+    end
+
+    fetched_episode_data[:videos]
   end
 
   def duration
@@ -47,7 +60,7 @@ class PlaylistItem < ApplicationRecord
     return false if episode_res&.dig(:videos).blank?
 
     episode_res[:videos].find do |video|
-      video.dig(:detailedContentStatus, :environmentId) == 'okushibu' &&
+      video.dig(:detailedContentStatus, :environmentId) == 'okushibu3' &&
         video.dig(:detailedContentStatus, :contentStatus) == 'ready'
     end.present?
   end

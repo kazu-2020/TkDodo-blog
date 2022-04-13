@@ -17,7 +17,7 @@ describe PlaylistItem, type: :model do
       let(:playable_episode_id) { 'Y6J1Y3MK82' }
 
       it do
-        VCR.use_cassette("r6/l/bundle/te/#{playable_episode_id}.json?extendedEntities=true&ignoreRange=true") do
+        VCR.use_cassette('models/playlist_item_spec/caches/episode_data') do
           expect(playlist_item.episode_data).to_not be_nil
         end
       end
@@ -47,7 +47,7 @@ describe PlaylistItem, type: :model do
 
     describe '#has_video' do
       let(:playlist_item) { build(:playlist_item, episode_id: playable_episode_id) }
-      let(:playable_episode_id) { 'Y6J1Y3MK82' } # 2022/02/01時点で視聴可能なエピソード
+      let(:playable_episode_id) { '7WVY258P7G' } # 2022/02/01時点で視聴可能なエピソード
 
       context '視聴可能なエピソードの場合' do
         it do
