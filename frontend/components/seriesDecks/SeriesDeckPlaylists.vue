@@ -3,11 +3,10 @@
     <template #default>
       <thead>
         <tr>
-          <th />
-          <th />
-          <th class="text-left">プレイリスト</th>
+          <th style="width: 10%" />
+          <th style="width: 10%" />
+          <th class="text-left">シリーズ名</th>
           <th class="text-left">アイテム数</th>
-          <th class="text-left">視聴可能</th>
         </tr>
       </thead>
       <draggable v-model="playlists" tag="tbody">
@@ -46,20 +45,6 @@
             Event: {{ countWrapper(playlist.eventCount) }} FaqPage:
             {{ countWrapper(playlist.faqPageCount) }}
           </td>
-          <td>
-            <v-chip
-              v-if="hasVideo(playlist)"
-              class="mx-2"
-              color="pink"
-              label
-              text-color="white"
-            >
-              視聴可
-            </v-chip>
-            <v-chip v-else class="mx-2" color="grey" label text-color="white">
-              視聴不可
-            </v-chip>
-          </td>
         </tr>
       </draggable>
     </template>
@@ -69,7 +54,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import draggable from 'vuedraggable'
-import ParseVideoHelper from '~/utils/ParseVideoHelper'
 
 export default Vue.extend({
   name: 'SeriesDeckPlaylist',
@@ -107,10 +91,6 @@ export default Vue.extend({
       }
 
       return 'https://placehold.jp/40x40.png'
-    },
-    hasVideo(playlist: any): boolean {
-      const videos = playlist?.videos || []
-      return ParseVideoHelper.hasVideo(videos)
     },
     countWrapper(count: number | undefined): number | string {
       return count === undefined ? '-' : count

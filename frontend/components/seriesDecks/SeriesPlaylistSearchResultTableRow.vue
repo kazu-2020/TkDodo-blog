@@ -22,25 +22,11 @@
       />
     </td>
     <td>{{ playlist.name }}</td>
-    <td>
-      <v-chip
-        v-if="hasVideo(playlist)"
-        class="mx-2"
-        color="pink"
-        label
-        text-color="white"
-        >視聴可</v-chip
-      >
-      <v-chip v-else class="mx-2" color="grey" label text-color="white"
-        >視聴不可</v-chip
-      >
-    </td>
   </tr>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import ParseVideoHelper from '~/utils/ParseVideoHelper'
 
 export default Vue.extend({
   name: 'SeriesPlaylistSearchResultTableRow',
@@ -73,10 +59,6 @@ export default Vue.extend({
   methods: {
     addPlaylist(playlist: any): void {
       this.$emit('add-playlist', playlist)
-    },
-    hasVideo(playlist: any) {
-      const videos = playlist?.videos || []
-      return ParseVideoHelper.hasVideo(videos)
     },
     clickPlaylist() {
       this.$emit('select-playlist', this.playlist)

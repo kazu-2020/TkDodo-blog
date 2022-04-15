@@ -27,10 +27,9 @@
           <template #default>
             <thead>
               <tr>
-                <th />
-                <th />
+                <th style="width: 10%" />
+                <th style="width: 10%" />
                 <th class="text-left">シリーズ名</th>
-                <th class="text-left">視聴可能</th>
               </tr>
             </thead>
             <tbody>
