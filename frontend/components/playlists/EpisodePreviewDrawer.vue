@@ -16,7 +16,6 @@
         <div class="caption grey--text text--darken-1">
           {{ seriesName }}
         </div>
-        <div class="caption">EpisodeID: {{ episodeId }}</div>
       </v-col>
       <v-col cols="12" class="pt-0">
         <v-img
@@ -196,9 +195,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    episodeId(): string {
-      return this.episode?.id || ''
-    },
     episodeName(): string {
       return this.episode?.name || ''
     },
@@ -294,6 +290,7 @@ export default Vue.extend({
       if (this.episode === undefined) return
 
       this.$axios.get(`/episodes/${this.episode.id}/playlists`).then((res) => {
+        console.log(res)
         this.relatedPlaylists = res.data.playlists
       })
     },
