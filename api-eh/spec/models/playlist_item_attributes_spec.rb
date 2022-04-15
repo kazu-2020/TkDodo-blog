@@ -8,12 +8,12 @@ describe PlaylistItemAttributes, type: :model do
   describe '#total_time' do
     before do
       create(:playlist_item, episode_id: 'Y6J1Y3MK82', playlist: playlist) # duration: 1500, has_video: true
-      create(:playlist_item, episode_id: 'G9829WW2WW', playlist: playlist) # duration: 1500, has_video: false
+      create(:playlist_item, episode_id: 'DN9Y7WK2PY', playlist: playlist) # duration: 1500, has_video: false
     end
 
     it do
       VCR.use_cassette('models/playlist_item_attributes_spec/total_time') do
-        expect(playlist.reload.total_time.to_i).to eq(1800)
+        expect(playlist.reload.total_time.to_i).to eq(3000)
       end
     end
   end
@@ -21,7 +21,7 @@ describe PlaylistItemAttributes, type: :model do
   describe '#playlist_items_count' do
     before do
       create(:playlist_item, episode_id: 'Y6J1Y3MK82', playlist: playlist) # duration: 1500, has_video: true
-      create(:playlist_item, episode_id: 'G9829WW2WW', playlist: playlist) # duration: 1500, has_video: false
+      create(:playlist_item, episode_id: 'DN9Y7WK2PY', playlist: playlist) # duration: 1500, has_video: false
     end
 
     it do
@@ -32,12 +32,12 @@ describe PlaylistItemAttributes, type: :model do
   describe '#playable_total_time' do
     before do
       create(:playlist_item, episode_id: 'Y6J1Y3MK82', playlist: playlist) # duration: 1500, has_video: true
-      create(:playlist_item, episode_id: 'G9829WW2WW', playlist: playlist) # duration: 1500, has_video: false
+      create(:playlist_item, episode_id: 'DN9Y7WK2PY', playlist: playlist) # duration: 1500, has_video: false
     end
 
     it do
       VCR.use_cassette('models/playlist_item_attributes_spec/playable_total_time') do
-        expect(playlist.reload.playable_total_time).to eq(300)
+        expect(playlist.reload.playable_total_time).to eq(1500)
       end
     end
   end
@@ -45,7 +45,7 @@ describe PlaylistItemAttributes, type: :model do
   describe '#playable_playlist_items_count' do
     before do
       create(:playlist_item, episode_id: 'Y6J1Y3MK82', playlist: playlist) # duration: 1500, has_video: true
-      create(:playlist_item, episode_id: 'G9829WW2WW', playlist: playlist) # duration: 1500, has_video: false
+      create(:playlist_item, episode_id: 'DN9Y7WK2PY', playlist: playlist) # duration: 1500, has_video: false
     end
 
     it do
