@@ -37,7 +37,7 @@ class PlaylistItem < ApplicationRecord
     cache_key = "#{cache_key_with_version}/fetch_episode_data/#{episode_id}"
     fetched_episode_data = Rails.cache.fetch(cache_key, expires_in: CACHED_DATA_TTL, force: force_fetch,
                                                         skip_nil: true) do
-      res = PocApiClient.new.episode(type: 'tv', episode_id: episode_id)
+      res = PocApiClient.new.episode(episode_id: episode_id)
       res&.deep_symbolize_keys
     end
 

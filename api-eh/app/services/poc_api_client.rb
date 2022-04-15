@@ -30,16 +30,15 @@ class PocApiClient < DlabApiBase
     @version = version || VERSION
   end
 
-  # Episode データをリクエストする
+  # TvEpisode データを取得する
   #   r6との差分例
   #     identifierGroupExがない
   #     videosにembedUrlがない
   #
-  # @param [String] type: 'tv' or 'radio'
   # @param [String] episode_id: エピソードID
   # @param [Hash] query
-  def episode(type:, episode_id:, query: {})
-    res = client.get "/#{version}/t/tvepisode/#{type.downcase.first}e/#{episode_id}.json", INTERNAL_PARAMS.merge(query)
+  def episode(episode_id:, query: {})
+    res = client.get "/#{version}/t/tvepisode/te/#{episode_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 end
