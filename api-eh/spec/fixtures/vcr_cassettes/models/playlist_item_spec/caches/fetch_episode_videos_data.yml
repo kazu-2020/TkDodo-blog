@@ -1,0 +1,162 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6/l/bundle/te/R7VMXV59JP.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      commit-hash:
+      - '"a4a0a0e"'
+      date:
+      - Mon, 18 Apr 2022 02:55:37 GMT
+      cache-control:
+      - max-age=30
+      etag:
+      - W/"1eb1-bZc58NZbXJLwlDI+jZKtnKLhYuI"
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - RefreshHit from cloudfront
+      via:
+      - 1.1 454c51e6774cbed81f946c64c1140bee.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-C3
+      x-amz-cf-id:
+      - i5AkVhxwRMAkN6-IIi-yqn5-DUPm5RSJB_3gwqL-lpM5HX0TJ4HXtQ==
+    body:
+      encoding: UTF-8
+      string: '{"tvepisode":{"result":[{"type":"TVEpisode","id":"R7VMXV59JP","name":"リモート編「三軒茶屋
+        大人気の“ピリ辛”麺料理で 小腹すいてませんか?」","identifierGroup":{"episodeId":"R7VMXV59JP","tvEpisodeId":"R7VMXV59JP","seriesId":"9L67VX9RW1","tvSeriesId":"9L67VX9RW1","episodeName":"リモート編「三軒茶屋
+        大人気の“ピリ辛”麺料理で 小腹すいてませんか?」","tvEpisodeName":"リモート編「三軒茶屋 大人気の“ピリ辛”麺料理で 小腹すいてませんか?」","seriesName":"きじまりゅうたの小腹すいてませんか?","tvSeriesName":"きじまりゅうたの小腹すいてませんか?","hashtag":[],"serviceId":["g1","g2"],"formatGenreTag":[{"id":"05","name":"バラエティ"}],"themeGenreTag":[{"id":"083","name":"料理"}]},"identifierGroupEx":{"seriesGroupId":"2N9NJ5NYQ2","tvSeriesGroupId":"2N9NJ5NYQ2","seriesGroupName":"きじまりゅうたの小腹すいてませんか?","tvSeriesGroupName":"きじまりゅうたの小腹すいてませんか?","episodeNameTemp":"リモート編「三軒茶屋
+        大人気の“ピリ辛”麺料理で 小腹すいてませんか?」","tvEpisodeNameTemp":"リモート編「三軒茶屋 大人気の“ピリ辛”麺料理で 小腹すいてませんか?」","seriesNameTemp":"きじまりゅうたの小腹すいてませんか?","tvSeriesNameTemp":"きじまりゅうたの小腹すいてませんか?","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2020-07-11T22:45:00+09:00","releasedEventEndDateTemp":"2020-07-11T22:58:00+09:00"},"keywords":[],"description":"料理研究家きじまりゅうたが、家にある物だけで小腹を満たすメニューを作る。今回は「リモート料理会」で新レシピを開発。残り物で作る、あの大人気“ピリ辛麺”のお味は？","dateCreated":"2020-06-22T17:04:28+09:00","dateModified":"2020-07-07T10:41:02+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"9L67VX9RW1","name":"きじまりゅうたの小腹すいてませんか?","identifierGroup":{"seriesId":"9L67VX9RW1","tvSeriesId":"9L67VX9RW1","seriesName":"きじまりゅうたの小腹すいてませんか?","tvSeriesName":"きじまりゅうたの小腹すいてませんか?","hashtag":[],"serviceId":["g1","g2"]},"identifierGroupEx":{"seriesGroupId":"2N9NJ5NYQ2","tvSeriesGroupId":"2N9NJ5NYQ2","seriesGroupName":"きじまりゅうたの小腹すいてませんか?","tvSeriesGroupName":"きじまりゅうたの小腹すいてませんか?","seriesNameTemp":"きじまりゅうたの小腹すいてませんか?","tvSeriesNameTemp":"きじまりゅうたの小腹すいてませんか?"},"url":"https://dev-www.nhk.jp/p/ts/9L67VX9RW1/","canonical":"https://dev-www.nhk.jp/p/ts/9L67VX9RW1/","description":"","logo":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/9L67VX9RW1/9L67VX9RW1-logo_196cbf95705f5591b8712632b5e1f062.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/9L67VX9RW1/9L67VX9RW1-logo_eb8ecf65295f6e3897716a608a5d3bdb.jpg","width":640,"height":640}},"eyecatch":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/9L67VX9RW1/9L67VX9RW1-eyecatch_da9bada5a049455ada3c8b3980fa619d.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/9L67VX9RW1/9L67VX9RW1-eyecatch_26457ca3d5b5065d0a20a33f96da95fc.jpg","width":928,"height":522},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/9L67VX9RW1/9L67VX9RW1-eyecatch_02c8f81b5eb3c4b035b30f5643ab619d.jpg","width":640,"height":360}},"hero":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/9L67VX9RW1/9L67VX9RW1-hero_9c7273db2c082a2d4eec1bd0d4543cbf.jpg","width":1920,"height":640},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/9L67VX9RW1/9L67VX9RW1-hero_7b121ff04f5b1a22c8eb1cdf8bd67ba2.jpg","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#327EA4","linkDark":"#4DC4FF","primaryLight":"#3E9ECE","primaryDark":"#4DC4FF"},"additionalProperty":{"publishLevel":"notyet","layoutPattern":"summary","episodeOrderBy":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[],"seriesPackStatus":"notPacked"}},"releasedEvent":{"startDate":"2020-07-11T22:45:00+09:00","endDate":"2020-07-11T22:58:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedRecentEvent":{"startDate":"2020-07-11T22:45:00+09:00","endDate":"2020-07-11T22:58:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1080,"height":360},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"keyvisuals":[],"videos":[],"citations":[],"url":"https://dev-www.nhk.jp/p/ts/9L67VX9RW1/episode/te/R7VMXV59JP/","canonical":"https://dev-www.nhk.jp/p/ts/9L67VX9RW1/episode/te/R7VMXV59JP/","sameAs":[],"detailedMemo":[]}],"count":1}}'
+  recorded_at: Mon, 18 Apr 2022 02:55:37 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6.0/t/tvepisode/te/R7VMXV59JP.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.3
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '114'
+      connection:
+      - keep-alive
+      date:
+      - Mon, 18 Apr 2022 02:55:37 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"a4a0a0e"'
+      etag:
+      - '"72-HhgV16G1vgd02Y/LKMXhTU+C5r4"'
+      x-cache:
+      - Error from cloudfront
+      via:
+      - 1.1 444dd98227f76138f1b774980ac5d496.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-C3
+      x-amz-cf-id:
+      - 3r-O_3krVx5YvMHugj1bSRQyZ4wqMyBXKYBag2xnzwvxLjAlKz4y2A==
+    body:
+      encoding: UTF-8
+      string: '{"error":{"statuscode":404,"message":"Invalid EpisodeId.","requestId":"Root=1-625cd329-0c85955b2c708f5177b3e351"}}'
+  recorded_at: Mon, 18 Apr 2022 02:55:37 GMT
+recorded_with: VCR 6.0.0

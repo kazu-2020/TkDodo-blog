@@ -34,6 +34,20 @@ describe PlaylistItem, type: :model do
       end
     end
 
+    describe '#fetch_episode_videos_data' do
+      let(:playlist_item) { build(:playlist_item, episode_id: episode_id) }
+
+      context 'r6で引けてr6.0で引けないEpisodeの場合' do
+        let(:episode_id) { 'R7VMXV59JP' }
+
+        it 'エラーにならないこと' do
+          VCR.use_cassette('models/playlist_item_spec/caches/fetch_episode_videos_data') do
+            expect(playlist_item.episode_data).to_not be_nil
+          end
+        end
+      end
+    end
+
     describe '#duration' do
       let(:playlist_item) { build(:playlist_item, episode_id: playable_episode_id) }
       let(:playable_episode_id) { 'Y6J1Y3MK82' } # duration 1500.0

@@ -35,13 +35,17 @@ class PlaylistItem < ApplicationRecord
   # エピソードのvideosをr6.0から取得する
   def fetch_episode_videos_data(force_fetch: false)
     cache_key = "#{cache_key_with_version}/fetch_episode_data/#{episode_id}"
-    fetched_episode_data = Rails.cache.fetch(cache_key, expires_in: CACHED_DATA_TTL, force: force_fetch,
-                                                        skip_nil: true) do
+    fetched_episode_data = Rails.cache.fetch(cache_key, expires_in: CACHED_DATA_TTL,
+                                             force: force_fetch,
+                                             skip_nil: true) do
       res = PocApiClient.new.episode(episode_id: episode_id)
       res&.deep_symbolize_keys
     end
 
     fetched_episode_data[:videos]
+  rescue StandardError => e
+    Rails.logger.error("#{e.class} (#{e.message}):\n  #{e.backtrace.join("\n  ")}")
+    []
   end
 
   def duration
