@@ -22,7 +22,11 @@ if episode_data.present?
   json.set_raw! :releasedEvent, episode_data[:releasedEvent].to_json
   json.set_raw! :detailedRecentEvent, episode_data[:detailedRecentEvent].to_json
   json.set_raw! :keyvisuals, episode_data[:keyvisuals].to_json
-  json.set_raw! :eyecatch, episode_data[:eyecatch].to_json if episode_data[:eyecatch].present?
+  if episode_data[:eyecatch].present?
+    json.set_raw! :eyecatch, episode_data[:eyecatch].to_json
+  elsif episode_data[:partOfSeries][:eyecatch].present?
+    json.set_raw! :eyecatch, episode_data[:partOfSeries][:eyecatch].to_json
+  end
   json.set_raw! :eyecatches, episode_data[:eyecatches].to_json if episode_data[:eyecatches].present?
   json.set_raw! :videos, episode_data[:videos].to_json
   json.set_raw! :broadcastEvent, episode_data[:broadcastEvent].to_json
