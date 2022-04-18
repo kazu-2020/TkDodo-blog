@@ -12,7 +12,12 @@ class EpisodesController < ApplicationController
 
   def search
     client = DlabApiClient.new
-    @result = client.search(search_params)
+    @result = client.search(search_params)&.deep_symbolize_keys
+
+    # okushibu3のために、r6.0からEpisodeを引き直して検索結果に設定し直している
+    @result.dig(:result, :tvepisode, :result).each do |item|
+      item[:videos] = PlaylistItem.new(episode_id: item[:id]).fetch_episode_videos_data
+    end
   end
 
   def bundle

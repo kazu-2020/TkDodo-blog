@@ -19,9 +19,12 @@ class DlabApiClient < DlabApiBase
   DEFAULT_SORT_ORDER = 'desc'
   DEFAULT_SORT_ORDER_BY = 'score'
 
-  def initialize(api_endpoint: nil)
+  attr_reader :api_endpoint, :version
+
+  def initialize(api_endpoint: nil, version: nil)
     super()
     @api_endpoint = api_endpoint || API_ENDPOINT
+    @version = version || VERSION
   end
 
   # TVEpisode 検索APIをリクエストする
@@ -39,7 +42,7 @@ class DlabApiClient < DlabApiBase
                       order: sort_order, orderBy: sort_order_by, size: size }
     merged_params.merge!(search_query_hash(search_params))
 
-    res = client.get "/#{VERSION}/s/extended.json", INTERNAL_PARAMS.merge(merged_params)
+    res = client.get "/#{version}/s/extended.json", INTERNAL_PARAMS.merge(merged_params)
     handle_response(res)
   end
   # rubocop: enable Metrics/AbcSize
@@ -49,7 +52,7 @@ class DlabApiClient < DlabApiBase
   # @param [String] type: 'tv' or 'radio'
   # @param [String] episode_id: エピソードID
   def episode_list_bundle(type:, episode_id:, query: {})
-    res = client.get "/#{VERSION}/l/bundle/#{type.downcase.first}e/#{episode_id}/types.json",
+    res = client.get "/#{version}/l/bundle/#{type.downcase.first}e/#{episode_id}/types.json",
                      INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
@@ -60,7 +63,7 @@ class DlabApiClient < DlabApiBase
   # @param [String] episode_id: エピソードID
   # @param [Hash] query
   def episode_l_bundle(type:, episode_id:, query: {})
-    res = client.get "/#{VERSION}/l/bundle/#{type.downcase.first}e/#{episode_id}.json", INTERNAL_PARAMS.merge(query)
+    res = client.get "/#{version}/l/bundle/#{type.downcase.first}e/#{episode_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 
@@ -70,7 +73,7 @@ class DlabApiClient < DlabApiBase
   # @param [String] episode_id: エピソードID
   # @param [Hash] query
   def episode(type:, episode_id:, query: {})
-    res = client.get "/#{VERSION}/t/tvepisode/#{type.downcase.first}e/#{episode_id}.json", INTERNAL_PARAMS.merge(query)
+    res = client.get "/#{version}/t/tvepisode/#{type.downcase.first}e/#{episode_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 
@@ -79,7 +82,7 @@ class DlabApiClient < DlabApiBase
   # @param [String] type: 'tv' or 'radio'
   # @param [String] series_id: シリーズID
   def series(type:, series_id:)
-    res = client.get "/#{VERSION}/t/tvseries/#{type.downcase.first}s/#{series_id}.json", INTERNAL_PARAMS
+    res = client.get "/#{version}/t/tvseries/#{type.downcase.first}s/#{series_id}.json", INTERNAL_PARAMS
     handle_response(res)
   end
 
@@ -89,7 +92,7 @@ class DlabApiClient < DlabApiBase
   # @param [String] series_id: シリーズID
   # @param [Hash] query
   def series_ll_bundle_types(type:, series_id:, query: {})
-    res = client.get "/#{VERSION}/ll/bundle/#{type.downcase.first}s/#{series_id}/types.json",
+    res = client.get "/#{version}/ll/bundle/#{type.downcase.first}s/#{series_id}/types.json",
                      INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
@@ -100,7 +103,7 @@ class DlabApiClient < DlabApiBase
   # @param [String] series_id: シリーズID
   # @param [String] request_type: t or l
   def episode_from_series(type:, series_id:, request_type: :t, query: {})
-    res = client.get "/#{VERSION}/#{request_type}/#{type.downcase}episode/ts/#{series_id}.json",
+    res = client.get "/#{version}/#{request_type}/#{type.downcase}episode/ts/#{series_id}.json",
                      INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
@@ -109,7 +112,7 @@ class DlabApiClient < DlabApiBase
   #
   # @param [String] howto_id: ハウツーID
   def howto(howto_id:, query: {})
-    res = client.get "/#{VERSION}/t/howto/id/#{howto_id}.json", INTERNAL_PARAMS.merge(query)
+    res = client.get "/#{version}/t/howto/id/#{howto_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 
@@ -117,7 +120,7 @@ class DlabApiClient < DlabApiBase
   #
   # @param [String] event_id: イベントID
   def event(event_id:, query: {})
-    res = client.get "/#{VERSION}/t/event/id/#{event_id}.json", INTERNAL_PARAMS.merge(query)
+    res = client.get "/#{version}/t/event/id/#{event_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 
@@ -125,7 +128,7 @@ class DlabApiClient < DlabApiBase
   #
   # @param [String] faq_page_id: FAQPage ID
   def faq_page(faq_page_id:, query: {})
-    res = client.get "/#{VERSION}/t/faqpage/id/#{faq_page_id}.json", INTERNAL_PARAMS.merge(query)
+    res = client.get "/#{version}/t/faqpage/id/#{faq_page_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 
@@ -139,6 +142,4 @@ class DlabApiClient < DlabApiBase
     merged_params.merge!(service: search_params[:service]) if search_params[:service].present?
     merged_params
   end
-
-  attr_reader :api_endpoint
 end
