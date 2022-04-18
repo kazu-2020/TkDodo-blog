@@ -45,7 +45,7 @@ class DlabApiBase
     @client ||= Faraday.new(url: api_endpoint) do |faraday|
       faraday.request :url_encoded
       logger = Logger.new($stdout)
-      logger.level = Logger::ERROR unless Rails.env.development?
+      logger.level = Logger::ERROR if Rails.env.test?
       faraday.response :logger, logger
       faraday.adapter Faraday.default_adapter
     end
