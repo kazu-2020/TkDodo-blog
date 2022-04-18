@@ -11,7 +11,8 @@ describe PlaylistItemsController, type: :request do
 
     dlab_client = instance_double(DlabApiClient)
     allow(DlabApiClient).to receive(:new).and_return(dlab_client)
-    allow(dlab_client).to receive(:episode_l_bundle).with(type: 'tv', episode_id: stub_episode_id).and_return(json)
+    allow(dlab_client).to receive(:episode_l_bundle).with(type: 'tv', query: { ignoreRange: false },
+                                                          episode_id: stub_episode_id).and_return(json)
     allow(dlab_client).to receive(:episode_list_bundle).with(type: 'tv', episode_id: anything).and_return({})
 
     poc_client = instance_double(PocApiClient)
