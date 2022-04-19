@@ -4,11 +4,71 @@ require 'rails_helper'
 
 describe PlaylistsController, type: :request do
   describe 'GET #index' do
-    before { create(:playlist) }
+    let!(:playlist) { create :playlist }
+    let!(:playlist_r5) { create(:playlist, d5_playlist_id: 1) }
+    let(:deck) { create :deck }
+    let(:deck_r5_with_playlist) { create(:deck, :deck_with_playlist, is_r5: true) }
+    let(:expected_json) { {
+      "stringId" => "recommend-tep-#{format('%010d', deck_r5_with_playlist.playlists.target[0]['id'])}",
+      "primaryId" => deck_r5_with_playlist.playlists.target[0]['id'],
+      "name" => deck_r5_with_playlist.playlists.target[0]['name'],
+      "detailedNameRuby" => deck_r5_with_playlist.playlists.target[0]['detailed_name_ruby'],
+      "description" => deck_r5_with_playlist.playlists.target[0]['description'],
+      "headline" => deck_r5_with_playlist.playlists.target[0]['headline'],
+      "style" => {
+        "selectedPalette" => deck_r5_with_playlist.playlists.target[0]['selected_palette'],
+        "primaryLight" => deck_r5_with_playlist.playlists.target[0]['primary_light_color'],
+        "primaryDark" => deck_r5_with_playlist.playlists.target[0]['primary_dark_color'],
+        "textLight" => deck_r5_with_playlist.playlists.target[0]['text_light_color'],
+        "textDark" => deck_r5_with_playlist.playlists.target[0]['text_dark_color'],
+        "linkLight" => deck_r5_with_playlist.playlists.target[0]['link_light_color'],
+        "linkDark" => deck_r5_with_playlist.playlists.target[0]['link_dark_color']
+      },
+    } }
 
-    it 'returns success response' do
-      get playlists_url
-      expect(response.status).to eq 200
+    describe 'パラメータにdeck_idが含まれる場合' do
+      it 'idに紐づくデッキが取得されること' do
+        params = { deck_id: deck_r5_with_playlist.id }
+        get playlists_url, params: params
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['playlists'][0]).to include expected_json
+      end
+    end
+    describe 'パラメータにareaが含まれる場合' do
+      it 'areaに紐づくr5相当のデッキが取得されること' do
+        params = { area: deck_r5_with_playlist.area, is_r5: true }
+        get playlists_url, params: params
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['playlists'][0]).to include expected_json
+      end
+    end
+
+    describe 'パラメータにdeck_idもareaも含まれない場合' do
+      it 'r5デッキのプレイリストIDを含まないプレイリストが取得されること' do
+        get playlists_url, params: ''
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['playlists'].size).to eq 1
+      end
+    end
+
+    describe 'パラメータにapi_stateが含まれる場合' do
+      context 'api_stateがopenの場合' do
+        params = { api_state: "open" }
+        it '公開ステータスがopenとなること' do
+          get playlists_url, params: params
+          expect(response.status).to eq 200
+        end
+      end
+      context 'api_stateがcloseの場合' do
+        params = { api_state: "close" }
+        it '公開ステータスがcloseとなること' do
+          get playlists_url, params: params
+          expect(response.status).to eq 200
+        end
+      end
     end
   end
 

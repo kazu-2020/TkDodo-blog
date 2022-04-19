@@ -10,4 +10,10 @@ FactoryBot.define do
     admin_memo { 'test memo' }
     deck_uid { SecureRandom.uuid }
   end
+
+  trait :deck_with_playlist do
+    after(:build) do |deck|
+      deck.playlists << build(:playlist)
+    end
+  end
 end
