@@ -8,23 +8,25 @@ describe PlaylistsController, type: :request do
     let!(:playlist_r5) { create(:playlist, d5_playlist_id: 1) }
     let(:deck) { create :deck }
     let(:deck_r5_with_playlist) { create(:deck, :deck_with_playlist, is_r5: true) }
-    let(:expected_json) { {
-      "stringId" => "recommend-tep-#{format('%010d', deck_r5_with_playlist.playlists.target[0]['id'])}",
-      "primaryId" => deck_r5_with_playlist.playlists.target[0]['id'],
-      "name" => deck_r5_with_playlist.playlists.target[0]['name'],
-      "detailedNameRuby" => deck_r5_with_playlist.playlists.target[0]['detailed_name_ruby'],
-      "description" => deck_r5_with_playlist.playlists.target[0]['description'],
-      "headline" => deck_r5_with_playlist.playlists.target[0]['headline'],
-      "style" => {
-        "selectedPalette" => deck_r5_with_playlist.playlists.target[0]['selected_palette'],
-        "primaryLight" => deck_r5_with_playlist.playlists.target[0]['primary_light_color'],
-        "primaryDark" => deck_r5_with_playlist.playlists.target[0]['primary_dark_color'],
-        "textLight" => deck_r5_with_playlist.playlists.target[0]['text_light_color'],
-        "textDark" => deck_r5_with_playlist.playlists.target[0]['text_dark_color'],
-        "linkLight" => deck_r5_with_playlist.playlists.target[0]['link_light_color'],
-        "linkDark" => deck_r5_with_playlist.playlists.target[0]['link_dark_color']
-      },
-    } }
+    let(:expected_json) {
+      {
+        'stringId' => "recommend-tep-#{format('%010d', deck_r5_with_playlist.playlists.target[0]['id'])}",
+        'primaryId' => deck_r5_with_playlist.playlists.target[0]['id'],
+        'name' => deck_r5_with_playlist.playlists.target[0]['name'],
+        'detailedNameRuby' => deck_r5_with_playlist.playlists.target[0]['detailed_name_ruby'],
+        'description' => deck_r5_with_playlist.playlists.target[0]['description'],
+        'headline' => deck_r5_with_playlist.playlists.target[0]['headline'],
+        'style' => {
+          'selectedPalette' => deck_r5_with_playlist.playlists.target[0]['selected_palette'],
+          'primaryLight' => deck_r5_with_playlist.playlists.target[0]['primary_light_color'],
+          'primaryDark' => deck_r5_with_playlist.playlists.target[0]['primary_dark_color'],
+          'textLight' => deck_r5_with_playlist.playlists.target[0]['text_light_color'],
+          'textDark' => deck_r5_with_playlist.playlists.target[0]['text_dark_color'],
+          'linkLight' => deck_r5_with_playlist.playlists.target[0]['link_light_color'],
+          'linkDark' => deck_r5_with_playlist.playlists.target[0]['link_dark_color']
+        }
+      }
+    }
 
     describe 'パラメータにdeck_idが含まれる場合' do
       it 'idに紐づくデッキが取得されること' do
@@ -56,14 +58,14 @@ describe PlaylistsController, type: :request do
 
     describe 'パラメータにapi_stateが含まれる場合' do
       context 'api_stateがopenの場合' do
-        params = { api_state: "open" }
+        params = { api_state: 'open' }
         it '公開ステータスがopenとなること' do
           get playlists_url, params: params
           expect(response.status).to eq 200
         end
       end
       context 'api_stateがcloseの場合' do
-        params = { api_state: "close" }
+        params = { api_state: 'close' }
         it '公開ステータスがcloseとなること' do
           get playlists_url, params: params
           expect(response.status).to eq 200
