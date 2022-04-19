@@ -92,12 +92,11 @@ const editorMixin = {
                 },
                 cweb: {
                   regex: /(https?:\/\/(dev-|stg-)?www\.poc\.nhk\.jp\/?(.*))/,
-                  embedUrl:
-                    'https://dev-www.poc.nhk.jp/oembed/<%= remote_id %>?size=middle',
+                  embedUrl: 'https://<%= remote_id %>?size=middle',
                   html: '<iframe frameborder="0" scrolling="no" align="middle" width="640" height="290" allowtransparency="true" allowfullscreen></iframe>',
                   width: 644,
                   height: 290,
-                  id: (ids) => ids[2],
+                  id: (ids) => `${ids[1]}www.poc.nhk.jp/oembed/${ids[2]}`,
                 },
               },
             },
