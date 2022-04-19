@@ -17,7 +17,7 @@
         <div v-show="hasPlaylistId" class="chips">
           <api-state-badge class="my-1" :playlist="playlist" />
           <span
-            v-if="playlist.browsableItemCount === 0"
+            v-if="playlist.playableItemsCount === 0"
             style="font-size: 12px; color: black"
           >
             <v-icon>mdi-video-off-outline</v-icon>
