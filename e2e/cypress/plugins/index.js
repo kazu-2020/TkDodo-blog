@@ -15,7 +15,7 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-module.exports = (on, _config) => {
+module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   on('before:browser:launch', (browser, launchOptions) => {
@@ -24,4 +24,15 @@ module.exports = (on, _config) => {
     }
     return launchOptions
   })
+
+  on("task", {
+    log(message) {
+      console.log(message);
+      return null;
+    },
+  });
+
+  config.env.NOW = new Date()
+
+  return config
 }
