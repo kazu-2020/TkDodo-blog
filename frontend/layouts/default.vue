@@ -63,8 +63,19 @@
         <nuxt />
       </v-container>
     </v-main>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }} EditorialHands</span>
+    <v-footer :fixed="fixed" app padless>
+      <v-card flat tile width="100%" class="text-center">
+        <span v-if="isProd()"
+          >&copy; {{ new Date().getFullYear() }} EditorialHands</span
+        >
+        <v-system-bar v-else color="yellow lighten-1" lights-out>
+          <v-spacer />
+          <v-icon>mdi-alert-circle-outline</v-icon>
+          <span>こちらは {{ envName }} 環境です。</span>
+          <a href="https://eh.nr.nhk.jp/" target="_blank">本番環境へ </a>
+          <v-icon style="text-decoration: none" small>mdi-open-in-new</v-icon>
+        </v-system-bar>
+      </v-card>
     </v-footer>
     <v-dialog v-model="loading" hide-overlay persistent width="300">
       <v-card>
@@ -152,10 +163,16 @@ export default Vue.extend({
     snackBarMessage(): string {
       return this.$store.state.loading.messages[this.snackBarState]
     },
+    envName(): string {
+      return process.env.NODE_ENV || 'development'
+    },
   },
   methods: {
     resetLoadingState() {
       this.$store.dispatch('loading/resetLoadingState')
+    },
+    isProd() {
+      return process.env.NODE_ENV === 'production'
     },
   },
 })
