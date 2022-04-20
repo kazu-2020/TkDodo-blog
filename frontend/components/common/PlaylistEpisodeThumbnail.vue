@@ -26,7 +26,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
 
 interface DataType {
   isShowSeriesName: boolean
@@ -55,12 +54,9 @@ export default Vue.extend({
   methods: {
     episodeThumbnailUrl(episode: any): string {
       return (
-        episode.eyecatch?.medium?.url || this.dummyImage(episode.dateCreated)
+        episode.eyecatch?.medium?.url ||
+        this.episode.partOfSeries.eyecatch?.medium?.url
       )
-    },
-    dummyImage(time: any): string {
-      const logoNumber = (Number(moment(time).format('DD')) % 10) + 1
-      return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
     },
     showSeriesName(): void {
       this.isShowSeriesName = true
