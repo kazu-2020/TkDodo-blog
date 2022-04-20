@@ -1,5 +1,7 @@
 describe('プレイリスト新規作成', () => {
   it('プレイリストを新規作成し、メタの編集をする', () => {
+    const now = Cypress.env('NOW')
+
     cy.visit('/')
     cy.contains('プレイリスト').click()
     cy.contains('新規作成').click()
@@ -9,7 +11,7 @@ describe('プレイリスト新規作成', () => {
     // メタの編集
     cy.get('.series-step').click()
 
-    const playlistName = 'プレイリスト1'
+    const playlistName = `${now}プレイ`
     cy.get('.playlist_name').type(playlistName)
 
     const playlistDetailedNameRuby = 'ぷれいりすと１'
@@ -95,5 +97,65 @@ describe('プレイリスト新規作成', () => {
       'have.value',
       citationUrl
     )
+  })
+
+  it('新規作成したプレイリストが検索できること', () => {
+    const now = Cypress.env('NOW')
+
+    cy.visit('/')
+    cy.contains('プレイリスト').click()
+    cy.contains('一覧').click({ force: true })
+
+    cy.url().should('eq', Cypress.config().baseUrl + '/')
+
+    cy.contains('記事モード').click()
+
+    cy.get('.v-select__slot').click()
+    cy.get('.menuable__content__active').contains('API公開中のみ').click()
+
+    // 対象のプレイリストが表示されていないこと
+    cy.get('.playlist-name').contains(now).should('have.lengthOf', 0)
+
+    cy.get('.playlist-search input[type=text]').type(`${now}{enter}`, { force: true })
+
+    // 対象のプレイリストが表示されていないこと
+    cy.get('.playlist-name').contains(now).should('have.lengthOf', 0)
+
+    cy.get('.playlist-search button').click()
+
+    // 対象のプレイリストが表示されていないこと
+    cy.get('.playlist-name').contains(now).should('have.lengthOf', 0)
+
+    cy.get('.v-select__slot').click()
+    cy.get('.menuable__content__active').contains('API非公開のみ').click()
+
+    // 対象のプレイリストが表示されていること
+    cy.get('.playlist-name').contains(now).should('have.lengthOf', 1)
+
+    cy.get('.playlist-search input[type=text]').type(`${now}{enter}`, { force: true })
+
+    // 対象のプレイリストが表示されていること
+    cy.get('.playlist-name').contains(now).should('have.lengthOf', 1)
+
+    cy.get('.playlist-search button').click()
+
+    // 対象のプレイリストが表示されていること
+    cy.get('.playlist-name').contains(now).should('have.lengthOf', 1)
+
+    cy.get('.v-select__slot').click()
+    cy.get('.menuable__content__active').contains('全て').click()
+
+    // 対象のプレイリストが表示されていること
+    cy.get('.playlist-name').contains(now).should('have.lengthOf', 1)
+
+    cy.get('.playlist-search input[type=text]').type(`${now}{enter}`, { force: true })
+
+    // 対象のプレイリストが表示されていること
+    cy.get('.playlist-name').contains(now).should('have.lengthOf', 1)
+
+    cy.get('.playlist-search button').click()
+
+    // 対象のプレイリストが表示されていること
+    cy.get('.playlist-name').contains(now).should('have.lengthOf', 1)
   })
 })
