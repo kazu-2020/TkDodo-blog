@@ -77,4 +77,24 @@ describe DecksController, type: :request do
       end
     end
   end
+
+  describe 'Get #show' do
+    let(:deck) { create(:deck, :with_playlists) }
+
+    before do
+      json = File.open(Rails.root.join('spec/fixtures/payloads/te_PG3Z16Q145.json')) do |file|
+        json_string = file.read
+        JSON.parse(json_string, symbolize_names: true)
+      end
+      dlab_client = instance_double(DlabApiClient)
+      allow(DlabApiClient).to receive(:new).and_return(dlab_client)
+      allow(dlab_client).to receive(:episode_l_bundle).with(type: 'tv', episode_id: anything).and_return(json)
+      allow(dlab_client).to receive(:episode_list_bundle).with(type: 'tv', episode_id: anything).and_return({})
+    end
+
+    it do
+      get deck_path(deck)
+      expect(response.status).to eq 200
+    end
+  end
 end

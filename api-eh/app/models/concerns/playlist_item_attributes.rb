@@ -29,10 +29,6 @@ module PlaylistItemAttributes
     @playable_playlist_items ||= playlist_items.kept.select(&:has_video)
   end
 
-  def browsable_item_count
-    playable_playlist_items_count
-  end
-
   def faq_page_count
     res = fetch_sub_types_count
     @faq_page_count ||= res[:faq_page_count]
