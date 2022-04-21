@@ -58,7 +58,7 @@ describe PlaylistsController, type: :request do
 
     describe 'パラメータにapi_stateが含まれる場合' do
       context 'api_stateがopenの場合' do
-        params = { api_state: 'open' }
+        params = { api_state: 1 }
         it '公開ステータスがopenとなること' do
           get playlists_url, params: params
           expect(response.status).to eq 200
@@ -67,7 +67,7 @@ describe PlaylistsController, type: :request do
         end
       end
       context 'api_stateがcloseの場合' do
-        params = { api_state: 'close' }
+        params = { api_state: 2 }
         it '公開ステータスがcloseとなること' do
           get playlists_url, params: params
           expect(response.status).to eq 200
