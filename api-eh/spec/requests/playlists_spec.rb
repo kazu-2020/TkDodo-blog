@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe PlaylistsController, type: :request do
   describe 'GET #index' do
-    let!(:playlist) { create :playlist }
+    let!(:playlist) { create(:playlist, name: 'オウサム') }
     let!(:playlist_r5) { create(:playlist, d5_playlist_id: 1) }
     let(:deck) { create :deck }
     let(:deck_r5_with_playlist) { create(:deck, :deck_with_playlist, is_r5: true) }
@@ -62,6 +62,8 @@ describe PlaylistsController, type: :request do
         it '公開ステータスがopenとなること' do
           get playlists_url, params: params
           expect(response.status).to eq 200
+          json = JSON.parse(response.body)
+          expect(json['playlists'][0]['apiState']).to eq 'open'
         end
       end
       context 'api_stateがcloseの場合' do
@@ -69,7 +71,18 @@ describe PlaylistsController, type: :request do
         it '公開ステータスがcloseとなること' do
           get playlists_url, params: params
           expect(response.status).to eq 200
+          json = JSON.parse(response.body)
+          expect(json['playlists'][0]['apiState']).to eq 'close'
         end
+      end
+    end
+    describe '検索ワードが含まれる場合' do
+      params = { query: 'オウサム' }
+      it '検索ワードに部分一致するプレイリストが取得できること' do
+        get playlists_url, params: params
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['playlists'][0]['name']).to eq 'オウサム'
       end
     end
   end
