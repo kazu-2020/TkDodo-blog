@@ -57,25 +57,31 @@ describe PlaylistsController, type: :request do
     end
 
     describe 'パラメータにapi_stateが含まれる場合' do
+        let!(:playlist_close) { create(:playlist, api_state: api_state) }
+
       context 'api_stateがopenの場合' do
-        params = { api_state: 1 }
+        let(:api_state){ 'open' }
+
         it '公開ステータスがopenとなること' do
-          get playlists_url, params: params
+          get playlists_url, params: api_state
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
           expect(json['playlists'][0]['apiState']).to eq 'open'
         end
       end
+
       context 'api_stateがcloseの場合' do
-        params = { api_state: 2 }
+        let(:api_state){ 'close' }
+
         it '公開ステータスがcloseとなること' do
-          get playlists_url, params: params
+          get playlists_url, params: api_state
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
           expect(json['playlists'][0]['apiState']).to eq 'close'
         end
       end
     end
+
     describe '検索ワードが含まれる場合' do
       params = { query: 'オウサム' }
       it '検索ワードに部分一致するプレイリストが取得できること' do
