@@ -14,6 +14,10 @@ FactoryBot.define do
   trait :with_playlist do
     after(:build) do |deck|
       deck.playlists << build(:playlist)
+
+  trait :with_playlists do
+    after(:create) do |deck, _|
+      create_list(:playlist, 2, decks: [deck])
     end
   end
 end

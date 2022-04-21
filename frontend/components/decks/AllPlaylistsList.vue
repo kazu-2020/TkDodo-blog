@@ -6,6 +6,9 @@
         <div class="body-2 ml-1 text-right">全 {{ totalPlaylistsNum }} 件</div>
       </v-col>
     </v-row>
+    <v-col v-if="playlistLoading" cols="12">
+      <v-skeleton-loader class="mx-auto" type="list-item-three-line" />
+    </v-col>
     <v-col v-if="isError" cols="12">
       <div>プレイリストの取得に失敗しました</div>
     </v-col>
@@ -106,6 +109,7 @@ export default Vue.extend({
     return {
       playlists: [],
       isError: false,
+      playlistLoading: false,
     }
   },
   computed: {
@@ -118,6 +122,8 @@ export default Vue.extend({
   },
   methods: {
     fetchAllPlaylists(): Playlist[] {
+      this.playlistLoading = true
+
       this.$axios
         .get(`/playlists?per=1000&with_subtype_item_count=1`)
         .then((res) => {
@@ -125,6 +131,9 @@ export default Vue.extend({
         })
         .catch(() => {
           this.isError = true
+        })
+        .finally(() => {
+          this.playlistLoading = false
         })
 
       return []
@@ -151,7 +160,7 @@ export default Vue.extend({
       return 'https://placehold.jp/40x40.png'
     },
     hasVideo(playlist: any) {
-      return playlist.playablePlaylistItemCount !== 0
+      return playlist.playableItemsCount !== 0
     },
     hasArticle(playlist: any) {
       return playlist.article?.markedBody !== null
