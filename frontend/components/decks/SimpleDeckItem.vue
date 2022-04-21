@@ -8,13 +8,6 @@
   >
     <v-row>
       <v-col cols="4">
-        <v-img
-          :src="logoImageUrl"
-          class="deck_logo_image mr-3 elevation-3 float-left"
-          aspect-ratio="1"
-          height="30"
-          width="30"
-        />
         <div class="title">
           <a class="deck-title">
             <span class="deck-name">{{ deckName }}</span>
@@ -52,9 +45,6 @@ export default Vue.extend({
     },
     deckAdminMemo(): string {
       return this.deck.adminMemo || ''
-    },
-    logoImageUrl(): string {
-      return this.deck.logo?.medium?.url || this.dummyImage
     },
     dummyImage(): string {
       const logoNumber = this.deck.dateCreated
