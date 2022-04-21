@@ -12,9 +12,7 @@ RSpec.describe RemoveMissingArticleImagesJob, type: :model do
 
   it '古い画像だけ削除されること' do
     expect {
-      RemoveMissingArticleImagesJob.perform_async
-    }.to change {
-      ArticleImage.count
-    }.from(3).to(2)
+      described_class.perform_async
+    }.to change(ArticleImage, :count).from(3).to(2)
   end
 end

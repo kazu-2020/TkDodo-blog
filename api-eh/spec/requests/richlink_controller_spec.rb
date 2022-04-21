@@ -10,7 +10,7 @@ describe RichlinkController, type: :request do
       get richlink_url, params: { url: 'https://www.nhk.or.jp/' }
 
       expect(response.status).to eq 200
-      expect(response.body).to_not include 'Error'
+      expect(response.body).not_to include 'Error'
     end
 
     it 'returns success response' do
@@ -18,7 +18,7 @@ describe RichlinkController, type: :request do
       get richlink_url, params: { url: "https://dev-www-eh.nr.nhk.jp/p/pl/recommend-tep-#{playlist_id}" }
 
       expect(response.status).to eq 200
-      expect(response.body).to_not include 'Error'
+      expect(response.body).not_to include 'Error'
     end
   end
 end

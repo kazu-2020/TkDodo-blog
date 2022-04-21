@@ -29,7 +29,7 @@ describe PlaylistItem, type: :model do
 
       it do
         VCR.use_cassette("r6/l/bundle/te/#{playable_episode_id}.json?extendedEntities=true&ignoreRange=true") do
-          expect(playlist_item.fetch_bundle_data).to_not be_nil
+          expect(playlist_item.fetch_bundle_data).not_to be_nil
         end
       end
     end

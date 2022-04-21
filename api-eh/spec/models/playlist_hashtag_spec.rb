@@ -4,16 +4,18 @@ require 'rails_helper'
 
 describe PlaylistHashtag, type: :model do
   context 'validations' do
-    context '#name' do
+    describe '#name' do
       let(:playlist_hashtag) { build(:playlist_hashtag, name: name) }
 
       context 'when name is present' do
         let(:name) { 'Awesome keyword' }
+
         it { expect(playlist_hashtag).to be_valid }
       end
 
       context 'when name does not present' do
         let(:name) { nil }
+
         it { expect(playlist_hashtag).to be_invalid }
       end
 
@@ -21,6 +23,7 @@ describe PlaylistHashtag, type: :model do
         let(:name) { '#hashtag1' }
         let(:playlist) { create(:playlist) }
         let(:playlist_hashtag) { build(:playlist_hashtag, name: name, playlist: playlist) }
+
         before { create(:playlist_hashtag, name: name, playlist: playlist) }
 
         it 'does not valid record' do

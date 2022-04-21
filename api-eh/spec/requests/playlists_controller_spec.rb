@@ -14,14 +14,13 @@ describe PlaylistsController, type: :request do
 
   describe 'POST #create' do
     let(:params) { { playlist: { name: 'cool name' } } }
+
     before { create(:deck) }
 
     it 'creates new playlist' do
       expect do
         post '/playlists', params: params
-      end.to change {
-        Playlist.count
-      }.from(0).to(1)
+      end.to change(Playlist, :count).from(0).to(1)
     end
 
     context 'create with article image' do
@@ -67,9 +66,7 @@ describe PlaylistsController, type: :request do
     it 'delete playlist' do
       expect do
         delete playlist_path(playlist)
-      end.to change {
-        Playlist.count
-      }.from(1).to(0)
+      end.to change(Playlist, :count).from(1).to(0)
     end
   end
 
@@ -92,7 +89,7 @@ describe PlaylistsController, type: :request do
     end
 
     before do
-      allow_any_instance_of(PlaylistsController).to receive(:image_param).and_return(image)
+      allow_any_instance_of(described_class).to receive(:image_param).and_return(image)
     end
 
     it 'リクエストが成功する' do
