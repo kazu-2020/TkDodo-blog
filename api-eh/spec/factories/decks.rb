@@ -11,7 +11,7 @@ FactoryBot.define do
     deck_uid { SecureRandom.uuid }
   end
 
-  trait :deck_with_playlist do
+  trait :with_playlist do
     after(:build) do |deck|
       deck.playlists << build(:playlist)
     end

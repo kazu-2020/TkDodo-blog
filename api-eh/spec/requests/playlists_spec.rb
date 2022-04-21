@@ -7,7 +7,7 @@ describe PlaylistsController, type: :request do
     let!(:playlist) { create(:playlist, name: 'オウサム') }
     let!(:playlist_r5) { create(:playlist, d5_playlist_id: 1) }
     let(:deck) { create :deck }
-    let(:deck_r5_with_playlist) { create(:deck, :deck_with_playlist, is_r5: true) }
+    let(:deck_r5_with_playlist) { create(:deck, :with_playlist, is_r5: true) }
     let(:expected_json) {
       {
         'stringId' => "recommend-tep-#{format('%010d', deck_r5_with_playlist.playlists.target[0]['id'])}",
