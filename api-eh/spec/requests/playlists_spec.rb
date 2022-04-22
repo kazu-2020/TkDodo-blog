@@ -14,7 +14,7 @@ describe PlaylistsController, type: :request do
         'name' => deck_r5_with_playlists.playlists.target[0]['name'],
         'detailedNameRuby' => deck_r5_with_playlists.playlists.target[0]['detailed_name_ruby'],
         'description' => deck_r5_with_playlists.playlists.target[0]['description'],
-        'headline' => deck_r5_with_playlists.playlists.target[0]['headline'],
+        'headline' => deck_r5_with_playlists.playlists.target[0]['headline']
       }
     }
 
