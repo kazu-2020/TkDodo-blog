@@ -7,7 +7,7 @@ json.playlistCount deck.playlists.count
 json.adminMemo deck.admin_memo
 json.apiState deck.api_state
 json.playlists do
-  json.array! deck.playlists, partial: 'playlists/simple_playlist', as: :playlist
+  json.array! deck.playlists, partial: 'simple_playlist', as: :playlist
 end
 json.sameAs do
   json.array! deck.deck_same_as do |same_as|
