@@ -4,7 +4,7 @@ const environment = process.env.NODE_ENV || 'development'
 const envSet = require(`./env.${environment}.js`)
 
 export default {
-  env: envSet,
+  env: { ...envSet, environment }, // 実行時にNODE_ENVがproductionになるためenvironmentを設定
   ssr: false,
   /*
    ** Headers of the page
