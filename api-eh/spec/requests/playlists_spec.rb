@@ -4,33 +4,23 @@ require 'rails_helper'
 
 describe PlaylistsController, type: :request do
   describe 'GET #index' do
-    let!(:playlist) { create(:playlist, name: 'オウサム') }
+    let!(:playlist) { create(:playlist, name: 'オウサム ネーム') }
     let!(:playlist_r5) { create(:playlist, d5_playlist_id: 1) }
-    let(:deck) { create :deck }
-    let(:deck_r5_with_playlist) { create(:deck, :with_playlist, is_r5: true) }
+    let(:deck_r5_with_playlists) { create(:deck, :with_playlists, is_r5: true) }
     let(:expected_json) {
       {
-        'stringId' => "recommend-tep-#{format('%010d', deck_r5_with_playlist.playlists.target[0]['id'])}",
-        'primaryId' => deck_r5_with_playlist.playlists.target[0]['id'],
-        'name' => deck_r5_with_playlist.playlists.target[0]['name'],
-        'detailedNameRuby' => deck_r5_with_playlist.playlists.target[0]['detailed_name_ruby'],
-        'description' => deck_r5_with_playlist.playlists.target[0]['description'],
-        'headline' => deck_r5_with_playlist.playlists.target[0]['headline'],
-        'style' => {
-          'selectedPalette' => deck_r5_with_playlist.playlists.target[0]['selected_palette'],
-          'primaryLight' => deck_r5_with_playlist.playlists.target[0]['primary_light_color'],
-          'primaryDark' => deck_r5_with_playlist.playlists.target[0]['primary_dark_color'],
-          'textLight' => deck_r5_with_playlist.playlists.target[0]['text_light_color'],
-          'textDark' => deck_r5_with_playlist.playlists.target[0]['text_dark_color'],
-          'linkLight' => deck_r5_with_playlist.playlists.target[0]['link_light_color'],
-          'linkDark' => deck_r5_with_playlist.playlists.target[0]['link_dark_color']
-        }
+        'stringId' => "recommend-tep-#{format('%010d', deck_r5_with_playlists.playlists.target[0]['id'])}",
+        'primaryId' => deck_r5_with_playlists.playlists.target[0]['id'],
+        'name' => deck_r5_with_playlists.playlists.target[0]['name'],
+        'detailedNameRuby' => deck_r5_with_playlists.playlists.target[0]['detailed_name_ruby'],
+        'description' => deck_r5_with_playlists.playlists.target[0]['description'],
+        'headline' => deck_r5_with_playlists.playlists.target[0]['headline'],
       }
     }
 
     describe 'パラメータにdeck_idが含まれる場合' do
       it 'idに紐づくデッキが取得されること' do
-        params = { deck_id: deck_r5_with_playlist.id }
+        params = { deck_id: deck_r5_with_playlists.id }
         get playlists_url, params: params
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
@@ -39,7 +29,7 @@ describe PlaylistsController, type: :request do
     end
     describe 'パラメータにareaが含まれる場合' do
       it 'areaに紐づくr5相当のデッキが取得されること' do
-        params = { area: deck_r5_with_playlist.area, is_r5: true }
+        params = { area: deck_r5_with_playlists.area, is_r5: true }
         get playlists_url, params: params
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
@@ -88,14 +78,13 @@ describe PlaylistsController, type: :request do
         get playlists_url, params: params
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
-        expect(json['playlists'][0]['name']).to eq 'オウサム'
+        expect(json['playlists'][0]['name']).to eq 'オウサム ネーム'
       end
     end
   end
 
   describe 'POST #create' do
     let(:params) { { playlist: { name: 'cool name' } } }
-    before { create(:deck) }
 
     it 'creates new playlist' do
       expect do

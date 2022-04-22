@@ -2,7 +2,6 @@
 
 FactoryBot.define do
   factory :deck do
-    sequence(:id) { |n| n }
     sequence(:name) { |n| "deck #{n}" }
     description { 'description for the sample ' }
     interfix { 'sample' }
@@ -11,15 +10,9 @@ FactoryBot.define do
     deck_uid { SecureRandom.uuid }
   end
 
-  trait :with_playlist do
-    after(:build) do |deck|
-      deck.playlists << build(:playlist)
-    end
-  end
-
   trait :with_playlists do
-    after(:create) do |deck|
-      create_list(:playlist, 2, decks: [deck])
+    after(:build) do |deck, _|
+      2.times { deck.playlists << build(:playlist) }
     end
   end
 end
