@@ -17,7 +17,11 @@ json.set_raw! :partOfSeries, episode[:partOfSeries].to_json
 json.set_raw! :releasedEvent, episode[:releasedEvent].to_json
 json.set_raw! :detailedRecentEvent, episode[:detailedRecentEvent].to_json
 json.set_raw! :keyvisuals, episode[:keyvisuals].to_json
-json.set_raw! :eyecatch, episode[:eyecatch].to_json if episode[:eyecatch].present?
+if episode[:eyecatch].present?
+  json.set_raw! :eyecatch, episode[:eyecatch].to_json
+elsif episode[:partOfSeries][:eyecatch].present?
+  json.set_raw! :eyecatch, episode[:partOfSeries][:eyecatch].to_json
+end
 json.set_raw! :eyecatches, episode[:eyecatches].to_json if episode[:eyecatches].present?
 json.set_raw! :videos, episode[:videos].to_json
 json.set_raw! :broadcastEvent, episode[:broadcastEvent].to_json
