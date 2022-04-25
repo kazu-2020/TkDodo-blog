@@ -53,8 +53,8 @@ describe PlaylistsController, type: :request do
 
     context 'パラメータにapi_stateが含まれる場合' do
       context 'api_stateがopenの場合' do
-        let(:params) { { api_state: 'open' } }
         let!(:playlist) { create(:playlist, api_state: 'open') }
+        let(:params) { { api_state: 'open' } }
 
         it '公開ステータスがopenとなること' do
           get playlists_url, params: params
@@ -65,8 +65,8 @@ describe PlaylistsController, type: :request do
       end
 
       context 'api_stateがcloseの場合' do
-        let(:params) { { api_state: 'close' } }
         let!(:playlist) { create(:playlist, api_state: 'close') }
+        let(:params) { { api_state: 'close' } }
 
         it '公開ステータスがcloseとなること' do
           get playlists_url, params: params
