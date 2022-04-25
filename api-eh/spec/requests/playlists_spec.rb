@@ -51,7 +51,7 @@ describe PlaylistsController, type: :request do
       end
     end
 
-    describe 'パラメータにapi_stateが含まれる場合' do
+    context 'パラメータにapi_stateが含まれる場合' do
       context 'api_stateがopenの場合' do
         let(:params) { { api_state: 'open' } }
         let!(:playlist) { create(:playlist, api_state: 'open') }
@@ -77,7 +77,7 @@ describe PlaylistsController, type: :request do
       end
     end
 
-    describe '検索ワードが含まれる場合' do
+    context '検索ワードが含まれる場合' do
       let(:params) { { search_word: 'オウサム' } }
 
       it '検索ワードに部分一致するプレイリストが取得できること' do
