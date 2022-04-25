@@ -340,17 +340,10 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/RepeatedDescription:
   Enabled: false
 
-RSpec/EmptyExampleGroup:
-  Enabled: false #factories/playlist_itemsのcontextカラムがチェックにかかるため
-
-RSpec/MissingExampleGroupArgument:
-  Enabled: false #factories/playlist_itemsのcontextカラムがチェックにかかるため
-
-RSpec/EmptyLineAfterExampleGroup:
-  Enabled: false #factories/playlist_itemsのcontextカラムがチェックにかかるため
-
 RSpec/AnyInstance:
   Enabled: false
 
 RSpec/LetSetup:
   Enabled: false
+
+
