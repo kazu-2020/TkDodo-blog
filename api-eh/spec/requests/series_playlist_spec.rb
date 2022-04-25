@@ -3,20 +3,38 @@
 require 'rails_helper'
 
 describe SeriesPlaylist, type: :request do
-  let(:series_id) { '5NVVN1G5PJ' }
-  let(:string_id) { "ts-#{series_id}" }
-  let!(:series_playlist) { create(:series_playlist, string_id: string_id, series_id: series_id) }
+  # 2022/04/25時点で、IDが１の時エピソードが存在しない
+  let!(:has_not_episodes) { create(:series_playlist, string_id: 'ts-5NVVN1G5PJ', series_id: '5NVVN1G5PJ') }
+  # 2022/04/25時点で、IDが2の時エピソードが存在する
+  let!(:has_episodes) { create(:series_playlist, string_id: 'ts-1V1PJ9L5JN', series_id: '1V1PJ9L5JN') }
 
   describe '#GET episodes' do
-    it '正常にレスポンスが返ってくること' do
-      get "/series_playlists/#{series_playlist.id}/episodes"
-      expect(response.status).to eq 200
+    context 'idに紐づくデータが存在しない場合' do
+      it 'データは取得されないが、レスポンスは200として処理されること' do
+        VCR.use_cassette('requests/series_playlists/no_episodes') do
+          get "/series_playlists/#{has_not_episodes.id}/episodes"
+          expect(response.status).to eq 200
+          json = JSON.parse(response.body)
+          expect(json['episodes'].count).to eq 0
+        end
+      end
+    end
+
+    context 'idに紐づくデータが存在する場合' do
+      it 'データが取得できること' do
+        VCR.use_cassette('requests/series_playlists/episodes') do
+          get "/series_playlists/#{has_episodes.id}/episodes"
+          expect(response.status).to eq 200
+          json = JSON.parse(response.body)
+          expect(json['episodes'][0]['identifierGroup']['seriesId']).to eq has_episodes.series_id
+        end
+      end
     end
   end
 
   describe '#GET search' do
     it '正常にレスポンスが返ってくること' do
-      VCR.use_cassette('requests/series_playlists/search_path') do
+      VCR.use_cassette('requests/series_playlists/search') do
         get search_series_playlists_path
         expect(response.status).to eq 200
       end
