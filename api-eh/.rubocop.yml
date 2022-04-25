@@ -332,10 +332,10 @@ RSpec/MultipleExpectations:
   Enabled: false
 
 RSpec/ExampleLength:
-  Max: 24 # デフォルトは5
+  Enabled: false
 
 RSpec/MultipleMemoizedHelpers:
-  Max: 8 # デフォルトは5
+  Enabled: false
 
 RSpec/RepeatedDescription:
   Enabled: false
@@ -345,5 +345,3 @@ RSpec/AnyInstance:
 
 RSpec/LetSetup:
   Enabled: false
-
-
