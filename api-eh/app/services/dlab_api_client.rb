@@ -31,7 +31,8 @@ class DlabApiClient < DlabApiBase
   #
   # @param [Hash] search_params
   # rubocop: disable Metrics/AbcSize
-  def search(search_params)
+  # @param [Hash] query
+  def search(search_params, query: {})
     offset = search_params[:offset] || DEFAULT_OFFSET
     ignore_range = search_params[:ignore_range].nil? ? true : search_params[:ignore_range]
     sort_order = search_params[:order] || DEFAULT_SORT_ORDER
@@ -42,7 +43,7 @@ class DlabApiClient < DlabApiBase
                       order: sort_order, orderBy: sort_order_by, size: size }
     merged_params.merge!(search_query_hash(search_params))
 
-    res = client.get "/#{version}/s/extended.json", INTERNAL_PARAMS.merge(merged_params)
+    res = client.get "/#{version}/s/extended.json", INTERNAL_PARAMS.merge(merged_params).merge(query)
     handle_response(res)
   end
   # rubocop: enable Metrics/AbcSize

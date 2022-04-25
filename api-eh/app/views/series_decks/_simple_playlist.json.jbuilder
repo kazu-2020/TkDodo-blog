@@ -2,6 +2,7 @@
 
 json.id playlist.id
 json.seriesId playlist.series_id
+json.stringId playlist.string_id
 json.name playlist.name
 if playlist.logo.present?
   json.logo do

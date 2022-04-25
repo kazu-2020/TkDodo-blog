@@ -28,7 +28,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
 import { EpisodeData } from '~/types/episode_data'
 
 interface DataType {
@@ -58,13 +57,7 @@ export default Vue.extend({
   },
   methods: {
     episodeEyecatchUrl(episode: any): string {
-      return (
-        episode.eyecatch?.medium?.url || this.dummyImage(episode.dateCreated)
-      )
-    },
-    dummyImage(time: any): string {
-      const logoNumber = (Number(moment(time).format('DD')) % 10) + 1
-      return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
+      return episode.eyecatch?.medium?.url
     },
     fetchPlaylistEpisodes() {
       if (this.episodes.length !== 0) return

@@ -12,7 +12,8 @@ class EpisodesController < ApplicationController
 
   def search
     client = DlabApiClient.new
-    @result = client.search(search_params)&.deep_symbolize_keys
+    @result = client.search(search_params,
+                            query: { publishLevel: 'notyet,ready,full,limited,gone' })&.deep_symbolize_keys
 
     # okushibu3のために、r6.0からEpisodeを引き直して検索結果に設定し直している
     @result.dig(:result, :tvepisode, :result).each do |item|
@@ -25,8 +26,7 @@ class EpisodesController < ApplicationController
     @result = client.episode_l_bundle(type: 'tv', episode_id: params[:id], query: { size: 10 })
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
-  def bundle_items
+  def bundle_items # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
     episode_ids = (params[:episode_ids] || '').split(',')
     client = DlabApiClient.new
 
@@ -48,7 +48,6 @@ class EpisodesController < ApplicationController
 
     render json: result
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
 
   def playlists
     playlist_ids = PlaylistItem.where(episode_id: params[:id]).kept.pluck(:playlist_id).uniq
