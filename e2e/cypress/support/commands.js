@@ -25,3 +25,8 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 import 'cypress-file-upload'
+
+
+Cypress.Commands.add("waitLoading", () => {
+  cy.get('.v-progress-linear--visible', { timeout: 15000 }).should('not.exist')
+})
