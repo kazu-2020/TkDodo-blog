@@ -1,0 +1,2917 @@
+{
+  "items": [
+    {
+      "type": "TVEpisode",
+      "id": "123JXPM5ZQ",
+      "name": "「メルケル首相の16年とドイツの行方」",
+      "identifierGroup": {
+        "episodeId": "123JXPM5ZQ",
+        "tvEpisodeId": "123JXPM5ZQ",
+        "seriesId": "4V23PRP3YR",
+        "tvSeriesId": "4V23PRP3YR",
+        "episodeName": "「メルケル首相の16年とドイツの行方」",
+        "tvEpisodeName": "「メルケル首相の16年とドイツの行方」",
+        "seriesName": "時論公論",
+        "tvSeriesName": "時論公論",
+        "hashtag": [],
+        "serviceId": [
+          "g1",
+          "g2"
+        ],
+        "formatGenreTag": [
+          {
+            "id": "01",
+            "name": "報道"
+          }
+        ]
+      },
+      "identifierGroupEx": {
+        "seriesGroupId": "W4YQLX54W5",
+        "tvSeriesGroupId": "W4YQLX54W5",
+        "seriesGroupName": "時論公論",
+        "tvSeriesGroupName": "時論公論",
+        "episodeNameTemp": "「メルケル首相の16年とドイツの行方」",
+        "tvEpisodeNameTemp": "「メルケル首相の16年とドイツの行方」",
+        "seriesNameTemp": "時論公論",
+        "tvSeriesNameTemp": "時論公論",
+        "releasedEventServiceIdTemp": "g1",
+        "releasedEventStartDateTemp": "2021-09-30T23:25:00+09:00",
+        "releasedEventEndDateTemp": "2021-09-30T23:35:00+09:00"
+      },
+      "keywords": [],
+      "description": "ドイツのメルケル首相が政界を引退、１６年におよぶ政権が終焉（えん）する。首相の在任期間を振り返るとともに、今後のドイツの展望と課題、欧州や世界への影響を解説する",
+      "dateCreated": "2021-08-18T15:45:00+09:00",
+      "dateModified": "2021-09-30T18:30:51+09:00",
+      "actors": [],
+      "contributors": [],
+      "partOfSeries": {
+        "id": "4V23PRP3YR",
+        "name": "時論公論",
+        "detailedSeriesNameRuby": "じろんこうろん",
+        "identifierGroup": {
+          "seriesId": "4V23PRP3YR",
+          "tvSeriesId": "4V23PRP3YR",
+          "seriesName": "時論公論",
+          "tvSeriesName": "時論公論",
+          "hashtag": [],
+          "serviceId": [
+            "g1",
+            "g2",
+            "s1",
+            "s2"
+          ],
+          "formatGenre": [
+            {
+              "id": "01",
+              "name": "報道"
+            }
+          ]
+        },
+        "identifierGroupEx": {
+          "seriesGroupId": "W4YQLX54W5",
+          "tvSeriesGroupId": "W4YQLX54W5",
+          "seriesGroupName": "時論公論",
+          "tvSeriesGroupName": "時論公論",
+          "seriesNameTemp": "時論公論",
+          "tvSeriesNameTemp": "時論公論"
+        },
+        "url": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/",
+        "canonical": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/",
+        "description": "混沌とした時代、次々と押し寄せるニュースの裏に、何があるのか？　「時論公論」は“明日を生きる指針”を提供する解説番組です。",
+        "detailedCatch": "10分に込めた、明日への指針。",
+        "logo": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-logo_592b2cc22a20bf110ee877275564af2a.png",
+            "width": 1080,
+            "height": 1080
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-logo_468ca8156ad6364b8408ed065930380a.png",
+            "width": 640,
+            "height": 640
+          }
+        },
+        "eyecatch": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_b3f2bbce089f2e236d6b56579650d829.png",
+            "width": 1920,
+            "height": 1080
+          },
+          "tver": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_51f35512517501fdaaed140114b59667.png",
+            "width": 928,
+            "height": 522
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_064f812572a5959d4c8e6884624a644d.png",
+            "width": 640,
+            "height": 360
+          }
+        },
+        "hero": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-hero_6a877129fe1fc0be4bb3311412c9d484.jpg",
+            "width": 1920,
+            "height": 640
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-hero_fd289eeec2eb8dc98ee59571c4b92c0c.jpg",
+            "width": 1080,
+            "height": 360
+          }
+        },
+        "style": {
+          "textLight": "#000000",
+          "textDark": "#FFFFFF",
+          "linkLight": "#E22300",
+          "linkDark": "#FF330D",
+          "primaryLight": "#FF2800",
+          "primaryDark": "#FF2800"
+        },
+        "additionalProperty": {
+          "publishLevel": "ready",
+          "layoutPattern": "summary",
+          "episodeOrderBy": "releasedEvent",
+          "availableOnPlus": false,
+          "enableVariablePlayBackSpeedControl": false,
+          "optional": [],
+          "seriesPackStatus": "notPacked"
+        }
+      },
+      "releasedEvent": {
+        "startDate": "2021-09-30T23:25:00+09:00",
+        "endDate": "2021-09-30T23:35:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "detailedRecentEvent": {
+        "startDate": "2021-09-30T23:25:00+09:00",
+        "endDate": "2021-09-30T23:35:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "keyvisuals": [],
+      "videos": [],
+      "citations": [],
+      "url": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/episode/te/123JXPM5ZQ/",
+      "canonical": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/episode/te/123JXPM5ZQ/",
+      "sameAs": [],
+      "detailedMemo": []
+    },
+    {
+      "type": "TVEpisode",
+      "id": "QZ1M9NX81N",
+      "name": "「内田雄馬」",
+      "identifierGroup": {
+        "episodeId": "QZ1M9NX81N",
+        "tvEpisodeId": "QZ1M9NX81N",
+        "seriesId": "KNY2YKWLG9",
+        "tvSeriesId": "KNY2YKWLG9",
+        "episodeName": "「内田雄馬」",
+        "tvEpisodeName": "「内田雄馬」",
+        "seriesName": "沼にハマってきいてみた",
+        "tvSeriesName": "沼にハマってきいてみた",
+        "hashtag": [],
+        "serviceId": [
+          "e1",
+          "e3"
+        ],
+        "formatGenreTag": [
+          {
+            "id": "05",
+            "name": "バラエティ"
+          }
+        ],
+        "themeGenreTag": [
+          {
+            "id": "103",
+            "name": "中高生"
+          }
+        ]
+      },
+      "identifierGroupEx": {
+        "seriesGroupId": "4Q27WNZ559",
+        "tvSeriesGroupId": "4Q27WNZ559",
+        "seriesGroupName": "沼にハマってきいてみた",
+        "tvSeriesGroupName": "沼にハマってきいてみた",
+        "episodeNameTemp": "「内田雄馬」",
+        "tvEpisodeNameTemp": "「内田雄馬」",
+        "seriesNameTemp": "沼にハマってきいてみた",
+        "tvSeriesNameTemp": "沼にハマってきいてみた",
+        "releasedEventServiceIdTemp": "e1",
+        "releasedEventStartDateTemp": "2021-09-22T18:55:00+09:00",
+        "releasedEventEndDateTemp": "2021-09-22T19:25:00+09:00"
+      },
+      "keywords": [],
+      "description": "内田雄馬登場！　話題のＴＶアニメ「呪術廻戦」、伏黒恵の声を担当する大人気声優アーティストの素顔を深堀。「呪術廻戦」のアフレコ裏話や、初公開のダンスリハも！",
+      "dateCreated": "2021-09-15T01:08:56+09:00",
+      "dateModified": "2021-09-15T04:48:52+09:00",
+      "actors": [],
+      "contributors": [],
+      "partOfSeries": {
+        "id": "KNY2YKWLG9",
+        "name": "沼にハマってきいてみた",
+        "detailedSeriesNameRuby": "",
+        "identifierGroup": {
+          "seriesId": "KNY2YKWLG9",
+          "tvSeriesId": "KNY2YKWLG9",
+          "seriesName": "沼にハマってきいてみた",
+          "tvSeriesName": "沼にハマってきいてみた",
+          "hashtag": [],
+          "serviceId": [
+            "e1",
+            "e3"
+          ],
+          "formatGenre": [
+            {
+              "id": "05",
+              "name": "バラエティ"
+            }
+          ],
+          "themeGenre": [
+            {
+              "id": "096",
+              "name": "芸術"
+            }
+          ]
+        },
+        "identifierGroupEx": {
+          "seriesGroupId": "4Q27WNZ559",
+          "tvSeriesGroupId": "4Q27WNZ559",
+          "seriesGroupName": "沼にハマってきいてみた",
+          "tvSeriesGroupName": "沼にハマってきいてみた",
+          "seriesNameTemp": "沼にハマってきいてみた",
+          "tvSeriesNameTemp": "沼にハマってきいてみた"
+        },
+        "url": "https://dev-www.nhk.jp/p/ts/KNY2YKWLG9/",
+        "canonical": "https://dev-www.nhk.jp/p/ts/KNY2YKWLG9/",
+        "description": "",
+        "detailedCatch": "",
+        "logo": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-logo_c88d570faa2e3015d1941eef8f7fcd99.jpg",
+            "width": 1080,
+            "height": 1080
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-logo_7e8b68fa27bcc2d084ed76dc2b200b33.jpg",
+            "width": 640,
+            "height": 640
+          }
+        },
+        "eyecatch": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-eyecatch_5fc01f8353b47932237f72bbcd9e0868.jpg",
+            "width": 1920,
+            "height": 1080
+          },
+          "tver": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-eyecatch_839acaccf66b1bc882d5f1065f8f824d.jpg",
+            "width": 928,
+            "height": 522
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-eyecatch_198b7c09044bc5399534656dfb45b701.jpg",
+            "width": 640,
+            "height": 360
+          }
+        },
+        "hero": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-hero_47ec55773f426e531b6248ea61cd33a4.jpg",
+            "width": 1920,
+            "height": 640
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-hero_bd057c4df7c14f567ec590461e104100.jpg",
+            "width": 1080,
+            "height": 360
+          }
+        },
+        "style": {
+          "textLight": "#000000",
+          "textDark": "#FFFFFF",
+          "linkLight": "#990099",
+          "linkDark": "#C46BC4",
+          "primaryLight": "#990099",
+          "primaryDark": "#B13CB1"
+        },
+        "additionalProperty": {
+          "publishLevel": "full",
+          "layoutPattern": "summary",
+          "episodeOrderBy": "releasedEvent",
+          "availableOnPlus": false,
+          "enableVariablePlayBackSpeedControl": false,
+          "optional": [],
+          "seriesPackStatus": "notPacked"
+        }
+      },
+      "releasedEvent": {
+        "startDate": "2021-09-22T18:55:00+09:00",
+        "endDate": "2021-09-22T19:25:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK教育テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "e1",
+            "serviceName": "NHKEテレ1",
+            "shortenedName": "NHKEテレ1",
+            "shortenedDisplayName": "Eテレ"
+          }
+        }
+      },
+      "detailedRecentEvent": {
+        "startDate": "2021-09-22T18:55:00+09:00",
+        "endDate": "2021-09-22T19:25:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK教育テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "e1",
+            "serviceName": "NHKEテレ1",
+            "shortenedName": "NHKEテレ1",
+            "shortenedDisplayName": "Eテレ"
+          }
+        }
+      },
+      "keyvisuals": [],
+      "videos": [],
+      "citations": [],
+      "url": "https://dev-www.nhk.jp/p/ts/KNY2YKWLG9/episode/te/QZ1M9NX81N/",
+      "canonical": "https://dev-www.nhk.jp/p/ts/KNY2YKWLG9/episode/te/QZ1M9NX81N/",
+      "sameAs": [],
+      "detailedMemo": []
+    },
+    {
+      "type": "TVEpisode",
+      "id": "WY6ZG6JQP3",
+      "name": "「踊ってみた沼 〜激レアダンス編〜」",
+      "identifierGroup": {
+        "episodeId": "WY6ZG6JQP3",
+        "tvEpisodeId": "WY6ZG6JQP3",
+        "seriesId": "KNY2YKWLG9",
+        "tvSeriesId": "KNY2YKWLG9",
+        "episodeName": "「踊ってみた沼 〜激レアダンス編〜」",
+        "tvEpisodeName": "「踊ってみた沼 〜激レアダンス編〜」",
+        "seriesName": "沼にハマってきいてみた",
+        "tvSeriesName": "沼にハマってきいてみた",
+        "hashtag": [],
+        "serviceId": [
+          "e1",
+          "e3"
+        ],
+        "formatGenreTag": [
+          {
+            "id": "05",
+            "name": "バラエティ"
+          }
+        ],
+        "themeGenreTag": [
+          {
+            "id": "103",
+            "name": "中高生"
+          }
+        ]
+      },
+      "identifierGroupEx": {
+        "seriesGroupId": "4Q27WNZ559",
+        "tvSeriesGroupId": "4Q27WNZ559",
+        "seriesGroupName": "沼にハマってきいてみた",
+        "tvSeriesGroupName": "沼にハマってきいてみた",
+        "episodeNameTemp": "「踊ってみた沼 〜激レアダンス編〜」",
+        "tvEpisodeNameTemp": "「踊ってみた沼 〜激レアダンス編〜」",
+        "seriesNameTemp": "沼にハマってきいてみた",
+        "tvSeriesNameTemp": "沼にハマってきいてみた",
+        "releasedEventServiceIdTemp": "e1",
+        "releasedEventStartDateTemp": "2021-05-19T18:55:00+09:00",
+        "releasedEventEndDateTemp": "2021-05-19T19:25:00+09:00"
+      },
+      "keywords": [],
+      "description": "うっせぇわ／夜に駆ける／猫／廻廻奇譚など人気曲を踊ってみた！踊り手の足太ぺんたも参戦。タップダンス／フィンガーダンス／ベリーダンスにハマった人たちがどう踊る？",
+      "dateCreated": "2021-03-15T18:40:41+09:00",
+      "dateModified": "2021-10-04T04:48:14+09:00",
+      "actors": [],
+      "contributors": [],
+      "partOfSeries": {
+        "id": "KNY2YKWLG9",
+        "name": "沼にハマってきいてみた",
+        "detailedSeriesNameRuby": "",
+        "identifierGroup": {
+          "seriesId": "KNY2YKWLG9",
+          "tvSeriesId": "KNY2YKWLG9",
+          "seriesName": "沼にハマってきいてみた",
+          "tvSeriesName": "沼にハマってきいてみた",
+          "hashtag": [],
+          "serviceId": [
+            "e1",
+            "e3"
+          ],
+          "formatGenre": [
+            {
+              "id": "05",
+              "name": "バラエティ"
+            }
+          ],
+          "themeGenre": [
+            {
+              "id": "096",
+              "name": "芸術"
+            }
+          ]
+        },
+        "identifierGroupEx": {
+          "seriesGroupId": "4Q27WNZ559",
+          "tvSeriesGroupId": "4Q27WNZ559",
+          "seriesGroupName": "沼にハマってきいてみた",
+          "tvSeriesGroupName": "沼にハマってきいてみた",
+          "seriesNameTemp": "沼にハマってきいてみた",
+          "tvSeriesNameTemp": "沼にハマってきいてみた"
+        },
+        "url": "https://dev-www.nhk.jp/p/ts/KNY2YKWLG9/",
+        "canonical": "https://dev-www.nhk.jp/p/ts/KNY2YKWLG9/",
+        "description": "",
+        "detailedCatch": "",
+        "logo": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-logo_c88d570faa2e3015d1941eef8f7fcd99.jpg",
+            "width": 1080,
+            "height": 1080
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-logo_7e8b68fa27bcc2d084ed76dc2b200b33.jpg",
+            "width": 640,
+            "height": 640
+          }
+        },
+        "eyecatch": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-eyecatch_5fc01f8353b47932237f72bbcd9e0868.jpg",
+            "width": 1920,
+            "height": 1080
+          },
+          "tver": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-eyecatch_839acaccf66b1bc882d5f1065f8f824d.jpg",
+            "width": 928,
+            "height": 522
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-eyecatch_198b7c09044bc5399534656dfb45b701.jpg",
+            "width": 640,
+            "height": 360
+          }
+        },
+        "hero": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-hero_47ec55773f426e531b6248ea61cd33a4.jpg",
+            "width": 1920,
+            "height": 640
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/KNY2YKWLG9/KNY2YKWLG9-hero_bd057c4df7c14f567ec590461e104100.jpg",
+            "width": 1080,
+            "height": 360
+          }
+        },
+        "style": {
+          "textLight": "#000000",
+          "textDark": "#FFFFFF",
+          "linkLight": "#990099",
+          "linkDark": "#C46BC4",
+          "primaryLight": "#990099",
+          "primaryDark": "#B13CB1"
+        },
+        "additionalProperty": {
+          "publishLevel": "full",
+          "layoutPattern": "summary",
+          "episodeOrderBy": "releasedEvent",
+          "availableOnPlus": false,
+          "enableVariablePlayBackSpeedControl": false,
+          "optional": [],
+          "seriesPackStatus": "notPacked"
+        }
+      },
+      "releasedEvent": {
+        "startDate": "2021-05-19T18:55:00+09:00",
+        "endDate": "2021-05-19T19:25:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK教育テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "e1",
+            "serviceName": "NHKEテレ1",
+            "shortenedName": "NHKEテレ1",
+            "shortenedDisplayName": "Eテレ"
+          }
+        }
+      },
+      "detailedRecentEvent": {
+        "startDate": "2021-10-11T18:55:00+09:00",
+        "endDate": "2021-10-11T19:25:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK教育テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/e1/e1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "e1",
+            "serviceName": "NHKEテレ1",
+            "shortenedName": "NHKEテレ1",
+            "shortenedDisplayName": "Eテレ"
+          }
+        }
+      },
+      "keyvisuals": [],
+      "videos": [],
+      "citations": [],
+      "url": "https://dev-www.nhk.jp/p/ts/KNY2YKWLG9/episode/te/WY6ZG6JQP3/",
+      "canonical": "https://dev-www.nhk.jp/p/ts/KNY2YKWLG9/episode/te/WY6ZG6JQP3/",
+      "sameAs": [],
+      "detailedMemo": []
+    },
+    {
+      "type": "TVEpisode",
+      "id": "Y3XNWR54KL",
+      "name": "「在任期間歴代最長に 黒田日銀の功罪」",
+      "identifierGroup": {
+        "episodeId": "Y3XNWR54KL",
+        "tvEpisodeId": "Y3XNWR54KL",
+        "seriesId": "4V23PRP3YR",
+        "tvSeriesId": "4V23PRP3YR",
+        "episodeName": "「在任期間歴代最長に 黒田日銀の功罪」",
+        "tvEpisodeName": "「在任期間歴代最長に 黒田日銀の功罪」",
+        "seriesName": "時論公論",
+        "tvSeriesName": "時論公論",
+        "hashtag": [],
+        "serviceId": [
+          "g1",
+          "g2",
+          "s1",
+          "s2"
+        ],
+        "formatGenreTag": [
+          {
+            "id": "01",
+            "name": "報道"
+          }
+        ]
+      },
+      "identifierGroupEx": {
+        "seriesGroupId": "W4YQLX54W5",
+        "tvSeriesGroupId": "W4YQLX54W5",
+        "seriesGroupName": "時論公論",
+        "tvSeriesGroupName": "時論公論",
+        "episodeNameTemp": "「在任期間歴代最長に 黒田日銀の功罪」",
+        "tvEpisodeNameTemp": "「在任期間歴代最長に 黒田日銀の功罪」",
+        "seriesNameTemp": "時論公論",
+        "tvSeriesNameTemp": "時論公論",
+        "releasedEventServiceIdTemp": "g1",
+        "releasedEventStartDateTemp": "2021-09-27T23:20:00+09:00",
+        "releasedEventEndDateTemp": "2021-09-27T23:30:00+09:00"
+      },
+      "keywords": [],
+      "description": "日銀の黒田総裁の在任期間が、歴代最長へ。黒田日銀が行ってきた金融政策は日本経済にどのような影響を与えたのか。その意味と今後の課題を解説。",
+      "dateCreated": "2021-08-18T16:32:55+09:00",
+      "dateModified": "2021-09-25T11:00:21+09:00",
+      "actors": [],
+      "contributors": [],
+      "partOfSeries": {
+        "id": "4V23PRP3YR",
+        "name": "時論公論",
+        "detailedSeriesNameRuby": "じろんこうろん",
+        "identifierGroup": {
+          "seriesId": "4V23PRP3YR",
+          "tvSeriesId": "4V23PRP3YR",
+          "seriesName": "時論公論",
+          "tvSeriesName": "時論公論",
+          "hashtag": [],
+          "serviceId": [
+            "g1",
+            "g2",
+            "s1",
+            "s2"
+          ],
+          "formatGenre": [
+            {
+              "id": "01",
+              "name": "報道"
+            }
+          ]
+        },
+        "identifierGroupEx": {
+          "seriesGroupId": "W4YQLX54W5",
+          "tvSeriesGroupId": "W4YQLX54W5",
+          "seriesGroupName": "時論公論",
+          "tvSeriesGroupName": "時論公論",
+          "seriesNameTemp": "時論公論",
+          "tvSeriesNameTemp": "時論公論"
+        },
+        "url": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/",
+        "canonical": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/",
+        "description": "混沌とした時代、次々と押し寄せるニュースの裏に、何があるのか？　「時論公論」は“明日を生きる指針”を提供する解説番組です。",
+        "detailedCatch": "10分に込めた、明日への指針。",
+        "logo": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-logo_592b2cc22a20bf110ee877275564af2a.png",
+            "width": 1080,
+            "height": 1080
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-logo_468ca8156ad6364b8408ed065930380a.png",
+            "width": 640,
+            "height": 640
+          }
+        },
+        "eyecatch": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_b3f2bbce089f2e236d6b56579650d829.png",
+            "width": 1920,
+            "height": 1080
+          },
+          "tver": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_51f35512517501fdaaed140114b59667.png",
+            "width": 928,
+            "height": 522
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_064f812572a5959d4c8e6884624a644d.png",
+            "width": 640,
+            "height": 360
+          }
+        },
+        "hero": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-hero_6a877129fe1fc0be4bb3311412c9d484.jpg",
+            "width": 1920,
+            "height": 640
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-hero_fd289eeec2eb8dc98ee59571c4b92c0c.jpg",
+            "width": 1080,
+            "height": 360
+          }
+        },
+        "style": {
+          "textLight": "#000000",
+          "textDark": "#FFFFFF",
+          "linkLight": "#E22300",
+          "linkDark": "#FF330D",
+          "primaryLight": "#FF2800",
+          "primaryDark": "#FF2800"
+        },
+        "additionalProperty": {
+          "publishLevel": "ready",
+          "layoutPattern": "summary",
+          "episodeOrderBy": "releasedEvent",
+          "availableOnPlus": false,
+          "enableVariablePlayBackSpeedControl": false,
+          "optional": [],
+          "seriesPackStatus": "notPacked"
+        }
+      },
+      "releasedEvent": {
+        "startDate": "2021-09-27T23:20:00+09:00",
+        "endDate": "2021-09-27T23:30:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "detailedRecentEvent": {
+        "startDate": "2021-09-27T23:20:00+09:00",
+        "endDate": "2021-09-27T23:30:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "keyvisuals": [],
+      "videos": [],
+      "citations": [],
+      "url": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/episode/te/Y3XNWR54KL/",
+      "canonical": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/episode/te/Y3XNWR54KL/",
+      "sameAs": [],
+      "detailedMemo": []
+    },
+    {
+      "type": "TVEpisode",
+      "id": "KXW1Q96K78",
+      "name": "「中国不動産市場に異変 行き詰まる成長モデル」",
+      "identifierGroup": {
+        "episodeId": "KXW1Q96K78",
+        "tvEpisodeId": "KXW1Q96K78",
+        "seriesId": "4V23PRP3YR",
+        "tvSeriesId": "4V23PRP3YR",
+        "episodeName": "「中国不動産市場に異変 行き詰まる成長モデル」",
+        "tvEpisodeName": "「中国不動産市場に異変 行き詰まる成長モデル」",
+        "seriesName": "時論公論",
+        "tvSeriesName": "時論公論",
+        "hashtag": [],
+        "serviceId": [
+          "g1",
+          "g2",
+          "s1",
+          "s2"
+        ],
+        "formatGenreTag": [
+          {
+            "id": "01",
+            "name": "報道"
+          }
+        ]
+      },
+      "identifierGroupEx": {
+        "seriesGroupId": "W4YQLX54W5",
+        "tvSeriesGroupId": "W4YQLX54W5",
+        "seriesGroupName": "時論公論",
+        "tvSeriesGroupName": "時論公論",
+        "episodeNameTemp": "「中国不動産市場に異変 行き詰まる成長モデル」",
+        "tvEpisodeNameTemp": "「中国不動産市場に異変 行き詰まる成長モデル」",
+        "seriesNameTemp": "時論公論",
+        "tvSeriesNameTemp": "時論公論",
+        "releasedEventServiceIdTemp": "g1",
+        "releasedEventStartDateTemp": "2021-11-05T23:20:00+09:00",
+        "releasedEventEndDateTemp": "2021-11-05T23:30:00+09:00"
+      },
+      "keywords": [],
+      "description": "中国経済の減速が鮮明になり、従来の成長モデルが行き詰まろうとしている。これは、日本をはじめ海外経済、米中関係にどのような影響を与えるのか考えます。",
+      "dateCreated": "2021-09-20T18:46:03+09:00",
+      "dateModified": "2021-11-05T18:28:10+09:00",
+      "actors": [],
+      "contributors": [],
+      "partOfSeries": {
+        "id": "4V23PRP3YR",
+        "name": "時論公論",
+        "detailedSeriesNameRuby": "じろんこうろん",
+        "identifierGroup": {
+          "seriesId": "4V23PRP3YR",
+          "tvSeriesId": "4V23PRP3YR",
+          "seriesName": "時論公論",
+          "tvSeriesName": "時論公論",
+          "hashtag": [],
+          "serviceId": [
+            "g1",
+            "g2",
+            "s1",
+            "s2"
+          ],
+          "formatGenre": [
+            {
+              "id": "01",
+              "name": "報道"
+            }
+          ]
+        },
+        "identifierGroupEx": {
+          "seriesGroupId": "W4YQLX54W5",
+          "tvSeriesGroupId": "W4YQLX54W5",
+          "seriesGroupName": "時論公論",
+          "tvSeriesGroupName": "時論公論",
+          "seriesNameTemp": "時論公論",
+          "tvSeriesNameTemp": "時論公論"
+        },
+        "url": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/",
+        "canonical": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/",
+        "description": "混沌とした時代、次々と押し寄せるニュースの裏に、何があるのか？　「時論公論」は“明日を生きる指針”を提供する解説番組です。",
+        "detailedCatch": "10分に込めた、明日への指針。",
+        "logo": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-logo_592b2cc22a20bf110ee877275564af2a.png",
+            "width": 1080,
+            "height": 1080
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-logo_468ca8156ad6364b8408ed065930380a.png",
+            "width": 640,
+            "height": 640
+          }
+        },
+        "eyecatch": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_b3f2bbce089f2e236d6b56579650d829.png",
+            "width": 1920,
+            "height": 1080
+          },
+          "tver": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_51f35512517501fdaaed140114b59667.png",
+            "width": 928,
+            "height": 522
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_064f812572a5959d4c8e6884624a644d.png",
+            "width": 640,
+            "height": 360
+          }
+        },
+        "hero": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-hero_6a877129fe1fc0be4bb3311412c9d484.jpg",
+            "width": 1920,
+            "height": 640
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-hero_fd289eeec2eb8dc98ee59571c4b92c0c.jpg",
+            "width": 1080,
+            "height": 360
+          }
+        },
+        "style": {
+          "textLight": "#000000",
+          "textDark": "#FFFFFF",
+          "linkLight": "#E22300",
+          "linkDark": "#FF330D",
+          "primaryLight": "#FF2800",
+          "primaryDark": "#FF2800"
+        },
+        "additionalProperty": {
+          "publishLevel": "ready",
+          "layoutPattern": "summary",
+          "episodeOrderBy": "releasedEvent",
+          "availableOnPlus": false,
+          "enableVariablePlayBackSpeedControl": false,
+          "optional": [],
+          "seriesPackStatus": "notPacked"
+        }
+      },
+      "releasedEvent": {
+        "startDate": "2021-11-05T23:20:00+09:00",
+        "endDate": "2021-11-05T23:30:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "detailedRecentEvent": {
+        "startDate": "2021-11-05T23:20:00+09:00",
+        "endDate": "2021-11-05T23:30:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "keyvisuals": [],
+      "videos": [],
+      "citations": [],
+      "url": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/episode/te/KXW1Q96K78/",
+      "canonical": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/episode/te/KXW1Q96K78/",
+      "sameAs": [],
+      "detailedMemo": []
+    },
+    {
+      "type": "TVEpisode",
+      "id": "X48YZVNWR7",
+      "name": "「韓国大統領選 2強対決へ」",
+      "identifierGroup": {
+        "episodeId": "X48YZVNWR7",
+        "tvEpisodeId": "X48YZVNWR7",
+        "seriesId": "4V23PRP3YR",
+        "tvSeriesId": "4V23PRP3YR",
+        "episodeName": "「韓国大統領選 2強対決へ」",
+        "tvEpisodeName": "「韓国大統領選 2強対決へ」",
+        "seriesName": "時論公論",
+        "tvSeriesName": "時論公論",
+        "hashtag": [],
+        "serviceId": [
+          "g1",
+          "g2",
+          "s1",
+          "s2"
+        ],
+        "formatGenreTag": [
+          {
+            "id": "01",
+            "name": "報道"
+          }
+        ]
+      },
+      "identifierGroupEx": {
+        "seriesGroupId": "W4YQLX54W5",
+        "tvSeriesGroupId": "W4YQLX54W5",
+        "seriesGroupName": "時論公論",
+        "tvSeriesGroupName": "時論公論",
+        "episodeNameTemp": "「韓国大統領選 2強対決へ」",
+        "tvEpisodeNameTemp": "「韓国大統領選 2強対決へ」",
+        "seriesNameTemp": "時論公論",
+        "tvSeriesNameTemp": "時論公論",
+        "releasedEventServiceIdTemp": "g1",
+        "releasedEventStartDateTemp": "2021-11-09T23:20:00+09:00",
+        "releasedEventEndDateTemp": "2021-11-09T23:30:00+09:00"
+      },
+      "keywords": [],
+      "description": "韓国大統領選挙は各党の公認候補が決まり、革新政権継続を訴える与党候補と、政権奪還を目指す最大野党候補の事実上の一騎打ちの見通しに。政権交代は？日韓関係どうなる？",
+      "dateCreated": "2021-09-27T19:04:34+09:00",
+      "dateModified": "2021-11-08T15:03:34+09:00",
+      "actors": [],
+      "contributors": [],
+      "partOfSeries": {
+        "id": "4V23PRP3YR",
+        "name": "時論公論",
+        "detailedSeriesNameRuby": "じろんこうろん",
+        "identifierGroup": {
+          "seriesId": "4V23PRP3YR",
+          "tvSeriesId": "4V23PRP3YR",
+          "seriesName": "時論公論",
+          "tvSeriesName": "時論公論",
+          "hashtag": [],
+          "serviceId": [
+            "g1",
+            "g2",
+            "s1",
+            "s2"
+          ],
+          "formatGenre": [
+            {
+              "id": "01",
+              "name": "報道"
+            }
+          ]
+        },
+        "identifierGroupEx": {
+          "seriesGroupId": "W4YQLX54W5",
+          "tvSeriesGroupId": "W4YQLX54W5",
+          "seriesGroupName": "時論公論",
+          "tvSeriesGroupName": "時論公論",
+          "seriesNameTemp": "時論公論",
+          "tvSeriesNameTemp": "時論公論"
+        },
+        "url": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/",
+        "canonical": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/",
+        "description": "混沌とした時代、次々と押し寄せるニュースの裏に、何があるのか？　「時論公論」は“明日を生きる指針”を提供する解説番組です。",
+        "detailedCatch": "10分に込めた、明日への指針。",
+        "logo": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-logo_592b2cc22a20bf110ee877275564af2a.png",
+            "width": 1080,
+            "height": 1080
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-logo_468ca8156ad6364b8408ed065930380a.png",
+            "width": 640,
+            "height": 640
+          }
+        },
+        "eyecatch": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_b3f2bbce089f2e236d6b56579650d829.png",
+            "width": 1920,
+            "height": 1080
+          },
+          "tver": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_51f35512517501fdaaed140114b59667.png",
+            "width": 928,
+            "height": 522
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_064f812572a5959d4c8e6884624a644d.png",
+            "width": 640,
+            "height": 360
+          }
+        },
+        "hero": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-hero_6a877129fe1fc0be4bb3311412c9d484.jpg",
+            "width": 1920,
+            "height": 640
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-hero_fd289eeec2eb8dc98ee59571c4b92c0c.jpg",
+            "width": 1080,
+            "height": 360
+          }
+        },
+        "style": {
+          "textLight": "#000000",
+          "textDark": "#FFFFFF",
+          "linkLight": "#E22300",
+          "linkDark": "#FF330D",
+          "primaryLight": "#FF2800",
+          "primaryDark": "#FF2800"
+        },
+        "additionalProperty": {
+          "publishLevel": "ready",
+          "layoutPattern": "summary",
+          "episodeOrderBy": "releasedEvent",
+          "availableOnPlus": false,
+          "enableVariablePlayBackSpeedControl": false,
+          "optional": [],
+          "seriesPackStatus": "notPacked"
+        }
+      },
+      "releasedEvent": {
+        "startDate": "2021-11-09T23:20:00+09:00",
+        "endDate": "2021-11-09T23:30:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "detailedRecentEvent": {
+        "startDate": "2021-11-09T23:20:00+09:00",
+        "endDate": "2021-11-09T23:30:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "keyvisuals": [],
+      "videos": [],
+      "citations": [],
+      "url": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/episode/te/X48YZVNWR7/",
+      "canonical": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/episode/te/X48YZVNWR7/",
+      "sameAs": [],
+      "detailedMemo": []
+    },
+    {
+      "type": "TVEpisode",
+      "id": "XW88NW41WN",
+      "name": "「バイデン失速〜アメリカ中間選挙まで1年〜」",
+      "identifierGroup": {
+        "episodeId": "XW88NW41WN",
+        "tvEpisodeId": "XW88NW41WN",
+        "seriesId": "4V23PRP3YR",
+        "tvSeriesId": "4V23PRP3YR",
+        "episodeName": "「バイデン失速〜アメリカ中間選挙まで1年〜」",
+        "tvEpisodeName": "「バイデン失速〜アメリカ中間選挙まで1年〜」",
+        "seriesName": "時論公論",
+        "tvSeriesName": "時論公論",
+        "hashtag": [],
+        "serviceId": [
+          "g1",
+          "g2",
+          "s1",
+          "s2"
+        ],
+        "formatGenreTag": [
+          {
+            "id": "01",
+            "name": "報道"
+          }
+        ]
+      },
+      "identifierGroupEx": {
+        "seriesGroupId": "W4YQLX54W5",
+        "tvSeriesGroupId": "W4YQLX54W5",
+        "seriesGroupName": "時論公論",
+        "tvSeriesGroupName": "時論公論",
+        "episodeNameTemp": "「バイデン失速〜アメリカ中間選挙まで1年〜」",
+        "tvEpisodeNameTemp": "「バイデン失速〜アメリカ中間選挙まで1年〜」",
+        "seriesNameTemp": "時論公論",
+        "tvSeriesNameTemp": "時論公論",
+        "releasedEventServiceIdTemp": "g1",
+        "releasedEventStartDateTemp": "2021-11-08T23:20:00+09:00",
+        "releasedEventEndDateTemp": "2021-11-08T23:30:00+09:00"
+      },
+      "keywords": [],
+      "description": "支持率が落ち込み、総力を挙げて応援した州知事選で敗北・大苦戦するなど、失速している米バイデン大統領。このままでは来年の中間選挙で与党敗北の可能性も。情勢を解説。",
+      "dateCreated": "2021-09-28T18:41:05+09:00",
+      "dateModified": "2021-11-09T14:13:33+09:00",
+      "actors": [],
+      "contributors": [],
+      "partOfSeries": {
+        "id": "4V23PRP3YR",
+        "name": "時論公論",
+        "detailedSeriesNameRuby": "じろんこうろん",
+        "identifierGroup": {
+          "seriesId": "4V23PRP3YR",
+          "tvSeriesId": "4V23PRP3YR",
+          "seriesName": "時論公論",
+          "tvSeriesName": "時論公論",
+          "hashtag": [],
+          "serviceId": [
+            "g1",
+            "g2",
+            "s1",
+            "s2"
+          ],
+          "formatGenre": [
+            {
+              "id": "01",
+              "name": "報道"
+            }
+          ]
+        },
+        "identifierGroupEx": {
+          "seriesGroupId": "W4YQLX54W5",
+          "tvSeriesGroupId": "W4YQLX54W5",
+          "seriesGroupName": "時論公論",
+          "tvSeriesGroupName": "時論公論",
+          "seriesNameTemp": "時論公論",
+          "tvSeriesNameTemp": "時論公論"
+        },
+        "url": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/",
+        "canonical": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/",
+        "description": "混沌とした時代、次々と押し寄せるニュースの裏に、何があるのか？　「時論公論」は“明日を生きる指針”を提供する解説番組です。",
+        "detailedCatch": "10分に込めた、明日への指針。",
+        "logo": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-logo_592b2cc22a20bf110ee877275564af2a.png",
+            "width": 1080,
+            "height": 1080
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-logo_468ca8156ad6364b8408ed065930380a.png",
+            "width": 640,
+            "height": 640
+          }
+        },
+        "eyecatch": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_b3f2bbce089f2e236d6b56579650d829.png",
+            "width": 1920,
+            "height": 1080
+          },
+          "tver": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_51f35512517501fdaaed140114b59667.png",
+            "width": 928,
+            "height": 522
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-eyecatch_064f812572a5959d4c8e6884624a644d.png",
+            "width": 640,
+            "height": 360
+          }
+        },
+        "hero": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-hero_6a877129fe1fc0be4bb3311412c9d484.jpg",
+            "width": 1920,
+            "height": 640
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/4V23PRP3YR/4V23PRP3YR-hero_fd289eeec2eb8dc98ee59571c4b92c0c.jpg",
+            "width": 1080,
+            "height": 360
+          }
+        },
+        "style": {
+          "textLight": "#000000",
+          "textDark": "#FFFFFF",
+          "linkLight": "#E22300",
+          "linkDark": "#FF330D",
+          "primaryLight": "#FF2800",
+          "primaryDark": "#FF2800"
+        },
+        "additionalProperty": {
+          "publishLevel": "ready",
+          "layoutPattern": "summary",
+          "episodeOrderBy": "releasedEvent",
+          "availableOnPlus": false,
+          "enableVariablePlayBackSpeedControl": false,
+          "optional": [],
+          "seriesPackStatus": "notPacked"
+        }
+      },
+      "releasedEvent": {
+        "startDate": "2021-11-08T23:20:00+09:00",
+        "endDate": "2021-11-08T23:30:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "detailedRecentEvent": {
+        "startDate": "2021-11-08T23:20:00+09:00",
+        "endDate": "2021-11-08T23:30:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "keyvisuals": [],
+      "videos": [],
+      "citations": [],
+      "url": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/episode/te/XW88NW41WN/",
+      "canonical": "https://dev-www.nhk.jp/p/ts/4V23PRP3YR/episode/te/XW88NW41WN/",
+      "sameAs": [],
+      "detailedMemo": []
+    },
+    {
+      "type": "TVEpisode",
+      "id": "Z8WL44WQ6G",
+      "name": "「40代で職を転々...人生終盤に輝くヒント」",
+      "identifierGroup": {
+        "episodeId": "Z8WL44WQ6G",
+        "tvEpisodeId": "Z8WL44WQ6G",
+        "seriesId": "JYL878GRKG",
+        "tvSeriesId": "JYL878GRKG",
+        "episodeName": "「40代で職を転々...人生終盤に輝くヒント」",
+        "tvEpisodeName": "「40代で職を転々...人生終盤に輝くヒント」",
+        "seriesName": "逆転人生",
+        "tvSeriesName": "逆転人生",
+        "hashtag": [],
+        "serviceId": [
+          "g1",
+          "g2"
+        ],
+        "formatGenreTag": [
+          {
+            "id": "05",
+            "name": "バラエティ"
+          }
+        ]
+      },
+      "identifierGroupEx": {
+        "seriesGroupId": "VGY2K91LX9",
+        "tvSeriesGroupId": "VGY2K91LX9",
+        "seriesGroupName": "逆転人生",
+        "tvSeriesGroupName": "逆転人生",
+        "episodeNameTemp": "「40代で職を転々...人生終盤に輝くヒント」",
+        "tvEpisodeNameTemp": "「40代で職を転々...人生終盤に輝くヒント」",
+        "seriesNameTemp": "逆転人生",
+        "tvSeriesNameTemp": "逆転人生",
+        "releasedEventServiceIdTemp": "g1",
+        "releasedEventStartDateTemp": "2020-07-20T22:00:00+09:00",
+        "releasedEventEndDateTemp": "2020-07-20T22:45:00+09:00"
+      },
+      "keywords": [],
+      "description": "人生諦めたらそこで終わり。今回は、妻の死・２０回に及ぶ転職・母の介護・消えた年金…。泥沼の人生を、終盤に大逆転させた男の物語。どん底人生、最後に輝くヒントとは？",
+      "dateCreated": "2020-04-21T18:14:13+09:00",
+      "dateModified": "2020-07-26T12:55:51+09:00",
+      "actors": [],
+      "contributors": [],
+      "partOfSeries": {
+        "id": "JYL878GRKG",
+        "name": "逆転人生",
+        "identifierGroup": {
+          "seriesId": "JYL878GRKG",
+          "tvSeriesId": "JYL878GRKG",
+          "seriesName": "逆転人生",
+          "tvSeriesName": "逆転人生",
+          "hashtag": [],
+          "serviceId": [
+            "g1",
+            "g2"
+          ]
+        },
+        "identifierGroupEx": {
+          "seriesGroupId": "VGY2K91LX9",
+          "tvSeriesGroupId": "VGY2K91LX9",
+          "seriesGroupName": "逆転人生",
+          "tvSeriesGroupName": "逆転人生",
+          "seriesNameTemp": "逆転人生",
+          "tvSeriesNameTemp": "逆転人生"
+        },
+        "url": "https://dev-www.nhk.jp/p/ts/JYL878GRKG/",
+        "canonical": "https://dev-www.nhk.jp/p/ts/JYL878GRKG/",
+        "description": "",
+        "logo": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-logo_fddec5a5dbbd1993d5328b275d9a0d48.jpg",
+            "width": 1080,
+            "height": 1080
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-logo_cf41ec9b1f0f9423df44fde5c9587411.jpg",
+            "width": 640,
+            "height": 640
+          }
+        },
+        "eyecatch": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-eyecatch_15dfbaae4110986394eda49d0a0e37a7.jpg",
+            "width": 1920,
+            "height": 1080
+          },
+          "tver": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-eyecatch_eae80c5060aef15914b905232b4fe52e.jpg",
+            "width": 928,
+            "height": 522
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-eyecatch_461db0766d2ac25f33d635f02d81e504.jpg",
+            "width": 640,
+            "height": 360
+          }
+        },
+        "hero": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-hero_4874bba690e3e600606811f11716888a.jpg",
+            "width": 1920,
+            "height": 640
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-hero_aecec5ed5be3de354d5ec91feea2d437.jpg",
+            "width": 1080,
+            "height": 360
+          }
+        },
+        "style": {
+          "textLight": "#000000",
+          "textDark": "#FFFFFF",
+          "linkLight": "#7E7A00",
+          "linkDark": "#FAF100",
+          "primaryLight": "#9E9900",
+          "primaryDark": "#FAF100"
+        },
+        "additionalProperty": {
+          "publishLevel": "full",
+          "layoutPattern": "summary",
+          "episodeOrderBy": "recentEvent",
+          "availableOnPlus": false,
+          "enableVariablePlayBackSpeedControl": false,
+          "optional": [],
+          "seriesPackStatus": "notPacked"
+        }
+      },
+      "releasedEvent": {
+        "startDate": "2020-07-20T22:00:00+09:00",
+        "endDate": "2020-07-20T22:45:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "detailedRecentEvent": {
+        "startDate": "2020-08-01T00:15:00+09:00",
+        "endDate": "2020-08-01T01:00:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "keyvisuals": [],
+      "videos": [],
+      "citations": [],
+      "url": "https://dev-www.nhk.jp/p/ts/JYL878GRKG/episode/te/Z8WL44WQ6G/",
+      "canonical": "https://dev-www.nhk.jp/p/ts/JYL878GRKG/episode/te/Z8WL44WQ6G/",
+      "sameAs": [],
+      "detailedMemo": []
+    },
+    {
+      "type": "TVEpisode",
+      "id": "16M2644Q37",
+      "name": "「命の逆転劇!医師と子どもたちの感動マンガ」",
+      "identifierGroup": {
+        "episodeId": "16M2644Q37",
+        "tvEpisodeId": "16M2644Q37",
+        "seriesId": "JYL878GRKG",
+        "tvSeriesId": "JYL878GRKG",
+        "episodeName": "「命の逆転劇!医師と子どもたちの感動マンガ」",
+        "tvEpisodeName": "「命の逆転劇!医師と子どもたちの感動マンガ」",
+        "seriesName": "逆転人生",
+        "tvSeriesName": "逆転人生",
+        "hashtag": [],
+        "serviceId": [
+          "g1",
+          "g2"
+        ]
+      },
+      "identifierGroupEx": {
+        "seriesGroupId": "VGY2K91LX9",
+        "tvSeriesGroupId": "VGY2K91LX9",
+        "seriesGroupName": "逆転人生",
+        "tvSeriesGroupName": "逆転人生",
+        "episodeNameTemp": "「命の逆転劇!医師と子どもたちの感動マンガ」",
+        "tvEpisodeNameTemp": "「命の逆転劇!医師と子どもたちの感動マンガ」",
+        "seriesNameTemp": "逆転人生",
+        "tvSeriesNameTemp": "逆転人生",
+        "releasedEventServiceIdTemp": "g1",
+        "releasedEventStartDateTemp": "2020-04-13T22:00:00+09:00",
+        "releasedEventEndDateTemp": "2020-04-13T22:45:00+09:00"
+      },
+      "keywords": [],
+      "description": "もし、あなたの子どもが難病で命の危機に陥ったら？苦悩する家族に寄り添い、前代未聞の手術に挑んだひとりの医師。その絆が予想もしない逆転劇へとつながる！感動の物語。",
+      "dateCreated": "2020-02-28T07:20:01+09:00",
+      "dateModified": "2020-05-01T04:04:08+09:00",
+      "actors": [],
+      "contributors": [],
+      "partOfSeries": {
+        "id": "JYL878GRKG",
+        "name": "逆転人生",
+        "identifierGroup": {
+          "seriesId": "JYL878GRKG",
+          "tvSeriesId": "JYL878GRKG",
+          "seriesName": "逆転人生",
+          "tvSeriesName": "逆転人生",
+          "hashtag": [],
+          "serviceId": [
+            "g1",
+            "g2"
+          ]
+        },
+        "identifierGroupEx": {
+          "seriesGroupId": "VGY2K91LX9",
+          "tvSeriesGroupId": "VGY2K91LX9",
+          "seriesGroupName": "逆転人生",
+          "tvSeriesGroupName": "逆転人生",
+          "seriesNameTemp": "逆転人生",
+          "tvSeriesNameTemp": "逆転人生"
+        },
+        "url": "https://dev-www.nhk.jp/p/ts/JYL878GRKG/",
+        "canonical": "https://dev-www.nhk.jp/p/ts/JYL878GRKG/",
+        "description": "",
+        "logo": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-logo_fddec5a5dbbd1993d5328b275d9a0d48.jpg",
+            "width": 1080,
+            "height": 1080
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-logo_cf41ec9b1f0f9423df44fde5c9587411.jpg",
+            "width": 640,
+            "height": 640
+          }
+        },
+        "eyecatch": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-eyecatch_15dfbaae4110986394eda49d0a0e37a7.jpg",
+            "width": 1920,
+            "height": 1080
+          },
+          "tver": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-eyecatch_eae80c5060aef15914b905232b4fe52e.jpg",
+            "width": 928,
+            "height": 522
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-eyecatch_461db0766d2ac25f33d635f02d81e504.jpg",
+            "width": 640,
+            "height": 360
+          }
+        },
+        "hero": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-hero_4874bba690e3e600606811f11716888a.jpg",
+            "width": 1920,
+            "height": 640
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-hero_aecec5ed5be3de354d5ec91feea2d437.jpg",
+            "width": 1080,
+            "height": 360
+          }
+        },
+        "style": {
+          "textLight": "#000000",
+          "textDark": "#FFFFFF",
+          "linkLight": "#7E7A00",
+          "linkDark": "#FAF100",
+          "primaryLight": "#9E9900",
+          "primaryDark": "#FAF100"
+        },
+        "additionalProperty": {
+          "publishLevel": "full",
+          "layoutPattern": "summary",
+          "episodeOrderBy": "recentEvent",
+          "availableOnPlus": false,
+          "enableVariablePlayBackSpeedControl": false,
+          "optional": [],
+          "seriesPackStatus": "notPacked"
+        }
+      },
+      "releasedEvent": {
+        "startDate": "2020-04-13T22:00:00+09:00",
+        "endDate": "2020-04-13T22:45:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "detailedRecentEvent": {
+        "startDate": "2020-05-09T00:15:00+09:00",
+        "endDate": "2020-05-09T01:00:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "keyvisuals": [],
+      "videos": [],
+      "citations": [],
+      "url": "https://dev-www.nhk.jp/p/ts/JYL878GRKG/episode/te/16M2644Q37/",
+      "canonical": "https://dev-www.nhk.jp/p/ts/JYL878GRKG/episode/te/16M2644Q37/",
+      "sameAs": [],
+      "detailedMemo": []
+    },
+    {
+      "type": "TVEpisode",
+      "id": "DNPG257P1J",
+      "name": "「脱北女性が成し遂げた愛の逆転劇」",
+      "identifierGroup": {
+        "episodeId": "DNPG257P1J",
+        "tvEpisodeId": "DNPG257P1J",
+        "seriesId": "JYL878GRKG",
+        "tvSeriesId": "JYL878GRKG",
+        "episodeName": "「脱北女性が成し遂げた愛の逆転劇」",
+        "tvEpisodeName": "「脱北女性が成し遂げた愛の逆転劇」",
+        "seriesName": "逆転人生",
+        "tvSeriesName": "逆転人生",
+        "hashtag": [],
+        "serviceId": [
+          "g1",
+          "g2"
+        ],
+        "formatGenreTag": [
+          {
+            "id": "05",
+            "name": "バラエティ"
+          }
+        ]
+      },
+      "identifierGroupEx": {
+        "seriesGroupId": "VGY2K91LX9",
+        "tvSeriesGroupId": "VGY2K91LX9",
+        "seriesGroupName": "逆転人生",
+        "tvSeriesGroupName": "逆転人生",
+        "episodeNameTemp": "「脱北女性が成し遂げた愛の逆転劇」",
+        "tvEpisodeNameTemp": "「脱北女性が成し遂げた愛の逆転劇」",
+        "seriesNameTemp": "逆転人生",
+        "tvSeriesNameTemp": "逆転人生",
+        "releasedEventServiceIdTemp": "g1",
+        "releasedEventStartDateTemp": "2021-04-19T22:00:00+09:00",
+        "releasedEventEndDateTemp": "2021-04-19T22:45:00+09:00"
+      },
+      "keywords": [],
+      "description": "知られざる脱北のリアル！幼い娘を連れ、生き別れた夫を探して北朝鮮を脱出した女性。見つかれば強制送還。死と隣り合わせの壮絶な旅。韓国で話題を呼んだ愛の逆転劇とは！",
+      "dateCreated": "2021-04-06T06:04:56+09:00",
+      "dateModified": "2021-04-25T13:10:55+09:00",
+      "actors": [],
+      "contributors": [],
+      "partOfSeries": {
+        "id": "JYL878GRKG",
+        "name": "逆転人生",
+        "identifierGroup": {
+          "seriesId": "JYL878GRKG",
+          "tvSeriesId": "JYL878GRKG",
+          "seriesName": "逆転人生",
+          "tvSeriesName": "逆転人生",
+          "hashtag": [],
+          "serviceId": [
+            "g1",
+            "g2"
+          ]
+        },
+        "identifierGroupEx": {
+          "seriesGroupId": "VGY2K91LX9",
+          "tvSeriesGroupId": "VGY2K91LX9",
+          "seriesGroupName": "逆転人生",
+          "tvSeriesGroupName": "逆転人生",
+          "seriesNameTemp": "逆転人生",
+          "tvSeriesNameTemp": "逆転人生"
+        },
+        "url": "https://dev-www.nhk.jp/p/ts/JYL878GRKG/",
+        "canonical": "https://dev-www.nhk.jp/p/ts/JYL878GRKG/",
+        "description": "",
+        "logo": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-logo_fddec5a5dbbd1993d5328b275d9a0d48.jpg",
+            "width": 1080,
+            "height": 1080
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-logo_cf41ec9b1f0f9423df44fde5c9587411.jpg",
+            "width": 640,
+            "height": 640
+          }
+        },
+        "eyecatch": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-eyecatch_15dfbaae4110986394eda49d0a0e37a7.jpg",
+            "width": 1920,
+            "height": 1080
+          },
+          "tver": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-eyecatch_eae80c5060aef15914b905232b4fe52e.jpg",
+            "width": 928,
+            "height": 522
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-eyecatch_461db0766d2ac25f33d635f02d81e504.jpg",
+            "width": 640,
+            "height": 360
+          }
+        },
+        "hero": {
+          "main": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-hero_4874bba690e3e600606811f11716888a.jpg",
+            "width": 1920,
+            "height": 640
+          },
+          "medium": {
+            "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/JYL878GRKG/JYL878GRKG-hero_aecec5ed5be3de354d5ec91feea2d437.jpg",
+            "width": 1080,
+            "height": 360
+          }
+        },
+        "style": {
+          "textLight": "#000000",
+          "textDark": "#FFFFFF",
+          "linkLight": "#7E7A00",
+          "linkDark": "#FAF100",
+          "primaryLight": "#9E9900",
+          "primaryDark": "#FAF100"
+        },
+        "additionalProperty": {
+          "publishLevel": "full",
+          "layoutPattern": "summary",
+          "episodeOrderBy": "recentEvent",
+          "availableOnPlus": false,
+          "enableVariablePlayBackSpeedControl": false,
+          "optional": [],
+          "seriesPackStatus": "notPacked"
+        }
+      },
+      "releasedEvent": {
+        "startDate": "2021-04-19T22:00:00+09:00",
+        "endDate": "2021-04-19T22:45:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "detailedRecentEvent": {
+        "startDate": "2021-04-30T23:40:00+09:00",
+        "endDate": "2021-05-01T00:25:00+09:00",
+        "publishedOn": {
+          "type": "BroadcastService",
+          "name": "NHK総合テレビジョン",
+          "videoFormat": [
+            "2K"
+          ],
+          "encodingFormat": [
+            "video/X-arib-mpeg2",
+            "audio/X-arib-mpeg2-aac"
+          ],
+          "images": {
+            "badgeSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png",
+              "width": 100,
+              "height": 50
+            },
+            "badge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png",
+              "width": 200,
+              "height": 100
+            },
+            "eyecatchMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png",
+              "width": 640,
+              "height": 360
+            },
+            "eyecatchLarge": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png",
+              "width": 1280,
+              "height": 720
+            },
+            "eyecatch": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "hero": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png",
+              "width": 1080,
+              "height": 360
+            },
+            "heroMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png",
+              "width": 1920,
+              "height": 640
+            },
+            "logoSmall": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png",
+              "width": 200,
+              "height": 200
+            },
+            "logoMedium": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png",
+              "width": 640,
+              "height": 640
+            },
+            "logo": {
+              "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png",
+              "width": 1080,
+              "height": 1080
+            }
+          },
+          "identifierGroup": {
+            "serviceId": "g1",
+            "serviceName": "NHK総合1",
+            "shortenedName": "NHK総合1",
+            "shortenedDisplayName": "総合"
+          }
+        }
+      },
+      "keyvisuals": [],
+      "videos": [],
+      "citations": [],
+      "url": "https://dev-www.nhk.jp/p/ts/JYL878GRKG/episode/te/DNPG257P1J/",
+      "canonical": "https://dev-www.nhk.jp/p/ts/JYL878GRKG/episode/te/DNPG257P1J/",
+      "sameAs": [],
+      "detailedMemo": []
+    }
+  ],
+  "total": 111987
+}
