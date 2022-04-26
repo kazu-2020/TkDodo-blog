@@ -11,8 +11,8 @@ FactoryBot.define do
   end
 
   trait :with_playlists do
-    after(:build) do |deck, _|
-      2.times { deck.playlists << build(:playlist) }
+    after(:create) do |deck, _|
+      create_list(:playlist, 2, decks: [deck])
     end
   end
 end
