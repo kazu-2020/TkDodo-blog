@@ -8,7 +8,7 @@ describe('プレイリスト新規作成', () => {
 
     cy.get('.new_episode_list').click()
 
-    // メタの編集
+    // 基本情報(NSeries)の編集
     cy.get('.series-step').click()
 
     const playlistName = `${now}プレイ`
@@ -97,6 +97,27 @@ describe('プレイリスト新規作成', () => {
       'have.value',
       citationUrl
     )
+  })
+
+  it('新規作成したプレイリストのドロワーの内容が正しいこと', () => {
+    const now = Cypress.env('NOW')
+
+    cy.visit('/')
+    cy.contains('プレイリスト').click()
+    cy.contains('一覧').click({ force: true })
+
+    cy.get('.v-select__slot').click()
+    cy.get('.menuable__content__active').contains('全て').click()
+
+    cy.get('.playlist-name').contains(now).click()
+
+    // ドロワーの内容チェック
+    const drawerContent = cy.get('.v-navigation-drawer__content')
+    drawerContent.should('have.value', `${now}プレイ`)
+    drawerContent.should('have.value', `API非公開`)
+    drawerContent.should('have.value', `summary`)
+    drawerContent.get('v-image__image').should('have.lengthOf', 3)
+    drawerContent.should('have.value', `キャッチコピーはこちらに`)
   })
 
   it('新規作成したプレイリストが検索できること', () => {
