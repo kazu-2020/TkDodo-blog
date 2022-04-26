@@ -337,11 +337,6 @@ RSpec/ExampleLength:
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
-RSpec/RepeatedDescription:
-  Enabled: false
 
 RSpec/AnyInstance:
-  Enabled: false
-
-RSpec/LetSetup:
   Enabled: false
