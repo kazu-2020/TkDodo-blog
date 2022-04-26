@@ -35,12 +35,12 @@ describe Deck, type: :model do
   describe 'after_create' do
     let!(:deck) { build :deck }
     it 'deck_idが意図したフォーマットで取得されること' do
-      expected_format = "#{deck.type_of_deck}-#{deck.mode_of_item}-for-#{deck.interfix}-#{format('%010d', deck.id)}"
       expect do
         deck.save
       end.to change {
         deck.deck_id.present?
       }.from(false).to(true)
+      expected_format = "#{deck.type_of_deck}-#{deck.mode_of_item}-for-#{deck.interfix}-#{format('%010d', deck.id)}"
       expect(deck.deck_id).to match(expected_format)
     end
   end
