@@ -56,6 +56,7 @@ services:
       - CYPRESS_browser=chrome
       - CYPRESS_screenshotsFolder=/results/screenshots
       - CYPRESS_videosFolder=/results/videos
+      - CYPRESS_API_URL=http://web:8888
     volumes:
       - ./e2e/cypress:/app/cypress
       - ./e2e/cypress.json:/app/cypress.json
