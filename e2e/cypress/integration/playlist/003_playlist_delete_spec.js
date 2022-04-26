@@ -9,7 +9,11 @@ describe('プレイリスト削除', () => {
     cy.get('.v-select__slot').click()
     cy.get('.menuable__content__active').contains('全て').click()
 
+    cy.waitLoading()
+
     cy.get('.playlist-name').contains(now).click()
+
+    cy.waitLoading()
 
     cy.get('.v-navigation-drawer .delete_button:visible').click()
 
@@ -35,6 +39,8 @@ describe('プレイリスト削除', () => {
     cy.get('.v-select__slot').click()
     cy.get('.menuable__content__active').contains('API公開中のみ').click()
 
+    cy.waitLoading()
+
     // 対象のプレイリストが表示されていないこと
     cy.get('.playlist-name').contains(now).should('have.lengthOf', 0)
 
@@ -51,6 +57,8 @@ describe('プレイリスト削除', () => {
     cy.get('.v-select__slot').click()
     cy.get('.menuable__content__active').contains('API非公開のみ').click()
 
+    cy.waitLoading()
+
     // 対象のプレイリストが表示されていないこと
     cy.get('.playlist-name').contains(now).should('have.lengthOf', 0)
 
@@ -66,6 +74,8 @@ describe('プレイリスト削除', () => {
 
     cy.get('.v-select__slot').click()
     cy.get('.menuable__content__active').contains('全て').click()
+
+    cy.waitLoading()
 
     // 対象のプレイリストが表示されていないこと
     cy.get('.playlist-name').contains(now).should('have.lengthOf', 0)

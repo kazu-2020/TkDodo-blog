@@ -9,19 +9,16 @@ describe('プレイリスト更新', () => {
     cy.get('.v-select__slot').click()
     cy.get('.menuable__content__active').contains('全て').click()
 
+    cy.waitLoading()
+
     cy.get('.playlist-name').contains(now).click()
 
     cy.get('.v-navigation-drawer .edit_button:visible').click()
 
-    cy.get('.series-step').click()
-
-    const playlistName = `${now}プレイ`
-    cy.get('.playlist_name').type(playlistName)
-
     // 基本情報(NSeries)の編集
     cy.get('.series-step').click()
 
-    cy.get('.playlist_name').type(`${now}プレイ2`)
+    cy.get('.playlist_name input[type="text"]').clear().type(`${now}プレイ2`)
     cy.get('label').contains('公開する').click()
     cy.get('.detailed_catch textarea').clear().type(`キャッチコピーはこちらに2`)
 
@@ -40,15 +37,18 @@ describe('プレイリスト更新', () => {
     cy.get('.v-select__slot').click()
     cy.get('.menuable__content__active').contains('全て').click()
 
+    cy.waitLoading()
+
     cy.get('.playlist-name').contains(now).click()
 
+    cy.waitLoading()
+
     // ドロワーの内容チェック
-    const drawerContent = cy.get('.v-navigation-drawer__content')
-    drawerContent.should('have.value', `${now}プレイ2`)
-    drawerContent.should('have.value', `API公開中`)
-    drawerContent.should('have.value', `summary`)
-    drawerContent.get('v-image__image').should('have.lengthOf', 3)
-    drawerContent.should('have.value', `キャッチコピーはこちらに2`)
+    const drawerContent = cy.get('.base-information')
+    drawerContent.should('include.text', `${now}プレイ2`)
+    drawerContent.should('include.text', `API公開中`)
+    drawerContent.should('include.text', `summary`)
+    drawerContent.should('include.text', `キャッチコピーはこちらに2`)
   })
 
   it('更新したプレイリストが検索できること', () => {
@@ -64,6 +64,8 @@ describe('プレイリスト更新', () => {
 
     cy.get('.v-select__slot').click()
     cy.get('.menuable__content__active').contains('API公開中のみ').click()
+
+    cy.waitLoading()
 
     // 対象のプレイリストが表示されていること
     cy.get('.playlist-name').contains(now).should('have.lengthOf', 1)
@@ -81,6 +83,8 @@ describe('プレイリスト更新', () => {
     cy.get('.v-select__slot').click()
     cy.get('.menuable__content__active').contains('API非公開のみ').click()
 
+    cy.waitLoading()
+
     // 対象のプレイリストが表示されていないこと
     cy.get('.playlist-name').contains(now).should('have.lengthOf', 0)
 
@@ -96,6 +100,8 @@ describe('プレイリスト更新', () => {
 
     cy.get('.v-select__slot').click()
     cy.get('.menuable__content__active').contains('全て').click()
+
+    cy.waitLoading()
 
     // 対象のプレイリストが表示されていること
     cy.get('.playlist-name').contains(now).should('have.lengthOf', 1)
