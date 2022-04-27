@@ -4,11 +4,93 @@ require 'rails_helper'
 
 describe PlaylistsController, type: :request do
   describe 'GET #index' do
-    before { create(:playlist) }
+    before do
+      create(:playlist, name: 'オウサム ネーム')
+      create(:playlist, d5_playlist_id: 1)
+    end
 
-    it 'returns success response' do
-      get playlists_url
-      expect(response.status).to eq 200
+    let(:deck_r5_with_playlists) { create(:deck, :with_playlists, is_r5: true) }
+    let(:expected_json) {
+      {
+        'stringId' => "recommend-tep-#{format('%010d', deck_r5_with_playlists.playlists[0]['id'])}",
+        'primaryId' => deck_r5_with_playlists.playlists[0]['id'],
+        'name' => deck_r5_with_playlists.playlists[0]['name'],
+        'detailedNameRuby' => deck_r5_with_playlists.playlists[0]['detailed_name_ruby'],
+        'description' => deck_r5_with_playlists.playlists[0]['description'],
+        'headline' => deck_r5_with_playlists.playlists[0]['headline']
+      }
+    }
+
+    context 'パラメータにdeck_idが含まれる場合' do
+      let(:params) { { deck_id: deck_r5_with_playlists.id } }
+
+      it 'idに紐づくデッキが取得されること' do
+        get playlists_url, params: params
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['playlists'][0]).to include expected_json
+      end
+    end
+
+    context 'パラメータにareaが含まれる場合' do
+      let(:params) { { area: deck_r5_with_playlists.area, is_r5: true } }
+
+      it 'areaに紐づくr5相当のデッキが取得されること' do
+        get playlists_url, params: params
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['playlists'][0]).to include expected_json
+      end
+    end
+
+    context 'パラメータにdeck_idもareaも含まれない場合' do
+      let(:params) { '' }
+
+      it 'r5デッキのプレイリストIDを含まないプレイリストが取得されること' do
+        get playlists_url, params: params
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['playlists'].size).to eq 1
+      end
+    end
+
+    context 'パラメータにapi_stateが含まれる場合' do
+      context 'api_stateがopenの場合' do
+        before { create(:playlist, api_state: 'open') }
+
+        let(:params) { { api_state: 'open' } }
+
+        it '公開ステータスがopenとなること' do
+          get playlists_url, params: params
+          expect(response.status).to eq 200
+          json = JSON.parse(response.body)
+          expect(json['playlists'][0]['apiState']).to eq 'open'
+        end
+      end
+
+      context 'api_stateがcloseの場合' do
+        before { create(:playlist, api_state: 'close') }
+
+        let(:params) { { api_state: 'close' } }
+
+        it '公開ステータスがcloseとなること' do
+          get playlists_url, params: params
+          expect(response.status).to eq 200
+          json = JSON.parse(response.body)
+          expect(json['playlists'][0]['apiState']).to eq 'close'
+        end
+      end
+    end
+
+    context '検索ワードが含まれる場合' do
+      let(:params) { { search_word: 'オウサム' } }
+
+      it '検索ワードに部分一致するプレイリストが取得できること' do
+        get playlists_url, params: params
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['playlists'][0]['name']).to eq 'オウサム ネーム'
+      end
     end
   end
 
