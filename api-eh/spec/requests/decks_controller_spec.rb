@@ -170,8 +170,8 @@ describe DecksController, type: :request do
       }
     end
 
-    context 'name,interfixプロパティに値が存在する場合' do
-      context 'enable_list_updateが存在する場合' do
+    context 'name,interfixが設定されている場合' do
+      context 'enable_list_updateが1の場合' do
         let(:name) { '更新されました' }
         let(:interfix) { deck.interfix }
         let(:enable_list_update) { '1' }
