@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_27_060251) do
+ActiveRecord::Schema.define(version: 2022_03_29_154200) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", comment: "プレイリストID"
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 2022_04_27_060251) do
     t.integer "position", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["deck_id", "playlist_id"], name: "index_deck_playlists_on_deck_id_and_playlist_id", unique: true
     t.index ["deck_id"], name: "index_deck_playlists_on_deck_id"
     t.index ["playlist_id"], name: "fk_rails_32de3978a5"
   end
