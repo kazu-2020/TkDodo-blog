@@ -36,16 +36,18 @@ class EditorDataToMarkdown
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength
 
   def to_header_markdown(block)
-    "## #{convert_inline_html_tags(block['data']['text'])}"
+    text = trim_space(block['data']['text'])
+    "## #{convert_inline_html_tags(text)}"
   end
 
   def to_text_markdown(block)
-    convert_inline_html_tags(block['data']['text'])
+    text = trim_space(block['data']['text'])
+    convert_inline_html_tags(text)
   end
 
   def to_image_markdown(block)
     url = block.dig('data', 'file', 'url')
-    caption = block.dig('data', 'caption')
+    caption = trim_space(block.dig('data', 'caption'))
 
     return nil unless url.present?
 
@@ -57,7 +59,7 @@ class EditorDataToMarkdown
   end
 
   def to_link_markdown(block)
-    description = block.dig('data', 'meta', 'description')
+    description = trim_space(block.dig('data', 'meta', 'description'))
     url = block.dig('data', 'link')
 
     return nil unless url.present?
@@ -69,12 +71,12 @@ class EditorDataToMarkdown
     items = block.dig('data', 'items')
     prefix = block.dig('data', 'style') == 'ordered' ? '1.' : '-'
 
-    items.map { |item| "#{prefix} #{convert_inline_html_tags(item)}" }.join("\n")
+    items.map { |item| "#{prefix} #{convert_inline_html_tags(trim_space(item))}" }.join("\n")
   end
 
   def to_embed_markdown(block)
     url = block.dig('data', 'source')
-    caption = block.dig('data', 'caption')
+    caption = trim_space(block.dig('data', 'caption'))
 
     return nil unless url.present?
 
@@ -82,6 +84,7 @@ class EditorDataToMarkdown
   end
 
   # FIXME: 変換方法について決める
+  # NOTE: 社会実証では利用しない
   def to_episode_markdown(block)
     link = block.dig('data', 'link')
     episode_name = block.dig('data', 'episode', 'name')
@@ -107,7 +110,12 @@ class EditorDataToMarkdown
   end
 
   def trim_inner_tag(text)
-    trimmed = text&.gsub(/(^[[:space:]]+)|([[:space:]]+$)/, '')&.strip # 全角スペースを含むスペースのtrim
+    trimmed = trim_space(text)
     trimmed.gsub(/<br.*?>/, '<br>').delete_prefix('<br>').delete_suffix('<br>')
+  end
+
+  # 全角スペース、&nbsp;を含むスペースのtrim
+  def trim_space(text)
+    text&.gsub(/&nbsp;/, ' ')&.gsub(/(^[[:space:]]+)|([[:space:]]+$)/, '')&.strip
   end
 end

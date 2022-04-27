@@ -2,7 +2,6 @@
 
 FactoryBot.define do
   factory :deck do
-    sequence(:id) { |n| n }
     sequence(:name) { |n| "deck #{n}" }
     description { 'description for the sample ' }
     interfix { 'sample' }
