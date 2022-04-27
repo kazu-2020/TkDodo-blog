@@ -4,6 +4,8 @@ require 'rails_helper'
 
 describe EditorDataToMarkdown, type: :model do
   describe '#call' do
+    subject { described_class.new(editor_data: editor_data).call }
+
     let(:editor_data) do
       {
         'time' => 1_599_617_474_944,
@@ -84,8 +86,6 @@ describe EditorDataToMarkdown, type: :model do
       }
     end
 
-    subject { EditorDataToMarkdown.new(editor_data: editor_data).call }
-
     it do
       s = <<~MARKDOWN
         ## 見出し**太字**#{'  '}
@@ -118,7 +118,7 @@ describe EditorDataToMarkdown, type: :model do
 
       MARKDOWN
 
-      is_expected.to eq s.chomp
+      expect(subject).to eq s.chomp
     end
   end
 end

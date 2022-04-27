@@ -396,6 +396,9 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.7.0)
       parser (>= 3.0.1.1)
+    rubocop-rspec (2.4.0)
+      rubocop (~> 1.0)
+      rubocop-ast (>= 1.1.0)
     ruby-ll (2.1.2)
       ansi
       ast
@@ -517,6 +520,7 @@ DEPENDENCIES
   redis
   rspec-rails
   rubocop (= 1.9.0)
+  rubocop-rspec
   sass-rails (>= 6)
   shrine!
   sidekiq
@@ -537,4 +541,4 @@ RUBY VERSION
    ruby 3.0.1p64
 
 BUNDLED WITH
-   2.2.22
+   2.3.10

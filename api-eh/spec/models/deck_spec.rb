@@ -34,6 +34,7 @@ describe Deck, type: :model do
 
   describe 'after_create' do
     let!(:deck) { build :deck }
+
     it 'deck_idが意図したフォーマットで取得されること' do
       expect do
         deck.save

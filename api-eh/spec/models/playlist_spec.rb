@@ -53,7 +53,7 @@ describe Playlist, type: :model do
     end
   end
 
-  context '#before_create' do
+  describe '#before_create' do
     let(:playlist) { build(:playlist) }
 
     it 'assigned an ID with a random string of characters' do
@@ -169,9 +169,7 @@ describe Playlist, type: :model do
     it 'saves keywords as PlaylistKeyword' do
       expect do
         playlist.keywords = keywords
-      end.to change {
-        PlaylistKeyword.count
-      }.from(0).to(2)
+      end.to change(PlaylistKeyword, :count).from(0).to(2)
     end
   end
 
@@ -191,9 +189,7 @@ describe Playlist, type: :model do
     it 'saves hashtags as PlaylistHashtag' do
       expect do
         playlist.hashtags = hashtags
-      end.to change {
-        PlaylistHashtag.count
-      }.from(0).to(2)
+      end.to change(PlaylistHashtag, :count).from(0).to(2)
     end
   end
 
