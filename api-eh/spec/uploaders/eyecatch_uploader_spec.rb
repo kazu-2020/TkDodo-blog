@@ -10,7 +10,7 @@ RSpec.describe EyecatchUploader, type: :model do
     create(:playlist, eyecatch_image: file)
   }
 
-  describe :strip do
+  describe '#strip' do
     it do
       playlist.reload
       expect(derivatives[:default]).to be_kind_of(Shrine::UploadedFile)

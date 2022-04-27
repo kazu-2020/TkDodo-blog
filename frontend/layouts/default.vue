@@ -164,7 +164,7 @@ export default Vue.extend({
       return this.$store.state.loading.messages[this.snackBarState]
     },
     envName(): string {
-      return process.env.NODE_ENV || 'development'
+      return process.env.environment || 'development'
     },
   },
   methods: {
@@ -172,7 +172,7 @@ export default Vue.extend({
       this.$store.dispatch('loading/resetLoadingState')
     },
     isProd() {
-      return process.env.NODE_ENV === 'production'
+      return process.env.environment === 'production'
     },
   },
 })

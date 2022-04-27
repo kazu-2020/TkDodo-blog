@@ -4,6 +4,8 @@ require 'rails_helper'
 
 describe EditorDataToPlainText, type: :model do
   describe '#call' do
+    subject { described_class.new(editor_data: editor_data).call }
+
     let(:editor_data) do
       {
         'time' => 1_599_617_474_944,
@@ -88,8 +90,6 @@ describe EditorDataToPlainText, type: :model do
       }
     end
 
-    subject { EditorDataToPlainText.new(editor_data: editor_data).call }
-
     it do
       s = <<~TEXT
         見出し太字
@@ -125,7 +125,7 @@ describe EditorDataToPlainText, type: :model do
 
       TEXT
 
-      is_expected.to eq s.chomp
+      expect(subject).to eq s.chomp
     end
   end
 end

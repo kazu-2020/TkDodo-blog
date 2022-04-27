@@ -7,9 +7,9 @@ RSpec.describe PlaylistImageUploader, type: :model do
   let(:derivatives) { playlist.logo_image_derivatives }
   let(:playlist) { create(:playlist, logo_image: File.open(Rails.root.join('spec', 'fixtures', 'images', 'test.jpg'))) }
 
-  describe :generate_location do
+  describe '#generate_location' do
     it do
-      uploader = PlaylistImageUploader.new('cache')
+      uploader = described_class.new('cache')
 
       location = uploader.generate_location(nil, **make_context(playlist, :logo_image))
       expect(location).to match %r{^playlist/pl/#{playlist.string_id}/#{playlist.string_id}-logo.*\.jpg}

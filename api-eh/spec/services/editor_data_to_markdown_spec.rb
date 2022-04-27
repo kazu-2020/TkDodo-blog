@@ -4,6 +4,8 @@ require 'rails_helper'
 
 describe EditorDataToMarkdown, type: :model do
   describe '#call' do
+    subject { described_class.new(editor_data: editor_data).call }
+
     let(:editor_data) do
       {
         'time' => 1_599_617_474_944,
@@ -16,12 +18,16 @@ describe EditorDataToMarkdown, type: :model do
             'text' => 'テキスト<b>太字</b><br>改行<i>イタリック</i><b><i>太字イタリック</i></b>'
           },
             'type' => 'paragraph' },
+          { 'data' => {
+            'text' => '&nbsp;テキ&nbsp; スト&nbsp;'
+          },
+            'type' => 'paragraph' },
           {
             'data' => {
               'file' => {
                 'url' => '/uploads/private/article/ts/8XR6MQY3W7/8XR6MQY3W7-body_726e2d70c0e70fd831820ec43de53110.jpg'
               },
-              'caption' => 'hello',
+              'caption' => '&nbsp;hello&nbsp;',
               'stretched' => false,
               'withBorder' => false,
               'withBackground' => false
@@ -32,7 +38,7 @@ describe EditorDataToMarkdown, type: :model do
             'data' => {
               'link' => 'https://www.yahoo.co.jp/',
               'meta' => {
-                'description' => 'Yahoo! JAPAN'
+                'description' => '&nbsp;Yahoo! JAPAN&nbsp;'
               }
             },
             'type' => 'linkTool'
@@ -44,12 +50,12 @@ describe EditorDataToMarkdown, type: :model do
               'embed' => 'https://movie-a.nhk.or.jp/movie/?v=wlkz7o70&type=video&dir=EGC&sns=false&autoplay=false&mute=false',
               'width' => 580,
               'height' => 320,
-              'caption' => 'this is dokos.'
+              'caption' => '&nbsp;this is dokos.&nbsp;'
             },
             'type' => 'embed'
           },
           { 'data' => {
-            'items' => %w[<b>one</b> <i>two</i> three<br>three <b><i>four</i></b>],
+            'items' => %w[&nbsp;<b>one</b>&nbsp; <i>two</i> three<br>three <b><i>four</i></b>],
             'style' => 'ordered'
           }, 'type' => 'list' },
           { 'data' => {
@@ -80,8 +86,6 @@ describe EditorDataToMarkdown, type: :model do
       }
     end
 
-    subject { EditorDataToMarkdown.new(editor_data: editor_data).call }
-
     it do
       s = <<~MARKDOWN
         ## 見出し**太字**#{'  '}
@@ -89,6 +93,8 @@ describe EditorDataToMarkdown, type: :model do
 
         テキスト**太字**#{'  '}
         改行*イタリック****太字イタリック***
+
+        テキ  スト
 
         ![](/uploads/private/article/ts/8XR6MQY3W7/8XR6MQY3W7-body_726e2d70c0e70fd831820ec43de53110.jpg "hello")
 
@@ -112,7 +118,7 @@ describe EditorDataToMarkdown, type: :model do
 
       MARKDOWN
 
-      is_expected.to eq s.chomp
+      expect(subject).to eq s.chomp
     end
   end
 end

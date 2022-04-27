@@ -4,16 +4,18 @@ require 'rails_helper'
 
 describe PlaylistKeyword, type: :model do
   context 'validations' do
-    context '#name' do
+    describe '#name' do
       let(:playlist_keyword) { build(:playlist_keyword, name: name) }
 
       context 'when name is present' do
         let(:name) { 'Awesome keyword' }
+
         it { expect(playlist_keyword).to be_valid }
       end
 
       context 'when name does not present' do
         let(:name) { nil }
+
         it { expect(playlist_keyword).to be_invalid }
       end
 
@@ -21,6 +23,7 @@ describe PlaylistKeyword, type: :model do
         let(:name) { 'keyword1' }
         let(:playlist) { create(:playlist) }
         let(:playlist_keyword) { build(:playlist_keyword, name: name, playlist: playlist) }
+
         before { create(:playlist_keyword, name: name, playlist: playlist) }
 
         it 'does not valid record' do
