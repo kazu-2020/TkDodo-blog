@@ -30,6 +30,7 @@ class Deck < ApplicationRecord
 
   def rebuild_playlists_to(new_playlists)
     current_playlists = playlists.pluck(:id)
+    new_playlists = new_playlists.map(&:to_i)
 
     ActiveRecord::Base.transaction do
       new_playlist_ids = (current_playlists | new_playlists) - current_playlists
