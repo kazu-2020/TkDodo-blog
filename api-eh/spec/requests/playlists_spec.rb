@@ -4,17 +4,20 @@ require 'rails_helper'
 
 describe PlaylistsController, type: :request do
   describe 'GET #index' do
-    let!(:playlist) { create(:playlist, name: 'オウサム ネーム') }
-    let!(:playlist_r5) { create(:playlist, d5_playlist_id: 1) }
+    before do
+      create(:playlist, name: 'オウサム ネーム')
+      create(:playlist, d5_playlist_id: 1)
+    end
+
     let(:deck_r5_with_playlists) { create(:deck, :with_playlists, is_r5: true) }
     let(:expected_json) {
       {
-        'stringId' => "recommend-tep-#{format('%010d', deck_r5_with_playlists.playlists.target[0]['id'])}",
-        'primaryId' => deck_r5_with_playlists.playlists.target[0]['id'],
-        'name' => deck_r5_with_playlists.playlists.target[0]['name'],
-        'detailedNameRuby' => deck_r5_with_playlists.playlists.target[0]['detailed_name_ruby'],
-        'description' => deck_r5_with_playlists.playlists.target[0]['description'],
-        'headline' => deck_r5_with_playlists.playlists.target[0]['headline']
+        'stringId' => "recommend-tep-#{format('%010d', deck_r5_with_playlists.playlists[0]['id'])}",
+        'primaryId' => deck_r5_with_playlists.playlists[0]['id'],
+        'name' => deck_r5_with_playlists.playlists[0]['name'],
+        'detailedNameRuby' => deck_r5_with_playlists.playlists[0]['detailed_name_ruby'],
+        'description' => deck_r5_with_playlists.playlists[0]['description'],
+        'headline' => deck_r5_with_playlists.playlists[0]['headline']
       }
     }
 
