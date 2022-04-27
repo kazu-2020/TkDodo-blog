@@ -77,6 +77,34 @@ describe DecksController, type: :request do
         expect(json['decks'][0]).to include(expected_json_changed_name_and_admin_memo)
       end
     end
+
+    context 'パラメータにapi_stateが含まれる場合' do
+      context 'api_stateがopenの場合' do
+        before { create(:deck, api_state: 'open') }
+
+        let(:params) { { api_state: 'open' } }
+
+        it '公開ステータスがopenとなること' do
+          get decks_url, params: params
+          expect(response.status).to eq 200
+          json = JSON.parse(response.body)
+          expect(json['decks'][0]['apiState']).to eq 'open'
+        end
+      end
+
+      context 'api_stateがcloseの場合' do
+        before { create(:deck, api_state: 'close') }
+
+        let(:params) { { api_state: 'close' } }
+
+        it '公開ステータスがcloseとなること' do
+          get decks_url, params: params
+          expect(response.status).to eq 200
+          json = JSON.parse(response.body)
+          expect(json['decks'][0]['apiState']).to eq 'close'
+        end
+      end
+    end
   end
 
   describe 'GET #show' do
