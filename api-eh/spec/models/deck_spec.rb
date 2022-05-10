@@ -45,4 +45,16 @@ describe Deck, type: :model do
       expect(deck.deck_id).to match(expected_format)
     end
   end
+
+  describe '#rebuild_playlists_to' do
+    let!(:deck) { create(:deck, :with_playlists) }
+
+    it 'playlistの紐付けが正しく行われること' do
+      new_playlist_ids = deck.playlist_ids + create_list(:playlist, 2).pluck(:id)
+      string_current_playlist_ids = deck.playlist_ids.map(&:to_s) # 文字列のIDが混ざって不具合を起こしていたので混ぜてみる
+      deck.rebuild_playlists_to(new_playlist_ids + string_current_playlist_ids)
+
+      expect(deck.reload.playlist_ids).to match_array(new_playlist_ids)
+    end
+  end
 end
