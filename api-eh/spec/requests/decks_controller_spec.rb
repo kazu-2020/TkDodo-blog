@@ -3,20 +3,19 @@
 require 'rails_helper'
 
 describe DecksController, type: :request do
-  let!(:deck) { create :deck }
-  let(:expected_json) do
-    {
-      'id' => deck.id,
-      'name' => deck.name.to_s,
-      'description' => deck.description.to_s,
-      'interfix' => deck.interfix.to_s,
-      'adminMemo' => deck.admin_memo.to_s
-    }
-  end
-
   describe 'GET #index' do
+    let!(:deck) { create :deck }
     let!(:deck_changed_name) { create :deck, name: '夏デッキ', admin_memo: '冬デッキ' }
-    let(:expected_json_changed_name_and_admin_memo) do
+    let!(:expected_json) do
+      {
+        'id' => deck.id,
+        'name' => deck.name,
+        'description' => deck.description,
+        'interfix' => deck.interfix,
+        'adminMemo' => deck.admin_memo
+      }
+    end
+    let!(:expected_json_changed_name_and_admin_memo) do
       {
         'id' => deck_changed_name.id,
         'name' => deck_changed_name.name.to_s,
@@ -80,7 +79,7 @@ describe DecksController, type: :request do
   end
 
   describe 'GET #show' do
-    let(:deck) { create(:deck, :with_playlists) }
+    let!(:deck) { create(:deck, :with_playlists) }
 
     before do
       json = File.open(Rails.root.join('spec/fixtures/payloads/te_PG3Z16Q145.json')) do |file|
@@ -111,8 +110,9 @@ describe DecksController, type: :request do
   end
 
   describe 'POST #create' do
+    let!(:deck) { create :deck }
     let!(:playlists) { create_list(:playlist, 2) }
-    let(:input_data) do
+    let!(:input_data) do
       {
         'deck' => {
           'name' => name,
@@ -124,28 +124,23 @@ describe DecksController, type: :request do
       }
     end
 
-    context 'name,interfixプロパティに値が存在する場合' do
+    context 'name,interfixが設定されている場合' do
       let(:name) { deck.name }
       let(:interfix) { deck.interfix }
 
       it '対象のデッキが一件新規登録され、デッキに紐づくプレイリストも新規登録されること' do
-        expect do
-          post decks_path, params: input_data
-        end.to change(Deck, :count).from(1).to(2)
-
-        expect do
-          post decks_path, params: input_data
-        end.to change(DeckPlaylist, :count).from(1).to(2)
-
+        post decks_path, params: input_data
         expect(response.status).to eq 200
+        expect(Deck.count).to eq 2 # deckは事前データの作成で１件登録されているため2件になる
+        expect(DeckPlaylist.count).to eq 1
       end
     end
 
-    context 'name,interfixプロパティに値が存在しない場合' do
+    context 'name,interfixが設定されていない場合' do
       let(:name) { nil }
       let(:interfix) { nil }
 
-      it 'データが保存されないこと' do
+      it 'データが保存されず、エラーメッセージが返却されること' do
         post decks_path, params: input_data
         expect(response.status).to eq 422
         expect(DeckPlaylist.count).to eq 0
@@ -157,7 +152,7 @@ describe DecksController, type: :request do
 
   describe 'PUT #update' do
     let!(:deck) { create :deck, :with_playlists }
-    let(:updated_data) do
+    let!(:updated_data) do
       {
         'enable_list_update' => enable_list_update,
         'deck' => {
@@ -200,7 +195,7 @@ describe DecksController, type: :request do
       end
     end
 
-    context 'name,interfixプロパティに値が存在しない場合' do
+    context 'name,interfixが設定されていない場合' do
       let(:name) { nil }
       let(:interfix) { nil }
       let(:enable_list_update) { '1' }
