@@ -28,6 +28,7 @@ describe DecksController, type: :request do
     context '検索クエリが送信されなかった場合' do
       it 'データを全件取得できること' do
         get decks_url
+
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 2
@@ -39,6 +40,7 @@ describe DecksController, type: :request do
     context '検索クエリが空の場合' do
       it 'データを全件取得できること' do
         get decks_url, params: { query: '' }
+
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 2
@@ -50,6 +52,7 @@ describe DecksController, type: :request do
     context '検索クエリがデッキタイトルおよび管理メモに部分一致する場合' do
       it '対象のデータを取得できること' do
         get decks_url, params: { query: 'デッキ' }
+
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 1
@@ -60,6 +63,7 @@ describe DecksController, type: :request do
     context '検索クエリがデッキタイトルのみに部分一致する場合' do
       it '対象のデータを取得できること' do
         get decks_url, params: { query: '夏' }
+
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 1
@@ -70,6 +74,7 @@ describe DecksController, type: :request do
     context '検索クエリが管理メモのみに部分一致する場合' do
       it '対象のデータを取得できること' do
         get decks_url, params: { query: '冬' }
+
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 1
@@ -95,6 +100,7 @@ describe DecksController, type: :request do
     context '対象のデッキが存在する場合' do
       it '正常にレスポンスを返すこと' do
         get deck_path(deck)
+
         expect(response.status).to eq 200
       end
     end
@@ -102,6 +108,7 @@ describe DecksController, type: :request do
     context '対象のデッキが存在しない場合' do
       it 'エラーメッセージが返却されること' do
         get deck_path(deck.id + 1)
+
         expect(response.status).to eq 404
         json = JSON.parse(response.body)
         expect(json['message']).to eq 'デッキが見つかりませんでした'
@@ -130,6 +137,7 @@ describe DecksController, type: :request do
 
       it '対象のデッキが一件新規登録され、デッキに紐づくプレイリストも新規登録されること' do
         post decks_path, params: input_data
+
         expect(response.status).to eq 200
         expect(Deck.count).to eq 2 # deckは事前データの作成で１件登録されているため2件になる
         expect(DeckPlaylist.count).to eq 1
@@ -142,6 +150,7 @@ describe DecksController, type: :request do
 
       it 'データが保存されず、エラーメッセージが返却されること' do
         post decks_path, params: input_data
+
         expect(response.status).to eq 422
         expect(DeckPlaylist.count).to eq 0
         json = JSON.parse(response.body)
@@ -172,12 +181,11 @@ describe DecksController, type: :request do
         let(:enable_list_update) { '1' }
 
         it 'データが一件更新されること' do
-          expect do
-            put "#{decks_path}/#{deck.id}", params: updated_data
-          end.to change(DeckPlaylist, :count).from(2).to(1)
-          expect(response.status).to eq(200)
-          expect(deck.reload.name).to eq(name)
-          expect(deck.deck_playlists.count).to eq 1
+          put "#{decks_path}/#{deck.id}", params: updated_data
+
+          expect(response.status).to eq 200
+          expect(deck.reload.name).to eq name
+          expect(deck.deck_playlists.count).to eq 1 #updated_dataで更新された場合、1件になる
         end
       end
 
@@ -188,9 +196,10 @@ describe DecksController, type: :request do
 
         it 'updated_atカラムが更新され、deck_playlistは更新されないこと' do
           put "#{decks_path}/#{deck.id}", params: updated_data
-          expect(response.status).to eq(200)
-          expect(deck.reload.updated_at).to eq(deck.updated_at)
-          expect(deck.deck_playlists.count).to eq 2
+
+          expect(response.status).to eq 200
+          expect(deck.reload.updated_at).to eq deck.updated_at
+          expect(deck.deck_playlists.count).to eq 2 #updated_dataで更新されない場合、Factoryで生成された2件となる
         end
       end
     end
@@ -202,9 +211,10 @@ describe DecksController, type: :request do
 
       it 'データが更新されないこと' do
         put "#{decks_path}/#{deck.id}", params: updated_data
-        expect(response.status).to eq(422)
-        expect(deck.reload.name).not_to eq(nil)
-        expect(deck.reload.interfix).not_to eq(nil)
+
+        expect(response.status).to eq 422
+        expect(deck.reload.name).not_to eq nil
+        expect(deck.reload.interfix).not_to eq nil
       end
     end
   end
@@ -213,10 +223,10 @@ describe DecksController, type: :request do
     let!(:deck) { create :deck }
 
     it '対象のデータが一件削除されること' do
-      expect do
-        delete "#{decks_path}/#{deck.id}"
-      end.to change(Deck, :count).from(1).to(0)
-      expect(response.status).to eq(200)
+      delete "#{decks_path}/#{deck.id}"
+
+      expect(Deck.count).to eq 0
+      expect(response.status).to eq 200
       json = JSON.parse(response.body)
       expect(json['deleted']).to eq true
     end
