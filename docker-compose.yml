@@ -46,7 +46,7 @@ services:
     build:
       context: ./e2e
       dockerfile: Dockerfile
-    command: /bin/sh -c "sleep 45; npx cypress run --browser chrome --headless"
+    command: /bin/sh -c "sleep 120; npx cypress run --browser chrome --headless"
     depends_on:
       - web
       - frontend
