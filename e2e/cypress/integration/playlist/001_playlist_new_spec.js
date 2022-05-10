@@ -16,8 +16,6 @@ describe('プレイリスト新規作成', () => {
   it('プレイリストを新規作成し、メタの編集をする', () => {
     const now = Cypress.env('NOW')
 
-    Cypress.env('apiUrl')
-
     cy.visit('/')
     cy.contains('プレイリスト').click()
     cy.contains('新規作成').click()
