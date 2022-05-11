@@ -84,11 +84,11 @@ describe DecksController, type: :request do
       allow(DlabApiClient).to receive(:new).and_return(dlab_client)
       allow(dlab_client).to receive(:episode_l_bundle).with(type: 'tv', episode_id: anything).and_return(json)
       allow(dlab_client).to receive(:episode_list_bundle).with(type: 'tv', episode_id: anything).and_return({})
-
-      get deck_path(deck)
     end
 
     context '対象のデッキが存在する場合' do
+      before { get deck_path(deck) }
+
       it '正常にレスポンスを返すこと' do
         expect(response.status).to eq 200
       end
