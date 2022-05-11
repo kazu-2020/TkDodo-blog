@@ -26,9 +26,9 @@ describe DecksController, type: :request do
     end
 
     context '検索クエリが空の場合' do
-      it 'データを全件取得できること' do
-        get decks_url, params: { query: '' }
+      before { get decks_url, params: { query: '' } }
 
+      it 'データを全件取得できること' do
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 2
@@ -38,9 +38,9 @@ describe DecksController, type: :request do
     end
 
     context '検索クエリがデッキタイトルおよび管理メモに部分一致する場合' do
-      it '対象のデータを取得できること' do
-        get decks_url, params: { query: 'デッキ' }
+      before { get decks_url, params: { query: 'デッキ' } }
 
+      it '対象のデータを取得できること' do
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 1
@@ -49,9 +49,9 @@ describe DecksController, type: :request do
     end
 
     context '検索クエリがデッキタイトルのみに部分一致する場合' do
-      it '対象のデータを取得できること' do
-        get decks_url, params: { query: '夏' }
+      before { get decks_url, params: { query: '夏' } }
 
+      it '対象のデータを取得できること' do
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 1
@@ -60,9 +60,9 @@ describe DecksController, type: :request do
     end
 
     context '検索クエリが管理メモのみに部分一致する場合' do
-      it '対象のデータを取得できること' do
-        get decks_url, params: { query: '冬' }
+      before { get decks_url, params: { query: '冬' } }
 
+      it '対象のデータを取得できること' do
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['decks'].length).to eq 1
@@ -79,24 +79,25 @@ describe DecksController, type: :request do
         json_string = file.read
         JSON.parse(json_string, symbolize_names: true)
       end
+
       dlab_client = instance_double(DlabApiClient)
       allow(DlabApiClient).to receive(:new).and_return(dlab_client)
       allow(dlab_client).to receive(:episode_l_bundle).with(type: 'tv', episode_id: anything).and_return(json)
       allow(dlab_client).to receive(:episode_list_bundle).with(type: 'tv', episode_id: anything).and_return({})
+
+      get deck_path(deck)
     end
 
     context '対象のデッキが存在する場合' do
       it '正常にレスポンスを返すこと' do
-        get deck_path(deck)
-
         expect(response.status).to eq 200
       end
     end
 
     context '対象のデッキが存在しない場合' do
-      it 'エラーメッセージが返却されること' do
-        get deck_path(deck.id + 1)
+      before { get deck_path(deck.id + 1) }
 
+      it 'エラーメッセージが返却されること' do
         expect(response.status).to eq 404
         json = JSON.parse(response.body)
         expect(json['message']).to eq 'デッキが見つかりませんでした'
@@ -123,9 +124,9 @@ describe DecksController, type: :request do
       let(:name) { deck.name }
       let(:interfix) { deck.interfix }
 
-      it '対象のデッキが一件新規登録され、デッキに紐づくプレイリストも新規登録されること' do
-        post decks_path, params: input_data
+      before { post decks_path, params: input_data }
 
+      it '対象のデッキが一件新規登録され、デッキに紐づくプレイリストも新規登録されること' do
         expect(response.status).to eq 200
         expect(Deck.count).to eq 2 # deckは事前データの作成で１件登録されているため2件になる
         expect(DeckPlaylist.count).to eq 1
@@ -136,9 +137,9 @@ describe DecksController, type: :request do
       let(:name) { nil }
       let(:interfix) { nil }
 
-      it 'データが保存されず、エラーメッセージが返却されること' do
-        post decks_path, params: input_data
+      before { post decks_path, params: input_data }
 
+      it 'データが保存されず、エラーメッセージが返却されること' do
         expect(response.status).to eq 422
         expect(DeckPlaylist.count).to eq 0
         json = JSON.parse(response.body)
@@ -168,9 +169,9 @@ describe DecksController, type: :request do
         let(:interfix) { deck.interfix }
         let(:enable_list_update) { '1' }
 
-        it 'データが一件更新されること' do
-          put "#{decks_path}/#{deck.id}", params: updated_data
+        before { put "#{decks_path}/#{deck.id}", params: updated_data }
 
+        it 'データが一件更新されること' do
           expect(response.status).to eq 200
           expect(deck.reload.name).to eq name
           expect(deck.deck_playlists.count).to eq 1 # updated_dataで更新された場合、1件になる
@@ -182,9 +183,9 @@ describe DecksController, type: :request do
         let(:interfix) { deck.interfix }
         let(:enable_list_update) { nil }
 
-        it 'updated_atカラムが更新され、deck_playlistは更新されないこと' do
-          put "#{decks_path}/#{deck.id}", params: updated_data
+        before { put "#{decks_path}/#{deck.id}", params: updated_data }
 
+        it 'updated_atカラムが更新され、deck_playlistは更新されないこと' do
           expect(response.status).to eq 200
           expect(deck.reload.updated_at).to eq deck.updated_at
           expect(deck.deck_playlists.count).to eq 2 # updated_dataで更新されない場合、Factoryで生成された2件となる
@@ -197,9 +198,9 @@ describe DecksController, type: :request do
       let(:interfix) { nil }
       let(:enable_list_update) { '1' }
 
-      it 'データが更新されないこと' do
-        put "#{decks_path}/#{deck.id}", params: updated_data
+      before { put "#{decks_path}/#{deck.id}", params: updated_data }
 
+      it 'データが更新されないこと' do
         expect(response.status).to eq 422
         expect(deck.reload.name).not_to eq nil
         expect(deck.reload.interfix).not_to eq nil
@@ -210,9 +211,9 @@ describe DecksController, type: :request do
   describe 'DELETE #delete' do
     let!(:deck) { create :deck }
 
-    it '対象のデータが一件削除されること' do
-      delete "#{decks_path}/#{deck.id}"
+    before { delete "#{decks_path}/#{deck.id}" }
 
+    it '対象のデータが一件削除されること' do
       expect(Deck.count).to eq 0
       expect(response.status).to eq 200
       json = JSON.parse(response.body)
