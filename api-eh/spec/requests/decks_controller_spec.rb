@@ -28,7 +28,7 @@ describe DecksController, type: :request do
     before { get decks_url, params: params }
 
     context '検索クエリが空の場合' do
-      let(:params){ { query: '' } }
+      let(:params) { { query: '' } }
 
       it 'データを全件取得できること' do
         expect(response.status).to eq 200
@@ -40,7 +40,7 @@ describe DecksController, type: :request do
     end
 
     context '検索クエリがデッキタイトルおよび管理メモに部分一致する場合' do
-      let(:params){ { query: 'デッキ' } }
+      let(:params) { { query: 'デッキ' } }
 
       it '対象のデータを取得できること' do
         expect(response.status).to eq 200
@@ -51,7 +51,7 @@ describe DecksController, type: :request do
     end
 
     context '検索クエリがデッキタイトルのみに部分一致する場合' do
-      let(:params){ { query: '夏' } }
+      let(:params) { { query: '夏' } }
 
       it '対象のデータを取得できること' do
         expect(response.status).to eq 200
@@ -62,7 +62,7 @@ describe DecksController, type: :request do
     end
 
     context '検索クエリが管理メモのみに部分一致する場合' do
-      let(:params){ { query: '冬' } }
+      let(:params) { { query: '冬' } }
 
       it '対象のデータを取得できること' do
         expect(response.status).to eq 200
@@ -91,7 +91,7 @@ describe DecksController, type: :request do
     end
 
     context '対象のデッキが存在する場合' do
-      let(:deck_id){ deck.id }
+      let(:deck_id) { deck.id }
 
       it '正常にレスポンスを返すこと' do
         expect(response.status).to eq 200
@@ -99,7 +99,7 @@ describe DecksController, type: :request do
     end
 
     context '対象のデッキが存在しない場合' do
-      let(:deck_id){ Deck.last.id + 1 }
+      let(:deck_id) { Deck.last.id + 1 }
 
       it 'エラーメッセージが返却されること' do
         expect(response.status).to eq 404
