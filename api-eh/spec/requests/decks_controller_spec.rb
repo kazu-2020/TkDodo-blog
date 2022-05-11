@@ -25,18 +25,6 @@ describe DecksController, type: :request do
       }
     end
 
-    context '検索クエリが送信されなかった場合' do
-      it 'データを全件取得できること' do
-        get decks_url
-
-        expect(response.status).to eq 200
-        json = JSON.parse(response.body)
-        expect(json['decks'].length).to eq 2
-        expect(json['decks'][0]).to include(expected_json)
-        expect(json['decks'][1]).to include(expected_json_changed_name_and_admin_memo)
-      end
-    end
-
     context '検索クエリが空の場合' do
       it 'データを全件取得できること' do
         get decks_url, params: { query: '' }
