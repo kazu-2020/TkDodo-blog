@@ -173,7 +173,7 @@ describe DecksController, type: :request do
 
           expect(response.status).to eq 200
           expect(deck.reload.name).to eq name
-          expect(deck.deck_playlists.count).to eq 1 #updated_dataで更新された場合、1件になる
+          expect(deck.deck_playlists.count).to eq 1 # updated_dataで更新された場合、1件になる
         end
       end
 
@@ -187,7 +187,7 @@ describe DecksController, type: :request do
 
           expect(response.status).to eq 200
           expect(deck.reload.updated_at).to eq deck.updated_at
-          expect(deck.deck_playlists.count).to eq 2 #updated_dataで更新されない場合、Factoryで生成された2件となる
+          expect(deck.deck_playlists.count).to eq 2 # updated_dataで更新されない場合、Factoryで生成された2件となる
         end
       end
     end
