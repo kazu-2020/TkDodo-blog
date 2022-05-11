@@ -13,6 +13,7 @@ describe SeriesPlaylist, type: :request do
       it 'データが取得できること' do
         VCR.use_cassette('requests/series_playlists/episodes') do
           get "/series_playlists/#{has_episodes.id}/episodes"
+
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
           expect(json['episodes'][0]['identifierGroup']['seriesId']).to eq has_episodes.series_id
@@ -24,6 +25,7 @@ describe SeriesPlaylist, type: :request do
       it 'データは取得されないが、レスポンスは200として処理されること' do
         VCR.use_cassette('requests/series_playlists/no_episodes') do
           get "/series_playlists/#{has_not_episodes.id}/episodes"
+
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
           expect(json['episodes'].count).to eq 0
@@ -37,6 +39,7 @@ describe SeriesPlaylist, type: :request do
       it 'データが取得できること' do
         VCR.use_cassette('requests/series_playlists/search_return_results') do
           get search_series_playlists_path
+
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
           expect(json['count']).not_to eq 0
@@ -48,6 +51,7 @@ describe SeriesPlaylist, type: :request do
       it 'データは取得されないが、レスポンスは200として処理されること' do
         VCR.use_cassette('requests/series_playlists/search_return_no_results') do
           get search_series_playlists_path, params: { word: 'expected no search results' }
+
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
           expect(json['count']).to eq 0
