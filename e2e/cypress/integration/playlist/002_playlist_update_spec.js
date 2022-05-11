@@ -86,23 +86,29 @@ describe('プレイリスト更新', () => {
     cy.waitLoading()
 
     // 対象のプレイリストが表示されていないこと
-    if (Cypress.$('.playlist-name').length > 0) {
-      cy.get('.playlist-name').contains(now).should('have.lengthOf', 0)
-    }
+    cy.get('body').then((body) => {
+      if (body[0].querySelector('.playlist-name')) {
+        cy.get('.playlist-name').contains(now).should('have.lengthOf', 0)
+      }
+    })
 
     cy.get('.playlist-search input[type=text]').type(`${now}{enter}`, { force: true })
 
     // 対象のプレイリストが表示されていないこと
-    if (Cypress.$('.playlist-name').length > 0) {
-      cy.get('.playlist-name').contains(now).should('have.lengthOf', 0)
-    }
+    cy.get('body').then((body) => {
+      if (body[0].querySelector('.playlist-name')) {
+        cy.get('.playlist-name').contains(now).should('have.lengthOf', 0)
+      }
+    })
 
     cy.get('.playlist-search button').click()
 
     // 対象のプレイリストが表示されていないこと
-    if (Cypress.$('.playlist-name').length > 0) {
-      cy.get('.playlist-name').contains(now).should('have.lengthOf', 0)
-    }
+    cy.get('body').then((body) => {
+      if (body[0].querySelector('.playlist-name')) {
+        cy.get('.playlist-name').contains(now).should('have.lengthOf', 0)
+      }
+    })
 
     cy.get('.v-select__slot').click()
     cy.get('.menuable__content__active').contains('全て').click()
