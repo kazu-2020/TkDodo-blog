@@ -22,7 +22,7 @@ describe SeriesPlaylist, type: :request do
     end
 
     context 'idに紐づくデータが存在しない場合' do
-      it 'データは取得されないが、レスポンスは200として処理されること' do
+      it 'データは取得されないが、レスポンスステータスは200が返ってくること' do
         VCR.use_cassette('requests/series_playlists/no_episodes') do
           get "/series_playlists/#{has_not_episodes.id}/episodes"
 
@@ -48,7 +48,7 @@ describe SeriesPlaylist, type: :request do
     end
 
     context '検索ワードに該当するデータが無い場合' do
-      it 'データは取得されないが、レスポンスは200として処理されること' do
+      it 'データは取得されないが、レスポンスステータスは200が返ってくること' do
         VCR.use_cassette('requests/series_playlists/search_return_no_results') do
           get search_series_playlists_path, params: { word: 'expected no search results' }
 
