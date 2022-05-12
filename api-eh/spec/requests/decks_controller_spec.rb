@@ -18,10 +18,10 @@ describe DecksController, type: :request do
     let!(:expected_json_changed_name_and_admin_memo) do
       {
         'id' => deck_changed_name.id,
-        'name' => deck_changed_name.name.to_s,
-        'description' => deck_changed_name.description.to_s,
-        'interfix' => deck_changed_name.interfix.to_s,
-        'adminMemo' => deck_changed_name.admin_memo.to_s
+        'name' => deck_changed_name.name,
+        'description' => deck_changed_name.description,
+        'interfix' => deck_changed_name.interfix,
+        'adminMemo' => deck_changed_name.admin_memo
       }
     end
 
@@ -72,30 +72,30 @@ describe DecksController, type: :request do
       end
     end
 
-    context 'パラメータにapi_stateが含まれる場合' do
+    context 'リクエストにapi_stateが設定されている場合' do
       context 'api_stateがopenの場合' do
-        before { create(:deck, api_state: 'open') }
-
         let(:params) { { api_state: 'open' } }
+        let(:api_state) { 'open' }
 
-        it '公開ステータスがopenとなること' do
-          get decks_url, params: params
+        it '公開ステータスがopenのデータのみ取得されること' do
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
-          expect(json['decks'][0]['apiState']).to eq 'open'
+          json['decks'].each do |d|
+            expect(d['apiState']).to eq 'open'
+          end
         end
       end
 
       context 'api_stateがcloseの場合' do
-        before { create(:deck, api_state: 'close') }
-
         let(:params) { { api_state: 'close' } }
+        let(:api_state) { 'close' }
 
-        it '公開ステータスがcloseとなること' do
-          get decks_url, params: params
+        it '公開ステータスがcloseのデータのみ取得されること' do
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
-          expect(json['decks'][0]['apiState']).to eq 'close'
+          json['decks'].each do |d|
+            expect(d['apiState']).to eq 'close'
+          end
         end
       end
     end
