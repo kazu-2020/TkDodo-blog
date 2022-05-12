@@ -8,6 +8,7 @@ FactoryBot.define do
     area { 130 }
     admin_memo { 'test memo' }
     deck_uid { SecureRandom.uuid }
+    api_state { %w[open close].sample }
   end
 
   trait :with_playlists do
