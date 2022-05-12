@@ -77,7 +77,7 @@ describe DecksController, type: :request do
         let(:params) { { api_state: 'open' } }
         let(:api_state) { 'open' }
 
-        it '公開ステータスがopenのデータのみ取得されること' do
+        it '公開ステータスがopenのデッキのみレスポンスで返ってくること' do
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
           json['decks'].each do |d|
@@ -90,7 +90,7 @@ describe DecksController, type: :request do
         let(:params) { { api_state: 'close' } }
         let(:api_state) { 'close' }
 
-        it '公開ステータスがcloseのデータのみ取得されること' do
+        it '公開ステータスがcloseのデッキのみレスポンスで返ってくること' do
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
           json['decks'].each do |d|
