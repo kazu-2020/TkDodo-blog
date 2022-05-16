@@ -479,7 +479,6 @@ GEM
 
 PLATFORMS
   aarch64-linux-musl
-  ruby
   x86_64-darwin-19
   x86_64-darwin-20
   x86_64-linux
@@ -542,4 +541,4 @@ RUBY VERSION
    ruby 3.0.1p64
 
 BUNDLED WITH
-   2.3.13
+   2.3.10
