@@ -9,27 +9,23 @@ describe SeriesPlaylist, type: :request do
   let!(:has_episodes) { create(:series_playlist, string_id: 'ts-1V1PJ9L5JN', series_id: '1V1PJ9L5JN') }
 
   describe '#GET episodes' do
-    context 'idに紐づくデータが存在する場合' do
-      it 'データが取得できること' do
-        VCR.use_cassette('requests/series_playlists/episodes') do
-          get "/series_playlists/#{has_episodes.id}/episodes"
+    it '編成されているエピソードの情報が返ってくること' do
+      VCR.use_cassette('requests/series_playlists/episodes') do
+        get "/series_playlists/#{has_episodes.id}/episodes"
 
-          expect(response.status).to eq 200
-          json = JSON.parse(response.body)
-          expect(json['episodes'][0]['identifierGroup']['seriesId']).to eq has_episodes.series_id
-        end
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['episodes'][0]['identifierGroup']['seriesId']).to eq has_episodes.series_id
       end
     end
 
-    context 'idに紐づくデータが存在しない場合' do
-      it 'データは取得されないが、レスポンスステータスは200が返ってくること' do
-        VCR.use_cassette('requests/series_playlists/no_episodes') do
-          get "/series_playlists/#{has_not_episodes.id}/episodes"
+    it '編成されているエピソードは取得されないが、レスポンスステータスは200が返ってくること' do
+      VCR.use_cassette('requests/series_playlists/no_episodes') do
+        get "/series_playlists/#{has_not_episodes.id}/episodes"
 
-          expect(response.status).to eq 200
-          json = JSON.parse(response.body)
-          expect(json['episodes'].count).to eq 0
-        end
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['episodes'].count).to eq 0
       end
     end
   end
