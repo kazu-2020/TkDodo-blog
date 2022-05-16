@@ -116,7 +116,9 @@ dist
 .yarn/build-state.yml
 .pnp.*
 
-cypress/
+cypress/downloads
+cypress/screenshots
+cypress/videos
 results/
 videos/
 

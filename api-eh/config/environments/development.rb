@@ -81,4 +81,6 @@ Rails.application.configure do
       'http://localhost:8888'
     end
   config.shrine_config = { default_url: default_url }
+
+  config.hosts << 'web'
 end
