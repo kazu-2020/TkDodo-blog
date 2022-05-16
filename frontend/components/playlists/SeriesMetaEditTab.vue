@@ -188,32 +188,30 @@
                 value="tvepisode"
                 :disabled="disableItemListSubset"
               />
-              <!-- NOTE: 実証実験中はコメントアウト  -->
-              <!-- see: https://github.com/d7lab/dot-editorialhands/issues/87  -->
-              <!--              <v-checkbox-->
-              <!--                v-if="hasFaqPage"-->
-              <!--                v-model="selectedTypes"-->
-              <!--                class="mt-0 ml-10"-->
-              <!--                :label="`FAQPage (${faqPageCount})`"-->
-              <!--                value="faqpage"-->
-              <!--                :disabled="disableItemListSubset"-->
-              <!--              />-->
-              <!--              <v-checkbox-->
-              <!--                v-if="hasHowTo"-->
-              <!--                v-model="selectedTypes"-->
-              <!--                class="mt-0 ml-10"-->
-              <!--                :label="`HowTo (${howToCount})`"-->
-              <!--                value="howto"-->
-              <!--                :disabled="disableItemListSubset"-->
-              <!--              />-->
-              <!--              <v-checkbox-->
-              <!--                v-if="hasEvent"-->
-              <!--                v-model="selectedTypes"-->
-              <!--                class="mt-0 ml-10"-->
-              <!--                :label="`Event (${eventCount})`"-->
-              <!--                value="event"-->
-              <!--                :disabled="disableItemListSubset"-->
-              <!--              />-->
+              <v-checkbox
+                v-if="hasFaqPage"
+                v-model="selectedTypes"
+                class="mt-0 ml-10"
+                :label="`FAQPage (${faqPageCount})`"
+                value="faqpage"
+                :disabled="disableItemListSubset"
+              />
+              <v-checkbox
+                v-if="hasHowTo"
+                v-model="selectedTypes"
+                class="mt-0 ml-10"
+                :label="`HowTo (${howToCount})`"
+                value="howto"
+                :disabled="disableItemListSubset"
+              />
+              <v-checkbox
+                v-if="hasEvent"
+                v-model="selectedTypes"
+                class="mt-0 ml-10"
+                :label="`Event (${eventCount})`"
+                value="event"
+                :disabled="disableItemListSubset"
+              />
               <v-checkbox
                 v-if="hasArticle"
                 v-model="selectedTypes"
