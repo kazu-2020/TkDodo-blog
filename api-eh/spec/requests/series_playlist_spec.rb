@@ -21,8 +21,8 @@ describe SeriesPlaylist, type: :request do
   end
 
   describe '#GET search' do
-    context '検索ワードに該当するデータがある場合' do
-      it 'データが取得できること' do
+    context '検索ワードに該当するTVエピソードが存在する場合' do
+      it 'TVエピソードが取得できること' do
         VCR.use_cassette('requests/series_playlists/search_return_results') do
           get search_series_playlists_path, params: { word: 'カムカムエヴリバディ' }
 
@@ -33,15 +33,15 @@ describe SeriesPlaylist, type: :request do
       end
     end
 
-    context '検索ワードに該当するデータが無い場合' do
-      it 'データは取得されないが、レスポンスステータスは200が返ってくること' do
+    context '検索ワードに該当するTVエピソードが存在しない場合' do
+      it 'TVエピソードが取得されないこと' do
         VCR.use_cassette('requests/series_playlists/search_return_no_results') do
           get search_series_playlists_path, params: { word: 'expected no search results' }
 
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
           expect(json['count']).to eq 0
-          # エラーメッセージはフロント側でハンドリングしているためテストに含めない
+          # エラーメッセージのチェックはフロント側でハンドリングしているためテストに含めない
         end
       end
     end
