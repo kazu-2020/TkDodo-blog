@@ -18,16 +18,6 @@ describe SeriesPlaylist, type: :request do
         expect(json['episodes'][0]['identifierGroup']['seriesId']).to eq has_episodes.series_id
       end
     end
-
-    it '編成されているエピソードは取得されないが、レスポンスステータスは200が返ってくること' do
-      VCR.use_cassette('requests/series_playlists/no_episodes') do
-        get "/series_playlists/#{has_not_episodes.id}/episodes"
-
-        expect(response.status).to eq 200
-        json = JSON.parse(response.body)
-        expect(json['episodes'].count).to eq 0
-      end
-    end
   end
 
   describe '#GET search' do
