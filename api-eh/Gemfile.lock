@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/shrinerb/shrine.git
-  revision: d092dc6c48ac9e04ae1d62b53ea3205052315371
+  revision: 7713f3bd357aa3d922f27acd8d9325def23f9f29
   specs:
     shrine (3.4.0)
       content_disposition (~> 1.0)
@@ -538,7 +538,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 3.0.1p64
+   ruby 3.0.2p107
 
 BUNDLED WITH
-   2.3.10
+   2.2.22
