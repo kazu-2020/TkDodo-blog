@@ -3,8 +3,6 @@
 require 'rails_helper'
 
 describe SeriesPlaylist, type: :request do
-  # 2022/04/25時点でエピソードが存在しないseries_idで生成
-  let!(:has_not_episodes) { create(:series_playlist, string_id: 'ts-5NVVN1G5PJ', series_id: '5NVVN1G5PJ') }
   # 2022/04/25時点でエピソードが存在するseries_idで生成
   let!(:has_episodes) { create(:series_playlist, string_id: 'ts-1V1PJ9L5JN', series_id: '1V1PJ9L5JN') }
 
