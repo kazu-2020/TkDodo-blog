@@ -33,8 +33,6 @@ resource "aws_ecs_service" "ecs" {
     security_groups = [
       lookup(var.app_security_group, terraform.workspace),
     ]
-
-    assign_public_ip = "true"
   }
 
   health_check_grace_period_seconds = 180
