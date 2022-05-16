@@ -7,9 +7,9 @@ RSpec.describe ArticleImageUploader, type: :model do
     create(:article_image, image: File.open(Rails.root.join('spec', 'fixtures', 'images', 'test.jpg')))
   }
 
-  describe :generate_location do
+  describe '#generate_location' do
     it do
-      uploader = ArticleImageUploader.new('cache')
+      uploader = described_class.new('cache')
 
       location = uploader.generate_location(nil, **make_context(article_image, :image))
       expect(location).to match %r{^playlist/article_images/.*\.jpg}

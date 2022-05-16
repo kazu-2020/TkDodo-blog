@@ -270,6 +270,7 @@ interface DataType {
   faqPageCount: number
   howToCount: number
   eventCount: number
+  episodeItemIds: string[]
 }
 
 export default Vue.extend({
@@ -357,6 +358,7 @@ export default Vue.extend({
       faqPageCount: 0,
       howToCount: 0,
       eventCount: 0,
+      episodeItemIds: [],
     }
   },
   computed: {
@@ -408,7 +410,11 @@ export default Vue.extend({
         this.aliasId = newVal.aliasId
         this.apiState = newVal.apiState === 'open'
 
-        this.fetchBundleItemCount()
+        const episodeItemIds = newVal.items.map((item: any) => item.id)
+        if (this.episodeItemIds.toString() !== episodeItemIds.toString()) {
+          this.episodeItemIds = episodeItemIds
+          this.fetchBundleItemCount()
+        }
       },
       deep: true,
     },
