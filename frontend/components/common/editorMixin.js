@@ -96,10 +96,7 @@ const editorMixin = {
                   html: '<iframe frameborder="0" scrolling="no" align="middle" width="640" height="290" allowtransparency="true" allowfullscreen></iframe>',
                   width: 644,
                   height: 290,
-                  id: (ids) => {
-                    const domainPrefix = ids[1] ? ids[1] : ''
-                    return `${domainPrefix}www.poc.nhk.jp/oembed/${ids[2]}`
-                  },
+                  id: (ids) => `${ids[1]}www.poc.nhk.jp/oembed/${ids[2]}`,
                 },
               },
             },
