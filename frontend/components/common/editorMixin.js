@@ -5,7 +5,7 @@ import Embed from '@editorjs/embed'
 import ExtendImageTool from '~/plugins/editorjs/extend_image_tool'
 
 // Original Plugins
-// import MultiTypeEpisode from '~/plugins/editorjs/multi_type_episode/index.js' NOTE: 社会実証用に一旦非表示に
+import MultiTypeEpisode from '~/plugins/editorjs/multi_type_episode/index.js'
 import DescriptionLinkTool from '~/plugins/editorjs/description_link_tool'
 
 import { i18n } from '~/plugins/editorjs/i18n.js'
@@ -102,15 +102,14 @@ const editorMixin = {
               },
             },
           },
-          // NOTE: 社会実証用に一旦非表示に
-          // multiTypeEpisode: {
-          //   class: MultiTypeEpisode,
-          //   inlineToolbar: false,
-          //   config: {
-          //     endpoint: process.env.apiBaseUrl,
-          //     playlistId: this.playlistId,
-          //   },
-          // },
+          multiTypeEpisode: {
+            class: MultiTypeEpisode,
+            inlineToolbar: false,
+            config: {
+              endpoint: process.env.apiBaseUrl,
+              playlistId: this.playlistId,
+            },
+          },
         },
         data: this.editorData,
         i18n,
