@@ -271,6 +271,9 @@ interface DataType {
   howToCount: number
   eventCount: number
   episodeItemIds: string[]
+  isNotYetUploadedLogo: boolean
+  isNotYetUploadedEyecatch: boolean
+  isNotYetUploadedHero: boolean
 }
 
 export default Vue.extend({
@@ -359,6 +362,9 @@ export default Vue.extend({
       howToCount: 0,
       eventCount: 0,
       episodeItemIds: [],
+      isNotYetUploadedLogo: true,
+      isNotYetUploadedEyecatch: true,
+      isNotYetUploadedHero: true,
     }
   },
   computed: {
@@ -602,68 +608,89 @@ export default Vue.extend({
           this.howToCount = countData.howto
         })
     },
-    updateSeriesImage(data: { type: string; file: string }) {
+    updateSeriesImage(
+      data: { type: string; file: string },
+      isNotYetUploadedImage: boolean
+    ) {
       const originalPlaylist = Object.assign({}, (this as any).playlist)
 
       switch (data.type) {
         case 'logo':
+          this.isNotYetUploadedLogo = isNotYetUploadedImage
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               logoImageData: data.file,
               removeLogoImage: false,
-            })
+            }),
+            this.isNotYetUploadedLogo,
+            data.type
           )
           break
         case 'eyecatch':
+          this.isNotYetUploadedEyecatch = isNotYetUploadedImage
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               eyecatchImageData: data.file,
               removeEyecatchImage: false,
-            })
+            }),
+            this.isNotYetUploadedEyecatch,
+            data.type
           )
           break
         case 'hero':
+          this.isNotYetUploadedHero = isNotYetUploadedImage
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               heroImageData: data.file,
               removeHeroImage: false,
-            })
+            }),
+            this.isNotYetUploadedHero,
+            data.type
           )
           break
       }
     },
-    removeSeriesImage(type: string) {
+    removeSeriesImage(type: string, isNotYetUploadedImage: boolean) {
+      debugger
       const originalPlaylist = Object.assign({}, (this as any).playlist)
-
       switch (type) {
         case 'logo':
+          this.isNotYetUploadedLogo = isNotYetUploadedImage
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               logoImageData: '',
               removeLogoImage: true,
-            })
+            }),
+            isNotYetUploadedImage,
+            type
           )
           break
         case 'eyecatch':
+          this.isNotYetUploadedEyecatch = isNotYetUploadedImage
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               eyecatchImageData: '',
               removeEyecatchImage: true,
-            })
+            }),
+            isNotYetUploadedImage,
+            type
           )
           break
         case 'hero':
+          this.isNotYetUploadedHero = isNotYetUploadedImage
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               heroImageData: '',
               removeHeroImage: true,
-            })
+            }),
+            isNotYetUploadedImage,
+            type
           )
           break
       }

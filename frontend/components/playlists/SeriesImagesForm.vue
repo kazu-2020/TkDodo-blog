@@ -1,7 +1,21 @@
 <template>
   <v-row>
     <v-col cols="auto">
-      <label class="text--secondary">ロゴ - Logo</label>
+      <span style="color: red">※</span
+      ><label
+        :class="{
+          'text--secondary': !isNotYetUploadedLogo,
+          'error--text': isNotYetUploadedLogo,
+        }"
+        >ロゴ - Logo</label
+      >
+      <div v-if="isNotYetUploadedLogo" class="v-text-field__details">
+        <div class="v-messages theme--light error--text" role="alert">
+          <div class="v-messages__wrapper">
+            <div class="v-messages__message">画像は必ず登録してください</div>
+          </div>
+        </div>
+      </div>
       <v-hover v-slot="{ hover }">
         <v-card tile width="140" height="140">
           <v-img :src="logoImageUrl">
@@ -22,18 +36,25 @@
               </div>
             </v-expand-transition>
           </v-img>
-          <input
-            id="logoImageFile"
-            ref="logoImageInput"
-            type="file"
-            accept="image/*"
-            style="display: none"
-          />
         </v-card>
       </v-hover>
     </v-col>
     <v-col cols="auto">
-      <label class="text--secondary">アイキャッチ - Eyecatch</label>
+      <span style="color: red">※</span>
+      <label
+        :class="{
+          'text--secondary': !isNotYetUploadedEyecatch,
+          'error--text': isNotYetUploadedEyecatch,
+        }"
+        >アイキャッチ - Eyecatch</label
+      >
+      <div v-if="isNotYetUploadedEyecatch" class="v-text-field__details">
+        <div class="v-messages theme--light error--text" role="alert">
+          <div class="v-messages__wrapper">
+            <div class="v-messages__message">画像は必ず登録してください</div>
+          </div>
+        </div>
+      </div>
       <v-hover v-slot="{ hover }">
         <v-card tile width="249" height="140">
           <v-img :src="eyecatchImageUrl">
@@ -54,18 +75,25 @@
               </div>
             </v-expand-transition>
           </v-img>
-          <input
-            id="eyecatchImageFile"
-            ref="eyecatchImageInput"
-            type="file"
-            accept="image/*"
-            style="display: none"
-          />
         </v-card>
       </v-hover>
     </v-col>
     <v-col cols="auto">
-      <label class="text--secondary">ヒーロー - Hero</label>
+      <span style="color: red">※</span>
+      <label
+        :class="{
+          'text--secondary': !isNotYetUploadedHero,
+          'error--text': isNotYetUploadedHero,
+        }"
+        >ヒーロー - Hero</label
+      >
+      <div v-if="isNotYetUploadedHero" class="v-text-field__details">
+        <div class="v-messages theme--light error--text" role="alert">
+          <div class="v-messages__wrapper">
+            <div class="v-messages__message">画像は必ず登録してください</div>
+          </div>
+        </div>
+      </div>
       <v-hover v-slot="{ hover }">
         <v-card tile width="420" height="140">
           <v-img :src="heroImageUrl">
@@ -86,13 +114,6 @@
               </div>
             </v-expand-transition>
           </v-img>
-          <input
-            id="heroImageFile"
-            ref="heroImageInput"
-            type="file"
-            accept="image/*"
-            style="display: none"
-          />
         </v-card>
       </v-hover>
     </v-col>
@@ -101,9 +122,9 @@
         :is-show-dialog="isShowTrimmingImageDialog"
         :trimming-image-type="trimmingImageType"
         @hide-trimming-image-dialog="closeDialog"
-        @trimmed-logo-image="trimmedLogoImage($event)"
-        @trimmed-eyecatch-image="trimmedEyecatchImage($event)"
-        @trimmed-hero-image="trimmedHeroImage($event)"
+        @trimmed-logo-image="trimmedLogoImage"
+        @trimmed-eyecatch-image="trimmedEyecatchImage"
+        @trimmed-hero-image="trimmedHeroImage"
       />
     </v-col>
   </v-row>
@@ -123,6 +144,10 @@ interface DataType {
   isRemoveHeroImage: boolean
   isShowTrimmingImageDialog: boolean
   trimmingImageType: string
+  isValidSeriesTab: boolean
+  isNotYetUploadedLogo: boolean
+  isNotYetUploadedEyecatch: boolean
+  isNotYetUploadedHero: boolean
 }
 
 export default Vue.extend({
@@ -145,6 +170,10 @@ export default Vue.extend({
       isRemoveHeroImage: false,
       isShowTrimmingImageDialog: false,
       trimmingImageType: '',
+      isValidSeriesTab: true,
+      isNotYetUploadedLogo: false,
+      isNotYetUploadedEyecatch: false,
+      isNotYetUploadedHero: false,
     }
   },
   computed: {
@@ -193,30 +222,52 @@ export default Vue.extend({
     },
     removeLogoImage() {
       this.isRemoveLogoImage = true
-      this.$emit('remove-series-image', 'logo')
+      this.isNotYetUploadedLogo = true
+      this.$emit('remove-series-image', 'logo', this.isNotYetUploadedLogo)
     },
     removeEyecatchImage() {
       this.isRemoveEyecatchImage = true
-      this.$emit('remove-series-image', 'eyecatch')
+      this.isNotYetUploadedEyecatch = true
+      this.$emit(
+        'remove-series-image',
+        'eyecatch',
+        this.isNotYetUploadedEyecatch
+      )
     },
     removeHeroImage() {
       this.isRemoveHeroImage = true
-      this.$emit('remove-series-image', 'hero')
+      this.isNotYetUploadedHero = true
+      this.$emit('remove-series-image', 'hero', this.isNotYetUploadedHero)
     },
-    trimmedLogoImage(value: string) {
+    trimmedLogoImage(value: string, isNotYetUploadedImage: boolean) {
       this.logoImageData = value
       this.isRemoveLogoImage = false
-      this.$emit('update-series-image', { type: 'logo', file: value })
+      this.isNotYetUploadedLogo = isNotYetUploadedImage
+      this.$emit(
+        'update-series-image',
+        { type: 'logo', file: value },
+        isNotYetUploadedImage
+      )
     },
-    trimmedEyecatchImage(value: string) {
+    trimmedEyecatchImage(value: string, isNotYetUploadedImage: boolean) {
       this.eyecatchImageData = value
       this.isRemoveEyecatchImage = false
-      this.$emit('update-series-image', { type: 'eyecatch', file: value })
+      this.isNotYetUploadedEyecatch = isNotYetUploadedImage
+      this.$emit(
+        'update-series-image',
+        { type: 'eyecatch', file: value },
+        isNotYetUploadedImage
+      )
     },
-    trimmedHeroImage(value: string) {
+    trimmedHeroImage(value: string, isNotYetUploadedImage: boolean) {
       this.heroImageData = value
       this.isRemoveHeroImage = false
-      this.$emit('update-series-image', { type: 'hero', file: value })
+      this.isNotYetUploadedHero = isNotYetUploadedImage
+      this.$emit(
+        'update-series-image',
+        { type: 'hero', file: value },
+        isNotYetUploadedImage
+      )
     },
     dummyImagePath(type: string) {
       const time = this.playlist.dateCreated

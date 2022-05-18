@@ -21,6 +21,9 @@
             :has-unsaved-list="hasUnsavedList"
             :has-unsaved-article="hasUnsavedArticle"
             :has-unsaved-series="hasUnsavedSeries"
+            :is-not-yet-uploaded-logo="isNotYetUploadedLogo"
+            :is-not-yet-uploaded-eyecatch="isNotYetUploadedEyecatch"
+            :is-not-yet-uploaded-hero="isNotYetUploadedHero"
             @change-tab="changeTab"
           />
         </v-col>
@@ -193,6 +196,9 @@ interface DataType {
   isValidArticleTab: boolean
   isValidSeriesTab: boolean
   isShowDiffDialog: boolean
+  isNotYetUploadedLogo: boolean
+  isNotYetUploadedEyecatch: boolean
+  isNotYetUploadedHero: boolean
 }
 
 export default Vue.extend({
@@ -222,6 +228,9 @@ export default Vue.extend({
       isValidArticleTab: true,
       isValidSeriesTab: true,
       isShowDiffDialog: false,
+      isNotYetUploadedLogo: true,
+      isNotYetUploadedEyecatch: true,
+      isNotYetUploadedHero: true,
     }
   },
   computed: {
@@ -238,7 +247,13 @@ export default Vue.extend({
       return this.currentTab === PlaylistTab.series
     },
     preventSaveButton(): boolean {
-      return !this.isValidArticleTab || !this.isValidSeriesTab
+      return (
+        !this.isValidArticleTab ||
+        !this.isValidSeriesTab ||
+        this.isNotYetUploadedLogo ||
+        this.isNotYetUploadedEyecatch ||
+        this.isNotYetUploadedHero
+      )
     },
     breadcrumbItems(): Breadcrumb[] {
       return [
@@ -348,11 +363,28 @@ export default Vue.extend({
       }
       this.playlist.article = article
     },
-    updateSeries(playlist: any) {
+    updateSeries(
+      playlist: any,
+      isNotYetUploadedImage: boolean,
+      imageType: string
+    ) {
       if (this.currentTab === PlaylistTab.series) {
         ;(this as any).showUnloadAlert()
         this.hasUnsavedSeries = true
       }
+
+      switch (imageType) {
+        case 'logo':
+          this.isNotYetUploadedLogo = isNotYetUploadedImage
+          break
+        case 'eyecatch':
+          this.isNotYetUploadedEyecatch = isNotYetUploadedImage
+          break
+        case 'hero':
+          this.isNotYetUploadedHero = isNotYetUploadedImage
+          break
+      }
+
       this.playlist = playlist
     },
     updateArticleTabValidation(valid: boolean) {
@@ -363,7 +395,7 @@ export default Vue.extend({
     },
     moveToListEditing() {
       this.currentTab = PlaylistTab.list
-      this.isShowDiffDialog = false
+      this.isShowDiffDialog = true
     },
     save() {
       const body: { [key: string]: string | undefined | boolean } = {

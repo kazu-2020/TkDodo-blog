@@ -27,7 +27,16 @@
         :class="{ current: isSeries }"
         @click="changeTab('series')"
       >
-        <span v-if="!seriesTabValidation" class="has-error">●</span>
+        <span
+          v-if="
+            !seriesTabValidation ||
+            isNotYetUploadedLogo ||
+            isNotYetUploadedEyecatch ||
+            isNotYetUploadedHero
+          "
+          class="has-error"
+          >●</span
+        >
         <span v-else-if="hasUnsavedSeries" class="unsaved-change">●</span>
         <span>基本情報(NSeries)</span>
       </div>
@@ -81,6 +90,21 @@ export default Vue.extend({
       type: Boolean,
       default: false,
       required: false,
+    },
+    isNotYetUploadedLogo: {
+      type: Boolean,
+      default: true,
+      required: true,
+    },
+    isNotYetUploadedEyecatch: {
+      type: Boolean,
+      default: true,
+      required: true,
+    },
+    isNotYetUploadedHero: {
+      type: Boolean,
+      default: true,
+      required: true,
     },
   },
   computed: {
