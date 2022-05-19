@@ -232,9 +232,9 @@ export default Vue.extend({
       isValidArticleTab: true,
       isValidSeriesTab: true,
       isShowDiffDialog: false,
-      isNotYetUploadedLogo: true,
-      isNotYetUploadedEyecatch: true,
-      isNotYetUploadedHero: true,
+      isNotYetUploadedLogo: false,
+      isNotYetUploadedEyecatch: false,
+      isNotYetUploadedHero: false,
     }
   },
   computed: {

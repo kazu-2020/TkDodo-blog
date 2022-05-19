@@ -654,7 +654,6 @@ export default Vue.extend({
       }
     },
     removeSeriesImage(type: string, isNotYetUploadedImage: boolean) {
-      debugger
       const originalPlaylist = Object.assign({}, (this as any).playlist)
       switch (type) {
         case 'logo':
