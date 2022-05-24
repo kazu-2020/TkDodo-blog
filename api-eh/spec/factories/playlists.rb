@@ -1,14 +1,6 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  dummy_image_data = { storage: :cache,
-                       id: "#{Rails.root.join('spec', 'fixtures', 'images', 'test.jpg')}",
-                       metadata: { 'filename': 'test.jpeg',
-                                   'size': 2000,
-                                   'mime_type': 'image/jpeg',
-                                   'width': 100,
-                                   'height': 100 }
-                      }.to_json
   factory :playlist do
     name { 'Awesome Name' }
     detailed_name_ruby { 'オウサム ネーム' }
@@ -18,15 +10,21 @@ FactoryBot.define do
     api_state { %i[open close waiting].sample }
     sequence(:alias_id) { |i| "ALIAS-ID#{i}" }
     publish_level { Playlist::PUBLISH_LEVELS.sample }
-    logo_image_data { dummy_image_data }
-    eyecatch_image_data { dummy_image_data }
-    hero_image_data { dummy_image_data }
+    logo_image_data { ImageData.image_data }
+    eyecatch_image_data { ImageData.image_data }
+    hero_image_data { ImageData.image_data }
     active_item_list { [true, false].sample }
     active_episode { [true, false].sample }
     active_faq_page { [true, false].sample }
     active_article { [true, false].sample }
     active_how_to { [true, false].sample }
     active_event { [true, false].sample }
+
+    trait :with_images do
+      after(:create) do |playlist|
+        playlist.same_as = [FactoryBot.build(:same_as)]
+      end
+    end
 
     trait :with_same_as do
       after(:build) do |playlist|
