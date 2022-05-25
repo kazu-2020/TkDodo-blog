@@ -20,12 +20,6 @@ FactoryBot.define do
     active_how_to { [true, false].sample }
     active_event { [true, false].sample }
 
-    trait :with_images do
-      after(:create) do |playlist|
-        playlist.same_as = [FactoryBot.build(:same_as)]
-      end
-    end
-
     trait :with_same_as do
       after(:build) do |playlist|
         playlist.same_as = [FactoryBot.build(:same_as)]
