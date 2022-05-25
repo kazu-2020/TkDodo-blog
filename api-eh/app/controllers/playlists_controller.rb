@@ -35,6 +35,7 @@ class PlaylistsController < ApplicationController
     render json: { messages: "#{params[:id]}は見つかりませんでした" }, status: :not_found
   end
 
+  # rubocop: disable Metrics/AbcSize
   def create
     @playlist = Playlist.new(converted_params)
 
@@ -50,7 +51,9 @@ class PlaylistsController < ApplicationController
       render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
     end
   end
+  # rubocop: enable Metrics/AbcSize
 
+  # rubocop: disable Metrics/AbcSize
   def update
     ActiveRecord::Base.transaction do
       # 子テーブルの削除検知の marked_for_destruction? を有効にするために、assign_attributes を利用して更新しています。
@@ -72,6 +75,7 @@ class PlaylistsController < ApplicationController
       end
     end
   end
+  # rubocop: enable Metrics/AbcSize
 
   def destroy
     @playlist.destroy
@@ -147,6 +151,7 @@ class PlaylistsController < ApplicationController
   end
 
   # FIXME: 変更予定 後ほどふさわしい場所に定義します
+  # rubocop: disable Metrics/AbcSize
   def converted_params
     params = playlist_params.except(:logo_image, :eyecatch_image, :hero_image)
     %i[logo_image eyecatch_image hero_image].each do |key|
@@ -160,6 +165,7 @@ class PlaylistsController < ApplicationController
 
     params
   end
+  # rubocop: enable Metrics/AbcSize
 
   def image_param
     params[:image]
@@ -179,6 +185,7 @@ class PlaylistsController < ApplicationController
     ActionDispatch::Http::UploadedFile.new(file)
   end
 
+  # rubocop: disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def playlist_with_children_changed?
     @playlist.has_changes_to_save? ||
       @playlist.playlist_items.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? } ||
@@ -188,4 +195,5 @@ class PlaylistsController < ApplicationController
       @playlist.same_as.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? } ||
       @playlist.citations.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? }
   end
+  # rubocop: enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
