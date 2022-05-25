@@ -180,12 +180,12 @@ class PlaylistsController < ApplicationController
   end
 
   def playlist_with_children_changed?
-    @playlist.saved_changes? ||
-      @playlist.playlist_items.any? { |c| c.new_record? || c.saved_changes? || c.marked_for_destruction? } ||
+    @playlist.has_changes_to_save? ||
+      @playlist.playlist_items.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? } ||
       @playlist.saved_change_to_keywords? ||
       @playlist.saved_change_to_hashtags? ||
-      @playlist.article_images.any? { |c| c.new_record? || c.saved_changes? || c.marked_for_destruction? } ||
-      @playlist.same_as.any? { |c| c.new_record? || c.saved_changes? || c.marked_for_destruction? } ||
-      @playlist.citations.any? { |c| c.new_record? || c.saved_changes? || c.marked_for_destruction? }
+      @playlist.article_images.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? } ||
+      @playlist.same_as.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? } ||
+      @playlist.citations.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? }
   end
 end
