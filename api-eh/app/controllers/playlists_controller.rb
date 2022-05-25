@@ -56,6 +56,7 @@ class PlaylistsController < ApplicationController
       # 子テーブルの削除検知の marked_for_destruction? を有効にするために、assign_attributes を利用して更新しています。
       @playlist.assign_attributes(converted_params)
       is_changed = playlist_with_children_changed?
+
       if @playlist.save
         SnsNotify::Playlist.new.send([@playlist.string_id]) if is_changed
 
@@ -65,6 +66,7 @@ class PlaylistsController < ApplicationController
         end
 
         @playlist.touch # nested_attributes だけ更新された場合のための処理
+        @playlist.reload
       else
         render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
       end
@@ -152,6 +154,9 @@ class PlaylistsController < ApplicationController
     end
 
     params[:editor_data] = JSON.parse(params[:editor_data]) if params[:editor_data].present?
+
+    params[:keywords] = [] unless params.key?(:keywords)
+    params[:hashtags] = [] unless params.key?(:hashtags)
 
     params
   end
