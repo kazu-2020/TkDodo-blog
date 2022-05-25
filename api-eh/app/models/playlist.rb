@@ -67,6 +67,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   before_save :generate_derivatives
   before_save :set_available_article
   before_save :trim_name
+  before_save :clear_children_record_changes
 
   def format_genre_name
     return '' unless format_genre_code
@@ -143,13 +144,6 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def saved_change_to_hashtags?
     @saved_change_to_hashtags ||= false
-  end
-
-  def save
-    @saved_change_to_keywords = false
-    @saved_change_to_hashtags = false
-
-    super
   end
 
   def article_contains_episodes
@@ -287,5 +281,10 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
       article_image.playlist_id = id
       article_image.save
     end
+  end
+
+  def clear_children_record_changes
+    @saved_change_to_keywords = false
+    @saved_change_to_hashtags = false
   end
 end
