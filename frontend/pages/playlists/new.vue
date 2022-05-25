@@ -395,7 +395,7 @@ export default Vue.extend({
     },
     moveToListEditing() {
       this.currentTab = PlaylistTab.list
-      this.isShowDiffDialog = true
+      this.isShowDiffDialog = false
     },
     save() {
       const body: { [key: string]: string | undefined | boolean } = {
