@@ -110,6 +110,8 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def keywords=(new_keywords)
+    @saved_change_to_keywords = (keywords != new_keywords)
+
     add_keywords = new_keywords - (keywords & new_keywords)
     self.playlist_keywords += add_keywords.map { |keyword| PlaylistKeyword.new(name: keyword) }
 
@@ -124,6 +126,8 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def hashtags=(new_hashtags)
+    @saved_change_to_hashtags = (hashtags != new_hashtags)
+
     add_hashtags = new_hashtags - (hashtags & new_hashtags)
     self.playlist_hashtags += add_hashtags.map { |hashtag| PlaylistHashtag.new(name: hashtag) }
 
@@ -131,6 +135,21 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     remove_hashtags.each do |remove_hashtag|
       playlist_hashtags.find_by(name: remove_hashtag).destroy
     end
+  end
+
+  def saved_change_to_keywords?
+    @saved_change_to_keywords ||= false
+  end
+
+  def saved_change_to_hashtags?
+    @saved_change_to_hashtags ||= false
+  end
+
+  def save
+    @saved_change_to_keywords = false
+    @saved_change_to_hashtags = false
+
+    super
   end
 
   def article_contains_episodes
