@@ -44,21 +44,30 @@ class PlaylistsController < ApplicationController
         items = params.require(:playlist).permit(items: [])[:items] || []
         @playlist.rebuild_episode_list_to(items)
       end
+
+      SnsNotify::Playlist.new.send([@playlist.string_id]) if @playlist.string_id.present?
     rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
       render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def update
-    if @playlist.update(converted_params)
-      if params[:enable_list_update]
-        items = params.require(:playlist).permit(items: [])[:items] || []
-        @playlist.rebuild_episode_list_to(items)
-      end
+    ActiveRecord::Base.transaction do
+      # 子テーブルの削除検知の marked_for_destruction? を有効にするために、assign_attributes を利用して更新しています。
+      @playlist.assign_attributes(converted_params)
+      is_changed = playlist_with_children_changed?
+      if @playlist.save
+        SnsNotify::Playlist.new.send([@playlist.string_id]) if is_changed
 
-      @playlist.touch # nested_attributes だけ更新された場合のための処理
-    else
-      render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
+        if params[:enable_list_update]
+          items = params.require(:playlist).permit(items: [])[:items] || []
+          @playlist.rebuild_episode_list_to(items)
+        end
+
+        @playlist.touch # nested_attributes だけ更新された場合のための処理
+      else
+        render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
+      end
     end
   end
 
@@ -163,5 +172,15 @@ class PlaylistsController < ApplicationController
     file = { filename: [filename, extension].join('.'), type: content_type, tempfile: tempfile }
 
     ActionDispatch::Http::UploadedFile.new(file)
+  end
+
+  def playlist_with_children_changed?
+    @playlist.saved_changes? ||
+      @playlist.playlist_items.any? { |c| c.new_record? || c.saved_changes? || c.marked_for_destruction? } ||
+      @playlist.saved_change_to_keywords? ||
+      @playlist.saved_change_to_hashtags? ||
+      @playlist.article_images.any? { |c| c.new_record? || c.saved_changes? || c.marked_for_destruction? } ||
+      @playlist.same_as.any? { |c| c.new_record? || c.saved_changes? || c.marked_for_destruction? } ||
+      @playlist.citations.any? { |c| c.new_record? || c.saved_changes? || c.marked_for_destruction? }
   end
 end
