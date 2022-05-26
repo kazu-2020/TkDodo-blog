@@ -35,47 +35,29 @@ class PlaylistsController < ApplicationController
     render json: { messages: "#{params[:id]}は見つかりませんでした" }, status: :not_found
   end
 
-  # rubocop: disable Metrics/AbcSize
   def create
     @playlist = Playlist.new(converted_params)
 
     begin
-      @playlist.save!
-      if params[:enable_list_update]
-        items = params.require(:playlist).permit(items: [])[:items] || []
-        @playlist.rebuild_episode_list_to(items)
-      end
+      @playlist.save_with_notify!
 
-      SnsNotify::Playlist.new.send([@playlist.string_id]) if @playlist.string_id.present?
+      rebuild_episode_list
     rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
       render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
     end
   end
-  # rubocop: enable Metrics/AbcSize
 
-  # rubocop: disable Metrics/AbcSize
   def update
-    ActiveRecord::Base.transaction do
-      # 子テーブルの削除検知の marked_for_destruction? を有効にするために、assign_attributes を利用して更新しています。
-      @playlist.assign_attributes(converted_params)
-      is_changed = playlist_with_children_changed?
+    if @playlist.update_with_notify(converted_params)
 
-      if @playlist.save
-        SnsNotify::Playlist.new.send([@playlist.string_id]) if is_changed
+      rebuild_episode_list
 
-        if params[:enable_list_update]
-          items = params.require(:playlist).permit(items: [])[:items] || []
-          @playlist.rebuild_episode_list_to(items)
-        end
-
-        @playlist.touch # nested_attributes だけ更新された場合のための処理
-        @playlist.reload
-      else
-        render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
-      end
+      @playlist.touch # nested_attributes だけ更新された場合のための処理
+      @playlist.reload
+    else
+      render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
     end
   end
-  # rubocop: enable Metrics/AbcSize
 
   def destroy
     @playlist.destroy
@@ -185,15 +167,10 @@ class PlaylistsController < ApplicationController
     ActionDispatch::Http::UploadedFile.new(file)
   end
 
-  # rubocop: disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def playlist_with_children_changed?
-    @playlist.has_changes_to_save? ||
-      @playlist.playlist_items.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? } ||
-      @playlist.saved_change_to_keywords? ||
-      @playlist.saved_change_to_hashtags? ||
-      @playlist.article_images.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? } ||
-      @playlist.same_as.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? } ||
-      @playlist.citations.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? }
+  def rebuild_episode_list
+    return unless params[:enable_list_update]
+
+    items = params.require(:playlist).permit(items: [])[:items] || []
+    @playlist.rebuild_episode_list_to(items)
   end
-  # rubocop: enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end

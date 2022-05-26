@@ -138,14 +138,6 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def saved_change_to_keywords?
-    @saved_change_to_keywords ||= false
-  end
-
-  def saved_change_to_hashtags?
-    @saved_change_to_hashtags ||= false
-  end
-
   def article_contains_episodes
     return [] unless editor_data.present?
 
@@ -204,6 +196,26 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return [] if editor_data.blank?
 
     editor_data['blocks'].select { |block| block['type'] == type }
+  end
+
+  def save_with_notify!
+    save!
+    SnsNotify::Playlist.new.send([string_id]) if string_id.present?
+  end
+
+  def update_with_notify(params)
+    result = false
+    ActiveRecord::Base.transaction do
+      # 子テーブルの削除検知の marked_for_destruction? を有効にするために、assign_attributes を利用して更新しています。
+      assign_attributes(params)
+      is_changed = playlist_with_children_changed?
+
+      result = save
+
+      SnsNotify::Playlist.new.send([string_id]) if is_changed
+    end
+
+    result
   end
 
   private
@@ -286,5 +298,39 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def clear_children_record_changes
     @saved_change_to_keywords = false
     @saved_change_to_hashtags = false
+  end
+
+  def playlist_with_children_changed?
+    has_changes_to_save? ||
+      saved_change_to_playlist_items? ||
+      saved_change_to_keywords? ||
+      saved_change_to_hashtags? ||
+      saved_change_to_article_images? ||
+      saved_change_to_same_as? ||
+      saved_change_to_citations?
+  end
+
+  def saved_change_to_playlist_items?
+    playlist_items.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? }
+  end
+
+  def saved_change_to_article_images?
+    article_images.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? }
+  end
+
+  def saved_change_to_same_as?
+    same_as.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? }
+  end
+
+  def saved_change_to_citations?
+    citations.any? { |c| c.has_changes_to_save? || c.marked_for_destruction? }
+  end
+
+  def saved_change_to_keywords?
+    @saved_change_to_keywords ||= false
+  end
+
+  def saved_change_to_hashtags?
+    @saved_change_to_hashtags ||= false
   end
 end
