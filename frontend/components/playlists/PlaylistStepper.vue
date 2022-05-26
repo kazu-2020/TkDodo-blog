@@ -30,9 +30,9 @@
         <span
           v-if="
             !seriesTabValidation ||
-            isNotYetUploadedLogo ||
-            isNotYetUploadedEyecatch ||
-            isNotYetUploadedHero
+            !isUploadedLogo ||
+            !isUploadedEyecatch ||
+            !isUploadedHero
           "
           class="has-error"
           >●</span
@@ -91,19 +91,19 @@ export default Vue.extend({
       default: false,
       required: false,
     },
-    isNotYetUploadedLogo: {
+    isUploadedLogo: {
       type: Boolean,
-      default: true,
+      default: false,
       required: true,
     },
-    isNotYetUploadedEyecatch: {
+    isUploadedEyecatch: {
       type: Boolean,
-      default: true,
+      default: false,
       required: true,
     },
-    isNotYetUploadedHero: {
+    isUploadedHero: {
       type: Boolean,
-      default: true,
+      default: false,
       required: true,
     },
   },

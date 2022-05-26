@@ -4,12 +4,12 @@
       <span style="color: red">※</span
       ><label
         :class="{
-          'text--secondary': !isNotYetUploadedLogo,
-          'error--text': isNotYetUploadedLogo,
+          'text--secondary': isUploadedLogo,
+          'error--text': !isUploadedLogo,
         }"
         >ロゴ - Logo</label
       >
-      <div v-if="isNotYetUploadedLogo" class="v-text-field__details">
+      <div v-if="!isUploadedLogo" class="v-text-field__details">
         <div class="v-messages theme--light error--text" role="alert">
           <div class="v-messages__wrapper">
             <div class="v-messages__message">画像は必ず登録してください</div>
@@ -43,12 +43,12 @@
       <span style="color: red">※</span>
       <label
         :class="{
-          'text--secondary': !isNotYetUploadedEyecatch,
-          'error--text': isNotYetUploadedEyecatch,
+          'text--secondary': isUploadedEyecatch,
+          'error--text': !isUploadedEyecatch,
         }"
         >アイキャッチ - Eyecatch</label
       >
-      <div v-if="isNotYetUploadedEyecatch" class="v-text-field__details">
+      <div v-if="!isUploadedEyecatch" class="v-text-field__details">
         <div class="v-messages theme--light error--text" role="alert">
           <div class="v-messages__wrapper">
             <div class="v-messages__message">画像は必ず登録してください</div>
@@ -82,12 +82,12 @@
       <span style="color: red">※</span>
       <label
         :class="{
-          'text--secondary': !isNotYetUploadedHero,
-          'error--text': isNotYetUploadedHero,
+          'text--secondary': isUploadedHero,
+          'error--text': !isUploadedHero,
         }"
         >ヒーロー - Hero</label
       >
-      <div v-if="isNotYetUploadedHero" class="v-text-field__details">
+      <div v-if="!isUploadedHero" class="v-text-field__details">
         <div class="v-messages theme--light error--text" role="alert">
           <div class="v-messages__wrapper">
             <div class="v-messages__message">画像は必ず登録してください</div>
@@ -145,9 +145,9 @@ interface DataType {
   isShowTrimmingImageDialog: boolean
   trimmingImageType: string
   isValidSeriesTab: boolean
-  isNotYetUploadedLogo: boolean
-  isNotYetUploadedEyecatch: boolean
-  isNotYetUploadedHero: boolean
+  isUploadedLogo: boolean
+  isUploadedEyecatch: boolean
+  isUploadedHero: boolean
 }
 
 export default Vue.extend({
@@ -171,9 +171,9 @@ export default Vue.extend({
       isShowTrimmingImageDialog: false,
       trimmingImageType: '',
       isValidSeriesTab: true,
-      isNotYetUploadedLogo: false,
-      isNotYetUploadedEyecatch: false,
-      isNotYetUploadedHero: false,
+      isUploadedLogo: true,
+      isUploadedEyecatch: true,
+      isUploadedHero: true,
     }
   },
   computed: {
@@ -222,51 +222,47 @@ export default Vue.extend({
     },
     removeLogoImage() {
       this.isRemoveLogoImage = true
-      this.isNotYetUploadedLogo = true
-      this.$emit('remove-series-image', 'logo', this.isNotYetUploadedLogo)
+      this.isUploadedLogo = false
+      this.$emit('remove-series-image', 'logo', this.isUploadedLogo)
     },
     removeEyecatchImage() {
       this.isRemoveEyecatchImage = true
-      this.isNotYetUploadedEyecatch = true
-      this.$emit(
-        'remove-series-image',
-        'eyecatch',
-        this.isNotYetUploadedEyecatch
-      )
+      this.isUploadedEyecatch = false
+      this.$emit('remove-series-image', 'eyecatch', this.isUploadedEyecatch)
     },
     removeHeroImage() {
       this.isRemoveHeroImage = true
-      this.isNotYetUploadedHero = true
-      this.$emit('remove-series-image', 'hero', this.isNotYetUploadedHero)
+      this.isUploadedHero = false
+      this.$emit('remove-series-image', 'hero', this.isUploadedHero)
     },
-    trimmedLogoImage(value: string, isNotYetUploadedImage: boolean) {
+    trimmedLogoImage(value: string, isUploadedImage: boolean) {
       this.logoImageData = value
       this.isRemoveLogoImage = false
-      this.isNotYetUploadedLogo = isNotYetUploadedImage
+      this.isUploadedLogo = isUploadedImage
       this.$emit(
         'update-series-image',
         { type: 'logo', file: value },
-        isNotYetUploadedImage
+        isUploadedImage
       )
     },
-    trimmedEyecatchImage(value: string, isNotYetUploadedImage: boolean) {
+    trimmedEyecatchImage(value: string, isUploadedImage: boolean) {
       this.eyecatchImageData = value
       this.isRemoveEyecatchImage = false
-      this.isNotYetUploadedEyecatch = isNotYetUploadedImage
+      this.isUploadedEyecatch = isUploadedImage
       this.$emit(
         'update-series-image',
         { type: 'eyecatch', file: value },
-        isNotYetUploadedImage
+        isUploadedImage
       )
     },
-    trimmedHeroImage(value: string, isNotYetUploadedImage: boolean) {
+    trimmedHeroImage(value: string, isUploadedImage: boolean) {
       this.heroImageData = value
       this.isRemoveHeroImage = false
-      this.isNotYetUploadedHero = isNotYetUploadedImage
+      this.isUploadedHero = isUploadedImage
       this.$emit(
         'update-series-image',
         { type: 'hero', file: value },
-        isNotYetUploadedImage
+        isUploadedImage
       )
     },
     dummyImagePath(type: string) {

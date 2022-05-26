@@ -15,7 +15,6 @@ class Embed::ItemListComponent < ViewComponent::Base
     @key_color = key_color
     @episodes = episodes
     @height = height
-    # byebug
   end
 
   def base64_image_src

@@ -21,9 +21,9 @@
             :has-unsaved-list="hasUnsavedList"
             :has-unsaved-article="hasUnsavedArticle"
             :has-unsaved-series="hasUnsavedSeries"
-            :is-not-yet-uploaded-logo="isNotYetUploadedLogo"
-            :is-not-yet-uploaded-eyecatch="isNotYetUploadedEyecatch"
-            :is-not-yet-uploaded-hero="isNotYetUploadedHero"
+            :is-uploaded-logo="isUploadedLogo"
+            :is-uploaded-eyecatch="isUploadedEyecatch"
+            :is-uploaded-hero="isUploadedHero"
             @change-tab="changeTab"
           />
         </v-col>
@@ -196,9 +196,9 @@ interface DataType {
   isValidArticleTab: boolean
   isValidSeriesTab: boolean
   isShowDiffDialog: boolean
-  isNotYetUploadedLogo: boolean
-  isNotYetUploadedEyecatch: boolean
-  isNotYetUploadedHero: boolean
+  isUploadedLogo: boolean
+  isUploadedEyecatch: boolean
+  isUploadedHero: boolean
 }
 
 export default Vue.extend({
@@ -228,9 +228,9 @@ export default Vue.extend({
       isValidArticleTab: true,
       isValidSeriesTab: true,
       isShowDiffDialog: false,
-      isNotYetUploadedLogo: true,
-      isNotYetUploadedEyecatch: true,
-      isNotYetUploadedHero: true,
+      isUploadedLogo: false,
+      isUploadedEyecatch: false,
+      isUploadedHero: false,
     }
   },
   computed: {
@@ -250,9 +250,9 @@ export default Vue.extend({
       return (
         !this.isValidArticleTab ||
         !this.isValidSeriesTab ||
-        this.isNotYetUploadedLogo ||
-        this.isNotYetUploadedEyecatch ||
-        this.isNotYetUploadedHero
+        !this.isUploadedLogo ||
+        !this.isUploadedEyecatch ||
+        !this.isUploadedHero
       )
     },
     breadcrumbItems(): Breadcrumb[] {
@@ -363,11 +363,7 @@ export default Vue.extend({
       }
       this.playlist.article = article
     },
-    updateSeries(
-      playlist: any,
-      isNotYetUploadedImage: boolean,
-      imageType: string
-    ) {
+    updateSeries(playlist: any, isUploadedImage: boolean, imageType: string) {
       if (this.currentTab === PlaylistTab.series) {
         ;(this as any).showUnloadAlert()
         this.hasUnsavedSeries = true
@@ -375,13 +371,13 @@ export default Vue.extend({
 
       switch (imageType) {
         case 'logo':
-          this.isNotYetUploadedLogo = isNotYetUploadedImage
+          this.isUploadedLogo = isUploadedImage
           break
         case 'eyecatch':
-          this.isNotYetUploadedEyecatch = isNotYetUploadedImage
+          this.isUploadedEyecatch = isUploadedImage
           break
         case 'hero':
-          this.isNotYetUploadedHero = isNotYetUploadedImage
+          this.isUploadedHero = isUploadedImage
           break
       }
 

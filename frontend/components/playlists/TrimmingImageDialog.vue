@@ -177,9 +177,9 @@ interface DataType {
   filledImageType: string
   filledImageTypeList: Array<Object>
   isShow: boolean
-  isNotYetUploadedLogo: boolean
-  isNotYetUploadedEyecatch: boolean
-  isNotYetUploadedHero: boolean
+  isUploadedLogo: boolean
+  isUploadedEyecatch: boolean
+  isUploadedHero: boolean
 }
 
 export default Vue.extend({
@@ -223,9 +223,9 @@ export default Vue.extend({
         },
       ],
       isShow: false,
-      isNotYetUploadedLogo: true,
-      isNotYetUploadedEyecatch: true,
-      isNotYetUploadedHero: true,
+      isUploadedLogo: false,
+      isUploadedEyecatch: false,
+      isUploadedHero: false,
     }
   },
   computed: {
@@ -318,27 +318,27 @@ export default Vue.extend({
     complete(): void {
       switch (this.trimmingImageType) {
         case 'logo':
-          this.isNotYetUploadedLogo = false
+          this.isUploadedLogo = true
           this.$emit(
             'trimmed-logo-image',
             this.trimmedLogoImage,
-            this.isNotYetUploadedLogo
+            this.isUploadedLogo
           )
           break
         case 'eyecatch':
-          this.isNotYetUploadedEyecatch = false
+          this.isUploadedEyecatch = true
           this.$emit(
             'trimmed-eyecatch-image',
             this.trimmedEyecatchImage,
-            this.isNotYetUploadedEyecatch
+            this.isUploadedEyecatch
           )
           break
         case 'hero':
-          this.isNotYetUploadedHero = false
+          this.isUploadedHero = true
           this.$emit(
             'trimmed-hero-image',
             this.trimmedHeroImage,
-            this.isNotYetUploadedHero
+            this.isUploadedHero
           )
           break
       }

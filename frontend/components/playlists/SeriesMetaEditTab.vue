@@ -11,6 +11,7 @@
                 label="名前 - Name"
                 class="playlist_name"
                 required
+                prefix="※"
               />
             </v-col>
             <v-col cols="12">
@@ -271,9 +272,9 @@ interface DataType {
   howToCount: number
   eventCount: number
   episodeItemIds: string[]
-  isNotYetUploadedLogo: boolean
-  isNotYetUploadedEyecatch: boolean
-  isNotYetUploadedHero: boolean
+  isUploadedLogo: boolean
+  isUploadedEyecatch: boolean
+  isUploadedHero: boolean
 }
 
 export default Vue.extend({
@@ -362,9 +363,9 @@ export default Vue.extend({
       howToCount: 0,
       eventCount: 0,
       episodeItemIds: [],
-      isNotYetUploadedLogo: true,
-      isNotYetUploadedEyecatch: true,
-      isNotYetUploadedHero: true,
+      isUploadedLogo: false,
+      isUploadedEyecatch: false,
+      isUploadedHero: false,
     }
   },
   computed: {
@@ -610,85 +611,85 @@ export default Vue.extend({
     },
     updateSeriesImage(
       data: { type: string; file: string },
-      isNotYetUploadedImage: boolean
+      isUploadedImage: boolean
     ) {
       const originalPlaylist = Object.assign({}, (this as any).playlist)
 
       switch (data.type) {
         case 'logo':
-          this.isNotYetUploadedLogo = isNotYetUploadedImage
+          this.isUploadedLogo = isUploadedImage
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               logoImageData: data.file,
               removeLogoImage: false,
             }),
-            this.isNotYetUploadedLogo,
+            this.isUploadedLogo,
             data.type
           )
           break
         case 'eyecatch':
-          this.isNotYetUploadedEyecatch = isNotYetUploadedImage
+          this.isUploadedEyecatch = isUploadedImage
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               eyecatchImageData: data.file,
               removeEyecatchImage: false,
             }),
-            this.isNotYetUploadedEyecatch,
+            this.isUploadedEyecatch,
             data.type
           )
           break
         case 'hero':
-          this.isNotYetUploadedHero = isNotYetUploadedImage
+          this.isUploadedHero = isUploadedImage
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               heroImageData: data.file,
               removeHeroImage: false,
             }),
-            this.isNotYetUploadedHero,
+            this.isUploadedHero,
             data.type
           )
           break
       }
     },
-    removeSeriesImage(type: string, isNotYetUploadedImage: boolean) {
+    removeSeriesImage(type: string, isUploadedImage: boolean) {
       const originalPlaylist = Object.assign({}, (this as any).playlist)
       switch (type) {
         case 'logo':
-          this.isNotYetUploadedLogo = isNotYetUploadedImage
+          this.isUploadedLogo = isUploadedImage
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               logoImageData: '',
               removeLogoImage: true,
             }),
-            isNotYetUploadedImage,
+            isUploadedImage,
             type
           )
           break
         case 'eyecatch':
-          this.isNotYetUploadedEyecatch = isNotYetUploadedImage
+          this.isUploadedEyecatch = isUploadedImage
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               eyecatchImageData: '',
               removeEyecatchImage: true,
             }),
-            isNotYetUploadedImage,
+            isUploadedImage,
             type
           )
           break
         case 'hero':
-          this.isNotYetUploadedHero = isNotYetUploadedImage
+          this.isUploadedHero = isUploadedImage
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               heroImageData: '',
               removeHeroImage: true,
             }),
-            isNotYetUploadedImage,
+            isUploadedImage,
             type
           )
           break
@@ -712,5 +713,8 @@ export default Vue.extend({
   .v-messages {
     display: none;
   }
+}
+.v-text-field__prefix {
+  color: red;
 }
 </style>
