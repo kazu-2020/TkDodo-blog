@@ -139,9 +139,9 @@ interface DataType {
   logoImageData: string
   eyecatchImageData: string
   heroImageData: string
-  isRemoveLogoImage: boolean
-  isRemoveEyecatchImage: boolean
-  isRemoveHeroImage: boolean
+  isRemovedLogoImage: boolean
+  isRemovedEyecatchImage: boolean
+  isRemovedHeroImage: boolean
   isShowTrimmingImageDialog: boolean
   trimmingImageType: string
   isValidSeriesTab: boolean
@@ -165,9 +165,9 @@ export default Vue.extend({
       logoImageData: '',
       eyecatchImageData: '',
       heroImageData: '',
-      isRemoveLogoImage: false,
-      isRemoveEyecatchImage: false,
-      isRemoveHeroImage: false,
+      isRemovedLogoImage: false,
+      isRemovedEyecatchImage: false,
+      isRemovedHeroImage: false,
       isShowTrimmingImageDialog: false,
       trimmingImageType: '',
       isValidSeriesTab: true,
@@ -178,7 +178,7 @@ export default Vue.extend({
   },
   computed: {
     logoImageUrl(): string {
-      if (this.isRemoveLogoImage) {
+      if (this.isRemovedLogoImage) {
         return this.dummyImagePath('logo')
       }
 
@@ -189,7 +189,7 @@ export default Vue.extend({
       )
     },
     eyecatchImageUrl(): string {
-      if (this.isRemoveEyecatchImage) {
+      if (this.isRemovedEyecatchImage) {
         return this.dummyImagePath('eyecatch')
       }
 
@@ -200,7 +200,7 @@ export default Vue.extend({
       )
     },
     heroImageUrl(): string {
-      if (this.isRemoveHeroImage) {
+      if (this.isRemovedHeroImage) {
         return this.dummyImagePath('hero')
       }
 
@@ -221,23 +221,23 @@ export default Vue.extend({
       this.isShowTrimmingImageDialog = false
     },
     removeLogoImage() {
-      this.isRemoveLogoImage = true
+      this.isRemovedLogoImage = true
       this.isUploadedLogo = false
       this.$emit('remove-series-image', 'logo', this.isUploadedLogo)
     },
     removeEyecatchImage() {
-      this.isRemoveEyecatchImage = true
+      this.isRemovedEyecatchImage = true
       this.isUploadedEyecatch = false
       this.$emit('remove-series-image', 'eyecatch', this.isUploadedEyecatch)
     },
     removeHeroImage() {
-      this.isRemoveHeroImage = true
+      this.isRemovedHeroImage = true
       this.isUploadedHero = false
       this.$emit('remove-series-image', 'hero', this.isUploadedHero)
     },
     trimmedLogoImage(value: string, isUploadedImage: boolean) {
       this.logoImageData = value
-      this.isRemoveLogoImage = false
+      this.isRemovedLogoImage = false
       this.isUploadedLogo = isUploadedImage
       this.$emit(
         'update-series-image',
@@ -247,7 +247,7 @@ export default Vue.extend({
     },
     trimmedEyecatchImage(value: string, isUploadedImage: boolean) {
       this.eyecatchImageData = value
-      this.isRemoveEyecatchImage = false
+      this.isRemovedEyecatchImage = false
       this.isUploadedEyecatch = isUploadedImage
       this.$emit(
         'update-series-image',
@@ -257,7 +257,7 @@ export default Vue.extend({
     },
     trimmedHeroImage(value: string, isUploadedImage: boolean) {
       this.heroImageData = value
-      this.isRemoveHeroImage = false
+      this.isRemovedHeroImage = false
       this.isUploadedHero = isUploadedImage
       this.$emit(
         'update-series-image',
