@@ -19,9 +19,7 @@
             :has-unsaved-list="hasUnsavedList"
             :has-unsaved-article="hasUnsavedArticle"
             :has-unsaved-series="hasUnsavedSeries"
-            :is-uploaded-logo="isUploadedLogo"
-            :is-uploaded-eyecatch="isUploadedEyecatch"
-            :is-uploaded-hero="isUploadedHero"
+            :is-uploaded-all-images="isUploadedAllImages"
             @change-tab="changeTab"
           />
         </v-col>
@@ -199,9 +197,7 @@ interface DataType {
   isValidArticleTab: boolean
   isValidSeriesTab: boolean
   isShowDiffDialog: boolean
-  isUploadedLogo: boolean
-  isUploadedEyecatch: boolean
-  isUploadedHero: boolean
+  isUploadedAllImages: boolean
 }
 
 export default Vue.extend({
@@ -232,9 +228,7 @@ export default Vue.extend({
       isValidArticleTab: true,
       isValidSeriesTab: true,
       isShowDiffDialog: false,
-      isUploadedLogo: true,
-      isUploadedEyecatch: true,
-      isUploadedHero: true,
+      isUploadedAllImages: true,
     }
   },
   computed: {
@@ -257,9 +251,7 @@ export default Vue.extend({
       return (
         !this.isValidArticleTab ||
         !this.isValidSeriesTab ||
-        !this.isUploadedLogo ||
-        !this.isUploadedEyecatch ||
-        !this.isUploadedHero
+        !this.isUploadedAllImages
       )
     },
     breadcrumbItems(): Breadcrumb[] {
@@ -350,22 +342,15 @@ export default Vue.extend({
       }
       this.$store.dispatch('playlists/updateArticle', article)
     },
-    updateSeries(playlist: any, isUploadedImage: boolean, imageType: string) {
+    updateSeries(playlist: any, isUploadedAllImages: boolean) {
       if (this.currentTab === PlaylistTab.series) {
         ;(this as any).showUnloadAlert()
         this.hasUnsavedSeries = true
       }
-
-      switch (imageType) {
-        case 'logo':
-          this.isUploadedLogo = isUploadedImage
-          break
-        case 'eyecatch':
-          this.isUploadedEyecatch = isUploadedImage
-          break
-        case 'hero':
-          this.isUploadedHero = isUploadedImage
-          break
+      if (isUploadedAllImages === undefined) {
+        // 何もしない
+      } else {
+        this.isUploadedAllImages = isUploadedAllImages
       }
 
       this.$store.dispatch('playlists/updateEditingPlaylist', playlist)

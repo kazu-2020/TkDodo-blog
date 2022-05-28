@@ -275,6 +275,7 @@ interface DataType {
   isUploadedLogo: boolean
   isUploadedEyecatch: boolean
   isUploadedHero: boolean
+  isUploadedAllImages: boolean
 }
 
 export default Vue.extend({
@@ -363,9 +364,10 @@ export default Vue.extend({
       howToCount: 0,
       eventCount: 0,
       episodeItemIds: [],
-      isUploadedLogo: false,
-      isUploadedEyecatch: false,
-      isUploadedHero: false,
+      isUploadedLogo: !!this.playlist.name,
+      isUploadedEyecatch: !!this.playlist.name,
+      isUploadedHero: !!this.playlist.name,
+      isUploadedAllImages: !!this.playlist.name,
     }
   },
   computed: {
@@ -618,79 +620,128 @@ export default Vue.extend({
       switch (data.type) {
         case 'logo':
           this.isUploadedLogo = isUploadedImage
+          if (
+            this.isUploadedLogo &&
+            this.isUploadedEyecatch &&
+            this.isUploadedHero
+          ) {
+            this.isUploadedAllImages = true
+          } else {
+            this.isUploadedAllImages = false
+          }
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               logoImageData: data.file,
               removeLogoImage: false,
             }),
-            this.isUploadedLogo,
-            data.type
+            this.isUploadedAllImages
           )
           break
         case 'eyecatch':
           this.isUploadedEyecatch = isUploadedImage
+          if (
+            this.isUploadedLogo &&
+            this.isUploadedEyecatch &&
+            this.isUploadedHero
+          ) {
+            this.isUploadedAllImages = true
+          } else {
+            this.isUploadedAllImages = false
+          }
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               eyecatchImageData: data.file,
               removeEyecatchImage: false,
             }),
-            this.isUploadedEyecatch,
-            data.type
+            this.isUploadedAllImages
           )
           break
         case 'hero':
           this.isUploadedHero = isUploadedImage
+          if (
+            this.isUploadedLogo &&
+            this.isUploadedEyecatch &&
+            this.isUploadedHero
+          ) {
+            this.isUploadedAllImages = true
+          } else {
+            this.isUploadedAllImages = false
+          }
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               heroImageData: data.file,
               removeHeroImage: false,
             }),
-            this.isUploadedHero,
-            data.type
+            this.isUploadedAllImages
           )
           break
       }
     },
     removeSeriesImage(type: string, isUploadedImage: boolean) {
       const originalPlaylist = Object.assign({}, (this as any).playlist)
+
       switch (type) {
         case 'logo':
           this.isUploadedLogo = isUploadedImage
+          if (
+            this.isUploadedLogo &&
+            this.isUploadedEyecatch &&
+            this.isUploadedHero
+          ) {
+            this.isUploadedAllImages = true
+          } else {
+            this.isUploadedAllImages = false
+          }
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               logoImageData: '',
               removeLogoImage: true,
             }),
-            isUploadedImage,
-            type
+            this.isUploadedAllImages
           )
           break
         case 'eyecatch':
           this.isUploadedEyecatch = isUploadedImage
+          if (
+            this.isUploadedLogo &&
+            this.isUploadedEyecatch &&
+            this.isUploadedHero
+          ) {
+            this.isUploadedAllImages = true
+          } else {
+            this.isUploadedAllImages = false
+          }
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               eyecatchImageData: '',
               removeEyecatchImage: true,
             }),
-            isUploadedImage,
-            type
+            this.isUploadedAllImages
           )
           break
         case 'hero':
           this.isUploadedHero = isUploadedImage
+          if (
+            this.isUploadedLogo &&
+            this.isUploadedEyecatch &&
+            this.isUploadedHero
+          ) {
+            this.isUploadedAllImages = true
+          } else {
+            this.isUploadedAllImages = false
+          }
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               heroImageData: '',
               removeHeroImage: true,
             }),
-            isUploadedImage,
-            type
+            this.isUploadedAllImages
           )
           break
       }

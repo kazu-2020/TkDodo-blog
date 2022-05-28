@@ -28,12 +28,7 @@
         @click="changeTab('series')"
       >
         <span
-          v-if="
-            !seriesTabValidation ||
-            !isUploadedLogo ||
-            !isUploadedEyecatch ||
-            !isUploadedHero
-          "
+          v-if="!seriesTabValidation || !isUploadedAllImages"
           class="has-error"
           >●</span
         >
@@ -91,20 +86,10 @@ export default Vue.extend({
       default: false,
       required: false,
     },
-    isUploadedLogo: {
+    isUploadedAllImages: {
       type: Boolean,
       default: false,
-      required: true,
-    },
-    isUploadedEyecatch: {
-      type: Boolean,
-      default: false,
-      required: true,
-    },
-    isUploadedHero: {
-      type: Boolean,
-      default: false,
-      required: true,
+      required: false,
     },
   },
   computed: {

@@ -171,9 +171,9 @@ export default Vue.extend({
       isShowTrimmingImageDialog: false,
       trimmingImageType: '',
       isValidSeriesTab: true,
-      isUploadedLogo: true,
-      isUploadedEyecatch: true,
-      isUploadedHero: true,
+      isUploadedLogo: true, // 初期表示時にエラーメッセージを表示させないようにするため
+      isUploadedEyecatch: true, // 初期表示時にエラーメッセージを表示させないようにするため
+      isUploadedHero: true, // 初期表示時にエラーメッセージを表示させないようにするため
     }
   },
   computed: {
