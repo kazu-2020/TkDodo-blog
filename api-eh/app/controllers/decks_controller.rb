@@ -8,6 +8,12 @@ class DecksController < ApplicationController
 
   def index
     query = params[:query].present? ? Deck.name_or_admin_memo_like(params[:query]) : Deck
+    case params[:api_state]
+    when 'open'
+      query = query.api_state_open
+    when 'close'
+      query = query.api_state_close
+    end
     @decks = query.page(@page).per(@per)
   end
 

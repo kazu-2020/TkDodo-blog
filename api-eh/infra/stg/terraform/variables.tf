@@ -115,7 +115,7 @@ variable "web_acl" {
   # tomigaya-developer-acl
   default = {
     "dev.id"        = ""
-    "staging.id"    = "337a7fad-e5b6-49be-a9b6-d90493f2d8d3"
+    "staging.id"    = "47167ef9-b17a-45fa-bcc8-696cd7815c13"
     "production.id" = ""
   }
 }

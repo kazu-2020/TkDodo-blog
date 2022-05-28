@@ -7,7 +7,7 @@ RSpec.describe LogoUploader, type: :model do
   let(:derivatives) { playlist.logo_image_derivatives }
   let(:playlist) { create(:playlist, logo_image: File.open(Rails.root.join('spec', 'fixtures', 'images', 'test.jpg'))) }
 
-  describe :strip do
+  describe '#strip' do
     it do
       playlist.reload
       expect(derivatives[:default]).to be_kind_of(Shrine::UploadedFile)

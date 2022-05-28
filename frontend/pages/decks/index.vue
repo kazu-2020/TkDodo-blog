@@ -13,7 +13,18 @@
               class="deck-search"
               hide-details
               clearable
-              @keypress.enter="searchDecktWithKeyword"
+              @keypress.enter="searchDeckWithKeyword"
+            />
+          </v-col>
+          <v-col cols="3">
+            <v-select
+              v-model="selectedApiStateFilter"
+              :items="apiStateFilters"
+              item-text="text"
+              item-value="state"
+              class="pt-16 tmp_pl"
+              dense
+              solo
             />
           </v-col>
         </v-row>
@@ -168,6 +179,7 @@ export default Vue.extend({
   async asyncData({ store }) {
     await store.dispatch('decks/fetchDecks', {
       page: 1,
+      apiState: 'open',
     })
   },
   data(): DataType {
@@ -207,8 +219,47 @@ export default Vue.extend({
     selectedDeckStringId(): string {
       return this.selectedDeck?.stringId || ''
     },
+    apiStateFilters(): Array<Object> {
+      return [
+        { state: 'open', text: 'API公開中のみ' },
+        { state: 'close', text: 'API非公開のみ' },
+        { state: '', text: '全て' },
+      ]
+    },
   },
   watch: {
+    page: {
+      handler(newValue) {
+        this.isShowLoadingDialog = true
+        this.$store.dispatch('decks/fetchDecks', {
+          page: newValue,
+          apiState: this.selectedApiStateFilter,
+        })
+      },
+    },
+    selectedApiStateFilter: {
+      handler(newValue) {
+        this.isShowLoadingDialog = true
+        this.page = 1
+        this.$store.dispatch('decks/fetchDecks', {
+          page: 1,
+          apiState: newValue,
+          query: this.searchKeyword,
+        })
+      },
+    },
+    searchKeyword: {
+      handler(newValue) {
+        if (newValue === null) {
+          this.isShowLoadingDialog = true
+          this.page = 1
+          this.$store.dispatch('decks/fetchDecks', {
+            page: 1,
+            apiState: this.selectedApiStateFilter,
+          })
+        }
+      },
+    },
     decks: {
       handler(_newValue) {
         this.isShowLoadingDialog = false
@@ -233,10 +284,11 @@ export default Vue.extend({
         this.drawer = false
       }
     },
-    searchDecktWithKeyword(): void {
+    searchDeckWithKeyword(): void {
       this.isShowLoadingDialog = true
       this.$store.dispatch('decks/fetchDecks', {
         page: 1,
+        apiState: this.selectedApiStateFilter,
         query: this.searchKeyword,
       })
     },

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/shrinerb/shrine.git
-  revision: d092dc6c48ac9e04ae1d62b53ea3205052315371
+  revision: 7713f3bd357aa3d922f27acd8d9325def23f9f29
   specs:
     shrine (3.4.0)
       content_disposition (~> 1.0)
@@ -396,6 +396,9 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.7.0)
       parser (>= 3.0.1.1)
+    rubocop-rspec (2.4.0)
+      rubocop (~> 1.0)
+      rubocop-ast (>= 1.1.0)
     ruby-ll (2.1.2)
       ansi
       ast
@@ -517,6 +520,7 @@ DEPENDENCIES
   redis
   rspec-rails
   rubocop (= 1.9.0)
+  rubocop-rspec
   sass-rails (>= 6)
   shrine!
   sidekiq
@@ -534,7 +538,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 3.0.1p64
+   ruby 3.0.2p107
 
 BUNDLED WITH
    2.2.22

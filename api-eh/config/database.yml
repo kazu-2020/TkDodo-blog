@@ -13,12 +13,12 @@ default: &default
   adapter: <%= ENV['ASSET_SYNC'] ? 'nulldb' : 'mysql2' %>
   encoding: utf8mb4
   charset: utf8mb4
+  collation: utf8mb4_general_ci
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: <%= ENV['DB_NAME'] || 'editorialhands' %>
   username: <%= ENV['DB_USER'] || 'root' %>
   password: <%= ENV['DB_PASS'] %>
   host: <%= ENV["DB_HOST"] %>
-  url: <%= ENV['DATABASE_URL'] %> # takes higher precedence than other settings
   reconnect: true
 
 development:
@@ -30,12 +30,14 @@ test:
   port: <%= ENV['DB_PORT'] %> # 未設定でOK。host側からdocker-composeのdbを利用する場合など「4306」を設定する
   database: editorialhands_test
 
+dev:
+  <<: *default
+  database: editorialhands
+
 staging:
   <<: *default
   database: editorialhands
-  url: <%= ENV['DATABASE_URL'] %>
 
 production:
   <<: *default
   database: editorialhands
-  url: <%= ENV['DATABASE_URL'] %>

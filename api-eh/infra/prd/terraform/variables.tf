@@ -105,7 +105,7 @@ variable "web_acl" {
   default = {
     "dev.id"        = ""
     "staging.id"    = ""
-    "production.id" = "337a7fad-e5b6-49be-a9b6-d90493f2d8d3"
+    "production.id" = "131c8a52-c15e-44d9-a110-06720de0e8ac"
   }
 }
 

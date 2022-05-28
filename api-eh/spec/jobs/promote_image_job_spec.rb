@@ -15,6 +15,7 @@ RSpec.describe PromoteImageJob, type: :model do
              eyecatch_image: File.open(test_image_file_path),
              hero_image: File.open(test_image_file_path))
     end
+
     before do
       # NOTE: reloadを入れないと画像のstorageがstoreにならない
       playlist.reload
