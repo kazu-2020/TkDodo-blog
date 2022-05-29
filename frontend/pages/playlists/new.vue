@@ -216,7 +216,6 @@ export default Vue.extend({
         items: [],
         activeItemList: true,
         activeEpisode: true,
-        isUploadedAllImages: false,
       },
       currentTab: PlaylistTab.list,
       hasUnsavedList: false,
