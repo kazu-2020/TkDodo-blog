@@ -620,15 +620,11 @@ export default Vue.extend({
       switch (data.type) {
         case 'logo':
           this.isUploadedLogo = isUploadedImage
-          if (
-            this.isUploadedLogo &&
-            this.isUploadedEyecatch &&
+          this.isUploadedAllImages = isUploadedAllImages(
+            this.isUploadedLogo,
+            this.isUploadedEyecatch,
             this.isUploadedHero
-          ) {
-            this.isUploadedAllImages = true
-          } else {
-            this.isUploadedAllImages = false
-          }
+          )
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
@@ -640,15 +636,11 @@ export default Vue.extend({
           break
         case 'eyecatch':
           this.isUploadedEyecatch = isUploadedImage
-          if (
-            this.isUploadedLogo &&
-            this.isUploadedEyecatch &&
+          this.isUploadedAllImages = isUploadedAllImages(
+            this.isUploadedLogo,
+            this.isUploadedEyecatch,
             this.isUploadedHero
-          ) {
-            this.isUploadedAllImages = true
-          } else {
-            this.isUploadedAllImages = false
-          }
+          )
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
@@ -660,15 +652,11 @@ export default Vue.extend({
           break
         case 'hero':
           this.isUploadedHero = isUploadedImage
-          if (
-            this.isUploadedLogo &&
-            this.isUploadedEyecatch &&
+          this.isUploadedAllImages = isUploadedAllImages(
+            this.isUploadedLogo,
+            this.isUploadedEyecatch,
             this.isUploadedHero
-          ) {
-            this.isUploadedAllImages = true
-          } else {
-            this.isUploadedAllImages = false
-          }
+          )
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
@@ -757,6 +745,18 @@ export default Vue.extend({
     },
   },
 })
+function isUploadedAllImages(
+  isUploadedLogo: boolean,
+  isUploadedEyecatch: boolean,
+  isUploadedHero: boolean
+) {
+  debugger
+  if (isUploadedLogo && isUploadedEyecatch && isUploadedHero) {
+    return true
+  } else {
+    return false
+  }
+}
 </script>
 
 <style lang="scss">
