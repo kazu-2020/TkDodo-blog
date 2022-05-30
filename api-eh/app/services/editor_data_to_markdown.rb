@@ -37,7 +37,9 @@ class EditorDataToMarkdown
 
   def to_header_markdown(block)
     text = trim_space(block['data']['text'])
-    "## #{convert_inline_html_tags(text)}"
+    level = block['data']['level']
+
+    "#{'#' * level} #{convert_inline_html_tags(text)}"
   end
 
   def to_text_markdown(block)
