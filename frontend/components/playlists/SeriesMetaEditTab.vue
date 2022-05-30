@@ -281,6 +281,7 @@ interface DataType {
   citations: Object[]
   valid: boolean
   nameRules: Function[]
+  imageRules: Function[]
   aliasIdRules: Function[]
   formatGenreList: Object[]
   themeGenreList: Object[]
@@ -347,7 +348,7 @@ export default Vue.extend({
         (v: string) =>
           (v && v.length <= 255) || '名前は255文字以下で入力してください',
       ],
-      imageRules: [(v: string) => !!v],
+      imageRules: [(v: string) => !!v || ''],
       aliasIdRules: [
         (v: string) =>
           /^[\s]*[-_a-zA-Z\d]*[\s]*$/.test(v) ||
