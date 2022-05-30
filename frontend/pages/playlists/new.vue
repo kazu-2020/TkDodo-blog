@@ -96,7 +96,7 @@
             <v-list dense>
               <v-list-item
                 v-for="item in playlistItems"
-                :key="item.id"
+                :key="item"
                 class="px-0"
               >
                 <v-list-item-icon class="mr-3">
