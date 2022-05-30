@@ -63,7 +63,7 @@ describe PlaylistsController, type: :request do
 
         let(:params) { { api_state: 'close' } }
 
-        it '公開ステータスがcloseが取得できること' do
+        it '公開ステータスがcloseのプレイリストが取得できること' do
           get playlists_url, params: params
 
           expect(response.status).to eq 200
