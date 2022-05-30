@@ -750,7 +750,6 @@ function isUploadedAllImages(
   isUploadedEyecatch: boolean,
   isUploadedHero: boolean
 ) {
-  debugger
   if (isUploadedLogo && isUploadedEyecatch && isUploadedHero) {
     return true
   } else {
