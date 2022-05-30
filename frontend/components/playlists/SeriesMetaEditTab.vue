@@ -118,6 +118,25 @@
               @update-series-image="updateSeriesImage"
               @remove-series-image="removeSeriesImage"
             />
+            <v-text-field
+              v-show="false"
+              v-model="logoImageData"
+              hidden
+              :rules="imageRules"
+              required
+            />
+            <v-text-field
+              v-show="false"
+              v-model="eyeCatchImageData"
+              :rules="imageRules"
+              required
+            />
+            <v-text-field
+              v-show="false"
+              v-model="heroImageData"
+              :rules="imageRules"
+              required
+            />
           </v-row>
 
           <!-- 色 -->
@@ -272,10 +291,9 @@ interface DataType {
   howToCount: number
   eventCount: number
   episodeItemIds: string[]
-  isUploadedLogo: boolean
-  isUploadedEyecatch: boolean
-  isUploadedHero: boolean
-  isUploadedAllImages: boolean
+  logoImageData: string
+  eyeCatchImageData: string
+  heroImageData: string
 }
 
 export default Vue.extend({
@@ -329,6 +347,7 @@ export default Vue.extend({
         (v: string) =>
           (v && v.length <= 255) || '名前は255文字以下で入力してください',
       ],
+      imageRules: [(v: string) => !!v],
       aliasIdRules: [
         (v: string) =>
           /^[\s]*[-_a-zA-Z\d]*[\s]*$/.test(v) ||
@@ -364,10 +383,9 @@ export default Vue.extend({
       howToCount: 0,
       eventCount: 0,
       episodeItemIds: [],
-      isUploadedLogo: !!this.playlist.name,
-      isUploadedEyecatch: !!this.playlist.name,
-      isUploadedHero: !!this.playlist.name,
-      isUploadedAllImages: !!this.playlist.name,
+      logoImageData: this.playlist.logo || '',
+      eyeCatchImageData: this.playlist.eyecatch || '',
+      heroImageData: this.playlist.hero || '',
     }
   },
   computed: {
@@ -611,125 +629,74 @@ export default Vue.extend({
           this.howToCount = countData.howto
         })
     },
-    updateSeriesImage(
-      data: { type: string; file: string },
-      isUploadedImage: boolean
-    ) {
+    updateSeriesImage(data: { type: string; file: string }) {
       const originalPlaylist = Object.assign({}, (this as any).playlist)
 
       switch (data.type) {
         case 'logo':
-          this.isUploadedLogo = isUploadedImage
-          this.isUploadedAllImages = isUploadedAllImages(
-            this.isUploadedLogo,
-            this.isUploadedEyecatch,
-            this.isUploadedHero
-          )
+          this.logoImageData = data.file
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               logoImageData: data.file,
               removeLogoImage: false,
-            }),
-            this.isUploadedAllImages
+            })
           )
           break
         case 'eyecatch':
-          this.isUploadedEyecatch = isUploadedImage
-          this.isUploadedAllImages = isUploadedAllImages(
-            this.isUploadedLogo,
-            this.isUploadedEyecatch,
-            this.isUploadedHero
-          )
+          this.eyeCatchImageData = data.file
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               eyecatchImageData: data.file,
               removeEyecatchImage: false,
-            }),
-            this.isUploadedAllImages
+            })
           )
           break
         case 'hero':
-          this.isUploadedHero = isUploadedImage
-          this.isUploadedAllImages = isUploadedAllImages(
-            this.isUploadedLogo,
-            this.isUploadedEyecatch,
-            this.isUploadedHero
-          )
+          this.heroImageData = data.file
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               heroImageData: data.file,
               removeHeroImage: false,
-            }),
-            this.isUploadedAllImages
+            })
           )
           break
       }
     },
-    removeSeriesImage(type: string, isUploadedImage: boolean) {
+    removeSeriesImage(type: string) {
       const originalPlaylist = Object.assign({}, (this as any).playlist)
 
       switch (type) {
         case 'logo':
-          this.isUploadedLogo = isUploadedImage
-          if (
-            this.isUploadedLogo &&
-            this.isUploadedEyecatch &&
-            this.isUploadedHero
-          ) {
-            this.isUploadedAllImages = true
-          } else {
-            this.isUploadedAllImages = false
-          }
+          this.logoImageData = ''
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               logoImageData: '',
               removeLogoImage: true,
-            }),
-            this.isUploadedAllImages
+            })
           )
           break
         case 'eyecatch':
-          this.isUploadedEyecatch = isUploadedImage
-          if (
-            this.isUploadedLogo &&
-            this.isUploadedEyecatch &&
-            this.isUploadedHero
-          ) {
-            this.isUploadedAllImages = true
-          } else {
-            this.isUploadedAllImages = false
-          }
+          this.eyeCatchImageData = ''
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               eyecatchImageData: '',
               removeEyecatchImage: true,
-            }),
-            this.isUploadedAllImages
+            })
           )
           break
         case 'hero':
-          this.isUploadedHero = isUploadedImage
-          if (
-            this.isUploadedLogo &&
-            this.isUploadedEyecatch &&
-            this.isUploadedHero
-          ) {
-            this.isUploadedAllImages = true
-          } else {
-            this.isUploadedAllImages = false
-          }
+          this.heroImageData = ''
           this.$emit(
             'update-series',
             Object.assign(originalPlaylist, {
               heroImageData: '',
               removeHeroImage: true,
-            }),
-            this.isUploadedAllImages
+            })
           )
           break
       }
@@ -745,17 +712,6 @@ export default Vue.extend({
     },
   },
 })
-function isUploadedAllImages(
-  isUploadedLogo: boolean,
-  isUploadedEyecatch: boolean,
-  isUploadedHero: boolean
-) {
-  if (isUploadedLogo && isUploadedEyecatch && isUploadedHero) {
-    return true
-  } else {
-    return false
-  }
-}
 </script>
 
 <style lang="scss">

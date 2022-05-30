@@ -19,7 +19,6 @@
             :has-unsaved-list="hasUnsavedList"
             :has-unsaved-article="hasUnsavedArticle"
             :has-unsaved-series="hasUnsavedSeries"
-            :is-uploaded-all-images="isUploadedAllImages"
             @change-tab="changeTab"
           />
         </v-col>
@@ -197,7 +196,6 @@ interface DataType {
   isValidArticleTab: boolean
   isValidSeriesTab: boolean
   isShowDiffDialog: boolean
-  isUploadedAllImages: boolean
 }
 
 export default Vue.extend({
@@ -228,7 +226,6 @@ export default Vue.extend({
       isValidArticleTab: true,
       isValidSeriesTab: true,
       isShowDiffDialog: false,
-      isUploadedAllImages: true,
     }
   },
   computed: {
@@ -248,11 +245,7 @@ export default Vue.extend({
       return this.currentTab === PlaylistTab.series
     },
     preventSaveButton(): boolean {
-      return (
-        !this.isValidArticleTab ||
-        !this.isValidSeriesTab ||
-        !this.isUploadedAllImages
-      )
+      return !this.isValidArticleTab || !this.isValidSeriesTab
     },
     breadcrumbItems(): Breadcrumb[] {
       return [
@@ -342,17 +335,11 @@ export default Vue.extend({
       }
       this.$store.dispatch('playlists/updateArticle', article)
     },
-    updateSeries(playlist: any, isUploadedAllImages: boolean) {
+    updateSeries(playlist: any) {
       if (this.currentTab === PlaylistTab.series) {
         ;(this as any).showUnloadAlert()
         this.hasUnsavedSeries = true
       }
-      if (isUploadedAllImages === undefined) {
-        // 何もしない
-      } else {
-        this.isUploadedAllImages = isUploadedAllImages
-      }
-
       this.$store.dispatch('playlists/updateEditingPlaylist', playlist)
     },
     updateArticleTabValidation(valid: boolean) {

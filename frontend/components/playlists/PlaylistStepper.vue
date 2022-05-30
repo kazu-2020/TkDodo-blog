@@ -27,11 +27,7 @@
         :class="{ current: isSeries }"
         @click="changeTab('series')"
       >
-        <span
-          v-if="!seriesTabValidation || !isUploadedAllImages"
-          class="has-error"
-          >●</span
-        >
+        <span v-if="!seriesTabValidation" class="has-error">●</span>
         <span v-else-if="hasUnsavedSeries" class="unsaved-change">●</span>
         <span>基本情報(NSeries)</span>
       </div>
@@ -82,11 +78,6 @@ export default Vue.extend({
       required: false,
     },
     hideArticleStep: {
-      type: Boolean,
-      default: false,
-      required: false,
-    },
-    isUploadedAllImages: {
       type: Boolean,
       default: false,
       required: false,
