@@ -235,35 +235,22 @@ export default Vue.extend({
       this.isUploadedHero = false
       this.$emit('remove-series-image', 'hero', this.isUploadedHero)
     },
-    trimmedLogoImage(value: string, isUploadedImage: boolean) {
+    trimmedLogoImage(value: string) {
       this.logoImageData = value
       this.isRemovedLogoImage = false
-      this.isUploadedLogo = isUploadedImage
-      this.$emit(
-        'update-series-image',
-        { type: 'logo', file: value },
-        isUploadedImage
-      )
+      this.$emit('update-series-image', { type: 'logo', file: value })
     },
     trimmedEyecatchImage(value: string, isUploadedImage: boolean) {
       this.eyecatchImageData = value
       this.isRemovedEyecatchImage = false
       this.isUploadedEyecatch = isUploadedImage
-      this.$emit(
-        'update-series-image',
-        { type: 'eyecatch', file: value },
-        isUploadedImage
-      )
+      this.$emit('update-series-image', { type: 'eyecatch', file: value })
     },
     trimmedHeroImage(value: string, isUploadedImage: boolean) {
       this.heroImageData = value
       this.isRemovedHeroImage = false
       this.isUploadedHero = isUploadedImage
-      this.$emit(
-        'update-series-image',
-        { type: 'hero', file: value },
-        isUploadedImage
-      )
+      this.$emit('update-series-image', { type: 'hero', file: value })
     },
     dummyImagePath(type: string) {
       const time = this.playlist.dateCreated
