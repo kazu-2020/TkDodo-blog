@@ -5,7 +5,7 @@ import Embed from '@editorjs/embed'
 import ExtendImageTool from '~/plugins/editorjs/extend_image_tool'
 
 // Original Plugins
-// import MultiTypeEpisode from '~/plugins/editorjs/multi_type_episode/index.js' NOTE: 社会実証用に一旦非表示に
+import MultiTypeEpisode from '~/plugins/editorjs/multi_type_episode/index.js'
 import DescriptionLinkTool from '~/plugins/editorjs/description_link_tool'
 
 import { i18n } from '~/plugins/editorjs/i18n.js'
@@ -38,7 +38,7 @@ const editorMixin = {
             class: Header,
             config: {
               placeholder: '見出しを入力してください',
-              levels: [2],
+              levels: [2, 3, 4],
               defaultLevel: 2,
             },
             inlineToolbar: ['bold', 'italic'],
@@ -90,29 +90,17 @@ const editorMixin = {
                   width: 640,
                   id: (ids) => ids[0],
                 },
-                cweb: {
-                  regex: /(https?:\/\/(dev-|stg-)?www\.poc\.nhk\.jp\/?(.*))/,
-                  embedUrl: 'https://<%= remote_id %>?size=middle',
-                  html: '<iframe frameborder="0" scrolling="no" align="middle" width="640" height="290" allowtransparency="true" allowfullscreen></iframe>',
-                  width: 644,
-                  height: 290,
-                  id: (ids) => {
-                    const domainPrefix = ids[1] ? ids[1] : ''
-                    return `${domainPrefix}www.poc.nhk.jp/oembed/${ids[2]}`
-                  },
-                },
               },
             },
           },
-          // NOTE: 社会実証用に一旦非表示に
-          // multiTypeEpisode: {
-          //   class: MultiTypeEpisode,
-          //   inlineToolbar: false,
-          //   config: {
-          //     endpoint: process.env.apiBaseUrl,
-          //     playlistId: this.playlistId,
-          //   },
-          // },
+          multiTypeEpisode: {
+            class: MultiTypeEpisode,
+            inlineToolbar: false,
+            config: {
+              endpoint: process.env.apiBaseUrl,
+              playlistId: this.playlistId,
+            },
+          },
         },
         data: this.editorData,
         i18n,

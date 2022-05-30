@@ -8,11 +8,11 @@ services:
     tty: true
     command: yarn dev
     environment:
-      API_URL: "http://web:8888"
+      API_URL: "http://web:3000"
     volumes:
       - ./frontend:/app
     ports:
-      - 3000:3000
+      - 8080:3000
     depends_on:
       - web
       - db
@@ -46,7 +46,7 @@ services:
     build:
       context: ./e2e
       dockerfile: Dockerfile
-    command: /bin/sh -c "sleep 45; npx cypress run --browser chrome --headless"
+    command: /bin/sh -c "sleep 120;npx cypress run --browser chrome --headless"
     depends_on:
       - web
       - frontend
@@ -56,6 +56,7 @@ services:
       - CYPRESS_browser=chrome
       - CYPRESS_screenshotsFolder=/results/screenshots
       - CYPRESS_videosFolder=/results/videos
+      - CYPRESS_API_URL=http://web:3000
     volumes:
       - ./e2e/cypress:/app/cypress
       - ./e2e/cypress.json:/app/cypress.json
