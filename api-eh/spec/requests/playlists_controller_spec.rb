@@ -130,14 +130,126 @@ describe PlaylistsController, type: :request do
 
   describe 'PUT #update' do
     let!(:playlist) { create(:playlist) }
-    let(:name) { 'updated name' }
-    let(:params) { { playlist: { name: name } } }
+
+    context '更新' do
+      let(:name) { 'updated name' }
+      let(:params) { { playlist: { name: name } } }
 
     it 'updates playlist record' do
       put playlist_path(playlist), params: params
 
       expect(response.status).to eq(200)
       expect(playlist.reload.name).to eq(name)
+    end
+  end
+
+    context '更新通知' do
+      context '更新通知が呼び出されること' do
+        # rubocop: disable RSpec/ExpectInHook
+        before do
+          expect_any_instance_of(SnsNotify::Playlist).to receive(:send)
+        end
+        # rubocop: enable RSpec/ExpectInHook
+
+        context 'メタ情報' do
+          it '更新' do
+            put playlist_path(playlist), params: { playlist: { name: "#{playlist.name} 2" } }
+          end
+        end
+
+        context 'キーワード' do
+          let!(:keyword1) { create(:playlist_keyword, playlist: playlist) }
+
+          it '追加' do
+            put playlist_path(playlist),
+                params: { playlist: { name: playlist.name, keywords: [keyword1.name, "#{keyword1.name} 2"] } }
+          end
+
+          it '削除' do
+            put playlist_path(playlist), params: { playlist: { name: playlist.name } }
+          end
+        end
+
+        context 'ハッシュタグ' do
+          let!(:hashtag1) { create(:playlist_hashtag, playlist: playlist) }
+
+          it '追加' do
+            put playlist_path(playlist),
+                params: { playlist: { name: playlist.name, hashtags: [hashtag1.name, "#{hashtag1.name} 2"] } }
+          end
+
+          it '削除' do
+            put playlist_path(playlist), params: { playlist: { name: playlist.name } }
+          end
+        end
+
+        context 'Citation' do
+          let!(:citation1) { create(:citation, playlist: playlist) }
+
+          it '追加' do
+            put playlist_path(playlist),
+                params: { playlist: { name: playlist.name,
+                                      citations_attributes: [{ id: citation1.id,
+                                                               name: citation1.name,
+                                                               url: citation1.url },
+                                                             { name: "#{citation1.name} 2",
+                                                               url: "#{citation1.url}/2" }] } }
+          end
+
+          it '更新' do
+            put playlist_path(playlist),
+                params: { playlist: { name: playlist.name,
+                                      citations_attributes: [{ id: citation1.id, name: "#{citation1.name} 2",
+                                                               url: citation1.url }] } }
+          end
+
+          it '削除' do
+            put playlist_path(playlist),
+                params: { playlist: { name: playlist.name, citations_attributes: [{ id: citation1.id, _destroy: 1 }] } }
+          end
+        end
+      end
+
+      context '更新通知が呼び出されれないこと' do
+        # rubocop: disable RSpec/ExpectInHook
+        before do
+          expect_any_instance_of(SnsNotify::Playlist).not_to receive(:send)
+        end
+        # rubocop: enable RSpec/ExpectInHook
+
+        context 'メタ情報' do
+          it '変更なし' do
+            put playlist_path(playlist), params: { playlist: { name: playlist.name } }
+          end
+        end
+
+        context 'キーワード' do
+          let!(:keyword1) { create(:playlist_keyword, playlist: playlist) }
+
+          it '変更なし' do
+            put playlist_path(playlist), params: { playlist: { name: playlist.name, keywords: [keyword1.name] } }
+          end
+        end
+
+        context 'ハッシュタグ' do
+          let!(:hashtag1) { create(:playlist_hashtag, playlist: playlist) }
+
+          it '変更なし' do
+            put playlist_path(playlist), params: { playlist: { name: playlist.name, hashtags: [hashtag1.name] } }
+          end
+        end
+
+        context 'Citation' do
+          let!(:citation1) { create(:citation, playlist: playlist) }
+
+          it '変更なし' do
+            put playlist_path(playlist),
+                params: { playlist: { name: playlist.name,
+                                      citations_attributes: [{ id: citation1.id, name: citation1.name,
+                                                               url: citation1.url }] } }
+          end
+        end
+      end
     end
   end
 

@@ -38,7 +38,7 @@ const editorMixin = {
             class: Header,
             config: {
               placeholder: '見出しを入力してください',
-              levels: [2],
+              levels: [2, 3, 4],
               defaultLevel: 2,
             },
             inlineToolbar: ['bold', 'italic'],

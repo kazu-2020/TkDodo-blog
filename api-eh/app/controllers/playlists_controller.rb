@@ -37,24 +37,21 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.new(converted_params)
 
     begin
-      @playlist.save!
-      if params[:enable_list_update]
-        items = params.require(:playlist).permit(items: [])[:items] || []
-        @playlist.rebuild_episode_list_to(items)
-      end
+      @playlist.save_with_notify!
+
+      rebuild_episode_list
     rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
       render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def update
-    if @playlist.update(converted_params)
-      if params[:enable_list_update]
-        items = params.require(:playlist).permit(items: [])[:items] || []
-        @playlist.rebuild_episode_list_to(items)
-      end
+    if @playlist.update_with_notify(converted_params)
+
+      rebuild_episode_list
 
       @playlist.touch # nested_attributes だけ更新された場合のための処理
+      @playlist.reload
     else
       render json: { messages: @playlist.errors.full_messages }, status: :unprocessable_entity
     end
@@ -134,6 +131,7 @@ class PlaylistsController < ApplicationController
   end
 
   # FIXME: 変更予定 後ほどふさわしい場所に定義します
+  # rubocop: disable Metrics/AbcSize
   def converted_params
     params = playlist_params.except(:logo_image, :eyecatch_image, :hero_image)
     %i[logo_image eyecatch_image hero_image].each do |key|
@@ -142,8 +140,12 @@ class PlaylistsController < ApplicationController
 
     params[:editor_data] = JSON.parse(params[:editor_data]) if params[:editor_data].present?
 
+    params[:keywords] = [] unless params.key?(:keywords)
+    params[:hashtags] = [] unless params.key?(:hashtags)
+
     params
   end
+  # rubocop: enable Metrics/AbcSize
 
   def image_param
     params[:image]
@@ -161,5 +163,12 @@ class PlaylistsController < ApplicationController
     file = { filename: [filename, extension].join('.'), type: content_type, tempfile: tempfile }
 
     ActionDispatch::Http::UploadedFile.new(file)
+  end
+
+  def rebuild_episode_list
+    return unless params[:enable_list_update]
+
+    items = params.require(:playlist).permit(items: [])[:items] || []
+    @playlist.rebuild_episode_list_to(items)
   end
 end

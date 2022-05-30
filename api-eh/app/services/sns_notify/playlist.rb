@@ -1,16 +1,9 @@
 # frozen_string_literal: true
 
-class SendUpdateNotificationJob < SidekiqBaseJob
-  sidekiq_options queue: 'p6'
-
-  def perform
-    super
-    # FIXME: 暫定で1時間おきに全プレイリストの更新通知を飛ばしている
-    ids_size = 5000 # 256kbの制限があるので、とりあえず5k件ずつ送信する
-    Playlist.in_batches(of: ids_size) do |relation|
-      playlist_ids = relation.pluck(:string_id)&.select { |id| id.present? }
-      SnsNotify::Client.new(build_message(playlist_ids)).call if playlist_ids.present?
-    end
+class SnsNotify::Playlist
+  # @param [Array] playlist_ids
+  def send(playlist_ids)
+    SnsNotify::Client.new(build_message(playlist_ids)).call
   end
 
   private
