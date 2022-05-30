@@ -135,21 +135,19 @@ describe PlaylistsController, type: :request do
       let(:name) { 'updated name' }
       let(:params) { { playlist: { name: name } } }
 
-    it 'updates playlist record' do
-      put playlist_path(playlist), params: params
+      it 'updates playlist record' do
+        put playlist_path(playlist), params: params
 
-      expect(response.status).to eq(200)
-      expect(playlist.reload.name).to eq(name)
+        expect(response.status).to eq(200)
+        expect(playlist.reload.name).to eq(name)
+      end
     end
-  end
 
-    context '更新通知' do
-      context '更新通知が呼び出されること' do
-        # rubocop: disable RSpec/ExpectInHook
+    describe '更新通知' do
+      describe '更新通知が呼び出されること' do
         before do
-          expect_any_instance_of(SnsNotify::Playlist).to receive(:send)
+          expect_any_instance_of(SnsNotify::Playlist).to receive(:send) # rubocop: disable RSpec/ExpectInHook
         end
-        # rubocop: enable RSpec/ExpectInHook
 
         context 'メタ情報' do
           it '更新' do
@@ -210,12 +208,10 @@ describe PlaylistsController, type: :request do
         end
       end
 
-      context '更新通知が呼び出されれないこと' do
-        # rubocop: disable RSpec/ExpectInHook
+      describe '更新通知が呼び出されれないこと' do
         before do
-          expect_any_instance_of(SnsNotify::Playlist).not_to receive(:send)
+          expect_any_instance_of(SnsNotify::Playlist).not_to receive(:send) # rubocop: disable RSpec/ExpectInHook
         end
-        # rubocop: enable RSpec/ExpectInHook
 
         context 'メタ情報' do
           it '変更なし' do
