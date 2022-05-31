@@ -28,54 +28,59 @@
           class="custom_toggle_filter"
         />
       </v-col>
-      <v-col cols="3" align="right" class="search_detail">
-        <v-menu
-          v-model="menu"
-          :close-on-content-click="false"
-          :nudge-width="200"
-          offset-x
-        >
-          <template #activator="{ on, attrs }">
-            <v-btn outlined v-bind="attrs" v-on="on">
-              <v-icon>mdi-plus</v-icon>
-              詳しい条件で探す
-            </v-btn>
-          </template>
-
-          <v-card>
+      <v-tabs>
+        <v-tab>
+          <v-menu offset-y>
+            <template #activator="{ on }">
+              <v-btn color="transparent" depressed tile height="64" v-on="on">
+                <v-icon>mdi-dots-vertical</v-icon> プレイリスト
+              </v-btn>
+            </template>
             <v-list>
-              <v-list-item class="mt-2 mb-4">
-                <v-list-item-title class="mr-4">検索方法</v-list-item-title>
-                <v-btn-toggle v-model="queryKeyNum">
-                  <v-btn>エピソード名/概要</v-btn>
-                  <v-btn>出演者名</v-btn>
-                  <v-btn>キーワード</v-btn>
-                </v-btn-toggle>
+              <v-list-item :to="'/'">
+                <v-list-item-title>シリーズ</v-list-item-title>
               </v-list-item>
-              <v-list-item>
-                <v-list-item-title>並び順</v-list-item-title>
-                <v-btn-toggle v-model="sortTypeNum">
-                  <v-btn>関連スコア順</v-btn>
-                  <v-btn>新しい順</v-btn>
-                  <v-btn>古い順</v-btn>
-                </v-btn-toggle>
+              <v-list-item @click="isShowNewPlaylistDialog = true">
+                <v-list-item-title class="playlist_new">
+                  エピソード
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item :to="'/'">
+                <v-list-item-title>プレイリスト</v-list-item-title>
               </v-list-item>
             </v-list>
-            <v-card-actions>
-              <v-spacer />
-              <v-btn color="secondary" text @click="searchWithDetail">
-                この条件で検索
+          </v-menu>
+        </v-tab>
+        <v-tab @click="queryKeyNum = 0">ワード</v-tab>
+        <v-tab @click="queryKeyNum = 2">キーワード</v-tab>
+        <v-tab @click="queryKeyNum = 1">出演者名</v-tab>
+        <v-tab @click="queryKeyNum = 3">IDで探す</v-tab>
+        <v-tab>
+          <v-menu offset-y>
+            <template #activator="{ on }">
+              <v-btn color="transparent" depressed tile height="64" v-on="on">
+                <v-icon>mdi-dots-vertical</v-icon> 並び順
               </v-btn>
-              <v-btn text @click="clearSearchPane"> 検索条件をクリア </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-menu>
-      </v-col>
+            </template>
+            <v-list>
+              <v-list-item @click="sortTypeNum = 0">
+                <v-list-item-title>関連スコア順</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="sortTypeNum = 1">
+                <v-list-item-title> 新しい順 </v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="sortTypeNum = 2">
+                <v-list-item-title>古い順</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-tab>
+      </v-tabs>
     </v-row>
     <v-row id="episode-search-result">
       <v-col v-if="episodes.length !== 0" cols="12">
         <div class="body-2 ml-1">全 {{ totalSearchResult }} 件</div>
-        <v-simple-table>
+        <v-simple-table fixed-header height="500px">
           <template #default>
             <thead>
               <tr>
@@ -208,6 +213,8 @@ export default Vue.extend({
           return 'concern'
         case 2:
           return 'keyword'
+        case 3:
+          return 'id'
         default:
           return 'word'
       }
