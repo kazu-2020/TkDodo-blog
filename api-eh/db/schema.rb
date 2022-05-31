@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_25_050143) do
-
+ActiveRecord::Schema.define(version: 2022_05_20_060119) do
+  
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", comment: "プレイリストID"
     t.text "image_data"
@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 2022_05_25_050143) do
     t.string "type_of_deck", default: "recommend", comment: "デッキを構成するプレイリストのタイプ"
     t.string "mode_of_item", default: "tv", comment: "デッキを構成するプレイリストのアイテムモード"
     t.string "type_of_item", default: "TVEpisode", comment: "デッキを構成するプレイリストのアイテムタイプ"
-    t.boolean "is_r5", default: false, null: false, comment: "r5 相当のデッキか"
     t.string "interfix", comment: "deckId の中間接辞"
     t.string "deck_uid", comment: "デッキ uid"
     t.string "admin_memo", comment: "管理メモ"
@@ -118,7 +117,6 @@ ActiveRecord::Schema.define(version: 2022_05_25_050143) do
     t.string "string_id", comment: "プレイリスト文字列ID（eh始まり)"
     t.string "string_uid", comment: "プレイリスト文字列ID（ハッシュ値）"
     t.string "alias_id", comment: "短縮URL"
-    t.string "d5_playlist_id", comment: "r5 デッキのプレイリストID"
     t.string "layout_pattern", default: "summary", null: false, comment: "レイアウトパターン"
     t.string "publish_level", default: "full", null: false, comment: "publish level"
     t.string "type_of_list", default: "recommend", null: false, comment: "typeOfList"
