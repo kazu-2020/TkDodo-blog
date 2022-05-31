@@ -11,10 +11,9 @@ before(() => {
   cy.intercept("GET", `${apiUrl}/episodes/bundle_items?episode_ids=123JXPM5ZQ`, {"tvepisode":1,"event":0,"howto":0,"faqpage":0})
   cy.intercept("GET", `${apiUrl}/episodes/bundle_items?episode_ids=123JXPM5ZQ%2CQZ1M9NX81N`, {"tvepisode":2,"event":0,"howto":0,"faqpage":0})
 })
-// TODO: 画像登録必須化に伴い登録が失敗するため、画像登録ができるように修正する
-// 暫定処置として一時的にPlayListのテストは全てスキップしています 2022/05/31
+
 describe('プレイリスト新規作成', () => {
-  it.skip('プレイリストを新規作成し、メタの編集をする', () => {
+  it('プレイリストを新規作成し、メタの編集をする', () => {
     const now = Cypress.env('NOW')
 
     cy.visit('/')
@@ -142,7 +141,7 @@ describe('プレイリスト新規作成', () => {
     )
   })
 
-  it.skip('新規作成したプレイリストのドロワーの内容が正しいこと', () => {
+  it('新規作成したプレイリストのドロワーの内容が正しいこと', () => {
     const now = Cypress.env('NOW')
 
     cy.visit('/')
@@ -174,7 +173,7 @@ describe('プレイリスト新規作成', () => {
     //   .should('include.text', `「内田雄馬」`)
   })
 
-  it.skip('新規作成したプレイリストが検索できること', () => {
+  it('新規作成したプレイリストが検索できること', () => {
     const now = Cypress.env('NOW')
 
     cy.visit('/')

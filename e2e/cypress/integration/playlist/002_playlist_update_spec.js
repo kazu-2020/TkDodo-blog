@@ -1,7 +1,5 @@
-// 画像登録必須化の処置として一時的にPlayListのテストは全てスキップしています 2022/05/31
-
 describe('プレイリスト更新', () => {
-  it.skip('プレイリストを選択し、メタの更新をする', () => {
+  it('プレイリストを選択し、メタの更新をする', () => {
     const now = Cypress.env('NOW')
 
     cy.visit('/')
@@ -29,7 +27,7 @@ describe('プレイリスト更新', () => {
   })
 
 
-  it.skip('更新したプレイリストのドロワーの内容が正しいこと', () => {
+  it('更新したプレイリストのドロワーの内容が正しいこと', () => {
     const now = Cypress.env('NOW')
 
     cy.visit('/')
@@ -53,7 +51,7 @@ describe('プレイリスト更新', () => {
     drawerContent.should('include.text', `キャッチコピーはこちらに2`)
   })
 
-  it.skip('更新したプレイリストが検索できること', () => {
+  it('更新したプレイリストが検索できること', () => {
     const now = Cypress.env('NOW')
 
     cy.visit('/')
