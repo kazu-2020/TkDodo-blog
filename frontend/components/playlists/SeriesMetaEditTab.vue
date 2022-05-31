@@ -118,6 +118,8 @@
               @update-series-image="updateSeriesImage"
               @remove-series-image="removeSeriesImage"
             />
+            <!-- text-fieldを画像がアップロードされているか否かformのvalidで検知するために設置 -->
+            <!-- ここから -->
             <v-text-field
               v-show="false"
               v-model="logoImageData"
@@ -137,6 +139,7 @@
               :rules="imageRules"
               required
             />
+            <!-- ここまで -->
           </v-row>
 
           <!-- 色 -->

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# 下記公式の方法を参考に、テストデータの生成を行っています
+# https://shrinerb.com/docs/testing#test-data
 module ImageData
   module_function
 
