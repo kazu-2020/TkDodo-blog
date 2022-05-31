@@ -40,10 +40,11 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   accepts_nested_attributes_for :citations, allow_destroy: true
 
   scope :recent, -> { order(updated_at: :desc) }
-  scope :original, -> { where('d5_playlist_id IS NULL') }
   scope :has_article, -> { where('marked_body IS NOT NULL') }
   scope :no_article, -> { where('marked_body IS NULL') }
   scope :name_like, ->(query) { where('name LIKE ?', "%#{query}%") }
+  scope :by_deck_id, ->(deck_id) { joins(:decks).merge(Deck.where(id: deck_id)) }
+  scope :by_deck_area, ->(area) { joins(:decks).merge(Deck.where(area: area)) }
 
   validates :name, presence: true
   %w[selected_palette primary_light_color primary_dark_color
