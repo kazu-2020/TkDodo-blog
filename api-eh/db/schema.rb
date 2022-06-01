@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2022_05_20_060119) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_05_20_060119) do
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", comment: "プレイリストID"
     t.text "image_data"
     t.string "image_id", comment: "Shrine が生成する画像ID"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["image_id"], name: "idx_image_id"
     t.index ["playlist_id"], name: "index_article_images_on_playlist_id"
   end
@@ -26,8 +25,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_05_20_060119) do
     t.bigint "playlist_id", null: false
     t.string "name", null: false
     t.string "url", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["playlist_id"], name: "fk_rails_a162149268"
   end
 
@@ -35,8 +34,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_05_20_060119) do
     t.bigint "deck_id", null: false, comment: "Deck ID"
     t.bigint "playlist_id", null: false, comment: "Playlist ID"
     t.integer "position", default: 1, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["deck_id", "playlist_id"], name: "index_deck_playlists_on_deck_id_and_playlist_id", unique: true
     t.index ["deck_id"], name: "index_deck_playlists_on_deck_id"
     t.index ["playlist_id"], name: "fk_rails_32de3978a5"
@@ -46,8 +45,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_05_20_060119) do
     t.bigint "deck_id", null: false
     t.string "name", null: false
     t.string "url", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["deck_id"], name: "index_deck_same_as_on_deck_id"
   end
 
@@ -63,15 +62,15 @@ ActiveRecord::Schema[6.1].define(version: 2022_05_20_060119) do
     t.string "deck_uid", comment: "デッキ uid"
     t.string "admin_memo", comment: "管理メモ"
     t.integer "api_state", default: 0, null: false, comment: "APIの公開状態 close: 0, open: 1, waiting: 2"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "playlist_hashtags", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", null: false
     t.text "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["playlist_id"], name: "index_playlist_hashtags_on_playlist_id"
   end
 
@@ -81,9 +80,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_05_20_060119) do
     t.string "context", comment: "アイテムの種別(Type)"
     t.string "item_id", comment: "コンテキストに紐づくアイテムのID"
     t.integer "position", default: 1, null: false
-    t.datetime "discarded_at", comment: "削除日時"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at", precision: nil, comment: "削除日時"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_playlist_items_on_discarded_at"
     t.index ["playlist_id"], name: "idx_playlist_id"
   end
@@ -91,8 +90,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_05_20_060119) do
   create_table "playlist_keywords", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", null: false
     t.text "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["playlist_id"], name: "index_playlist_keywords_on_playlist_id"
   end
 
@@ -138,11 +137,11 @@ ActiveRecord::Schema[6.1].define(version: 2022_05_20_060119) do
     t.string "publisher_type", comment: "Person or Organization"
     t.string "publisher_name", comment: "発行者名"
     t.integer "api_state", default: 0, null: false, comment: "APIの公開状態 close: 0, open: 1, waiting: 2"
-    t.datetime "open_scheduled_at", comment: "予約公開日"
-    t.datetime "close_scheduled_at", comment: "公開終了日時"
-    t.datetime "published_at", comment: "公開日時"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "open_scheduled_at", precision: nil, comment: "予約公開日"
+    t.datetime "close_scheduled_at", precision: nil, comment: "公開終了日時"
+    t.datetime "published_at", precision: nil, comment: "公開日時"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["alias_id"], name: "index_playlists_on_alias_id", unique: true
     t.index ["string_uid"], name: "index_playlists_on_string_uid", unique: true
   end
@@ -151,8 +150,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_05_20_060119) do
     t.bigint "playlist_id", null: false
     t.string "name", null: false
     t.string "url", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["playlist_id"], name: "index_same_as_on_playlist_id"
   end
 
@@ -160,8 +159,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_05_20_060119) do
     t.bigint "series_deck_id", null: false, comment: "シリーズデッキID"
     t.bigint "series_playlist_id", null: false, comment: "シリーズプレイリストID"
     t.integer "position", default: 1, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["series_deck_id", "series_playlist_id"], name: "index_series_deck_and_playlist_id", unique: true
     t.index ["series_playlist_id", "position"], name: "index_series_deck_playlists_on_series_playlist_id_and_position"
   end
@@ -178,8 +177,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_05_20_060119) do
     t.string "interfix", null: false, comment: "deckId の中間接辞"
     t.integer "api_state", null: false, comment: "APIの公開状態 close: 0, open: 1, waiting: 2"
     t.string "admin_memo", comment: "管理メモ"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "series_playlists", charset: "utf8mb4", force: :cascade do |t|
@@ -199,8 +198,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_05_20_060119) do
     t.string "author_name", comment: "著者名"
     t.string "publisher_type", comment: "Person or Organization"
     t.string "publisher_name", comment: "発行者名"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "article_images", "playlists"
