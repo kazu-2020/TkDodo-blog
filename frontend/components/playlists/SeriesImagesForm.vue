@@ -235,9 +235,10 @@ export default Vue.extend({
       this.isUploadedHero = false
       this.$emit('remove-series-image', 'hero', this.isUploadedHero)
     },
-    trimmedLogoImage(value: string) {
+    trimmedLogoImage(value: string, isUploadedImage: boolean) {
       this.logoImageData = value
       this.isRemovedLogoImage = false
+      this.isUploadedLogo = isUploadedImage
       this.$emit('update-series-image', { type: 'logo', file: value })
     },
     trimmedEyecatchImage(value: string, isUploadedImage: boolean) {
