@@ -33,19 +33,20 @@
           <v-menu offset-y>
             <template #activator="{ on }">
               <v-btn color="transparent" depressed tile height="64" v-on="on">
-                <v-icon>mdi-dots-vertical</v-icon> プレイリスト
+                <v-icon>mdi-dots-vertical</v-icon>
+                プレイリスト
               </v-btn>
             </template>
             <v-list>
-              <v-list-item :to="'/'">
-                <v-list-item-title>シリーズ</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="isShowNewPlaylistDialog = true">
+              <v-list-item @click="contentsTypeNum = 0">
                 <v-list-item-title class="playlist_new">
                   エピソード
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item :to="'/'">
+              <v-list-item @click="contentsTypeNum = 1">
+                <v-list-item-title>シリーズ</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
                 <v-list-item-title>プレイリスト</v-list-item-title>
               </v-list-item>
             </v-list>
@@ -59,7 +60,8 @@
           <v-menu offset-y>
             <template #activator="{ on }">
               <v-btn color="transparent" depressed tile height="64" v-on="on">
-                <v-icon>mdi-dots-vertical</v-icon> 並び順
+                <v-icon>mdi-dots-vertical</v-icon>
+                並び順
               </v-btn>
             </template>
             <v-list>
@@ -67,7 +69,7 @@
                 <v-list-item-title>関連スコア順</v-list-item-title>
               </v-list-item>
               <v-list-item @click="sortTypeNum = 1">
-                <v-list-item-title> 新しい順 </v-list-item-title>
+                <v-list-item-title> 新しい順</v-list-item-title>
               </v-list-item>
               <v-list-item @click="sortTypeNum = 2">
                 <v-list-item-title>古い順</v-list-item-title>
@@ -77,10 +79,17 @@
         </v-tab>
       </v-tabs>
     </v-row>
-    <v-row id="episode-search-result">
+    <v-row
+      id="episode-search-result"
+      :class="[contentsTypeNum === 1 ? 'series-result' : '']"
+    >
       <v-col v-if="episodes.length !== 0" cols="12">
         <div class="body-2 ml-1">全 {{ totalSearchResult }} 件</div>
-        <v-simple-table fixed-header height="500px">
+        <v-simple-table
+          v-if="contentsTypeNum === 0"
+          fixed-header
+          height="570px"
+        >
           <template #default>
             <thead>
               <tr>
@@ -124,13 +133,35 @@
             </tbody>
           </template>
         </v-simple-table>
+        <v-expansion-panels v-else>
+          <v-expansion-panel v-for="(item, i) in 20" :key="i">
+            <v-expansion-panel-header> Item </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-simple-table height="250px">
+                <template #default>
+                  <thead />
+                  <tbody>
+                    <episode-search-result-table-row
+                      v-for="episode in episodes"
+                      :key="episode.id"
+                      :episode="episode"
+                      :ignore-episodes="ignoreEpisodes"
+                      @add-episode="addEpisode"
+                      @select-episode="selectEpisode(episode)"
+                    />
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </v-col>
-      <v-col v-else-if="isNoResult" cols="12">
-        <v-alert text outlined color="deep-orange" icon="mdi-alert-outline">
-          エピソードが見つかりませんでした。 <br />
-          他のキーワードや条件でお探しください
-        </v-alert>
-      </v-col>
+      <!--      <v-col v-else-if="isNoResult" cols="12">-->
+      <!--        <v-alert text outlined color="deep-orange" icon="mdi-alert-outline">-->
+      <!--          エピソードが見つかりませんでした。 <br />-->
+      <!--          他のキーワードや条件でお探しください-->
+      <!--        </v-alert>-->
+      <!--      </v-col>-->
     </v-row>
   </div>
 </template>
@@ -147,6 +178,7 @@ interface DataType {
   menu: boolean
   queryKeyNum: number
   sortTypeNum: number
+  contentsTypeNum: number
   ignoreRange: boolean
   filterService: boolean
   totalSearchResult: number
@@ -183,6 +215,7 @@ export default Vue.extend({
       menu: false,
       queryKeyNum: 0,
       sortTypeNum: 0,
+      contentsTypeNum: 0,
       ignoreRange: false,
       filterService: false,
       totalSearchResult: 0,
@@ -217,6 +250,16 @@ export default Vue.extend({
           return 'id'
         default:
           return 'word'
+      }
+    },
+    contentsType(): string {
+      switch (this.contentsTypeNum) {
+        case 0:
+          return 'episode'
+        case 1:
+          return 'series'
+        default:
+          return 'episode'
       }
     },
     canLoadMoreEpisodes(): boolean {
@@ -347,5 +390,9 @@ export default Vue.extend({
   label.v-label {
     font-size: 14px;
   }
+}
+.series-result {
+  max-height: 570px;
+  overflow: auto;
 }
 </style>
