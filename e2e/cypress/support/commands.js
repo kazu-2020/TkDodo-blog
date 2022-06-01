@@ -30,3 +30,15 @@ import 'cypress-file-upload'
 Cypress.Commands.add("waitLoading", () => {
   cy.get('.v-progress-linear--visible', { timeout: 15000 }).should('not.exist')
 })
+
+Cypress.Commands.add("attachCoverPhoto", (index) => {
+  cy.get('.v-card.v-sheet.theme--light.rounded-0').eq(index).trigger('mouseenter')
+  cy.get('.v-card.v-sheet.theme--light.rounded-0').eq(index).find('button').eq(0).click()
+  cy.get('.v-dialog .v-stepper__content .image-input input[type="file"]').attachFile('domo.jpg')
+  cy.wait(200)
+  cy.get('.v-dialog .v-stepper__content:visible button.primary').click()
+  cy.wait(200)
+  cy.get('.v-dialog .v-stepper__content:visible button.primary').click()
+  cy.wait(200)
+  cy.get('.v-dialog .v-stepper__content:visible button.success').click()
+})

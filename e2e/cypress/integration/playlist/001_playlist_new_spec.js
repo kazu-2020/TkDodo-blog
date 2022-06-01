@@ -61,13 +61,13 @@ describe('プレイリスト新規作成', () => {
     cy.get('.theme_genre_select').click()
     cy.contains(playlistThemeGenre).click({ force: true })
 
-    cy.get('[data-cy=logo-image-data]').trigger('mouseover')
-    cy.get('.logo-edit-btn').click()
-
-
+    cy.attachCoverPhoto(0)
+    cy.attachCoverPhoto(1)
+    cy.attachCoverPhoto(2)
 
     cy.get('button.custom_color').click()
     cy.get('.v-color-picker__input input').clear().type('#FFFFFF{enter}')
+
     cy.get('button.add-same-as').click({ force: true })
     const sameAsName = 'same-as1'
     const sameAsUrl = 'https://example.com/same-as'
