@@ -4,28 +4,24 @@ require 'rails_helper'
 
 describe PlaylistsController, type: :request do
   describe 'GET #index' do
-    before do
-      create(:playlist, name: 'オウサム ネーム')
-      create(:playlist, d5_playlist_id: 1)
-    end
-
-    let(:deck_r5_with_playlists) { create(:deck, :with_playlists, is_r5: true) }
-    let(:expected_json) {
-      {
-        'stringId' => "recommend-tep-#{format('%010d', deck_r5_with_playlists.playlists[0]['id'])}",
-        'primaryId' => deck_r5_with_playlists.playlists[0]['id'],
-        'name' => deck_r5_with_playlists.playlists[0]['name'],
-        'detailedNameRuby' => deck_r5_with_playlists.playlists[0]['detailed_name_ruby'],
-        'description' => deck_r5_with_playlists.playlists[0]['description'],
-        'headline' => deck_r5_with_playlists.playlists[0]['headline']
-      }
-    }
-
     context 'パラメータにdeck_idが含まれる場合' do
-      let(:params) { { deck_id: deck_r5_with_playlists.id } }
+      let(:deck) { create(:deck) }
+      let!(:playlist) { create(:playlist, decks: [deck]) }
+      let(:expected_json) {
+        {
+          'stringId' => "recommend-tep-#{format('%010d', playlist.id)}",
+          'primaryId' => playlist.id,
+          'name' => playlist.name,
+          'detailedNameRuby' => playlist.detailed_name_ruby,
+          'description' => playlist.description,
+          'headline' => playlist.headline
+        }
+      }
+      let(:params) { { deck_id: deck.id } }
 
-      it 'idに紐づくデッキが取得されること' do
+      it '指定したdeck_idのデッキに紐づくプレイリストが取得できること' do
         get playlists_url, params: params
+
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['playlists'][0]).to include expected_json
@@ -33,24 +29,17 @@ describe PlaylistsController, type: :request do
     end
 
     context 'パラメータにareaが含まれる場合' do
-      let(:params) { { area: deck_r5_with_playlists.area, is_r5: true } }
+      let(:area) { '130' }
+      let(:deck) { create(:deck, area: area) }
+      let!(:playlist) { create(:playlist, decks: [deck]) }
+      let(:params) { { area: area } }
 
-      it 'areaに紐づくr5相当のデッキが取得されること' do
+      it '指定したareaのデッキに紐づくプレイリストが取得できること' do
         get playlists_url, params: params
+
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
-        expect(json['playlists'][0]).to include expected_json
-      end
-    end
-
-    context 'パラメータにdeck_idもareaも含まれない場合' do
-      let(:params) { '' }
-
-      it 'r5デッキのプレイリストIDを含まないプレイリストが取得されること' do
-        get playlists_url, params: params
-        expect(response.status).to eq 200
-        json = JSON.parse(response.body)
-        expect(json['playlists'].size).to eq 1
+        expect(json['playlists'][0]['stringId']).to eq playlist.string_id
       end
     end
 
@@ -60,8 +49,9 @@ describe PlaylistsController, type: :request do
 
         let(:params) { { api_state: 'open' } }
 
-        it '公開ステータスがopenとなること' do
+        it '公開ステータスがopenのプレイリストが取得できること' do
           get playlists_url, params: params
+
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
           expect(json['playlists'][0]['apiState']).to eq 'open'
@@ -73,8 +63,9 @@ describe PlaylistsController, type: :request do
 
         let(:params) { { api_state: 'close' } }
 
-        it '公開ステータスがcloseとなること' do
+        it '公開ステータスがcloseのプレイリストが取得できること' do
           get playlists_url, params: params
+
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
           expect(json['playlists'][0]['apiState']).to eq 'close'
@@ -85,8 +76,13 @@ describe PlaylistsController, type: :request do
     context '検索ワードが含まれる場合' do
       let(:params) { { search_word: 'オウサム' } }
 
+      before do
+        create(:playlist, name: 'オウサム ネーム')
+      end
+
       it '検索ワードに部分一致するプレイリストが取得できること' do
         get playlists_url, params: params
+
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['playlists'][0]['name']).to eq 'オウサム ネーム'
@@ -116,6 +112,7 @@ describe PlaylistsController, type: :request do
 
       it 'returns success response' do
         post '/playlists', params: params
+
         expect(response.status).to eq 200
       end
     end
@@ -126,6 +123,7 @@ describe PlaylistsController, type: :request do
 
     it 'succeeds the request' do
       get playlist_path(playlist)
+
       expect(response.status).to eq 200
     end
   end
@@ -139,18 +137,17 @@ describe PlaylistsController, type: :request do
 
       it 'updates playlist record' do
         put playlist_path(playlist), params: params
+
         expect(response.status).to eq(200)
         expect(playlist.reload.name).to eq(name)
       end
     end
 
-    context '更新通知' do
-      context '更新通知が呼び出されること' do
-        # rubocop: disable RSpec/ExpectInHook
+    describe '更新通知' do
+      describe '更新通知が呼び出されること' do
         before do
-          expect_any_instance_of(SnsNotify::Playlist).to receive(:send)
+          expect_any_instance_of(SnsNotify::Playlist).to receive(:send) # rubocop: disable RSpec/ExpectInHook
         end
-        # rubocop: enable RSpec/ExpectInHook
 
         context 'メタ情報' do
           it '更新' do
@@ -211,12 +208,10 @@ describe PlaylistsController, type: :request do
         end
       end
 
-      context '更新通知が呼び出されれないこと' do
-        # rubocop: disable RSpec/ExpectInHook
+      describe '更新通知が呼び出されれないこと' do
         before do
-          expect_any_instance_of(SnsNotify::Playlist).not_to receive(:send)
+          expect_any_instance_of(SnsNotify::Playlist).not_to receive(:send) # rubocop: disable RSpec/ExpectInHook
         end
-        # rubocop: enable RSpec/ExpectInHook
 
         context 'メタ情報' do
           it '変更なし' do
@@ -270,6 +265,7 @@ describe PlaylistsController, type: :request do
 
     it 'リクエストが成功する' do
       post "/playlists/#{playlist.string_uid}/upload_article_image_by_url", params: params
+
       expect(response.status).to eq 200
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1
@@ -288,6 +284,7 @@ describe PlaylistsController, type: :request do
 
     it 'リクエストが成功する' do
       post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
+
       expect(response.status).to eq 200
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1
