@@ -35,13 +35,37 @@ services:
     environment:
       - DB_HOST=db
       - RAILS_ENV=${RAILS_ENV:-development}
+      - REDIS_URL=redis://redis:6379
     depends_on:
       - db
+      - redis
     tty: true
     stdin_open: true
     volumes:
       - ./api-eh:/app
       - bundle:/bundle
+    tmpfs:
+      - /tmp
+  sidekiq:
+    build:
+      context: ./api-eh
+      dockerfile: Dockerfile
+    command: bash -c "mkdir -p tmp & bundle exec sidekiq"
+    environment:
+      - DB_HOST=db
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - db
+      - redis
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./api-eh:/app
+      - bundle:/bundle
+    tmpfs:
+      - /tmp
+  redis:
+    image: redis:6.2-alpine
   e2e:
     build:
       context: ./e2e
@@ -51,6 +75,8 @@ services:
       - web
       - frontend
       - db
+      - sidekiq
+      - redis
     environment:
       - CYPRESS_baseUrl=http://frontend:3000
       - CYPRESS_browser=chrome
