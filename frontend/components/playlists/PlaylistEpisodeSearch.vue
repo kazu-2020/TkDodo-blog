@@ -134,8 +134,47 @@
           </template>
         </v-simple-table>
         <v-expansion-panels v-else>
-          <v-expansion-panel v-for="(item, i) in 20" :key="i">
-            <v-expansion-panel-header> Item </v-expansion-panel-header>
+          <v-expansion-panel v-for="i in 20" :key="i">
+            <v-expansion-panel-header expand-icon="mdi-menu-down">
+              <tr class="result_row" style="cursor: pointer">
+                <td justify="center" align="center">
+                  <div
+                    class="v-image v-responsive ma-2 episode-image theme--light"
+                    style="width: 71px"
+                  >
+                    <div
+                      class="v-responsive__sizer"
+                      style="padding-bottom: 56.25%"
+                    />
+                    <div
+                      class="v-image__image v-image__image--cover"
+                      style="
+                        background-image: url('https://dev-www.nhk.jp/static/assets/images/tvseries/ts/1VWM12G977/1VWM12G977-eyecatch_2e62f260186daa1670a031efacc24d9c.jpg');
+                        background-position: center center;
+                      "
+                    />
+                    <div class="v-responsive__content" style="width: 640px" />
+                  </div>
+                </td>
+
+                <td>ブラタモリ×鶴瓶の家族に乾杯 新春スペシャル</td>
+                <td class="hoge" style="padding-left: 200px">視聴可能：</td>
+                <td>
+                  <span
+                    class="
+                      mx-2
+                      v-chip v-chip--label
+                      theme--light
+                      v-size--default
+                      grey
+                      white--text
+                    "
+                    ><span class="v-chip__content">視聴不可</span></span
+                  >
+                </td>
+              </tr>
+              エピソード表示
+            </v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-simple-table height="250px">
                 <template #default>
@@ -156,12 +195,12 @@
           </v-expansion-panel>
         </v-expansion-panels>
       </v-col>
-      <!--      <v-col v-else-if="isNoResult" cols="12">-->
-      <!--        <v-alert text outlined color="deep-orange" icon="mdi-alert-outline">-->
-      <!--          エピソードが見つかりませんでした。 <br />-->
-      <!--          他のキーワードや条件でお探しください-->
-      <!--        </v-alert>-->
-      <!--      </v-col>-->
+      <v-col v-else-if="isNoResult" cols="12">
+        <v-alert text outlined color="deep-orange" icon="mdi-alert-outline">
+          エピソードが見つかりませんでした。 <br />
+          他のキーワードや条件でお探しください
+        </v-alert>
+      </v-col>
     </v-row>
   </div>
 </template>
