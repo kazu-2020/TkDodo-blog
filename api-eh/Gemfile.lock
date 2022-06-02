@@ -79,7 +79,7 @@ GEM
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     ansi (1.5.0)
-    asset_sync (2.15.1)
+    asset_sync (2.15.2)
       activemodel (>= 4.1.0)
       fog-core
       mime-types (>= 2.99)
@@ -355,7 +355,7 @@ GEM
     rack (2.2.3.1)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
-    rack-mini-profiler (2.3.4)
+    rack-mini-profiler (3.0.0)
       rack (>= 1.2.0)
     rack-proxy (0.7.2)
       rack
@@ -417,20 +417,19 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
-    rubocop (1.9.0)
+    rubocop (1.30.0)
       parallel (~> 1.10)
-      parser (>= 3.0.0.0)
+      parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
-      rexml
-      rubocop-ast (>= 1.2.0, < 2.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.18.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.18.0)
       parser (>= 3.1.1.0)
-    rubocop-rspec (2.4.0)
-      rubocop (~> 1.0)
-      rubocop-ast (>= 1.1.0)
+    rubocop-rspec (2.11.1)
+      rubocop (~> 1.19)
     ruby-ll (2.1.2)
       ansi
       ast
@@ -489,7 +488,7 @@ GEM
     unf_ext (0.0.8.2)
     unicode-display_width (2.1.0)
     vcr (6.1.0)
-    view_component (2.56.0)
+    view_component (2.56.1)
       activesupport (>= 5.0.0, < 8.0)
       method_source (~> 1.0)
     web-console (4.2.0)
@@ -514,7 +513,7 @@ DEPENDENCIES
   acts_as_list
   asset_sync
   aws-sdk-sns
-  bootsnap (>= 1.4.4)
+  bootsnap
   chroma
   cody
   colormath
@@ -529,10 +528,10 @@ DEPENDENCIES
   fog-aws
   friendly_id
   image_processing
-  jbuilder (~> 2.7)
+  jbuilder
   jwt
   kaminari
-  listen (~> 3.3)
+  listen
   multi_json
   mysql2 (~> 0.5)
   ogp
@@ -541,12 +540,12 @@ DEPENDENCIES
   pry-byebug
   puma (~> 5.0)
   rack-cors
-  rack-mini-profiler (~> 2.0)
+  rack-mini-profiler
   rails (~> 7.0.3)
   redcarpet
   redis
   rspec-rails
-  rubocop (= 1.9.0)
+  rubocop
   rubocop-rspec
   sass-rails (>= 6)
   shrine!
@@ -561,7 +560,7 @@ DEPENDENCIES
   tzinfo-data
   vcr
   view_component
-  web-console (>= 4.1.0)
+  web-console
   webpacker (~> 5.0)
 
 RUBY VERSION
