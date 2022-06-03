@@ -1,7 +1,24 @@
 <template>
   <v-row>
     <v-col cols="auto">
-      <label class="text--secondary">ロゴ - Logo</label>
+      <label
+        :class="{
+          'text--secondary': isUploadedLogo,
+          'error--text': !isUploadedLogo,
+        }"
+        >ロゴ - Logo</label
+      >
+      <span style="color: red">*</span>
+      <div
+        v-if="!isUploadedLogo"
+        class="v-text-field__details image--error--message"
+      >
+        <div class="v-messages theme--light error--text" role="alert">
+          <div class="v-messages__wrapper">
+            <div class="v-messages__message">画像は必ず設定してください</div>
+          </div>
+        </div>
+      </div>
       <v-hover v-slot="{ hover }">
         <v-card tile width="140" height="140">
           <v-img :src="logoImageUrl">
@@ -22,18 +39,28 @@
               </div>
             </v-expand-transition>
           </v-img>
-          <input
-            id="logoImageFile"
-            ref="logoImageInput"
-            type="file"
-            accept="image/*"
-            style="display: none"
-          />
         </v-card>
       </v-hover>
     </v-col>
     <v-col cols="auto">
-      <label class="text--secondary">アイキャッチ - Eyecatch</label>
+      <label
+        :class="{
+          'text--secondary': isUploadedEyecatch,
+          'error--text': !isUploadedEyecatch,
+        }"
+        >アイキャッチ - Eyecatch</label
+      >
+      <span style="color: red">*</span>
+      <div
+        v-if="!isUploadedEyecatch"
+        class="v-text-field__details image--error--message"
+      >
+        <div class="v-messages theme--light error--text" role="alert">
+          <div class="v-messages__wrapper">
+            <div class="v-messages__message">画像は必ず設定してください</div>
+          </div>
+        </div>
+      </div>
       <v-hover v-slot="{ hover }">
         <v-card tile width="249" height="140">
           <v-img :src="eyecatchImageUrl">
@@ -54,18 +81,27 @@
               </div>
             </v-expand-transition>
           </v-img>
-          <input
-            id="eyecatchImageFile"
-            ref="eyecatchImageInput"
-            type="file"
-            accept="image/*"
-            style="display: none"
-          />
         </v-card>
       </v-hover>
     </v-col>
     <v-col cols="auto">
-      <label class="text--secondary">ヒーロー - Hero</label>
+      <label
+        :class="{
+          'text--secondary': isUploadedHero,
+          'error--text': !isUploadedHero,
+        }"
+        >ヒーロー - Hero</label
+      ><span style="color: red">*</span>
+      <div
+        v-if="!isUploadedHero"
+        class="v-text-field__details image--error--message"
+      >
+        <div class="v-messages theme--light error--text" role="alert">
+          <div class="v-messages__wrapper">
+            <div class="v-messages__message">画像は必ず設定してください</div>
+          </div>
+        </div>
+      </div>
       <v-hover v-slot="{ hover }">
         <v-card tile width="420" height="140">
           <v-img :src="heroImageUrl">
@@ -86,13 +122,6 @@
               </div>
             </v-expand-transition>
           </v-img>
-          <input
-            id="heroImageFile"
-            ref="heroImageInput"
-            type="file"
-            accept="image/*"
-            style="display: none"
-          />
         </v-card>
       </v-hover>
     </v-col>
@@ -101,9 +130,9 @@
         :is-show-dialog="isShowTrimmingImageDialog"
         :trimming-image-type="trimmingImageType"
         @hide-trimming-image-dialog="closeDialog"
-        @trimmed-logo-image="trimmedLogoImage($event)"
-        @trimmed-eyecatch-image="trimmedEyecatchImage($event)"
-        @trimmed-hero-image="trimmedHeroImage($event)"
+        @trimmed-logo-image="trimmedLogoImage"
+        @trimmed-eyecatch-image="trimmedEyecatchImage"
+        @trimmed-hero-image="trimmedHeroImage"
       />
     </v-col>
   </v-row>
@@ -118,11 +147,15 @@ interface DataType {
   logoImageData: string
   eyecatchImageData: string
   heroImageData: string
-  isRemoveLogoImage: boolean
-  isRemoveEyecatchImage: boolean
-  isRemoveHeroImage: boolean
+  isRemovedLogoImage: boolean
+  isRemovedEyecatchImage: boolean
+  isRemovedHeroImage: boolean
   isShowTrimmingImageDialog: boolean
   trimmingImageType: string
+  isValidSeriesTab: boolean
+  isUploadedLogo: boolean
+  isUploadedEyecatch: boolean
+  isUploadedHero: boolean
 }
 
 export default Vue.extend({
@@ -140,16 +173,20 @@ export default Vue.extend({
       logoImageData: '',
       eyecatchImageData: '',
       heroImageData: '',
-      isRemoveLogoImage: false,
-      isRemoveEyecatchImage: false,
-      isRemoveHeroImage: false,
+      isRemovedLogoImage: false,
+      isRemovedEyecatchImage: false,
+      isRemovedHeroImage: false,
       isShowTrimmingImageDialog: false,
       trimmingImageType: '',
+      isValidSeriesTab: true,
+      isUploadedLogo: true, // 初期表示時にエラーメッセージを表示させないようにするため
+      isUploadedEyecatch: true, // 初期表示時にエラーメッセージを表示させないようにするため
+      isUploadedHero: true, // 初期表示時にエラーメッセージを表示させないようにするため
     }
   },
   computed: {
     logoImageUrl(): string {
-      if (this.isRemoveLogoImage) {
+      if (this.isRemovedLogoImage) {
         return this.dummyImagePath('logo')
       }
 
@@ -160,7 +197,7 @@ export default Vue.extend({
       )
     },
     eyecatchImageUrl(): string {
-      if (this.isRemoveEyecatchImage) {
+      if (this.isRemovedEyecatchImage) {
         return this.dummyImagePath('eyecatch')
       }
 
@@ -171,7 +208,7 @@ export default Vue.extend({
       )
     },
     heroImageUrl(): string {
-      if (this.isRemoveHeroImage) {
+      if (this.isRemovedHeroImage) {
         return this.dummyImagePath('hero')
       }
 
@@ -192,30 +229,36 @@ export default Vue.extend({
       this.isShowTrimmingImageDialog = false
     },
     removeLogoImage() {
-      this.isRemoveLogoImage = true
-      this.$emit('remove-series-image', 'logo')
+      this.isRemovedLogoImage = true
+      this.isUploadedLogo = false
+      this.$emit('remove-series-image', 'logo', this.isUploadedLogo)
     },
     removeEyecatchImage() {
-      this.isRemoveEyecatchImage = true
-      this.$emit('remove-series-image', 'eyecatch')
+      this.isRemovedEyecatchImage = true
+      this.isUploadedEyecatch = false
+      this.$emit('remove-series-image', 'eyecatch', this.isUploadedEyecatch)
     },
     removeHeroImage() {
-      this.isRemoveHeroImage = true
-      this.$emit('remove-series-image', 'hero')
+      this.isRemovedHeroImage = true
+      this.isUploadedHero = false
+      this.$emit('remove-series-image', 'hero', this.isUploadedHero)
     },
-    trimmedLogoImage(value: string) {
+    trimmedLogoImage(value: string, isUploadedImage: boolean) {
       this.logoImageData = value
-      this.isRemoveLogoImage = false
+      this.isRemovedLogoImage = false
+      this.isUploadedLogo = isUploadedImage
       this.$emit('update-series-image', { type: 'logo', file: value })
     },
-    trimmedEyecatchImage(value: string) {
+    trimmedEyecatchImage(value: string, isUploadedImage: boolean) {
       this.eyecatchImageData = value
-      this.isRemoveEyecatchImage = false
+      this.isRemovedEyecatchImage = false
+      this.isUploadedEyecatch = isUploadedImage
       this.$emit('update-series-image', { type: 'eyecatch', file: value })
     },
-    trimmedHeroImage(value: string) {
+    trimmedHeroImage(value: string, isUploadedImage: boolean) {
       this.heroImageData = value
-      this.isRemoveHeroImage = false
+      this.isRemovedHeroImage = false
+      this.isUploadedHero = isUploadedImage
       this.$emit('update-series-image', { type: 'hero', file: value })
     },
     dummyImagePath(type: string) {
@@ -235,5 +278,22 @@ export default Vue.extend({
   opacity: 0.9;
   position: absolute;
   width: 100%;
+}
+.image--error--message {
+  margin: 5px 0px 5px 0px;
+  animation: fadedown 0.5s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
+}
+@keyframes fadedown {
+  0% {
+    transform: translateY(-70%);
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>

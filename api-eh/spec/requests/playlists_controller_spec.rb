@@ -91,7 +91,17 @@ describe PlaylistsController, type: :request do
   end
 
   describe 'POST #create' do
-    let(:params) { { playlist: { name: 'cool name' } } }
+    let(:image_data_encoded_to_base64) {
+      "data:image/png;base64,#{Base64.strict_encode64(File.open(Rails.root.join('spec', 'fixtures', 'images',
+                                                                                'min_test.png').to_s).read)}"
+    }
+    let(:logo_image) { image_data_encoded_to_base64 }
+    let(:eyecatch_image) { image_data_encoded_to_base64 }
+    let(:hero_image) { image_data_encoded_to_base64 }
+    let(:params) {
+      { playlist: { name: 'cool name', logo_image: logo_image, eyecatch_image: eyecatch_image,
+                    hero_image: hero_image } }
+    }
 
     before { create(:deck) }
 
@@ -108,7 +118,10 @@ describe PlaylistsController, type: :request do
           blocks: [{ type: 'image', data: { file: { url: article_image.image_id } } }],
           version: '2.19.1' }.to_json
       end
-      let(:params) { { playlist: { name: 'cool name', editor_data: editor_data } } }
+      let(:params) {
+        { playlist: { name: 'cool name', editor_data: editor_data,
+                      logo_image: logo_image, eyecatch_image: eyecatch_image, hero_image: hero_image } }
+      }
 
       it 'returns success response' do
         post '/playlists', params: params

@@ -58,6 +58,10 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
             length: { maximum: 255 }
   validates :author_type, inclusion: { in: AUTHOR_TYPES.map(&:to_s) }, allow_nil: true
   validates :publisher_type, inclusion: { in: PUBLISHER_TYPES.map(&:to_s) }, allow_nil: true
+  validates :logo_image_data, presence: true
+  validates :eyecatch_image_data, presence: true
+  validates :hero_image_data, presence: true
+
   validate :require_author_name_and_type
   validate :require_publisher_and_type
 

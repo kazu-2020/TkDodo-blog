@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_20_060119) do
+ActiveRecord::Schema.define(version: 2022_05_25_050143) do
 
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", comment: "プレイリストID"
@@ -101,9 +101,9 @@ ActiveRecord::Schema.define(version: 2022_05_20_060119) do
     t.string "detailed_name_ruby", comment: "名前のルビ（ふりがな）"
     t.text "description", comment: "説明"
     t.string "headline", comment: "見出し"
-    t.text "hero_image_data", comment: "ヒーローイメージ画像データ"
-    t.text "eyecatch_image_data", comment: "アイキャッチ画像データ"
-    t.text "logo_image_data", comment: "ロゴ画像データ"
+    t.text "hero_image_data", null: false, comment: "ヒーローイメージ画像データ"
+    t.text "eyecatch_image_data", null: false, comment: "アイキャッチ画像データ"
+    t.text "logo_image_data", null: false, comment: "ロゴ画像データ"
     t.string "detailed_catch", comment: "キャッチコピー"
     t.string "format_genre_code", comment: "ジャンル（フォーマット）"
     t.string "theme_genre_code", comment: "ジャンル（テーマ）"

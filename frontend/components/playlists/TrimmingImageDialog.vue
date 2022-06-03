@@ -177,6 +177,9 @@ interface DataType {
   filledImageType: string
   filledImageTypeList: Array<Object>
   isShow: boolean
+  isUploadedLogo: boolean
+  isUploadedEyecatch: boolean
+  isUploadedHero: boolean
 }
 
 export default Vue.extend({
@@ -220,6 +223,9 @@ export default Vue.extend({
         },
       ],
       isShow: false,
+      isUploadedLogo: false,
+      isUploadedEyecatch: false,
+      isUploadedHero: false,
     }
   },
   computed: {
@@ -312,13 +318,28 @@ export default Vue.extend({
     complete(): void {
       switch (this.trimmingImageType) {
         case 'logo':
-          this.$emit('trimmed-logo-image', this.trimmedLogoImage)
+          this.isUploadedLogo = true
+          this.$emit(
+            'trimmed-logo-image',
+            this.trimmedLogoImage,
+            this.isUploadedLogo
+          )
           break
         case 'eyecatch':
-          this.$emit('trimmed-eyecatch-image', this.trimmedEyecatchImage)
+          this.isUploadedEyecatch = true
+          this.$emit(
+            'trimmed-eyecatch-image',
+            this.trimmedEyecatchImage,
+            this.isUploadedEyecatch
+          )
           break
         case 'hero':
-          this.$emit('trimmed-hero-image', this.trimmedHeroImage)
+          this.isUploadedHero = true
+          this.$emit(
+            'trimmed-hero-image',
+            this.trimmedHeroImage,
+            this.isUploadedHero
+          )
           break
       }
       this.hideTrimmingImageDialog()
