@@ -298,7 +298,7 @@ GEM
     minitest (5.15.0)
     msgpack (1.5.2)
     multi_json (1.15.0)
-    multipart-post (2.1.1)
+    multipart-post (2.2.0)
     mysql2 (0.5.4)
     net-imap (0.2.3)
       digest
@@ -326,7 +326,6 @@ GEM
     parallel (1.22.1)
     parser (3.1.2.0)
       ast (~> 2.4.1)
-    pathname (0.1.0)
     pipedream (0.4.8)
       activesupport
       aws-mfa-secure
@@ -488,7 +487,7 @@ GEM
     unf_ext (0.0.8.2)
     unicode-display_width (2.1.0)
     vcr (6.1.0)
-    view_component (2.56.1)
+    view_component (2.56.2)
       activesupport (>= 5.0.0, < 8.0)
       method_source (~> 1.0)
     web-console (4.2.0)
@@ -535,7 +534,6 @@ DEPENDENCIES
   multi_json
   mysql2 (~> 0.5)
   ogp
-  pathname (= 0.1.0)
   pipedream
   pry-byebug
   puma (~> 5.0)
@@ -567,4 +565,4 @@ RUBY VERSION
    ruby 3.0.2p107
 
 BUNDLED WITH
-   2.2.22
+   2.3.15
