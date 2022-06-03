@@ -8,11 +8,12 @@
               <v-text-field
                 v-model="name"
                 :rules="nameRules"
-                label="名前 - Name"
                 class="playlist_name"
                 required
-                prefix="※"
-              />
+                ><template #label>
+                  <div>名前 - Name<span class="mandatory-icon">*</span></div>
+                </template></v-text-field
+              >
             </v-col>
             <v-col cols="12">
               <v-text-field
@@ -724,7 +725,7 @@ export default Vue.extend({
     display: none;
   }
 }
-.v-text-field__prefix {
+.mandatory-icon {
   color: red;
 }
 </style>

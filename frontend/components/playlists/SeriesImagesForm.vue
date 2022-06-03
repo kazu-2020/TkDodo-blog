@@ -1,18 +1,21 @@
 <template>
   <v-row>
     <v-col cols="auto">
-      <span style="color: red">※</span
-      ><label
+      <label
         :class="{
           'text--secondary': isUploadedLogo,
           'error--text': !isUploadedLogo,
         }"
         >ロゴ - Logo</label
       >
-      <div v-if="!isUploadedLogo" class="v-text-field__details">
+      <span style="color: red">*</span>
+      <div
+        v-if="!isUploadedLogo"
+        class="v-text-field__details image--error--message"
+      >
         <div class="v-messages theme--light error--text" role="alert">
           <div class="v-messages__wrapper">
-            <div class="v-messages__message">画像は必ず登録してください</div>
+            <div class="v-messages__message">画像は必ず設定してください</div>
           </div>
         </div>
       </div>
@@ -40,7 +43,6 @@
       </v-hover>
     </v-col>
     <v-col cols="auto">
-      <span style="color: red">※</span>
       <label
         :class="{
           'text--secondary': isUploadedEyecatch,
@@ -48,10 +50,14 @@
         }"
         >アイキャッチ - Eyecatch</label
       >
-      <div v-if="!isUploadedEyecatch" class="v-text-field__details">
+      <span style="color: red">*</span>
+      <div
+        v-if="!isUploadedEyecatch"
+        class="v-text-field__details image--error--message"
+      >
         <div class="v-messages theme--light error--text" role="alert">
           <div class="v-messages__wrapper">
-            <div class="v-messages__message">画像は必ず登録してください</div>
+            <div class="v-messages__message">画像は必ず設定してください</div>
           </div>
         </div>
       </div>
@@ -79,18 +85,20 @@
       </v-hover>
     </v-col>
     <v-col cols="auto">
-      <span style="color: red">※</span>
       <label
         :class="{
           'text--secondary': isUploadedHero,
           'error--text': !isUploadedHero,
         }"
         >ヒーロー - Hero</label
+      ><span style="color: red">*</span>
+      <div
+        v-if="!isUploadedHero"
+        class="v-text-field__details image--error--message"
       >
-      <div v-if="!isUploadedHero" class="v-text-field__details">
         <div class="v-messages theme--light error--text" role="alert">
           <div class="v-messages__wrapper">
-            <div class="v-messages__message">画像は必ず登録してください</div>
+            <div class="v-messages__message">画像は必ず設定してください</div>
           </div>
         </div>
       </div>
@@ -270,5 +278,22 @@ export default Vue.extend({
   opacity: 0.9;
   position: absolute;
   width: 100%;
+}
+.image--error--message {
+  margin: 5px 0px 5px 0px;
+  animation: fadedown 0.5s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
+}
+@keyframes fadedown {
+  0% {
+    transform: translateY(-70%);
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
