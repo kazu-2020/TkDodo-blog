@@ -25,9 +25,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
 import { Playlist } from '~/types/playlist'
 import SeriesDeckPlaylistEpisodePreview from '~/components/seriesDecks/SeriesDeckPlaylistEpisodePreview.vue'
+import DummyImageHelper from '~/utils/DummyImageHelper'
 
 export default Vue.extend({
   name: 'DeckPlaylistPreviewer',
@@ -54,11 +54,10 @@ export default Vue.extend({
   },
   methods: {
     logoUrl(playlist: any) {
-      return playlist.logo?.medium?.url || this.dummyImage(playlist.dateCreated)
-    },
-    dummyImage(time: any): string {
-      const logoNumber = (Number(moment(time).format('DD')) % 10) + 1
-      return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
+      return (
+        playlist.logo?.medium?.url ||
+        DummyImageHelper.getPath(playlist.dateCreated, 'logo')
+      )
     },
   },
 })

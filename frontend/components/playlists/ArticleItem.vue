@@ -58,6 +58,7 @@
 import Vue from 'vue'
 import moment from 'moment'
 import ApiStateBadge from '~/components/playlists/ApiStateBadge.vue'
+import DummyImageHelper from '~/utils/DummyImageHelper'
 
 export default Vue.extend({
   name: 'ArticleItem',
@@ -73,13 +74,10 @@ export default Vue.extend({
   },
   computed: {
     logoImageUrl(): string {
-      return this.playlist.logo?.medium?.url || this.dummyImage
-    },
-    dummyImage(): string {
-      const logoNumber = this.playlist.dateCreated
-        ? (Number(moment(this.playlist.dateCreated).format('DD')) % 10) + 1
-        : 1
-      return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
+      return (
+        this.playlist.logo?.medium?.url ||
+        DummyImageHelper.getPath(this.playlist.dateCreated, 'logo')
+      )
     },
     articleDetail(): string {
       const markedHeader = this.playlist.article.header || ''

@@ -43,6 +43,7 @@ import Vue from 'vue'
 import moment from 'moment'
 import PlaylistEpisodesCarousel from '~/components/common/PlaylistEpisodesCarousel.vue'
 import ApiStateBadge from '~/components/playlists/ApiStateBadge.vue'
+import DummyImageHelper from '~/utils/DummyImageHelper'
 
 interface DataType {
   episodePreviewNum: number
@@ -68,13 +69,10 @@ export default Vue.extend({
   },
   computed: {
     logoImageUrl(): string {
-      return this.playlist.logo?.medium?.url || this.dummyImage
-    },
-    dummyImage(): string {
-      const logoNumber = this.playlist.dateCreated
-        ? (Number(moment(this.playlist.dateCreated).format('DD')) % 10) + 1
-        : 1
-      return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
+      return (
+        this.playlist.logo?.medium?.url ||
+        DummyImageHelper.getPath(this.playlist.dateCreated, 'logo')
+      )
     },
     lastUpdateDate(): string {
       return this.formattedDate(this.playlist.dateModified)
