@@ -61,6 +61,10 @@ describe('プレイリスト新規作成', () => {
     cy.get('.theme_genre_select').click()
     cy.contains(playlistThemeGenre).click({ force: true })
 
+    cy.attachCoverPhoto(0)
+    cy.attachCoverPhoto(1)
+    cy.attachCoverPhoto(2)
+
     cy.get('button.custom_color').click()
     cy.get('.v-color-picker__input input').clear().type('#FFFFFF{enter}')
 

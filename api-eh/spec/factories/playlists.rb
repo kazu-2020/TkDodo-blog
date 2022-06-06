@@ -10,6 +10,9 @@ FactoryBot.define do
     api_state { %i[open close waiting].sample }
     sequence(:alias_id) { |i| "ALIAS-ID#{i}" }
     publish_level { Playlist::PUBLISH_LEVELS.sample }
+    logo_image_data { ImageData.image_data }
+    eyecatch_image_data { ImageData.image_data }
+    hero_image_data { ImageData.image_data }
     active_item_list { [true, false].sample }
     active_episode { [true, false].sample }
     active_faq_page { [true, false].sample }

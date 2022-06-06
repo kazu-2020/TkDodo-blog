@@ -20,6 +20,11 @@ class Embed::ItemListComponent < ViewComponent::Base
   def base64_image_src
     return if hero_image_url.blank?
 
-    "data:image/png;base64,#{Base64.strict_encode64(URI.open(hero_image_url).read)}" # rubocop:disable Security/Open
+    # TODO: Playlistの時URI.openが失敗しないように修正する
+    begin
+      "data:image/png;base64,#{Base64.strict_encode64(URI.open(logo_image_url).read)}" # rubocop:disable Security/Open
+    rescue => e
+      p e.backtrace
+    end
   end
 end
