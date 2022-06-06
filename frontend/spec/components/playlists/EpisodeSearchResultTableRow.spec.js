@@ -130,7 +130,7 @@ describe('components/playlists/EpisodeSearchResultTableRow.vue', () => {
             ignoreEpisodes: [],
           },
         })
-        expect(wrapper.vm.releaseDate).toBe('2020年08月01日（土）')
+        expect(wrapper.vm.releaseDate).toBe('2020年08月01日(土)')
       })
     })
   })

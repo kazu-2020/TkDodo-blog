@@ -93,7 +93,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
+import format from 'date-fns/format'
 import { Playlist } from '~/types/playlist'
 import DeckPlaylistListItem from '~/components/decks/DeckPlaylistListItem.vue'
 
@@ -143,7 +143,7 @@ export default Vue.extend({
   },
   methods: {
     formattedDate(_time: string): string {
-      return moment(_time).format('YYYY/MM/DD HH:mm')
+      return format(new Date(_time), 'yyyy/MM/dd HH:mm')
     },
     fetchPlaylists(url: string): void {
       this.$axios

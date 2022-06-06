@@ -118,7 +118,7 @@
 import Vue from 'vue'
 import PlaylistPreviewEpisodesCarousel from '~/components/playlists/PlaylistPreviewEpisodesCarousel.vue'
 import ApiStateBadge from '~/components/playlists/ApiStateBadge.vue'
-import DummyImageHelper from "~/utils/DummyImageHelper";
+import DummyImageHelper from '~/utils/DummyImageHelper'
 
 interface DataType {
   snackbar: boolean

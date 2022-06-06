@@ -24,7 +24,7 @@ describe('components/common/PlaylistItem.vue', () => {
           get: () => Promise.resolve({ data: { items: [] } }),
         },
       },
-      propsData: { playlist: {} },
+      propsData: { playlist: { dateModified: '2022-04-25T08:15:00+09:00' } },
     })
     expect(wrapper.vm).toBeTruthy()
   })
@@ -43,7 +43,9 @@ describe('components/common/PlaylistItem.vue', () => {
               get: () => Promise.resolve({ data: { items: [] } }),
             },
           },
-          propsData: { playlist: {} },
+          propsData: {
+            playlist: { dateModified: '2022-04-25T08:15:00+09:00' },
+          },
         })
         expect(wrapper.vm.logoImageUrl).toBe(
           '/dummy/default1/default1-logo.png'
@@ -65,7 +67,12 @@ describe('components/common/PlaylistItem.vue', () => {
               get: () => Promise.resolve({ data: { items: [] } }),
             },
           },
-          propsData: { playlist: { logo: { medium: { url: logoUrl } } } },
+          propsData: {
+            playlist: {
+              dateModified: '2022-04-25T08:15:00+09:00',
+              logo: { medium: { url: logoUrl } },
+            },
+          },
         })
         expect(wrapper.vm.logoImageUrl).toBe(logoUrl)
       })

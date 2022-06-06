@@ -32,7 +32,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
+import format from 'date-fns/format'
+import ja from 'date-fns/locale/ja'
 import { TvEventData } from '@/types/tv_event_data'
 import { SeriesData } from '@/types/series_data'
 
@@ -70,12 +71,21 @@ export default Vue.extend({
       }
     },
     eventDate() {
-      moment.locale('ja')
+      const startDateStr = format(
+        new Date(this.eventData.startDate),
+        'yyyy年M月d日 hh:mm',
+        {
+          locale: ja,
+        }
+      ).toString()
 
-      const startDateStr = moment(this.eventData.startDate).format(
-        'YYYY年M月D日 hh:mm'
-      )
-      const endDateStr = moment(this.eventData.endDate).format('M月D日 hh:mm')
+      const endDateStr = format(
+        new Date(this.eventData.startDate),
+        'M月d日 hh:mm',
+        {
+          locale: ja,
+        }
+      ).toString()
 
       return startDateStr + ' ~ ' + endDateStr
     },

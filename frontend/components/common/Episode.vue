@@ -49,7 +49,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
+import format from 'date-fns/format'
+import ja from 'date-fns/locale/ja'
 import { EpisodeData } from '@/types/episode_data'
 
 export default Vue.extend({
@@ -68,10 +69,13 @@ export default Vue.extend({
       return seriesName + episodeName
     },
     releasedDateInfo() {
-      moment.locale('ja')
-      const dateStr = moment(this.episode.detailedRecentEvent.startDate).format(
-        'M月D日(ddd)'
-      )
+      const dateStr = format(
+        new Date(this.episode.detailedRecentEvent.startDate),
+        'M月d日(E)',
+        {
+          locale: ja,
+        }
+      ).toString()
 
       const channel =
         ' [' +
@@ -79,9 +83,13 @@ export default Vue.extend({
           .shortenedDisplayName +
         '] '
 
-      const timeStr = moment(this.episode.detailedRecentEvent.startDate).format(
-        'h:m'
-      )
+      const timeStr = format(
+        new Date(this.episode.detailedRecentEvent.startDate),
+        'H:m',
+        {
+          locale: ja,
+        }
+      ).toString()
 
       return dateStr + channel + timeStr
     },

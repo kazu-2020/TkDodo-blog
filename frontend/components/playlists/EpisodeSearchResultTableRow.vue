@@ -50,10 +50,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
+import format from 'date-fns/format'
+import ja from 'date-fns/locale/ja'
+import { differenceInMilliseconds } from 'date-fns'
 import ParseVideoHelper from '~/utils/ParseVideoHelper'
-
-moment.locale('ja')
 
 export default Vue.extend({
   name: 'EpisodeSearchResultTableRow',
@@ -87,7 +87,9 @@ export default Vue.extend({
     releaseDate(): string {
       const date = this.episode.releasedEvent?.startDate
       if (date) {
-        return moment(date).format('YYYY年MM月DD日（ddd）')
+        return format(new Date(date), 'yyyy年MM月dd日(E)', {
+          locale: ja,
+        }).toString()
       } else {
         return '未設定'
       }
@@ -95,7 +97,9 @@ export default Vue.extend({
     dateModified(): string {
       const date = this.episode.dateModified
       if (date) {
-        return moment(date).format('YYYY年MM月DD日')
+        return format(new Date(date), 'yyyy年MM月dd日', {
+          locale: ja,
+        }).toString()
       } else {
         return '未設定'
       }
@@ -107,9 +111,11 @@ export default Vue.extend({
     },
     totalTime(episode: any) {
       if (episode.detailedRecentEvent === undefined) return '--:--:--'
-      const startDate = moment(episode.detailedRecentEvent.startDate)
-      const endDate = moment(episode.detailedRecentEvent.endDate)
-      const totalSecond = endDate.diff(startDate) / 1000
+      const totalSecond =
+        differenceInMilliseconds(
+          new Date(episode.detailedRecentEvent.endDate),
+          new Date(episode.detailedRecentEvent.startDate)
+        ) / 1000
 
       const seconds = totalSecond % 60
       const totalMinutes = (totalSecond - seconds) / 60

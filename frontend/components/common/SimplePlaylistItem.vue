@@ -39,7 +39,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
+import format from 'date-fns/format'
 import ApiStateBadge from '~/components/playlists/ApiStateBadge.vue'
 import DummyImageHelper from '~/utils/DummyImageHelper'
 
@@ -84,7 +84,7 @@ export default Vue.extend({
   },
   methods: {
     formattedDate(_time: string): string {
-      return moment(_time).format('YYYY/MM/DD HH:mm')
+      return format(new Date(_time), 'yyyy/MM/dd HH:mm')
     },
     clickPlaylistItem(): void {
       this.$emit('click-playlist-item', this.playlist)
