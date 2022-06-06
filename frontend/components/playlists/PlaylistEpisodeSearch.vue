@@ -134,60 +134,85 @@
           </template>
         </v-simple-table>
         <v-expansion-panels v-else>
-          <v-expansion-panel v-for="i in 20" :key="i">
+          <v-expansion-panel v-for="a_series in series" :key="a_series.id">
             <v-expansion-panel-header expand-icon="mdi-menu-down">
-              <tr class="result_row" style="cursor: pointer">
-                <td justify="center" align="center">
-                  <div
-                    class="v-image v-responsive ma-2 episode-image theme--light"
-                    style="width: 71px"
-                  >
-                    <div
-                      class="v-responsive__sizer"
-                      style="padding-bottom: 56.25%"
-                    />
-                    <div
-                      class="v-image__image v-image__image--cover"
-                      style="
-                        background-image: url('https://dev-www.nhk.jp/static/assets/images/tvseries/ts/1VWM12G977/1VWM12G977-eyecatch_2e62f260186daa1670a031efacc24d9c.jpg');
-                        background-position: center center;
-                      "
-                    />
-                    <div class="v-responsive__content" style="width: 640px" />
-                  </div>
-                </td>
-
-                <td>ブラタモリ×鶴瓶の家族に乾杯 新春スペシャル</td>
-                <td class="hoge" style="padding-left: 200px">視聴可能：</td>
-                <td>
-                  <span
-                    class="
-                      mx-2
-                      v-chip v-chip--label
-                      theme--light
-                      v-size--default
-                      grey
-                      white--text
-                    "
-                    ><span class="v-chip__content">視聴不可</span></span
-                  >
-                </td>
-              </tr>
+              <td justify="center" align="center">
+                <v-img
+                  :src="eyecatchUrl(a_series)"
+                  lazy-src="https://placehold.jp/71x40.png"
+                  width="71"
+                  class="ma-2 series-image"
+                />
+              </td>
+              <td align="left">
+                {{ a_series.name }}
+              </td>
+              <td>
+                <v-chip
+                  v-if="hasVideo(a_series)"
+                  class="mx-2"
+                  color="pink"
+                  label
+                  text-color="white"
+                  >視聴可</v-chip
+                >
+                <v-chip
+                  v-else
+                  class="mx-2"
+                  color="grey"
+                  label
+                  text-color="white"
+                  >視聴不可</v-chip
+                >
+              </td>
               エピソード表示
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <v-simple-table height="250px">
+              <v-simple-table fixed-header height="570px">
                 <template #default>
-                  <thead />
+                  <thead>
+                    <tr>
+                      <th />
+                      <th class="text-left">エピソード</th>
+                      <th />
+                      <th class="text-left">再生時間</th>
+                      <th class="text-left">シリーズ名</th>
+                      <th class="text-left" style="min-width: 180px">
+                        直近放送日
+                      </th>
+                      <th class="text-left">視聴可能</th>
+                      <th class="text-left" style="min-width: 130px">
+                        最終更新日
+                      </th>
+                    </tr>
+                  </thead>
                   <tbody>
-                    <episode-search-result-table-row
-                      v-for="episode in episodes"
+                    <series-episode-search-result-table-row
+                      v-for="episode in a_series.episodes"
                       :key="episode.id"
                       :episode="episode"
                       :ignore-episodes="ignoreEpisodes"
                       @add-episode="addEpisode"
                       @select-episode="selectEpisode(episode)"
                     />
+                    <tr v-show="canLoadMoreEpisodes">
+                      <td
+                        colspan="8"
+                        align="center"
+                        class="load-more"
+                        @click="searchAdditionalEpisodes"
+                      >
+                        <v-progress-circular
+                          v-if="loading"
+                          indeterminate
+                          color="amber"
+                          class="mr-4"
+                        />
+                        {{ nextPageStartIndex }}-{{
+                          nextPageEndIndex
+                        }}件目を読み込む/全{{ totalSearchResult }}件
+                      </td>
+                    </tr>
                   </tbody>
                 </template>
               </v-simple-table>
@@ -208,9 +233,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import EpisodeSearchResultTableRow from '~/components/playlists/EpisodeSearchResultTableRow.vue'
+import ParseVideoHelper from '~/utils/ParseVideoHelper'
+import SeriesEpisodeSearchResultTableRow from '~/components/playlists/SeriesEpisodeSearchResultTableRow.vue'
 
 interface DataType {
   episodes: Array<object>
+  series: Array<object>
   loading: boolean
   isNoResult: boolean
   searchOffset: number
@@ -227,6 +255,7 @@ export default Vue.extend({
   name: 'PlaylistEpisodeSearch',
   components: {
     EpisodeSearchResultTableRow,
+    SeriesEpisodeSearchResultTableRow,
   },
   props: {
     ignoreEpisodes: {
@@ -248,6 +277,7 @@ export default Vue.extend({
   data(): DataType {
     return {
       episodes: [],
+      series: [],
       loading: false,
       isNoResult: false,
       searchOffset: 0,
@@ -294,11 +324,11 @@ export default Vue.extend({
     contentsType(): string {
       switch (this.contentsTypeNum) {
         case 0:
-          return 'episode'
+          return 'tvepisode'
         case 1:
-          return 'series'
+          return 'tvseries'
         default:
-          return 'episode'
+          return 'tvepisode'
       }
     },
     canLoadMoreEpisodes(): boolean {
@@ -361,7 +391,7 @@ export default Vue.extend({
         this.searchOffset = 0
       }
 
-      let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&${this.sortTypeQuery}&ignore_range=${this.ignoreRange}&size=${this.pageSize}`
+      let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&${this.sortTypeQuery}&ignore_range=${this.ignoreRange}&size=${this.pageSize}&contents_type=${this.contentsType}`
       if (this.filterService) {
         // FIXME: e2 を加えると BadRequest になるため、一旦除外
         searchUrl = searchUrl + '&service=g1,g2,e1,e3'
@@ -384,8 +414,49 @@ export default Vue.extend({
           }
         })
     },
+    searchSeries({ clearCurrentEpisodes }: { clearCurrentEpisodes: boolean }) {
+      this.loading = true
+
+      if (clearCurrentEpisodes) {
+        this.series = []
+        this.searchOffset = 0
+      }
+
+      let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&${this.sortTypeQuery}&ignore_range=${this.ignoreRange}&size=${this.pageSize}&contents_type=${this.contentsType}`
+      if (this.filterService) {
+        // FIXME: e2 を加えると BadRequest になるため、一旦除外
+        searchUrl = searchUrl + '&service=g1,g2,e1,e3'
+      }
+      this.$axios
+        .get(searchUrl)
+        .then((res) => {
+          this.series = this.series.concat(res.data.items)
+          this.totalSearchResult = res.data.total
+          this.isNoResult = this.totalSearchResult === 0
+          this.searchOffset += this.pageSize
+        })
+        .finally(() => {
+          this.loading = false
+          if (this.episodes.length <= this.pageSize) {
+            this.$scrollTo('#episode-search-result', 1400, {
+              easing: [0, 0, 0.1, 1],
+              offset: -195,
+            })
+          }
+        })
+    },
     searchEpisodesWithKeyword() {
-      this.searchEpisodes({ clearCurrentEpisodes: true })
+      switch (this.contentsTypeNum) {
+        case 0:
+          this.searchEpisodes({ clearCurrentEpisodes: true })
+          break
+        case 1:
+          this.searchSeries({ clearCurrentEpisodes: true })
+          break
+        default:
+          this.searchEpisodes({ clearCurrentEpisodes: true })
+          break
+      }
     },
     addEpisode(episode: any) {
       this.episodes.splice(this.episodes.indexOf(episode), 1)
@@ -405,6 +476,21 @@ export default Vue.extend({
     },
     selectEpisode(episode: any) {
       this.$emit('select-episode', episode)
+    },
+    hasVideo(series: any) {
+      const videos = series?.videos || []
+      return ParseVideoHelper.hasVideo(videos)
+    },
+    eyecatchUrl(series: any): string {
+      if (series.eyecatch !== undefined) {
+        return series.eyecatch.medium.url
+      } else if ((series.keyvisuals || [])[0] !== undefined) {
+        return series.keyvisuals[0].small.url
+      } else if (series.partOfSeries?.eyecatch !== undefined) {
+        return series.partOfSeries.eyecatch.medium.url
+      }
+
+      return 'https://placehold.jp/71x40.png'
     },
   },
 })

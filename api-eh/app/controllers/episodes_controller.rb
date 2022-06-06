@@ -14,11 +14,21 @@ class EpisodesController < ApplicationController
     client = DlabApiClient.new
     @result = client.search(search_params,
                             query: { publishLevel: 'notyet,ready,full,limited,gone' })&.deep_symbolize_keys
-
-    # okushibu3のために、r6.0からEpisodeを引き直して検索結果に設定し直している
-    @result.dig(:result, :tvepisode, :result).each do |item|
-      item[:videos] = PlaylistItem.new(episode_id: item[:id]).fetch_episode_videos_data
+    type = @result.fetch(:result).keys
+    case type[0].to_s
+    when "tvepisode"
+      # okushibu3のために、r6.0からEpisodeを引き直して検索結果に設定し直している
+      @result.dig(:result, :tvepisode, :result).each do |item|
+        item[:videos] = PlaylistItem.new(episode_id: item[:id]).fetch_episode_videos_data
+      end
+    when "tvseries"
+      @result.dig(:result, :tvseries, :result).each do |series|
+        res = client.episode_from_series(type: 'tv', series_id: series[:id], request_type: :l)
+        series.store(:episodes, res)
+      end
+      p @result.dig(:result, :tvseries, :result)
     end
+
   end
 
   def bundle
@@ -57,6 +67,6 @@ class EpisodesController < ApplicationController
   private
 
   def search_params
-    params.permit(:word, :concern, :keyword, :offset, :ignore_range, :order, :order_by, :size, :service)
+    params.permit(:word, :concern, :keyword, :offset, :ignore_range, :order, :order_by, :size, :service, :contents_type)
   end
 end
