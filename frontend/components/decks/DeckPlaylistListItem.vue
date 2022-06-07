@@ -36,8 +36,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
 import PlaylistEpisodeThumbnail from '~/components/common/PlaylistEpisodeThumbnail.vue'
+import DummyImageHelper from '~/utils/DummyImageHelper'
 
 interface DataType {
   episodes: object[]
@@ -65,13 +65,10 @@ export default Vue.extend({
   },
   computed: {
     logoImageUrl(): string {
-      return this.playlist.logo?.medium?.url || this.dummyImage
-    },
-    dummyImage(): string {
-      const logoNumber = this.playlist.dateCreated
-        ? (Number(moment(this.playlist.dateCreated).format('DD')) % 10) + 1
-        : 1
-      return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
+      return (
+        this.playlist.logo?.medium?.url ||
+        DummyImageHelper.getPath(this.playlist.dateCreated, 'logo')
+      )
     },
     primaryColor(): string {
       return this.playlist.style.primaryLight

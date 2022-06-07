@@ -1,4 +1,6 @@
-import moment from 'moment'
+import format from 'date-fns/format'
+import ja from 'date-fns/locale/ja'
+import { getDaysInMonth } from 'date-fns'
 import HTMLElementBuilder from './htmlElementBuilder'
 
 /**
@@ -179,8 +181,12 @@ class PreviewBlockBuilder {
       this.CSS.linkContentDateText
     ).build()
 
-    const date = this.momentWrapper(this.data.episode.firstBroadcastDate)
-    dateText.textContent = '初回放送日：' + date.format('YYYY年MM月DD日(ddd)')
+    dateText.textContent =
+      '初回放送日：' +
+      this.formatWithLocale(
+        new Date(this.data.episode.firstBroadcastDate),
+        'yyyy年MM月dd日(E)'
+      )
 
     firstBroadcastDateBlock.appendChild(dateText)
 
@@ -557,9 +563,8 @@ class PreviewBlockBuilder {
       this.CSS.linkContentEventCalendarYearMonth
     ).build()
 
-    const startDate = this.momentWrapper(this.data.event.startDate)
-    const endDate = this.momentWrapper(this.data.event.endDate)
-    calendarYearMonthBlock.textContent = startDate.format('YYYY年MM月')
+    const startDate = new Date(this.data.event.startDate)
+    calendarYearMonthBlock.textContent = format(startDate, 'yyyy年MM月')
 
     calendarInnerBlock.appendChild(calendarYearMonthBlock)
 
@@ -567,7 +572,7 @@ class PreviewBlockBuilder {
       'div',
       this.CSS.linkContentEventCalendarDate
     ).build()
-    calendarDate.textContent = startDate.format('DD')
+    calendarDate.textContent = format(startDate, 'dd')
 
     calendarInnerBlock.appendChild(calendarDate)
 
@@ -575,8 +580,8 @@ class PreviewBlockBuilder {
       'div',
       this.CSS.linkContentEventDayOfTheWeek
     ).build()
-    calendarDayOfTheWeek.textContent = startDate.format('dddd')
-    switch (startDate.weekday()) {
+    calendarDayOfTheWeek.textContent = format(startDate, 'E')
+    switch (startDate.getDay()) {
       case 0: // Sunday
         calendarDayOfTheWeek.classList.add(
           this.CSS.linkContentEventCalendarSunday
@@ -647,12 +652,15 @@ class PreviewBlockBuilder {
       this.CSS.linkContentEventDateText
     ).build()
 
+    const endDate = new Date(this.data.event.endDate)
     const displayEndDate =
-      startDate.dayOfYear() === endDate.dayOfYear()
-        ? endDate.format('H:mm')
-        : endDate.format('M/D(ddd) H:mm')
+      getDaysInMonth(startDate) === getDaysInMonth(endDate)
+        ? this.formatWithLocale(endDate, 'HH:mm')
+        : this.formatWithLocale(endDate, 'MM/dd(E) HH:mm')
     eventDateText.textContent =
-      startDate.format('YYYY/M/D(ddd) H:mm') + ' ~ ' + displayEndDate
+      this.formatWithLocale(startDate, 'yyyy/MM/dd日(E) HH:mm') +
+      ' ~ ' +
+      displayEndDate
 
     eventDateBlock.appendChild(eventDateText)
 
@@ -808,22 +816,10 @@ class PreviewBlockBuilder {
     return cookingTime.replace('PT', '').replace('M', '分')
   }
 
-  /**
-   * 日時を扱う moment のインスタンスを作るメソッド
-   */
-  momentWrapper(date) {
-    return moment(date).locale('ja', {
-      weekdays: [
-        '日曜日',
-        '月曜日',
-        '火曜日',
-        '水曜日',
-        '木曜日',
-        '金曜日',
-        '土曜日',
-      ],
-      weekdaysShort: ['日', '月', '火', '水', '木', '金', '土'],
-    })
+  formatWithLocale(date, formatString) {
+    return format(date, formatString, {
+      locale: ja,
+    }).toString()
   }
 }
 

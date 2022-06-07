@@ -40,9 +40,10 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
+import format from 'date-fns/format'
 import PlaylistEpisodesCarousel from '~/components/common/PlaylistEpisodesCarousel.vue'
 import ApiStateBadge from '~/components/playlists/ApiStateBadge.vue'
+import DummyImageHelper from '~/utils/DummyImageHelper'
 
 interface DataType {
   episodePreviewNum: number
@@ -68,13 +69,10 @@ export default Vue.extend({
   },
   computed: {
     logoImageUrl(): string {
-      return this.playlist.logo?.medium?.url || this.dummyImage
-    },
-    dummyImage(): string {
-      const logoNumber = this.playlist.dateCreated
-        ? (Number(moment(this.playlist.dateCreated).format('DD')) % 10) + 1
-        : 1
-      return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
+      return (
+        this.playlist.logo?.medium?.url ||
+        DummyImageHelper.getPath(this.playlist.dateCreated, 'logo')
+      )
     },
     lastUpdateDate(): string {
       return this.formattedDate(this.playlist.dateModified)
@@ -82,7 +80,7 @@ export default Vue.extend({
   },
   methods: {
     formattedDate(_time: string): string {
-      return moment(_time).format('YYYY/MM/DD HH:mm')
+      return format(new Date(_time), 'yyyy/MM/dd HH:mm')
     },
     clickPlaylistItem(): void {
       this.$emit('click-playlist-item', this.playlist)

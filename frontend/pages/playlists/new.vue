@@ -164,7 +164,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
+import format from 'date-fns/format'
+import ja from 'date-fns/locale/ja'
 import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import ArticleEditTab from '~/components/playlists/ArticleEditTab.vue'
@@ -297,8 +298,9 @@ export default Vue.extend({
       if (date.length === 0) {
         return '-'
       } else {
-        moment.locale('ja')
-        return moment(date).format('YYYY年MM月DD日(ddd) HH:mm')
+        return format(new Date(date), 'yyyy年MM月dd日(E) HH:mm', {
+          locale: ja,
+        }).toString()
       }
     },
     eyecatchUrl(item: any): string {

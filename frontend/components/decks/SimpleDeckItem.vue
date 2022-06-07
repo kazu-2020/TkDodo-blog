@@ -23,7 +23,6 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
 import DeckApiStateBadge from '~/components/decks/DeckApiStateBadge.vue'
 
 export default Vue.extend({
@@ -45,12 +44,6 @@ export default Vue.extend({
     },
     deckAdminMemo(): string {
       return this.deck.adminMemo || ''
-    },
-    dummyImage(): string {
-      const logoNumber = this.deck.dateCreated
-        ? (Number(moment(this.deck.dateCreated).format('DD')) % 10) + 1
-        : 1
-      return `/dummy/default${logoNumber}/default${logoNumber}-logo.png`
     },
   },
   methods: {

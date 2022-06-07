@@ -94,8 +94,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
 import ApiStateBadge from '~/components/playlists/ApiStateBadge.vue'
+import DummyImageHelper from '~/utils/DummyImageHelper'
 
 interface DataType {
   snackbar: boolean
@@ -164,29 +164,25 @@ export default Vue.extend({
         this.snackbar = true
       }
     },
-    dummyImage(time: any, type: string) {
-      const logoNumber = (Number(moment(time).format('DD')) % 10) + 1
-      return `/dummy/default${logoNumber}/default${logoNumber}-${type}.png`
-    },
     logoImageUrl(playlist: any) {
       if (playlist === undefined) return ''
       return (
         playlist.logo?.medium?.url ||
-        this.dummyImage(playlist.dateCreated, 'logo')
+        DummyImageHelper.getPath(playlist.dateCreated, 'logo')
       )
     },
     eyecatchImageUrl(playlist: any) {
       if (playlist === undefined) return ''
       return (
         playlist.eyecatch?.medium?.url ||
-        this.dummyImage(playlist.dateCreated, 'eyecatch')
+        DummyImageHelper.getPath(playlist.dateCreated, 'eyecatch')
       )
     },
     heroImageUrl(playlist: any) {
       if (playlist === undefined) return ''
       return (
         playlist.hero?.medium?.url ||
-        this.dummyImage(playlist.dateCreated, 'hero')
+        DummyImageHelper.getPath(playlist.dateCreated, 'hero')
       )
     },
     actorContributorName(data: any): string {

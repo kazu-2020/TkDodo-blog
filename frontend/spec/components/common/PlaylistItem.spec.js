@@ -24,7 +24,7 @@ describe('components/common/PlaylistItem.vue', () => {
           get: () => Promise.resolve({ data: { items: [] } }),
         },
       },
-      propsData: { playlist: {} },
+      propsData: { playlist: { dateModified: '2022-04-25T08:15:00+09:00' } },
     })
     expect(wrapper.vm).toBeTruthy()
   })
@@ -43,7 +43,9 @@ describe('components/common/PlaylistItem.vue', () => {
               get: () => Promise.resolve({ data: { items: [] } }),
             },
           },
-          propsData: { playlist: {} },
+          propsData: {
+            playlist: { dateModified: '2022-04-25T08:15:00+09:00' },
+          },
         })
         expect(wrapper.vm.logoImageUrl).toBe(
           '/dummy/default1/default1-logo.png'
@@ -65,48 +67,14 @@ describe('components/common/PlaylistItem.vue', () => {
               get: () => Promise.resolve({ data: { items: [] } }),
             },
           },
-          propsData: { playlist: { logo: { medium: { url: logoUrl } } } },
+          propsData: {
+            playlist: {
+              dateModified: '2022-04-25T08:15:00+09:00',
+              logo: { medium: { url: logoUrl } },
+            },
+          },
         })
         expect(wrapper.vm.logoImageUrl).toBe(logoUrl)
-      })
-    })
-  })
-
-  describe('computed dummyImage', () => {
-    describe('プレイリストに作成日がない', () => {
-      it('固定の画像パスを返却', () => {
-        const wrapper = mount(PlaylistItem, {
-          localVue,
-          vuetify,
-          stubs: {
-            NuxtLink: RouterLinkStub,
-          },
-          mocks: {
-            $axios: {
-              get: () => Promise.resolve({ data: { items: [] } }),
-            },
-          },
-          propsData: { playlist: {} },
-        })
-        expect(wrapper.vm.dummyImage).toBe('/dummy/default1/default1-logo.png')
-      })
-    })
-    describe('プレイリストに作成日がある', () => {
-      it('日付から決定された画像パスを返却', () => {
-        const wrapper = mount(PlaylistItem, {
-          localVue,
-          vuetify,
-          stubs: {
-            NuxtLink: RouterLinkStub,
-          },
-          mocks: {
-            $axios: {
-              get: () => Promise.resolve({ data: { items: [] } }),
-            },
-          },
-          propsData: { playlist: { dateCreated: '2020-07-21 00:00:00' } },
-        })
-        expect(wrapper.vm.dummyImage).toBe('/dummy/default2/default2-logo.png')
       })
     })
   })

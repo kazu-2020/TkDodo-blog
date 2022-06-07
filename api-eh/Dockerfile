@@ -31,8 +31,6 @@ RUN apk upgrade && \
     zlib \
     zlib-dev
 
-RUN gem install bundler
-
 ENV APP_HOME /app
 RUN mkdir $APP_HOME
 
@@ -41,8 +39,11 @@ WORKDIR $APP_HOME
 ADD Gemfile $APP_HOME/Gemfile
 ADD Gemfile.lock $APP_HOME/Gemfile.lock
 
-RUN bundle install -j8
-RUN yarn install
+RUN gem install bundler && \
+    gem install nokogiri --platform=ruby -- --use-system-libraries && \
+    bundle config set force_ruby_platform true && \
+    bundle install -j8
+
 ADD . $APP_HOME
 
 CMD ["bundle", "exec", "rails", "server", '-b', '0.0.0.0']
