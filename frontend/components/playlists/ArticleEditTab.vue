@@ -91,7 +91,7 @@
 
 <script>
 import Vue from 'vue'
-import lodash from 'lodash'
+import cloneDeep from 'lodash.clonedeep'
 import PlainTextParser from '../../plugins/editorjs/plain_text_parser'
 import EditableSection from '~/components/common/EditableSection.vue'
 import editorBlockMixin from '~/components/common/editorBlockMixin'
@@ -156,7 +156,7 @@ export default Vue.extend({
   watch: {
     playlist: {
       handler(newVal) {
-        this.article = lodash.cloneDeep(newVal.article)
+        this.article = cloneDeep(newVal.article)
         this.body = newVal.article.body || null
         this.header = this.playlist.article.header || ''
         this.footer = this.playlist.article.footer || ''

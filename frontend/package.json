@@ -49,7 +49,7 @@
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "3",
     "date-fns": "^2.28.0",
-    "lodash": "^4.17.21",
+    "lodash.clonedeep": "^4.5.0",
     "nuxt": "^2.15.7",
     "nuxt-typed-vuex": "^0.2.0",
     "video.js": "^7.13.3",
