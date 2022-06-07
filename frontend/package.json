@@ -56,7 +56,6 @@
     "video.js": "^7.13.3",
     "videojs-contrib-eme": "^3.8.1",
     "vue-cropperjs": "^4.2.0",
-    "vue-ctk-date-time-picker": "^2.5.0",
     "vue-json-pretty": "^1.8.1",
     "vue-markdown": "^2.2.4",
     "vue-scrollto": "^2.20.0",
