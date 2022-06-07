@@ -149,13 +149,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
+import format from 'date-fns/format'
+import ja from 'date-fns/locale/ja'
 import { Playlist } from '@/types/playlist'
 import EpisodePreviewGenresList from '~/components/playlists/EpisodePreviewGenresList.vue'
 import FluidVideoPlayer from '~/components/common/FluidVideoPlayer.vue'
 import ParseVideoHelper from '~/utils/ParseVideoHelper'
-
-moment.locale('ja')
 
 interface DataType {
   eyecatchUrl: string
@@ -211,7 +210,9 @@ export default Vue.extend({
     episodeRecentBroadcastDate(): string {
       const date = this.episode?.detailedRecentEvent?.startDate
       if (date) {
-        return moment(date).format('YYYY年MM月DD日（ddd）HH:mm ~')
+        return format(new Date(date), 'yyyy年MM月dd日(E) HH:mm ~', {
+          locale: ja,
+        }).toString()
       } else {
         return '-'
       }

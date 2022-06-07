@@ -140,8 +140,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
 import TrimmingImageDialog from '~/components/playlists/TrimmingImageDialog.vue'
+import DummyImageHelper from '~/utils/DummyImageHelper'
 
 interface DataType {
   logoImageData: string
@@ -187,35 +187,35 @@ export default Vue.extend({
   computed: {
     logoImageUrl(): string {
       if (this.isRemovedLogoImage) {
-        return this.dummyImagePath('logo')
+        return DummyImageHelper.getPath(this.playlist.dateCreated, 'logo')
       }
 
       return (
         this.logoImageData ||
         this.playlist.logo?.medium?.url ||
-        this.dummyImagePath('logo')
+        DummyImageHelper.getPath(this.playlist.dateCreated, 'logo')
       )
     },
     eyecatchImageUrl(): string {
       if (this.isRemovedEyecatchImage) {
-        return this.dummyImagePath('eyecatch')
+        return DummyImageHelper.getPath(this.playlist.dateCreated, 'eyecatch')
       }
 
       return (
         this.eyecatchImageData ||
         this.playlist.eyecatch?.medium?.url ||
-        this.dummyImagePath('eyecatch')
+        DummyImageHelper.getPath(this.playlist.dateCreated, 'eyecatch')
       )
     },
     heroImageUrl(): string {
       if (this.isRemovedHeroImage) {
-        return this.dummyImagePath('hero')
+        return DummyImageHelper.getPath(this.playlist.dateCreated, 'hero')
       }
 
       return (
         this.heroImageData ||
         this.playlist.hero?.medium?.url ||
-        this.dummyImagePath('hero')
+        DummyImageHelper.getPath(this.playlist.dateCreated, 'hero')
       )
     },
   },
@@ -260,11 +260,6 @@ export default Vue.extend({
       this.isRemovedHeroImage = false
       this.isUploadedHero = isUploadedImage
       this.$emit('update-series-image', { type: 'hero', file: value })
-    },
-    dummyImagePath(type: string) {
-      const time = this.playlist.dateCreated
-      const logoNumber = (Number(moment(time).format('DD')) % 10) + 1
-      return `/dummy/default${logoNumber}/default${logoNumber}-${type}.png`
     },
   },
 })

@@ -44,7 +44,6 @@ export default {
   plugins: [
     '~/plugins/vue-json-pretty',
     '~/plugins/vue-scrollto.js',
-    '~/plugins/vue-the-mask.js',
     '~/plugins/axios.js',
     '~/plugins/error-handler.js',
   ],
@@ -81,7 +80,6 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
-    ['@nuxtjs/moment', ['ja']],
     ['cookie-universal-nuxt', { parseJSON: false }],
   ],
   auth: {

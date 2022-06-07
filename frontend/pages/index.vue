@@ -229,7 +229,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
+import format from 'date-fns/format'
+import ja from 'date-fns/locale/ja'
 import ActorContributorList from '../components/playlists/ActorContributorList.vue'
 import SimplePlaylistItem from '~/components/common/SimplePlaylistItem.vue'
 import ArticleItem from '~/components/playlists/ArticleItem.vue'
@@ -451,8 +452,9 @@ export default Vue.extend({
       if (date.length === 0) {
         return '-'
       } else {
-        moment.locale('ja')
-        return moment(date).format('YYYY年MM月DD日(ddd) HH:mm')
+        return format(new Date(date), 'yyyy年MM月dd日(E) HH:mm', {
+          locale: ja,
+        }).toString()
       }
     },
     hasVideo(episode: any) {
