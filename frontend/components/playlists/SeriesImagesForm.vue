@@ -9,16 +9,6 @@
         >ロゴ - Logo</label
       >
       <span style="color: red">*</span>
-      <div
-        v-if="!isUploadedLogo"
-        class="v-text-field__details image--error--message"
-      >
-        <div class="v-messages theme--light error--text" role="alert">
-          <div class="v-messages__wrapper">
-            <div class="v-messages__message">画像は必ず設定してください</div>
-          </div>
-        </div>
-      </div>
       <v-hover v-slot="{ hover }">
         <v-card tile width="140" height="140">
           <v-img :src="logoImageUrl">
@@ -41,6 +31,16 @@
           </v-img>
         </v-card>
       </v-hover>
+      <div
+        v-if="!isUploadedLogo"
+        class="v-text-field__details image--error--message"
+      >
+        <div class="v-messages theme--light error--text" role="alert">
+          <div class="v-messages__wrapper">
+            <div class="v-messages__message">画像は必ず設定してください</div>
+          </div>
+        </div>
+      </div>
     </v-col>
     <v-col cols="auto">
       <label
@@ -51,16 +51,6 @@
         >アイキャッチ - Eyecatch</label
       >
       <span style="color: red">*</span>
-      <div
-        v-if="!isUploadedEyecatch"
-        class="v-text-field__details image--error--message"
-      >
-        <div class="v-messages theme--light error--text" role="alert">
-          <div class="v-messages__wrapper">
-            <div class="v-messages__message">画像は必ず設定してください</div>
-          </div>
-        </div>
-      </div>
       <v-hover v-slot="{ hover }">
         <v-card tile width="249" height="140">
           <v-img :src="eyecatchImageUrl">
@@ -83,6 +73,16 @@
           </v-img>
         </v-card>
       </v-hover>
+      <div
+        v-if="!isUploadedEyecatch"
+        class="v-text-field__details image--error--message"
+      >
+        <div class="v-messages theme--light error--text" role="alert">
+          <div class="v-messages__wrapper">
+            <div class="v-messages__message">画像は必ず設定してください</div>
+          </div>
+        </div>
+      </div>
     </v-col>
     <v-col cols="auto">
       <label
@@ -92,16 +92,6 @@
         }"
         >ヒーロー - Hero</label
       ><span style="color: red">*</span>
-      <div
-        v-if="!isUploadedHero"
-        class="v-text-field__details image--error--message"
-      >
-        <div class="v-messages theme--light error--text" role="alert">
-          <div class="v-messages__wrapper">
-            <div class="v-messages__message">画像は必ず設定してください</div>
-          </div>
-        </div>
-      </div>
       <v-hover v-slot="{ hover }">
         <v-card tile width="420" height="140">
           <v-img :src="heroImageUrl">
@@ -124,6 +114,16 @@
           </v-img>
         </v-card>
       </v-hover>
+      <div
+        v-if="!isUploadedHero"
+        class="v-text-field__details image--error--message"
+      >
+        <div class="v-messages theme--light error--text" role="alert">
+          <div class="v-messages__wrapper">
+            <div class="v-messages__message">画像は必ず設定してください</div>
+          </div>
+        </div>
+      </div>
     </v-col>
     <v-col>
       <TrimmingImageDialog
@@ -275,7 +275,7 @@ export default Vue.extend({
   width: 100%;
 }
 .image--error--message {
-  margin: 5px 0px 5px 0px;
+  margin: 10px 0px 0px 0px;
   animation: fadedown 0.5s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
 }
 @keyframes fadedown {
