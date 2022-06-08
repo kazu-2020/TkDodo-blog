@@ -12,23 +12,31 @@ class EpisodesController < ApplicationController
 
   def search
     client = DlabApiClient.new
-    @result = client.search(search_params,
-                            query: { publishLevel: 'notyet,ready,full,limited,gone' })&.deep_symbolize_keys
-    type = @result.fetch(:result).keys
-    case type[0].to_s
-    when "tvepisode"
-      # okushibu3のために、r6.0からEpisodeを引き直して検索結果に設定し直している
-      @result.dig(:result, :tvepisode, :result).each do |item|
-        item[:videos] = PlaylistItem.new(episode_id: item[:id]).fetch_episode_videos_data
-      end
-    when "tvseries"
-      @result.dig(:result, :tvseries, :result).each do |series|
-        res = client.episode_from_series(type: 'tv', series_id: series[:id], request_type: :l)
-        series.store(:episodes, res)
-      end
-      p @result.dig(:result, :tvseries, :result)
-    end
 
+    if search_params[:series_id].present? then
+      @result = client.episode_from_series(type: 'tv', series_id:search_params[:series_id], request_type: :l, query: { size: 10, offset: search_params[:offset] })&.deep_symbolize_keys
+    else
+      @result = client.search(search_params,
+                              query: { publishLevel: 'notyet,ready,full,limited,gone' })&.deep_symbolize_keys
+
+      case search_params[:contents_type]
+      when "tvepisode"
+        # okushibu3のために、r6.0からEpisodeを引き直して検索結果に設定し直している
+        @result.dig(:result, :tvepisode, :result).each do |item|
+          item[:videos] = PlaylistItem.new(episode_id: item[:id]).fetch_episode_videos_data
+        end
+      when "tvseries"
+        @result.dig(:result, :tvseries, :result).each do |series|
+          res = client.episode_from_series(type: 'tv', series_id: series[:id], request_type: :l, query: { size: 10 })
+          series.store(:episodes, res)
+        end
+        @result.dig(:result, :tvseries, :result).each do |series|
+          series.dig(:episodes, :result).each do |episode|
+            episode[:videos] = PlaylistItem.new(episode_id: episode[:id]).fetch_episode_videos_data
+          end
+        end
+      end
+    end
   end
 
   def bundle
@@ -67,6 +75,6 @@ class EpisodesController < ApplicationController
   private
 
   def search_params
-    params.permit(:word, :concern, :keyword, :offset, :ignore_range, :order, :order_by, :size, :service, :contents_type)
+    params.permit(:word, :concern, :keyword, :offset, :ignore_range, :order, :order_by, :size, :service, :contents_type, :series_id)
   end
 end

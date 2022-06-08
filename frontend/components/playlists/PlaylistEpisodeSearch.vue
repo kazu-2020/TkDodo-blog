@@ -11,7 +11,7 @@
           hide-details
           :loading="loading"
           clearable
-          @keypress.enter="searchEpisodesWithKeyword"
+          @keypress.enter="searchWithKeyword"
         />
       </v-col>
       <v-col cols="3" align="right">
@@ -38,12 +38,12 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item @click="contentsTypeNum = 0">
+              <v-list-item @click="searchEpisodes">
                 <v-list-item-title class="playlist_new">
                   エピソード
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item @click="contentsTypeNum = 1">
+              <v-list-item @click="searchSeries">
                 <v-list-item-title>シリーズ</v-list-item-title>
               </v-list-item>
               <v-list-item>
@@ -83,7 +83,7 @@
       id="episode-search-result"
       :class="[contentsTypeNum === 1 ? 'series-result' : '']"
     >
-      <v-col v-if="episodes.length !== 0" cols="12">
+      <v-col v-if="episodes.length !== 0 || series.length !== 0" cols="12">
         <div class="body-2 ml-1">全 {{ totalSearchResult }} 件</div>
         <v-simple-table
           v-if="contentsTypeNum === 0"
@@ -134,22 +134,26 @@
           </template>
         </v-simple-table>
         <v-expansion-panels v-else>
-          <v-expansion-panel v-for="a_series in series" :key="a_series.id">
+          <v-expansion-panel
+            v-for="part_of_series in series"
+            :key="part_of_series.id"
+          >
             <v-expansion-panel-header expand-icon="mdi-menu-down">
-              <td justify="center" align="center">
+              <td class="series-image">
                 <v-img
-                  :src="eyecatchUrl(a_series)"
+                  :src="eyecatchUrl(part_of_series)"
                   lazy-src="https://placehold.jp/71x40.png"
-                  width="71"
+                  width="90"
                   class="ma-2 series-image"
                 />
               </td>
-              <td align="left">
-                {{ a_series.name }}
+              <td class="series-name">
+                {{ part_of_series.name }}
               </td>
-              <td>
+              <td class="series-can-be-watch">
+                視聴可能：
                 <v-chip
-                  v-if="hasVideo(a_series)"
+                  v-if="hasVideo(part_of_series)"
                   class="mx-2"
                   color="pink"
                   label
@@ -165,59 +169,43 @@
                   >視聴不可</v-chip
                 >
               </td>
-              エピソード表示
+              <span color="blue" class="display-episode">エピソード表示</span>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <v-simple-table fixed-header height="570px">
-                <template #default>
-                  <thead>
-                    <tr>
-                      <th />
-                      <th class="text-left">エピソード</th>
-                      <th />
-                      <th class="text-left">再生時間</th>
-                      <th class="text-left">シリーズ名</th>
-                      <th class="text-left" style="min-width: 180px">
-                        直近放送日
-                      </th>
-                      <th class="text-left">視聴可能</th>
-                      <th class="text-left" style="min-width: 130px">
-                        最終更新日
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <series-episode-search-result-table-row
-                      v-for="episode in a_series.episodes"
-                      :key="episode.id"
-                      :episode="episode"
-                      :ignore-episodes="ignoreEpisodes"
-                      @add-episode="addEpisode"
-                      @select-episode="selectEpisode(episode)"
-                    />
-                    <tr v-show="canLoadMoreEpisodes">
-                      <td
-                        colspan="8"
-                        align="center"
-                        class="load-more"
-                        @click="searchAdditionalEpisodes"
-                      >
-                        <v-progress-circular
-                          v-if="loading"
-                          indeterminate
-                          color="amber"
-                          class="mr-4"
-                        />
-                        {{ nextPageStartIndex }}-{{
-                          nextPageEndIndex
-                        }}件目を読み込む/全{{ totalSearchResult }}件
-                      </td>
-                    </tr>
-                  </tbody>
-                </template>
-              </v-simple-table>
+              <series-episode-search-result-table
+                :series="part_of_series"
+                :ignore-episodes="ignoreEpisodes"
+                :query-key="queryKey"
+                :editing-keywords="editingKeywords"
+                :search-offset="searchOffset"
+                :sort-type="sortType"
+                :ignore-range="ignoreRange"
+                :page-size="pageSize"
+                :contents-type="contentsType"
+                :filter-service="filterService"
+                :total-search-episodes-result="totalSearchEpisodesResult"
+                @add-episode="addEpisode"
+                @select-episode="selectEpisode"
+              />
             </v-expansion-panel-content>
           </v-expansion-panel>
+          <div
+            v-show="canLoadMoreEpisodes"
+            colspan="8"
+            align="center"
+            class="load-more"
+            @click="searchAdditionalSeries"
+          >
+            <v-progress-circular
+              v-if="loading"
+              indeterminate
+              color="amber"
+              class="mr-4"
+            />
+            {{ nextPageStartIndex }}-{{ nextPageEndIndex }}件目を読み込む/全{{
+              totalSearchResult
+            }}件
+          </div>
         </v-expansion-panels>
       </v-col>
       <v-col v-else-if="isNoResult" cols="12">
@@ -234,7 +222,7 @@
 import Vue from 'vue'
 import EpisodeSearchResultTableRow from '~/components/playlists/EpisodeSearchResultTableRow.vue'
 import ParseVideoHelper from '~/utils/ParseVideoHelper'
-import SeriesEpisodeSearchResultTableRow from '~/components/playlists/SeriesEpisodeSearchResultTableRow.vue'
+import SeriesEpisodeSearchResultTable from '~/components/playlists/SeriesEpisodeSearchResultTable.vue'
 
 interface DataType {
   episodes: Array<object>
@@ -249,13 +237,14 @@ interface DataType {
   ignoreRange: boolean
   filterService: boolean
   totalSearchResult: number
+  totalSearchEpisodesResult: number
 }
 
 export default Vue.extend({
   name: 'PlaylistEpisodeSearch',
   components: {
+    SeriesEpisodeSearchResultTable,
     EpisodeSearchResultTableRow,
-    SeriesEpisodeSearchResultTableRow,
   },
   props: {
     ignoreEpisodes: {
@@ -288,6 +277,7 @@ export default Vue.extend({
       ignoreRange: false,
       filterService: false,
       totalSearchResult: 0,
+      totalSearchEpisodesResult: 0,
     }
   },
   computed: {
@@ -304,8 +294,8 @@ export default Vue.extend({
       }
     },
     sortTypeQuery(): string {
-      const splittedSortType = this.sortType.split('_')
-      return `order_by=${splittedSortType[0]}&order=${splittedSortType[1]}`
+      const splitSortType = this.sortType.split('_')
+      return `order_by=${splitSortType[0]}&order=${splitSortType[1]}`
     },
     queryKey(): string {
       switch (this.queryKeyNum) {
@@ -356,7 +346,7 @@ export default Vue.extend({
     searchTriggerCount: {
       handler(newVal: Number) {
         if (newVal === 0) return
-        this.searchEpisodesWithKeyword()
+        this.searchWithKeyword()
       },
       immediate: true,
     },
@@ -369,12 +359,12 @@ export default Vue.extend({
     },
     filterService: {
       handler() {
-        this.searchEpisodesWithKeyword()
+        this.searchWithKeyword()
       },
     },
     ignoreRange: {
       handler() {
-        this.searchEpisodesWithKeyword()
+        this.searchWithKeyword()
       },
     },
   },
@@ -385,6 +375,7 @@ export default Vue.extend({
       clearCurrentEpisodes: boolean
     }) {
       this.loading = true
+      this.contentsTypeNum = 0
 
       if (clearCurrentEpisodes) {
         this.episodes = []
@@ -414,10 +405,11 @@ export default Vue.extend({
           }
         })
     },
-    searchSeries({ clearCurrentEpisodes }: { clearCurrentEpisodes: boolean }) {
+    searchSeries({ clearCurrentSeries }: { clearCurrentSeries: boolean }) {
       this.loading = true
+      this.contentsTypeNum = 1
 
-      if (clearCurrentEpisodes) {
+      if (clearCurrentSeries) {
         this.series = []
         this.searchOffset = 0
       }
@@ -432,6 +424,7 @@ export default Vue.extend({
         .then((res) => {
           this.series = this.series.concat(res.data.items)
           this.totalSearchResult = res.data.total
+          this.totalSearchEpisodesResult = res.data.items.episodes.count
           this.isNoResult = this.totalSearchResult === 0
           this.searchOffset += this.pageSize
         })
@@ -445,13 +438,13 @@ export default Vue.extend({
           }
         })
     },
-    searchEpisodesWithKeyword() {
+    searchWithKeyword() {
       switch (this.contentsTypeNum) {
         case 0:
           this.searchEpisodes({ clearCurrentEpisodes: true })
           break
         case 1:
-          this.searchSeries({ clearCurrentEpisodes: true })
+          this.searchSeries({ clearCurrentSeries: true })
           break
         default:
           this.searchEpisodes({ clearCurrentEpisodes: true })
@@ -462,10 +455,6 @@ export default Vue.extend({
       this.episodes.splice(this.episodes.indexOf(episode), 1)
       this.$emit('add-episode', episode)
     },
-    searchWithDetail() {
-      this.menu = false
-      this.searchEpisodesWithKeyword()
-    },
     clearSearchPane() {
       this.menu = false
       this.editingKeywords = ''
@@ -473,6 +462,9 @@ export default Vue.extend({
     },
     searchAdditionalEpisodes() {
       this.searchEpisodes({ clearCurrentEpisodes: false })
+    },
+    searchAdditionalSeries() {
+      this.searchSeries({ clearCurrentSeries: false })
     },
     selectEpisode(episode: any) {
       this.$emit('select-episode', episode)
@@ -519,5 +511,33 @@ export default Vue.extend({
 .series-result {
   max-height: 570px;
   overflow: auto;
+}
+
+td.series-image {
+  width: 5%;
+}
+
+td.series-name {
+  width: 35%;
+}
+
+td.series-can-be-watch {
+  width: 30%;
+}
+
+.display-episode {
+  text-align: right;
+  color: #3498db;
+}
+
+.theme--light.v-expansion-panels
+  .v-expansion-panel-header
+  .v-expansion-panel-header__icon
+  .v-icon {
+  color: #3498db;
+}
+
+.v-data-table__wrapper {
+  max-height: 500px;
 }
 </style>
