@@ -28,56 +28,65 @@
           class="custom_toggle_filter"
         />
       </v-col>
-      <v-tabs>
-        <v-tab>
-          <v-menu offset-y>
-            <template #activator="{ on }">
-              <v-btn color="transparent" depressed tile height="64" v-on="on">
-                <v-icon>mdi-dots-vertical</v-icon>
-                プレイリスト
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item @click="contentsTypeNum = 0">
-                <v-list-item-title class="playlist_new">
-                  エピソード
-                </v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="contentsTypeNum = 1">
-                <v-list-item-title>シリーズ</v-list-item-title>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-title>プレイリスト</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-tab>
-        <v-tab @click="queryKeyNum = 0">ワード</v-tab>
-        <v-tab @click="queryKeyNum = 2">キーワード</v-tab>
-        <v-tab @click="queryKeyNum = 1">出演者名</v-tab>
-        <v-tab @click="queryKeyNum = 3">IDで探す</v-tab>
-        <v-tab>
-          <v-menu offset-y>
-            <template #activator="{ on }">
-              <v-btn color="transparent" depressed tile height="64" v-on="on">
-                <v-icon>mdi-dots-vertical</v-icon>
-                並び順
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item @click="sortTypeNum = 0">
-                <v-list-item-title>関連スコア順</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="sortTypeNum = 1">
-                <v-list-item-title> 新しい順</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="sortTypeNum = 2">
-                <v-list-item-title>古い順</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-tab>
-      </v-tabs>
+      <v-col cols="12">
+        <v-tabs height="30px">
+          <v-tab class="with-three-dots">
+            <v-menu offset-y>
+              <template #activator="{ on }">
+                <v-btn
+                  class="with-three-dots"
+                  color="transparent"
+                  depressed
+                  tile
+                  height="64"
+                  v-on="on"
+                >
+                  <v-icon>mdi-dots-vertical</v-icon>
+                  プレイリスト
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item @click="contentsTypeNum = 0">
+                  <v-list-item-title class="playlist_new">
+                    エピソード
+                  </v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </v-tab>
+          <v-tab @click="queryKeyNum = 0">ワード</v-tab>
+          <v-tab @click="queryKeyNum = 2">キーワード</v-tab>
+          <v-tab class="tab-of-actor" @click="queryKeyNum = 1">出演者名</v-tab>
+          <v-tab class="with-three-dots">
+            <v-menu offset-y>
+              <template #activator="{ on }">
+                <v-btn
+                  class="with-three-dots"
+                  color="transparent"
+                  depressed
+                  tile
+                  height="64"
+                  v-on="on"
+                >
+                  <v-icon>mdi-dots-vertical</v-icon>
+                  並び順
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item @click="sortTypeNum = 0">
+                  <v-list-item-title>関連スコア順</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="sortTypeNum = 1">
+                  <v-list-item-title> 新しい順</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="sortTypeNum = 2">
+                  <v-list-item-title>古い順</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </v-tab>
+        </v-tabs>
+      </v-col>
     </v-row>
     <v-row
       id="episode-search-result"
@@ -285,8 +294,6 @@ export default Vue.extend({
           return 'concern'
         case 2:
           return 'keyword'
-        case 3:
-          return 'id'
         default:
           return 'word'
       }
@@ -433,5 +440,21 @@ export default Vue.extend({
 .series-result {
   max-height: 570px;
   overflow: auto;
+}
+
+.v-btn:before {
+  background-color: transparent;
+}
+
+.v-tabs-slider-wrapper {
+  width: 10%;
+}
+
+.with-three-dots {
+  padding: 0 !important;
+}
+
+.tab-of-actor {
+  padding-right: 7px;
 }
 </style>
