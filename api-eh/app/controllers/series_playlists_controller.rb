@@ -13,7 +13,7 @@ class SeriesPlaylistsController < ApplicationController
   private
 
   def search_params
-    { type: 'tvseries', word: params[:word], keyword: params[:keyword], concern: params[:concern],
+    { contents_type: 'tvseries', word: params[:word], keyword: params[:keyword], concern: params[:concern],
       size: params[:size], offset: params[:offset] }
   end
 end
