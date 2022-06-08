@@ -1,7 +1,7 @@
 <template>
   <div class="episode-search-area">
     <v-row justify="end">
-      <v-col cols="12" class="mt-8">
+      <v-col cols="12" class="mt-8 pb-6">
         <v-text-field
           v-model="editingKeywords"
           label="エピソードを検索する"
@@ -14,35 +14,20 @@
           @keypress.enter="searchEpisodesWithKeyword"
         />
       </v-col>
-      <v-col cols="3" align="right">
-        <v-switch
-          v-model="filterService"
-          label="G or E のエピソードのみ"
-          class="custom_toggle_filter"
-        />
-      </v-col>
-      <v-col cols="4" align="right">
-        <v-switch
-          v-model="ignoreRange"
-          label="公開範囲外のエピソードを含む"
-          class="custom_toggle_filter"
-        />
-      </v-col>
-      <v-col cols="12">
+      <v-col cols="7">
         <v-tabs height="30px">
-          <v-tab class="with-three-dots">
+          <v-tab class="pa-0">
             <v-menu offset-y>
               <template #activator="{ on }">
                 <v-btn
-                  class="with-three-dots"
+                  class="pl-0 pb-3"
                   color="transparent"
                   depressed
                   tile
-                  height="64"
                   v-on="on"
                 >
                   <v-icon>mdi-dots-vertical</v-icon>
-                  プレイリスト
+                  エピソード
                 </v-btn>
               </template>
               <v-list>
@@ -54,18 +39,17 @@
               </v-list>
             </v-menu>
           </v-tab>
-          <v-tab @click="queryKeyNum = 0">ワード</v-tab>
-          <v-tab @click="queryKeyNum = 2">キーワード</v-tab>
-          <v-tab class="tab-of-actor" @click="queryKeyNum = 1">出演者名</v-tab>
-          <v-tab class="with-three-dots">
+          <v-tab class="pb-3" @click="queryKeyNum = 0">ワード</v-tab>
+          <v-tab class="pb-3" @click="queryKeyNum = 2">キーワード</v-tab>
+          <v-tab class="pb-3" @click="queryKeyNum = 1">出演者名</v-tab>
+          <v-tab>
             <v-menu offset-y>
               <template #activator="{ on }">
                 <v-btn
-                  class="with-three-dots"
+                  class="pb-3"
                   color="transparent"
                   depressed
                   tile
-                  height="64"
                   v-on="on"
                 >
                   <v-icon>mdi-dots-vertical</v-icon>
@@ -87,6 +71,20 @@
           </v-tab>
         </v-tabs>
       </v-col>
+      <v-col cols="2" align="right" class="pr-0 pt-1">
+        <v-switch
+          v-model="filterService"
+          label="G or E のエピソードのみ"
+          class="custom_toggle_filter"
+        />
+      </v-col>
+      <v-col cols="3" align="right" class="pl-0 pt-1">
+        <v-switch
+          v-model="ignoreRange"
+          label="公開範囲外のエピソードを含む"
+          class="custom_toggle_filter"
+        />
+      </v-col>
     </v-row>
     <v-row
       id="episode-search-result"
@@ -94,11 +92,7 @@
     >
       <v-col v-if="episodes.length !== 0" cols="12">
         <div class="body-2 ml-1">全 {{ totalSearchResult }} 件</div>
-        <v-simple-table
-          v-if="contentsTypeNum === 0"
-          fixed-header
-          height="570px"
-        >
+        <v-simple-table fixed-header height="570px">
           <template #default>
             <thead>
               <tr>
@@ -142,67 +136,6 @@
             </tbody>
           </template>
         </v-simple-table>
-        <v-expansion-panels v-else>
-          <v-expansion-panel v-for="i in 20" :key="i">
-            <v-expansion-panel-header expand-icon="mdi-menu-down">
-              <tr class="result_row" style="cursor: pointer">
-                <td justify="center" align="center">
-                  <div
-                    class="v-image v-responsive ma-2 episode-image theme--light"
-                    style="width: 71px"
-                  >
-                    <div
-                      class="v-responsive__sizer"
-                      style="padding-bottom: 56.25%"
-                    />
-                    <div
-                      class="v-image__image v-image__image--cover"
-                      style="
-                        background-image: url('https://dev-www.nhk.jp/static/assets/images/tvseries/ts/1VWM12G977/1VWM12G977-eyecatch_2e62f260186daa1670a031efacc24d9c.jpg');
-                        background-position: center center;
-                      "
-                    />
-                    <div class="v-responsive__content" style="width: 640px" />
-                  </div>
-                </td>
-
-                <td>ブラタモリ×鶴瓶の家族に乾杯 新春スペシャル</td>
-                <td class="hoge" style="padding-left: 200px">視聴可能：</td>
-                <td>
-                  <span
-                    class="
-                      mx-2
-                      v-chip v-chip--label
-                      theme--light
-                      v-size--default
-                      grey
-                      white--text
-                    "
-                    ><span class="v-chip__content">視聴不可</span></span
-                  >
-                </td>
-              </tr>
-              エピソード表示
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <v-simple-table height="250px">
-                <template #default>
-                  <thead />
-                  <tbody>
-                    <episode-search-result-table-row
-                      v-for="episode in episodes"
-                      :key="episode.id"
-                      :episode="episode"
-                      :ignore-episodes="ignoreEpisodes"
-                      @add-episode="addEpisode"
-                      @select-episode="selectEpisode(episode)"
-                    />
-                  </tbody>
-                </template>
-              </v-simple-table>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
       </v-col>
       <v-col v-else-if="isNoResult" cols="12">
         <v-alert text outlined color="deep-orange" icon="mdi-alert-outline">
@@ -446,15 +379,9 @@ export default Vue.extend({
   background-color: transparent;
 }
 
-.v-tabs-slider-wrapper {
-  width: 10%;
-}
-
-.with-three-dots {
-  padding: 0 !important;
-}
-
-.tab-of-actor {
-  padding-right: 7px;
+.v-input.custom_toggle_filter.v-input--selection-controls.v-input--switch
+  label.v-label {
+  font-size: 12px;
+  white-space: nowrap;
 }
 </style>
