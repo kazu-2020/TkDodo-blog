@@ -47,6 +47,15 @@ resource "aws_s3_bucket" "assets" {
 EOF
 }
 
+resource "aws_s3_bucket_public_access_block" "assets" {
+  bucket = aws_s3_bucket.assets.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 # pre_shared_keyは
 # /editorialhands/${terraform.workspace}/cf_alb_pre_shared_key
 # で登録しておくこと
