@@ -38,7 +38,7 @@ class DlabApiClient < DlabApiBase
     sort_order = search_params[:order] || DEFAULT_SORT_ORDER
     sort_order_by = search_params[:order_by] || DEFAULT_SORT_ORDER_BY
     size = search_params[:size] || DEFAULT_SIZE
-    type = search_params[:type] || DEFAULT_TYPE
+    type = search_params[:contents_type] || DEFAULT_TYPE
     merged_params = { type: type, offset: offset, isFuzzy: true, ignoreRange: ignore_range,
                       order: sort_order, orderBy: sort_order_by, size: size }
     merged_params.merge!(search_query_hash(search_params))

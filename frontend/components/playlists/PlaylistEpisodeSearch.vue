@@ -1,7 +1,7 @@
 <template>
   <div class="episode-search-area">
     <v-row justify="end">
-      <v-col cols="12" class="mt-8">
+      <v-col cols="12" class="mt-8 pb-6">
         <v-text-field
           v-model="editingKeywords"
           label="エピソードを検索する"
@@ -14,68 +14,85 @@
           @keypress.enter="searchEpisodesWithKeyword"
         />
       </v-col>
-      <v-col cols="3" align="right">
+      <v-col cols="7">
+        <v-tabs height="30px">
+          <v-tab class="pa-0">
+            <v-menu offset-y>
+              <template #activator="{ on }">
+                <v-btn
+                  class="pl-0 pb-3"
+                  color="transparent"
+                  depressed
+                  tile
+                  v-on="on"
+                >
+                  <v-icon>mdi-dots-vertical</v-icon>
+                  エピソード
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item @click="contentsTypeNum = 0">
+                  <v-list-item-title class="playlist_new">
+                    エピソード
+                  </v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </v-tab>
+          <v-tab class="pb-3" @click="queryKeyNum = 0">ワード</v-tab>
+          <v-tab class="pb-3" @click="queryKeyNum = 2">キーワード</v-tab>
+          <v-tab class="pb-3" @click="queryKeyNum = 1">出演者名</v-tab>
+          <v-tab>
+            <v-menu offset-y>
+              <template #activator="{ on }">
+                <v-btn
+                  class="pb-3"
+                  color="transparent"
+                  depressed
+                  tile
+                  v-on="on"
+                >
+                  <v-icon>mdi-dots-vertical</v-icon>
+                  並び順
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item @click="sortTypeNum = 0">
+                  <v-list-item-title>関連スコア順</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="sortTypeNum = 1">
+                  <v-list-item-title> 新しい順</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="sortTypeNum = 2">
+                  <v-list-item-title>古い順</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </v-tab>
+        </v-tabs>
+      </v-col>
+      <v-col cols="2" align="right" class="pr-0 pt-1">
         <v-switch
           v-model="filterService"
           label="G or E のエピソードのみ"
           class="custom_toggle_filter"
         />
       </v-col>
-      <v-col cols="4" align="right">
+      <v-col cols="3" align="right" class="pl-0 pt-1">
         <v-switch
           v-model="ignoreRange"
           label="公開範囲外のエピソードを含む"
           class="custom_toggle_filter"
         />
       </v-col>
-      <v-col cols="3" align="right" class="search_detail">
-        <v-menu
-          v-model="menu"
-          :close-on-content-click="false"
-          :nudge-width="200"
-          offset-x
-        >
-          <template #activator="{ on, attrs }">
-            <v-btn outlined v-bind="attrs" v-on="on">
-              <v-icon>mdi-plus</v-icon>
-              詳しい条件で探す
-            </v-btn>
-          </template>
-
-          <v-card>
-            <v-list>
-              <v-list-item class="mt-2 mb-4">
-                <v-list-item-title class="mr-4">検索方法</v-list-item-title>
-                <v-btn-toggle v-model="queryKeyNum">
-                  <v-btn>エピソード名/概要</v-btn>
-                  <v-btn>出演者名</v-btn>
-                  <v-btn>キーワード</v-btn>
-                </v-btn-toggle>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-title>並び順</v-list-item-title>
-                <v-btn-toggle v-model="sortTypeNum">
-                  <v-btn>関連スコア順</v-btn>
-                  <v-btn>新しい順</v-btn>
-                  <v-btn>古い順</v-btn>
-                </v-btn-toggle>
-              </v-list-item>
-            </v-list>
-            <v-card-actions>
-              <v-spacer />
-              <v-btn color="secondary" text @click="searchWithDetail">
-                この条件で検索
-              </v-btn>
-              <v-btn text @click="clearSearchPane"> 検索条件をクリア </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-menu>
-      </v-col>
     </v-row>
-    <v-row id="episode-search-result">
+    <v-row
+      id="episode-search-result"
+      :class="[contentsTypeNum === 1 ? 'series-result' : '']"
+    >
       <v-col v-if="episodes.length !== 0" cols="12">
         <div class="body-2 ml-1">全 {{ totalSearchResult }} 件</div>
-        <v-simple-table>
+        <v-simple-table fixed-header height="570px">
           <template #default>
             <thead>
               <tr>
@@ -142,6 +159,7 @@ interface DataType {
   menu: boolean
   queryKeyNum: number
   sortTypeNum: number
+  contentsTypeNum: number
   ignoreRange: boolean
   filterService: boolean
   totalSearchResult: number
@@ -178,6 +196,7 @@ export default Vue.extend({
       menu: false,
       queryKeyNum: 0,
       sortTypeNum: 0,
+      contentsTypeNum: 0,
       ignoreRange: false,
       filterService: false,
       totalSearchResult: 0,
@@ -210,6 +229,16 @@ export default Vue.extend({
           return 'keyword'
         default:
           return 'word'
+      }
+    },
+    contentsType(): string {
+      switch (this.contentsTypeNum) {
+        case 0:
+          return 'tvepisode'
+        case 1:
+          return 'tvseries'
+        default:
+          return 'tvepisode'
       }
     },
     canLoadMoreEpisodes(): boolean {
@@ -272,7 +301,7 @@ export default Vue.extend({
         this.searchOffset = 0
       }
 
-      let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&${this.sortTypeQuery}&ignore_range=${this.ignoreRange}&size=${this.pageSize}`
+      let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&${this.sortTypeQuery}&ignore_range=${this.ignoreRange}&size=${this.pageSize}&contents_type=${this.contentsType}`
       if (this.filterService) {
         // FIXME: e2 を加えると BadRequest になるため、一旦除外
         searchUrl = searchUrl + '&service=g1,g2,e1,e3'
@@ -340,5 +369,19 @@ export default Vue.extend({
   label.v-label {
     font-size: 14px;
   }
+}
+.series-result {
+  max-height: 570px;
+  overflow: auto;
+}
+
+.v-btn:before {
+  background-color: transparent;
+}
+
+.v-input.custom_toggle_filter.v-input--selection-controls.v-input--switch
+  label.v-label {
+  font-size: 12px;
+  white-space: nowrap;
 }
 </style>
