@@ -274,12 +274,6 @@ export default Vue.extend({
   right: 0;
 }
 
-.ce-toolbar__actions {
-  left: -50px;
-  right: unset !important;
-  top: 10px;
-}
-
 .ce-settings {
   left: -1px;
   right: auto;
@@ -293,6 +287,10 @@ export default Vue.extend({
   .ce-block__content {
     background-color: #f7f7f7;
   }
+}
+
+.cdx-list {
+  padding-left: 40px !important;
 }
 
 .link-tool__warning__message {
