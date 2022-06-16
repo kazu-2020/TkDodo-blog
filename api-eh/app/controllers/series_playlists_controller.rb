@@ -7,7 +7,7 @@ class SeriesPlaylistsController < ApplicationController
 
   def search
     client = DlabApiClient.new
-    @result = client.search(search_params)
+    @result = client.search(search_params: search_params)
   end
 
   private
