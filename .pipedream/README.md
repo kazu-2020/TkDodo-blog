@@ -102,3 +102,6 @@ role_arn=arn:aws:iam::312328096018:role/tomigaya-prd-sikmi-role
 mfa_serial=arn:aws:iam::363730604491:mfa/ryusuke_sekiguchi
 source_profile=sikmi-nhk
 ```
+
+## その他
+- GitHubと接続するためのアクセストークンは、AWSのSSMパラメータストアの `/editorialhands/codepipeline/github/token` に設定している。
