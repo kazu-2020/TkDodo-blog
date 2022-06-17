@@ -159,7 +159,7 @@ class DlabApiClient < DlabApiBase
 
   private
 
-  # TODO コードの修正
+  # TODO: コードの修正
   # rubocop: disable Metrics/AbcSize
   def search_query_hash(search_params)
     merged_params = {}

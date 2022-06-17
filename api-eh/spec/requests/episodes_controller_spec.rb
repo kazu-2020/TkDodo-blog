@@ -21,12 +21,11 @@ describe EpisodesController, type: :request do
 
     context 'シリーズ検索の場合' do
       let(:contents) { 'tvseries' }
-      # let(:order_by){ { order_by: 'recentEvent' } }
-      let(:order_by) { { order_by: 'dateModified' } }
+      let(:word) { { word: 'ブラタモリ' } } # 20220617： 視聴可能なビデオを含まないシリーズの場合404となるため、視聴可能なビデオを含むシリーズを引くwordを設定。
 
       it '正常にレスポンスが返ってくること' do
         VCR.use_cassette('requests/episode_spec/search_episodes_in_series') do
-          get search_episodes_path, params: search_params.merge(order_by)
+          get search_episodes_path, params: search_params.merge(word)
           json = JSON.parse(response.body)
           expect(json['items'][0]['type']).to eq 'TVSeries'
           expect(response.status).to eq 200
@@ -39,7 +38,7 @@ describe EpisodesController, type: :request do
 
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_episode_in_series_paging') do
-            get search_episodes_path, params: search_params.merge(order_by, series_id, offset)
+            get search_episodes_path, params: search_params.merge(series_id, offset)
             expect(response.status).to eq 200
           end
         end
