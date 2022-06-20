@@ -90,24 +90,17 @@
           </v-tab>
         </v-tabs>
       </v-col>
-      <v-col v-if="contentsTypeNum !== 2" class="pt-5" cols="2" align="right">
+      <v-col class="pt-5" cols="2" align="right">
         <v-switch
           v-model="filterService"
           label="G or E のエピソードのみ"
           class="custom_toggle_filter"
         />
       </v-col>
-      <v-col v-if="contentsTypeNum !== 2" class="pt-5" cols="3" align="right">
+      <v-col class="pt-5" cols="3" align="right">
         <v-switch
           v-model="ignoreRange"
           label="公開範囲外のエピソードを含む"
-          class="custom_toggle_filter"
-        />
-      </v-col>
-      <v-col v-if="contentsTypeNum === 2" class="pt-5" cols="5" align="right">
-        <v-switch
-          v-model="filterService"
-          label="G or E のエピソードのみ"
           class="custom_toggle_filter"
         />
       </v-col>
@@ -414,8 +407,6 @@ export default Vue.extend({
           return 'concern'
         case 2:
           return 'keyword'
-        case 3:
-          return 'id'
         default:
           return 'word'
       }
