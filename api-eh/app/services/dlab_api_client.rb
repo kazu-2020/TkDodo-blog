@@ -31,9 +31,8 @@ class DlabApiClient < DlabApiBase
   # TVEpisode 検索APIをリクエストする
   #
   # @param [Hash] search_params
-  # rubocop: disable Metrics/AbcSize
   # @param [Hash] query
-  def search(search_params: {}, query: {})
+  def search(search_params: {}, query: {}) # rubocop: disable Metrics/AbcSize,Style/CommentedKeyword
     offset = search_params[:offset] || DEFAULT_OFFSET
     ignore_range = search_params[:ignore_range].nil? ? true : search_params[:ignore_range]
     sort_order = search_params[:order] || DEFAULT_SORT_ORDER
@@ -47,7 +46,6 @@ class DlabApiClient < DlabApiBase
     res = client.get "/#{version}/s/extended.json", INTERNAL_PARAMS.merge(merged_params).merge(query)
     handle_response(res)
   end
-  # rubocop: enable Metrics/AbcSize
 
   # TVEpisode に紐づくサブタイプの数をリクエストする
   #
@@ -105,12 +103,11 @@ class DlabApiClient < DlabApiBase
   # @param [String] type: 'tvepisode' or 'radioepisode'
   # @param [String] series_id: シリーズID
   # @param [String] request_type: t or l
-  # rubocop: disable Metrics/AbcSize
-  def episode_from_series(type:, series_id:, search_params: {}, request_type: :t, query: {})
+  def episode_from_series(type:, series_id:, search_params: {}, request_type: :t, query: {}) # rubocop: disable Metrics/AbcSize,Style/CommentedKeyword
     offset = search_params[:offset] || DEFAULT_OFFSET
     ignore_range = search_params[:ignore_range].nil? ? true : search_params[:ignore_range]
     sort_order = search_params[:order] || DEFAULT_SORT_ORDER
-    sort_order_by = search_params[:order_by] || 'dateModified' # TODO: 'recentEvent'に切り替えること
+    sort_order_by = search_params[:order_by] || 'recentEvent'
     size = search_params[:size] || DEFAULT_SIZE
     merged_params = { offset: offset, isFuzzy: true, ignoreRange: ignore_range,
                       order: sort_order, orderBy: sort_order_by, size: size }
@@ -119,8 +116,6 @@ class DlabApiClient < DlabApiBase
                      INTERNAL_PARAMS.merge(merged_params).merge(query)
     handle_response(res)
   end
-
-  # rubocop: enable Metrics/AbcSize
 
   # Howto データをリクエストする
   #
@@ -159,20 +154,14 @@ class DlabApiClient < DlabApiBase
 
   private
 
-  # TODO: コードの修正
-  # rubocop: disable Metrics/AbcSize
   def search_query_hash(search_params)
     merged_params = {}
-    merged_params.merge!(word: search_params[:word]) if search_params[:word].present?
-    merged_params.merge!(concern: search_params[:concern]) if search_params[:concern].present?
-    merged_params.merge!(keyword: search_params[:keyword]) if search_params[:keyword].present?
-    if search_params[:contents_type].eql?('tvseries')
-      merged_params.merge!(vService: search_params[:service]) if search_params[:service].present?
-    elsif search_params[:service].present?
-      merged_params.merge!(service: search_params[:service])
+    search_params.each_key do |k|
+      if k.to_s.eql?('service') && search_params[k.to_sym].present?
+        merged_params.merge!(vService: search_params[k.to_sym])
+      end
+      merged_params.merge!("#{k}": search_params[k.to_sym]) if search_params[k.to_sym].present?
     end
     merged_params
   end
-
-  # rubocop: enable Metrics/AbcSize
 end
