@@ -64,7 +64,6 @@ class SearchSeries
     episode[:videos] = PlaylistItem.new(episode_id: episode[:id]).fetch_episode_videos_data
 
     episode
-    byebug
   end
 
   # パラメータをマージする
