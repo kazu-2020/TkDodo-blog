@@ -23,6 +23,7 @@ describe('シリーズデッキ新規作成', () => {
     cy.contains('保存する').click({ force: true })
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 登録内容の確認
     // 基本情報(NSeries)の確認
@@ -55,7 +56,7 @@ describe('シリーズデッキ新規作成', () => {
     cy.wait(500)
 
     // 対象のデッキが表示されていること
-    cy.get('.row').eq(2).contains(now).should('have.lengthOf', 1)
-    cy.get('.row').eq(2).contains('非公開').should('have.lengthOf', 1)
+    cy.get('.py-1.col.col-11 .row').contains(now).should('have.lengthOf', 1)
+    cy.get('.py-1.col.col-11 .row').contains('非公開').should('have.lengthOf', 1)
   })
 })

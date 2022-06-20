@@ -83,6 +83,7 @@ describe('プレイリスト新規作成', () => {
     cy.contains('保存する').click({ force: true })
 
     cy.waitLoading()
+    cy.wait(500)
 
     // TODO: 保存時にバックグラウンドでAPIを叩くときにエラーが発生するため、回避策が見つかるまでコメントアウト
     // // リスト(NItemList)の確認
@@ -188,6 +189,7 @@ describe('プレイリスト新規作成', () => {
     cy.get('.menuable__content__active').contains('API公開中のみ').click()
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 対象のプレイリストが表示されていないこと
     cy.get('body').then((body) => {
@@ -218,6 +220,7 @@ describe('プレイリスト新規作成', () => {
     cy.get('.menuable__content__active').contains('API非公開のみ').click()
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 対象のプレイリストが表示されていること
     cy.get('.playlist-name').contains(now).should('have.lengthOf', 1)
@@ -236,6 +239,7 @@ describe('プレイリスト新規作成', () => {
     cy.get('.menuable__content__active').contains('全て').click()
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 対象のプレイリストが表示されていること
     cy.get('.playlist-name').contains(now).should('have.lengthOf', 1)

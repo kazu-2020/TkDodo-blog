@@ -66,6 +66,7 @@ describe('プレイリスト更新', () => {
     cy.get('.menuable__content__active').contains('API公開中のみ').click()
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 対象のプレイリストが表示されていること
     cy.get('.playlist-name').contains(now).should('have.lengthOf', 1)
@@ -84,6 +85,7 @@ describe('プレイリスト更新', () => {
     cy.get('.menuable__content__active').contains('API非公開のみ').click()
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 対象のプレイリストが表示されていないこと
     cy.get('body').then((body) => {
@@ -114,6 +116,7 @@ describe('プレイリスト更新', () => {
     cy.get('.menuable__content__active').contains('全て').click()
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 対象のプレイリストが表示されていること
     cy.get('.playlist-name').contains(now).should('have.lengthOf', 1)

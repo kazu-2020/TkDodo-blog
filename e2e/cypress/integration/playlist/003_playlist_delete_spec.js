@@ -40,6 +40,7 @@ describe('プレイリスト削除', () => {
     cy.get('.menuable__content__active').contains('API公開中のみ').click()
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 対象のプレイリストが表示されていないこと
     cy.get('body').then((body) => {
@@ -70,6 +71,7 @@ describe('プレイリスト削除', () => {
     cy.get('.menuable__content__active').contains('API非公開のみ').click()
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 対象のプレイリストが表示されていないこと
     cy.get('body').then((body) => {
@@ -100,6 +102,7 @@ describe('プレイリスト削除', () => {
     cy.get('.menuable__content__active').contains('全て').click()
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 対象のプレイリストが表示されていないこと
     cy.get('body').then((body) => {

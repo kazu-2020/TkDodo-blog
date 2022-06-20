@@ -2,6 +2,54 @@ describe('レコメンドデッキ新規作成', () => {
   it('レコメンドデッキを新規作成し、メタの編集をする', () => {
     const now = Cypress.env('NOW')
 
+
+    cy.visit('/')
+
+    cy.wait(2000)
+
+    cy.contains('プレイリスト').click()
+    cy.contains('新規作成').click()
+
+    // リスト(NItemList)の編集
+    cy.get('.new_episode_list').click()
+
+    // 基本情報(NSeries)の編集
+    cy.get('.series-step').click()
+
+    const playlistName = `${now}プレイ`
+    cy.get('.playlist_name input[type="text"]').type(playlistName)
+
+    const playlistDetailedNameRuby = 'ぷれいりすと１'
+    cy.get('.detailed_name_ruby input[type="text"]')
+      .clear()
+      .type(playlistDetailedNameRuby)
+    const playlistDetailedCatch = 'キャッチコピーはこちらに'
+    cy.get('.detailed_catch textarea').clear().type(playlistDetailedCatch)
+
+    const playlistKeywords = 'キーワード1{enter}キーワード2{enter}'
+    cy.get('.keywords input[type="text"]').type(playlistKeywords, { force: true })
+    const playlistHashTags = '#ハッシュタグ1{enter}'
+    cy.get('.hashtags input[type="text"]').type(playlistHashTags, { force: true })
+    cy.get('.format_genre_select').click()
+    const playlistFormatGenre = '報道'
+    cy.contains(playlistFormatGenre).click({ force: true })
+    const playlistThemeGenre = '科学'
+    cy.get('.theme_genre_select').click()
+    cy.contains(playlistThemeGenre).click({ force: true })
+
+    cy.attachCoverPhoto(0)
+    cy.attachCoverPhoto(1)
+    cy.attachCoverPhoto(2)
+
+    cy.get('button.custom_color').click()
+    cy.get('.v-color-picker__input input').clear().type('#FFFFFF{enter}')
+
+    cy.contains('保存する').click({ force: true })
+
+    cy.waitLoading()
+    cy.wait(500)
+
+
     cy.visit('/')
     cy.contains('デッキ').click()
     cy.contains('レコメンドデッキ新規作成').click()
@@ -28,6 +76,7 @@ describe('レコメンドデッキ新規作成', () => {
     cy.contains('保存する').click({ force: true })
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 登録内容の確認
     // 基本情報(NSeries)の確認
@@ -66,7 +115,7 @@ describe('レコメンドデッキ新規作成', () => {
     cy.contains('レコメンドデッキ一覧').click()
 
     cy.waitLoading()
-    cy.wait(500)
+    cy.wait(1000)
 
     // API公開中のデッキ
     cy.get('.v-select__slot').click()

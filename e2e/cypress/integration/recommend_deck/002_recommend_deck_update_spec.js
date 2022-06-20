@@ -63,13 +63,14 @@ describe('レコメンドデッキ更新', () => {
     cy.contains('レコメンドデッキ一覧').click()
 
     cy.waitLoading()
-    cy.wait(500)
+    cy.wait(1000)
 
     // API公開中のデッキ
     cy.get('.v-input__slot[role=button]').click()
     cy.get('.menuable__content__active').contains('API公開中のみ').click()
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 対象のデッキが表示されていること
     cy.get('.deck-name').contains(now).should('have.lengthOf', 1)
@@ -89,6 +90,7 @@ describe('レコメンドデッキ更新', () => {
     cy.get('.menuable__content__active').contains('API非公開のみ').click()
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 対象のデッキが表示されていないこと
     cy.get('body').then((body) => {
@@ -120,6 +122,7 @@ describe('レコメンドデッキ更新', () => {
     cy.get('.menuable__content__active').contains('全て').click()
 
     cy.waitLoading()
+    cy.wait(500)
 
     // 対象のデッキが表示されていること
     cy.get('.deck-name').contains(now).should('have.lengthOf', 1)
