@@ -240,6 +240,77 @@
             }}件
           </div>
         </v-expansion-panels>
+        <v-expansion-panels v-else-if="contentsTypeNum === 2">
+          <v-expansion-panel
+            v-for="part_of_playlist in playlists"
+            :key="part_of_playlist.id"
+          >
+            <v-expansion-panel-header expand-icon="mdi-menu-down">
+              <td class="series-image">
+                <v-img
+                  :src="eyecatchUrl(part_of_playlist)"
+                  lazy-src="https://placehold.jp/71x40.png"
+                  width="90"
+                  class="ma-2 series-image"
+                />
+              </td>
+              <td class="series-name">
+                {{ part_of_playlist.name }}
+              </td>
+              <td class="series-can-be-watch">
+                視聴可能：
+                <v-chip
+                  v-if="isIncludeAvailableVideo(part_of_playlist)"
+                  class="mx-2"
+                  color="pink"
+                  label
+                  text-color="white"
+                  >視聴可
+                </v-chip>
+                <v-chip
+                  v-else
+                  class="mx-2"
+                  color="grey"
+                  label
+                  text-color="white"
+                  >視聴不可
+                </v-chip>
+              </td>
+              <span color="blue" class="display-episode">エピソード表示</span>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <episode-search-result-table
+                :search-result="part_of_playlist"
+                :ignore-episodes="ignoreEpisodes"
+                :query-key="queryKey"
+                :editing-keywords="editingKeywords"
+                :sort-type-query="sortTypeQuery"
+                :contents-type="contentsType"
+                :filter-service="filterService"
+                :total-search-episodes-result="part_of_playlist.episodes.count"
+                @add-episode="addEpisode"
+                @select-episode="selectEpisode"
+              />
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <div
+            v-show="canLoadMoreEpisodes"
+            colspan="8"
+            align="center"
+            class="load-more"
+            @click="searchAdditionalSeries"
+          >
+            <v-progress-circular
+              v-if="loading"
+              indeterminate
+              color="amber"
+              class="mr-4"
+            />
+            {{ nextPageStartIndex }}-{{ nextPageEndIndex }}件目を読み込む/全{{
+              totalSearchResult
+            }}件
+          </div>
+        </v-expansion-panels>
       </v-col>
       <v-col v-else-if="isNoResult" cols="12">
         <v-alert text outlined color="deep-orange" icon="mdi-alert-outline">
@@ -324,8 +395,9 @@ export default Vue.extend({
         case 0:
           return 'score_desc'
         case 1:
-          // TODO dateModifiedと入れ替えること return 'recentEvent_desc'
           return 'dateModified_desc'
+        case 2:
+          return 'dateModified_asc'
         default:
           return 'score_desc'
       }
