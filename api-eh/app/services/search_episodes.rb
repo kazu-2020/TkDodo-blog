@@ -34,8 +34,9 @@ class SearchEpisodes
     sort_order = search_params[:order] || DEFAULT_SORT_ORDER
     sort_order_by = search_params[:order_by] || DEFAULT_SORT_ORDER_BY
     size = search_params[:size] || DEFAULT_SIZE
+    type = search_params[:contents_type] || DEFAULT_TYPE
     merged_params = { offset: offset, isFuzzy: true, ignoreRange: ignore_range,
-                      order: sort_order, orderBy: sort_order_by, size: size }
+                      order: sort_order, orderBy: sort_order_by, size: size, type: type }
     merged_params.merge!(search_query_hash(search_params))
 
     merged_params

@@ -14,6 +14,8 @@ describe EpisodesController, type: :request do
       it '正常にレスポンスが返ってくること' do
         VCR.use_cassette('requests/episode_spec/search_episodes') do
           get search_episodes_path, params: merged_params
+          json = JSON.parse(response.body)
+          expect(json['items'][0]['type']).to eq 'TVEpisode'
           expect(response.status).to eq 200
         end
       end
@@ -26,6 +28,8 @@ describe EpisodesController, type: :request do
       it '正常にレスポンスが返ってくること' do
         VCR.use_cassette('requests/episode_spec/search_episodes_in_series') do
           get search_episodes_path, params: merged_params.merge(word)
+          json = JSON.parse(response.body)
+          expect(json['items'][0]['type']).to eq 'TVSeries'
           expect(response.status).to eq 200
         end
       end
