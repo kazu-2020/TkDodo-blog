@@ -1,5 +1,5 @@
 <template>
-  <v-simple-table fixed-header>
+  <v-simple-table fixed-header class="episode-search-result-table">
     <thead>
       <tr>
         <th />
@@ -166,7 +166,7 @@ export default Vue.extend({
   }
 }
 
-.v-data-table--fixed-header > .v-data-table__wrapper {
+.episode-search-result-table > .v-data-table__wrapper {
   max-height: 300px;
 }
 </style>

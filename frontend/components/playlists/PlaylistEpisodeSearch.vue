@@ -16,7 +16,7 @@
       </v-col>
       <v-col cols="7">
         <v-tabs>
-          <v-tab>
+          <v-tab class="pl-0 pr-0">
             <v-menu offset-y>
               <template #activator="{ on }">
                 <v-btn
@@ -24,6 +24,7 @@
                   color="transparent"
                   depressed
                   tile
+                  class="pl-0 pr-0"
                   v-on="on"
                 >
                   <v-icon>mdi-dots-vertical</v-icon>
@@ -34,7 +35,7 @@
                 <v-list-item
                   @click="
                     searchEpisodes({
-                      clearCurrentEpisodes: true,
+                      clearCurrentResults: true,
                       isSwitchTab: true,
                     })
                   "
@@ -44,7 +45,7 @@
                 <v-list-item
                   @click="
                     searchSeries({
-                      clearCurrentSeries: true,
+                      clearCurrentResults: true,
                       isSwitchTab: true,
                     })
                   "
@@ -54,14 +55,14 @@
               </v-list>
             </v-menu>
           </v-tab>
-          <v-tab @click="queryKeyNum = 0">ワード</v-tab>
-          <v-tab @click="queryKeyNum = 2">キーワード</v-tab>
-          <v-tab @click="queryKeyNum = 1">出演者名</v-tab>
-          <v-tab>
+          <v-tab @click="searchWithKeyword(true, true, 0)">ワード</v-tab>
+          <v-tab @click="searchWithKeyword(true, true, 2)">キーワード</v-tab>
+          <v-tab @click="searchWithKeyword(true, true, 1)">出演者名</v-tab>
+          <v-tab class="pl-0 pr-0">
             <v-menu offset-y>
               <template #activator="{ on }">
                 <v-btn
-                  class="pl-0"
+                  class="pl-0 pr-0"
                   style="width: 100px"
                   color="transparent"
                   depressed
@@ -72,7 +73,7 @@
                   並び順
                 </v-btn>
               </template>
-              <v-list>
+              <v-list v-if="contentsTypeNum === 0">
                 <v-list-item
                   v-if="contentsTypeNum === 0"
                   @click="sortTypeNum = 0"
@@ -85,6 +86,9 @@
                 <v-list-item @click="sortTypeNum = 2">
                   <v-list-item-title>古い順</v-list-item-title>
                 </v-list-item>
+              </v-list>
+              <v-list v-else>
+                <v-list-item>ただいま実装中です</v-list-item>
               </v-list>
             </v-menu>
           </v-tab>
@@ -106,18 +110,14 @@
       </v-col>
     </v-row>
     <v-row id="episode-search-result" class="search-result-table">
-      <v-col
-        v-if="
-          episodes.length !== 0 || series.length !== 0 || playlists.length !== 0
-        "
-        cols="12"
-      >
-        <div class="body-2 ml-1">全 {{ totalSearchResult }} 件</div>
-        <v-simple-table
-          v-if="contentsTypeNum === 0"
-          fixed-header
-          height="300px"
+      <v-col v-if="episodes.length !== 0 || series.length !== 0" cols="12">
+        <div
+          class="body-2 ml-1"
+          :class="[this.contentsTypeNum === 1 ? 'pb-6' : '']"
         >
+          全 {{ totalSearchResult }} 件
+        </div>
+        <v-simple-table v-if="contentsTypeNum === 0" fixed-header>
           <template #default>
             <thead>
               <tr>
@@ -169,9 +169,10 @@
             <v-expansion-panel-header expand-icon="mdi-menu-down">
               <td class="series-image">
                 <v-img
-                  :src="eyecatchUrl(part_of_series)"
-                  lazy-src="https://placehold.jp/71x40.png"
-                  width="90"
+                  :src="logoUrl(part_of_series)"
+                  lazy-src="https://placehold.jp/40x40.png"
+                  width="49"
+                  height="49"
                   class="ma-2 series-image"
                 />
               </td>
@@ -219,78 +220,7 @@
             v-show="canLoadMoreEpisodes"
             colspan="8"
             align="center"
-            class="load-more"
-            @click="searchAdditionalSeries"
-          >
-            <v-progress-circular
-              v-if="loading"
-              indeterminate
-              color="amber"
-              class="mr-4"
-            />
-            {{ nextPageStartIndex }}-{{ nextPageEndIndex }}件目を読み込む/全{{
-              totalSearchResult
-            }}件
-          </div>
-        </v-expansion-panels>
-        <v-expansion-panels v-else-if="contentsTypeNum === 2">
-          <v-expansion-panel
-            v-for="part_of_playlist in playlists"
-            :key="part_of_playlist.id"
-          >
-            <v-expansion-panel-header expand-icon="mdi-menu-down">
-              <td class="series-image">
-                <v-img
-                  :src="eyecatchUrl(part_of_playlist)"
-                  lazy-src="https://placehold.jp/71x40.png"
-                  width="90"
-                  class="ma-2 series-image"
-                />
-              </td>
-              <td class="series-name">
-                {{ part_of_playlist.name }}
-              </td>
-              <td class="series-can-be-watch">
-                視聴可能：
-                <v-chip
-                  v-if="isIncludeAvailableVideo(part_of_playlist)"
-                  class="mx-2"
-                  color="pink"
-                  label
-                  text-color="white"
-                  >視聴可
-                </v-chip>
-                <v-chip
-                  v-else
-                  class="mx-2"
-                  color="grey"
-                  label
-                  text-color="white"
-                  >視聴不可
-                </v-chip>
-              </td>
-              <span color="blue" class="display-episode">エピソード表示</span>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <episode-search-result-table
-                :search-result="part_of_playlist"
-                :ignore-episodes="ignoreEpisodes"
-                :query-key="queryKey"
-                :editing-keywords="editingKeywords"
-                :sort-type-query="sortTypeQuery"
-                :contents-type="contentsType"
-                :filter-service="filterService"
-                :total-search-episodes-result="part_of_playlist.episodes.count"
-                @add-episode="addEpisode"
-                @select-episode="selectEpisode"
-              />
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-          <div
-            v-show="canLoadMoreEpisodes"
-            colspan="8"
-            align="center"
-            class="load-more"
+            class="load-more pt-3 pb-3"
             @click="searchAdditionalSeries"
           >
             <v-progress-circular
@@ -480,21 +410,24 @@ export default Vue.extend({
   },
   methods: {
     searchEpisodes({
-      clearCurrentEpisodes,
+      clearCurrentResults,
       isSwitchTab,
+      queryKeyNum,
     }: {
-      clearCurrentEpisodes: boolean
+      clearCurrentResults: boolean
       isSwitchTab: boolean
+      queryKeyNum: number
     }) {
       this.loading = true
       this.contentsTypeNum = 0
       this.series = []
       this.playlists = []
+      this.queryKeyNum = queryKeyNum
       if (isSwitchTab) {
         this.sortTypeNum = 0
       }
 
-      if (clearCurrentEpisodes) {
+      if (clearCurrentResults) {
         this.episodes = []
         this.searchOffset = 0
       }
@@ -523,21 +456,25 @@ export default Vue.extend({
         })
     },
     searchSeries({
-      clearCurrentSeries,
+      clearCurrentResults,
       isSwitchTab,
+      queryKeyNum,
     }: {
-      clearCurrentSeries: boolean
+      clearCurrentResults: boolean
       isSwitchTab: boolean
+      queryKeyNum: number
     }) {
       this.loading = true
       this.contentsTypeNum = 1
       this.episodes = []
       this.playlists = []
+      this.queryKeyNum = queryKeyNum
+
       if (isSwitchTab) {
         this.sortTypeNum = 1
       }
 
-      if (clearCurrentSeries) {
+      if (clearCurrentResults) {
         this.series = []
         this.searchOffset = 0
       }
@@ -565,21 +502,32 @@ export default Vue.extend({
           }
         })
     },
-    searchWithKeyword() {
+    searchWithKeyword(
+      this: any,
+      clearCurrentResults = true,
+      isSwitchTab = false,
+      queryKeyNum = this.queryKeyNum
+    ) {
       switch (this.contentsTypeNum) {
         case 0:
           this.searchEpisodes({
-            clearCurrentEpisodes: true,
-            isSwitchTab: false,
+            clearCurrentResults,
+            isSwitchTab,
+            queryKeyNum,
           })
           break
         case 1:
-          this.searchSeries({ clearCurrentSeries: true, isSwitchTab: false })
+          this.searchSeries({
+            clearCurrentResults,
+            isSwitchTab,
+            queryKeyNum,
+          })
           break
         default:
           this.searchEpisodes({
-            clearCurrentEpisodes: true,
-            isSwitchTab: false,
+            clearCurrentResults,
+            isSwitchTab,
+            queryKeyNum,
           })
           break
       }
@@ -594,10 +542,18 @@ export default Vue.extend({
       this.episodes = []
     },
     searchAdditionalEpisodes() {
-      this.searchEpisodes({ clearCurrentEpisodes: false, isSwitchTab: false })
+      this.searchEpisodes({
+        clearCurrentResults: false,
+        isSwitchTab: false,
+        queryKeyNum: this.queryKeyNum,
+      })
     },
     searchAdditionalSeries() {
-      this.searchSeries({ clearCurrentSeries: false, isSwitchTab: false })
+      this.searchSeries({
+        clearCurrentResults: false,
+        isSwitchTab: false,
+        queryKeyNum: this.queryKeyNum,
+      })
     },
     selectEpisode(episode: any) {
       this.$emit('select-episode', episode)
@@ -612,6 +568,17 @@ export default Vue.extend({
       }
 
       return 'https://placehold.jp/71x40.png'
+    },
+    logoUrl(series: any): string {
+      if (series.logo !== undefined) {
+        return series.logo.medium.url
+      } else if ((series.keyvisuals || [])[0] !== undefined) {
+        return series.keyvisuals[0].small.url
+      } else if (series.partOfSeries?.eyecatch !== undefined) {
+        return series.partOfSeries.logo.medium.url
+      }
+
+      return 'https://placehold.jp/40x40.png'
     },
     isIncludeAvailableVideo(seriesOrPlaylist: any): boolean {
       let isAvailable = false
@@ -652,7 +619,7 @@ export default Vue.extend({
 }
 
 td.series-image {
-  width: 5%;
+  width: 1%;
 }
 
 td.series-name {
@@ -683,5 +650,9 @@ td.series-can-be-watch {
   label.v-label {
   font-size: 12px;
   white-space: nowrap;
+}
+
+.v-expansion-panel-header {
+  height: 58px;
 }
 </style>
