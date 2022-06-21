@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://dev-api.nr.nhk.jp/r6/s/extended.json?contents_type=tvseries&extendedEntities=true&ignoreRange=true&isFuzzy=true&offset=0&order=desc&orderBy=score&size=10&type=tvseries&word=expected+no+search+results
+    uri: https://dev-api.nr.nhk.jp/r6/s/extended.json?extendedEntities=true&ignoreRange=true&offset=0&publishLevel=notyet%2Cready%2Cfull%2Climited%2Cgone&size=10&type=tvseries&word=expected+no+search+results
     body:
       encoding: US-ASCII
       string: ''
@@ -17,11 +17,11 @@ http_interactions:
       content-type:
       - application/json; charset=utf-8
       content-length:
-      - '445'
+      - '457'
       connection:
       - keep-alive
       date:
-      - Mon, 20 Jun 2022 06:55:30 GMT
+      - Tue, 21 Jun 2022 05:40:54 GMT
       content-security-policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -62,19 +62,19 @@ http_interactions:
       cache-control:
       - max-age=30
       commit-hash:
-      - '"cce2ef3"'
+      - '"cc6f39c"'
       etag:
-      - '"1bd-iZifD3N03+ITVH08g1UC5h8sVGg"'
+      - '"1c9-3XF6LrU71D4GXP4NJaTnTA+NVQQ"'
       x-cache:
       - Miss from cloudfront
       via:
-      - 1.1 e799d090941c58e2047ed3ec40553f52.cloudfront.net (CloudFront)
+      - 1.1 4ecabbb41575f43fe932f3da00000410.cloudfront.net (CloudFront)
       x-amz-cf-pop:
       - NRT20-C3
       x-amz-cf-id:
-      - bvDnmWCt6VSnZ-RJlZVixprgu0onHTP01e83zxMBLGrGeevWv45Gwg==
+      - MA1EO4Us2HnUh6LPwB0lozqTeGusmFQZIXmLpGmuHo21EdDOofQBcw==
     body:
       encoding: UTF-8
-      string: '{"result":{"tvseries":{"result":[],"resultUrl":"https://dev-api.nr.nhk.jp/r6/s/extended.json?type=tvseries&word=expected+no+search+results&orderBy=score&order=desc&isFuzzy=true&offset=0&size=10&ignoreRange=true&extendedEntities=true","count":0}},"resultUrl":"https://dev-api.nr.nhk.jp/r6/s/extended.json?type=tvseries&word=expected+no+search+results&orderBy=score&order=desc&isFuzzy=true&offset=0&size=10&ignoreRange=true&extendedEntities=true"}'
-  recorded_at: Mon, 20 Jun 2022 06:55:30 GMT
+      string: '{"result":{"tvseries":{"result":[],"resultUrl":"https://dev-api.nr.nhk.jp/r6/s/extended.json?type=tvseries&word=expected+no+search+results&publishLevel=notyet,ready,full,limited,gone&offset=0&size=10&ignoreRange=true&extendedEntities=true","count":0}},"resultUrl":"https://dev-api.nr.nhk.jp/r6/s/extended.json?type=tvseries&word=expected+no+search+results&publishLevel=notyet,ready,full,limited,gone&offset=0&size=10&ignoreRange=true&extendedEntities=true"}'
+  recorded_at: Tue, 21 Jun 2022 05:40:54 GMT
 recorded_with: VCR 6.1.0

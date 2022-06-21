@@ -42,7 +42,6 @@ describe SeriesPlaylist, type: :request do
           expect(response.status).to eq 200
           json = JSON.parse(response.body)
           expect(json['count']).to eq 0
-          # エラーメッセージのチェックはフロント側でハンドリングしているためテストに含めない
         end
       end
     end
