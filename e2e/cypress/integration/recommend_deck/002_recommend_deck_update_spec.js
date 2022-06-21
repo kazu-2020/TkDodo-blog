@@ -36,7 +36,7 @@ describe('レコメンドデッキ更新', () => {
     cy.waitLoading()
 
     // 登録内容の確認
-    // 基本情報(NSeries)の確認
+    // 基本情報(deck)の確認
     cy.get('.series-step').click()
 
     cy.get('.deck_name input[type="text"]').eq(0).should(

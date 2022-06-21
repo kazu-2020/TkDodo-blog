@@ -26,7 +26,7 @@ describe('シリーズデッキ新規作成', () => {
     cy.wait(500)
 
     // 登録内容の確認
-    // 基本情報(NSeries)の確認
+    // 基本情報(deck)の確認
     cy.get('.series-step').click()
 
     cy.get('.deck_name input[type="text"]').eq(0).should(
