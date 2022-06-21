@@ -6,7 +6,7 @@ class SearchEpisodes
   private
 
   def episode(client, search_params)
-    result = client.search(search_params: search_params,
+    result = client.search(merged_params: search_params,
                            query: { publishLevel: 'notyet,ready,full,limited,gone' })&.deep_symbolize_keys
     # okushibu3のために、r6.0からEpisodeを引き直して検索結果に設定し直している
     result.dig(:result, :tvepisode, :result).each do |episode|

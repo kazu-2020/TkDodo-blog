@@ -13,12 +13,6 @@ class DlabApiClient < DlabApiBase
     end
   VERSION = 'r6'
   INTERNAL_PARAMS = { extendedEntities: true, ignoreRange: true }.freeze
-  DEFAULT_OFFSET = 0
-  DEFAULT_SIZE = 10
-  DEFAULT_TYPE = 'tvepisode'
-  DEFAULT_SORT_ORDER = 'desc'
-  DEFAULT_SORT_ORDER_BY = 'score'
-  DEFAULT_ENVIRONMENT = 'okushibu'
 
   attr_reader :api_endpoint, :version
 
@@ -30,19 +24,9 @@ class DlabApiClient < DlabApiBase
 
   # TVEpisode 検索APIをリクエストする
   #
-  # @param [Hash] search_params
+  # @param [Hash] merged_params
   # @param [Hash] query
-  def search(search_params: {}, query: {}) # rubocop: disable Metrics/AbcSize,Style/CommentedKeyword
-    offset = search_params[:offset] || DEFAULT_OFFSET
-    ignore_range = search_params[:ignore_range].nil? ? true : search_params[:ignore_range]
-    sort_order = search_params[:order] || DEFAULT_SORT_ORDER
-    sort_order_by = search_params[:order_by] || DEFAULT_SORT_ORDER_BY
-    size = search_params[:size] || DEFAULT_SIZE
-    type = search_params[:contents_type] || DEFAULT_TYPE
-    merged_params = { type: type, offset: offset, isFuzzy: true, ignoreRange: ignore_range,
-                      order: sort_order, orderBy: sort_order_by, size: size }
-    merged_params.merge!(search_query_hash(search_params))
-
+  def search(merged_params: {}, query: {})
     res = client.get "/#{version}/s/extended.json", INTERNAL_PARAMS.merge(merged_params).merge(query)
     handle_response(res)
   end
@@ -99,19 +83,12 @@ class DlabApiClient < DlabApiBase
 
   # エピソードをシリーズ指定で取得する
   #
-  # @param [Hash] search_params
   # @param [String] type: 'tvepisode' or 'radioepisode'
   # @param [String] series_id: シリーズID
+  # @param [Hash] merged_params
   # @param [String] request_type: t or l
-  def episode_from_series(type:, series_id:, search_params: {}, request_type: :t, query: {}) # rubocop: disable Metrics/AbcSize,Style/CommentedKeyword
-    offset = search_params[:offset] || DEFAULT_OFFSET
-    ignore_range = search_params[:ignore_range].nil? ? true : search_params[:ignore_range]
-    sort_order = search_params[:order] || DEFAULT_SORT_ORDER
-    sort_order_by = search_params[:order_by] || 'recentEvent'
-    size = search_params[:size] || DEFAULT_SIZE
-    merged_params = { offset: offset, isFuzzy: true, ignoreRange: ignore_range,
-                      order: sort_order, orderBy: sort_order_by, size: size }
-    merged_params.merge!(search_query_hash(search_params))
+  # @param [Hash] query
+  def episode_from_series(type:, series_id:, merged_params: {}, request_type: :t, query: {})
     res = client.get "/#{version}/#{request_type}/#{type.downcase}episode/ts/#{series_id}.json",
                      INTERNAL_PARAMS.merge(merged_params).merge(query)
     handle_response(res)
@@ -144,24 +121,8 @@ class DlabApiClient < DlabApiBase
   # 視聴可能なエピソードを取得する
   #
   # @param [String] series_id: シリーズID
-  def available_episode_from_series(series_id)
-    available_on = DEFAULT_ENVIRONMENT
-    extended_entities = true
-    res = client.get "/#{version}/l/tvepisode/ts/#{series_id}.json",
-                     { availableOn: available_on, extendedEntities: extended_entities }
+  def available_episode_from_series(series_id, query: {})
+    res = client.get "/#{version}/l/tvepisode/ts/#{series_id}.json", query
     JSON.parse(res.body, symbolize_names: true) # 視聴可能なエピソードが存在しない場合404が返却されるためその対応
-  end
-
-  private
-
-  def search_query_hash(search_params)
-    merged_params = {}
-    search_params.each_key do |k|
-      if k.to_s.eql?('service') && search_params[k.to_sym].present?
-        merged_params.merge!(vService: search_params[k.to_sym])
-      end
-      merged_params.merge!("#{k}": search_params[k.to_sym]) if search_params[k.to_sym].present?
-    end
-    merged_params
   end
 end

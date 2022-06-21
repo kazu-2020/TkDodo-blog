@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe EpisodesController, type: :request do
-  let!(:search_params) { { contents_type: contents } }
+  let!(:merged_params) { { contents_type: contents } }
 
   describe 'GET #search' do
     before { create(:playlist_item) }
@@ -13,7 +13,7 @@ describe EpisodesController, type: :request do
 
       it '正常にレスポンスが返ってくること' do
         VCR.use_cassette('requests/episode_spec/search_episodes') do
-          get search_episodes_path, params: search_params
+          get search_episodes_path, params: merged_params
           expect(response.status).to eq 200
         end
       end
@@ -25,9 +25,7 @@ describe EpisodesController, type: :request do
 
       it '正常にレスポンスが返ってくること' do
         VCR.use_cassette('requests/episode_spec/search_episodes_in_series') do
-          get search_episodes_path, params: search_params.merge(word)
-          json = JSON.parse(response.body)
-          expect(json['items'][0]['type']).to eq 'TVSeries'
+          get search_episodes_path, params: merged_params.merge(word)
           expect(response.status).to eq 200
         end
       end
@@ -38,7 +36,7 @@ describe EpisodesController, type: :request do
 
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_episode_in_series_paging') do
-            get search_episodes_path, params: search_params.merge(series_id, offset)
+            get search_episodes_path, params: merged_params.merge(series_id, offset)
             expect(response.status).to eq 200
           end
         end
