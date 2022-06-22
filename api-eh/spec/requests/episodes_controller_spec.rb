@@ -30,6 +30,17 @@ describe EpisodesController, type: :request do
           end
         end
       end
+
+      context 'G or Eのエピソードのみ検索をした場合' do
+        let(:service) { { service: 'g1,g2,e1,e3' } }
+
+        it '正常にレスポンスが返ってくること' do
+          VCR.use_cassette('requests/episode_spec/search_episodes_service') do
+            get search_episodes_path, params: merged_params.merge(service)
+            expect(response.status).to eq 200
+          end
+        end
+      end
     end
 
     context 'シリーズ検索の場合' do
@@ -63,6 +74,17 @@ describe EpisodesController, type: :request do
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_episode_in_series_paging') do
             get search_episodes_path, params: merged_params.merge(series_id, offset)
+            expect(response.status).to eq 200
+          end
+        end
+      end
+
+      context 'G or Eのエピソードのみ検索をした場合' do
+        let(:service) { { service: 'g1,g2,e1,e3' } }
+
+        it '正常にレスポンスが返ってくること' do
+          VCR.use_cassette('requests/episode_spec/search_series_service') do
+            get search_episodes_path, params: merged_params.merge(word, service)
             expect(response.status).to eq 200
           end
         end

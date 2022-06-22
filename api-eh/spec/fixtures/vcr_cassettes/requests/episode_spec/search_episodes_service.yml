@@ -1,0 +1,80 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6/s/extended.json?extendedEntities=true&ignoreRange=true&isFuzzy=true&offset=0&order=desc&orderBy=score&publishLevel=notyet%2Cready%2Cfull%2Climited%2Cgone&service=g1%2Cg2%2Ce1%2Ce3&size=10&type=tvepisode
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '748'
+      connection:
+      - keep-alive
+      date:
+      - Wed, 22 Jun 2022 09:17:51 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"78d3ae1"'
+      etag:
+      - '"2ec-/RbgHJWP1KI10BaCZu+Wf/PEplw"'
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 c7fd3d9b402c0fcc95f12f5f805763c6.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT20-C3
+      x-amz-cf-id:
+      - qJoYWjfca2pONRZ-GrV56J4FjvqHRT8OeaG-_Xv5094MGhRxs00i5w==
+    body:
+      encoding: UTF-8
+      string: '{"result":{"tvepisode":{"result":[],"nextUrl":"https://dev-api.nr.nhk.jp/r6/s/extended.json?service=g1,g2,e1,e3&type=tvepisode&orderBy=score&order=desc&isFuzzy=true&publishLevel=notyet,ready,full,limited,gone&offset=10&size=10&ignoreRange=true&extendedEntities=true","resultUrl":"https://dev-api.nr.nhk.jp/r6/s/extended.json?service=g1,g2,e1,e3&type=tvepisode&orderBy=score&order=desc&isFuzzy=true&publishLevel=notyet,ready,full,limited,gone&offset=0&size=10&ignoreRange=true&extendedEntities=true","count":193920}},"resultUrl":"https://dev-api.nr.nhk.jp/r6/s/extended.json?service=g1,g2,e1,e3&type=tvepisode&orderBy=score&order=desc&isFuzzy=true&publishLevel=notyet,ready,full,limited,gone&offset=0&size=10&ignoreRange=true&extendedEntities=true"}'
+  recorded_at: Wed, 22 Jun 2022 09:17:51 GMT
+recorded_with: VCR 6.1.0
