@@ -1,0 +1,775 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6/s/extended.json?extendedEntities=true&ignoreRange=true&isFuzzy=true&offset=10&order=desc&orderBy=score&publishLevel=notyet%2Cready%2Cfull%2Climited%2Cgone&size=10&type=tvepisode
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      date:
+      - Wed, 22 Jun 2022 00:49:42 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"cc6f39c"'
+      etag:
+      - W/"1eb30-BzXljqjLZ9+sIWYvYGQKYYJCKbw"
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 a0c8ca5c55854408aacaabfb864516d0.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P1
+      x-amz-cf-id:
+      - O9V1ekVAUBDfc4k5Sw4xSNa4Osb4vGbeLePoWHGYwNCMH9pnz4AgRQ==
+    body:
+      encoding: UTF-8
+      string: '{"result":{"tvepisode":{"result":[{"type":"TVEpisode","id":"7QPPXK67ML","name":"2020年4月1日午前11:59","identifierGroup":{"episodeId":"7QPPXK67ML","tvEpisodeId":"7QPPXK67ML","seriesId":"QP7RGK6L8M","tvSeriesId":"QP7RGK6L8M","episodeName":"2020年4月1日午前11:59","tvEpisodeName":"2020年4月1日午前11:59","seriesName":"緊急警報試験信号","tvSeriesName":"緊急警報試験信号","hashtag":[],"serviceId":["g1","g2"],"formatGenreTag":[{"id":"01","name":"報道"}]},"identifierGroupEx":{"seriesGroupId":"BLR12M559N","tvSeriesGroupId":"BLR12M559N","seriesGroupName":"緊急警報試験信号","tvSeriesGroupName":"緊急警報試験信号","episodeNameTemp":"2020年4月1日午前11:59","tvEpisodeNameTemp":"2020年4月1日午前11:59","seriesNameTemp":"緊急警報試験信号","tvSeriesNameTemp":"緊急警報試験信号","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2020-04-01T11:59:00+09:00","releasedEventEndDateTemp":"2020-04-01T12:00:00+09:00"},"keywords":[],"description":"","dateCreated":"2020-03-24T14:13:01+09:00","dateModified":"2022-05-25T05:07:59+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"QP7RGK6L8M","name":"緊急警報試験信号","identifierGroup":{"seriesId":"QP7RGK6L8M","tvSeriesId":"QP7RGK6L8M","seriesName":"緊急警報試験信号","tvSeriesName":"緊急警報試験信号","hashtag":[],"serviceId":["g1","g2"]},"identifierGroupEx":{"seriesGroupId":"BLR12M559N","tvSeriesGroupId":"BLR12M559N","seriesGroupName":"緊急警報試験信号","tvSeriesGroupName":"緊急警報試験信号","seriesNameTemp":"緊急警報試験信号","tvSeriesNameTemp":"緊急警報試験信号"},"url":"https://dev-www.nhk.jp/p/ts/QP7RGK6L8M/","canonical":"https://dev-www.nhk.jp/p/ts/QP7RGK6L8M/","description":"","logo":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/QP7RGK6L8M/QP7RGK6L8M-logo_4b30cb59ccdafe075d3d04b5f0883128.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/QP7RGK6L8M/QP7RGK6L8M-logo_6d8de20ae39d2c1df49fd0ef741db158.jpg","width":640,"height":640}},"eyecatch":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/QP7RGK6L8M/QP7RGK6L8M-eyecatch_b2087e4d47922983d257068dd5051250.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/QP7RGK6L8M/QP7RGK6L8M-eyecatch_42b114e2820803c62aa85871fccacc2f.jpg","width":928,"height":522},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/QP7RGK6L8M/QP7RGK6L8M-eyecatch_7052b394ed2a20549887e68610472207.jpg","width":640,"height":360}},"hero":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/QP7RGK6L8M/QP7RGK6L8M-hero_8a2ab250ff84fec63498e0cba7e1fe1c.jpg","width":1920,"height":640},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/QP7RGK6L8M/QP7RGK6L8M-hero_2bf3a45c82294dff3abd644f2989b2c7.jpg","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#804000","linkDark":"#AD845B","primaryLight":"#804000","primaryDark":"#97632F"},"additionalProperty":{"publishLevel":"notyet","layoutPattern":"summary","episodeOrderBy":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[],"seriesPackStatus":"notPacked"}},"releasedEvent":{"startDate":"2020-04-01T11:59:00+09:00","endDate":"2020-04-01T12:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedRecentEvent":{"id":"g1-150-2022060136463","startDate":"2022-06-01T11:59:00+09:00","endDate":"2022-06-01T12:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedComingEvent":{"id":"g1-150-2022060136463","startDate":"2022-06-01T11:59:00+09:00","endDate":"2022-06-01T12:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"keyvisuals":[],"videos":[{"name":"緊急警報試験信号","description":"","url":"https://tools.media.nr.nhk.jp/player/player.html?stream_id=g1-150-2022060136463","embedUrl":"https://tools.media.nr.nhk.jp/player/embed.html?stream_id=g1-150-2022060136463","identifierGroup":{"environmentId":"okushibu","broadcastEventId":"g1-150-2022060136463","streamType":"vod"},"detailedContentStatus":{"environmentId":"okushibu","streamType":"vod","contentStatus":"notyet"},"detailedContent":[],"broadcastEvent":{"type":"BroadcastEvent","id":"g1-150-2022060136463","name":"緊急警報試験信号","description":"","startDate":"2022-06-01T11:59:00+09:00","endDate":"2022-06-01T12:00:00+09:00","location":{"id":"103","name":"新潟"},"identifierGroup":{"broadcastEventId":"g1-150-2022060136463","episodeId":"7QPPXK67ML","tvEpisodeId":"7QPPXK67ML","episodeName":"2020年4月1日午前11:59","tvEpisodeName":"2020年4月1日午前11:59","seriesId":"QP7RGK6L8M","tvSeriesId":"QP7RGK6L8M","seriesName":"緊急警報試験信号","tvSeriesName":"緊急警報試験信号","serviceId":"g1","areaId":"150","stationId":"103","date":"2022-06-01","eventId":"36463","genres":[{"id":"0000","name1":"ニュース/報道","name2":"定時・総合"}],"code7":"8038001","code11":"80380100101","code15":"103080380100101","code21":"103080380100101000053","onid":"7e00","sid":"7c00","tsid":"7e00"},"misc":{"displayVideoMode":"none","displayVideoRange":"sdr","displayAudioMode":[],"audioMode":[],"supportCaption":false,"supportSign":false,"supportHybridcast":false,"supportDataBroadcast":false,"isInteractive":false,"isChangeable":false,"releaseLevel":"normal","programType":"program","coverage":"local","actList":[],"musicList":[],"eventShareStatus":"parent","icisExtended":{"eizo":"3","gashitsu":"1","kido":"0","henonsei":"01","onseiadd":"0","mojiadd":"0","shuwa":"0","hybridcast":"0","rendo1":"0","sohoko":"0","usernible":[],"ytstatus":"1","dojihaishin":"2","hayamodoshi":"2","minogashi":"2","nod":"2","hensaiho":"1","saiho":"1","saifuyo":"1","honyo":"0","hontext":"","bangumi1":"緊急警報試験信号","bangumi2":"","kshikimei":"","marume":"0","tsukubun":"0","teitsu":"0","bantype":"01","sozai":"20","keito":"21","hkyoku":"103","henhani":"1","netout":"0","ekyoyu":"210","koshinbi":"20220614012431","act":"","music":"","free":"","oshirase":""},"hsk":{"passedStartDateTime":"2022-06-01T12:00:00+09:00","passedEndDateTime":"2022-06-08T12:00:00+09:00","passedDeliveryPeriod":"604800","passedLength":"00:01:00","newsXmlUrl":"","updateDateTime":"2022-05-24T17:13:31+09:00"},"hskExtended":{"systemUniqueId":"150_g1_2022060136463","concurrentDelivery":"1","earlyBackDelivery":"1","passedDelivery":"1","nodDelivery":"1","earlyBackDeliveryReusableFlag":"","passedType":"","genbanEditFlag":"","genbanCaptionFlag":"","posterframeImageUrl":"","qfFlag":"","qfProgramName":"","passedDeliveryReadyableFlag":"","programKind":"","flowCode":"","audioMode1":"","audioMode2":"","marumeId":"","eventShareGtv":"","eventShareGtvSub":"","eventShareEtv":"","eventShareEtvSub":""},"playControlSimul":false,"playControlDVR":false,"playControlVOD":false,"playControlMulti":null,"publishedPeriodFrom":"2022-06-01T12:00:00+09:00","publishedPeriodTo":"2022-06-08T12:00:00+09:00"},"isLiveBroadcast":false,"detailedDescriptions":{"epg40":"緊急警報試験信号","epg80":"","epgInformation":"","epg200":""},"duration":"PT1M","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","broadcastDisplayName":"NHK総合1・新潟","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","areaId":"150","areaName":"新潟","channelId":"011","channelKey":"1","channelAreaName":"新潟","channelStationName":"新潟","shortenedName":"NHK総合1","shortenedDisplayName":"総合","multiChannelDisplayName":"総合メイン"}},"posterframes":[]}},{"name":"緊急警報試験信号","description":"","url":"https://tools.media.nr.nhk.jp/player/player.html?stream_id=g1-150-2022050145424","embedUrl":"https://tools.media.nr.nhk.jp/player/embed.html?stream_id=g1-150-2022050145424","identifierGroup":{"environmentId":"okushibu","broadcastEventId":"g1-150-2022050145424","streamType":"vod"},"detailedContentStatus":{"environmentId":"okushibu","streamType":"vod","contentStatus":"notyet"},"detailedContent":[]},{"name":"緊急警報試験信号","description":"","url":"https://tools.media.nr.nhk.jp/player/player.html?stream_id=g1-150-2022040156759","embedUrl":"https://tools.media.nr.nhk.jp/player/embed.html?stream_id=g1-150-2022040156759","identifierGroup":{"environmentId":"okushibu","broadcastEventId":"g1-150-2022040156759","streamType":"vod"},"detailedContentStatus":{"environmentId":"okushibu","streamType":"vod","contentStatus":"notyet"},"detailedContent":[]}],"citations":[],"url":"https://dev-www.nhk.jp/p/ts/QP7RGK6L8M/episode/te/7QPPXK67ML/","canonical":"https://dev-www.nhk.jp/p/ts/QP7RGK6L8M/episode/te/7QPPXK67ML/","sameAs":[],"detailedMemo":[]},{"type":"TVEpisode","id":"6J65Q2NW1N","name":"2020年4月1日午前11:59","identifierGroup":{"episodeId":"6J65Q2NW1N","tvEpisodeId":"6J65Q2NW1N","seriesId":"P7Q914VGPL","tvSeriesId":"P7Q914VGPL","episodeName":"2020年4月1日午前11:59","tvEpisodeName":"2020年4月1日午前11:59","seriesName":"緊急警報試験信号","tvSeriesName":"緊急警報試験信号","hashtag":[],"serviceId":["g1","g2"],"formatGenreTag":[{"id":"01","name":"報道"}]},"identifierGroupEx":{"seriesGroupId":"BLR12M559N","tvSeriesGroupId":"BLR12M559N","seriesGroupName":"緊急警報試験信号","tvSeriesGroupName":"緊急警報試験信号","episodeNameTemp":"2020年4月1日午前11:59","tvEpisodeNameTemp":"2020年4月1日午前11:59","seriesNameTemp":"緊急警報試験信号","tvSeriesNameTemp":"緊急警報試験信号","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2020-04-01T11:59:00+09:00","releasedEventEndDateTemp":"2020-04-01T12:00:00+09:00"},"keywords":[],"description":"","dateCreated":"2020-03-24T14:21:13+09:00","dateModified":"2022-05-25T05:07:46+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"P7Q914VGPL","name":"緊急警報試験信号","identifierGroup":{"seriesId":"P7Q914VGPL","tvSeriesId":"P7Q914VGPL","seriesName":"緊急警報試験信号","tvSeriesName":"緊急警報試験信号","hashtag":[],"serviceId":["g1","g2"]},"identifierGroupEx":{"seriesGroupId":"BLR12M559N","tvSeriesGroupId":"BLR12M559N","seriesGroupName":"緊急警報試験信号","tvSeriesGroupName":"緊急警報試験信号","seriesNameTemp":"緊急警報試験信号","tvSeriesNameTemp":"緊急警報試験信号"},"url":"https://dev-www.nhk.jp/p/ts/P7Q914VGPL/","canonical":"https://dev-www.nhk.jp/p/ts/P7Q914VGPL/","description":"","logo":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/P7Q914VGPL/P7Q914VGPL-logo_25f23ec45344270b988469a8244d270d.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/P7Q914VGPL/P7Q914VGPL-logo_4f4c5f4aa07df484a7acf85937d6fdaa.jpg","width":640,"height":640}},"eyecatch":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/P7Q914VGPL/P7Q914VGPL-eyecatch_85a7ee5739c08726a5546143f480f937.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/P7Q914VGPL/P7Q914VGPL-eyecatch_716cb73a18fe01c87420423472a0527d.jpg","width":928,"height":522},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/P7Q914VGPL/P7Q914VGPL-eyecatch_becd0fa1475943f00070f5a1cdc4383f.jpg","width":640,"height":360}},"hero":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/P7Q914VGPL/P7Q914VGPL-hero_472ef4d86be8e0fb66283112f5a77f7b.jpg","width":1920,"height":640},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/P7Q914VGPL/P7Q914VGPL-hero_829161dcbe6edeba8293f328000feb97.jpg","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#327EA4","linkDark":"#4DC4FF","primaryLight":"#3E9ECE","primaryDark":"#4DC4FF"},"additionalProperty":{"publishLevel":"notyet","layoutPattern":"summary","episodeOrderBy":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[],"seriesPackStatus":"notPacked"}},"releasedEvent":{"startDate":"2020-04-01T11:59:00+09:00","endDate":"2020-04-01T12:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedRecentEvent":{"id":"g1-160-2022060138990","startDate":"2022-06-01T11:59:00+09:00","endDate":"2022-06-01T12:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedComingEvent":{"id":"g1-160-2022060138990","startDate":"2022-06-01T11:59:00+09:00","endDate":"2022-06-01T12:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"keyvisuals":[],"videos":[{"name":"緊急警報試験信号","description":"","url":"https://tools.media.nr.nhk.jp/player/player.html?stream_id=g1-160-2022060138990","embedUrl":"https://tools.media.nr.nhk.jp/player/embed.html?stream_id=g1-160-2022060138990","identifierGroup":{"environmentId":"okushibu","broadcastEventId":"g1-160-2022060138990","streamType":"vod"},"detailedContentStatus":{"environmentId":"okushibu","streamType":"vod","contentStatus":"notyet"},"detailedContent":[],"broadcastEvent":{"type":"BroadcastEvent","id":"g1-160-2022060138990","name":"緊急警報試験信号","description":"","startDate":"2022-06-01T11:59:00+09:00","endDate":"2022-06-01T12:00:00+09:00","location":{"id":"306","name":"富山"},"identifierGroup":{"broadcastEventId":"g1-160-2022060138990","episodeId":"6J65Q2NW1N","tvEpisodeId":"6J65Q2NW1N","episodeName":"2020年4月1日午前11:59","tvEpisodeName":"2020年4月1日午前11:59","seriesId":"P7Q914VGPL","tvSeriesId":"P7Q914VGPL","seriesName":"緊急警報試験信号","tvSeriesName":"緊急警報試験信号","serviceId":"g1","areaId":"160","stationId":"306","date":"2022-06-01","eventId":"38990","genres":[{"id":"0000","name1":"ニュース/報道","name2":"定時・総合"}],"code7":"8038001","code11":"80380100101","code15":"306080380100101","code21":"306080380100101000055","onid":"7da0","sid":"9400","tsid":"7da0"},"misc":{"displayVideoMode":"none","displayVideoRange":"sdr","displayAudioMode":[],"audioMode":[],"supportCaption":false,"supportSign":false,"supportHybridcast":false,"supportDataBroadcast":false,"isInteractive":false,"isChangeable":false,"releaseLevel":"normal","programType":"program","coverage":"local","actList":[],"musicList":[],"eventShareStatus":"parent","icisExtended":{"eizo":"3","gashitsu":"1","kido":"0","henonsei":"01","onseiadd":"0","mojiadd":"0","shuwa":"0","hybridcast":"0","rendo1":"0","sohoko":"0","usernible":[],"ytstatus":"1","dojihaishin":"2","hayamodoshi":"2","minogashi":"2","nod":"2","hensaiho":"1","saiho":"1","saifuyo":"1","honyo":"0","hontext":"","bangumi1":"緊急警報試験信号","bangumi2":"","kshikimei":"","marume":"0","tsukubun":"0","teitsu":"0","bantype":"01","sozai":"24","keito":"21","hkyoku":"306","henhani":"1","netout":"0","ekyoyu":"210","koshinbi":"20220614013448","act":"","music":"","free":"","oshirase":""},"hsk":{"passedStartDateTime":"2022-06-01T12:00:00+09:00","passedEndDateTime":"2022-06-08T12:00:00+09:00","passedDeliveryPeriod":"604800","passedLength":"00:01:00","newsXmlUrl":"","updateDateTime":"2022-05-24T17:17:16+09:00"},"hskExtended":{"systemUniqueId":"160_g1_2022060138990","concurrentDelivery":"1","earlyBackDelivery":"1","passedDelivery":"1","nodDelivery":"1","earlyBackDeliveryReusableFlag":"","passedType":"","genbanEditFlag":"","genbanCaptionFlag":"","posterframeImageUrl":"","qfFlag":"","qfProgramName":"","passedDeliveryReadyableFlag":"","programKind":"","flowCode":"","audioMode1":"","audioMode2":"","marumeId":"","eventShareGtv":"","eventShareGtvSub":"","eventShareEtv":"","eventShareEtvSub":""},"playControlSimul":false,"playControlDVR":false,"playControlVOD":false,"playControlMulti":null,"publishedPeriodFrom":"2022-06-01T12:00:00+09:00","publishedPeriodTo":"2022-06-08T12:00:00+09:00"},"isLiveBroadcast":false,"detailedDescriptions":{"epg40":"緊急警報試験信号","epg80":"","epgInformation":"","epg200":""},"duration":"PT1M","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","broadcastDisplayName":"NHK総合1・富山","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","areaId":"160","areaName":"富山","channelId":"031","channelKey":"3","channelAreaName":"富山","channelStationName":"富山","shortenedName":"NHK総合1","shortenedDisplayName":"総合","multiChannelDisplayName":"総合メイン"}},"posterframes":[]}},{"name":"緊急警報試験信号","description":"","url":"https://tools.media.nr.nhk.jp/player/player.html?stream_id=g1-160-2022050145416","embedUrl":"https://tools.media.nr.nhk.jp/player/embed.html?stream_id=g1-160-2022050145416","identifierGroup":{"environmentId":"okushibu","broadcastEventId":"g1-160-2022050145416","streamType":"vod"},"detailedContentStatus":{"environmentId":"okushibu","streamType":"vod","contentStatus":"notyet"},"detailedContent":[]},{"name":"緊急警報試験信号","description":"","url":"https://tools.media.nr.nhk.jp/player/player.html?stream_id=g1-160-2022040153524","embedUrl":"https://tools.media.nr.nhk.jp/player/embed.html?stream_id=g1-160-2022040153524","identifierGroup":{"environmentId":"okushibu","broadcastEventId":"g1-160-2022040153524","streamType":"vod"},"detailedContentStatus":{"environmentId":"okushibu","streamType":"vod","contentStatus":"notyet"},"detailedContent":[]}],"citations":[],"url":"https://dev-www.nhk.jp/p/ts/P7Q914VGPL/episode/te/6J65Q2NW1N/","canonical":"https://dev-www.nhk.jp/p/ts/P7Q914VGPL/episode/te/6J65Q2NW1N/","sameAs":[],"detailedMemo":[]},{"type":"TVEpisode","id":"BK47VL6YMQ","name":"2022年6月1日","identifierGroup":{"episodeId":"BK47VL6YMQ","tvEpisodeId":"BK47VL6YMQ","seriesId":"6L1LQ41GW3","tvSeriesId":"6L1LQ41GW3","episodeName":"2022年6月1日","tvEpisodeName":"2022年6月1日","seriesName":"ならナビ845","tvSeriesName":"ならナビ845","hashtag":[],"serviceId":["g1","g2"],"formatGenreTag":[{"id":"01","name":"報道"}],"themeGenreTag":[{"id":"014","name":"地域"}]},"identifierGroupEx":{"seriesGroupId":"LPZ28YWZ42","tvSeriesGroupId":"LPZ28YWZ42","seriesGroupName":"ならナビ","tvSeriesGroupName":"ならナビ","episodeNameTemp":"2022年6月1日","tvEpisodeNameTemp":"2022年6月1日","seriesNameTemp":"ならナビ845","tvSeriesNameTemp":"ならナビ845","releasedEventIdTemp":"g1-290-2022060136430","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2022-06-01T20:45:00+09:00","releasedEventEndDateTemp":"2022-06-01T21:00:00+09:00"},"keywords":[],"description":"▽関西と奈良県のニュース・気象情報","dateCreated":"2022-05-15T08:38:15+09:00","dateModified":"2022-05-25T09:06:47+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"6L1LQ41GW3","name":"ならナビ845","identifierGroup":{"seriesId":"6L1LQ41GW3","tvSeriesId":"6L1LQ41GW3","seriesName":"ならナビ845","tvSeriesName":"ならナビ845","hashtag":[],"serviceId":["g1","g2"]},"identifierGroupEx":{"seriesGroupId":"LPZ28YWZ42","tvSeriesGroupId":"LPZ28YWZ42","seriesGroupName":"ならナビ","tvSeriesGroupName":"ならナビ","seriesNameTemp":"ならナビ845","tvSeriesNameTemp":"ならナビ845"},"url":"https://dev-www.nhk.jp/p/ts/6L1LQ41GW3/","canonical":"https://dev-www.nhk.jp/p/ts/6L1LQ41GW3/","description":"","logo":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/6L1LQ41GW3/6L1LQ41GW3-logo_d3bd76301dc5c95df4be94949905eeec.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/6L1LQ41GW3/6L1LQ41GW3-logo_b00dff875ba52d677afb63b6d60f27e3.jpg","width":640,"height":640}},"eyecatch":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/6L1LQ41GW3/6L1LQ41GW3-eyecatch_c022da86589b5d316ba6e63a19faaa1c.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/6L1LQ41GW3/6L1LQ41GW3-eyecatch_3004ddb339860ba98900cc05318e307c.jpg","width":928,"height":522},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/6L1LQ41GW3/6L1LQ41GW3-eyecatch_299f79802f2ffd541cd007c914898c8e.jpg","width":640,"height":360}},"hero":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/6L1LQ41GW3/6L1LQ41GW3-hero_d68e13a2c8f91ab62260eb515fa669ef.jpg","width":1920,"height":640},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/6L1LQ41GW3/6L1LQ41GW3-hero_cb728275e5ecf6aaff380e967c45c960.jpg","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#005AFF","linkDark":"#4788FF","primaryLight":"#005AFF","primaryDark":"#0B61FF"},"additionalProperty":{"publishLevel":"notyet","layoutPattern":"summary","episodeOrderBy":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[],"seriesPackStatus":"notPacked"}},"releasedEvent":{"id":"g1-290-2022060136430","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedRecentEvent":{"id":"g1-290-2022060136430","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedComingEvent":{"id":"g1-290-2022060136430","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"keyvisuals":[],"videos":[{"name":"ならナビ８４５","description":"","url":"https://tools.media.nr.nhk.jp/player/player.html?stream_id=g1-290-2022060136430","embedUrl":"https://tools.media.nr.nhk.jp/player/embed.html?stream_id=g1-290-2022060136430","identifierGroup":{"environmentId":"okushibu","broadcastEventId":"g1-290-2022060136430","streamType":"vod"},"detailedContentStatus":{"environmentId":"okushibu","streamType":"vod","contentStatus":"notyet"},"detailedContent":[],"broadcastEvent":{"type":"BroadcastEvent","id":"g1-290-2022060136430","name":"ならナビ８４５","description":"","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","location":{"id":"205","name":"奈良"},"identifierGroup":{"broadcastEventId":"g1-290-2022060136430","episodeId":"BK47VL6YMQ","tvEpisodeId":"BK47VL6YMQ","episodeName":"2022年6月1日","tvEpisodeName":"2022年6月1日","seriesId":"6L1LQ41GW3","tvSeriesId":"6L1LQ41GW3","seriesName":"ならナビ845","tvSeriesName":"ならナビ845","serviceId":"g1","areaId":"290","stationId":"205","date":"2022-06-01","eventId":"36430","genres":[{"id":"0009","name1":"ニュース/報道","name2":"ローカル・地域"}],"code7":"8105510","code11":"81050151001","code15":"205081050151001","code21":"205081050151001002411","onid":"7d30","sid":"b000","tsid":"7d30"},"misc":{"displayVideoMode":"none","displayVideoRange":"sdr","displayAudioMode":[],"audioMode":[],"supportCaption":false,"supportSign":false,"supportHybridcast":false,"supportDataBroadcast":false,"isInteractive":false,"isChangeable":false,"releaseLevel":"original","programType":"program","coverage":"local","actList":[],"musicList":[],"eventShareStatus":"parent","icisExtended":{"eizo":"3","gashitsu":"1","kido":"0","henonsei":"01","onseiadd":"0","mojiadd":"0","shuwa":"0","hybridcast":"0","rendo1":"0","sohoko":"0","usernible":[],"ytstatus":"1","dojihaishin":"2","hayamodoshi":"2","minogashi":"2","nod":"2","hensaiho":"0","saiho":"0","saifuyo":"0","honyo":"0","hontext":"","bangumi1":"ならナビ８４５","bangumi2":"","kshikimei":"","marume":"0","tsukubun":"0","teitsu":"0","bantype":"01","sozai":"04","keito":"21","hkyoku":"205","henhani":"1","netout":"0","ekyoyu":"210","koshinbi":"20220614013445","act":"","music":"","free":"","oshirase":""},"hsk":{"passedStartDateTime":"2022-06-01T21:00:00+09:00","passedEndDateTime":"2022-06-08T21:00:00+09:00","passedDeliveryPeriod":"604800","passedLength":"00:15:00","newsXmlUrl":"","updateDateTime":"2022-05-24T17:15:33+09:00"},"hskExtended":{"systemUniqueId":"290_g1_2022060136430","concurrentDelivery":"1","earlyBackDelivery":"1","passedDelivery":"1","nodDelivery":"1","earlyBackDeliveryReusableFlag":"","passedType":"","genbanEditFlag":"","genbanCaptionFlag":"","posterframeImageUrl":"","qfFlag":"","qfProgramName":"","passedDeliveryReadyableFlag":"","programKind":"","flowCode":"","audioMode1":"","audioMode2":"","marumeId":"","eventShareGtv":"","eventShareGtvSub":"","eventShareEtv":"","eventShareEtvSub":""},"playControlSimul":false,"playControlDVR":false,"playControlVOD":false,"playControlMulti":null,"publishedPeriodFrom":"2022-06-01T21:00:00+09:00","publishedPeriodTo":"2022-06-08T21:00:00+09:00"},"isLiveBroadcast":false,"detailedDescriptions":{"epg40":"ならナビ８４５","epg80":"▽関西と奈良県のニュース・気象情報","epgInformation":"","epg200":""},"duration":"PT15M","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","broadcastDisplayName":"NHK総合1・奈良","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","areaId":"290","areaName":"奈良","channelId":"011","channelKey":"1","channelAreaName":"奈良","channelStationName":"奈良","shortenedName":"NHK総合1","shortenedDisplayName":"総合","multiChannelDisplayName":"総合メイン"}},"posterframes":[]}}],"citations":[],"url":"https://dev-www.nhk.jp/p/ts/6L1LQ41GW3/episode/te/BK47VL6YMQ/","canonical":"https://dev-www.nhk.jp/p/ts/6L1LQ41GW3/episode/te/BK47VL6YMQ/","sameAs":[],"detailedMemo":[]},{"type":"TVEpisode","id":"8XNVYYQ4V1","name":"2022年6月1日","identifierGroup":{"episodeId":"8XNVYYQ4V1","tvEpisodeId":"8XNVYYQ4V1","seriesId":"NY35M76LNW","tvSeriesId":"NY35M76LNW","episodeName":"2022年6月1日","tvEpisodeName":"2022年6月1日","seriesName":"わかやま845","tvSeriesName":"わかやま845","hashtag":[],"serviceId":["g1","g2"],"formatGenreTag":[{"id":"01","name":"報道"}],"themeGenreTag":[{"id":"014","name":"地域"}]},"identifierGroupEx":{"seriesGroupId":"EJ3WK8XRJP","tvSeriesGroupId":"EJ3WK8XRJP","seriesGroupName":"わかやま845","tvSeriesGroupName":"わかやま845","episodeNameTemp":"2022年6月1日","tvEpisodeNameTemp":"2022年6月1日","seriesNameTemp":"わかやま845","tvSeriesNameTemp":"わかやま845","releasedEventIdTemp":"g1-300-2022060136429","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2022-06-01T20:45:00+09:00","releasedEventEndDateTemp":"2022-06-01T21:00:00+09:00"},"keywords":[],"description":"▽和歌山県のニュース　▽県内各地の気象情報","dateCreated":"2022-05-15T08:36:12+09:00","dateModified":"2022-05-25T09:06:42+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"NY35M76LNW","name":"わかやま845","identifierGroup":{"seriesId":"NY35M76LNW","tvSeriesId":"NY35M76LNW","seriesName":"わかやま845","tvSeriesName":"わかやま845","hashtag":[],"serviceId":["g1","g2"]},"identifierGroupEx":{"seriesGroupId":"EJ3WK8XRJP","tvSeriesGroupId":"EJ3WK8XRJP","seriesGroupName":"わかやま845","tvSeriesGroupName":"わかやま845","seriesNameTemp":"わかやま845","tvSeriesNameTemp":"わかやま845"},"url":"https://dev-www.nhk.jp/p/ts/NY35M76LNW/","canonical":"https://dev-www.nhk.jp/p/ts/NY35M76LNW/","description":"","logo":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/NY35M76LNW/NY35M76LNW-logo_ef9bea268c305bbd23fa36336bb3e5f7.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/NY35M76LNW/NY35M76LNW-logo_48dc7adb84278447e02e73505f144441.jpg","width":640,"height":640}},"eyecatch":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/NY35M76LNW/NY35M76LNW-eyecatch_c4352ac0c8b223031aa68b1f43424a8e.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/NY35M76LNW/NY35M76LNW-eyecatch_e993dbf8a8e9b7a0a2c22e875f042825.jpg","width":928,"height":522},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/NY35M76LNW/NY35M76LNW-eyecatch_58431cb36073e24e2407c0eaf08acd94.jpg","width":640,"height":360}},"hero":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/NY35M76LNW/NY35M76LNW-hero_3fbb27c062a712583fd8915319ae8d67.jpg","width":1920,"height":640},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/NY35M76LNW/NY35M76LNW-hero_ba9c77db0883b2112edd7ab36d245e46.jpg","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#E72400","linkDark":"#FF4928","primaryLight":"#FF2800","primaryDark":"#FF2800"},"additionalProperty":{"publishLevel":"notyet","layoutPattern":"summary","episodeOrderBy":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[],"seriesPackStatus":"notPacked"}},"releasedEvent":{"id":"g1-300-2022060136429","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedRecentEvent":{"id":"g1-300-2022060136429","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedComingEvent":{"id":"g1-300-2022060136429","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"keyvisuals":[],"videos":[{"name":"わかやま８４５","description":"","url":"https://tools.media.nr.nhk.jp/player/player.html?stream_id=g1-300-2022060136429","embedUrl":"https://tools.media.nr.nhk.jp/player/embed.html?stream_id=g1-300-2022060136429","identifierGroup":{"environmentId":"okushibu","broadcastEventId":"g1-300-2022060136429","streamType":"vod"},"detailedContentStatus":{"environmentId":"okushibu","streamType":"vod","contentStatus":"notyet"},"detailedContent":[],"broadcastEvent":{"type":"BroadcastEvent","id":"g1-300-2022060136429","name":"わかやま８４５","description":"","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","location":{"id":"204","name":"和歌山"},"identifierGroup":{"broadcastEventId":"g1-300-2022060136429","episodeId":"8XNVYYQ4V1","tvEpisodeId":"8XNVYYQ4V1","episodeName":"2022年6月1日","tvEpisodeName":"2022年6月1日","seriesId":"NY35M76LNW","tvSeriesId":"NY35M76LNW","seriesName":"わかやま845","tvSeriesName":"わかやま845","serviceId":"g1","areaId":"300","stationId":"204","date":"2022-06-01","eventId":"36429","genres":[{"id":"0009","name1":"ニュース/報道","name2":"ローカル・地域"},{"id":"0001","name1":"ニュース/報道","name2":"天気"},{"id":"0000","name1":"ニュース/報道","name2":"定時・総合"}],"code7":"8105500","code11":"81050150001","code15":"204081050150001","code21":"204081050150001001273","onid":"7d40","sid":"ac00","tsid":"7d40"},"misc":{"displayVideoMode":"none","displayVideoRange":"sdr","displayAudioMode":[],"audioMode":[],"supportCaption":false,"supportSign":false,"supportHybridcast":false,"supportDataBroadcast":false,"isInteractive":false,"isChangeable":false,"releaseLevel":"original","programType":"program","coverage":"local","actList":[],"musicList":[],"eventShareStatus":"parent","icisExtended":{"eizo":"3","gashitsu":"1","kido":"0","henonsei":"01","onseiadd":"0","mojiadd":"0","shuwa":"0","hybridcast":"0","rendo1":"0","sohoko":"0","usernible":[],"ytstatus":"1","dojihaishin":"2","hayamodoshi":"2","minogashi":"2","nod":"2","hensaiho":"0","saiho":"0","saifuyo":"0","honyo":"0","hontext":"","bangumi1":"わかやま８４５","bangumi2":"","kshikimei":"","marume":"0","tsukubun":"0","teitsu":"0","bantype":"01","sozai":"04","keito":"21","hkyoku":"204","henhani":"1","netout":"0","ekyoyu":"210","koshinbi":"20220614012436","act":"","music":"","free":"","oshirase":""},"hsk":{"passedStartDateTime":"2022-06-01T21:00:00+09:00","passedEndDateTime":"2022-06-08T21:00:00+09:00","passedDeliveryPeriod":"604800","passedLength":"00:15:00","newsXmlUrl":"","updateDateTime":"2022-05-24T17:15:34+09:00"},"hskExtended":{"systemUniqueId":"300_g1_2022060136429","concurrentDelivery":"1","earlyBackDelivery":"1","passedDelivery":"1","nodDelivery":"1","earlyBackDeliveryReusableFlag":"","passedType":"","genbanEditFlag":"","genbanCaptionFlag":"","posterframeImageUrl":"","qfFlag":"","qfProgramName":"","passedDeliveryReadyableFlag":"","programKind":"","flowCode":"","audioMode1":"","audioMode2":"","marumeId":"","eventShareGtv":"","eventShareGtvSub":"","eventShareEtv":"","eventShareEtvSub":""},"playControlSimul":false,"playControlDVR":false,"playControlVOD":false,"playControlMulti":null,"publishedPeriodFrom":"2022-06-01T21:00:00+09:00","publishedPeriodTo":"2022-06-08T21:00:00+09:00"},"isLiveBroadcast":false,"detailedDescriptions":{"epg40":"わかやま８４５","epg80":"▽和歌山県のニュース　▽県内各地の気象情報","epgInformation":"","epg200":""},"duration":"PT15M","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","broadcastDisplayName":"NHK総合1・和歌山","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","areaId":"300","areaName":"和歌山","channelId":"011","channelKey":"1","channelAreaName":"和歌山","channelStationName":"和歌山","shortenedName":"NHK総合1","shortenedDisplayName":"総合","multiChannelDisplayName":"総合メイン"}},"posterframes":[]}}],"citations":[],"url":"https://dev-www.nhk.jp/p/ts/NY35M76LNW/episode/te/8XNVYYQ4V1/","canonical":"https://dev-www.nhk.jp/p/ts/NY35M76LNW/episode/te/8XNVYYQ4V1/","sameAs":[],"detailedMemo":[]},{"type":"TVEpisode","id":"VPJ5YN8WGX","name":"2022年6月1日","identifierGroup":{"episodeId":"VPJ5YN8WGX","tvEpisodeId":"VPJ5YN8WGX","seriesId":"MXP9P7NLY4","tvSeriesId":"MXP9P7NLY4","episodeName":"2022年6月1日","tvEpisodeName":"2022年6月1日","seriesName":"情報維新!やまぐち845","tvSeriesName":"情報維新!やまぐち845","hashtag":[],"serviceId":["g1","g2"],"formatGenreTag":[{"id":"01","name":"報道"}],"themeGenreTag":[{"id":"014","name":"地域"}]},"identifierGroupEx":{"seriesGroupId":"3P84LGYGQP","tvSeriesGroupId":"3P84LGYGQP","seriesGroupName":"情報維新!やまぐち","tvSeriesGroupName":"情報維新!やまぐち","episodeNameTemp":"2022年6月1日","tvEpisodeNameTemp":"2022年6月1日","seriesNameTemp":"情報維新!やまぐち845","tvSeriesNameTemp":"情報維新!やまぐち845","releasedEventIdTemp":"g1-350-2022060136439","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2022-06-01T20:45:00+09:00","releasedEventEndDateTemp":"2022-06-01T21:00:00+09:00"},"keywords":[],"description":"▽今日の県内ニュース　▽気象情報","dateCreated":"2022-05-15T08:35:35+09:00","dateModified":"2022-05-25T09:07:18+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"MXP9P7NLY4","name":"情報維新!やまぐち845","identifierGroup":{"seriesId":"MXP9P7NLY4","tvSeriesId":"MXP9P7NLY4","seriesName":"情報維新!やまぐち845","tvSeriesName":"情報維新!やまぐち845","hashtag":[],"serviceId":["g1","g2"]},"identifierGroupEx":{"seriesGroupId":"3P84LGYGQP","tvSeriesGroupId":"3P84LGYGQP","seriesGroupName":"情報維新!やまぐち","tvSeriesGroupName":"情報維新!やまぐち","seriesNameTemp":"情報維新!やまぐち845","tvSeriesNameTemp":"情報維新!やまぐち845"},"url":"https://dev-www.nhk.jp/p/ts/MXP9P7NLY4/","canonical":"https://dev-www.nhk.jp/p/ts/MXP9P7NLY4/","description":"","logo":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/MXP9P7NLY4/MXP9P7NLY4-logo_2f25bba0a92135eedb197a8b6de2ee94.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/MXP9P7NLY4/MXP9P7NLY4-logo_793ba11e245f79d93a5dd548eff68af7.jpg","width":640,"height":640}},"eyecatch":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/MXP9P7NLY4/MXP9P7NLY4-eyecatch_6e2baa7ca00e99de6b6112f2462346a0.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/MXP9P7NLY4/MXP9P7NLY4-eyecatch_5586663b4611ec93b8f3cd480335ec9d.jpg","width":928,"height":522},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/MXP9P7NLY4/MXP9P7NLY4-eyecatch_857b446c9244f9fec33e089202152d85.jpg","width":640,"height":360}},"hero":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/MXP9P7NLY4/MXP9P7NLY4-hero_e1e743bf82596e45af20a0fcc31c76bf.jpg","width":1920,"height":640},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/MXP9P7NLY4/MXP9P7NLY4-hero_da5a29e491254db2de6de7ba095d3775.jpg","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#6D7883","linkDark":"#84919E","primaryLight":"#84919E","primaryDark":"#84919E"},"additionalProperty":{"publishLevel":"notyet","layoutPattern":"summary","episodeOrderBy":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[],"seriesPackStatus":"notPacked"}},"releasedEvent":{"id":"g1-350-2022060136439","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedRecentEvent":{"id":"g1-350-2022060136439","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedComingEvent":{"id":"g1-350-2022060136439","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"keyvisuals":[],"videos":[{"name":"情報維新！やまぐち８４５","description":"","url":"https://tools.media.nr.nhk.jp/player/player.html?stream_id=g1-350-2022060136439","embedUrl":"https://tools.media.nr.nhk.jp/player/embed.html?stream_id=g1-350-2022060136439","identifierGroup":{"environmentId":"okushibu","broadcastEventId":"g1-350-2022060136439","streamType":"vod"},"detailedContentStatus":{"environmentId":"okushibu","streamType":"vod","contentStatus":"notyet"},"detailedContent":[],"broadcastEvent":{"type":"BroadcastEvent","id":"g1-350-2022060136439","name":"情報維新！やまぐち８４５","description":"","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","location":{"id":"406","name":"山口"},"identifierGroup":{"broadcastEventId":"g1-350-2022060136439","episodeId":"VPJ5YN8WGX","tvEpisodeId":"VPJ5YN8WGX","episodeName":"2022年6月1日","tvEpisodeName":"2022年6月1日","seriesId":"MXP9P7NLY4","tvSeriesId":"MXP9P7NLY4","seriesName":"情報維新!やまぐち845","tvSeriesName":"情報維新!やまぐち845","serviceId":"g1","areaId":"350","stationId":"406","date":"2022-06-01","eventId":"36439","genres":[{"id":"0009","name1":"ニュース/報道","name2":"ローカル・地域"},{"id":"0001","name1":"ニュース/報道","name2":"天気"}],"code7":"8105503","code11":"81050150301","code15":"406081050150301","code21":"406081050150301001143","onid":"7cd0","sid":"c800","tsid":"7cd0"},"misc":{"displayVideoMode":"none","displayVideoRange":"sdr","displayAudioMode":[],"audioMode":[],"supportCaption":false,"supportSign":false,"supportHybridcast":false,"supportDataBroadcast":false,"isInteractive":false,"isChangeable":false,"releaseLevel":"original","programType":"program","coverage":"local","actList":[],"musicList":[],"eventShareStatus":"parent","icisExtended":{"eizo":"3","gashitsu":"1","kido":"0","henonsei":"01","onseiadd":"0","mojiadd":"0","shuwa":"0","hybridcast":"0","rendo1":"0","sohoko":"0","usernible":[],"ytstatus":"1","dojihaishin":"2","hayamodoshi":"2","minogashi":"2","nod":"2","hensaiho":"0","saiho":"0","saifuyo":"0","honyo":"0","hontext":"","bangumi1":"情報維新！やまぐち８４５","bangumi2":"","kshikimei":"","marume":"0","tsukubun":"0","teitsu":"0","bantype":"01","sozai":"04","keito":"21","hkyoku":"406","henhani":"1","netout":"0","ekyoyu":"210","koshinbi":"20220614012442","act":"","music":"","free":"","oshirase":""},"hsk":{"passedStartDateTime":"2022-06-01T21:00:00+09:00","passedEndDateTime":"2022-06-08T21:00:00+09:00","passedDeliveryPeriod":"604800","passedLength":"00:15:00","newsXmlUrl":"","updateDateTime":"2022-05-24T17:26:10+09:00"},"hskExtended":{"systemUniqueId":"350_g1_2022060136439","concurrentDelivery":"1","earlyBackDelivery":"1","passedDelivery":"1","nodDelivery":"1","earlyBackDeliveryReusableFlag":"","passedType":"","genbanEditFlag":"","genbanCaptionFlag":"","posterframeImageUrl":"","qfFlag":"","qfProgramName":"","passedDeliveryReadyableFlag":"","programKind":"","flowCode":"","audioMode1":"","audioMode2":"","marumeId":"","eventShareGtv":"","eventShareGtvSub":"","eventShareEtv":"","eventShareEtvSub":""},"playControlSimul":false,"playControlDVR":false,"playControlVOD":false,"playControlMulti":null,"publishedPeriodFrom":"2022-06-01T21:00:00+09:00","publishedPeriodTo":"2022-06-08T21:00:00+09:00"},"isLiveBroadcast":false,"detailedDescriptions":{"epg40":"情報維新！やまぐち８４５","epg80":"▽今日の県内ニュース　▽気象情報","epgInformation":"","epg200":""},"duration":"PT15M","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","broadcastDisplayName":"NHK総合1・山口","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","areaId":"350","areaName":"山口","channelId":"011","channelKey":"1","channelAreaName":"山口","channelStationName":"山口","shortenedName":"NHK総合1","shortenedDisplayName":"総合","multiChannelDisplayName":"総合メイン"}},"posterframes":[]}}],"citations":[],"url":"https://dev-www.nhk.jp/p/ts/MXP9P7NLY4/episode/te/VPJ5YN8WGX/","canonical":"https://dev-www.nhk.jp/p/ts/MXP9P7NLY4/episode/te/VPJ5YN8WGX/","sameAs":[],"detailedMemo":[]},{"type":"TVEpisode","id":"N3QXP491X7","name":"2022年6月1日","identifierGroup":{"episodeId":"N3QXP491X7","tvEpisodeId":"N3QXP491X7","seriesId":"LW4LP4637X","tvSeriesId":"LW4LP4637X","episodeName":"2022年6月1日","tvEpisodeName":"2022年6月1日","seriesName":"ゆう6かがわ845","tvSeriesName":"ゆう6かがわ845","hashtag":[],"serviceId":["g1","g2"],"formatGenreTag":[{"id":"01","name":"報道"}],"themeGenreTag":[{"id":"014","name":"地域"}]},"identifierGroupEx":{"seriesGroupId":"QZ8L67Y157","tvSeriesGroupId":"QZ8L67Y157","seriesGroupName":"ゆう6かがわ","tvSeriesGroupName":"ゆう6かがわ","episodeNameTemp":"2022年6月1日","tvEpisodeNameTemp":"2022年6月1日","seriesNameTemp":"ゆう6かがわ845","tvSeriesNameTemp":"ゆう6かがわ845","releasedEventIdTemp":"g1-370-2022060136458","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2022-06-01T20:45:00+09:00","releasedEventEndDateTemp":"2022-06-01T21:00:00+09:00"},"keywords":[],"description":"▽きょうのニュース・気象情報","dateCreated":"2022-05-15T08:34:50+09:00","dateModified":"2022-05-25T09:06:38+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"LW4LP4637X","name":"ゆう6かがわ845","identifierGroup":{"seriesId":"LW4LP4637X","tvSeriesId":"LW4LP4637X","seriesName":"ゆう6かがわ845","tvSeriesName":"ゆう6かがわ845","hashtag":[],"serviceId":["g1","g2"]},"identifierGroupEx":{"seriesGroupId":"QZ8L67Y157","tvSeriesGroupId":"QZ8L67Y157","seriesGroupName":"ゆう6かがわ","tvSeriesGroupName":"ゆう6かがわ","seriesNameTemp":"ゆう6かがわ845","tvSeriesNameTemp":"ゆう6かがわ845"},"url":"https://dev-www.nhk.jp/p/ts/LW4LP4637X/","canonical":"https://dev-www.nhk.jp/p/ts/LW4LP4637X/","description":"ゆう6かがわ845\n2022年4月4日放送開始（予定）の番組シリーズです","logo":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/LW4LP4637X/LW4LP4637X-logo_5a4a0d4336c5e5eda6d6184a2702bcaa.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/LW4LP4637X/LW4LP4637X-logo_cd3fc9bca01e1a1b8436b4fc08b23162.jpg","width":640,"height":640}},"eyecatch":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/LW4LP4637X/LW4LP4637X-eyecatch_ee788d9024e7fc8e012992a4b1c6e212.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/LW4LP4637X/LW4LP4637X-eyecatch_879a63be6200cee9ecd1ba0f3ff13563.jpg","width":928,"height":522},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/LW4LP4637X/LW4LP4637X-eyecatch_ecb99c684f228c3d0da81596b5a3b5e9.jpg","width":640,"height":360}},"hero":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/LW4LP4637X/LW4LP4637X-hero_27645ef7401e0c2b53e7a7b504557942.jpg","width":1920,"height":640},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/LW4LP4637X/LW4LP4637X-hero_a40b059269f05a7867dd49dba6c4b5ac.jpg","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#005AFF","linkDark":"#4788FF","primaryLight":"#005AFF","primaryDark":"#0B61FF"},"additionalProperty":{"publishLevel":"notyet","layoutPattern":"summary","episodeOrderBy":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[],"seriesPackStatus":"notPacked"}},"releasedEvent":{"id":"g1-370-2022060136458","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedRecentEvent":{"id":"g1-370-2022060136458","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedComingEvent":{"id":"g1-370-2022060136458","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"keyvisuals":[],"videos":[{"name":"ゆう６かがわ８４５","description":"","url":"https://tools.media.nr.nhk.jp/player/player.html?stream_id=g1-370-2022060136458","embedUrl":"https://tools.media.nr.nhk.jp/player/embed.html?stream_id=g1-370-2022060136458","identifierGroup":{"environmentId":"okushibu","broadcastEventId":"g1-370-2022060136458","streamType":"vod"},"detailedContentStatus":{"environmentId":"okushibu","streamType":"vod","contentStatus":"notyet"},"detailedContent":[],"broadcastEvent":{"type":"BroadcastEvent","id":"g1-370-2022060136458","name":"ゆう６かがわ８４５","description":"","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","location":{"id":"803","name":"高松"},"identifierGroup":{"broadcastEventId":"g1-370-2022060136458","episodeId":"N3QXP491X7","tvEpisodeId":"N3QXP491X7","episodeName":"2022年6月1日","tvEpisodeName":"2022年6月1日","seriesId":"LW4LP4637X","tvSeriesId":"LW4LP4637X","seriesName":"ゆう6かがわ845","tvSeriesName":"ゆう6かがわ845","serviceId":"g1","areaId":"370","stationId":"803","date":"2022-06-01","eventId":"36458","genres":[{"id":"0009","name1":"ニュース/報道","name2":"ローカル・地域"}],"code7":"8105511","code11":"81050151101","code15":"803081050151101","code21":"803081050151101001574","onid":"7cb0","sid":"d000","tsid":"7cb0"},"misc":{"displayVideoMode":"none","displayVideoRange":"sdr","displayAudioMode":[],"audioMode":[],"supportCaption":false,"supportSign":false,"supportHybridcast":false,"supportDataBroadcast":false,"isInteractive":false,"isChangeable":false,"releaseLevel":"original","programType":"program","coverage":"local","actList":[],"musicList":[],"eventShareStatus":"parent","icisExtended":{"eizo":"3","gashitsu":"1","kido":"0","henonsei":"01","onseiadd":"0","mojiadd":"0","shuwa":"0","hybridcast":"0","rendo1":"0","sohoko":"0","usernible":[],"ytstatus":"1","dojihaishin":"2","hayamodoshi":"2","minogashi":"2","nod":"2","hensaiho":"0","saiho":"0","saifuyo":"0","honyo":"0","hontext":"","bangumi1":"ゆう６かがわ８４５","bangumi2":"","kshikimei":"","marume":"0","tsukubun":"0","teitsu":"0","bantype":"01","sozai":"04","keito":"21","hkyoku":"803","henhani":"1","netout":"0","ekyoyu":"210","koshinbi":"20220614012455","act":"","music":"","free":"","oshirase":""},"hsk":{"passedStartDateTime":"2022-06-01T21:00:00+09:00","passedEndDateTime":"2022-06-08T21:00:00+09:00","passedDeliveryPeriod":"604800","passedLength":"00:15:00","newsXmlUrl":"","updateDateTime":"2022-05-24T17:26:54+09:00"},"hskExtended":{"systemUniqueId":"370_g1_2022060136458","concurrentDelivery":"1","earlyBackDelivery":"1","passedDelivery":"1","nodDelivery":"1","earlyBackDeliveryReusableFlag":"","passedType":"","genbanEditFlag":"","genbanCaptionFlag":"","posterframeImageUrl":"","qfFlag":"","qfProgramName":"","passedDeliveryReadyableFlag":"","programKind":"","flowCode":"","audioMode1":"","audioMode2":"","marumeId":"","eventShareGtv":"","eventShareGtvSub":"","eventShareEtv":"","eventShareEtvSub":""},"playControlSimul":false,"playControlDVR":false,"playControlVOD":false,"playControlMulti":null,"publishedPeriodFrom":"2022-06-01T21:00:00+09:00","publishedPeriodTo":"2022-06-08T21:00:00+09:00"},"isLiveBroadcast":false,"detailedDescriptions":{"epg40":"ゆう６かがわ８４５","epg80":"▽きょうのニュース・気象情報","epgInformation":"","epg200":""},"duration":"PT15M","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","broadcastDisplayName":"NHK総合1・高松","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","areaId":"370","areaName":"高松","channelId":"011","channelKey":"1","channelAreaName":"高松","channelStationName":"高松","shortenedName":"NHK総合1","shortenedDisplayName":"総合","multiChannelDisplayName":"総合メイン"}},"posterframes":[]}}],"citations":[],"url":"https://dev-www.nhk.jp/p/ts/LW4LP4637X/episode/te/N3QXP491X7/","canonical":"https://dev-www.nhk.jp/p/ts/LW4LP4637X/episode/te/N3QXP491X7/","sameAs":[],"detailedMemo":[]},{"type":"TVEpisode","id":"Z5RRXQVW3K","name":"2022年6月1日午後0:15","identifierGroup":{"episodeId":"Z5RRXQVW3K","tvEpisodeId":"Z5RRXQVW3K","seriesId":"1YQVRNJW23","tvSeriesId":"1YQVRNJW23","episodeName":"2022年6月1日午後0:15","tvEpisodeName":"2022年6月1日午後0:15","seriesName":"ニュース(岡山)","tvSeriesName":"ニュース(岡山)","hashtag":[],"serviceId":["g1","g2"],"formatGenreTag":[{"id":"01","name":"報道"}],"themeGenreTag":[{"id":"014","name":"地域"}]},"identifierGroupEx":{"seriesGroupId":"91L91374N9","tvSeriesGroupId":"91L91374N9","seriesGroupName":"ニュース(岡山)","tvSeriesGroupName":"ニュース(岡山)","episodeNameTemp":"2022年6月1日午後0:15","tvEpisodeNameTemp":"2022年6月1日午後0:15","seriesNameTemp":"ニュース(岡山)","tvSeriesNameTemp":"ニュース(岡山)","releasedEventIdTemp":"g1-330-2022060136377","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2022-06-01T12:15:00+09:00","releasedEventEndDateTemp":"2022-06-01T12:20:00+09:00"},"keywords":[],"description":"","dateCreated":"2022-05-15T08:35:12+09:00","dateModified":"2022-05-25T09:06:44+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"1YQVRNJW23","name":"ニュース(岡山)","identifierGroup":{"seriesId":"1YQVRNJW23","tvSeriesId":"1YQVRNJW23","seriesName":"ニュース(岡山)","tvSeriesName":"ニュース(岡山)","hashtag":[],"serviceId":["g1","g2"]},"identifierGroupEx":{"seriesGroupId":"91L91374N9","tvSeriesGroupId":"91L91374N9","seriesGroupName":"ニュース(岡山)","tvSeriesGroupName":"ニュース(岡山)","seriesNameTemp":"ニュース(岡山)","tvSeriesNameTemp":"ニュース(岡山)"},"url":"https://dev-www.nhk.jp/p/ts/1YQVRNJW23/","canonical":"https://dev-www.nhk.jp/p/ts/1YQVRNJW23/","description":"ニュース(岡山)\n2022年4月4日放送開始（予定）の番組シリーズです","logo":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/1YQVRNJW23/1YQVRNJW23-logo_7d777969ae93b16d10c10368365faa44.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/1YQVRNJW23/1YQVRNJW23-logo_5442bedef711164ee64a134f3561573e.jpg","width":640,"height":640}},"eyecatch":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/1YQVRNJW23/1YQVRNJW23-eyecatch_4627a09e5d0c474e7331ebd0fd56d254.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/1YQVRNJW23/1YQVRNJW23-eyecatch_bd7024a53960f2fe5f40f989b597f481.jpg","width":928,"height":522},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/1YQVRNJW23/1YQVRNJW23-eyecatch_03e3675a27dc6b8c40cc1ac55d62fd4a.jpg","width":640,"height":360}},"hero":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/1YQVRNJW23/1YQVRNJW23-hero_d69186f393bc856e845b3cf9deec1749.jpg","width":1920,"height":640},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/1YQVRNJW23/1YQVRNJW23-hero_02ac2d29113ac26304afa57991af6153.jpg","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#7E7A00","linkDark":"#FAF100","primaryLight":"#9E9900","primaryDark":"#FAF100"},"additionalProperty":{"publishLevel":"notyet","layoutPattern":"summary","episodeOrderBy":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[],"seriesPackStatus":"notPacked"}},"releasedEvent":{"id":"g1-330-2022060136377","startDate":"2022-06-01T12:15:00+09:00","endDate":"2022-06-01T12:20:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedRecentEvent":{"id":"g1-330-2022060136377","startDate":"2022-06-01T12:15:00+09:00","endDate":"2022-06-01T12:20:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedComingEvent":{"id":"g1-330-2022060136377","startDate":"2022-06-01T12:15:00+09:00","endDate":"2022-06-01T12:20:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"keyvisuals":[],"videos":[{"name":"岡山県のニュース","description":"","url":"https://tools.media.nr.nhk.jp/player/player.html?stream_id=g1-330-2022060136377","embedUrl":"https://tools.media.nr.nhk.jp/player/embed.html?stream_id=g1-330-2022060136377","identifierGroup":{"environmentId":"okushibu","broadcastEventId":"g1-330-2022060136377","streamType":"vod"},"detailedContentStatus":{"environmentId":"okushibu","streamType":"vod","contentStatus":"notyet"},"detailedContent":[],"broadcastEvent":{"type":"BroadcastEvent","id":"g1-330-2022060136377","name":"岡山県のニュース","description":"","startDate":"2022-06-01T12:15:00+09:00","endDate":"2022-06-01T12:20:00+09:00","location":{"id":"402","name":"岡山"},"identifierGroup":{"broadcastEventId":"g1-330-2022060136377","episodeId":"Z5RRXQVW3K","tvEpisodeId":"Z5RRXQVW3K","episodeName":"2022年6月1日午後0:15","tvEpisodeName":"2022年6月1日午後0:15","seriesId":"1YQVRNJW23","tvSeriesId":"1YQVRNJW23","seriesName":"ニュース(岡山)","tvSeriesName":"ニュース(岡山)","serviceId":"g1","areaId":"330","stationId":"402","date":"2022-06-01","eventId":"36377","genres":[{"id":"0000","name1":"ニュース/報道","name2":"定時・総合"},{"id":"0009","name1":"ニュース/報道","name2":"ローカル・地域"}],"code7":"8100568","code11":"81000256801","code15":"402081000256801","code21":"402081000256801001237","onid":"7d00","sid":"bc00","tsid":"7d00"},"misc":{"displayVideoMode":"none","displayVideoRange":"sdr","displayAudioMode":[],"audioMode":[],"supportCaption":false,"supportSign":false,"supportHybridcast":false,"supportDataBroadcast":false,"isInteractive":false,"isChangeable":false,"releaseLevel":"original","programType":"program","coverage":"local","actList":[],"musicList":[],"eventShareStatus":"parent","icisExtended":{"eizo":"3","gashitsu":"1","kido":"0","henonsei":"01","onseiadd":"0","mojiadd":"0","shuwa":"0","hybridcast":"0","rendo1":"0","sohoko":"0","usernible":[],"ytstatus":"1","dojihaishin":"2","hayamodoshi":"2","minogashi":"2","nod":"2","hensaiho":"0","saiho":"0","saifuyo":"1","honyo":"0","hontext":"","bangumi1":"ニュース（岡山）","bangumi2":"","kshikimei":"","marume":"0","tsukubun":"0","teitsu":"0","bantype":"01","sozai":"04","keito":"21","hkyoku":"402","henhani":"1","netout":"0","ekyoyu":"210","koshinbi":"20220614013450","act":"","music":"","free":"","oshirase":""},"hsk":{"passedStartDateTime":"2022-06-01T12:20:00+09:00","passedEndDateTime":"2022-06-08T12:20:00+09:00","passedDeliveryPeriod":"604800","passedLength":"00:05:00","newsXmlUrl":"","updateDateTime":"2022-05-24T17:15:29+09:00"},"hskExtended":{"systemUniqueId":"330_g1_2022060136377","concurrentDelivery":"1","earlyBackDelivery":"1","passedDelivery":"1","nodDelivery":"1","earlyBackDeliveryReusableFlag":"","passedType":"","genbanEditFlag":"","genbanCaptionFlag":"","posterframeImageUrl":"","qfFlag":"","qfProgramName":"","passedDeliveryReadyableFlag":"","programKind":"","flowCode":"","audioMode1":"","audioMode2":"","marumeId":"","eventShareGtv":"","eventShareGtvSub":"","eventShareEtv":"","eventShareEtvSub":""},"playControlSimul":false,"playControlDVR":false,"playControlVOD":false,"playControlMulti":null,"publishedPeriodFrom":"2022-06-01T12:20:00+09:00","publishedPeriodTo":"2022-06-08T12:20:00+09:00"},"isLiveBroadcast":false,"detailedDescriptions":{"epg40":"岡山県のニュース","epg80":"","epgInformation":"","epg200":""},"duration":"PT5M","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","broadcastDisplayName":"NHK総合1・岡山","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","areaId":"330","areaName":"岡山","channelId":"011","channelKey":"1","channelAreaName":"岡山","channelStationName":"岡山","shortenedName":"NHK総合1","shortenedDisplayName":"総合","multiChannelDisplayName":"総合メイン"}},"posterframes":[]}}],"citations":[],"url":"https://dev-www.nhk.jp/p/ts/1YQVRNJW23/episode/te/Z5RRXQVW3K/","canonical":"https://dev-www.nhk.jp/p/ts/1YQVRNJW23/episode/te/Z5RRXQVW3K/","sameAs":[],"detailedMemo":[]},{"type":"TVEpisode","id":"12K7QK4YL2","name":"2022年6月1日","identifierGroup":{"episodeId":"12K7QK4YL2","tvEpisodeId":"12K7QK4YL2","seriesId":"V24429N4JP","tvSeriesId":"V24429N4JP","episodeName":"2022年6月1日","tvEpisodeName":"2022年6月1日","seriesName":"おはよういわて","tvSeriesName":"おはよういわて","hashtag":[],"serviceId":["g1","g2"],"formatGenreTag":[{"id":"01","name":"報道"}],"themeGenreTag":[{"id":"014","name":"地域"}]},"identifierGroupEx":{"seriesGroupId":"1VV532ZJ4L","tvSeriesGroupId":"1VV532ZJ4L","seriesGroupName":"おはよういわて","tvSeriesGroupName":"おはよういわて","episodeNameTemp":"2022年6月1日","tvEpisodeNameTemp":"2022年6月1日","seriesNameTemp":"おはよういわて","tvSeriesNameTemp":"おはよういわて","releasedEventIdTemp":"g1-030-2022060136298","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2022-06-01T07:45:00+09:00","releasedEventEndDateTemp":"2022-06-01T08:00:00+09:00"},"keywords":[],"description":"","dateCreated":"2022-05-15T08:35:14+09:00","dateModified":"2022-05-25T09:07:01+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"V24429N4JP","name":"おはよういわて","identifierGroup":{"seriesId":"V24429N4JP","tvSeriesId":"V24429N4JP","seriesName":"おはよういわて","tvSeriesName":"おはよういわて","hashtag":[],"serviceId":["g1","g2"]},"identifierGroupEx":{"seriesGroupId":"1VV532ZJ4L","tvSeriesGroupId":"1VV532ZJ4L","seriesGroupName":"おはよういわて","tvSeriesGroupName":"おはよういわて","seriesNameTemp":"おはよういわて","tvSeriesNameTemp":"おはよういわて"},"url":"https://dev-www.nhk.jp/p/ts/V24429N4JP/","canonical":"https://dev-www.nhk.jp/p/ts/V24429N4JP/","description":"","logo":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/V24429N4JP/V24429N4JP-logo_9859e7d2e041882f127bdfc4fa1e1bab.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/V24429N4JP/V24429N4JP-logo_116959c9876371b136bf378b124d29dd.jpg","width":640,"height":640}},"eyecatch":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/V24429N4JP/V24429N4JP-eyecatch_47b7fd055d6ef17a042672e105d1365a.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/V24429N4JP/V24429N4JP-eyecatch_5fade3dd3675999dbc95943fee187e7b.jpg","width":928,"height":522},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/V24429N4JP/V24429N4JP-eyecatch_65ce62572c840e76d3245064c97b2042.jpg","width":640,"height":360}},"hero":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/V24429N4JP/V24429N4JP-hero_61235de17994cd2c24d8c2d84e1186ec.jpg","width":1920,"height":640},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/V24429N4JP/V24429N4JP-hero_1c9b2a21606b454bf5f62ce8e9102693.jpg","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#804000","linkDark":"#AD845B","primaryLight":"#804000","primaryDark":"#97632F"},"additionalProperty":{"publishLevel":"notyet","layoutPattern":"summary","episodeOrderBy":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[],"seriesPackStatus":"notPacked"}},"releasedEvent":{"id":"g1-030-2022060136298","startDate":"2022-06-01T07:45:00+09:00","endDate":"2022-06-01T08:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedRecentEvent":{"id":"g1-030-2022060136298","startDate":"2022-06-01T07:45:00+09:00","endDate":"2022-06-01T08:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedComingEvent":{"id":"g1-030-2022060136298","startDate":"2022-06-01T07:45:00+09:00","endDate":"2022-06-01T08:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"keyvisuals":[],"videos":[{"name":"おはよういわて","description":"","url":"https://tools.media.nr.nhk.jp/player/player.html?stream_id=g1-030-2022060136298","embedUrl":"https://tools.media.nr.nhk.jp/player/embed.html?stream_id=g1-030-2022060136298","identifierGroup":{"environmentId":"okushibu","broadcastEventId":"g1-030-2022060136298","streamType":"vod"},"detailedContentStatus":{"environmentId":"okushibu","streamType":"vod","contentStatus":"notyet"},"detailedContent":[],"broadcastEvent":{"type":"BroadcastEvent","id":"g1-030-2022060136298","name":"おはよういわて","description":"","startDate":"2022-06-01T07:45:00+09:00","endDate":"2022-06-01T08:00:00+09:00","location":{"id":"604","name":"盛岡"},"identifierGroup":{"broadcastEventId":"g1-030-2022060136298","episodeId":"12K7QK4YL2","tvEpisodeId":"12K7QK4YL2","episodeName":"2022年6月1日","tvEpisodeName":"2022年6月1日","seriesId":"V24429N4JP","tvSeriesId":"V24429N4JP","seriesName":"おはよういわて","tvSeriesName":"おはよういわて","serviceId":"g1","areaId":"030","stationId":"604","date":"2022-06-01","eventId":"36298","genres":[{"id":"0009","name1":"ニュース/報道","name2":"ローカル・地域"}],"code7":"8104984","code11":"81040398401","code15":"604081040398401","code21":"604081040398401002445","onid":"7eb0","sid":"5000","tsid":"7eb0"},"misc":{"displayVideoMode":"none","displayVideoRange":"sdr","displayAudioMode":[],"audioMode":[],"supportCaption":false,"supportSign":false,"supportHybridcast":false,"supportDataBroadcast":false,"isInteractive":false,"isChangeable":false,"releaseLevel":"original","programType":"program","coverage":"local","actList":[],"musicList":[],"eventShareStatus":"parent","icisExtended":{"eizo":"3","gashitsu":"1","kido":"0","henonsei":"01","onseiadd":"0","mojiadd":"0","shuwa":"0","hybridcast":"0","rendo1":"0","sohoko":"0","usernible":[],"ytstatus":"1","dojihaishin":"2","hayamodoshi":"2","minogashi":"2","nod":"2","hensaiho":"0","saiho":"0","saifuyo":"0","honyo":"0","hontext":"","bangumi1":"おはよういわて","bangumi2":"","kshikimei":"","marume":"0","tsukubun":"2","teitsu":"0","bantype":"01","sozai":"04","keito":"21","hkyoku":"604","henhani":"1","netout":"0","ekyoyu":"210","koshinbi":"20220614012449","act":"","music":"","free":"","oshirase":""},"hsk":{"passedStartDateTime":"2022-06-01T08:00:00+09:00","passedEndDateTime":"2022-06-08T08:00:00+09:00","passedDeliveryPeriod":"604800","passedLength":"00:15:00","newsXmlUrl":"","updateDateTime":"2022-05-24T17:15:36+09:00"},"hskExtended":{"systemUniqueId":"030_g1_2022060136298","concurrentDelivery":"1","earlyBackDelivery":"1","passedDelivery":"1","nodDelivery":"1","earlyBackDeliveryReusableFlag":"","passedType":"","genbanEditFlag":"","genbanCaptionFlag":"","posterframeImageUrl":"","qfFlag":"","qfProgramName":"","passedDeliveryReadyableFlag":"","programKind":"","flowCode":"","audioMode1":"","audioMode2":"","marumeId":"","eventShareGtv":"","eventShareGtvSub":"","eventShareEtv":"","eventShareEtvSub":""},"playControlSimul":false,"playControlDVR":false,"playControlVOD":false,"playControlMulti":null,"publishedPeriodFrom":"2022-06-01T08:00:00+09:00","publishedPeriodTo":"2022-06-08T08:00:00+09:00"},"isLiveBroadcast":false,"detailedDescriptions":{"epg40":"おはよういわて","epg80":"","epgInformation":"","epg200":""},"duration":"PT15M","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","broadcastDisplayName":"NHK総合1・盛岡","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","areaId":"030","areaName":"盛岡","channelId":"011","channelKey":"1","channelAreaName":"盛岡","channelStationName":"盛岡","shortenedName":"NHK総合1","shortenedDisplayName":"総合","multiChannelDisplayName":"総合メイン"}},"posterframes":[]}}],"citations":[],"url":"https://dev-www.nhk.jp/p/ts/V24429N4JP/episode/te/12K7QK4YL2/","canonical":"https://dev-www.nhk.jp/p/ts/V24429N4JP/episode/te/12K7QK4YL2/","sameAs":[],"detailedMemo":[]},{"type":"TVEpisode","id":"KQ2KQ2KRV9","name":"2022年6月1日","identifierGroup":{"episodeId":"KQ2KQ2KRV9","tvEpisodeId":"KQ2KQ2KRV9","seriesId":"XR88LXL384","tvSeriesId":"XR88LXL384","episodeName":"2022年6月1日","tvEpisodeName":"2022年6月1日","seriesName":"ニュース845北九州","tvSeriesName":"ニュース845北九州","hashtag":[],"serviceId":["g1","g2"],"formatGenreTag":[{"id":"01","name":"報道"}],"themeGenreTag":[{"id":"014","name":"地域"}]},"identifierGroupEx":{"seriesGroupId":"6158V4YR47","tvSeriesGroupId":"6158V4YR47","seriesGroupName":"ニュース845北九州","tvSeriesGroupName":"ニュース845北九州","episodeNameTemp":"2022年6月1日","tvEpisodeNameTemp":"2022年6月1日","seriesNameTemp":"ニュース845北九州","tvSeriesNameTemp":"ニュース845北九州","releasedEventIdTemp":"g1-401-2022060136442","releasedEventServiceIdTemp":"g1","releasedEventStartDateTemp":"2022-06-01T20:45:00+09:00","releasedEventEndDateTemp":"2022-06-01T21:00:00+09:00"},"keywords":[],"description":"▽ニュース　▽気象情報","dateCreated":"2022-05-15T08:36:08+09:00","dateModified":"2022-05-25T09:10:21+09:00","actors":[],"contributors":[],"partOfSeries":{"id":"XR88LXL384","name":"ニュース845北九州","identifierGroup":{"seriesId":"XR88LXL384","tvSeriesId":"XR88LXL384","seriesName":"ニュース845北九州","tvSeriesName":"ニュース845北九州","hashtag":[],"serviceId":["g1","g2"]},"identifierGroupEx":{"seriesGroupId":"6158V4YR47","tvSeriesGroupId":"6158V4YR47","seriesGroupName":"ニュース845北九州","tvSeriesGroupName":"ニュース845北九州","seriesNameTemp":"ニュース845北九州","tvSeriesNameTemp":"ニュース845北九州"},"url":"https://dev-www.nhk.jp/p/ts/XR88LXL384/","canonical":"https://dev-www.nhk.jp/p/ts/XR88LXL384/","description":"","logo":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/XR88LXL384/XR88LXL384-logo_79bf4b27747270c93a15e11bc4d35285.jpg","width":1080,"height":1080},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/XR88LXL384/XR88LXL384-logo_771b8729bdcf7df0469d38c368fd2cd0.jpg","width":640,"height":640}},"eyecatch":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/XR88LXL384/XR88LXL384-eyecatch_977de8d1614eae545df3c124d7ede61f.jpg","width":1920,"height":1080},"tver":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/XR88LXL384/XR88LXL384-eyecatch_840b69bd3ce2798a4bf5f43360d3c2e1.jpg","width":928,"height":522},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/XR88LXL384/XR88LXL384-eyecatch_b88e640c8a01a118b685d75ae502cf2b.jpg","width":640,"height":360}},"hero":{"main":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/XR88LXL384/XR88LXL384-hero_e4c0cd9accd7977cc79bbaf9b1a821e3.jpg","width":1920,"height":640},"medium":{"url":"https://dev-cms1.nr.nhk.jp/static/assets/images/tvseries/ts/XR88LXL384/XR88LXL384-hero_04a59616a3304e0d72719ef1ebae90af.jpg","width":1080,"height":360}},"style":{"textLight":"#000000","textDark":"#FFFFFF","linkLight":"#005AFF","linkDark":"#4788FF","primaryLight":"#005AFF","primaryDark":"#0B61FF"},"additionalProperty":{"publishLevel":"notyet","layoutPattern":"summary","episodeOrderBy":"releasedEvent","availableOnPlus":false,"enableVariablePlayBackSpeedControl":false,"optional":[],"seriesPackStatus":"notPacked"}},"releasedEvent":{"id":"g1-401-2022060136442","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedRecentEvent":{"id":"g1-401-2022060136442","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"detailedComingEvent":{"id":"g1-401-2022060136442","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","shortenedName":"NHK総合1","shortenedDisplayName":"総合"}}},"keyvisuals":[],"videos":[{"name":"ニュース８４５北九州","description":"","url":"https://tools.media.nr.nhk.jp/player/player.html?stream_id=g1-401-2022060136442","embedUrl":"https://tools.media.nr.nhk.jp/player/embed.html?stream_id=g1-401-2022060136442","identifierGroup":{"environmentId":"okushibu","broadcastEventId":"g1-401-2022060136442","streamType":"vod"},"detailedContentStatus":{"environmentId":"okushibu","streamType":"vod","contentStatus":"notyet"},"detailedContent":[],"broadcastEvent":{"type":"BroadcastEvent","id":"g1-401-2022060136442","name":"ニュース８４５北九州","description":"","startDate":"2022-06-01T20:45:00+09:00","endDate":"2022-06-01T21:00:00+09:00","location":{"id":"502","name":"北九州"},"identifierGroup":{"broadcastEventId":"g1-401-2022060136442","episodeId":"KQ2KQ2KRV9","tvEpisodeId":"KQ2KQ2KRV9","episodeName":"2022年6月1日","tvEpisodeName":"2022年6月1日","seriesId":"XR88LXL384","tvSeriesId":"XR88LXL384","seriesName":"ニュース845北九州","tvSeriesName":"ニュース845北九州","serviceId":"g1","areaId":"401","stationId":"502","date":"2022-06-01","eventId":"36442","genres":[{"id":"0009","name1":"ニュース/報道","name2":"ローカル・地域"}],"code7":"8105505","code11":"81050150501","code15":"502081050150501","code21":"502081050150501001169","onid":"7880","sid":"de00","tsid":"7880"},"misc":{"displayVideoMode":"none","displayVideoRange":"sdr","displayAudioMode":[],"audioMode":[],"supportCaption":false,"supportSign":false,"supportHybridcast":false,"supportDataBroadcast":false,"isInteractive":false,"isChangeable":false,"releaseLevel":"original","programType":"program","coverage":"local","actList":[],"musicList":[],"eventShareStatus":"parent","icisExtended":{"eizo":"3","gashitsu":"1","kido":"0","henonsei":"01","onseiadd":"0","mojiadd":"0","shuwa":"0","hybridcast":"0","rendo1":"0","sohoko":"0","usernible":[],"ytstatus":"1","dojihaishin":"2","hayamodoshi":"2","minogashi":"2","nod":"2","hensaiho":"0","saiho":"0","saifuyo":"0","honyo":"0","hontext":"","bangumi1":"ニュース８４５北九州","bangumi2":"","kshikimei":"","marume":"0","tsukubun":"0","teitsu":"0","bantype":"01","sozai":"04","keito":"21","hkyoku":"502","henhani":"1","netout":"0","ekyoyu":"210","koshinbi":"20220614013453","act":"","music":"","free":"","oshirase":""},"hsk":{"passedStartDateTime":"2022-06-01T21:00:00+09:00","passedEndDateTime":"2022-06-08T21:00:00+09:00","passedDeliveryPeriod":"604800","passedLength":"00:15:00","newsXmlUrl":"","updateDateTime":"2022-05-24T17:14:22+09:00"},"hskExtended":{"systemUniqueId":"401_g1_2022060136442","concurrentDelivery":"1","earlyBackDelivery":"1","passedDelivery":"1","nodDelivery":"1","earlyBackDeliveryReusableFlag":"","passedType":"","genbanEditFlag":"","genbanCaptionFlag":"","posterframeImageUrl":"","qfFlag":"","qfProgramName":"","passedDeliveryReadyableFlag":"","programKind":"","flowCode":"","audioMode1":"","audioMode2":"","marumeId":"","eventShareGtv":"","eventShareGtvSub":"","eventShareEtv":"","eventShareEtvSub":""},"playControlSimul":false,"playControlDVR":false,"playControlVOD":false,"playControlMulti":null,"publishedPeriodFrom":"2022-06-01T21:00:00+09:00","publishedPeriodTo":"2022-06-08T21:00:00+09:00"},"isLiveBroadcast":false,"detailedDescriptions":{"epg40":"ニュース８４５北九州","epg80":"▽ニュース　▽気象情報","epgInformation":"","epg200":""},"duration":"PT15M","publishedOn":{"type":"BroadcastService","name":"NHK総合テレビジョン","broadcastDisplayName":"NHK総合1・北九州","videoFormat":["2K"],"encodingFormat":["video/X-arib-mpeg2","audio/X-arib-mpeg2-aac"],"images":{"badgeSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge_s.png","width":100,"height":50},"badge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.png","width":200,"height":100},"eyecatchMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_m.png","width":640,"height":360},"eyecatchLarge":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch_l.png","width":1280,"height":720},"eyecatch":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-eyecatch.png","width":1920,"height":1080},"heroMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero_m.png","width":1080,"height":360},"hero":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-hero.png","width":1920,"height":640},"logoSmall":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_s.png","width":200,"height":200},"logoMedium":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo_m.png","width":640,"height":640},"logo":{"url":"https://dev-www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-logo.png","width":1080,"height":1080}},"identifierGroup":{"serviceId":"g1","serviceName":"NHK総合1","areaId":"401","areaName":"北九州","channelId":"031","channelKey":"3","channelAreaName":"北九州","channelStationName":"北九州","shortenedName":"NHK総合1","shortenedDisplayName":"総合","multiChannelDisplayName":"総合メイン"}},"posterframes":[]}}],"citations":[],"url":"https://dev-www.nhk.jp/p/ts/XR88LXL384/episode/te/KQ2KQ2KRV9/","canonical":"https://dev-www.nhk.jp/p/ts/XR88LXL384/episode/te/KQ2KQ2KRV9/","sameAs":[],"detailedMemo":[]}],"nextUrl":"https://dev-api.nr.nhk.jp/r6/s/extended.json?type=tvepisode&orderBy=score&order=desc&isFuzzy=true&publishLevel=notyet,ready,full,limited,gone&offset=20&size=10&ignoreRange=true&extendedEntities=true","resultUrl":"https://dev-api.nr.nhk.jp/r6/s/extended.json?type=tvepisode&orderBy=score&order=desc&isFuzzy=true&publishLevel=notyet,ready,full,limited,gone&offset=10&size=10&ignoreRange=true&extendedEntities=true","prevUrl":"https://dev-api.nr.nhk.jp/r6/s/extended.json?type=tvepisode&orderBy=score&order=desc&isFuzzy=true&publishLevel=notyet,ready,full,limited,gone&offset=0&size=10&ignoreRange=true&extendedEntities=true","count":229991}},"resultUrl":"https://dev-api.nr.nhk.jp/r6/s/extended.json?type=tvepisode&orderBy=score&order=desc&isFuzzy=true&publishLevel=notyet,ready,full,limited,gone&offset=10&size=10&ignoreRange=true&extendedEntities=true"}'
+  recorded_at: Wed, 22 Jun 2022 00:49:42 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6.0/t/tvepisode/te/7QPPXK67ML.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '114'
+      connection:
+      - keep-alive
+      date:
+      - Wed, 22 Jun 2022 00:49:43 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"cc6f39c"'
+      etag:
+      - '"72-Mg8xAKZqHfq0IWOT0SIHh8hhdGw"'
+      x-cache:
+      - Error from cloudfront
+      via:
+      - 1.1 8246396d0e0c0de7666d18eae9856bde.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P1
+      x-amz-cf-id:
+      - jyxEvOZCOw7Ge5MFrGg73Te-qlQECmIMa7sSFk6e-ouxGPifwOwvng==
+    body:
+      encoding: UTF-8
+      string: '{"error":{"statuscode":404,"message":"Invalid EpisodeId.","requestId":"Root=1-62b26726-0797b84c0b8f0152446ad5b3"}}'
+  recorded_at: Wed, 22 Jun 2022 00:49:43 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6.0/t/tvepisode/te/6J65Q2NW1N.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '114'
+      connection:
+      - keep-alive
+      date:
+      - Wed, 22 Jun 2022 00:49:43 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"cc6f39c"'
+      etag:
+      - '"72-CC0bleO42Zu6oTmj7/aOMtC4d+s"'
+      x-cache:
+      - Error from cloudfront
+      via:
+      - 1.1 14dae839e44c027b553fbd7cea9e1334.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P1
+      x-amz-cf-id:
+      - LmnQk1TfbdcO4Q1fXHYAdHn8VyLGPcKPFnFuKQZdDUecpSCl7zpemw==
+    body:
+      encoding: UTF-8
+      string: '{"error":{"statuscode":404,"message":"Invalid EpisodeId.","requestId":"Root=1-62b26727-05a2c975419b42c03f93bf70"}}'
+  recorded_at: Wed, 22 Jun 2022 00:49:43 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6.0/t/tvepisode/te/BK47VL6YMQ.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '114'
+      connection:
+      - keep-alive
+      date:
+      - Wed, 22 Jun 2022 00:49:43 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"cc6f39c"'
+      etag:
+      - '"72-c3LGi+FRbtg2D1H4aI4GrTVRSLw"'
+      x-cache:
+      - Error from cloudfront
+      via:
+      - 1.1 2f23a86dea73acab8a8c28b3d87160da.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P1
+      x-amz-cf-id:
+      - pGWjsoisW0Y5flS5H5oosmiHFnlKURGm_EWfkNpmpe23ET2RbY2lLg==
+    body:
+      encoding: UTF-8
+      string: '{"error":{"statuscode":404,"message":"Invalid EpisodeId.","requestId":"Root=1-62b26727-01aabb806db02c196af9dcab"}}'
+  recorded_at: Wed, 22 Jun 2022 00:49:43 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6.0/t/tvepisode/te/8XNVYYQ4V1.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '114'
+      connection:
+      - keep-alive
+      date:
+      - Wed, 22 Jun 2022 00:49:43 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"cc6f39c"'
+      etag:
+      - '"72-XXLJuMhYULqabC1lLcUQJYdyrIs"'
+      x-cache:
+      - Error from cloudfront
+      via:
+      - 1.1 14dae839e44c027b553fbd7cea9e1334.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P1
+      x-amz-cf-id:
+      - 45mi69cJuHThLmPARke6sV9ipbmA0wP39WvKJ34xu_GeoRBpbq_-gA==
+    body:
+      encoding: UTF-8
+      string: '{"error":{"statuscode":404,"message":"Invalid EpisodeId.","requestId":"Root=1-62b26727-098b5ccc6eae9d221cf113ab"}}'
+  recorded_at: Wed, 22 Jun 2022 00:49:43 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6.0/t/tvepisode/te/VPJ5YN8WGX.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '114'
+      connection:
+      - keep-alive
+      date:
+      - Wed, 22 Jun 2022 00:49:44 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"cc6f39c"'
+      etag:
+      - '"72-is/opytYH9Hx0/s4YEifM0vDmYs"'
+      x-cache:
+      - Error from cloudfront
+      via:
+      - 1.1 6c3f41b7aee179237a7e6f3f127b7a12.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P1
+      x-amz-cf-id:
+      - Z4Kf9aCtCflpXHFkHCSvJ6-hvYtjCwQjTgHZDmHE2IZqB4hZ68Ir5g==
+    body:
+      encoding: UTF-8
+      string: '{"error":{"statuscode":404,"message":"Invalid EpisodeId.","requestId":"Root=1-62b26728-5e045b3f003e7fb42507d229"}}'
+  recorded_at: Wed, 22 Jun 2022 00:49:44 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6.0/t/tvepisode/te/N3QXP491X7.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '114'
+      connection:
+      - keep-alive
+      date:
+      - Wed, 22 Jun 2022 00:49:44 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"cc6f39c"'
+      etag:
+      - '"72-69RjC5fOVGF5AoktM++qNh7vEgA"'
+      x-cache:
+      - Error from cloudfront
+      via:
+      - 1.1 6b3df82b11020ffd9f07adedfc60be70.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P1
+      x-amz-cf-id:
+      - y8Jq7gVFXGqILhxeQNToe9SsyuwoTtIzGHTrGHI8irn4x9C3PAuM9w==
+    body:
+      encoding: UTF-8
+      string: '{"error":{"statuscode":404,"message":"Invalid EpisodeId.","requestId":"Root=1-62b26728-151fade644110729167ce640"}}'
+  recorded_at: Wed, 22 Jun 2022 00:49:44 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6.0/t/tvepisode/te/Z5RRXQVW3K.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '114'
+      connection:
+      - keep-alive
+      date:
+      - Wed, 22 Jun 2022 00:49:44 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"cc6f39c"'
+      etag:
+      - '"72-0qqVArz+dwzDTDGRc77F+xl38qw"'
+      x-cache:
+      - Error from cloudfront
+      via:
+      - 1.1 63ea9af6d1a3871f8c066397dd93b432.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P1
+      x-amz-cf-id:
+      - v42TOTrEq4Dm5yyr9HIwjW9rnKsv3sBpJN9MOCabfbW48TtfJjOEqg==
+    body:
+      encoding: UTF-8
+      string: '{"error":{"statuscode":404,"message":"Invalid EpisodeId.","requestId":"Root=1-62b26728-518bd82038b949444ef481ea"}}'
+  recorded_at: Wed, 22 Jun 2022 00:49:44 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6.0/t/tvepisode/te/12K7QK4YL2.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '114'
+      connection:
+      - keep-alive
+      date:
+      - Wed, 22 Jun 2022 00:49:44 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"cc6f39c"'
+      etag:
+      - '"72-pzJeDp+r5QFgx5yOwUCECaa7LHU"'
+      x-cache:
+      - Error from cloudfront
+      via:
+      - 1.1 a0c8ca5c55854408aacaabfb864516d0.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P1
+      x-amz-cf-id:
+      - sL-15FUpyr6bW_s0K3CaAovu3TDKf0MoXPwx46jVtR2GFwqq-g30Yg==
+    body:
+      encoding: UTF-8
+      string: '{"error":{"statuscode":404,"message":"Invalid EpisodeId.","requestId":"Root=1-62b26728-6b66e3fc26fa61f70b5cbeb4"}}'
+  recorded_at: Wed, 22 Jun 2022 00:49:44 GMT
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6.0/t/tvepisode/te/KQ2KQ2KRV9.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '114'
+      connection:
+      - keep-alive
+      date:
+      - Wed, 22 Jun 2022 00:49:44 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"cc6f39c"'
+      etag:
+      - '"72-jwts5lvw2GHYCXM62gK06khz4Jw"'
+      x-cache:
+      - Error from cloudfront
+      via:
+      - 1.1 7140f0ca7678f315f05e94435ec1dea8.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P1
+      x-amz-cf-id:
+      - ANlxllE706iv5gj3lvLti1RVY6Sqs7IA1br90khkJbRxX7_uPl8vRA==
+    body:
+      encoding: UTF-8
+      string: '{"error":{"statuscode":404,"message":"Invalid EpisodeId.","requestId":"Root=1-62b26728-163d77220ec044f54af2bee2"}}'
+  recorded_at: Wed, 22 Jun 2022 00:49:44 GMT
+recorded_with: VCR 6.1.0
