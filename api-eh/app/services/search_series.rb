@@ -34,7 +34,8 @@ class SearchSeries
   # @param [Hash] result
   # @param [Hash] search_params
   # @param [DlabApiBase] client: DlabApiClient
-  def search_episodes_each_series(result, search_params, client)
+  def search_episodes_each_series(result, search_params, client) # rubocop: disable Metrics/AbcSize,  Style/CommentedKeyword
+    search_params[:offset] = 0
     result.dig(:result, :tvseries, :result).each do |series|
       res = client.episode_from_series(merged_params: merge_params(search_params), type: 'tv', series_id: series[:id],
                                        request_type: :l)
