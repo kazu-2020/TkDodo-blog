@@ -80,7 +80,7 @@ describe EpisodesController, type: :request do
       end
 
       context 'G or Eのエピソードのみ検索をした場合' do
-        let(:service) { { service: 'g1,g2,e1,e3' } }
+        let(:service) { { vService: 'g1,g2,e1,e3' } }
 
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_series_service') do

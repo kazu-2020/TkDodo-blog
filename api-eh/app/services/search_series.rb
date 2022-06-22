@@ -5,7 +5,7 @@ class SearchSeries
   DEFAULT_SORT_ORDER = 'desc'.freeze
   DEFAULT_SORT_ORDER_BY = 'recentEvent'.freeze
   DEFAULT_ENVIRONMENT = 'okushibu'.freeze
-  QUERY_KEYS = %i[word concern keyword service].freeze
+  QUERY_KEYS = %i[word concern keyword vService].freeze
 
   # @param [DlabApiBase] client: DlabApiClient
   # @param [Hash] search_params
@@ -83,20 +83,10 @@ class SearchSeries
     merged_params
   end
 
-  # QUERY_KEYSに該当するクエリを検索パラメータから抽出してHashにする
+  # QUERY_KEYSに該当するクエリを検索パラメータから抽出する
   #
   # @param [Hash] search_params
   def search_query_hash(search_params)
-    merged_params = {}
-    search_params.select do |k, v|
-      if QUERY_KEYS.include?(k.to_sym) && v.present?
-        if k.eql? 'service'
-          merged_params.merge!(vService: search_params[k.to_sym])
-        else
-          merged_params.merge!("#{k}": search_params[k.to_sym])
-        end
-      end
-    end
-    merged_params
+    search_params.select { |k, v| QUERY_KEYS.include?(k.to_sym) && v.present? }
   end
 end

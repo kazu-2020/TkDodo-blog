@@ -55,7 +55,7 @@ class EpisodesController < ApplicationController
   private
 
   def search_params
-    params.permit(:word, :concern, :keyword, :offset, :ignore_range, :order, :order_by, :size, :service,
+    params.permit(:word, :concern, :keyword, :offset, :ignore_range, :order, :order_by, :size, :service, :vService,
                   :contents_type, :series_id)
   end
 end
