@@ -64,6 +64,7 @@ class SearchSeries
     episode[:videos] = PlaylistItem.new(episode_id: episode[:id]).fetch_episode_videos_data
 
     episode
+    byebug
   end
 
   # パラメータをマージする
@@ -83,21 +84,20 @@ class SearchSeries
     merged_params
   end
 
-  # クエリをマージする
+  # QUERY_KEYSに該当するクエリを検索パラメータから抽出してHashにする
   #
   # @param [Hash] search_params
   def search_query_hash(search_params)
     merged_params = {}
-    search_params.each_key do |k|
-      next unless QUERY_KEYS.include?(k.to_sym)
-
-      if k.to_s.eql?('service') && search_params[k.to_sym].present?
-        merged_params.merge!(vService: search_params[k.to_sym])
-      else
-        merged_params.merge!("#{k}": search_params[k.to_sym])
+    search_params.select do |k, v|
+      if QUERY_KEYS.include?(k.to_sym) && v.present?
+        if k.eql? 'service'
+          merged_params.merge!(vService: search_params[k.to_sym])
+        else
+          merged_params.merge!("#{k}": search_params[k.to_sym])
+        end
       end
     end
-
     merged_params
   end
 end

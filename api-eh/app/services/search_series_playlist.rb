@@ -34,17 +34,14 @@ class SearchSeriesPlaylist
     merged_params
   end
 
-  # クエリをマージする
+  # QUERY_KEYSに該当するクエリを検索パラメータから抽出してHashにする
   #
   # @param [Hash] search_params
   def search_query_hash(search_params)
     merged_params = {}
-    search_params.each_key do |k|
-      next unless QUERY_KEYS.include?(k.to_sym)
-
-      merged_params.merge!("#{k}": search_params[k.to_sym]) if search_params[k.to_sym].present?
+    search_params.select do |k, v|
+      merged_params.merge!("#{k}": search_params[k.to_sym]) if QUERY_KEYS.include?(k.to_sym) && v.present?
     end
-
     merged_params
   end
 end
