@@ -24,10 +24,9 @@ class DlabApiClient < DlabApiBase
 
   # TVEpisode 検索APIをリクエストする
   #
-  # @param [Hash] merged_params
   # @param [Hash] query
-  def search(merged_params: {}, query: {})
-    res = client.get "/#{version}/s/extended.json", INTERNAL_PARAMS.merge(merged_params).merge(query)
+  def search(query: {})
+    res = client.get "/#{version}/s/extended.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 
@@ -85,12 +84,11 @@ class DlabApiClient < DlabApiBase
   #
   # @param [String] type: 'tvepisode' or 'radioepisode'
   # @param [String] series_id: シリーズID
-  # @param [Hash] merged_params
   # @param [String] request_type: t or l
   # @param [Hash] query
-  def episode_from_series(type:, series_id:, merged_params: {}, request_type: :t, query: {})
+  def episode_from_series(type:, series_id:, request_type: :t, query: {})
     res = client.get "/#{version}/#{request_type}/#{type.downcase}episode/ts/#{series_id}.json",
-                     INTERNAL_PARAMS.merge(merged_params).merge(query)
+                     INTERNAL_PARAMS.merge(query)
     handle_response(res)
   end
 

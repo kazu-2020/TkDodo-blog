@@ -24,8 +24,8 @@ class SearchSeries
   def series(client, search_params)
     merged_params = merge_params(search_params)
     merged_params.delete(:orderBy)
-    result = client.search(merged_params: merged_params,
-                           query: { publishLevel: 'notyet,ready,full,limited,gone' })&.deep_symbolize_keys
+    result = client.search(query: merged_params.merge({ publishLevel: 'notyet,ready,full,limited,gone' }))
+               &.deep_symbolize_keys
     search_episodes_each_series(result, search_params, client)
   end
 
@@ -34,10 +34,10 @@ class SearchSeries
   # @param [Hash] result
   # @param [Hash] search_params
   # @param [DlabApiBase] client: DlabApiClient
-  def search_episodes_each_series(result, search_params, client) # rubocop: disable Metrics/AbcSize,  Style/CommentedKeyword
+  def search_episodes_each_series(result, search_params, client) # rubocop: disable Metrics/AbcSize, Style/CommentedKeyword
     search_params[:offset] = 0
     result.dig(:result, :tvseries, :result).each do |series|
-      res = client.episode_from_series(merged_params: merge_params(search_params), type: 'tv', series_id: series[:id],
+      res = client.episode_from_series(query: merge_params(search_params), type: 'tv', series_id: series[:id],
                                        request_type: :l)
       series.store(:episodes, res)
       res = client.available_episode_from_series(series[:id],
@@ -58,7 +58,7 @@ class SearchSeries
   # @param [Hash] search_params
   def episode_from_series(client, search_params)
     merged_params = merge_params(search_params)
-    episode = client.episode_from_series(merged_params: merged_params, type: 'tv', series_id: search_params[:series_id],
+    episode = client.episode_from_series(query: merged_params, type: 'tv', series_id: search_params[:series_id],
                                          request_type: :l)&.deep_symbolize_keys
     # okushibu3のために、r6.0からEpisodeを引き直して検索結果に設定し直している
     episode[:videos] = PlaylistItem.new(episode_id: episode[:id]).fetch_episode_videos_data

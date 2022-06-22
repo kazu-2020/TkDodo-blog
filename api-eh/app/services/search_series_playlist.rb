@@ -17,8 +17,8 @@ class SearchSeriesPlaylist
   # @param [DlabApiBase] client: DlabApiClient
   # @param [Hash] search_params
   def series_playlist(client, search_params)
-    client.search(merged_params: merge_params(search_params),
-                  query: { publishLevel: 'notyet,ready,full,limited,gone' })&.deep_symbolize_keys
+    client.search(query: merge_params(search_params).merge({ publishLevel: 'notyet,ready,full,limited,gone' }))
+      &.deep_symbolize_keys
   end
 
   # パラメータをマージする
