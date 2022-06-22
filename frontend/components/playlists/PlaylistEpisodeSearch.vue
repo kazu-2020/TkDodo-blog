@@ -35,7 +35,7 @@
                 <v-list-item
                   @click="
                     searchEpisodes({
-                      clearCurrentEpisodes: true,
+                      clearCurrentResults: true,
                       isSwitchTab: true,
                     })
                   "
@@ -45,7 +45,7 @@
                 <v-list-item
                   @click="
                     searchSeries({
-                      clearCurrentSeries: true,
+                      clearCurrentResults: true,
                       isSwitchTab: true,
                     })
                   "
@@ -410,11 +410,11 @@ export default Vue.extend({
   },
   methods: {
     searchEpisodes({
-      clearCurrentEpisodes,
+      clearCurrentResults,
       isSwitchTab,
       queryKeyNum,
     }: {
-      clearCurrentEpisodes: boolean
+      clearCurrentResults: boolean
       isSwitchTab: boolean
       queryKeyNum: number
     }) {
@@ -427,7 +427,7 @@ export default Vue.extend({
         this.sortTypeNum = 0
       }
 
-      if (clearCurrentEpisodes) {
+      if (clearCurrentResults) {
         this.episodes = []
         this.searchOffset = 0
       }
@@ -456,11 +456,11 @@ export default Vue.extend({
         })
     },
     searchSeries({
-      clearCurrentSeries,
+      clearCurrentResults,
       isSwitchTab,
       queryKeyNum,
     }: {
-      clearCurrentSeries: boolean
+      clearCurrentResults: boolean
       isSwitchTab: boolean
       queryKeyNum: number
     }) {
@@ -474,7 +474,7 @@ export default Vue.extend({
         this.sortTypeNum = 1
       }
 
-      if (clearCurrentSeries) {
+      if (clearCurrentResults) {
         this.series = []
         this.searchOffset = 0
       }
@@ -503,30 +503,31 @@ export default Vue.extend({
         })
     },
     searchWithKeyword(
-      clearCurrentEpisodes = true,
+      this: any,
+      clearCurrentResults = true,
       isSwitchTab = false,
-      queryKeyNum = 0
+      queryKeyNum = this.queryKeyNum
     ) {
       switch (this.contentsTypeNum) {
         case 0:
           this.searchEpisodes({
-            clearCurrentEpisodes,
+            clearCurrentResults,
             isSwitchTab,
             queryKeyNum,
           })
           break
         case 1:
           this.searchSeries({
-            clearCurrentSeries: true,
-            isSwitchTab: false,
-            queryKeyNum: 0,
+            clearCurrentResults,
+            isSwitchTab,
+            queryKeyNum,
           })
           break
         default:
           this.searchEpisodes({
-            clearCurrentEpisodes: true,
-            isSwitchTab: false,
-            queryKeyNum: 0,
+            clearCurrentResults,
+            isSwitchTab,
+            queryKeyNum,
           })
           break
       }
@@ -542,16 +543,16 @@ export default Vue.extend({
     },
     searchAdditionalEpisodes() {
       this.searchEpisodes({
-        clearCurrentEpisodes: false,
+        clearCurrentResults: false,
         isSwitchTab: false,
-        queryKeyNum: 0,
+        queryKeyNum: this.queryKeyNum,
       })
     },
     searchAdditionalSeries() {
       this.searchSeries({
-        clearCurrentSeries: false,
+        clearCurrentResults: false,
         isSwitchTab: false,
-        queryKeyNum: 1,
+        queryKeyNum: this.queryKeyNum,
       })
     },
     selectEpisode(episode: any) {
@@ -618,7 +619,7 @@ export default Vue.extend({
 }
 
 td.series-image {
-  width: 5%;
+  width: 1%;
 }
 
 td.series-name {
