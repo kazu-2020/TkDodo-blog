@@ -11,13 +11,11 @@ class EpisodesController < ApplicationController
   end
 
   def search
-    client = DlabApiClient.new
-    @result = client.search(search_params,
-                            query: { publishLevel: 'notyet,ready,full,limited,gone' })&.deep_symbolize_keys
-
-    # okushibu3のために、r6.0からEpisodeを引き直して検索結果に設定し直している
-    @result.dig(:result, :tvepisode, :result).each do |item|
-      item[:videos] = PlaylistItem.new(episode_id: item[:id]).fetch_episode_videos_data
+    case search_params[:contents_type]
+    when 'tvepisode'
+      @result = SearchEpisodes.new.call(DlabApiClient.new, search_params)
+    when 'tvseries'
+      @result = SearchSeries.new.call(DlabApiClient.new, search_params)
     end
   end
 
@@ -57,6 +55,7 @@ class EpisodesController < ApplicationController
   private
 
   def search_params
-    params.permit(:word, :concern, :keyword, :offset, :ignore_range, :order, :order_by, :size, :service, :contents_type)
+    params.permit(:word, :concern, :keyword, :offset, :ignore_range, :order, :order_by, :size, :service, :vService,
+                  :contents_type, :series_id)
   end
 end

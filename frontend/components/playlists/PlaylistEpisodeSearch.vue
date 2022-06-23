@@ -482,7 +482,7 @@ export default Vue.extend({
       let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&${this.sortTypeQuery}&ignore_range=${this.ignoreRange}&size=${this.pageSize}&contents_type=${this.contentsType}`
       if (this.filterService) {
         // FIXME: e2 を加えると BadRequest になるため、一旦除外
-        searchUrl = searchUrl + '&service=g1,g2,e1,e3'
+        searchUrl = searchUrl + '&vService=g1,g2,e1,e3'
       }
       this.$axios
         .get(searchUrl)
