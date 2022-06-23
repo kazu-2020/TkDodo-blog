@@ -6,8 +6,10 @@ if @result[:result].instance_of?(Array) # シリーズ内のエピソードペ�
 elsif @result.dig(:result, :tvepisode) # TVエピソード検索, ページング時にtrue
   json.items @result[:result][:tvepisode][:result]
   json.total @result[:result][:tvepisode][:count]
-else
-  @result.dig(:result, :tvseries) # TVシリーズ検索, ページング時
+elsif @result.dig(:result, :tvseries)  # TVシリーズ検索, ページング時にtrue
   json.items @result[:result][:tvseries][:result]
   json.total @result[:result][:tvseries][:count]
+else # プレイリスト検索, ページング時にtrue
+  json.items @result.dig(:result, :nplaylist, :result)
+  json.total @result.dig(:result, :nplaylist, :count)
 end

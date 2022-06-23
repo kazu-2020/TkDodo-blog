@@ -16,6 +16,8 @@ class EpisodesController < ApplicationController
       @result = SearchEpisodes.new.call(DlabApiClient.new, search_params)
     when 'tvseries'
       @result = SearchSeries.new.call(DlabApiClient.new, search_params)
+    when 'nplaylist'
+      @result = SearchPlaylists.new.call(PocApiClient.new, search_params)
     end
   end
 
