@@ -53,17 +53,6 @@ class PocApiClient < DlabApiBase
     handle_response(res)
   end
 
-  private
-
-  def search_query_hash(search_params)
-    merged_params = {}
-    merged_params.merge!(word: search_params[:word]) if search_params[:word].present?
-    merged_params.merge!(concern: search_params[:concern]) if search_params[:concern].present?
-    merged_params.merge!(keyword: search_params[:keyword]) if search_params[:keyword].present?
-    merged_params.merge!(service: search_params[:service]) if search_params[:service].present?
-    merged_params
-  end
-
   # TvEpisode データを取得する
   #
   # @param [String] playlist_id: プレイリストID
