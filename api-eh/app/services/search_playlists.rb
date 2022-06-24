@@ -70,7 +70,7 @@ class SearchPlaylists
     filtered_search_params = search_params.select { |k, v| QUERY_KEYS.include?(k.to_sym) && v.present? }
     merged_with_default_params = DEFAULT_PARAMS.merge(filtered_search_params,
                                                       { publishLevel: 'notyet,ready,full,limited,gone', isFuzzy: true })
-    merged_with_default_params.transform_keys do |k|
+    merged_with_default_params.transform_keys do |k| # APIのキーがキャメルケースとなっているため
       k = :type if k.eql? :contents_type
       k.to_s.camelize(:lower).to_sym
     end
