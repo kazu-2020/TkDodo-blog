@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe EpisodesController, type: :request do
-  let!(:merged_params) { { contents_type: contents } }
+  let!(:search_params) { { contents_type: contents } }
 
   describe 'GET #search' do
     before { create(:playlist_item) }
@@ -13,7 +13,7 @@ describe EpisodesController, type: :request do
 
       it '正常にレスポンスが返ってくること' do
         VCR.use_cassette('requests/episode_spec/search_episodes') do
-          get search_episodes_path, params: merged_params
+          get search_episodes_path, params: search_params
           json = JSON.parse(response.body)
           expect(json['items'][0]['type']).to eq 'TVEpisode'
           expect(response.status).to eq 200
@@ -25,7 +25,7 @@ describe EpisodesController, type: :request do
 
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_episodes_paging') do
-            get search_episodes_path, params: merged_params.merge(offset)
+            get search_episodes_path, params: search_params.merge(offset)
             expect(response.status).to eq 200
           end
         end
@@ -36,7 +36,7 @@ describe EpisodesController, type: :request do
 
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_episodes_service') do
-            get search_episodes_path, params: merged_params.merge(service)
+            get search_episodes_path, params: search_params.merge(service)
             expect(response.status).to eq 200
           end
         end
@@ -49,7 +49,7 @@ describe EpisodesController, type: :request do
 
       it '正常にレスポンスが返ってくること' do
         VCR.use_cassette('requests/episode_spec/search_episodes_in_series') do
-          get search_episodes_path, params: merged_params.merge(word)
+          get search_episodes_path, params: search_params.merge(word)
           json = JSON.parse(response.body)
           expect(json['items'][0]['type']).to eq 'TVSeries'
           expect(response.status).to eq 200
@@ -61,7 +61,7 @@ describe EpisodesController, type: :request do
 
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_series_paging') do
-            get search_episodes_path, params: merged_params.merge(offset)
+            get search_episodes_path, params: search_params.merge(offset)
             expect(response.status).to eq 200
           end
         end
@@ -73,7 +73,7 @@ describe EpisodesController, type: :request do
 
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_episode_in_series_paging') do
-            get search_episodes_path, params: merged_params.merge(series_id, offset)
+            get search_episodes_path, params: search_params.merge(series_id, offset)
             expect(response.status).to eq 200
           end
         end
@@ -84,7 +84,44 @@ describe EpisodesController, type: :request do
 
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_series_service') do
-            get search_episodes_path, params: merged_params.merge(word, service)
+            get search_episodes_path, params: search_params.merge(word, service)
+            expect(response.status).to eq 200
+          end
+        end
+      end
+    end
+
+    context 'プレイリスト検索の場合' do
+      let(:contents) { 'nplaylist' }
+      let(:word) { { word: '鎌倉殿の旬' } } # 20220622： 視聴可能なビデオを含まないプレイリストの場合404となるため、視聴可能なビデオを含むプレイリストを引くwordを設定。
+
+      it '正常にレスポンスが返ってくること' do
+        VCR.use_cassette('requests/episode_spec/search_episodes_in_playlists') do
+          get search_episodes_path, params: search_params.merge(word)
+          json = JSON.parse(response.body)
+          expect(json['items'][0]['type']).to eq 'NPlaylist'
+          expect(response.status).to eq 200
+        end
+      end
+
+      context 'プレイリストのページングを読み込んだ場合' do
+        let(:offset) { { offset: 10 } }
+
+        it '正常にレスポンスが返ってくること' do
+          VCR.use_cassette('requests/episode_spec/search_playlists_paging') do
+            get search_episodes_path, params: search_params.merge(word, offset)
+            expect(response.status).to eq 200
+          end
+        end
+      end
+
+      context 'プレイリスト内のエピソードのページングを読み込んだ場合' do
+        let(:playlist_id) { { playlist_id: 'recommend-tep-0000000055' } } # 20220622時点で11件以上エピソードを含むプレイリスト
+        let(:offset) { { offset: 10 } }
+
+        it '正常にレスポンスが返ってくること' do
+          VCR.use_cassette('requests/episode_spec/search_episode_in_playlists_paging') do
+            get search_episodes_path, params: search_params.merge(word, playlist_id, offset)
             expect(response.status).to eq 200
           end
         end
