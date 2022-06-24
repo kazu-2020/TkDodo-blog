@@ -19,8 +19,7 @@ describe SearchPlaylists, type: :model do
     let!(:search_params) {
       { type: type, offset: offset, mode_of_item: mode_of_item,
         type_of_list: type_of_list, order: order, order_by: order_by,
-        size: size, word: word, keyword: keyword, concern: concern, vService: vService
-      }
+        size: size, word: word, keyword: keyword, concern: concern, vService: vService }
     }
 
     context 'search_paramsに値が設定されている場合' do
@@ -40,8 +39,7 @@ describe SearchPlaylists, type: :model do
       let(:expected_result_hash) {
         { type: type, offset: offset, modeOfItem: mode_of_item, isFuzzy: default_is_fuzzy,
           typeOfList: type_of_list, order: order, orderBy: order_by, size: size, word: word,
-          keyword: keyword, concern: concern, vService: vService, publishLevel:default_publish_level
-        }
+          keyword: keyword, concern: concern, vService: vService, publishLevel: default_publish_level }
       }
 
       it 'search_paramsの値が格納されたHashが返ること' do
@@ -64,10 +62,9 @@ describe SearchPlaylists, type: :model do
       let(:concern) { nil }
       let(:vService) { nil }
       let(:expected_result_hash) {
-        { type: default_type, offset: default_offset, modeOfItem: default_mode_of_item, isFuzzy: true,
+        { type: default_type, offset: default_offset, modeOfItem: default_mode_of_item, isFuzzy: default_is_fuzzy,
           typeOfList: default_type_of_list, order: default_sort_order, orderBy: default_sort_order_by,
-          size: default_size, publishLevel: "notyet,ready,full,limited,gone",
-        }
+          size: default_size, publishLevel: default_publish_level }
       }
 
       it '既定値が格納されたHashが返ること' do
