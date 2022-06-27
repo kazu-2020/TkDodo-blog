@@ -6,13 +6,16 @@ class SearchEpisodes
   DEFAULT_SORT_ORDER_BY = 'score'.freeze
   QUERY_KEYS = %i[word concern keyword service].freeze
 
-  def call(client, search_params)
-    episode(client, search_params)
+  def call(client:, search_params: {})
+    @client = client
+    episode(search_params)
   end
 
   private
 
-  def episode(client, search_params)
+  attr_reader :client
+
+  def episode(search_params)
     merged_params = merge_params(search_params)
 
     result = client.search(query: merged_params.merge({ publishLevel: 'notyet,ready,full,limited,gone' }))

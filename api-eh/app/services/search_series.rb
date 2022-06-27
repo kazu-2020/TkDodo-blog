@@ -9,32 +9,33 @@ class SearchSeries
 
   # @param [DlabApiBase] client: DlabApiClient
   # @param [Hash] search_params
-  def call(client, search_params)
-    return episode_from_series(client, search_params) if search_params[:series_id].present?
+  def call(client:, search_params: {})
+    @client = client
+    return episode_from_series(search_params) if search_params[:series_id].present?
 
-    series(client, search_params)
+    series(search_params)
   end
 
   private
 
+  attr_reader :client
+
   # シリーズとシリーズ毎のエピソードを検索する
   #
-  # @param [DlabApiBase] client: DlabApiClient
   # @param [Hash] search_params
-  def series(client, search_params)
+  def series(search_params)
     merged_params = merge_params(search_params)
     merged_params.delete(:orderBy)
     result = client.search(query: merged_params.merge({ publishLevel: 'notyet,ready,full,limited,gone' }))
                &.deep_symbolize_keys
-    search_episodes_each_series(result, search_params, client)
+    search_episodes_each_series(result: result, search_params: search_params)
   end
 
   # シリーズ毎のエピソードと視聴可能なエピソードを検索する
   #
   # @param [Hash] result
   # @param [Hash] search_params
-  # @param [DlabApiBase] client: DlabApiClient
-  def search_episodes_each_series(result, search_params, client) # rubocop: disable Metrics/AbcSize, Style/CommentedKeyword
+  def search_episodes_each_series(result: {}, search_params: {}) # rubocop: disable Metrics/AbcSize, Style/CommentedKeyword
     search_params[:offset] = 0
     result.dig(:result, :tvseries, :result).each do |series|
       res = client.episode_from_series(query: merge_params(search_params), type: 'tv', series_id: series[:id],
@@ -54,9 +55,8 @@ class SearchSeries
 
   # シリーズ毎のエピソードを検索する
   #
-  # @param [DlabApiBase] client: DlabApiClient
   # @param [Hash] search_params
-  def episode_from_series(client, search_params)
+  def episode_from_series(search_params)
     merged_params = merge_params(search_params)
     episode = client.episode_from_series(query: merged_params, type: 'tv', series_id: search_params[:series_id],
                                          request_type: :l)&.deep_symbolize_keys

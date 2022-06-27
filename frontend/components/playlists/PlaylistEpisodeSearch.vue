@@ -28,7 +28,10 @@
                   v-on="on"
                 >
                   <v-icon>mdi-dots-vertical</v-icon>
-                  {{ displayContentsName }}
+                  <span
+                    :class="[contentsTypeNum === 2 ? 'playlist-tab-menu' : '']"
+                    >{{ displayContentsName }}</span
+                  >
                 </v-btn>
               </template>
               <v-list>
@@ -51,6 +54,9 @@
                   "
                 >
                   <v-list-item-title> シリーズ </v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="searchPlaylists">
+                  <v-list-item-title> プレイリスト </v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -94,14 +100,18 @@
           </v-tab>
         </v-tabs>
       </v-col>
-      <v-col class="pt-5" cols="2" align="right">
+      <v-col
+        class="pt-5"
+        align="right"
+        :class="[contentsTypeNum === 2 ? 'col col-5' : 'col col-2']"
+      >
         <v-switch
           v-model="filterService"
           label="G or E のエピソードのみ"
           class="custom_toggle_filter"
         />
       </v-col>
-      <v-col class="pt-5" cols="3" align="right">
+      <v-col v-if="contentsTypeNum !== 2" class="pt-5" cols="3" align="right">
         <v-switch
           v-model="ignoreRange"
           label="公開範囲外のエピソードを含む"
@@ -110,10 +120,19 @@
       </v-col>
     </v-row>
     <v-row id="episode-search-result" class="search-result-table">
-      <v-col v-if="episodes.length !== 0 || series.length !== 0" cols="12">
+      <v-col
+        v-if="
+          episodes.length !== 0 || series.length !== 0 || playlists.length !== 0
+        "
+        cols="12"
+      >
         <div
           class="body-2 ml-1"
-          :class="[this.contentsTypeNum === 1 ? 'pb-6' : '']"
+          :class="[
+            this.contentsTypeNum === 1 || this.contentsTypeNum === 2
+              ? 'pb-6'
+              : '',
+          ]"
         >
           全 {{ totalSearchResult }} 件
         </div>
@@ -145,7 +164,7 @@
                   colspan="8"
                   align="center"
                   class="load-more"
-                  @click="searchAdditionalEpisodes"
+                  @click="searchAdditionalResults"
                 >
                   <v-progress-circular
                     v-if="loading"
@@ -221,7 +240,79 @@
             colspan="8"
             align="center"
             class="load-more pt-3 pb-3"
-            @click="searchAdditionalSeries"
+            @click="searchAdditionalResults"
+          >
+            <v-progress-circular
+              v-if="loading"
+              indeterminate
+              color="amber"
+              class="mr-4"
+            />
+            {{ nextPageStartIndex }}-{{ nextPageEndIndex }}件目を読み込む/全{{
+              totalSearchResult
+            }}件
+          </div>
+        </v-expansion-panels>
+        <v-expansion-panels v-else-if="contentsTypeNum === 2">
+          <v-expansion-panel
+            v-for="part_of_playlist in playlists"
+            :key="part_of_playlist.id"
+          >
+            <v-expansion-panel-header expand-icon="mdi-menu-down">
+              <td class="playlist-image">
+                <v-img
+                  :src="logoUrl(part_of_playlist)"
+                  lazy-src="https://placehold.jp/40x40.png"
+                  width="49"
+                  height="49"
+                  class="ma-2 playlist-image"
+                />
+              </td>
+              <td class="playlist-name">
+                {{ part_of_playlist.name }}
+              </td>
+              <td class="series-can-be-watch">
+                視聴可能：
+                <v-chip
+                  v-if="isIncludeAvailableVideo(part_of_playlist)"
+                  class="mx-2"
+                  color="pink"
+                  label
+                  text-color="white"
+                  >視聴可</v-chip
+                >
+                <v-chip
+                  v-else
+                  class="mx-2"
+                  color="grey"
+                  label
+                  text-color="white"
+                  >視聴不可</v-chip
+                >
+              </td>
+              <span color="blue" class="display-episode">エピソード表示</span>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <episode-search-result-table
+                :search-result="part_of_playlist"
+                :ignore-episodes="ignoreEpisodes"
+                :query-key="queryKey"
+                :editing-keywords="editingKeywords"
+                :sort-type-query="sortTypeQuery"
+                :contents-type="contentsType"
+                :filter-service="filterService"
+                :total-search-episodes-result="part_of_playlist.episodes.count"
+                @add-episode="addEpisode"
+                @select-episode="selectEpisode"
+              />
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <div
+            v-show="canLoadMoreEpisodes"
+            colspan="8"
+            align="center"
+            class="load-more pt-3 pb-3"
+            @click="searchAdditionalResults"
           >
             <v-progress-circular
               v-if="loading"
@@ -347,6 +438,8 @@ export default Vue.extend({
           return 'tvepisode'
         case 1:
           return 'tvseries'
+        case 2:
+          return 'nplaylist'
         default:
           return 'tvepisode'
       }
@@ -357,6 +450,8 @@ export default Vue.extend({
           return 'エピソード'
         case 1:
           return 'シリーズ'
+        case 2:
+          return 'プレイリスト'
         default:
           return 'エピソード'
       }
@@ -502,6 +597,52 @@ export default Vue.extend({
           }
         })
     },
+    searchPlaylists(
+      this: any,
+      clearCurrentResults = true,
+      isSwitchTab = true,
+      queryKeyNum = this.queryKeyNum
+    ) {
+      this.loading = true
+      this.contentsTypeNum = 2
+      this.episodes = []
+      this.series = []
+      this.typeOfList = 'recommend'
+      this.modeOfItem = 'tv'
+      this.queryKeyNum = queryKeyNum
+
+      if (isSwitchTab) {
+        this.sortTypeNum = 1
+      }
+
+      if (clearCurrentResults) {
+        this.playlists = []
+        this.searchOffset = 0
+      }
+
+      let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&${this.sortTypeQuery}&size=${this.pageSize}&contents_type=${this.contentsType}&mode_of_item=${this.modeOfItem}&type_of_list=${this.typeOfList}`
+      if (this.filterService) {
+        // FIXME: e2 を加えると BadRequest になるため、一旦除外
+        searchUrl = searchUrl + '&vService=g1,g2,e1,e3'
+      }
+      this.$axios
+        .get(searchUrl)
+        .then((res: any) => {
+          this.playlists = this.playlists.concat(res.data.items)
+          this.totalSearchResult = res.data.total
+          this.isNoResult = this.totalSearchResult === 0
+          this.searchOffset += this.pageSize
+        })
+        .finally(() => {
+          this.loading = false
+          if (this.episodes.length <= this.pageSize) {
+            this.$scrollTo('#episode-search-result', 1400, {
+              easing: [0, 0, 0.1, 1],
+              offset: -195,
+            })
+          }
+        })
+    },
     searchWithKeyword(
       this: any,
       clearCurrentResults = true,
@@ -523,6 +664,9 @@ export default Vue.extend({
             queryKeyNum,
           })
           break
+        case 2:
+          this.searchPlaylists(clearCurrentResults, isSwitchTab, queryKeyNum)
+          break
         default:
           this.searchEpisodes({
             clearCurrentResults,
@@ -541,19 +685,26 @@ export default Vue.extend({
       this.editingKeywords = ''
       this.episodes = []
     },
-    searchAdditionalEpisodes() {
-      this.searchEpisodes({
-        clearCurrentResults: false,
-        isSwitchTab: false,
-        queryKeyNum: this.queryKeyNum,
-      })
-    },
-    searchAdditionalSeries() {
-      this.searchSeries({
-        clearCurrentResults: false,
-        isSwitchTab: false,
-        queryKeyNum: this.queryKeyNum,
-      })
+    searchAdditionalResults() {
+      switch (this.contentsTypeNum) {
+        case 0:
+          this.searchEpisodes({
+            clearCurrentResults: false,
+            isSwitchTab: false,
+            queryKeyNum: this.queryKeyNum,
+          })
+          break
+        case 1:
+          this.searchSeries({
+            clearCurrentResults: false,
+            isSwitchTab: false,
+            queryKeyNum: this.queryKeyNum,
+          })
+          break
+        case 2:
+          this.searchPlaylists(false, false, this.queryKeyNum)
+          break
+      }
     },
     selectEpisode(episode: any) {
       this.$emit('select-episode', episode)
@@ -618,11 +769,13 @@ export default Vue.extend({
   overflow: auto;
 }
 
-td.series-image {
+td.series-image,
+td.playlist-image {
   width: 1%;
 }
 
-td.series-name {
+td.series-name,
+td.playlist-name {
   width: 35%;
 }
 
@@ -654,5 +807,9 @@ td.series-can-be-watch {
 
 .v-expansion-panel-header {
   height: 58px;
+}
+
+.playlist-tab-menu {
+  font-size: 12px;
 }
 </style>

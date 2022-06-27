@@ -16,11 +16,10 @@ class PocApiClient < DlabApiBase
     end
   VERSION = 'r6.0'
   INTERNAL_PARAMS = { extendedEntities: true, ignoreRange: true }.freeze
-  DEFAULT_OFFSET = 0
-  DEFAULT_SIZE = 10
-  DEFAULT_TYPE = 'tvepisode'
-  DEFAULT_SORT_ORDER = 'desc'
-  DEFAULT_SORT_ORDER_BY = 'score'
+  DEFAULT_ENVIRONMENT = 'okushibu3'
+  DEFAULT_TYPE_OF_LIST = 'recommend'
+  DEFAULT_MODE_OF_ITEM = 'tv'
+  DEFAULT_ENVIRONMENT = 'okushibu3'
 
   attr_reader :api_endpoint, :version
 
@@ -28,6 +27,18 @@ class PocApiClient < DlabApiBase
     super()
     @api_endpoint = api_endpoint || API_ENDPOINT
     @version = version || VERSION
+  end
+
+  # TVEpisode 検索APIをリクエストする
+  #   r6との差分例
+  #    ignoreRangeがない
+  #    typeOfListが追加
+  #    modeOfItemが追加
+  #
+  # @param [Hash] query
+  def search(query: {})
+    res = client.get "/#{version}/s/extended.json", INTERNAL_PARAMS.merge(query)
+    handle_response(res)
   end
 
   # TvEpisode データを取得する
@@ -40,5 +51,22 @@ class PocApiClient < DlabApiBase
   def episode(episode_id:, query: {})
     res = client.get "/#{version}/t/tvepisode/te/#{episode_id}.json", INTERNAL_PARAMS.merge(query)
     handle_response(res)
+  end
+
+  # TvEpisode データを取得する
+  #
+  # @param [String] playlist_id: プレイリストID
+  # @param [Hash] query
+  def episode_from_playlist(playlist_id:, query: {})
+    res = client.get "/#{version}/l/tvepisode/pl/#{playlist_id}.json", query
+    handle_response(res)
+  end
+
+  # 視聴可能なエピソードを取得する
+  #
+  # @param [String] playlist_id: プレイリストID
+  def available_episode_from_playlist(playlist_id)
+    res = client.get "/#{version}/l/tvepisode/pl/#{playlist_id}.json", { availableOn: DEFAULT_ENVIRONMENT }
+    JSON.parse(res.body, symbolize_names: true) # 視聴可能なエピソードが存在しない場合404が返却されるためその対応
   end
 end

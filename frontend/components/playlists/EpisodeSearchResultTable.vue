@@ -120,9 +120,16 @@ export default Vue.extend({
   methods: {
     searchEpisodes(searchResultId: number) {
       this.loading = true
-      let searchUrl = ''
+      let searchUrl = `/episodes/search?${this.$props.queryKey}=${this.$props.editingKeywords}&offset=${this.searchOffset}&${this.$props.sortTypeQuery}&ignore_range=${this.$props.ignoreRange}&size=${this.pageSize}&contents_type=${this.contentsType}`
 
-      searchUrl = `/episodes/search?${this.$props.queryKey}=${this.$props.editingKeywords}&offset=${this.searchOffset}&${this.$props.sortTypeQuery}&ignore_range=${this.$props.ignoreRange}&size=${this.pageSize}&contents_type=${this.contentsType}&series_id=${searchResultId}`
+      switch (this.$props.contentsType) {
+        case 'tvseries':
+          searchUrl = `${searchUrl}&series_id=${searchResultId}`
+          break
+        case 'nplaylist':
+          searchUrl = `${searchUrl}&playlist_id=${searchResultId}`
+          break
+      }
       if (this.$props.filterService) {
         // FIXME: e2 を加えると BadRequest になるため、一旦除外
         searchUrl = searchUrl + '&service=g1,g2,e1,e3'

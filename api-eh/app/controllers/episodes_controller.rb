@@ -13,9 +13,11 @@ class EpisodesController < ApplicationController
   def search
     case search_params[:contents_type]
     when 'tvepisode'
-      @result = SearchEpisodes.new.call(DlabApiClient.new, search_params)
+      @result = SearchEpisodes.new.call(client: DlabApiClient.new, search_params: search_params)
     when 'tvseries'
-      @result = SearchSeries.new.call(DlabApiClient.new, search_params)
+      @result = SearchSeries.new.call(client: DlabApiClient.new, search_params: search_params)
+    when 'nplaylist'
+      @result = SearchPlaylists.new.call(client: PocApiClient.new, search_params: search_params)
     end
   end
 
@@ -56,6 +58,6 @@ class EpisodesController < ApplicationController
 
   def search_params
     params.permit(:word, :concern, :keyword, :offset, :ignore_range, :order, :order_by, :size, :service, :vService,
-                  :contents_type, :series_id)
+                  :contents_type, :series_id, :playlist_id, :mode_of_item, :type_of_list)
   end
 end
