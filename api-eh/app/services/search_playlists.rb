@@ -14,34 +14,34 @@ class SearchPlaylists
 
   # @param [DlabApiClient] client: PocApiClient
   # @param [Hash] search_params
-  def call(client, search_params)
+  def call(client:, search_params: {})
+    @client = client
     search_query_hash = convert_to_search_query(search_params)
     if search_params[:playlist_id].present?
-      return episode_from_playlist(client, search_query_hash,
-                                   search_params[:playlist_id])
+      return episode_from_playlist(search_query_hash: search_query_hash,
+                                   playlist_id: search_params[:playlist_id])
     end
-
-    playlists = playlists(client, search_query_hash)
-    search_episodes_each_playlist(playlists, client, search_query_hash)
+    playlists = playlists(search_query_hash)
+    search_episodes_each_playlist(search_query_hash: search_query_hash, playlists: playlists)
   end
 
   private
 
+  attr_reader :client
+
   # プレイリスト一覧を取得する
   #
-  # @param [DlabApiBase] client: PocApiClient
   # @param [Hash] search_query_hash
-  def playlists(client, search_query_hash)
+  def playlists(search_query_hash)
     client.search(query: search_query_hash)
       &.deep_symbolize_keys
   end
 
   # プレイリスト毎のエピソードを検索する
   #
-  # @param [Hash] playlists
-  # @param [DlabApiBase] client: PocApiClient
   # @param [Hash] search_query_hash
-  def search_episodes_each_playlist(playlists, client, search_query_hash)
+  # @param [Hash] playlists
+  def search_episodes_each_playlist(search_query_hash: {}, playlists: {})
     search_query_hash[:offset] = 0
     playlists.dig(:result, :nplaylist, :result).each do |playlist|
       res = client.episode_from_playlist(query: search_query_hash, playlist_id: playlist[:id])
@@ -55,10 +55,9 @@ class SearchPlaylists
 
   # プレイリスト毎のエピソードを検索する
   #
-  # @param [DlabApiBase] client: PocApiClient
   # @param [Hash] search_query_hash
   # @param [number]
-  def episode_from_playlist(client, search_query_hash, playlist_id)
+  def episode_from_playlist(search_query_hash: {}, playlist_id: {})
     client.episode_from_playlist(query: search_query_hash, playlist_id: playlist_id)
   end
 

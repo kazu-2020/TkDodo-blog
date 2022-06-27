@@ -13,11 +13,11 @@ class EpisodesController < ApplicationController
   def search
     case search_params[:contents_type]
     when 'tvepisode'
-      @result = SearchEpisodes.new.call(DlabApiClient.new, search_params)
+      @result = SearchEpisodes.new.call(client: DlabApiClient.new, search_params: search_params)
     when 'tvseries'
-      @result = SearchSeries.new.call(DlabApiClient.new, search_params)
+      @result = SearchSeries.new.call(client: DlabApiClient.new, search_params: search_params)
     when 'nplaylist'
-      @result = SearchPlaylists.new.call(PocApiClient.new, search_params)
+      @result = SearchPlaylists.new.call(client: PocApiClient.new, search_params: search_params)
     end
   end
 
