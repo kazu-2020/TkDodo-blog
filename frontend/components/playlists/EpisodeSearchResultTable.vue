@@ -18,7 +18,7 @@
         :key="episode.id"
         :episode="episode"
         :ignore-episodes="ignoreEpisodes"
-        @add-episode="addEpisode"
+        @add-episode="addEpisode(episode)"
         @select-episode="selectEpisode(episode)"
       />
 
@@ -153,6 +153,10 @@ export default Vue.extend({
         })
     },
     addEpisode(episode: any): void {
+      this.$props.searchResult.episodes.result.splice(
+        this.$props.searchResult.episodes.result.indexOf(episode),
+        1
+      )
       this.$emit('add-episode', episode)
     },
     selectEpisode(episode: any) {
