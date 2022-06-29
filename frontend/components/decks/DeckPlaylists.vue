@@ -12,12 +12,10 @@
         </thead>
       </template>
     </v-simple-table>
-    <v-expansion-panels accordion tile>
+    <v-expansion-panels>
       <v-expansion-panel
         v-for="playlist in playlists"
         :key="playlist.playlistUId"
-        v-model="isExpanded"
-        @click="fetchEpisodes(playlist)"
       >
         <v-expansion-panel-header>
           <template #actions>
@@ -62,39 +60,8 @@
               >0/{{ playlist.itemNum }}</v-chip
             >
           </td>
-          <span class="display-episode">エピソード表示</span>
+          <span color="blue" class="display-episode">エピソード表示</span>
         </v-expansion-panel-header>
-        <v-expansion-panel-content class="pl-16">
-          <div v-if="isFetched">
-            <div v-if="playlist.itemNum !== 0">
-              <div
-                v-for="episode in filterPlaylistEpisodes(playlist)"
-                :key="`deck-playlist-list-item-ep-${episode.id}`"
-              >
-                <v-img
-                  :src="eyeCatchUrl(episode)"
-                  lazy-src="https://placehold.jp/100x56.png"
-                  width="44"
-                  height="24"
-                  class="episode-image float-left mr-1"
-                />
-              </div>
-            </div>
-            <div v-else>
-              <v-row align="center" justify="center"
-                ><v-col class="body-2">エピソードはありません</v-col></v-row
-              >
-            </div>
-          </div>
-          <div v-else align="center" class="height-100">
-            <v-row v-if="isError" align="center" justify="center"
-              ><v-col class="body-2">エラーが発生しました</v-col></v-row
-            >
-            <v-row v-else align="center" justify="center"
-              ><v-col><v-progress-circular indeterminate color="amber" /></v-col
-            ></v-row>
-          </div>
-        </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
   </div>
@@ -104,16 +71,9 @@
 import Vue from 'vue'
 
 interface DataType {
-  isError: boolean
-  isFetched: boolean
-  isExpanded: []
-  playlistEpisodes: [
-    {
-      playlistUId: string
-      episodes: []
-    }
-  ]
+  headers: object
 }
+
 export default Vue.extend({
   name: 'DeckPlaylist',
   props: {
@@ -125,15 +85,21 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
-      isError: false,
-      isFetched: false,
-      isExpanded: [],
-      playlistEpisodes: [{ playlistUId: '', episodes: [] }],
+      headers: [
+        {
+          value: 'name',
+          text: 'プレイリスト',
+          sortable: false,
+        },
+        { value: 'articleStatus', text: '記事の有無', sortable: false },
+        { value: 'videoStatus', text: '視聴可能エピソード数', sortable: false },
+      ],
     }
   },
   computed: {
     playlists: {
       get(): any[] {
+        console.log(this.deck.playlists)
         return this.deck.playlists
       },
       set(value: any) {
@@ -156,17 +122,6 @@ export default Vue.extend({
 
       return 'https://placehold.jp/40x40.png'
     },
-    eyeCatchUrl(episode: any) {
-      if (episode?.eyecatch !== undefined) {
-        return episode.eyecatch.medium.url
-      } else if ((episode?.keyvisuals || [])[0] !== undefined) {
-        return episode.keyvisuals[0].small.url
-      } else if (episode?.partOfSeries?.eyecatch !== undefined) {
-        return episode.partOfSeries.eyecatch.medium.url
-      }
-
-      return 'https://placehold.jp/100x56.png'
-    },
     hasVideo(playlist: any) {
       return playlist.playableItemsCount !== 0
     },
@@ -178,48 +133,6 @@ export default Vue.extend({
         return '○'
       } else {
         return '×'
-      }
-    },
-    fetchEpisodes(playlist: any) {
-      this.isFetched = false
-      let isAlreadyAdded = false
-
-      for (const item of this.playlistEpisodes) {
-        if (item.playlistUId === playlist.playlistUId) {
-          isAlreadyAdded = true
-          break
-        }
-      }
-
-      if (isAlreadyAdded) {
-        this.isFetched = true
-        return
-      }
-
-      this.$axios
-        .get(`/playlists/${playlist.playlistUId}/playlist_items?limit=10`, {
-          headers: {
-            Authorization: `Bearer ${this.$store.state.token}`,
-          },
-        })
-        .then((res) => {
-          this.playlistEpisodes.push({
-            playlistUId: playlist.playlistUId,
-            episodes: res.data.items,
-          })
-        })
-        .catch(() => {
-          this.isError = true
-        })
-        .finally(() => {
-          this.isFetched = true
-        })
-    },
-    filterPlaylistEpisodes(playlist: any): any {
-      for (const playlistEpisode of this.playlistEpisodes) {
-        if (playlistEpisode.playlistUId === playlist.playlistUId) {
-          return playlistEpisode.episodes
-        }
       }
     },
   },
@@ -247,8 +160,5 @@ export default Vue.extend({
 .playlist-status,
 .display-episode {
   flex: 1 1 300px;
-}
-.v-expansion-panels {
-  z-index: auto !important;
 }
 </style>

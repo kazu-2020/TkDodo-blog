@@ -20,9 +20,8 @@
               <th />
               <th />
               <th class="text-left">プレイリスト</th>
-              <th class="text-left">アイテム数</th>
               <th class="text-left">記事の有無</th>
-              <th class="text-left">視聴可能</th>
+              <th class="text-left">視聴可能なエピソード数</th>
             </tr>
           </thead>
           <tbody>
@@ -57,13 +56,6 @@
               <td align="left">
                 {{ playlist.name }}
               </td>
-              <td>
-                TVEpisode: {{ playlist.itemNum }} HowTo:
-                {{ playlist.howToCount }}
-                <br />
-                Event: {{ playlist.eventCount }} FaqPage:
-                {{ playlist.faqPageCount }}
-              </td>
               <td>{{ articleStatus(playlist) }}</td>
               <td>
                 <v-chip
@@ -73,7 +65,7 @@
                   label
                   text-color="white"
                 >
-                  視聴可
+                  {{ playlist.playableItemsCount }}/{{ playlist.itemNum }}
                 </v-chip>
                 <v-chip
                   v-else
@@ -82,7 +74,7 @@
                   label
                   text-color="white"
                 >
-                  視聴不可
+                  0/{{ playlist.itemNum }}
                 </v-chip>
               </td>
             </tr>
