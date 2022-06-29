@@ -5,10 +5,9 @@ class PlaylistsController < ApplicationController
   before_action :set_pagination, only: [:index]
 
   DEFAULT_PAGE = 1
-  DEFAULT_PER  = 50
+  DEFAULT_PER = 50
 
-  # rubocop:disable Metrics/AbcSize
-  def index
+  def index # rubocop:disable Metrics/AbcSize
     query = if params[:deck_id].present?
               Playlist.by_deck_id(params[:deck_id])
             elsif params[:area].present?
@@ -25,7 +24,6 @@ class PlaylistsController < ApplicationController
     query = query.name_like(params[:query]) if params[:query]
     @playlists = query.recent.page(@page).per(@per)
   end
-  # rubocop:enable Metrics/AbcSize
 
   def show
     @playlist = Playlist.friendly.find(params[:id])
@@ -127,7 +125,7 @@ class PlaylistsController < ApplicationController
 
   def set_pagination
     @page = [params[:page].to_i, DEFAULT_PAGE].max
-    @per  = (params[:per] || DEFAULT_PER).to_i
+    @per = (params[:per] || DEFAULT_PER).to_i
   end
 
   # FIXME: 変更予定 後ほどふさわしい場所に定義します
@@ -145,6 +143,7 @@ class PlaylistsController < ApplicationController
 
     params
   end
+
   # rubocop: enable Metrics/AbcSize
 
   def image_param
