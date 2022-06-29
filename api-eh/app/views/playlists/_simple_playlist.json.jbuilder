@@ -79,5 +79,7 @@ json.article do
   json.footer playlist.marked_footer
 end
 
+json.playableItemsCount playlist.playable_playlist_items_count
+
 json.dateCreated playlist.created_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
 json.dateModified playlist.updated_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
