@@ -107,7 +107,10 @@ interface DataType {
   isError: boolean
   isFetched: boolean
   isExpanded: []
-  playlistEpisodes: object
+  playlistEpisodes: {
+    playlistUId: string
+    episodes: []
+  }
 }
 export default Vue.extend({
   name: 'DeckPlaylist',
