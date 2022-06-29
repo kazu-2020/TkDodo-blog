@@ -16,6 +16,7 @@
       <v-expansion-panel
         v-for="playlist in playlists"
         :key="playlist.playlistUId"
+        v-model="isExpanded"
         @click="fetchEpisodes(playlist)"
       >
         <v-expansion-panel-header>
@@ -64,18 +65,10 @@
           <span color="blue" class="display-episode">エピソード表示</span>
         </v-expansion-panel-header>
         <v-expansion-panel-content class="pl-16">
-          <div v-if="!isFetched" align="center" class="height-100">
-            <v-row v-if="isError" align="center" justify="center"
-              ><v-col class="body-2">エラーが発生しました</v-col></v-row
-            >
-            <v-row v-else align="center" justify="center"
-              ><v-col><v-progress-circular indeterminate color="amber" /></v-col
-            ></v-row>
-          </div>
-          <div v-else>
-            <div v-if="episodes.length !== 0">
+          <div v-if="isFetched">
+            <div v-if="playlistEpisodes.episodes.length !== 0">
               <div
-                v-for="episode in episodes"
+                v-for="episode in playlistEpisodes.episodes"
                 :key="`deck-playlist-list-item-ep-${episode.id}`"
               >
                 <v-img
@@ -93,6 +86,14 @@
               >
             </div>
           </div>
+          <div v-else align="center" class="height-100">
+            <v-row v-if="isError" align="center" justify="center"
+              ><v-col class="body-2">エラーが発生しました</v-col></v-row
+            >
+            <v-row v-else align="center" justify="center"
+              ><v-col><v-progress-circular indeterminate color="amber" /></v-col
+            ></v-row>
+          </div>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -103,12 +104,11 @@
 import Vue from 'vue'
 
 interface DataType {
-  headers: object
-  episodes: []
   isError: boolean
   isFetched: boolean
+  isExpanded: []
+  playlistEpisodes: object
 }
-
 export default Vue.extend({
   name: 'DeckPlaylist',
   props: {
@@ -120,24 +120,15 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
-      headers: [
-        {
-          value: 'name',
-          text: 'プレイリスト',
-          sortable: false,
-        },
-        { value: 'articleStatus', text: '記事の有無', sortable: false },
-        { value: 'videoStatus', text: '視聴可能エピソード数', sortable: false },
-      ],
-      episodes: [],
       isError: false,
       isFetched: false,
+      isExpanded: [],
+      playlistEpisodes: { playlistUId: '', episodes: [] },
     }
   },
   computed: {
     playlists: {
       get(): any[] {
-        console.log(this.deck.playlists)
         return this.deck.playlists
       },
       set(value: any) {
@@ -185,18 +176,29 @@ export default Vue.extend({
       }
     },
     fetchEpisodes(playlist: any) {
-      this.episodes = []
       this.isFetched = false
 
-      if (playlist.itemNum === 0) {
+      if (this.playlistEpisodes.playlistUId === playlist.playlistUId) {
         this.isFetched = true
         return
       }
 
+      if (playlist.itemNum === 0) {
+        this.isFetched = true
+        this.playlistEpisodes.episodes = []
+        return
+      }
+
+      this.playlistEpisodes.playlistUId = playlist.playlistUId
+
       this.$axios
-        .get(`/playlists/${playlist.playlistUId}/playlist_items`)
+        .get(`/playlists/${playlist.playlistUId}/playlist_items?limit=10`, {
+          headers: {
+            Authorization: `Bearer ${this.$store.state.token}`,
+          },
+        })
         .then((res) => {
-          this.episodes = res.data.items
+          this.playlistEpisodes.episodes = res.data.items
         })
         .catch(() => {
           this.isError = true
