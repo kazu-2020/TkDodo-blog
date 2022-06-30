@@ -30,13 +30,8 @@ module PlaylistItemAttributes
   end
 
   def playable_episodes_count(playlist_id)
-    counts = if PocApiClient.new.available_episode_from_playlist(playlist_id)[:count].present?
-               PocApiClient.new.available_episode_from_playlist(playlist_id)[:count]
-             else
-               0
-             end
-
-    @playable_episodes_count ||= counts
+    res = fetch_episode_count(playlist_id)
+    @playable_episodes_count ||= res
   end
 
   def faq_page_count
@@ -82,5 +77,17 @@ module PlaylistItemAttributes
 
   def force_fetch_sub_types_count
     fetch_sub_types_count(force: true)
+  end
+
+  def fetch_episode_count(playlist_id)
+    Rails.cache.fetch("#{cache_key_with_version}/fetch_episode_count", expires_in: CACHED_DATA_TTL, force: true,
+                                                                       skip_nil: true) do
+      count = 0
+      if PocApiClient.new.available_episode_from_playlist(playlist_id)[:count].present?
+        count = PocApiClient.new.available_episode_from_playlist(playlist_id)[:count]
+      end
+
+      count
+    end
   end
 end

@@ -60,7 +60,10 @@ if playlist.hero_image_url
     end
   end
 end
+
 json.itemNum playlist.playlist_items.count
+
+json.playableEpisodesCount playlist.playable_episodes_count(playlist.string_id) if params[:with_episode_count].present?
 
 if params[:with_subtype_item_count].present?
   json.howToCount playlist.how_to_count
@@ -78,8 +81,6 @@ json.article do
   json.plainBody playlist.article_body
   json.footer playlist.marked_footer
 end
-
-json.playableEpisodesCount playlist.playable_episodes_count(playlist.string_id)
 
 json.dateCreated playlist.created_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
 json.dateModified playlist.updated_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
