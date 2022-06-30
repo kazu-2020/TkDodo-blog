@@ -21,7 +21,7 @@
               <th />
               <th class="text-left">プレイリスト</th>
               <th class="text-left">記事の有無</th>
-              <th class="text-left">視聴可能なエピソード数</th>
+              <th class="text-left">視聴可能エピソード数</th>
             </tr>
           </thead>
           <tbody>
@@ -60,7 +60,7 @@
               <td>
                 <v-chip
                   v-if="hasVideo(playlist)"
-                  class="mx-2"
+                  class="video-count-chip"
                   color="pink"
                   label
                   text-color="white"
@@ -69,7 +69,7 @@
                 </v-chip>
                 <v-chip
                   v-else
-                  class="mx-2"
+                  class="video-count-chip"
                   color="grey"
                   label
                   text-color="white"

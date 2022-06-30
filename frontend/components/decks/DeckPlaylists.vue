@@ -1,27 +1,17 @@
 <template>
-  <div>
-    <v-simple-table>
-      <template #default>
-        <thead>
-          <tr>
-            <th class="pr-0" width="83" />
-            <th class="text-left pr-0 pl-0" width="300">プレイリスト</th>
-            <th class="text-left pr-0 pl-0" width="275">記事の有無</th>
-            <th class="text-left pr-0 pl-0">視聴可能エピソード数</th>
-          </tr>
-        </thead>
-      </template>
-    </v-simple-table>
-    <v-expansion-panels>
-      <v-expansion-panel
-        v-for="playlist in playlists"
-        :key="playlist.playlistUId"
-      >
-        <v-expansion-panel-header>
-          <template #actions>
-            <v-icon color="#3498db"> mdi-menu-down </v-icon>
-          </template>
-          <td class="delete-button pr-5">
+  <v-simple-table>
+    <template #default>
+      <thead>
+        <tr>
+          <th class="pr-0" />
+          <th class="text-left pl-0" colspan="2">プレイリスト</th>
+          <th class="text-left">記事の有無</th>
+          <th class="text-left">視聴可能エピソード数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="playlist in playlists" :key="playlist.playlistUId">
+          <td width="30px">
             <v-btn
               tile
               color="orange"
@@ -31,10 +21,10 @@
               min-width="21px"
               @click="deletePlaylist(playlist)"
             >
-              <v-icon> mdi-minus </v-icon>
+              <v-icon> mdi-minus</v-icon>
             </v-btn>
           </td>
-          <td class="playlist-image">
+          <td class="pl-0" width="30px">
             <v-img
               :src="logoUrl(playlist)"
               lazy-src="https://placehold.jp/40x40.png"
@@ -54,17 +44,16 @@
               color="pink"
               label
               text-color="white"
-              >{{ playlist.playableItemsCount }}/{{ playlist.itemNum }}</v-chip
-            >
+              >{{ playlist.playableItemsCount }}/{{ playlist.itemNum }}
+            </v-chip>
             <v-chip v-else class="mx-2" color="grey" label text-color="white"
-              >0/{{ playlist.itemNum }}</v-chip
-            >
+              >0/{{ playlist.itemNum }}
+            </v-chip>
           </td>
-          <span color="blue" class="display-episode">エピソード表示</span>
-        </v-expansion-panel-header>
-      </v-expansion-panel>
-    </v-expansion-panels>
-  </div>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
 </template>
 
 <script lang="ts">
@@ -138,27 +127,3 @@ export default Vue.extend({
   },
 })
 </script>
-
-<style lang="scss" scoped>
-.delete-button.v-btn.v-btn--tile.v-size--small {
-  min-width: 0;
-  padding: 0 2px;
-}
-.v-expansion-panel-header {
-  height: 35px;
-}
-.display-episode {
-  text-align: right;
-  color: #3498db;
-}
-.delete-button,
-.playlist-image {
-  flex: 0 0 30px;
-}
-.playlist-name,
-.playlist-can-be-watch,
-.playlist-status,
-.display-episode {
-  flex: 1 1 300px;
-}
-</style>
