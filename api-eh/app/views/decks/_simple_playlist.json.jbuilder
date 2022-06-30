@@ -64,6 +64,8 @@ json.itemNum playlist.playlist_items.count
 # FIXME: データが引けなかった時にエラーになる。且つ そもそも 重すぎてパフォーマンス的に厳しいので一旦コメントしています。
 # json.playableItemsCount playlist.playable_playlist_items_count
 
+json.playableEpisodesCount playlist.playable_episodes_count(playlist.string_id) if params[:with_episode_count].present?
+
 if params[:with_subtype_item_count].present?
   json.howToCount playlist.how_to_count
   json.faqPageCount playlist.faq_page_count
@@ -80,8 +82,6 @@ json.article do
   json.plainBody playlist.article_body
   json.footer playlist.marked_footer
 end
-
-json.playableEpisodesCount playlist.playable_episodes_count(playlist.string_id)
 
 json.dateCreated playlist.created_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
 json.dateModified playlist.updated_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
