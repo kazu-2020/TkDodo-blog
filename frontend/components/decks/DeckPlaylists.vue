@@ -4,15 +4,14 @@
       <thead>
         <tr>
           <th class="pr-0" />
-          <th class="text-left">プレイリスト</th>
-          <th />
+          <th class="text-left pl-0" colspan="2">プレイリスト</th>
           <th class="text-left">記事の有無</th>
           <th class="text-left">視聴可能エピソード数</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="playlist in playlists" :key="playlist.playlistUId">
-          <td class="delete-button pr-5">
+          <td width="30px">
             <v-btn
               tile
               color="orange"
@@ -25,7 +24,7 @@
               <v-icon> mdi-minus</v-icon>
             </v-btn>
           </td>
-          <td class="playlist-image">
+          <td class="pl-0" width="30px">
             <v-img
               :src="logoUrl(playlist)"
               lazy-src="https://placehold.jp/40x40.png"
@@ -128,31 +127,3 @@ export default Vue.extend({
   },
 })
 </script>
-
-<style lang="scss" scoped>
-.delete-button.v-btn.v-btn--tile.v-size--small {
-  min-width: 0;
-  padding: 0 2px;
-}
-
-.v-expansion-panel-header {
-  height: 35px;
-}
-
-.display-episode {
-  text-align: right;
-  color: #3498db;
-}
-
-.delete-button,
-.playlist-image {
-  flex: 0 0 30px;
-}
-
-.playlist-name,
-.playlist-can-be-watch,
-.playlist-status,
-.display-episode {
-  flex: 1 1 300px;
-}
-</style>

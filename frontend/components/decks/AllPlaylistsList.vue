@@ -60,7 +60,7 @@
               <td>
                 <v-chip
                   v-if="hasVideo(playlist)"
-                  class="mx-2"
+                  class="video-count-chip"
                   color="pink"
                   label
                   text-color="white"
@@ -69,7 +69,7 @@
                 </v-chip>
                 <v-chip
                   v-else
-                  class="mx-2"
+                  class="video-count-chip"
                   color="grey"
                   label
                   text-color="white"
