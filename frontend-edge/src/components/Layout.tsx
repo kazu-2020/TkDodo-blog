@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 import React from 'react'
 import { Flex, ChakraProvider, Container } from '@chakra-ui/react'
 
-import theme from '../theme'
+import theme from '../lib/theme'
 
 import Header from './Header'
 import Footer from './Footer'
