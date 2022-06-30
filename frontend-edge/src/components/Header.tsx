@@ -37,7 +37,7 @@ export default function Header() {
           <Center h="60px">
             <Link px={0} py={0} to="/" _hover={{ textDecoration: 'none' }}>
               <Image
-                src="../../assets/logo-black@2x.jpg"
+                src="/public/logo-black@2x.jpg"
                 alt="EditorialHands"
                 h="32px"
               />
