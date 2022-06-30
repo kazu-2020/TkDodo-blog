@@ -21,7 +21,7 @@
               <th />
               <th class="text-left">プレイリスト</th>
               <th class="text-left">記事の有無</th>
-              <th class="text-left">視聴可能なエピソード数</th>
+              <th class="text-left">視聴可能エピソード数</th>
             </tr>
           </thead>
           <tbody>
