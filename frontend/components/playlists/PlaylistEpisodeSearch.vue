@@ -16,11 +16,10 @@
       </v-col>
       <v-col cols="7">
         <v-tabs>
-          <v-tab class="pl-0 pr-0">
+          <v-tab class="pl-0 pr-0" style="width: 115px">
             <v-menu offset-y>
               <template #activator="{ on }">
                 <v-btn
-                  style="width: 100px"
                   color="transparent"
                   depressed
                   tile
@@ -28,10 +27,7 @@
                   v-on="on"
                 >
                   <v-icon>mdi-dots-vertical</v-icon>
-                  <span
-                    :class="[contentsTypeNum === 2 ? 'playlist-tab-menu' : '']"
-                    >{{ displayContentsName }}</span
-                  >
+                  <span>{{ displayContentsName }}</span>
                 </v-btn>
               </template>
               <v-list>
@@ -64,37 +60,46 @@
           <v-tab @click="searchWithKeyword(true, true, 0)">ワード</v-tab>
           <v-tab @click="searchWithKeyword(true, true, 2)">キーワード</v-tab>
           <v-tab @click="searchWithKeyword(true, true, 1)">出演者名</v-tab>
-          <v-tab class="pl-0 pr-0">
+          <v-tab
+            v-if="contentsTypeNum === 0"
+            class="pl-0 pr-0"
+            :style="sortItemNum === 1 ? 'width: 130px' : 'width: 100px'"
+          >
             <v-menu offset-y>
               <template #activator="{ on }">
                 <v-btn
                   class="pl-0 pr-0"
-                  style="width: 100px"
                   color="transparent"
                   depressed
                   tile
                   v-on="on"
                 >
                   <v-icon>mdi-dots-vertical</v-icon>
-                  並び順
+                  {{ sortItem }}
                 </v-btn>
               </template>
-              <v-list v-if="contentsTypeNum === 0">
+              <v-list>
                 <v-list-item
-                  v-if="contentsTypeNum === 0"
-                  @click="sortTypeNum = 0"
+                  @click="
+                    searchWithKeyword(((sortTypeNum = 0), (sortItemNum = 1)))
+                  "
                 >
                   <v-list-item-title>関連スコア順</v-list-item-title>
                 </v-list-item>
-                <v-list-item @click="sortTypeNum = 1">
+                <v-list-item
+                  @click="
+                    searchWithKeyword(((sortTypeNum = 1), (sortItemNum = 2)))
+                  "
+                >
                   <v-list-item-title> 新しい順</v-list-item-title>
                 </v-list-item>
-                <v-list-item @click="sortTypeNum = 2">
+                <v-list-item
+                  @click="
+                    searchWithKeyword(((sortTypeNum = 2), (sortItemNum = 3)))
+                  "
+                >
                   <v-list-item-title>古い順</v-list-item-title>
                 </v-list-item>
-              </v-list>
-              <v-list v-else>
-                <v-list-item>ただいま実装中です</v-list-item>
               </v-list>
             </v-menu>
           </v-tab>
@@ -358,6 +363,7 @@ interface DataType {
   modeOfItem: string
   typeOfList: string
   hasIncludeAvailableVideo: boolean
+  sortItemNum: number
 }
 
 export default Vue.extend({
@@ -401,6 +407,7 @@ export default Vue.extend({
       modeOfItem: '',
       typeOfList: '',
       hasIncludeAvailableVideo: false,
+      sortItemNum: 0,
     }
   },
   computed: {
@@ -414,6 +421,20 @@ export default Vue.extend({
           return 'dateModified_asc'
         default:
           return 'score_desc'
+      }
+    },
+    sortItem(): string {
+      switch (this.sortItemNum) {
+        case 0:
+          return '並び順'
+        case 1:
+          return '関連スコア順'
+        case 2:
+          return '新しい順'
+        case 3:
+          return '古い順'
+        default:
+          return '並び順'
       }
     },
     sortTypeQuery(): string {
@@ -508,16 +529,20 @@ export default Vue.extend({
       clearCurrentResults,
       isSwitchTab,
       queryKeyNum,
+      sortTypeNum,
     }: {
       clearCurrentResults: boolean
       isSwitchTab: boolean
       queryKeyNum: number
+      sortTypeNum: number
     }) {
       this.loading = true
       this.contentsTypeNum = 0
       this.series = []
       this.playlists = []
       this.queryKeyNum = queryKeyNum
+      this.sortTypeNum = sortTypeNum
+
       if (isSwitchTab) {
         this.sortTypeNum = 0
       }
@@ -647,7 +672,9 @@ export default Vue.extend({
       this: any,
       clearCurrentResults = true,
       isSwitchTab = false,
-      queryKeyNum = this.queryKeyNum
+      queryKeyNum = this.queryKeyNum,
+      sortTypeNum = this.sortTypeNum,
+      sortItemNum = 0
     ) {
       switch (this.contentsTypeNum) {
         case 0:
@@ -655,6 +682,8 @@ export default Vue.extend({
             clearCurrentResults,
             isSwitchTab,
             queryKeyNum,
+            sortTypeNum,
+            sortItemNum,
           })
           break
         case 1:
@@ -672,6 +701,7 @@ export default Vue.extend({
             clearCurrentResults,
             isSwitchTab,
             queryKeyNum,
+            sortTypeNum,
           })
           break
       }
@@ -692,6 +722,7 @@ export default Vue.extend({
             clearCurrentResults: false,
             isSwitchTab: false,
             queryKeyNum: this.queryKeyNum,
+            sortTypeNum: this.sortTypeNum,
           })
           break
         case 1:
@@ -807,9 +838,5 @@ td.series-can-be-watch {
 
 .v-expansion-panel-header {
   height: 58px;
-}
-
-.playlist-tab-menu {
-  font-size: 12px;
 }
 </style>
