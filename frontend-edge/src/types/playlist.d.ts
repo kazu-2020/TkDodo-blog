@@ -1,4 +1,6 @@
 import { SameAs } from './same_as'
+import { PlaylistStyle } from './playlist_style'
+import { ImageHash } from './image_hash'
 import { EpisodeData } from './episode_data'
 import { Citation } from './citation'
 import { Article } from './article'
@@ -24,12 +26,15 @@ export interface Playlist {
   textDarkColor: string
   linkLightColor: string
   linkDarkColor: string
-  apiState?: string
+  apiState: string
   reservePublishTimeAt: string
   reserveFinishTimeAt: string
   logoImageData: string
   eyecatchImageData: string
   heroImageData: string
+  logo: ImageHash
+  eyecatch: ImageHash
+  hero: ImageHash
   removeLogoImage: boolean
   removeEyecatchImage: boolean
   removeHeroImage: boolean
@@ -55,4 +60,8 @@ export interface Playlist {
   article: Article
   layoutPattern: string
   publishLevel: string
+  dateCreated: string
+  dateModified: string
+  itemNum: number
+  style: PlaylistStyle
 }

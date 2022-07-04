@@ -47,6 +47,9 @@ rules:
         caseInsensitive: true
   react-hooks/rules-of-hooks: error
   react-hooks/exhaustive-deps: warn
+  react/function-component-definition:
+    - 2
+    - namedComponents: 'arrow-function'
   react/react-in-jsx-scope: off
   react/jsx-props-no-spreading: off
   semi:

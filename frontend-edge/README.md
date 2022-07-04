@@ -61,3 +61,13 @@ src
 |
 +-- utils             # アプリケーション全体で利用するユーティリティ関数など
 ```
+
+### Storybook
+http://localhost:6006/
+
+```sh
+pnpm storybook 
+```
+
+※ Node 18 環境で起動しない不具合があるため、 環境変数 `NODE_OPTIONS=--openssl-legacy-provider` で回避しています。
+direnv用の `.envrc` に設定済み

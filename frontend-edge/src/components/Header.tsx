@@ -24,7 +24,7 @@ export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <Box bg="White" px={4} boxShadow="md" w="full">
+    <Box bg="White" px={4} boxShadow="md" pos="fixed" zIndex="999" w="full">
       <Flex h={16} alignItems="center" justifyContent="space-between">
         <IconButton
           size="md"
@@ -36,11 +36,7 @@ export default function Header() {
         <HStack spacing={8} alignItems="center">
           <Center h="60px">
             <Link px={0} py={0} to="/" _hover={{ textDecoration: 'none' }}>
-              <Image
-                src="/public/logo-black@2x.jpg"
-                alt="EditorialHands"
-                h="32px"
-              />
+              <Image src="/logo-black@2x.jpg" alt="EditorialHands" h="32px" />
             </Link>
           </Center>
           <HStack as="nav" spacing={4} display={{ base: 'none', md: 'flex' }}>
