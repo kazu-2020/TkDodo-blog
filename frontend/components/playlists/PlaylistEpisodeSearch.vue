@@ -63,7 +63,7 @@
           <v-tab
             v-if="contentsTypeNum === 0"
             class="pl-0 pr-0"
-            :style="sortItemNum === 1 ? 'width: 130px' : 'width: 100px'"
+            style="width: 115px"
           >
             <v-menu offset-y>
               <template #activator="{ on }">
