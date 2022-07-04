@@ -11,8 +11,7 @@ import NotFound from '@/features/misc/routes/NotFound'
 import Layout from '@/components/Layout'
 import Home from '@/components/Home'
 
-function AppRoutes() {
-  return (
+const AppRoutes = () => (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
@@ -35,6 +34,5 @@ function AppRoutes() {
       </Route>
     </Routes>
   )
-}
 
 export default AppRoutes

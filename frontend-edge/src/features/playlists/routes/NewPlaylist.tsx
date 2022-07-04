@@ -1,6 +1,4 @@
 import React from 'react'
 
-function NewPlaylist() {
-  return <h3>NewPlaylist</h3>
-}
+const NewPlaylist = () => <h3>NewPlaylist</h3>
 export default NewPlaylist

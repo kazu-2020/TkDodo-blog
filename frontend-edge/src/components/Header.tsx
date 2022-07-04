@@ -20,7 +20,7 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
 import Link from './Link'
 
-export default function Header() {
+const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -130,3 +130,4 @@ export default function Header() {
     </Box>
   )
 }
+export default Header
