@@ -66,9 +66,9 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content class="pl-16">
           <div v-if="isFetched">
-            <div v-if="playlistEpisodes.episodes.length !== 0">
+            <div v-if="playlist.itemNum !== 0">
               <div
-                v-for="episode in playlistEpisodes.episodes"
+                v-for="episode in filterPlaylistEpisodes(playlist)"
                 :key="`deck-playlist-list-item-ep-${episode.id}`"
               >
                 <v-img
@@ -107,10 +107,12 @@ interface DataType {
   isError: boolean
   isFetched: boolean
   isExpanded: []
-  playlistEpisodes: {
-    playlistUId: string
-    episodes: []
-  }
+  playlistEpisodes: [
+    {
+      playlistUId: string
+      episodes: []
+    }
+  ]
 }
 export default Vue.extend({
   name: 'DeckPlaylist',
@@ -126,7 +128,7 @@ export default Vue.extend({
       isError: false,
       isFetched: false,
       isExpanded: [],
-      playlistEpisodes: { playlistUId: '', episodes: [] },
+      playlistEpisodes: [{ playlistUId: '', episodes: [] }],
     }
   },
   computed: {
@@ -180,19 +182,19 @@ export default Vue.extend({
     },
     fetchEpisodes(playlist: any) {
       this.isFetched = false
+      let isAlreadyAdded = false
 
-      if (this.playlistEpisodes.playlistUId === playlist.playlistUId) {
+      for (const item of this.playlistEpisodes) {
+        if (item.playlistUId === playlist.playlistUId) {
+          isAlreadyAdded = true
+          break
+        }
+      }
+
+      if (isAlreadyAdded) {
         this.isFetched = true
         return
       }
-
-      if (playlist.itemNum === 0) {
-        this.isFetched = true
-        this.playlistEpisodes.episodes = []
-        return
-      }
-
-      this.playlistEpisodes.playlistUId = playlist.playlistUId
 
       this.$axios
         .get(`/playlists/${playlist.playlistUId}/playlist_items?limit=10`, {
@@ -201,7 +203,10 @@ export default Vue.extend({
           },
         })
         .then((res) => {
-          this.playlistEpisodes.episodes = res.data.items
+          this.playlistEpisodes.push({
+            playlistUId: playlist.playlistUId,
+            episodes: res.data.items,
+          })
         })
         .catch(() => {
           this.isError = true
@@ -209,6 +214,13 @@ export default Vue.extend({
         .finally(() => {
           this.isFetched = true
         })
+    },
+    filterPlaylistEpisodes(playlist: any): any {
+      for (const playlistEpisode of this.playlistEpisodes) {
+        if (playlistEpisode.playlistUId === playlist.playlistUId) {
+          return playlistEpisode.episodes
+        }
+      }
     },
   },
 })
