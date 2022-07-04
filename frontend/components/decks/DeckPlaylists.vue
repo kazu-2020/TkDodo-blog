@@ -12,7 +12,7 @@
         </thead>
       </template>
     </v-simple-table>
-    <v-expansion-panels>
+    <v-expansion-panels accordion tile>
       <v-expansion-panel
         v-for="playlist in playlists"
         :key="playlist.playlistUId"
@@ -235,5 +235,8 @@ export default Vue.extend({
 .playlist-status,
 .display-episode {
   flex: 1 1 300px;
+}
+.v-expansion-panels {
+  z-index: auto !important;
 }
 </style>
