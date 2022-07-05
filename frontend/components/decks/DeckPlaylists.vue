@@ -88,7 +88,6 @@ export default Vue.extend({
   computed: {
     playlists: {
       get(): any[] {
-        console.log(this.deck.playlists)
         return this.deck.playlists
       },
       set(value: any) {
