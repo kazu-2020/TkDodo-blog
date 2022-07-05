@@ -39,12 +39,12 @@
           <td class="playlist-status">{{ articleStatus(playlist) }}</td>
           <td class="playlist-can-be-watch">
             <v-chip
-              v-if="playlist.playableItemsCount > 0"
+              v-if="hasVideo(playlist)"
               class="mx-2"
               color="pink"
               label
               text-color="white"
-              >{{ playlist.playableItemsCount }}/{{ playlist.itemNum }}
+              >{{ playlist.playableEpisodesCount }}/{{ playlist.itemNum }}
             </v-chip>
             <v-chip v-else class="mx-2" color="grey" label text-color="white"
               >0/{{ playlist.itemNum }}
@@ -112,7 +112,7 @@ export default Vue.extend({
       return 'https://placehold.jp/40x40.png'
     },
     hasVideo(playlist: any) {
-      return playlist.playableItemsCount !== 0
+      return playlist.playableEpisodesCount !== 0
     },
     hasArticle(playlist: any) {
       return playlist.article.markedBody !== null
