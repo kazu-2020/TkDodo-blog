@@ -10,7 +10,7 @@ specifiers:
   '@storybook/addon-essentials': ^6.5.9
   '@storybook/addon-interactions': ^6.5.9
   '@storybook/addon-links': ^6.5.9
-  '@storybook/builder-vite': ^0.1.37
+  '@storybook/builder-vite': ^0.1.38
   '@storybook/react': ^6.5.9
   '@storybook/testing-library': ^0.0.13
   '@testing-library/jest-dom': ^5.16.4
@@ -24,6 +24,7 @@ specifiers:
   axios: ^0.27.2
   babel-loader: ^8.2.5
   c8: ^7.11.3
+  date-fns: ^2.28.0
   eslint: ^7.32.0 || ^8.2.0
   eslint-config-airbnb: ^19.0.4
   eslint-config-airbnb-typescript: ^17.0.0
@@ -60,6 +61,7 @@ dependencies:
   '@storybook/react': 6.5.9_jwuwqx2qwvnp7cp7fcoimvxu3q
   '@vitejs/plugin-react': 1.3.2
   axios: 0.27.2
+  date-fns: 2.28.0
   framer-motion: 6.3.16_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -6279,6 +6281,11 @@ packages:
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
     dev: true
+
+  /date-fns/2.28.0:
+    resolution: {integrity: sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==}
+    engines: {node: '>=0.11'}
+    dev: false
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}

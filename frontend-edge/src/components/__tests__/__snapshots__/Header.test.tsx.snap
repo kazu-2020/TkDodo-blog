@@ -2,7 +2,7 @@
 
 exports[`Header component > should render correctly 1`] = `
 <div
-  class="css-19qsh2d"
+  class="css-172pk90"
 >
   <div
     class="css-jfo7z"
@@ -37,7 +37,7 @@ exports[`Header component > should render correctly 1`] = `
           <img
             alt="EditorialHands"
             class="chakra-image css-xgff9b"
-            src="../../assets/logo-black@2x.jpg"
+            src="/logo-black@2x.jpg"
           />
         </a>
       </div>

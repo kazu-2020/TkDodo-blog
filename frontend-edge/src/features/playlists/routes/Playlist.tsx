@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 
 import { usePlaylist } from '../api/getPlaylist'
 
-export default function Playlist() {
+const Playlist = () => {
   const params = useParams()
 
   const { data, isLoading } = usePlaylist(params.playlistUId)
@@ -23,3 +23,4 @@ export default function Playlist() {
     </main>
   )
 }
+export default Playlist
