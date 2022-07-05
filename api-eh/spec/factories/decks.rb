@@ -16,4 +16,10 @@ FactoryBot.define do
       create_list(:playlist, 2, decks: [deck])
     end
   end
+
+  trait :with_a_playlist do # decks_controller_specのWebMockを作成する際に使用
+    after(:create) do |deck|
+      create(:playlist, decks: [deck])
+    end
+  end
 end
