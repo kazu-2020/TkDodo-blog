@@ -12,6 +12,7 @@
     "lint": "eslint --ext .tsx,.ts src/",
     "format": "prettier --write \"**/*.+(js|json|yml|ts|tsx)\"",
     "test": "vitest",
+    "snapshot": "vitest run -u",
     "coverage": "vitest run --coverage",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
