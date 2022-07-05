@@ -1,0 +1,80 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6.0/l/tvepisode/pl/recommend-tep-0000000002.json?availableOn=okushibu3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '115'
+      connection:
+      - keep-alive
+      date:
+      - Tue, 05 Jul 2022 06:20:50 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      cross-origin-embedder-policy:
+      - require-corp
+      cross-origin-opener-policy:
+      - same-origin
+      cross-origin-resource-policy:
+      - same-origin
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"1af2f79"'
+      etag:
+      - '"73-Vy4cPfgW5mVGsy80CHm3sO1sfxM"'
+      x-cache:
+      - Error from cloudfront
+      via:
+      - 1.1 5cbbcc51eb95a2072bb8064803109254.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT20-C3
+      x-amz-cf-id:
+      - efhYKrPkSiBrZnOq4QaO_zwtjMZSinB08K7X48BrDY18tieOf4SCog==
+    body:
+      encoding: UTF-8
+      string: '{"error":{"statuscode":404,"message":"Invalid PlaylistId.","requestId":"Root=1-62c3d842-5841fec4332f1bc84ca5852b"}}'
+  recorded_at: Tue, 05 Jul 2022 06:20:50 GMT
+recorded_with: VCR 6.1.0
