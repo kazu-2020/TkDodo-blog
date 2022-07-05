@@ -34,6 +34,7 @@ export interface Playlist {
   removeEyecatchImage: boolean
   removeHeroImage: boolean
   playableItemsCount?: number
+  playableEpisodesCount?: number
   howToCount?: number
   eventCount?: number
   faqPageCount?: number
