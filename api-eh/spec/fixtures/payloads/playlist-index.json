@@ -1,0 +1,121 @@
+{
+	"playlists": [{
+		"playlistUId": "88d3f399-8abf-44d9-b5e8-ef8686ae0290",
+		"name": "トリセツ",
+		"apiState": "open",
+		"detailedNameRuby": null,
+		"description": "料理名人おすすめの簡単レシピやヘルシーなご当地おむすびを参考に、お弁当のレパートリーを増やそう。",
+		"headline": null,
+		"keywords": [
+
+		],
+		"detailedCatch": null,
+		"hashtag": [
+
+		],
+		"formatGenre": null,
+		"formatGenreName": "",
+		"themeGenre": null,
+		"themeGenreName": "",
+		"style": {
+			"selectedPalette": "#FFFFFF",
+			"primaryLight": "#929292",
+			"primaryDark": "#ffffff",
+			"textLight": "#000000",
+			"textDark": "#ffffff",
+			"linkLight": "#747474",
+			"linkDark": "#ffffff"
+		},
+		"logo": {
+			"medium": {
+				"url": "https://eh.nr.nhk.jp/static/assets/images/playlist/pl/recommend-tep-0000000049/recommend-tep-0000000049-logo_285d8b2351cbd1d24fe294e950fc47d5.png",
+				"width": 1076,
+				"height": 1076
+			}
+		},
+		"eyecatch": {
+			"medium": {
+				"url": "https://eh.nr.nhk.jp/static/assets/images/playlist/pl/recommend-tep-0000000049/recommend-tep-0000000049-eyecatch_d84a5d7233ecb8a060ee2f462aa44616.png",
+				"width": 1909,
+				"height": 1074
+			}
+		},
+		"hero": {
+			"medium": {
+				"url": "https://eh.nr.nhk.jp/static/assets/images/playlist/pl/recommend-tep-0000000049/recommend-tep-0000000049-hero_e5d29fc5d8955abe583a6691b11725a9.png",
+				"width": 1909,
+				"height": 636
+			}
+		},
+		"itemNum": 3,
+		"layoutPattern": "summary",
+		"datePublished": null,
+		"article": {
+			"header": "",
+			"body": {
+				"time": 1654223682719,
+				"blocks": [{
+						"id": "1Wn_ghMzyD",
+						"data": {
+							"text": "メニューに迷ったらココ！",
+							"level": 2
+						},
+						"type": "header"
+					},
+					{
+						"id": "lUsb1powbO",
+						"data": {
+							"file": {
+								"url": "playlist/article_images/995573bd4a37dd55934793b238e3f5e0.png"
+							},
+							"caption": "",
+							"stretched": false,
+							"withBorder": false,
+							"withBackground": false
+						},
+						"type": "image"
+					},
+					{
+						"id": "bY_NYkT4FC",
+						"data": {
+							"text": "いろいろな番組に登場した2500種類以上の料理レシピを紹介するサイト。タグを使って、「弁当」に絞って見ることもできます。"
+						},
+						"type": "paragraph"
+					},
+					{
+						"id": "0gjbAEKoLW",
+						"data": {
+							"link": "https://www.nhk.or.jp/lifestyle/recipe/search.html?keyword=%E5%BC%81%E5%BD%93%C2%A0",
+							"meta": {
+								"description": "料理レシピ"
+							}
+						},
+						"type": "linkTool"
+					},
+					{
+						"id": "li9dZd0Ycq",
+						"data": {
+							"text": "※社会実証サイトから離れます"
+						},
+						"type": "paragraph"
+					}
+				],
+				"version": "2.22.3"
+			},
+			"markedBody": "## メニューに迷ったらココ！\n\n![](playlist/article_images/995573bd4a37dd55934793b238e3f5e0.png)\n\nいろいろな番組に登場した2500種類以上の料理レシピを紹介するサイト。タグを使って、「弁当」に絞って見ることもできます。\n\n[料理レシピ](https://www.nhk.or.jp/lifestyle/recipe/search.html?keyword=%E5%BC%81%E5%BD%93%C2%A0)\n\n※社会実証サイトから離れます\n",
+			"plainBody": "メニューに迷ったらココ！\n\n\n\nいろいろな番組に登場した2500種類以上の料理レシピを紹介するサイト。タグを使って、「弁当」に絞って見ることもできます。\n\n料理レシピ\n\n※社会実証サイトから離れます\n",
+			"footer": ""
+		},
+		"dateCreated": "2022-04-28T16:09:13+09:00",
+		"dateModified": "2022-06-03T11:35:40+09:00"
+	}],
+	"pagination": {
+		"count": 1,
+		"totalPages": 1,
+		"currentPage": 1,
+		"nextPage": null,
+		"previousPage": null,
+		"isFirstPage": true,
+		"isLastPage": true
+	}
+}
