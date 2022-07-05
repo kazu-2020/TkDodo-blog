@@ -29,6 +29,16 @@ module PlaylistItemAttributes
     @playable_playlist_items ||= playlist_items.kept.select(&:has_video)
   end
 
+  def playable_episodes_count(playlist_id)
+    counts = if PocApiClient.new.available_episode_from_playlist(playlist_id)[:count].present?
+               PocApiClient.new.available_episode_from_playlist(playlist_id)[:count]
+             else
+               0
+             end
+
+    @playable_episodes_count ||= counts
+  end
+
   def faq_page_count
     res = fetch_sub_types_count
     @faq_page_count ||= res[:faq_page_count]
