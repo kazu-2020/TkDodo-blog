@@ -19,14 +19,23 @@ describe PlaylistsController, type: :request do
       }
       let(:params) { { deck_id: deck.id } }
 
-      it '指定したdeck_idのデッキに紐づくプレイリストが取得できること' do
-        VCR.use_cassette('requests/playlists_controller_spec/get_playlist_by_deck_id') do
-          get playlists_url, params: params
-
-          expect(response.status).to eq 200
-          json = JSON.parse(response.body)
-          expect(json['playlists'][0]).to include expected_json
+      before do
+        json = File.open(Rails.root.join('spec/fixtures/payloads/playlist-index.json')) do |file|
+          json_string = file.read
+          JSON.parse(json_string, symbolize_names: true)
         end
+
+        poc_client = instance_double(PocApiClient)
+        allow(PocApiClient).to receive(:new).and_return(poc_client)
+        allow(poc_client).to receive(:available_episode_from_playlist).with(playlist.string_id).and_return(json)
+      end
+
+      it '指定したdeck_idのデッキに紐づくプレイリストが取得できること' do
+        get playlists_url, params: params
+
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['playlists'][0]).to include expected_json
       end
     end
 
@@ -37,13 +46,11 @@ describe PlaylistsController, type: :request do
       let(:params) { { area: area } }
 
       it '指定したareaのデッキに紐づくプレイリストが取得できること' do
-        VCR.use_cassette('requests/playlists_controller_spec/get_playlist_by_area') do
-          get playlists_url, params: params
+        get playlists_url, params: params
 
-          expect(response.status).to eq 200
-          json = JSON.parse(response.body)
-          expect(json['playlists'][0]['stringId']).to eq playlist.string_id
-        end
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['playlists'][0]['stringId']).to eq playlist.string_id
       end
     end
 
@@ -54,13 +61,11 @@ describe PlaylistsController, type: :request do
         let(:params) { { api_state: 'open' } }
 
         it '公開ステータスがopenのプレイリストが取得できること' do
-          VCR.use_cassette('requests/playlists_controller_spec/get_playlist_only_state_open') do
-            get playlists_url, params: params
+          get playlists_url, params: params
 
-            expect(response.status).to eq 200
-            json = JSON.parse(response.body)
-            expect(json['playlists'][0]['apiState']).to eq 'open'
-          end
+          expect(response.status).to eq 200
+          json = JSON.parse(response.body)
+          expect(json['playlists'][0]['apiState']).to eq 'open'
         end
       end
 
@@ -70,13 +75,11 @@ describe PlaylistsController, type: :request do
         let(:params) { { api_state: 'close' } }
 
         it '公開ステータスがcloseのプレイリストが取得できること' do
-          VCR.use_cassette('requests/playlists_controller_spec/get_playlist_only_state_close') do
-            get playlists_url, params: params
+          get playlists_url, params: params
 
-            expect(response.status).to eq 200
-            json = JSON.parse(response.body)
-            expect(json['playlists'][0]['apiState']).to eq 'close'
-          end
+          expect(response.status).to eq 200
+          json = JSON.parse(response.body)
+          expect(json['playlists'][0]['apiState']).to eq 'close'
         end
       end
     end
@@ -89,13 +92,11 @@ describe PlaylistsController, type: :request do
       end
 
       it '検索ワードに部分一致するプレイリストが取得できること' do
-        VCR.use_cassette('requests/playlists_controller_spec/get_playlist_search_by_word') do
-          get playlists_url, params: params
+        get playlists_url, params: params
 
-          expect(response.status).to eq 200
-          json = JSON.parse(response.body)
-          expect(json['playlists'][0]['name']).to eq 'オウサム ネーム'
-        end
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['playlists'][0]['name']).to eq 'オウサム ネーム'
       end
     end
   end
