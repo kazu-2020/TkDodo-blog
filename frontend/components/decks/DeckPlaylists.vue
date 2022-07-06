@@ -62,7 +62,7 @@
               >0/{{ playlist.itemNum }}</v-chip
             >
           </td>
-          <span color="blue" class="display-episode">エピソード表示</span>
+          <span class="display-episode">エピソード表示</span>
         </v-expansion-panel-header>
         <v-expansion-panel-content class="pl-16">
           <div v-if="isFetched">
