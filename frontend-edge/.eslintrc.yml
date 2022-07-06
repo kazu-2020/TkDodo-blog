@@ -1,0 +1,60 @@
+env:
+  browser: true
+  es2021: true
+extends:
+  - plugin:react/recommended
+  - plugin:react-hooks/recommended
+  - airbnb
+  - airbnb-typescript
+  - prettier
+overrides:
+  - files:
+      - '**/__tests__/**/*.+(ts|tsx|js)'
+      - '**/?(*.)+(spec|test).+(ts|tsx|js)'
+    extends:
+      - plugin:jest-dom/recommended
+      - plugin:testing-library/react
+  - files:
+      - '*.stories.@(ts|tsx|js|jsx|mjs|cjs)'
+    extends:
+      - plugin:storybook/recommended
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: latest
+  project: ./tsconfig.json
+  sourceType: module
+plugins:
+  - react
+  - react-hooks
+  - '@typescript-eslint'
+  - jest-dom
+  - testing-library
+rules:
+  import/order:
+    - error
+    - groups:
+        - builtin
+        - external
+        - internal
+        - parent
+        - sibling
+        - index
+      newlines-between: 'always'
+      alphabetize:
+        order: desc
+        caseInsensitive: true
+  react-hooks/rules-of-hooks: error
+  react-hooks/exhaustive-deps: warn
+  react/function-component-definition:
+    - 2
+    - namedComponents: 'arrow-function'
+  react/react-in-jsx-scope: off
+  react/jsx-props-no-spreading: off
+  semi:
+    - error
+    - never
+settings:
+  import/resolver:
+    typescript: []

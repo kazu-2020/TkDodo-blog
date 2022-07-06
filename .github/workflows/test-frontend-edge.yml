@@ -1,0 +1,30 @@
+name: Test for frontend
+
+on:
+  push:
+    paths:
+      - 'frontend-edge/**'
+      - '.github/workflows/test-frontend-edge.yml'
+
+jobs:
+  lint-and-test:
+      env:
+        working-directory: ./frontend-edge
+      runs-on: ubuntu-latest
+      timeout-minutes: 10
+      steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'pnpm'
+          cache-dependency-path: frontend-edge/pnpm-lock.yaml
+      - run: pnpm install
+        working-directory: ${{env.working-directory}}
+      - run: pnpm lint
+        working-directory: ${{env.working-directory}}
+      - run: pnpm test run
+        working-directory: ${{env.working-directory}}

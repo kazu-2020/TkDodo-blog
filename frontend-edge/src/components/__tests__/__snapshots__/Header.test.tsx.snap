@@ -1,0 +1,266 @@
+// Vitest Snapshot v1
+
+exports[`Header component > should render correctly 1`] = `
+<div
+  class="css-172pk90"
+>
+  <div
+    class="css-jfo7z"
+  >
+    <button
+      aria-label="Open Menu"
+      class="chakra-button css-q0pnj5"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        class="chakra-icon css-onkibi"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+    <div
+      class="chakra-stack css-16awuyr"
+    >
+      <div
+        class="css-1ewzmbr"
+      >
+        <a
+          class="chakra-link css-x7twcr"
+          href="/"
+        >
+          <img
+            alt="EditorialHands"
+            class="chakra-image css-xgff9b"
+            src="/logo-black@2x.jpg"
+          />
+        </a>
+      </div>
+      <nav
+        class="chakra-stack css-t14v28"
+      >
+        <button
+          aria-controls="menu-list-:r2:"
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="chakra-button chakra-menu__menu-button css-1dda0qf"
+          id="menu-button-:r2:"
+          type="button"
+        >
+          <span
+            class="css-xl71ch"
+          >
+            <div
+              class="css-gmuwbf"
+            >
+              <svg
+                class="chakra-icon css-5k6mpx"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                  fill="none"
+                />
+                <path
+                  d="M3 10h11v2H3zM3 6h11v2H3zM3 14h7v2H3zM16 13v8l6-4z"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                プレイリスト
+              </p>
+            </div>
+          </span>
+        </button>
+        <div
+          class="css-0"
+          style="visibility: hidden; position: absolute; min-width: max-content; inset: 0 auto auto 0;"
+        >
+          <div
+            aria-orientation="vertical"
+            class="chakra-menu__menu-list css-sjt5nk"
+            id="menu-list-:r2:"
+            role="menu"
+            style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
+            tabindex="-1"
+          >
+            <a
+              class="chakra-link css-x7twcr"
+              href="/playlists"
+            >
+              <button
+                class="chakra-menu__menuitem css-1k756t9"
+                data-index="0"
+                id="menu-list-:r2:-menuitem-:r3:"
+                role="menuitem"
+                tabindex="-1"
+                type="button"
+              >
+                一覧
+              </button>
+            </a>
+            <a
+              class="chakra-link css-x7twcr"
+              href="/playlists/new"
+            >
+              <button
+                class="chakra-menu__menuitem css-1k756t9"
+                data-index="1"
+                id="menu-list-:r2:-menuitem-:r4:"
+                role="menuitem"
+                tabindex="-1"
+                type="button"
+              >
+                新規作成
+              </button>
+            </a>
+          </div>
+        </div>
+        <button
+          aria-controls="menu-list-:r6:"
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="chakra-button chakra-menu__menu-button css-1dda0qf"
+          id="menu-button-:r6:"
+          type="button"
+        >
+          <span
+            class="css-xl71ch"
+          >
+            <div
+              class="css-gmuwbf"
+            >
+              <svg
+                class="chakra-icon css-5k6mpx"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                  fill="none"
+                />
+                <path
+                  d="M3 14h4v-4H3v4zm0 5h4v-4H3v4zM3 9h4V5H3v4zm5 5h13v-4H8v4zm0 5h13v-4H8v4zM8 5v4h13V5H8z"
+                />
+              </svg>
+              <p
+                class="chakra-text css-0"
+              >
+                デッキ
+              </p>
+            </div>
+          </span>
+        </button>
+        <div
+          class="css-0"
+          style="visibility: hidden; position: absolute; min-width: max-content; inset: 0 auto auto 0;"
+        >
+          <div
+            aria-orientation="vertical"
+            class="chakra-menu__menu-list css-sjt5nk"
+            id="menu-list-:r6:"
+            role="menu"
+            style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
+            tabindex="-1"
+          >
+            <a
+              class="chakra-link css-x7twcr"
+              href="/recommend-decks"
+            >
+              <button
+                class="chakra-menu__menuitem css-1k756t9"
+                data-index="0"
+                id="menu-list-:r6:-menuitem-:r7:"
+                role="menuitem"
+                tabindex="-1"
+                type="button"
+              >
+                レコメンドデッキ一覧
+              </button>
+            </a>
+            <a
+              class="chakra-link css-x7twcr"
+              href="/recommend-decks/new"
+            >
+              <button
+                class="chakra-menu__menuitem css-1k756t9"
+                data-index="1"
+                id="menu-list-:r6:-menuitem-:r8:"
+                role="menuitem"
+                tabindex="-1"
+                type="button"
+              >
+                レコメンドデッキ新規作成
+              </button>
+            </a>
+            <button
+              class="chakra-menu__menuitem css-1k756t9"
+              data-index="2"
+              id="menu-list-:r6:-menuitem-:r9:"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              レコメンドデッキビューア
+            </button>
+            <hr
+              aria-orientation="horizontal"
+              class="chakra-menu__divider css-0"
+              role="separator"
+            />
+            <a
+              class="chakra-link css-x7twcr"
+              href="/series-decks"
+            >
+              <button
+                class="chakra-menu__menuitem css-1k756t9"
+                data-index="3"
+                id="menu-list-:r6:-menuitem-:ra:"
+                role="menuitem"
+                tabindex="-1"
+                type="button"
+              >
+                シリーズデッキ一覧
+              </button>
+            </a>
+            <a
+              class="chakra-link css-x7twcr"
+              href="/series-decks/new"
+            >
+              <button
+                class="chakra-menu__menuitem css-1k756t9"
+                data-index="4"
+                id="menu-list-:r6:-menuitem-:rb:"
+                role="menuitem"
+                tabindex="-1"
+                type="button"
+              >
+                シリーズデッキ新規作成
+              </button>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+`;
