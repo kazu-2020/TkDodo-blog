@@ -72,12 +72,14 @@ export const actions = actionTree(
       })
     },
     async fetchDeck({ commit, dispatch }, targetId) {
-      await this.$axios.get(`/decks/${targetId}`).then((response) => {
-        commit('setEditingDeck', { deck: response.data.deck })
-        dispatch('sameAs/updateAll', response.data.deck.sameAs, {
-          root: true,
+      await this.$axios
+        .get(`/decks/${targetId}?with_episode_count=1`)
+        .then((response) => {
+          commit('setEditingDeck', { deck: response.data.deck })
+          dispatch('sameAs/updateAll', response.data.deck.sameAs, {
+            root: true,
+          })
         })
-      })
     },
     async fetchSeriesDeck({ commit }, targetId) {
       const url = `/series_decks/${targetId}`
