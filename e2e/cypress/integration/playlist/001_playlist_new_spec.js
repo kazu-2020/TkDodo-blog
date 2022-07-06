@@ -153,6 +153,7 @@ describe('プレイリスト新規作成', () => {
     cy.get('.menuable__content__active').contains('全て').click()
 
     cy.waitLoading()
+    cy.wait(1000)
 
     cy.get('.playlist-name').contains(now).click()
 
