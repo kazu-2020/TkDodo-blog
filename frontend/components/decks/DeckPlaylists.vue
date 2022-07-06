@@ -51,13 +51,13 @@
           <td class="playlist-status">{{ articleStatus(playlist) }}</td>
           <td class="playlist-can-be-watch">
             <v-chip
-              v-if="playlist.playableItemsCount > 0"
+              v-if="hasVideo(playlist)"
               class="mx-2"
               color="pink"
               label
               text-color="white"
-              >{{ playlist.playableItemsCount }}/{{ playlist.itemNum }}</v-chip
-            >
+              >{{ playlist.playableEpisodesCount }}/{{ playlist.itemNum }}
+            </v-chip>
             <v-chip v-else class="mx-2" color="grey" label text-color="white"
               >0/{{ playlist.itemNum }}</v-chip
             >
