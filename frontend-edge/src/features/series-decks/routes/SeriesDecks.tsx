@@ -1,4 +1,14 @@
 import React from 'react'
+import { Heading } from '@chakra-ui/react'
 
-const SeriesDecks = () => <h3>SeriesDecks</h3>
+import SeriesDeckList from '../components/SeriesDeckList'
+
+const SeriesDecks = () => (
+  <>
+    <Heading as="h2" size="md" mb={5}>
+      シリーズデッキ一覧
+    </Heading>
+    <SeriesDeckList />
+  </>
+)
 export default SeriesDecks

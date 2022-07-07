@@ -11,17 +11,16 @@ import {
   Text
 } from '@chakra-ui/react'
 
-import { Playlist } from '@/types/playlist'
+import { Deck as SeriesDeck } from '@/types/deck'
 import Link from '@/components/Link'
+import ApiStateBadge from '@/components/ApiStateBadge'
 
-import ApiStateBadge from '../../../components/ApiStateBadge'
-
-const PlaylistList = ({
-  playlist,
+const SeriesDeckList = ({
+  seriesDeck,
   isOpen,
   onClose
 }: {
-  playlist: Playlist
+  seriesDeck: SeriesDeck
   isOpen: any
   onClose: any
 }) => (
@@ -29,12 +28,27 @@ const PlaylistList = ({
     <DrawerContent>
       <DrawerBody px={3}>
         <Box borderWidth={1} borderRadius="sm" p={3}>
-          <Text fontWeight={700}>{playlist.name}</Text>
-          <ApiStateBadge apiState={playlist.apiState} />
+          <Text fontWeight={700}>{seriesDeck.name}</Text>
+          <ApiStateBadge apiState={seriesDeck.apiState} />
         </Box>
         <Spacer mt={5} />
         <Center>
           <ButtonGroup spacing="6">
+            <Button
+              type="submit"
+              form="my-form"
+              colorScheme="gray"
+              leftIcon={<RiPencilFill />}
+            >
+              <Link
+                px={0}
+                py={0}
+                to={`/series-decks/${seriesDeck.id}/config`}
+                _hover={{ textDecoration: 'none' }}
+              >
+                <Text>管理設定</Text>
+              </Link>
+            </Button>
             <Button
               type="submit"
               form="my-form"
@@ -44,10 +58,10 @@ const PlaylistList = ({
               <Link
                 px={0}
                 py={0}
-                to={`/playlists/${playlist.playlistUId}`}
+                to={`/series-decks/${seriesDeck.id}`}
                 _hover={{ textDecoration: 'none' }}
               >
-                <Text>編集する</Text>
+                <Text>デッキ編集</Text>
               </Link>
             </Button>
             <Button
@@ -65,4 +79,4 @@ const PlaylistList = ({
     </DrawerContent>
   </Drawer>
 )
-export default PlaylistList
+export default SeriesDeckList
