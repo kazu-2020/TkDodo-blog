@@ -102,7 +102,7 @@ describe DecksController, type: :request do
   end
 
   describe 'GET #show' do
-    let!(:deck) { create(:deck, :with_a_playlist) }
+    let!(:deck) { create :deck, :with_playlists }
 
     before do
       json = File.open(Rails.root.join('spec/fixtures/payloads/te_PG3Z16Q145.json')) do |file|
@@ -114,16 +114,6 @@ describe DecksController, type: :request do
       allow(DlabApiClient).to receive(:new).and_return(dlab_client)
       allow(dlab_client).to receive(:episode_l_bundle).with(type: 'tv', episode_id: anything).and_return(json)
       allow(dlab_client).to receive(:episode_list_bundle).with(type: 'tv', episode_id: anything).and_return({})
-
-      playlist_json = File.open(Rails.root.join('spec/fixtures/payloads/playlist-index.json')) do |file|
-        json_string = file.read
-        JSON.parse(json_string, symbolize_names: true)
-      end
-
-      poc_client = instance_double(PocApiClient)
-      string_id = deck.playlists.first.string_id
-      allow(PocApiClient).to receive(:new).and_return(poc_client)
-      allow(poc_client).to receive(:available_episode_from_playlist).with(string_id).and_return(playlist_json)
 
       get deck_path(deck_id)
     end
@@ -201,7 +191,7 @@ describe DecksController, type: :request do
   end
 
   describe 'PUT #update' do
-    let!(:deck) { create :deck, :with_a_playlist }
+    let!(:deck) { create :deck, :with_playlists }
     let!(:updated_data) do
       {
         'enable_list_update' => enable_list_update,
@@ -250,7 +240,7 @@ describe DecksController, type: :request do
         it 'updated_atカラムが更新され、deck_playlistは更新されないこと' do
           expect(response.status).to eq 200
           expect(deck.reload.updated_at).to eq deck.updated_at
-          expect(deck.deck_playlists.count).to eq 1 # updated_dataで更新されない場合、Factoryで生成された1件となる
+          expect(deck.deck_playlists.count).to eq 2 # updated_dataで更新されない場合、Factoryで生成された2件となる
         end
       end
     end
