@@ -63,7 +63,7 @@ class DecksController < ApplicationController
 
   def deck_params
     params.require(:deck).permit(:name, :description, :interfix, :admin_memo, :playlists, :api_state,
-                                 :with_episode_count, deck_same_as_attributes: %i[id name url _destroy])
+                                 deck_same_as_attributes: %i[id name url _destroy])
   end
 
   def set_pagination
