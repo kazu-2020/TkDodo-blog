@@ -310,7 +310,7 @@ export default Vue.extend({
       })
 
       this.$axios
-        .put(`/decks/${this.deck.id}?with_episode_count=1`, data)
+        .put(`/decks/${this.deck.id}`, data)
         .then((response) => {
           this.$store.dispatch('loading/succeedLoading')
           this.$store.dispatch(
