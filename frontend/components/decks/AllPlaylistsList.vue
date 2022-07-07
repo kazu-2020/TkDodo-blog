@@ -17,11 +17,11 @@
         <template #default>
           <thead>
             <tr>
-              <th />
-              <th />
-              <th class="text-left">プレイリスト</th>
-              <th class="text-left">記事の有無</th>
-              <th class="text-left">視聴可能エピソード数</th>
+              <th width="83" />
+              <th width="83">プレイリスト</th>
+              <th class="text-left" width="200" />
+              <th class="text-left" width="150">記事の有無</th>
+              <th class="text-left pl-2" width="470">視聴可能エピソード数</th>
             </tr>
           </thead>
           <tbody>
@@ -44,7 +44,7 @@
                 </v-btn>
                 <div v-else>追加済み</div>
               </td>
-              <td justify="center" align="center">
+              <td justify="center" align="left">
                 <v-img
                   :src="logoUrl(playlist)"
                   lazy-src="https://placehold.jp/40x40.png"
@@ -57,10 +57,10 @@
                 {{ playlist.name }}
               </td>
               <td>{{ articleStatus(playlist) }}</td>
-              <td>
+              <td class="px-0">
                 <v-chip
                   v-if="hasVideo(playlist)"
-                  class="video-count-chip"
+                  class="video-count-chip mx-2"
                   color="pink"
                   label
                   text-color="white"
@@ -69,7 +69,7 @@
                 </v-chip>
                 <v-chip
                   v-else
-                  class="video-count-chip"
+                  class="video-count-chip mx-2"
                   color="grey"
                   label
                   text-color="white"

@@ -5,14 +5,14 @@
         <thead>
           <tr>
             <th class="pr-0" width="83" />
-            <th class="text-left pr-0 pl-0" width="300">プレイリスト</th>
-            <th class="text-left pr-0 pl-0" width="275">記事の有無</th>
+            <th class="text-left pr-0 pl-0" width="340">プレイリスト</th>
+            <th class="text-left pr-0 pl-0" width="310">記事の有無</th>
             <th class="text-left pr-0 pl-0">視聴可能エピソード数</th>
           </tr>
         </thead>
       </template>
     </v-simple-table>
-    <v-expansion-panels accordion tile>
+    <v-expansion-panels accordion tile focusable>
       <v-expansion-panel
         v-for="playlist in playlists"
         :key="playlist.playlistUId"
@@ -250,5 +250,8 @@ export default Vue.extend({
 }
 .v-expansion-panels {
   z-index: auto !important;
+}
+.v-expansion-panel-content::v-deep .v-expansion-panel-content__wrap {
+  padding-top: 16px;
 }
 </style>
