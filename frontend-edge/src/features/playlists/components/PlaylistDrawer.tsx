@@ -25,7 +25,12 @@ const PlaylistList = ({
   isOpen: any
   onClose: any
 }) => (
-  <Drawer isOpen={isOpen} onClose={onClose} size="md">
+  <Drawer
+    isOpen={isOpen}
+    onClose={onClose}
+    size="md"
+    blockScrollOnMount={false}
+  >
     <DrawerContent>
       <DrawerBody px={3}>
         <Box borderWidth={1} borderRadius="sm" p={3}>
