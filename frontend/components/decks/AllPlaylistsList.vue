@@ -65,7 +65,7 @@
                   label
                   text-color="white"
                 >
-                  {{ playlist.playableEpisodesCount }}/{{ playlist.itemNum }}
+                  {{ playlist.playableItemsCount }}/{{ playlist.itemNum }}
                 </v-chip>
                 <v-chip
                   v-else
@@ -154,7 +154,7 @@ export default Vue.extend({
       return 'https://placehold.jp/40x40.png'
     },
     hasVideo(playlist: any) {
-      return playlist.playableEpisodesCount !== 0
+      return playlist.playableItemsCount !== 0
     },
     hasArticle(playlist: any) {
       return playlist.article?.markedBody !== null

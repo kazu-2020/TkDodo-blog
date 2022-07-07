@@ -46,7 +46,9 @@ json.partial! 'shared/playlist_images', playlist: playlist
 json.itemNum playlist.playlist_items.count
 json.layoutPattern playlist.layout_pattern
 json.publishLevel playlist.publish_level
-json.playableItemsCount playlist.playable_playlist_items_count
+if params[:with_episode_count].present?
+  json.playableItemsCount playlist.playable_playlist_items_count(playlist.string_id)
+end
 json.hasHowTo playlist.playlist_items.any?(&:has_how_to)
 json.hasEvent playlist.playlist_items.any?(&:has_event)
 json.hasFaqPage playlist.playlist_items.any?(&:has_faq_page)
