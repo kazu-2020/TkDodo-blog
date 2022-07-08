@@ -3,7 +3,7 @@ import { Playlist } from 'src/types/playlist'
 import { SameAs } from './same_as'
 
 export interface Deck {
-  id?: string
+  id: string
   name: string
   description?: string
   interfix: string

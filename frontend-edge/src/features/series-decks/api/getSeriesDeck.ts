@@ -10,7 +10,7 @@ export const getSeriesDeck = async (
     return Promise.reject(new Error('Invalid id'))
   }
   const res = await axios.get(`series_decks/${seriesDeckId}`)
-  return res.data.playlist
+  return res.data.series_decks
 }
 
 export const useSeriesDeck = (seriesDeckId: string | undefined) =>

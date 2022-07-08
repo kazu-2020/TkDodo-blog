@@ -9,4 +9,4 @@ export const getSeriesDecks = async (): Promise<SeriesDeck[]> => {
 }
 
 export const useSeriesDecks = () =>
-  useQuery<SeriesDeck[], Error>('series_decks', getSeriesDecks)
+  useQuery<SeriesDeck[], Error>('series-decks', getSeriesDecks)

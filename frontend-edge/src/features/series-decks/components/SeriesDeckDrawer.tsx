@@ -1,4 +1,4 @@
-import { MdDelete, RiPencilFill } from 'react-icons/all'
+import { RiPencilFill } from 'react-icons/all'
 import {
   Box,
   Button,
@@ -15,6 +15,8 @@ import { Deck as SeriesDeck } from '@/types/deck'
 import Link from '@/components/Link'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
+import DeleteSeriesDeck from './DeleteSeriesDeck'
+
 const SeriesDeckList = ({
   seriesDeck,
   isOpen,
@@ -24,7 +26,12 @@ const SeriesDeckList = ({
   isOpen: any
   onClose: any
 }) => (
-  <Drawer isOpen={isOpen} onClose={onClose} size="md">
+  <Drawer
+    isOpen={isOpen}
+    onClose={onClose}
+    size="md"
+    blockScrollOnMount={false}
+  >
     <DrawerContent>
       <DrawerBody px={3}>
         <Box borderWidth={1} borderRadius="sm" p={3}>
@@ -64,15 +71,10 @@ const SeriesDeckList = ({
                 <Text>デッキ編集</Text>
               </Link>
             </Button>
-            <Button
-              type="submit"
-              form="my-form"
-              colorScheme="gray"
-              variant="outline"
-              leftIcon={<MdDelete />}
-            >
-              削除する
-            </Button>
+            <DeleteSeriesDeck
+              onDrawerClose={onClose}
+              seriesDeckId={seriesDeck.id}
+            />
           </ButtonGroup>
         </Center>
       </DrawerBody>
