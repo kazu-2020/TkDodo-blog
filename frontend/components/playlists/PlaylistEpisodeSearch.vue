@@ -45,6 +45,7 @@
                   @click="
                     searchSeries({
                       clearCurrentResults: true,
+                      isSwitchTab: true,
                     })
                   "
                 >
@@ -574,30 +575,38 @@ export default Vue.extend({
           }
         })
     },
-    searchSeries(
-      this: any,
-      clearCurrentResults = true,
-      queryKeyNum = this.queryKeyNum
-    ) {
+    searchSeries({
+      clearCurrentResults,
+      isSwitchTab,
+      queryKeyNum,
+    }: {
+      clearCurrentResults: boolean
+      isSwitchTab: boolean
+      queryKeyNum: number
+    }) {
       this.loading = true
       this.contentsTypeNum = 1
       this.episodes = []
       this.playlists = []
       this.queryKeyNum = queryKeyNum
 
+      if (isSwitchTab) {
+        this.sortTypeNum = 1
+      }
+
       if (clearCurrentResults) {
         this.series = []
         this.searchOffset = 0
       }
 
-      let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&ignore_range=${this.ignoreRange}&size=${this.pageSize}&contents_type=${this.contentsType}`
+      let searchUrl = `/episodes/search?${this.queryKey}=${this.editingKeywords}&offset=${this.searchOffset}&${this.sortTypeQuery}&ignore_range=${this.ignoreRange}&size=${this.pageSize}&contents_type=${this.contentsType}`
       if (this.filterService) {
         // FIXME: e2 を加えると BadRequest になるため、一旦除外
         searchUrl = searchUrl + '&vService=g1,g2,e1,e3'
       }
       this.$axios
         .get(searchUrl)
-        .then((res: any) => {
+        .then((res) => {
           this.series = this.series.concat(res.data.items)
           this.totalSearchResult = res.data.total
           this.isNoResult = this.totalSearchResult === 0
@@ -678,7 +687,11 @@ export default Vue.extend({
           })
           break
         case 1:
-          this.searchSeries(clearCurrentResults, queryKeyNum)
+          this.searchSeries({
+            clearCurrentResults,
+            isSwitchTab,
+            queryKeyNum,
+          })
           break
         case 2:
           this.searchPlaylists(clearCurrentResults, isSwitchTab, queryKeyNum)
@@ -713,7 +726,11 @@ export default Vue.extend({
           })
           break
         case 1:
-          this.searchSeries(false, this.queryKeyNum)
+          this.searchSeries({
+            clearCurrentResults: false,
+            isSwitchTab: false,
+            queryKeyNum: this.queryKeyNum,
+          })
           break
         case 2:
           this.searchPlaylists(false, false, this.queryKeyNum)

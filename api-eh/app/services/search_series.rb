@@ -25,7 +25,7 @@ class SearchSeries
   # @param [Hash] search_params
   def series(search_params)
     merged_params = merge_params(search_params)
-    merged_params[:orderBy] = 'score' # tvseriesはrecentEventで引けないため
+    merged_params.delete(:orderBy)
     result = client.search(query: merged_params.merge({ publishLevel: 'notyet,ready,full,limited,gone' }))
                &.deep_symbolize_keys
     search_episodes_each_series(result: result, search_params: search_params)
