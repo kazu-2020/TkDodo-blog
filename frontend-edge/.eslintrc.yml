@@ -45,6 +45,7 @@ rules:
       alphabetize:
         order: desc
         caseInsensitive: true
+  import/prefer-default-export: off
   react-hooks/rules-of-hooks: error
   react-hooks/exhaustive-deps: warn
   react/function-component-definition:
