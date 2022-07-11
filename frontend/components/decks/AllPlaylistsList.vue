@@ -18,7 +18,9 @@
           <thead>
             <tr>
               <th class="px-0" width="5.5%" />
-              <th class="pl-0" width="25%" colspan="2">プレイリスト</th>
+              <th class="text-left pr-0 pl-0" width="26%" colspan="2">
+                プレイリスト
+              </th>
               <th class="text-left pr-0 pl-0" width="22.3%">記事の有無</th>
               <th class="text-left pr-0 pl-0">視聴可能エピソード数</th>
             </tr>
@@ -34,11 +36,9 @@
                 <v-btn
                   v-if="!shouldIgnorePlaylist(playlist)"
                   tile
+                  small
                   color="orange"
-                  class="add_button"
-                  height="21px"
-                  width="21px"
-                  min-width="21px"
+                  class="add-button"
                   @click="addPlaylist(playlist)"
                 >
                   <v-icon> mdi-plus </v-icon>
@@ -51,10 +51,9 @@
                   lazy-src="https://placehold.jp/40x40.png"
                   width="30"
                   height="30"
-                  class="ma-2"
                 />
               </td>
-              <td align="left" class="pl-5">
+              <td align="left" class="pl-4">
                 {{ playlist.name }}
               </td>
               <td class="pl-0">{{ articleStatus(playlist) }}</td>
@@ -170,3 +169,9 @@ export default Vue.extend({
   },
 })
 </script>
+<style lang="scss">
+.add-button.v-btn.v-btn--tile.v-size--small {
+  min-width: 0;
+  padding: 0 2px;
+}
+</style>

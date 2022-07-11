@@ -4,8 +4,8 @@
       <template #default>
         <thead>
           <tr>
-            <th class="px-0" width="6%" />
-            <th class="text-left pr-0 pl-0" width="25%">プレイリスト</th>
+            <th class="px-0" width="5.5%" />
+            <th class="text-left pr-0 pl-0" width="26%">プレイリスト</th>
             <th class="text-left pr-0 pl-0" width="22.3%">記事の有無</th>
             <th class="text-left pr-0 pl-0">視聴可能エピソード数</th>
           </tr>
@@ -23,13 +23,12 @@
           <template #actions>
             <v-icon color="#3498db"> mdi-menu-down </v-icon>
           </template>
-          <td class="pr-5">
+          <td>
             <v-btn
               tile
+              small
               color="orange"
-              height="21px"
-              width="21px"
-              min-width="21px"
+              class="delete-button"
               @click="deletePlaylist(playlist)"
             >
               <v-icon> mdi-minus </v-icon>
@@ -44,7 +43,7 @@
               class="ma-2"
             />
           </td>
-          <td class="playlist-name pl-5">
+          <td class="playlist-name">
             {{ playlist.name }}
           </td>
           <td class="playlist-status">{{ articleStatus(playlist) }}</td>
@@ -248,5 +247,9 @@ export default Vue.extend({
 }
 .v-expansion-panel-content::v-deep .v-expansion-panel-content__wrap {
   padding-top: 16px;
+}
+.delete-button.v-btn.v-btn--tile.v-size--small {
+  min-width: 0;
+  padding: 0 2px;
 }
 </style>
