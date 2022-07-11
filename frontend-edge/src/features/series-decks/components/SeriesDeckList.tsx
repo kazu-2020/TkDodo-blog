@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { nanoid } from 'nanoid'
 import { Skeleton, Stack, useDisclosure } from '@chakra-ui/react'
 
 import { Deck as SeriesDeck } from '@/types/deck'
@@ -18,16 +19,26 @@ const SeriesDeckList = () => {
   if (isLoading) {
     return (
       <Stack>
-        {[...Array(20)].map((_, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <Skeleton key={i} h="48px" px={3} bg="white" borderRadius="md" />
+        {[...Array(20)].map(() => (
+          <Skeleton
+            data-testid="skeleton"
+            key={nanoid()}
+            h="48px"
+            px={3}
+            bg="white"
+            borderRadius="md"
+          />
         ))}
       </Stack>
     )
   }
 
+  if (data === undefined || data.length < 1) {
+    return <p>シリーズデッキはありません。</p>
+  }
+
   return (
-    <Stack>
+    <Stack role="list">
       {data?.map((seriesDeck: SeriesDeck) =>
         SeriesDeckListItem({ seriesDeck, setSelectedSeriesDeck, onOpen })
       )}

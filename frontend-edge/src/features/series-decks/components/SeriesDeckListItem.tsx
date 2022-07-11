@@ -27,6 +27,7 @@ const SeriesDeckListItem = ({
       justifyContent="space-between"
       cursor="pointer"
       onClick={() => handleClick()}
+      role="listitem"
     >
       <HStack>
         <Text color="primary" fontWeight="700">
