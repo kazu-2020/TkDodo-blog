@@ -12,16 +12,15 @@
     <v-col v-if="isError" cols="12">
       <div>プレイリストの取得に失敗しました</div>
     </v-col>
-    <v-col v-if="playlists.length !== 0" cols="12">
+    <v-col v-if="playlists.length !== 0" cols="12" class="px-0">
       <v-simple-table>
         <template #default>
           <thead>
             <tr>
-              <th width="83" />
-              <th width="83">プレイリスト</th>
-              <th class="text-left" width="200" />
-              <th class="text-left" width="150">記事の有無</th>
-              <th class="text-left pl-2" width="470">視聴可能エピソード数</th>
+              <th class="px-0" width="5.5%" />
+              <th class="pl-0" width="25%" colspan="2">プレイリスト</th>
+              <th class="text-left pr-0 pl-0" width="22.3%">記事の有無</th>
+              <th class="text-left pr-0 pl-0">視聴可能エピソード数</th>
             </tr>
           </thead>
           <tbody>
@@ -31,36 +30,38 @@
               style="cursor: pointer"
               @click.stop="clickPlaylist(playlist)"
             >
-              <td>
+              <td align="center" class="px-0">
                 <v-btn
                   v-if="!shouldIgnorePlaylist(playlist)"
                   tile
-                  small
                   color="orange"
                   class="add_button"
+                  height="21px"
+                  width="21px"
+                  min-width="21px"
                   @click="addPlaylist(playlist)"
                 >
                   <v-icon> mdi-plus </v-icon>
                 </v-btn>
                 <div v-else>追加済み</div>
               </td>
-              <td justify="center" align="left">
+              <td class="px-0" width="3%">
                 <v-img
                   :src="logoUrl(playlist)"
                   lazy-src="https://placehold.jp/40x40.png"
-                  width="40"
-                  height="40"
-                  class="ma-2 playlist-image"
+                  width="30"
+                  height="30"
+                  class="ma-2"
                 />
               </td>
-              <td align="left">
+              <td align="left" class="pl-5">
                 {{ playlist.name }}
               </td>
-              <td>{{ articleStatus(playlist) }}</td>
+              <td class="pl-0">{{ articleStatus(playlist) }}</td>
               <td class="px-0">
                 <v-chip
                   v-if="hasVideo(playlist)"
-                  class="video-count-chip mx-2"
+                  class="video-count-chip mx-0"
                   color="pink"
                   label
                   text-color="white"
@@ -69,7 +70,7 @@
                 </v-chip>
                 <v-chip
                   v-else
-                  class="video-count-chip mx-2"
+                  class="video-count-chip mx-0"
                   color="grey"
                   label
                   text-color="white"
