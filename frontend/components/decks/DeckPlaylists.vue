@@ -4,9 +4,9 @@
       <template #default>
         <thead>
           <tr>
-            <th class="pr-0" width="83" />
-            <th class="text-left pr-0 pl-0" width="340">プレイリスト</th>
-            <th class="text-left pr-0 pl-0" width="310">記事の有無</th>
+            <th class="px-0" width="6%" />
+            <th class="text-left pr-0 pl-0" width="25%">プレイリスト</th>
+            <th class="text-left pr-0 pl-0" width="22.3%">記事の有無</th>
             <th class="text-left pr-0 pl-0">視聴可能エピソード数</th>
           </tr>
         </thead>
@@ -23,11 +23,10 @@
           <template #actions>
             <v-icon color="#3498db"> mdi-menu-down </v-icon>
           </template>
-          <td class="delete-button pr-5">
+          <td class="pr-5">
             <v-btn
               tile
               color="orange"
-              class="delete_button"
               height="21px"
               width="21px"
               min-width="21px"
@@ -36,13 +35,13 @@
               <v-icon> mdi-minus </v-icon>
             </v-btn>
           </td>
-          <td class="playlist-image">
+          <td>
             <v-img
               :src="logoUrl(playlist)"
               lazy-src="https://placehold.jp/40x40.png"
               width="30"
               height="30"
-              class="ma-2 playlist-image"
+              class="ma-2"
             />
           </td>
           <td class="playlist-name pl-5">
@@ -237,10 +236,6 @@ export default Vue.extend({
 .display-episode {
   text-align: right;
   color: #3498db;
-}
-.delete-button,
-.playlist-image {
-  flex: 0 0 30px;
 }
 .playlist-name,
 .playlist-can-be-watch,
