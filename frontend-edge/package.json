@@ -15,7 +15,8 @@
     "snapshot": "vitest run -u",
     "coverage": "vitest run --coverage",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "webstorm-integration": "vitest --watch --reporter=dot --reporter=json --outputFile=.vitest-result.json"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.2",

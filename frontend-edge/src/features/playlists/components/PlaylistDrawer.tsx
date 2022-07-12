@@ -13,8 +13,7 @@ import {
 
 import { Playlist } from '@/types/playlist'
 import Link from '@/components/Link'
-
-import ApiStateBadge from '../../../components/ApiStateBadge'
+import ApiStateBadge from '@/components/ApiStateBadge'
 
 const PlaylistList = ({
   playlist,
