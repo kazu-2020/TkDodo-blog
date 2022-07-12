@@ -26,7 +26,8 @@ describe('シリーズ一覧', async () => {
   beforeEach(async () => {
     ;[...Array(20)].map(async () => db.seriesDeck.create(seriesDeckGenerator()))
   })
-  it('listing seriesDecks and delete seriesDeck', async () => {
+
+  it('シリーズデッキが削除できること', async () => {
     await render(<SeriesDecks />)
 
     expect(await screen.findByText(/シリーズデッキ一覧/i)).toBeInTheDocument()
