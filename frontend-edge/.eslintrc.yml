@@ -14,6 +14,10 @@ overrides:
     extends:
       - plugin:jest-dom/recommended
       - plugin:testing-library/react
+    rules:
+      max-lines-per-function: off
+      max-statements: off
+      max-depth: off
   - files:
       - '*.stories.@(ts|tsx|js|jsx|mjs|cjs)'
     extends:
@@ -47,6 +51,15 @@ rules:
         caseInsensitive: true
   import/prefer-default-export: off
   import/no-extraneous-dependencies: off
+  max-lines-per-function:
+    - error
+    - 50
+  max-statements:
+    - error
+    - 10
+  max-depth:
+    - error
+    - 4
   react-hooks/rules-of-hooks: error
   react-hooks/exhaustive-deps: warn
   react/function-component-definition:
