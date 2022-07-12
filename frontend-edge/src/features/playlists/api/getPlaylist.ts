@@ -9,6 +9,7 @@ export const getPlaylist = async (
   if (typeof playlistUId === undefined) {
     return Promise.reject(new Error('Invalid id'))
   }
+
   const res = await axios.get(`playlists/${playlistUId}`)
   return res.data.playlist
 }

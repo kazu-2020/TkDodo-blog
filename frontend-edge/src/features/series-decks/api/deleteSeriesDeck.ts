@@ -1,11 +1,17 @@
 import { useMutation } from 'react-query'
+import { useToast } from '@chakra-ui/react'
 
 import { Deck as SeriesDeck } from '@/types/deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
-export const deleteSeriesDeck = ({ seriesDeckId }: { seriesDeckId: string }) =>
-  axios.delete(`/series-decks/${seriesDeckId}`)
+export const deleteSeriesDeck = async ({
+  seriesDeckId
+}: {
+  seriesDeckId: string
+}) => {
+  await axios.delete(`/series_decks/${seriesDeckId}`)
+}
 
 type UseDeleteSeriesDeckOptions = {
   config?: MutationConfig<typeof deleteSeriesDeck>
@@ -13,8 +19,10 @@ type UseDeleteSeriesDeckOptions = {
 
 export const useDeleteSeriesDeck = ({
   config
-}: UseDeleteSeriesDeckOptions = {}) =>
-  useMutation({
+}: UseDeleteSeriesDeckOptions = {}) => {
+  const toast = useToast()
+
+  return useMutation({
     onMutate: async (deletedSeriesDeck) => {
       await queryClient.cancelQueries('series-decks')
 
@@ -34,10 +42,23 @@ export const useDeleteSeriesDeck = ({
       if (context?.previousSeriesDecks) {
         queryClient.setQueryData('series-decks', context.previousSeriesDecks)
       }
+      toast({
+        title: '削除に失敗しました。',
+        status: 'error',
+        isClosable: true,
+        position: 'top-right'
+      })
     },
     onSuccess: () => {
       queryClient.invalidateQueries('series-decks')
+      toast({
+        title: '削除しました。',
+        status: 'success',
+        isClosable: true,
+        position: 'top-right'
+      })
     },
     ...config,
     mutationFn: deleteSeriesDeck
   })
+}

@@ -1,4 +1,35 @@
-import React from 'react'
+import { useParams } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Box } from '@chakra-ui/react'
 
-const SeriesDeck = () => <h3>SeriesDeck</h3>
+import SeriesDeckForm from '@/features/series-decks/components/SeriesDeckForm'
+
+import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
+import { useSeriesDeck } from '../api/getSeriesDeck'
+
+const SeriesDeck = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  })
+
+  const { seriesDeckId } = useParams()
+  const { data, isLoading } = useSeriesDeck(seriesDeckId)
+  const updateSeriesDeckMutation = useUpdateSeriesDeck()
+
+  if (!data) return null
+
+  if (isLoading) {
+    return (
+      <main style={{ padding: '1rem' }}>
+        <span>Loading...</span>
+      </main>
+    )
+  }
+
+  return (
+    <Box bg="white" p={5} borderRadius="sm">
+      <SeriesDeckForm mutation={updateSeriesDeckMutation} deck={data} />
+    </Box>
+  )
+}
 export default SeriesDeck

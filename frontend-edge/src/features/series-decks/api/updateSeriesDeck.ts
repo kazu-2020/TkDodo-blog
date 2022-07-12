@@ -1,4 +1,5 @@
 import { useMutation } from 'react-query'
+import { useToast } from '@chakra-ui/react'
 
 import { Deck as SeriesDeck } from '@/types/deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
@@ -12,11 +13,18 @@ export type UpdateSeriesDeckDTO = {
   seriesDeckId: string
 }
 
-export const updateSeriesDeck = ({
+export const updateSeriesDeck = async ({
   data,
   seriesDeckId
-}: UpdateSeriesDeckDTO): Promise<SeriesDeck> =>
-  axios.patch(`/series_decks/${seriesDeckId}`, data)
+}: UpdateSeriesDeckDTO): Promise<SeriesDeck> => {
+  const res = await axios.patch(`/series_decks/${seriesDeckId}`, data)
+  return {
+    ...res.data.deck,
+    // FIXME: レスポンスのidが数値になっていて、queryKeyに影響が出てしまうのでのでキャストしてる
+    // ex. ['series-deck', 33] ['series-deck', "33"] は別のキャッシュとして扱われる
+    id: `${res.data.deck.id}`
+  }
+}
 
 type UseUpdateSeriesDeckOptions = {
   config?: MutationConfig<typeof updateSeriesDeck>
@@ -24,9 +32,11 @@ type UseUpdateSeriesDeckOptions = {
 
 export const useUpdateSeriesDeck = ({
   config
-}: UseUpdateSeriesDeckOptions = {}) =>
-  useMutation({
-    onMutate: async (updatingSeriesDeck: any) => {
+}: UseUpdateSeriesDeckOptions = {}) => {
+  const toast = useToast()
+
+  return useMutation({
+    onMutate: async (updatingSeriesDeck) => {
       await queryClient.cancelQueries([
         'series-deck',
         updatingSeriesDeck?.seriesDeckId
@@ -42,7 +52,7 @@ export const useUpdateSeriesDeck = ({
         {
           ...previousSeriesDeck,
           ...updatingSeriesDeck.data,
-          id: updatingSeriesDeck.seriesDeckId
+          id: updatingSeriesDeck?.seriesDeckId
         }
       )
 
@@ -55,10 +65,23 @@ export const useUpdateSeriesDeck = ({
           context.previousSeriesDeck
         )
       }
+      toast({
+        title: '保存に失敗しました。',
+        status: 'error',
+        isClosable: true,
+        position: 'top-right'
+      })
     },
     onSuccess: (data) => {
-      queryClient.refetchQueries(['discussion', data.id])
+      queryClient.refetchQueries(['series-deck', data.id])
+      toast({
+        title: '保存しました。',
+        status: 'success',
+        isClosable: true,
+        position: 'top-right'
+      })
     },
     ...config,
     mutationFn: updateSeriesDeck
   })
+}

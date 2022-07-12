@@ -5,7 +5,7 @@ import axios from '@/lib/axios'
 
 export const getRecommendDecks = async (): Promise<RecommendDeck[]> => {
   const res = await axios.get('/recommend_decks')
-  return res.data.playlists
+  return res.data.series_decks
 }
 
 export const useRecommendDecks = () =>

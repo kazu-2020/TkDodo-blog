@@ -4,7 +4,7 @@ import { Flex, HStack, Icon, Image, Text } from '@chakra-ui/react'
 import { formatDatetime } from '@/utils/format'
 import { Playlist } from '@/types/playlist'
 
-import ApiStateBadge from './ApiStateBadge'
+import ApiStateBadge from '../../../components/ApiStateBadge'
 
 const PlaylistListItem = ({
   playlist,
