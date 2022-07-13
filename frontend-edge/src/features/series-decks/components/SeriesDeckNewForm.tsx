@@ -35,10 +35,11 @@ const SeriesDeckForm = ({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} data-testid="seriesDeckForm">
       <FormControl variant="floating" isInvalid={!!errors.name} mb={5}>
         <Input
           id="name"
+          data-testid="name"
           placeholder=" "
           {...register('name', {
             required: '名前を入力してください'
@@ -58,6 +59,7 @@ const SeriesDeckForm = ({
           <Text>series-tv-for-</Text>
           <Input
             id="interfix"
+            data-testid="interfix"
             w={200}
             {...register('interfix', {
               required: '中間接辞 - Interfixを入力してください'
@@ -74,6 +76,7 @@ const SeriesDeckForm = ({
         <FormLabel htmlFor="description">説明 - Description</FormLabel>
         <Textarea
           id="description"
+          data-testid="description"
           placeholder=" "
           {...register('description')}
         />
@@ -84,7 +87,12 @@ const SeriesDeckForm = ({
 
       <FormControl mb={5}>
         <FormLabel htmlFor="apiState">APIへの公開/非公開</FormLabel>
-        <Checkbox id="apiState" defaultChecked {...register('apiState')}>
+        <Checkbox
+          id="apiState"
+          data-testid="apiState"
+          defaultChecked
+          {...register('apiState')}
+        >
           公開する
         </Checkbox>
       </FormControl>
