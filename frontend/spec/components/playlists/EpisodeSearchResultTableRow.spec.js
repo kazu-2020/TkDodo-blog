@@ -117,7 +117,7 @@ describe('components/playlists/EpisodeSearchResultTableRow.vue', () => {
       })
     })
 
-    describe('releaseEvent がある場合', () => {
+    describe('detailedRecentEvent がある場合', () => {
       it('フォーマットされた日付が返却される', () => {
         const date = '2020-08-01 00:00:00'
         const wrapper = mountFunction({
@@ -125,12 +125,12 @@ describe('components/playlists/EpisodeSearchResultTableRow.vue', () => {
             episode: {
               name: 'EP1',
               partOfSeries: { name: 'SR1' },
-              releasedEvent: { startDate: date },
+              detailedRecentEvent: { startDate: date },
             },
             ignoreEpisodes: [],
           },
         })
-        expect(wrapper.vm.releaseDate).toBe('2020年08月01日(土)')
+        expect(wrapper.vm.recentBroadcastDate).toBe('2020年08月01日(土)')
       })
     })
   })
