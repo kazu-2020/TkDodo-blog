@@ -5,10 +5,9 @@ class PlaylistsController < ApplicationController
   before_action :set_pagination, only: [:index]
 
   DEFAULT_PAGE = 1
-  DEFAULT_PER  = 50
+  DEFAULT_PER = 50
 
-  # rubocop:disable Metrics/AbcSize
-  def index
+  def index # rubocop:disable Metrics/AbcSize
     query = if params[:deck_id].present?
               Playlist.by_deck_id(params[:deck_id])
             elsif params[:area].present?
@@ -25,7 +24,6 @@ class PlaylistsController < ApplicationController
     query = query.name_like(params[:query]) if params[:query]
     @playlists = query.recent.page(@page).per(@per)
   end
-  # rubocop:enable Metrics/AbcSize
 
   def show
     @playlist = Playlist.friendly.find(params[:id])
@@ -117,17 +115,17 @@ class PlaylistsController < ApplicationController
                   :remove_logo_image, :remove_eyecatch_image, :remove_hero_image,
                   :selected_palette, :primary_light_color, :primary_dark_color,
                   :text_light_color, :text_dark_color, :link_light_color, :link_dark_color,
-                  :active_episode, :active_article, :active_faq_page, :active_how_to, :active_event, :active_item_list,
+                  :active_episode, :active_article, :active_faq_page, :active_how_to, :active_event,
                   :reserve_publish_time_at, :reserve_finish_time_at, :alias_id, :marked_header, :editor_data,
                   :marked_footer, :author_type, :author_name, :publisher_type, :publisher_name, :api_state,
+                  :with_episode_count, :active_item_list,
                   same_as_attributes: %i[id name url _destroy], citations_attributes: %i[id name url _destroy],
-                  playlist_items_attributes: %i[episode_id],
-                  keywords: [], hashtags: [])
+                  playlist_items_attributes: %i[episode_id], keywords: [], hashtags: [])
   end
 
   def set_pagination
     @page = [params[:page].to_i, DEFAULT_PAGE].max
-    @per  = (params[:per] || DEFAULT_PER).to_i
+    @per = (params[:per] || DEFAULT_PER).to_i
   end
 
   # FIXME: 変更予定 後ほどふさわしい場所に定義します
@@ -145,6 +143,7 @@ class PlaylistsController < ApplicationController
 
     params
   end
+
   # rubocop: enable Metrics/AbcSize
 
   def image_param

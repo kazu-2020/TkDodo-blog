@@ -55,7 +55,8 @@ describe('レコメンドデッキ新規作成', () => {
     cy.contains('レコメンドデッキ新規作成').click()
 
     // リスト（playlist）の編集
-    cy.get('td .add_button').first().click()
+    // リストの追加はAPIが関連するため実装をスキップ
+    // cy.get('td .add_button').first().click()
 
     // 基本情報（deck）の編集
     cy.get('.series-step').click()

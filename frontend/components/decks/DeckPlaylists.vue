@@ -4,60 +4,58 @@
       <template #default>
         <thead>
           <tr>
-            <th class="pr-0" width="83" />
-            <th class="text-left pr-0 pl-0" width="300">プレイリスト</th>
-            <th class="text-left pr-0 pl-0" width="275">記事の有無</th>
+            <th class="px-0" width="5.7%" />
+            <th class="text-left pr-0 pl-0" width="26%">プレイリスト</th>
+            <th class="text-left pr-0 pl-0" width="22.3%">記事の有無</th>
             <th class="text-left pr-0 pl-0">視聴可能エピソード数</th>
           </tr>
         </thead>
       </template>
     </v-simple-table>
-    <v-expansion-panels accordion tile>
+    <v-expansion-panels accordion tile focusable>
       <v-expansion-panel
         v-for="playlist in playlists"
         :key="playlist.playlistUId"
         v-model="isExpanded"
         @click="fetchEpisodes(playlist)"
       >
-        <v-expansion-panel-header>
+        <v-expansion-panel-header class="px-5">
           <template #actions>
             <v-icon color="#3498db"> mdi-menu-down </v-icon>
           </template>
-          <td class="delete-button pr-5">
+          <td>
             <v-btn
               tile
+              small
               color="orange"
-              class="delete_button"
-              height="21px"
-              width="21px"
-              min-width="21px"
+              class="delete-button mr-4"
               @click="deletePlaylist(playlist)"
             >
               <v-icon> mdi-minus </v-icon>
             </v-btn>
           </td>
-          <td class="playlist-image">
+          <td class="px-0 mr-8" width="3%">
             <v-img
               :src="logoUrl(playlist)"
               lazy-src="https://placehold.jp/40x40.png"
               width="30"
               height="30"
-              class="ma-2 playlist-image"
+              class="ma-2"
             />
           </td>
-          <td class="playlist-name pl-5">
+          <td class="playlist-name">
             {{ playlist.name }}
           </td>
           <td class="playlist-status">{{ articleStatus(playlist) }}</td>
           <td class="playlist-can-be-watch">
             <v-chip
-              v-if="playlist.playableItemsCount > 0"
+              v-if="hasVideo(playlist)"
               class="mx-2"
               color="pink"
               label
               text-color="white"
-              >{{ playlist.playableItemsCount }}/{{ playlist.itemNum }}</v-chip
-            >
+              >{{ playlist.playableItemsCount }}/{{ playlist.itemNum }}
+            </v-chip>
             <v-chip v-else class="mx-2" color="grey" label text-color="white"
               >0/{{ playlist.itemNum }}</v-chip
             >
@@ -238,10 +236,6 @@ export default Vue.extend({
   text-align: right;
   color: #3498db;
 }
-.delete-button,
-.playlist-image {
-  flex: 0 0 30px;
-}
 .playlist-name,
 .playlist-can-be-watch,
 .playlist-status,
@@ -250,5 +244,12 @@ export default Vue.extend({
 }
 .v-expansion-panels {
   z-index: auto !important;
+}
+.v-expansion-panel-content::v-deep .v-expansion-panel-content__wrap {
+  padding-top: 16px;
+}
+.delete-button.v-btn.v-btn--tile.v-size--small {
+  min-width: 0;
+  //padding: 0 2px;
 }
 </style>

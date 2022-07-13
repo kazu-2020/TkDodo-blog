@@ -149,10 +149,14 @@ describe('プレイリスト新規作成', () => {
     cy.contains('プレイリスト').click()
     cy.contains('一覧').click({ force: true })
 
+    cy.waitLoading()
+    cy.wait(500)
+
     cy.get('.v-select__slot').click()
     cy.get('.menuable__content__active').contains('全て').click()
 
     cy.waitLoading()
+    cy.wait(1000)
 
     cy.get('.playlist-name').contains(now).click()
 

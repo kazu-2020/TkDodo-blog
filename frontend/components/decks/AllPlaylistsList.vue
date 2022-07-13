@@ -12,17 +12,17 @@
     <v-col v-if="isError" cols="12">
       <div>プレイリストの取得に失敗しました</div>
     </v-col>
-    <v-col v-if="playlists.length !== 0" cols="12">
+    <v-col v-if="playlists.length !== 0" cols="12" class="px-0">
       <v-simple-table>
         <template #default>
           <thead>
             <tr>
-              <th />
-              <th />
-              <th class="text-left">プレイリスト</th>
-              <th class="text-left">アイテム数</th>
-              <th class="text-left">記事の有無</th>
-              <th class="text-left">視聴可能</th>
+              <th class="px-0" width="5.5%" />
+              <th class="text-left pr-0 pl-0" width="26%" colspan="2">
+                プレイリスト
+              </th>
+              <th class="text-left pr-0 pl-0" width="22.3%">記事の有無</th>
+              <th class="text-left pr-0 pl-0">視聴可能エピソード数</th>
             </tr>
           </thead>
           <tbody>
@@ -32,57 +32,54 @@
               style="cursor: pointer"
               @click.stop="clickPlaylist(playlist)"
             >
-              <td>
+              <td
+                v-if="!shouldIgnorePlaylist(playlist)"
+                align="center"
+                class="pl-4 pr-0"
+              >
                 <v-btn
-                  v-if="!shouldIgnorePlaylist(playlist)"
                   tile
                   small
                   color="orange"
-                  class="add_button"
+                  class="add-button mr-6"
                   @click="addPlaylist(playlist)"
                 >
                   <v-icon> mdi-plus </v-icon>
                 </v-btn>
-                <div v-else>追加済み</div>
               </td>
-              <td justify="center" align="center">
+              <td v-else align="center" class="px-0" width="3%">
+                <div>追加済み</div>
+              </td>
+              <td class="px-0" width="3%">
                 <v-img
                   :src="logoUrl(playlist)"
                   lazy-src="https://placehold.jp/40x40.png"
-                  width="40"
-                  height="40"
-                  class="ma-2 playlist-image"
+                  width="30"
+                  height="30"
                 />
               </td>
-              <td align="left">
+              <td align="left" class="pl-4">
                 {{ playlist.name }}
               </td>
-              <td>
-                TVEpisode: {{ playlist.itemNum }} HowTo:
-                {{ playlist.howToCount }}
-                <br />
-                Event: {{ playlist.eventCount }} FaqPage:
-                {{ playlist.faqPageCount }}
-              </td>
-              <td>{{ articleStatus(playlist) }}</td>
-              <td>
+              <td class="pl-0">{{ articleStatus(playlist) }}</td>
+              <td class="px-0">
                 <v-chip
                   v-if="hasVideo(playlist)"
-                  class="mx-2"
+                  class="video-count-chip mx-0"
                   color="pink"
                   label
                   text-color="white"
                 >
-                  視聴可
+                  {{ playlist.playableItemsCount }}/{{ playlist.itemNum }}
                 </v-chip>
                 <v-chip
                   v-else
-                  class="mx-2"
+                  class="video-count-chip mx-0"
                   color="grey"
                   label
                   text-color="white"
                 >
-                  視聴不可
+                  0/{{ playlist.itemNum }}
                 </v-chip>
               </td>
             </tr>
@@ -125,7 +122,9 @@ export default Vue.extend({
       this.playlistLoading = true
 
       this.$axios
-        .get(`/playlists?per=1000&with_subtype_item_count=1`)
+        .get(
+          `/playlists?per=1000&with_subtype_item_count=1&with_episode_count=1`
+        )
         .then((res) => {
           this.playlists = res.data.playlists
         })
@@ -175,3 +174,9 @@ export default Vue.extend({
   },
 })
 </script>
+<style lang="scss">
+.add-button.v-btn.v-btn--tile.v-size--small {
+  min-width: 0;
+  padding: 0 2px;
+}
+</style>
