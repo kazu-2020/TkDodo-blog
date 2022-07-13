@@ -1,14 +1,13 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.1.5)
+    activesupport (7.0.3.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-      zeitwerk (~> 2.3)
-    aws-eventstream (1.1.1)
-    aws-mfa-secure (0.4.3)
+    aws-eventstream (1.2.0)
+    aws-mfa-secure (0.4.4)
       activesupport
       aws-sdk-core
       aws_config
@@ -16,46 +15,46 @@ GEM
       rainbow
       thor
       zeitwerk
-    aws-partitions (1.472.0)
-    aws-sdk-cloudformation (1.53.0)
-      aws-sdk-core (~> 3, >= 3.112.0)
+    aws-partitions (1.605.0)
+    aws-sdk-cloudformation (1.70.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-codepipeline (1.44.0)
-      aws-sdk-core (~> 3, >= 3.112.0)
+    aws-sdk-codepipeline (1.53.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-core (3.115.0)
+    aws-sdk-core (3.131.2)
       aws-eventstream (~> 1, >= 1.0.2)
-      aws-partitions (~> 1, >= 1.239.0)
+      aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
-      jmespath (~> 1.0)
-    aws-sdk-kms (1.44.0)
-      aws-sdk-core (~> 3, >= 3.112.0)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.57.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.96.1)
-      aws-sdk-core (~> 3, >= 3.112.0)
+    aws-sdk-s3 (1.114.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
       aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.4)
+    aws-sdk-ssm (1.137.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-ssm (1.111.0)
-      aws-sdk-core (~> 3, >= 3.112.0)
-      aws-sigv4 (~> 1.1)
-    aws-sigv4 (1.2.3)
+    aws-sigv4 (1.5.0)
       aws-eventstream (~> 1, >= 1.0.2)
     aws_config (0.1.0)
     cfn_camelizer (0.4.9)
       activesupport
       memoist
       rainbow
-    concurrent-ruby (1.1.9)
-    i18n (1.10.0)
+    concurrent-ruby (1.1.10)
+    i18n (1.11.0)
       concurrent-ruby (~> 1.0)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     memoist (0.16.2)
     mini_portile2 (2.8.0)
-    minitest (5.15.0)
-    nokogiri (1.13.3)
+    minitest (5.16.2)
+    nokogiri (1.13.7)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    pipedream (0.4.5)
+    pipedream (0.4.8)
       activesupport
       aws-mfa-secure
       aws-sdk-cloudformation
@@ -66,19 +65,21 @@ GEM
       memoist
       rainbow
       render_me_pretty
+      rexml
       thor
       zeitwerk
     racc (1.6.0)
     rainbow (3.1.1)
-    render_me_pretty (0.8.3)
+    render_me_pretty (0.8.4)
       activesupport
       rainbow
       tilt
+    rexml (3.2.5)
     thor (1.2.1)
     tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    zeitwerk (2.5.4)
+    zeitwerk (2.6.0)
 
 PLATFORMS
   ruby
