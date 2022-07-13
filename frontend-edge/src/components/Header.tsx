@@ -20,6 +20,12 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
 import Link from './Link'
 
+const LinkWithMenuItem = ({ to, text }: { to: string; text: string }) => (
+  <Link px={0} py={0} to={to} _hover={{ textDecoration: 'none' }}>
+    <MenuItem>{text}</MenuItem>
+  </Link>
+)
+
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -55,22 +61,8 @@ const Header = () => {
                 </Center>
               </MenuButton>
               <MenuList>
-                <Link
-                  px={0}
-                  py={0}
-                  to="playlists"
-                  _hover={{ textDecoration: 'none' }}
-                >
-                  <MenuItem>一覧</MenuItem>
-                </Link>
-                <Link
-                  px={0}
-                  py={0}
-                  to="playlists/new"
-                  _hover={{ textDecoration: 'none' }}
-                >
-                  <MenuItem>新規作成</MenuItem>
-                </Link>
+                <LinkWithMenuItem to="playlists" text="一覧" />
+                <LinkWithMenuItem to="playlists/new" text="新規作成" />
               </MenuList>
             </Menu>
             <Menu>
@@ -88,40 +80,21 @@ const Header = () => {
                 </Center>
               </MenuButton>
               <MenuList>
-                <Link
-                  px={0}
-                  py={0}
+                <LinkWithMenuItem
                   to="recommend-decks"
-                  _hover={{ textDecoration: 'none' }}
-                >
-                  <MenuItem>レコメンドデッキ一覧</MenuItem>
-                </Link>
-                <Link
-                  px={0}
-                  py={0}
+                  text="レコメンドデッキ一覧"
+                />
+                <LinkWithMenuItem
                   to="recommend-decks/new"
-                  _hover={{ textDecoration: 'none' }}
-                >
-                  <MenuItem>レコメンドデッキ新規作成</MenuItem>
-                </Link>
+                  text="レコメンドデッキ新規作成"
+                />
                 <MenuItem>レコメンドデッキビューア</MenuItem>
                 <MenuDivider />
-                <Link
-                  px={0}
-                  py={0}
-                  to="series-decks"
-                  _hover={{ textDecoration: 'none' }}
-                >
-                  <MenuItem>シリーズデッキ一覧</MenuItem>
-                </Link>
-                <Link
-                  px={0}
-                  py={0}
+                <LinkWithMenuItem to="series-decks" text="シリーズデッキ一覧" />
+                <LinkWithMenuItem
                   to="series-decks/new"
-                  _hover={{ textDecoration: 'none' }}
-                >
-                  <MenuItem>シリーズデッキ新規作成</MenuItem>
-                </Link>
+                  text="シリーズデッキ新規作成"
+                />
               </MenuList>
             </Menu>
           </HStack>

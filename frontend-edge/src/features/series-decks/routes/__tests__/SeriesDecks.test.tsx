@@ -5,8 +5,11 @@ import {
   screen,
   userEvent,
   within,
+  waitFor,
   waitForElementToBeRemoved
 } from '@/test/test-utils'
+import { db } from '@/test/server/db'
+import { seriesDeckGenerator } from '@/test/data-generators'
 
 import SeriesDecks from '../SeriesDecks'
 
@@ -19,31 +22,38 @@ afterAll(() => {
   vi.mocked(console.error).mockRestore()
 })
 
-it('listing seriesDecks and delete seriesDeck', async () => {
-  await render(<SeriesDecks />)
+describe('シリーズ一覧', async () => {
+  beforeEach(async () => {
+    ;[...Array(20)].map(async () => db.seriesDeck.create(seriesDeckGenerator()))
+  })
 
-  expect(await screen.findByText(/シリーズデッキ一覧/i)).toBeInTheDocument()
+  it('シリーズデッキが削除できること', async () => {
+    await render(<SeriesDecks />)
 
-  // スケルトンスクリーンが消えるまで待機
-  const skeletons = screen.getAllByTestId('skeleton')
-  await waitForElementToBeRemoved(skeletons)
+    expect(await screen.findByText(/シリーズデッキ一覧/i)).toBeInTheDocument()
 
-  // 一覧からデッキをクリック
-  const listItemSize = screen.getAllByRole('listitem').length
-  userEvent.click(screen.getAllByRole('listitem')[0])
+    // スケルトンスクリーンが消えるまで待機
+    const skeletons = screen.getAllByTestId('skeleton')
+    await waitForElementToBeRemoved(skeletons)
 
-  // ドロワーの削除ボタンをクリック
-  const drawer = await screen.findByRole('dialog')
-  userEvent.click(within(drawer).getByRole('button', { name: /削除する/i }))
+    // 一覧からデッキをクリック
+    const listItemSize = screen.getAllByRole('listitem').length
+    userEvent.click(screen.getAllByRole('listitem')[0])
 
-  // アラートダイアログの削除ボタンをクリック
-  const alertDialog = await screen.findByRole('alertdialog')
-  userEvent.click(
-    within(alertDialog).getByRole('button', { name: /削除する/i })
-  )
+    // ドロワーの削除ボタンをクリック
+    const drawer = await screen.findByRole('dialog')
+    userEvent.click(within(drawer).getByRole('button', { name: /削除する/i }))
 
-  await screen.findAllByRole('listitem')
+    // アラートダイアログの削除ボタンをクリック
+    const alertDialog = await screen.findByRole('alertdialog')
+    userEvent.click(
+      within(alertDialog).getByRole('button', { name: /削除する/i })
+    )
 
-  // 一覧から削除されたものが消えていることを確認
-  expect(screen.getAllByRole('listitem').length).toBe(listItemSize - 1)
+    await waitFor(() => expect(drawer).not.toBeInTheDocument())
+    await screen.findAllByRole('listitem')
+
+    // 一覧から削除されたものが消えていることを確認
+    expect(screen.getAllByRole('listitem').length).toBe(listItemSize - 1)
+  })
 })
