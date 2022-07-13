@@ -11,6 +11,7 @@ const customRender = (
   window.history.pushState({}, 'Test page', route)
 
   return {
+    user: userEvent.setup(),
     ...render(ui, {
       wrapper: AppProvider,
       ...renderOptions
