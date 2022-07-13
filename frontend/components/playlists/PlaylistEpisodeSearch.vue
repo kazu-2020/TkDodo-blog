@@ -185,7 +185,12 @@
             </tbody>
           </template>
         </v-simple-table>
-        <v-expansion-panels v-else-if="contentsTypeNum === 1">
+        <v-expansion-panels
+          v-else-if="contentsTypeNum === 1"
+          accordion
+          tile
+          focusable
+        >
           <v-expansion-panel
             v-for="part_of_series in series"
             :key="part_of_series.id"
@@ -258,7 +263,12 @@
             }}件
           </div>
         </v-expansion-panels>
-        <v-expansion-panels v-else-if="contentsTypeNum === 2">
+        <v-expansion-panels
+          v-else-if="contentsTypeNum === 2"
+          accordion
+          tile
+          focusable
+        >
           <v-expansion-panel
             v-for="part_of_playlist in playlists"
             :key="part_of_playlist.id"
