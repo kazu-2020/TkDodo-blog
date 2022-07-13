@@ -27,7 +27,7 @@
     <td>{{ totalTime(episode) }}</td>
     <td>{{ episode.partOfSeries.name }}</td>
     <td>
-      {{ releaseDate }}
+      {{ startDate }}
     </td>
     <td>
       <v-chip
@@ -84,8 +84,8 @@ export default Vue.extend({
 
       return 'https://placehold.jp/71x40.png'
     },
-    releaseDate(): string {
-      const date = this.episode.releasedEvent?.startDate
+    startDate(): string {
+      const date = this.episode.detailedRecentEvent?.startDate
       if (date) {
         return format(new Date(date), 'yyyy年MM月dd日(E)', {
           locale: ja,
