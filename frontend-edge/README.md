@@ -71,3 +71,4 @@ pnpm storybook
 
 ※ Node 18 環境で起動しない不具合があるため、 環境変数 `NODE_OPTIONS=--openssl-legacy-provider` で回避しています。
 direnv用の `.envrc` に設定済み
+※ `NODE_OPTIONS` を設定したままだと、 vitestが実行できないので、 `unser NODE_OPTIONS && pnpm test` のようにtest実行時は環境変数をunsetしてください

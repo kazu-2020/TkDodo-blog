@@ -10,7 +10,7 @@ export const getRecommendDeck = async (
     return Promise.reject(new Error('Invalid id'))
   }
   const res = await axios.get(`recommend_decks/${recommendDeckId}`)
-  return res.data.playlist
+  return res.data.deck
 }
 
 export const useRecommendDeck = (recommendDeckId: string | undefined) =>
