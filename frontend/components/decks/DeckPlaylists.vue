@@ -4,7 +4,7 @@
       <template #default>
         <thead>
           <tr>
-            <th class="px-0" width="5.5%" />
+            <th class="px-0" width="5.7%" />
             <th class="text-left pr-0 pl-0" width="26%">プレイリスト</th>
             <th class="text-left pr-0 pl-0" width="22.3%">記事の有無</th>
             <th class="text-left pr-0 pl-0">視聴可能エピソード数</th>
@@ -19,7 +19,7 @@
         v-model="isExpanded"
         @click="fetchEpisodes(playlist)"
       >
-        <v-expansion-panel-header>
+        <v-expansion-panel-header class="px-5">
           <template #actions>
             <v-icon color="#3498db"> mdi-menu-down </v-icon>
           </template>
@@ -28,13 +28,13 @@
               tile
               small
               color="orange"
-              class="delete-button"
+              class="delete-button mr-4"
               @click="deletePlaylist(playlist)"
             >
               <v-icon> mdi-minus </v-icon>
             </v-btn>
           </td>
-          <td>
+          <td class="px-0 mr-8" width="3%">
             <v-img
               :src="logoUrl(playlist)"
               lazy-src="https://placehold.jp/40x40.png"
@@ -250,6 +250,6 @@ export default Vue.extend({
 }
 .delete-button.v-btn.v-btn--tile.v-size--small {
   min-width: 0;
-  padding: 0 2px;
+  //padding: 0 2px;
 }
 </style>

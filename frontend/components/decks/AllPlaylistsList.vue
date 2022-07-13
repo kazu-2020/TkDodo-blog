@@ -32,18 +32,23 @@
               style="cursor: pointer"
               @click.stop="clickPlaylist(playlist)"
             >
-              <td align="center" class="px-0">
+              <td
+                v-if="!shouldIgnorePlaylist(playlist)"
+                align="center"
+                class="pl-4 pr-0"
+              >
                 <v-btn
-                  v-if="!shouldIgnorePlaylist(playlist)"
                   tile
                   small
                   color="orange"
-                  class="add-button"
+                  class="add-button mr-6"
                   @click="addPlaylist(playlist)"
                 >
                   <v-icon> mdi-plus </v-icon>
                 </v-btn>
-                <div v-else>追加済み</div>
+              </td>
+              <td v-else align="center" class="px-0" width="3%">
+                <div>追加済み</div>
               </td>
               <td class="px-0" width="3%">
                 <v-img
