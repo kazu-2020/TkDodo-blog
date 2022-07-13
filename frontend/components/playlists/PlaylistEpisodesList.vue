@@ -44,7 +44,7 @@
           <td>{{ totalTime(item) }}</td>
           <td>{{ seriesName(item) }}</td>
           <td>
-            {{ convertReleaseDate(item.releasedEvent) }}
+            {{ convertRecentBroadcastDate(item.detailedRecentEvent) }}
           </td>
           <td>
             <v-chip
@@ -100,11 +100,15 @@ export default Vue.extend({
     clickEpisode(item: any) {
       this.$emit('select-episode', item)
     },
-    convertReleaseDate(releasedEvent: any) {
-      if (releasedEvent) {
-        return format(new Date(releasedEvent.startDate), 'yyyy年MM月dd日(E)', {
-          locale: ja,
-        }).toString()
+    convertRecentBroadcastDate(detailedRecentEvent: any) {
+      if (detailedRecentEvent) {
+        return format(
+          new Date(detailedRecentEvent.startDate),
+          'yyyy年MM月dd日(E)',
+          {
+            locale: ja,
+          }
+        ).toString()
       } else {
         return ''
       }
