@@ -101,8 +101,8 @@ describe('components/playlists/EpisodeSearchResultTableRow.vue', () => {
     })
   })
 
-  describe('computed recentBroadcastDate', () => {
-    describe('recentBroadcastDate がない場合', () => {
+  describe('computed recentEventStartDate', () => {
+    describe('recentEventStartDate がない場合', () => {
       it('未設定が返却される', () => {
         const wrapper = mountFunction({
           propsData: {
@@ -113,7 +113,7 @@ describe('components/playlists/EpisodeSearchResultTableRow.vue', () => {
             ignoreEpisodes: [],
           },
         })
-        expect(wrapper.vm.recentBroadcastDate).toBe('未設定')
+        expect(wrapper.vm.recentEventStartDate).toBe('未設定')
       })
     })
 
@@ -130,7 +130,7 @@ describe('components/playlists/EpisodeSearchResultTableRow.vue', () => {
             ignoreEpisodes: [],
           },
         })
-        expect(wrapper.vm.recentBroadcastDate).toBe('2020年08月01日(土)')
+        expect(wrapper.vm.recentEventStartDate).toBe('2020年08月01日(土)')
       })
     })
   })

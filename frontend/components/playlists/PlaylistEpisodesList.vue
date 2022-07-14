@@ -44,7 +44,7 @@
           <td>{{ totalTime(item) }}</td>
           <td>{{ seriesName(item) }}</td>
           <td>
-            {{ convertRecentBroadcastDate(item.detailedRecentEvent) }}
+            {{ recentEventStartDate(item.detailedRecentEvent) }}
           </td>
           <td>
             <v-chip
@@ -100,7 +100,7 @@ export default Vue.extend({
     clickEpisode(item: any) {
       this.$emit('select-episode', item)
     },
-    convertRecentBroadcastDate(detailedRecentEvent: any) {
+    recentEventStartDate(detailedRecentEvent: any) {
       if (detailedRecentEvent) {
         return format(
           new Date(detailedRecentEvent.startDate),
