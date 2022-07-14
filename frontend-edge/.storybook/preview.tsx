@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../src/lib/theme'
-import { BrowserRouter } from 'react-router-dom'
+import {MemoryRouter} from 'react-router-dom'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -16,9 +16,9 @@ const withChakra = (StoryFn: Function) => {
   return (
     <ChakraProvider theme={theme}>
       <div id="story-wrapper">
-        <BrowserRouter>
+        <MemoryRouter initialEntries={['/playlists/new']}>
           <StoryFn />
-        </BrowserRouter>
+        </MemoryRouter>
       </div>
     </ChakraProvider>
   )
