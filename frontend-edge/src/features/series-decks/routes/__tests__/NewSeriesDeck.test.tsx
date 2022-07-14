@@ -1,4 +1,4 @@
-import { render, screen, userEvent, within } from '@/test/test-utils'
+import { render, screen, within } from '@/test/test-utils'
 import { db } from '@/test/server/db'
 
 import NewSeriesDeck from '../NewSeriesDeck'
@@ -14,27 +14,21 @@ afterAll(() => {
 
 describe('シリーズデッキの新規作成', async () => {
   it('成功すること', async () => {
-    await render(<NewSeriesDeck />)
+    const { user } = render(<NewSeriesDeck />, { route: '/series-decks/new' })
 
     // フォームを入力して送信する
     const form = screen.getByTestId('seriesDeckForm')
 
-    await userEvent.type(
-      within(form).getByTestId('name'),
-      'テストシリーズデッキ'
-    )
-    await userEvent.type(within(form).getByTestId('interfix'), 'test')
-    await userEvent.type(
-      within(form).getByTestId('description'),
-      'デッキの説明'
-    )
-    await userEvent.click(within(form).getByText('公開する'))
+    await user.type(within(form).getByTestId('name'), 'テストシリーズデッキ')
+    await user.type(within(form).getByTestId('interfix'), 'test')
+    await user.type(within(form).getByTestId('description'), 'デッキの説明')
+    await user.click(within(form).getByText('公開する'))
 
     const submitButton = within(form).getByRole('button', {
       name: /Submit/i
     })
 
-    await userEvent.click(submitButton)
+    await user.click(submitButton)
 
     expect(db.seriesDeck.getAll().length).toEqual(1)
 
