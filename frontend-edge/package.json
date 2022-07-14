@@ -36,6 +36,7 @@
     "react-query": "^3.39.1",
     "react-router-dom": "6",
     "type-fest": "^2.14.0",
+    "use-react-router-breadcrumbs": "^3.2.1",
     "vite": "^2.9.12"
   },
   "devDependencies": {

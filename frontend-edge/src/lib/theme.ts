@@ -28,7 +28,9 @@ const theme = extendTheme({
     error: '#f44336',
     warning: '#ff5722',
     info: '#607d8b',
-    success: '#8bc340'
+    success: '#8bc340',
+    link: '#009688',
+    disabled: 'rgba(0,0,0,.38)'
   },
   components: {
     // @see https://chakra-ui.com/community/recipes/floating-labels
@@ -60,7 +62,7 @@ const theme = extendTheme({
           }
         }
       }
-    }
+    },
   }
 })
 
