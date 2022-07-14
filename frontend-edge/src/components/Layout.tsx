@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 import React from 'react'
 import { Flex, ChakraProvider, Container } from '@chakra-ui/react'
 
-import {BreadcrumbContextProvider} from "@/components/breadcrumb/BreadcrumbContext";
+import {BreadcrumbContextProvider} from '@/components/breadcrumb/BreadcrumbContext'
 
 import theme from '../lib/theme'
 
