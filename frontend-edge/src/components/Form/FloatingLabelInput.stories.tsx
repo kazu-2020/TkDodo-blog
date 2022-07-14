@@ -2,15 +2,15 @@ import { useForm } from 'react-hook-form'
 import React from 'react'
 import { ComponentMeta } from '@storybook/react'
 
-import FloatingLabelInputControl from './FloatingLabelInputControl'
+import FloatingLabelInput from './FloatingLabelInput'
 
 export default {
   title: 'Components/Form/FloatingLabelInput',
-  component: FloatingLabelInputControl,
+  component: FloatingLabelInput,
   parameters: {
     controls: { expanded: true }
   }
-} as ComponentMeta<typeof FloatingLabelInputControl>
+} as ComponentMeta<typeof FloatingLabelInput>
 
 type Inputs = {
   text: string
@@ -23,7 +23,7 @@ const Template = () => {
   } = useForm<Inputs>()
 
   return (
-    <FloatingLabelInputControl
+    <FloatingLabelInput
       id="text"
       label="テキスト - Text"
       isInvalid={errors?.text}

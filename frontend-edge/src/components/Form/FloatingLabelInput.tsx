@@ -12,7 +12,7 @@ type Props = {
   isInvalid: FieldError | undefined
 }
 
-const FloatingLabelInputControl: FC<Props & StyleProps> = ({
+const FloatingLabelInput: FC<Props & StyleProps> = ({
   register,
   id,
   label,
@@ -29,4 +29,4 @@ const FloatingLabelInputControl: FC<Props & StyleProps> = ({
     <Input data-testid={id} placeholder=" " {...register} />
   </FloatingLabelFormControl>
 )
-export default FloatingLabelInputControl
+export default FloatingLabelInput
