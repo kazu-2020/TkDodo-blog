@@ -1,11 +1,11 @@
 import React from 'react'
 import { ComponentMeta } from '@storybook/react'
 
-import Breadcrumb from "./Breadcrumb"
+import Breadcrumb from './Breadcrumb'
 
 export default {
   title: 'Components/Breadcrumb',
-  component: Breadcrumb,
+  component: Breadcrumb
 } as ComponentMeta<typeof Breadcrumb>
 
 const Template = () => <Breadcrumb />

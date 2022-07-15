@@ -62,7 +62,7 @@ const theme = extendTheme({
           }
         }
       }
-    },
+    }
   }
 })
 
