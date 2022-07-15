@@ -1,19 +1,13 @@
-import { UseMutationResult } from 'react-query'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React from 'react'
-import {
-  FormErrorMessage,
-  FormLabel,
-  FormControl,
-  Input,
-  Text,
-  Textarea,
-  Checkbox,
-  Button,
-  HStack
-} from '@chakra-ui/react'
+import { FormControl, Text, Checkbox, Button, HStack } from '@chakra-ui/react'
 
 import { Deck } from '@/types/deck'
+import FloatingLabelTextarea from '@/components/Form/FloatingLabelTextarea'
+import FloatingLabelInput from '@/components/Form/FloatingLabelInput'
+
+import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
+import { useCreateSeriesDeck } from '../api/createSeriesDeck'
 
 type Inputs = {
   name: string
@@ -21,89 +15,85 @@ type Inputs = {
   description: string
   apiState: boolean
 }
-const SeriesDeckForm = ({
-  mutation,
-  deck
-}: {
-  mutation: UseMutationResult<any, any, any, any>
-  deck: Deck
-}) => {
+
+const SeriesDeckForm = ({ deck = undefined }: { deck?: Deck | undefined }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<Inputs>({
     defaultValues: {
-      name: deck.name,
-      interfix: deck.interfix,
-      description: deck.description,
-      apiState: deck.apiState === 'open'
+      name: deck?.name,
+      interfix: deck?.interfix,
+      description: deck?.description,
+      apiState: deck?.apiState === 'open'
     }
   })
 
+  const createSeriesDeckMutation = useCreateSeriesDeck()
+  const updateSeriesDeckMutation = useUpdateSeriesDeck()
+
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
-    await mutation.mutateAsync({ data: values, seriesDeckId: deck.id })
+    if (deck === undefined) {
+      await createSeriesDeckMutation.mutateAsync({ data: values })
+    } else {
+      await updateSeriesDeckMutation.mutateAsync({
+        data: values,
+        seriesDeckId: deck.id
+      })
+    }
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl variant="floating" isInvalid={!!errors.name} mb={5}>
-        <Input
-          id="name"
-          placeholder=" "
-          {...register('name', {
-            required: '名前を入力してください'
+    <form onSubmit={handleSubmit(onSubmit)} data-testid="seriesDeckForm">
+      <FloatingLabelInput
+        id="name"
+        label="名前 - Name"
+        error={errors?.name}
+        register={register('name', {
+          required: '名前を入力してください'
+        })}
+        isRequired
+        mb={10}
+      />
+
+      <HStack mb={10}>
+        <Text>series-tv-for-</Text>
+        <FloatingLabelInput
+          id="interfix"
+          label="中間接辞 - Interfix"
+          error={errors?.interfix}
+          register={register('interfix', {
+            required: '中間接辞 - Interfixを入力してください'
           })}
+          isRequired
+          w={250}
         />
-        <FormLabel htmlFor="name" color="gray">
-          名前 - Name <span style={{ color: 'red' }}>*</span>
-        </FormLabel>
-        <FormErrorMessage>
-          {errors.name && errors.name.message}
-        </FormErrorMessage>
-      </FormControl>
+        <Text ml={3}>-xxxxxxxxxx</Text>
+      </HStack>
 
-      <FormControl isInvalid={!!errors.interfix} mb={5}>
-        <FormLabel htmlFor="name">デッキID - DeckId</FormLabel>
-        <HStack>
-          <Text>series-tv-for-</Text>
-          <Input
-            id="interfix"
-            w={200}
-            {...register('interfix', {
-              required: '中間接辞 - Interfixを入力してください'
-            })}
-          />
-          <Text ml={3}>-xxxxxxxxxx</Text>
-        </HStack>
-        <FormErrorMessage ml="103px">
-          {errors.interfix && errors.interfix.message}
-        </FormErrorMessage>
-      </FormControl>
-
-      <FormControl isInvalid={!!errors.description} mb={5}>
-        <FormLabel htmlFor="description">説明 - Description</FormLabel>
-        <Textarea
-          id="description"
-          placeholder=" "
-          {...register('description')}
-        />
-        <FormErrorMessage>
-          {errors.description && errors.description.message}
-        </FormErrorMessage>
-      </FormControl>
-
+      <FloatingLabelTextarea
+        id="description"
+        label="説明 - Description"
+        error={errors?.description}
+        register={register('description')}
+        mb={5}
+      />
       <FormControl mb={5}>
-        <FormLabel htmlFor="apiState">APIへの公開/非公開</FormLabel>
-        <Checkbox id="apiState" defaultChecked {...register('apiState')}>
-          公開する
+        <Checkbox
+          id="apiState"
+          data-testid="apiState"
+          defaultChecked
+          {...register('apiState')}
+        >
+          APIへ公開する
         </Checkbox>
       </FormControl>
       <Button
         mt={4}
         colorScheme="teal"
         loadingText="送信中"
-        isLoading={mutation.isLoading}
+        isLoading={isSubmitting}
         type="submit"
       >
         Submit
