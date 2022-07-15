@@ -9,21 +9,24 @@ type Props = {
   register: UseFormRegisterReturn
   id: string
   label: string
-  isInvalid: FieldError | undefined
+  error: FieldError | undefined
+  isRequired?: boolean
 }
 
 const FloatingLabelInput: FC<Props & StyleProps> = ({
   register,
   id,
   label,
-  isInvalid,
+  error,
+  isRequired,
   ...props
 }) => (
   <FloatingLabelFormControl
     id={id}
     label={label}
-    isInvalid={isInvalid}
+    error={error}
     register={register}
+    isRequired={isRequired}
     {...props}
   >
     <Input data-testid={id} placeholder=" " {...register} />
