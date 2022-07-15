@@ -2,12 +2,13 @@ import { Outlet } from 'react-router-dom'
 import React from 'react'
 import { Flex, ChakraProvider, Container } from '@chakra-ui/react'
 
+import { BreadcrumbContextProvider } from '@/features/misc/components/breadcrumb/BreadcrumbContext'
+
 import theme from '../lib/theme'
 
 import Header from './Header'
 import Footer from './Footer'
 import Breadcrumb from './Breadcrumb'
-import { BreadcrumbContextProvider } from '@/features/misc/components/breadcrumb/BreadcrumbContext'
 
 const Layout = () => (
   <ChakraProvider theme={theme}>
