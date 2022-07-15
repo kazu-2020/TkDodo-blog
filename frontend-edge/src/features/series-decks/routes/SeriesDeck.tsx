@@ -3,13 +3,13 @@ import React, { useContext, useEffect } from 'react'
 import { Box } from '@chakra-ui/react'
 
 import SeriesDeckForm from '@/features/series-decks/components/SeriesDeckForm'
-import { BreadcrumbContext } from '@/components/breadcrumb/BreadcrumbContext'
+import { BreadcrumbContext } from '@/features/misc/components/breadcrumb/BreadcrumbContext'
 
 import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
 import { useSeriesDeck } from '../api/getSeriesDeck'
 
 const SeriesDeck = () => {
-  const { dispatch } = useContext(BreadcrumbContext)
+  const breadcrumbDispatch = useContext(BreadcrumbContext).dispatch
 
   const { seriesDeckId } = useParams()
   const { data, isLoading } = useSeriesDeck(seriesDeckId)
@@ -18,8 +18,8 @@ const SeriesDeck = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
 
-    dispatch({ name: data?.name ?? '' })
-  }, [dispatch, data])
+    breadcrumbDispatch({ name: data?.name ?? '' })
+  }, [breadcrumbDispatch, data])
 
   if (!data) return null
 
