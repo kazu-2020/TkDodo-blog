@@ -61,8 +61,9 @@ if playlist.hero_image_url
   end
 end
 json.itemNum playlist.playlist_items.count
-# FIXME: データが引けなかった時にエラーになる。且つ そもそも 重すぎてパフォーマンス的に厳しいので一旦コメントしています。
-# json.playableItemsCount playlist.playable_playlist_items_count
+if params[:with_episode_count].present?
+  json.playableItemsCount playlist.playable_playlist_items_count(playlist.string_id)
+end
 
 if params[:with_subtype_item_count].present?
   json.howToCount playlist.how_to_count

@@ -120,7 +120,7 @@ export default Vue.extend({
   methods: {
     searchEpisodes(searchResultId: number) {
       this.loading = true
-      let searchUrl = `/episodes/search?${this.$props.queryKey}=${this.$props.editingKeywords}&offset=${this.searchOffset}&${this.$props.sortTypeQuery}&ignore_range=${this.$props.ignoreRange}&size=${this.pageSize}&contents_type=${this.contentsType}`
+      let searchUrl = `/episodes/search?${this.$props.queryKey}=${this.$props.editingKeywords}&offset=${this.searchOffset}&ignore_range=${this.$props.ignoreRange}&size=${this.pageSize}&contents_type=${this.contentsType}`
 
       switch (this.$props.contentsType) {
         case 'tvseries':

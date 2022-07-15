@@ -21,8 +21,9 @@ module PlaylistItemAttributes
     @playable_total_time ||= playable_playlist_items.map(&:duration)&.sum
   end
 
-  def playable_playlist_items_count
-    @playable_playlist_items_count ||= playable_playlist_items&.size
+  def playable_playlist_items_count(playlist_string_id)
+    res = fetch_playable_episode_count(playlist_string_id)
+    @playable_playlist_items_count ||= res
   end
 
   def playable_playlist_items
@@ -72,5 +73,13 @@ module PlaylistItemAttributes
 
   def force_fetch_sub_types_count
     fetch_sub_types_count(force: true)
+  end
+
+  def fetch_playable_episode_count(playlist_string_id)
+    Rails.cache.fetch("#{cache_key_with_version}/fetch_episode_count", expires_in: CACHED_DATA_TTL, force: true,
+                                                                       skip_nil: true) do
+      response = PocApiClient.new.available_episode_from_playlist(playlist_string_id)
+      response[:count].presence || 0
+    end
   end
 end

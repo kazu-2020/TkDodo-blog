@@ -102,7 +102,7 @@ describe DecksController, type: :request do
   end
 
   describe 'GET #show' do
-    let!(:deck) { create(:deck, :with_playlists) }
+    let!(:deck) { create :deck, :with_playlists }
 
     before do
       json = File.open(Rails.root.join('spec/fixtures/payloads/te_PG3Z16Q145.json')) do |file|
@@ -152,7 +152,19 @@ describe DecksController, type: :request do
       }
     end
 
-    before { post decks_path, params: input_data }
+    before do
+      playlist_json = File.open(Rails.root.join('spec/fixtures/payloads/playlist-index.json')) do |file|
+        json_string = file.read
+        JSON.parse(json_string, symbolize_names: true)
+      end
+
+      poc_client = instance_double(PocApiClient)
+      string_id = playlists.first.string_id
+      allow(PocApiClient).to receive(:new).and_return(poc_client)
+      allow(poc_client).to receive(:available_episode_from_playlist).with(string_id).and_return(playlist_json)
+
+      post decks_path, params: input_data
+    end
 
     context 'name,interfixが設定されている場合' do
       let(:name) { deck.name }
@@ -193,7 +205,19 @@ describe DecksController, type: :request do
       }
     end
 
-    before { put "#{decks_path}/#{deck.id}", params: updated_data }
+    before do
+      playlist_json = File.open(Rails.root.join('spec/fixtures/payloads/playlist-index.json')) do |file|
+        json_string = file.read
+        JSON.parse(json_string, symbolize_names: true)
+      end
+
+      poc_client = instance_double(PocApiClient)
+      string_id = deck.playlists.first.string_id
+      allow(PocApiClient).to receive(:new).and_return(poc_client)
+      allow(poc_client).to receive(:available_episode_from_playlist).with(string_id).and_return(playlist_json)
+
+      put deck_path(deck.id), params: updated_data
+    end
 
     context 'name,interfixが設定されている場合' do
       context 'enable_list_updateが1の場合' do

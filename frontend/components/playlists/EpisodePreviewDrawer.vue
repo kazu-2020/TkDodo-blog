@@ -32,7 +32,7 @@
         {{ episodeDescription }}
       </v-col>
       <v-col cols="12" class="py-0 body-2">
-        直近放送日: {{ episodeRecentBroadcastDate }}
+        直近放送日: {{ recentEventStartDate }}
       </v-col>
       <episode-preview-genres-list :episode="episode" />
       <v-col v-if="hasActorsOrContributors" cols="12" class="pb-0">
@@ -207,7 +207,7 @@ export default Vue.extend({
     episodeDescription(): string {
       return this.episode?.description || ''
     },
-    episodeRecentBroadcastDate(): string {
+    recentEventStartDate(): string {
       const date = this.episode?.detailedRecentEvent?.startDate
       if (date) {
         return format(new Date(date), 'yyyy年MM月dd日(E) HH:mm ~', {

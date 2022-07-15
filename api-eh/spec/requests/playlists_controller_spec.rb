@@ -4,12 +4,24 @@ require 'rails_helper'
 
 describe PlaylistsController, type: :request do
   describe 'GET #index' do
+    before do
+      json = File.open(Rails.root.join('spec/fixtures/payloads/playlist-index.json')) do |file|
+        json_string = file.read
+        JSON.parse(json_string, symbolize_names: true)
+      end
+
+      poc_client = instance_double(PocApiClient)
+      allow(PocApiClient).to receive(:new).and_return(poc_client)
+      allow(poc_client).to receive(:available_episode_from_playlist).with(playlist.string_id).and_return(json)
+    end
+
     context 'パラメータにdeck_idが含まれる場合' do
-      let(:deck) { create(:deck) }
       let!(:playlist) { create(:playlist, decks: [deck]) }
+      let(:deck) { create(:deck) }
+      let(:params) { { deck_id: deck.id } }
       let(:expected_json) {
         {
-          'stringId' => "recommend-tep-#{format('%010d', playlist.id)}",
+          'stringId' => playlist.string_id,
           'primaryId' => playlist.id,
           'name' => playlist.name,
           'detailedNameRuby' => playlist.detailed_name_ruby,
@@ -17,7 +29,6 @@ describe PlaylistsController, type: :request do
           'headline' => playlist.headline
         }
       }
-      let(:params) { { deck_id: deck.id } }
 
       it '指定したdeck_idのデッキに紐づくプレイリストが取得できること' do
         get playlists_url, params: params
@@ -29,9 +40,9 @@ describe PlaylistsController, type: :request do
     end
 
     context 'パラメータにareaが含まれる場合' do
+      let!(:playlist) { create(:playlist, decks: [deck]) }
       let(:area) { '130' }
       let(:deck) { create(:deck, area: area) }
-      let!(:playlist) { create(:playlist, decks: [deck]) }
       let(:params) { { area: area } }
 
       it '指定したareaのデッキに紐づくプレイリストが取得できること' do
@@ -45,8 +56,7 @@ describe PlaylistsController, type: :request do
 
     context 'パラメータにapi_stateが含まれる場合' do
       context 'api_stateがopenの場合' do
-        before { create(:playlist, api_state: 'open') }
-
+        let(:playlist) { create(:playlist, api_state: 'open') }
         let(:params) { { api_state: 'open' } }
 
         it '公開ステータスがopenのプレイリストが取得できること' do
@@ -59,8 +69,7 @@ describe PlaylistsController, type: :request do
       end
 
       context 'api_stateがcloseの場合' do
-        before { create(:playlist, api_state: 'close') }
-
+        let(:playlist) { create(:playlist, api_state: 'close') }
         let(:params) { { api_state: 'close' } }
 
         it '公開ステータスがcloseのプレイリストが取得できること' do
@@ -74,11 +83,8 @@ describe PlaylistsController, type: :request do
     end
 
     context '検索ワードが含まれる場合' do
+      let(:playlist) { create(:playlist, name: 'オウサム ネーム') }
       let(:params) { { search_word: 'オウサム' } }
-
-      before do
-        create(:playlist, name: 'オウサム ネーム')
-      end
 
       it '検索ワードに部分一致するプレイリストが取得できること' do
         get playlists_url, params: params

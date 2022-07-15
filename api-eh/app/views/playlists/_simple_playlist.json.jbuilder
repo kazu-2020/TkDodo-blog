@@ -60,7 +60,11 @@ if playlist.hero_image_url
     end
   end
 end
+
 json.itemNum playlist.playlist_items.count
+if params[:with_episode_count].present?
+  json.playableItemsCount playlist.playable_playlist_items_count(playlist.string_id)
+end
 
 if params[:with_subtype_item_count].present?
   json.howToCount playlist.how_to_count

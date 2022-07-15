@@ -42,16 +42,25 @@ describe PlaylistItemAttributes, type: :model do
     end
   end
 
+  # 20220708時点で視聴可能なエピソードを2件含むプレイリストをmockとして使用しています
   describe '#playable_playlist_items_count' do
     before do
-      create(:playlist_item, episode_id: 'Y6J1Y3MK82', playlist: playlist) # duration: 1500, has_video: true
-      create(:playlist_item, episode_id: 'G9829WW2WW', playlist: playlist) # duration: 1500, has_video: false
+      create(:playlist_item, playlist: playlist)
+
+      playlist_json = File.open(Rails.root.join(
+                                  'spec/fixtures/payloads/r6.0_l_tvepisode_pl_recommend-tep-0000000055.json'
+                                )) do |file|
+        json_string = file.read
+        JSON.parse(json_string, symbolize_names: true)
+      end
+
+      poc_client = instance_double(PocApiClient)
+      allow(PocApiClient).to receive(:new).and_return(poc_client)
+      allow(poc_client).to receive(:available_episode_from_playlist).with(playlist.string_id).and_return(playlist_json)
     end
 
     it do
-      VCR.use_cassette('models/playlist_item_attributes_spec/playable_playlist_items_count') do
-        expect(playlist.reload.playable_playlist_items_count).to eq(1)
-      end
+      expect(playlist.reload.playable_playlist_items_count(playlist.string_id)).to eq(2)
     end
   end
 

@@ -30,10 +30,9 @@ const AppRoutes = () => (
         <Route index element={<RecommendDecks />} />
         <Route path=":recommendDeckId" element={<Outlet />}>
           <Route index element={<RecommendDeck />} />
-          <Route path="config" element={<ConfigSeriesDeck />} />
+          <Route path="config" element={<ConfigRecommendDeck />} />
         </Route>
         <Route path="new" element={<NewRecommendDeck />} />
-        <Route path="config" element={<ConfigRecommendDeck />} />
       </Route>
       <Route path="series-decks" element={<Outlet />}>
         <Route index element={<SeriesDecks />} />
