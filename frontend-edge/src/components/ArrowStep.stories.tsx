@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Box, Button } from '@chakra-ui/react'
 
 import { ArrowStepContextProvider } from '@/features/misc/components/arrowstep/ArrowStepContext'
+import ArrowStepContent from '@/components/ArrowStepContent'
 
 import ArrowStep from './ArrowStep'
-import ArrowStepContent from '@/components/ArrowStepContent'
-import { Box, Button } from '@chakra-ui/react'
 
 export default {
   title: 'Components/ArrowStep',
@@ -18,6 +18,7 @@ const DefaultTemplate: ComponentStory<typeof ArrowStep> = (props) => (
   </ArrowStepContextProvider>
 )
 
+// eslint-disable-next-line max-lines-per-function
 const ChangeContentTemplate: ComponentStory<typeof ArrowStep> = () => {
   const [isSuccessList, setSuccessList] = useState(false)
   const [hasErrorList, setErrorList] = useState(false)
