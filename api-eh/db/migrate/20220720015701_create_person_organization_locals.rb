@@ -1,7 +1,7 @@
 class CreatePersonOrganizationLocals < ActiveRecord::Migration[7.0]
   def change
     create_table :person_organization_locals do |t|
-      t.string :uuid
+      t.string :uuid, null:false
       t.string :role, null: false, comment:'Person: 個人 Organization: 組織'
       t.string :name, null: false
       t.text :occupation
