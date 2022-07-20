@@ -1,3 +1,3 @@
 class ViafJson < ApplicationRecord
-  belongs_to :viaf_json, optional: true
+  belongs_to :person_organization_global
 end
