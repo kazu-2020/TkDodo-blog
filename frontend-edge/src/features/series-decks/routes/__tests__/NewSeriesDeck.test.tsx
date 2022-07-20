@@ -22,7 +22,7 @@ describe('シリーズデッキの新規作成', async () => {
     await user.type(within(form).getByTestId('name'), 'テストシリーズデッキ')
     await user.type(within(form).getByTestId('interfix'), 'test')
     await user.type(within(form).getByTestId('description'), 'デッキの説明')
-    await user.click(within(form).getByText('公開する'))
+    await user.click(within(form).getByText('APIへ公開する'))
 
     const submitButton = within(form).getByRole('button', {
       name: /Submit/i
