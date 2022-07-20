@@ -1,3 +1,3 @@
 class WikidataSameAs < ApplicationRecord
-  belongs_to :wikidata_json, optional: true
+  belongs_to :wikidata_json
 end
