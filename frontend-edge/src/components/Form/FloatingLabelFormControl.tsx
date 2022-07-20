@@ -60,7 +60,7 @@ const FormControlStyles = {
     px: 0,
     my: 2,
     transformOrigin: 'left top',
-    color: 'gray.600'
+    color: 'gray'
   },
   input: {
     ...inputStyles
