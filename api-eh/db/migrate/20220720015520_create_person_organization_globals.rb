@@ -9,7 +9,7 @@ class CreatePersonOrganizationGlobals < ActiveRecord::Migration[7.0]
       t.string :wikidata_occupation, comment: 'キャッシュ用 wikidata の occupation(P106) をもとに生成する'
       t.string :wikidata_image_url, comment: 'キャッシュ用'
       t.text :wikidata_description,comment:'キャッシュ用 wikidata の descriptions をもとに生成する'
-      t.integer :wikidata_alias, limit: 1, default: 0, comment: '0: false 1: true'
+      t.boolean :wikidata_alias, default: false
       t.timestamps
     end
     add_index :person_organization_globals, :uuid, unique: true
