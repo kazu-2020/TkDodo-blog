@@ -1,3 +1,4 @@
+import snakecaseKeys from 'snakecase-keys'
 import { useMutation } from 'react-query'
 import { useToast } from '@chakra-ui/react'
 
@@ -5,21 +6,42 @@ import { Deck as SeriesDeck } from '@/types/deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
+type SeriesDeckForm = {
+  name?: string
+  interfix?: string
+  description?: string
+  apiState?: boolean
+  adminMemo?: string
+}
+
 export type UpdateSeriesDeckDTO = {
-  data: {
-    name: string
-    interfix: string
-    description: string
-    apiState: boolean
-  }
+  data: SeriesDeckForm
   seriesDeckId: string
+}
+
+const requestParams = (data: SeriesDeckForm) => {
+  if (Object.hasOwn(data, 'apiState')) {
+    const { apiState, ...params } = data
+    return {
+      series_deck: snakecaseKeys({
+        ...params,
+        apiState: data.apiState ? 'open' : 'close'
+      })
+    }
+  }
+
+  return { series_deck: snakecaseKeys(data) }
 }
 
 export const updateSeriesDeck = async ({
   data,
   seriesDeckId
 }: UpdateSeriesDeckDTO): Promise<SeriesDeck> => {
-  const res = await axios.patch(`/series_decks/${seriesDeckId}`, data)
+  const res = await axios.patch(
+    `/series_decks/${seriesDeckId}`,
+    requestParams(data)
+  )
+
   return {
     ...res.data.deck,
     // FIXME: レスポンスのidが数値になっていて、queryKeyに影響が出てしまうのでのでキャストしてる

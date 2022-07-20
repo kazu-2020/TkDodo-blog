@@ -83,7 +83,6 @@ const SeriesDeckForm = ({ deck = undefined }: { deck?: Deck | undefined }) => {
         <Checkbox
           id="apiState"
           data-testid="apiState"
-          defaultChecked
           {...register('apiState')}
         >
           APIへ公開する
