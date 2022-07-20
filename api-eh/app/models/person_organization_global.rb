@@ -1,0 +1,2 @@
+class PersonOrganizationGlobal < ApplicationRecord
+end

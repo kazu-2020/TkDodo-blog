@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_25_050143) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", comment: "プレイリストID"
     t.text "image_data"
@@ -64,6 +64,42 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_25_050143) do
     t.integer "api_state", default: 0, null: false, comment: "APIの公開状態 close: 0, open: 1, waiting: 2"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "person_organization_globals", charset: "utf8mb4", force: :cascade do |t|
+    t.string "uuid", null: false
+    t.string "viaf_id"
+    t.string "viaf_name", comment: "キャッシュ用"
+    t.string "wikidata_id"
+    t.string "wikidata_name", comment: "キャッシュ用"
+    t.string "wikidata_occupation", comment: "キャッシュ用 wikidata の occupation(P106) をもとに生成する"
+    t.string "wikidata_image_url", comment: "キャッシュ用"
+    t.text "wikidata_description", comment: "キャッシュ用 wikidata の descriptions をもとに生成する"
+    t.integer "wikidata_alias", limit: 1, default: 0, comment: "0: false 1: true"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uuid"], name: "index_person_organization_globals_on_uuid", unique: true
+    t.index ["viaf_id"], name: "index_person_organization_globals_on_viaf_id", unique: true
+    t.index ["wikidata_id"], name: "index_person_organization_globals_on_wikidata_id", unique: true
+  end
+
+  create_table "person_organization_locals", charset: "utf8mb4", force: :cascade do |t|
+    t.string "uuid"
+    t.string "role", null: false, comment: "Person: 個人 Organization: 組織"
+    t.string "name", null: false
+    t.text "occupation"
+    t.text "description"
+    t.integer "name_format", null: false
+    t.string "family_name"
+    t.string "given_name"
+    t.string "additional_name"
+    t.string "name_ruby"
+    t.string "family_name_ruby"
+    t.string "given_name_ruby"
+    t.json "image_data", comment: "表示用。外部公開はしない。Shrineのフォーマット"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uuid"], name: "index_person_organization_locals_on_uuid", unique: true
   end
 
   create_table "playlist_hashtags", charset: "utf8mb4", force: :cascade do |t|
@@ -155,6 +191,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_25_050143) do
     t.index ["playlist_id"], name: "index_same_as_on_playlist_id"
   end
 
+  create_table "search_persons_organizations", charset: "utf8mb4", force: :cascade do |t|
+    t.string "uuid"
+    t.text "names", null: false, comment: "wikidataのラベル・エイリアスとviafの名前とlocalの名前をマージした情報を検索用テキストとして保持させる"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uuid"], name: "index_search_persons_organizations_on_uuid", unique: true
+  end
+
   create_table "series_deck_playlists", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "series_deck_id", null: false, comment: "シリーズデッキID"
     t.bigint "series_playlist_id", null: false, comment: "シリーズプレイリストID"
@@ -202,6 +246,51 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_25_050143) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "supervisors", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "person_organization_locals_id"
+    t.bigint "playlist_id"
+    t.json "image_data"
+    t.string "type", comment: "Shrineのフォーマット"
+    t.bigint "type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_organization_locals_id"], name: "index_supervisors_on_person_organization_locals_id"
+    t.index ["playlist_id"], name: "index_supervisors_on_playlist_id"
+  end
+
+  create_table "viaf_jsons", charset: "utf8mb4", force: :cascade do |t|
+    t.string "viaf_id", null: false
+    t.json "json", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["viaf_id"], name: "index_viaf_jsons_on_viaf_id", unique: true
+  end
+
+  create_table "wikidata_jsons", charset: "utf8mb4", force: :cascade do |t|
+    t.string "wikidata_id", null: false
+    t.json "basic_json", null: false
+    t.json "property_json", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wikidata_id"], name: "index_wikidata_jsons_on_wikidata_id", unique: true
+  end
+
+  create_table "wikidata_properties", charset: "utf8mb4", force: :cascade do |t|
+    t.string "wikidata_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wikidata_id"], name: "index_wikidata_properties_on_wikidata_id", unique: true
+  end
+
+  create_table "wikidata_same_as", charset: "utf8mb4", force: :cascade do |t|
+    t.string "wikidata_id", null: false
+    t.string "same_as_wikidata_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wikidata_id"], name: "index_wikidata_same_as_on_wikidata_id", unique: true
+  end
+
   add_foreign_key "article_images", "playlists"
   add_foreign_key "citations", "playlists"
   add_foreign_key "deck_playlists", "decks"
@@ -213,4 +302,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_25_050143) do
   add_foreign_key "same_as", "playlists"
   add_foreign_key "series_deck_playlists", "series_decks"
   add_foreign_key "series_deck_playlists", "series_playlists"
+  add_foreign_key "supervisors", "person_organization_locals", column: "person_organization_locals_id"
+  add_foreign_key "supervisors", "playlists"
 end

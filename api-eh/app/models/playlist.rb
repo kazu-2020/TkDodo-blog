@@ -39,6 +39,8 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :citations, dependent: :destroy
   accepts_nested_attributes_for :citations, allow_destroy: true
 
+  has_many :supervisor, dependent: :destroy
+
   scope :recent, -> { order(updated_at: :desc) }
   scope :has_article, -> { where('marked_body IS NOT NULL') }
   scope :no_article, -> { where('marked_body IS NULL') }
