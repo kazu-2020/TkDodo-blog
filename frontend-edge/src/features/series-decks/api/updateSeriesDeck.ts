@@ -6,7 +6,7 @@ import { Deck as SeriesDeck } from '@/types/deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
-type SeriesDeckForm = {
+type SeriesDeckParams = {
   name?: string
   interfix?: string
   description?: string
@@ -15,11 +15,11 @@ type SeriesDeckForm = {
 }
 
 export type UpdateSeriesDeckDTO = {
-  data: SeriesDeckForm
+  data: SeriesDeckParams
   seriesDeckId: string
 }
 
-const requestParams = (data: SeriesDeckForm) => {
+const requestParams = (data: SeriesDeckParams) => {
   if (Object.hasOwn(data, 'apiState')) {
     const { apiState, ...params } = data
     return {
