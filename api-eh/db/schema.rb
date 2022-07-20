@@ -69,13 +69,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
   create_table "person_organization_globals", charset: "utf8mb4", force: :cascade do |t|
     t.string "uuid", null: false
     t.string "viaf_id"
-    t.string "viaf_name", comment: "キャッシュ用"
+    t.string "viaf_name"
     t.string "wikidata_id"
-    t.string "wikidata_name", comment: "キャッシュ用"
-    t.string "wikidata_occupation", comment: "キャッシュ用 wikidata の occupation(P106) をもとに生成する"
-    t.string "wikidata_image_url", comment: "キャッシュ用"
-    t.text "wikidata_description", comment: "キャッシュ用 wikidata の descriptions をもとに生成する"
-    t.integer "wikidata_alias", limit: 1, default: 0, comment: "0: false 1: true"
+    t.string "wikidata_name"
+    t.string "wikidata_occupation", comment: "wikidataのoccupation(P106)をもとに生成する"
+    t.string "wikidata_image_url"
+    t.text "wikidata_description", comment: "wikidataのdescriptionsをもとに生成する"
+    t.boolean "wikidata_alias", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["uuid"], name: "index_person_organization_globals_on_uuid", unique: true
@@ -84,7 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
   end
 
   create_table "person_organization_locals", charset: "utf8mb4", force: :cascade do |t|
-    t.string "uuid"
+    t.string "uuid", null: false
     t.string "role", null: false, comment: "Person: 個人 Organization: 組織"
     t.string "name", null: false
     t.text "occupation"
@@ -96,7 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
     t.string "name_ruby"
     t.string "family_name_ruby"
     t.string "given_name_ruby"
-    t.json "image_data", comment: "表示用。外部公開はしない。Shrineのフォーマット"
+    t.json "image_data", comment: "表示用。外部公開はしない。"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["uuid"], name: "index_person_organization_locals_on_uuid", unique: true
@@ -193,7 +193,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
 
   create_table "search_persons_organizations", charset: "utf8mb4", force: :cascade do |t|
     t.string "uuid"
-    t.text "names", null: false, comment: "wikidataのラベル・エイリアスとviafの名前とlocalの名前をマージした情報を検索用テキストとして保持させる"
+    t.text "names", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["uuid"], name: "index_search_persons_organizations_on_uuid", unique: true
@@ -250,7 +250,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
     t.bigint "person_organization_locals_id"
     t.bigint "playlist_id"
     t.json "image_data"
-    t.string "type", comment: "Shrineのフォーマット"
+    t.string "type"
     t.bigint "type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
