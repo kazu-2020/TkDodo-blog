@@ -1,3 +1,3 @@
 class PersonsOrganizationLocal < ApplicationRecord
-  has_many :supervisors, dependent: :destroy
+  has_many :supervisors
 end
