@@ -4,7 +4,7 @@ class CreateSupervisors < ActiveRecord::Migration[7.0]
       t.references :person_organization_locals, foreign_key: true
       t.references :playlist, foreign_key: true
       t.json :image_data
-      t.string :type, comment:'Shrineのフォーマット'
+      t.string :type
       t.bigint :type_id
       t.timestamps
     end

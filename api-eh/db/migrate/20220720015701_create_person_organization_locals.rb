@@ -13,7 +13,7 @@ class CreatePersonOrganizationLocals < ActiveRecord::Migration[7.0]
       t.string :name_ruby
       t.string :family_name_ruby
       t.string :given_name_ruby
-      t.json :image_data, comment:'表示用。外部公開はしない。Shrineのフォーマット'
+      t.json :image_data, comment:'表示用。外部公開はしない。'
       t.timestamps
     end
     add_index :person_organization_locals, :uuid, unique: true
