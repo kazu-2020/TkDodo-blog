@@ -7,8 +7,10 @@ import axios from '@/lib/axios'
 
 export type UpdateSeriesDeckDTO = {
   data: {
-    title: string
-    body: string
+    name: string
+    interfix: string
+    description: string
+    apiState: boolean
   }
   seriesDeckId: string
 }
