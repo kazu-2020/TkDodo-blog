@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import { Box } from '@chakra-ui/react'
 
 import SeriesDeckForm from '@/features/series-decks/components/SeriesDeckForm'
-import { BreadcrumbContext } from '@/features/misc/components/breadcrumb/BreadcrumbContext'
+import { BreadcrumbContext } from '@/components/Breadcrumb/BreadcrumbContext'
 
 import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
 import { useSeriesDeck } from '../api/getSeriesDeck'
