@@ -5,8 +5,8 @@ import { Box, Button, Flex, Spacer, Text } from '@chakra-ui/react'
 
 import SeriesDeckConfigForm from '@/features/series-decks/components/SeriesDeckConfigForm'
 import { useSeriesDeck } from '@/features/series-decks/api/getSeriesDeck'
-import { BreadcrumbContext } from '@/features/misc/components/breadcrumb/BreadcrumbContext'
 import Link from '@/components/Link'
+import { BreadcrumbContext } from '@/components/Breadcrumb/BreadcrumbContext'
 
 const ConfigSeriesDeck = () => {
   const breadcrumbDispatch = useContext(BreadcrumbContext).dispatch
