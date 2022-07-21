@@ -73,7 +73,7 @@ const currentStepAfterStyle: CSSObject = {
   borderLeft: '19px solid #c6bebb'
 }
 
-const ArrowStepItem = ({
+export const ArrowStepItem = ({
   title = '',
   isCurrent = false,
   isSuccess = false,
@@ -96,5 +96,3 @@ const ArrowStepItem = ({
     <Text sx={labelStyle}>{title}</Text>
   </Flex>
 )
-
-export default ArrowStepItem

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ComponentStory } from '@storybook/react'
 
-import ArrowStepItem from '@/components/ArrowStep/ArrowStepItem'
+import { ArrowStepItem } from '@/components/ArrowStep/ArrowStepItem'
 
 export default {
   title: 'Components/ArrowStep/ArrowStepItem',
