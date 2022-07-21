@@ -17,7 +17,7 @@ const errorBadgeStyle = {
 }
 
 const successBadgeStyle = {
-  color: '#009688',
+  color: 'primary',
   fontSize: '0.5rem',
   position: 'relative',
   top: '-9px'
