@@ -7,13 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v2
-      - run: docker-compose pull
-      - name: Build the Docker compose
-        env:
-          DOCKER_BUILDKIT: 1
-          COMPOSE_DOCKER_CLI_BUILD: 1
-        run: docker-compose build --parallel
+      - uses: actions/checkout@v3
+      - run: docker version
+      - name: Setup docker compose
+        uses: yu-ichiro/spin-up-docker-compose-action@v1
+        with:
+          file: ./docker-compose.yml
       - name: frontend yarn install
         run: docker-compose run frontend yarn install
       - name: rails setup
