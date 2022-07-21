@@ -75,7 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
     t.string "wikidata_occupation", comment: "wikidataのoccupation(P106)をもとに生成する"
     t.string "wikidata_image_url"
     t.text "wikidata_description", comment: "wikidataのdescriptionsをもとに生成する"
-    t.boolean "wikidata_alias", default: false
+    t.boolean "wikidata_alias"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["uuid"], name: "index_person_organization_globals_on_uuid", unique: true
@@ -192,7 +192,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
   end
 
   create_table "search_persons_organizations", charset: "utf8mb4", force: :cascade do |t|
-    t.string "uuid"
+    t.string "uuid", null: false
     t.text "names", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -247,8 +247,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
   end
 
   create_table "supervisors", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "person_organization_locals_id"
-    t.bigint "playlist_id"
+    t.bigint "person_organization_locals_id", null: false
+    t.bigint "playlist_id", null: false
     t.json "image_data"
     t.string "type"
     t.bigint "type_id"
