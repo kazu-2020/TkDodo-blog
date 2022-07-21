@@ -6,7 +6,7 @@ import {
   BreadcrumbLink
 } from '@chakra-ui/react'
 
-import { BreadcrumbLabel } from '@/features/misc/components/breadcrumb/BreadcrumbLabel'
+import { BreadcrumbLabel } from '@/components/Breadcrumb/BreadcrumbLabel'
 
 const Breadcrumb = (props: any) => {
   const breadcrumbs = useBreadcrumbs(
