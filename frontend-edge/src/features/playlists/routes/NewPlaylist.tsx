@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button } from '@chakra-ui/react'
 
 import { ArrowStepContextProvider } from '@/features/misc/components/arrowstep/ArrowStepContext'
-import ArrowStepContent from '@/components/ArrowStepContent'
+import ArrowStepContent from '@/features/misc/components/arrowstep/ArrowStepContent'
 import ArrowStep from '@/components/ArrowStep'
 
 const NewPlaylist = () => {
