@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom'
+import { MdSettings } from 'react-icons/all'
 import React, { useContext, useEffect } from 'react'
-import { Box } from '@chakra-ui/react'
+import { Box, Button, Text, Flex, Spacer } from '@chakra-ui/react'
 
 import SeriesDeckForm from '@/features/series-decks/components/SeriesDeckForm'
 import { BreadcrumbContext } from '@/features/misc/components/breadcrumb/BreadcrumbContext'
+import Link from '@/components/Link'
 
 import { useSeriesDeck } from '../api/getSeriesDeck'
 
@@ -30,9 +32,30 @@ const SeriesDeck = () => {
   }
 
   return (
-    <Box bg="white" p={5} borderRadius="sm">
-      <SeriesDeckForm deck={data} />
-    </Box>
+    <>
+      <Flex mb={5}>
+        <Spacer />
+        <Button
+          type="submit"
+          form="my-form"
+          colorScheme="blackAlpha"
+          leftIcon={<MdSettings />}
+        >
+          <Link
+            px={0}
+            py={0}
+            to={`/series-decks/${seriesDeckId}/config`}
+            _hover={{ textDecoration: 'none' }}
+          >
+            <Text>管理設定</Text>
+          </Link>
+        </Button>
+      </Flex>
+
+      <Box bg="white" p={5} borderRadius="sm">
+        <SeriesDeckForm deck={data} />
+      </Box>
+    </>
   )
 }
 export default SeriesDeck
