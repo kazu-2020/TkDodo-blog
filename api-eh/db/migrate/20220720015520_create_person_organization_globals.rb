@@ -9,7 +9,7 @@ class CreatePersonOrganizationGlobals < ActiveRecord::Migration[7.0]
       t.string :wikidata_occupation, comment: 'wikidataのoccupation(P106)をもとに生成する'
       t.string :wikidata_image_url
       t.text :wikidata_description,comment:'wikidataのdescriptionsをもとに生成する'
-      t.boolean :wikidata_alias, default: false
+      t.boolean :wikidata_alias
       t.timestamps
     end
     add_index :person_organization_globals, :uuid, unique: true
