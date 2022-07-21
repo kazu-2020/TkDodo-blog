@@ -1,7 +1,7 @@
 class CreateSearchPersonsOrganizations < ActiveRecord::Migration[7.0]
   def change
     create_table :search_persons_organizations do |t|
-      t.string :uuid
+      t.string :uuid, null: false
       t.text :names, null: false
       t.timestamps
     end
