@@ -48,7 +48,7 @@ describe.skip('シリーズデッキの編集', async () => {
     await renderSeriesDeck()
 
     // フォームを入力して送信する
-    const form = screen.getByTestId('XseriesDeckForm')
+    const form = screen.getByTestId('seriesDeckForm')
 
     await userEvent.type(
       within(form).getByTestId('name'),

@@ -1,4 +1,4 @@
-import { RiPencilFill } from 'react-icons/all'
+import { RiPencilFill, MdSettings } from 'react-icons/all'
 import {
   Box,
   Button,
@@ -45,7 +45,7 @@ const SeriesDeckList = ({
               type="submit"
               form="my-form"
               colorScheme="gray"
-              leftIcon={<RiPencilFill />}
+              leftIcon={<MdSettings />}
             >
               <Link
                 px={0}
