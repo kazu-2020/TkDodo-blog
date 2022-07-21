@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import { Box, Flex } from '@chakra-ui/react'
 
-import ArrowStepItem from '@/features/misc/components/arrowstep/ArrowStepItem'
-import { ArrowStepContext } from '@/features/misc/components/arrowstep/ArrowStepContext'
+import ArrowStepItem from '@/components/ArrowStep/ArrowStepItem'
+import { ArrowStepContext } from '@/components/ArrowStep/ArrowStepContext'
 
 type StepItem = {
   title: string

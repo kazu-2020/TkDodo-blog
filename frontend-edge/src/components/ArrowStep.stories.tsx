@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { Box, Button } from '@chakra-ui/react'
 
-import { ArrowStepContextProvider } from '@/features/misc/components/arrowstep/ArrowStepContext'
-import ArrowStepContent from '@/features/misc/components/arrowstep/ArrowStepContent'
+import { ArrowStepContextProvider } from '@/components/ArrowStep/ArrowStepContext'
+import ArrowStepContent from '@/components/ArrowStep/ArrowStepContent'
 
 import ArrowStep from './ArrowStep'
 

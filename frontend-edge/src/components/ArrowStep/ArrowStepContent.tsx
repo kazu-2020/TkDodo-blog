@@ -1,7 +1,7 @@
 import { ReactNode, useContext } from 'react'
 import { Box } from '@chakra-ui/react'
 
-import { ArrowStepContext } from '@/features/misc/components/arrowstep/ArrowStepContext'
+import { ArrowStepContext } from '@/components/ArrowStep/ArrowStepContext'
 
 type Props = {
   index?: number
