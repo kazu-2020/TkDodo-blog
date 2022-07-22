@@ -7,8 +7,8 @@ playlist = Playlist.create!(
   api_state: 'open',
   alias_id: 'ALIAS-ID-1',
   logo_image_data: File.read(Rails.root.join('db', 'jsons', 'logo.json')),
-  eyecatch_image_data:  File.read(Rails.root.join('db', 'jsons', 'eyecatch.json')),
-  hero_image_data:  File.read(Rails.root.join('db', 'jsons', 'hero.json'))
+  eyecatch_image_data: File.read(Rails.root.join('db', 'jsons', 'eyecatch.json')),
+  hero_image_data: File.read(Rails.root.join('db', 'jsons', 'hero.json'))
 )
 
 person_organization_local = PersonOrganizationLocal.create!(
