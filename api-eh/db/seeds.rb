@@ -1,43 +1,40 @@
-# image = File.open(Rails.root.join('db', 'images', 'sample.jpg'))
-# uploaded_image = Shrine.upload(image, :store, metadata: false)
-#
-# playlist = Playlist.create!(
-#   name: 'Awesome Name',
-#   detailed_name_ruby: 'オウサム ネーム',
-#   description: '説明テキストが入ります',
-#   headline: 'ヘッドラインのテキストが入ります',
-#   selected_palette: '#ffffff',
-#   api_state: 'open',
-#   alias_id: 'ALIAS-ID-1',
-#   logo_image_data: uploaded_image.to_json,
-#   eyecatch_image_data: uploaded_image.to_json,
-#   hero_image_data: uploaded_image.to_json
-# )
-#
-# person_organization_local = PersonOrganizationLocal.create!(
-#   uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11',
-#   role: 'Person',
-#   name: '森田一義',
-#   occupation: 'お笑いタレント,テレビ司会者,作詞家,作曲家,実業家,著作家,歌手,俳優',
-#   description: '日本のお笑いタレント、司会者',
-#   name_format: 1,
-#   family_name: '森田',
-#   given_name: '一義',
-#   additional_name: '',
-#   name_ruby: 'もりた かずよし',
-#   family_name_ruby: 'もりた',
-#   given_name_ruby: 'かずよし',
-#   additional_name_ruby: '',
-#   image_data: ''
-# )
-#
-# Supervisor.create!(
-#   person_organization_local_id: person_organization_local.id,
-#   playlist_id: playlist.id,
-#   image_data: '',
-#   contents_type: 'Playlist',
-#   contents_type_id: 1
-# )
+playlist = Playlist.create!(
+  name: 'Awesome Name',
+  detailed_name_ruby: 'オウサム ネーム',
+  description: '説明テキストが入ります',
+  headline: 'ヘッドラインのテキストが入ります',
+  selected_palette: '#ffffff',
+  api_state: 'open',
+  alias_id: 'ALIAS-ID-1',
+  logo_image_data: File.read(Rails.root.join('db', 'jsons', 'logo.json')),
+  eyecatch_image_data:  File.read(Rails.root.join('db', 'jsons', 'eyecatch.json')),
+  hero_image_data:  File.read(Rails.root.join('db', 'jsons', 'hero.json'))
+)
+
+person_organization_local = PersonOrganizationLocal.create!(
+  uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11',
+  role: 'Person',
+  name: '森田一義',
+  occupation: 'お笑いタレント,テレビ司会者,作詞家,作曲家,実業家,著作家,歌手,俳優',
+  description: '日本のお笑いタレント、司会者',
+  name_format: 1,
+  family_name: '森田',
+  given_name: '一義',
+  additional_name: '',
+  name_ruby: 'もりた かずよし',
+  family_name_ruby: 'もりた',
+  given_name_ruby: 'かずよし',
+  additional_name_ruby: '',
+  image_data: ''
+)
+
+Supervisor.create!(
+  person_organization_local_id: person_organization_local.id,
+  playlist_id: playlist.id,
+  image_data: '',
+  contents_type: 'Playlist',
+  contents_type_id: 1
+)
 
 wikidata_json = WikidataJson.create!(
   wikidata_id: 'Q850746',

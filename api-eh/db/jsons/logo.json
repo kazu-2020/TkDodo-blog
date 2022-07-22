@@ -1,0 +1,40 @@
+{
+  "id": "44ad7f78b52450e29265f4da037ba552",
+  "storage": "store",
+  "metadata": {},
+  "derivatives": {
+    "default": {
+      "id": "playlist/pl//-logo_21836b3fe3e5449e5b7c17fdc2aebbdb.jpg",
+      "storage": "store",
+      "metadata": {
+        "filename": "image_processing20220722-48-gyhirl.jpg",
+        "size": 112121,
+        "mime_type": "image/jpeg",
+        "width": 1080,
+        "height": 1080
+      }
+    },
+    "medium": {
+      "id": "playlist/pl//-logo_fdac12cb2545c0eb2ae18d95e1928090.jpg",
+      "storage": "store",
+      "metadata": {
+        "filename": "image_processing20220722-48-2dijzt.jpg",
+        "size": 53035,
+        "mime_type": "image/jpeg",
+        "width": 640,
+        "height": 640
+      }
+    },
+    "small": {
+      "id": "playlist/pl//-logo_d8a5ed778747d390d62f0d2a446cb2f9.jpg",
+      "storage": "store",
+      "metadata": {
+        "filename": "image_processing20220722-48-avsu15.jpg",
+        "size": 10176,
+        "mime_type": "image/jpeg",
+        "width": 200,
+        "height": 200
+      }
+    }
+  }
+}

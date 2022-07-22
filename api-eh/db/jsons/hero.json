@@ -1,0 +1,29 @@
+{
+  "id": "44ad7f78b52450e29265f4da037ba552",
+  "storage": "store",
+  "metadata": {},
+  "derivatives": {
+    "default": {
+      "id": "playlist/pl//-hero_d61539bf48c40cf98097de953a157333.jpg",
+      "storage": "store",
+      "metadata": {
+        "filename": "image_processing20220722-48-3p0dfi.jpg",
+        "size": 96797,
+        "mime_type": "image/jpeg",
+        "width": 1920,
+        "height": 640
+      }
+    },
+    "medium": {
+      "id": "playlist/pl//-hero_45827f62fa0272fdb6955923c0f10577.jpg",
+      "storage": "store",
+      "metadata": {
+        "filename": "image_processing20220722-48-477gg0.jpg",
+        "size": 44323,
+        "mime_type": "image/jpeg",
+        "width": 1080,
+        "height": 360
+      }
+    }
+  }
+}
