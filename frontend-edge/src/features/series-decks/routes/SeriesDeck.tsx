@@ -5,7 +5,7 @@ import { Box, Button, Text, Flex, Spacer } from '@chakra-ui/react'
 
 import SeriesDeckForm from '@/features/series-decks/components/SeriesDeckForm'
 import Link from '@/components/Link'
-import { BreadcrumbContext } from '@/components/Breadcrumb/BreadcrumbContext'
+import { BreadcrumbContext } from '@/components/Breadcrumb'
 
 import { useSeriesDeck } from '../api/getSeriesDeck'
 

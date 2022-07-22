@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { BreadcrumbContext } from '@/components/Breadcrumb/BreadcrumbContext'
+import { BreadcrumbContext } from './BreadcrumbContext'
 
 const EditTitle = (): string => {
   const context = useContext(BreadcrumbContext)

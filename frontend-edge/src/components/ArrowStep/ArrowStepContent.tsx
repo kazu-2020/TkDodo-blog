@@ -12,7 +12,7 @@ const hideStyle = {
   display: 'none'
 }
 
-const ArrowStepContent = ({
+export const ArrowStepContent = ({
   index = undefined,
   children = undefined
 }: Props) => {
@@ -21,5 +21,3 @@ const ArrowStepContent = ({
 
   return <Box sx={boxStyle}>{children}</Box>
 }
-
-export default ArrowStepContent

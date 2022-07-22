@@ -3,9 +3,9 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { Box, Button } from '@chakra-ui/react'
 
 import { ArrowStepContextProvider } from '@/components/ArrowStep/ArrowStepContext'
-import ArrowStepContent from '@/components/ArrowStep/ArrowStepContent'
+import { ArrowStepContent } from '@/components/ArrowStep/ArrowStepContent'
 
-import ArrowStep from './ArrowStep'
+import { ArrowStep } from './ArrowStep'
 
 export default {
   title: 'Components/ArrowStep',

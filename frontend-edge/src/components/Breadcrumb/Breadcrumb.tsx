@@ -6,9 +6,9 @@ import {
   BreadcrumbLink
 } from '@chakra-ui/react'
 
-import { BreadcrumbLabel } from '@/components/Breadcrumb/BreadcrumbLabel'
+import { BreadcrumbLabel } from './BreadcrumbLabel'
 
-const Breadcrumb = (props: any) => {
+export const Breadcrumb = (props: any) => {
   const breadcrumbs = useBreadcrumbs(
     BreadcrumbLabel as BreadcrumbsRoute<string>[]
   )
@@ -41,5 +41,3 @@ const Breadcrumb = (props: any) => {
 Breadcrumb.defaultProps = {
   mt: 0
 }
-
-export default Breadcrumb

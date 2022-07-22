@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import { Box, Flex } from '@chakra-ui/react'
 
-import ArrowStepItem from '@/components/ArrowStep/ArrowStepItem'
-import { ArrowStepContext } from '@/components/ArrowStep/ArrowStepContext'
+import { ArrowStepItem } from './ArrowStepItem'
+import { ArrowStepContext } from './ArrowStepContext'
 
 type StepItem = {
   title: string
@@ -14,7 +14,7 @@ type Props = {
   items: StepItem[]
 }
 
-const ArrowStep = ({ items = [] }: Props) => {
+export const ArrowStep = ({ items = [] }: Props) => {
   const arrowStepContext = useContext(ArrowStepContext)
   const onClickStep = (index: number) => {
     arrowStepContext.dispatch({ currentIndex: index })
@@ -38,5 +38,3 @@ const ArrowStep = ({ items = [] }: Props) => {
     </Flex>
   )
 }
-
-export default ArrowStep

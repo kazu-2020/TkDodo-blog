@@ -26,6 +26,7 @@ export const ArrowStepContext = createContext({
   state: initialState,
   dispatch: {}
 } as ArrowStepState)
+
 export const ArrowStepContextProvider = (props: any) => {
   const { children } = props
 
