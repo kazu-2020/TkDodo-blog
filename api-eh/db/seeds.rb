@@ -1,4 +1,9 @@
-playlist = Playlist.create!(
+playlist = Playlist.new
+playlist.logo_image = File.open(Rails.root.join('db', 'images', 'sample.jpg'))
+playlist.hero_image = File.open(Rails.root.join('db', 'images', 'sample.jpg'))
+playlist.eyecatch_image = File.open(Rails.root.join('db', 'images', 'sample.jpg'))
+
+awesome_playlist = Playlist.create!(
   name: 'Awesome Name',
   detailed_name_ruby: 'オウサム ネーム',
   description: '説明テキストが入ります',
@@ -6,9 +11,9 @@ playlist = Playlist.create!(
   selected_palette: '#ffffff',
   api_state: 'open',
   alias_id: 'ALIAS-ID-1',
-  logo_image_data: File.read(Rails.root.join('db', 'jsons', 'logo.json')),
-  eyecatch_image_data: File.read(Rails.root.join('db', 'jsons', 'eyecatch.json')),
-  hero_image_data: File.read(Rails.root.join('db', 'jsons', 'hero.json'))
+  logo_image_data: playlist.logo_image_data,
+  eyecatch_image_data: playlist.eyecatch_image_data,
+  hero_image_data: playlist.hero_image_data
 )
 
 person_organization_local = PersonOrganizationLocal.create!(
@@ -30,7 +35,7 @@ person_organization_local = PersonOrganizationLocal.create!(
 
 Supervisor.create!(
   person_organization_local_id: person_organization_local.id,
-  playlist_id: playlist.id,
+  playlist_id: awesome_playlist.id,
   image_data: '',
   contents_type: 'Playlist',
   contents_type_id: 1
