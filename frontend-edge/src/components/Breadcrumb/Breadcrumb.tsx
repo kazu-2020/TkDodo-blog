@@ -37,7 +37,3 @@ export const Breadcrumb = (props: StyleProps) => {
     </ChakraBreadcrumb>
   )
 }
-
-Breadcrumb.defaultProps = {
-  mt: 0
-}
