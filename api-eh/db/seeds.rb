@@ -1,4 +1,4 @@
-awesome_playlist = Playlist.create!(
+Playlist.create!(
   name: 'Awesome Name',
   detailed_name_ruby: 'オウサム ネーム',
   description: '説明テキストが入ります',
