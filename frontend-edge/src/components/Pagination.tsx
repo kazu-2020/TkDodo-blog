@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Button, HStack } from '@chakra-ui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 

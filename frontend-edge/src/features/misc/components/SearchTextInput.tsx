@@ -20,10 +20,9 @@ const SearchTextInput = ({ placeholder = '', onAction = () => {} }: Props) => {
   const [text, setText] = useState('')
   return (
     <InputGroup>
-      <InputLeftElement
-        pointerEvents="none"
-        children={<SearchIcon color="gray.300" />}
-      />
+      <InputLeftElement pointerEvents="none">
+        <SearchIcon color="gray.300" />
+      </InputLeftElement>
       <Input
         bg="white"
         type="text"
@@ -41,12 +40,13 @@ const SearchTextInput = ({ placeholder = '', onAction = () => {} }: Props) => {
       {text.length > 0 && (
         <InputRightElement
           sx={clearButtonStyle}
-          children={<CloseIcon w={10} h={10} color="gray.500" />}
           onClick={() => {
             setText('')
             onAction('')
           }}
-        />
+        >
+          <CloseIcon w={10} h={10} color="gray.500" />
+        </InputRightElement>
       )}
     </InputGroup>
   )
