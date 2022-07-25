@@ -3,20 +3,20 @@ import { useLocation } from 'react-router-dom'
 import {
   Breadcrumb as ChakraBreadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink
+  BreadcrumbLink,
+  StyleProps
 } from '@chakra-ui/react'
 
 import { BreadcrumbLabel } from './BreadcrumbLabel'
 
-export const Breadcrumb = (props: any) => {
+export const Breadcrumb = (props: StyleProps) => {
   const breadcrumbs = useBreadcrumbs(
     BreadcrumbLabel as BreadcrumbsRoute<string>[]
   )
   const location = useLocation()
-  const { mt } = props
 
   return (
-    <ChakraBreadcrumb mt={mt} pt="8" pb="3" pl="6" pr="3">
+    <ChakraBreadcrumb {...props}>
       {breadcrumbs.map(({ match, breadcrumb }) => {
         const isCurrentPage = location.pathname === match.pathname
         return isCurrentPage ? (
@@ -36,8 +36,4 @@ export const Breadcrumb = (props: any) => {
       })}
     </ChakraBreadcrumb>
   )
-}
-
-Breadcrumb.defaultProps = {
-  mt: 0
 }

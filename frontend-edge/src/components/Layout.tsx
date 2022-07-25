@@ -2,10 +2,9 @@ import { Outlet } from 'react-router-dom'
 import React from 'react'
 import { Flex, ChakraProvider, Container } from '@chakra-ui/react'
 
-
 import theme from '../lib/theme'
 
-import Header from './Header'
+import { Header } from './Header'
 import Footer from './Footer'
 import { BreadcrumbContextProvider, Breadcrumb } from './Breadcrumb'
 
@@ -13,12 +12,12 @@ const Layout = () => (
   <ChakraProvider theme={theme}>
     <Flex direction="column" minH="100vh">
       <Header />
-      <BreadcrumbContextProvider>
-        <Breadcrumb mt="64px" />
-        <Container maxW="container.lg" py={4} flexGrow="1" mt="16px" mb="32px">
+      <Container maxW="container.xl" flexGrow="1">
+        <BreadcrumbContextProvider>
+          <Breadcrumb my={5} />
           <Outlet />
-        </Container>
-      </BreadcrumbContextProvider>
+        </BreadcrumbContextProvider>
+      </Container>
       <Footer />
     </Flex>
   </ChakraProvider>

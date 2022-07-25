@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
-import Link from './Link'
+import Link from '../Link'
 
 const LinkWithMenuItem = ({ to, text }: { to: string; text: string }) => (
   <Link px={0} py={0} to={to} _hover={{ textDecoration: 'none' }}>
@@ -26,11 +26,19 @@ const LinkWithMenuItem = ({ to, text }: { to: string; text: string }) => (
   </Link>
 )
 
-const Header = () => {
+export const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <Box bg="White" px={4} boxShadow="md" pos="fixed" zIndex="999" w="full">
+    <Box
+      bg="White"
+      px={4}
+      boxShadow="md"
+      pos="sticky"
+      zIndex="999"
+      w="full"
+      top={0}
+    >
       <Flex h={16} alignItems="center" justifyContent="space-between">
         <IconButton
           size="md"
@@ -103,4 +111,3 @@ const Header = () => {
     </Box>
   )
 }
-export default Header
