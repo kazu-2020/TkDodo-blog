@@ -20,10 +20,6 @@ const PlaylistList = () => {
     page
   })
 
-  if (isLoading) {
-    return <ListScreenSkeleton />
-  }
-
   const playlists = data?.playlists
   const totalCount = data?.pagination?.count || 0
 
@@ -51,12 +47,15 @@ const PlaylistList = () => {
         </GridItem>
       </Grid>
 
-      <PlaylistListItems
-        items={playlists}
-        page={page}
-        totalCount={totalCount}
-        onChangePage={setPage}
-      />
+      {isLoading && <ListScreenSkeleton />}
+      {!isLoading && (
+        <PlaylistListItems
+          items={playlists}
+          page={page}
+          totalCount={totalCount}
+          onChangePage={setPage}
+        />
+      )}
     </Stack>
   )
 }
