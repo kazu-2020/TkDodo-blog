@@ -7,10 +7,11 @@ const Footer = () => (
   <Box
     bg="#ffee58"
     color="#00000099"
-    pos="fixed"
+    pos="sticky"
     zIndex="999"
     bottom="0"
     w="full"
+    mt={5}
     fontSize="sm"
   >
     <HStack justifyContent="center">
