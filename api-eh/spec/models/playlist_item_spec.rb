@@ -61,7 +61,7 @@ describe PlaylistItem, type: :model do
 
     describe '#has_video' do
       let(:playlist_item) { build(:playlist_item, episode_id: playable_episode_id) }
-      let(:playable_episode_id) { '7WVY258P7G' } # 2022/02/01時点で視聴可能なエピソード
+      let(:playable_episode_id) { 'Q8MP4RXRJW' } # 2022/07/27時点で視聴可能なエピソード
 
       context '視聴可能なエピソードの場合' do
         it do
