@@ -3,22 +3,20 @@ import { Button, HStack } from '@chakra-ui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
 type Props = {
-  currentPage: number
-  offset: number
-  totalCount: number
-  pageCount: number
-  onPageChange: (page: number) => void
+  page?: number
+  offset?: number
+  totalCount?: number
+  pageCount?: number
+  onChangePage?: (page: number) => void
 }
 
 const Pagination = ({
-  currentPage = 1,
-  offset = 20,
-  totalCount = 101,
+  page = 1,
+  offset = 50,
+  totalCount = 0,
   pageCount = 5,
-  onPageChange = () => {}
+  onChangePage = () => {}
 }: Props) => {
-  const [page, setPage] = useState(currentPage)
-
   const lastPage = Math.ceil(totalCount / offset)
   const renderPageCount = lastPage < pageCount ? lastPage : pageCount
   let renderStartPage = page > 1 ? page - 1 : page
@@ -27,16 +25,15 @@ const Pagination = ({
   }
 
   return (
-    <HStack spacing="10px">
+    <HStack spacing="10px" justify="center">
       <Button
-        size="md"
+        size="sm"
         colorScheme="teal"
         variant="solid"
         isDisabled={page === 1}
         onClick={() => {
           const prevPageNumber = page - 1
-          onPageChange(prevPageNumber)
-          setPage(prevPageNumber)
+          onChangePage(prevPageNumber)
         }}
       >
         <ChevronLeftIcon />
@@ -49,13 +46,12 @@ const Pagination = ({
           return (
             <Button
               key={key}
-              size="md"
+              size="sm"
               colorScheme="teal"
               variant="solid"
               isActive={pageNumber === page}
               onClick={() => {
-                onPageChange(pageNumber)
-                setPage(pageNumber)
+                onChangePage(pageNumber)
               }}
             >
               {pageNumber}
@@ -63,14 +59,13 @@ const Pagination = ({
           )
         })}
       <Button
-        size="md"
+        size="sm"
         colorScheme="teal"
         variant="solid"
         isDisabled={page === lastPage}
         onClick={() => {
           const nextPageNumber = page + 1
-          onPageChange(nextPageNumber)
-          setPage(nextPageNumber)
+          onChangePage(nextPageNumber)
         }}
       >
         <ChevronRightIcon />

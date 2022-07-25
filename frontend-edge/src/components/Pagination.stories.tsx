@@ -14,9 +14,9 @@ const Template: ComponentStory<typeof Pagination> = (props) => (
 
 export const Default = Template.bind({})
 Default.args = {
-  currentPage: 1,
+  page: 1,
   offset: 20,
   totalCount: 101,
   pageCount: 5,
-  onPageChange: () => {}
+  onChangePage: () => {}
 }
