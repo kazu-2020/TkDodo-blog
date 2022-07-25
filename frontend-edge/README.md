@@ -62,6 +62,10 @@ src
 +-- utils             # アプリケーション全体で利用するユーティリティ関数など
 ```
 
+- `features/misc` はNotFoundなど独立したroutesを置く場所とする。
+- 機能になるものは `src/features/awesome-feature` として新しくディレクトリを作ってそこに良しなに切り分けたファイルを配置する。 [参考](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md#%EF%B8%8F-project-structure)
+- 共通コンポーネントは `src/components` にディレクトリを作って配置する
+
 ### Storybook
 http://localhost:6006/
 
