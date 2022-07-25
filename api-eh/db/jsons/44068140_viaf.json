@@ -1,0 +1,2060 @@
+// 20220725111415
+// https://viaf.org/viaf/search?query=local.personalNames+any+西川貴教+and+local.sources=%22ndl%22&httpAccept=application/json
+
+{
+  "searchRetrieveResponse": {
+    "version": "1.1",
+    "numberOfRecords": "1",
+    "resultSetIdleTime": "1",
+    "records": [
+      {
+        "record": {
+          "recordSchema": "http://viaf.org/VIAFCluster",
+          "recordPacking": "json",
+          "recordData": {
+            "@xmlns": "http://viaf.org/viaf/terms#",
+            "void": "http://rdfs.org/ns/void#",
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "viafID": "44068140",
+            "Document": {
+              "@about": "http://viaf.org/viaf/44068140/",
+              "inDataset": {
+                "@resource": "http://viaf.org/viaf/data"
+              },
+              "primaryTopic": {
+                "@resource": "http://viaf.org/viaf/44068140"
+              }
+            },
+            "nameType": "Personal",
+            "sources": {
+              "source": [
+                {
+                  "@nsid": "0000000084486247",
+                  "#text": "ISNI|0000000084486247"
+                },
+                {
+                  "@nsid": "no2007007507",
+                  "#text": "LC|no2007007507"
+                },
+                {
+                  "@nsid": "00722792",
+                  "#text": "NDL|00722792"
+                },
+                {
+                  "@nsid": "Q187553",
+                  "#text": "WKP|Q187553"
+                },
+                {
+                  "@nsid": "DA12231995",
+                  "#text": "NII|DA12231995"
+                },
+                {
+                  "@nsid": "http://d-nb.info/gnd/1124785213",
+                  "#text": "DNB|1124785213"
+                }
+              ]
+            },
+            "length": "436",
+            "mainHeadings": {
+              "data": [
+                {
+                  "text": "T. M. Revolution, 1970-",
+                  "sources": {
+                    "s": [
+                      "LC",
+                      "ISNI"
+                    ],
+                    "sid": [
+                      "LC|no2007007507",
+                      "ISNI|0000000084486247"
+                    ]
+                  }
+                },
+                {
+                  "text": "西川, 貴教",
+                  "sources": {
+                    "s": [
+                      "WKP",
+                      "NII"
+                    ],
+                    "sid": [
+                      "WKP|Q187553",
+                      "NII|DA12231995"
+                    ]
+                  }
+                },
+                {
+                  "text": "西川, 貴教, 1970-",
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  }
+                },
+                {
+                  "text": "T.M.Revolution Sänger 1970-",
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  }
+                }
+              ],
+              "mainHeadingEl": [
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "100",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "T. M. Revolution"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ]
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  },
+                  "id": "ISNI|0000000084486247",
+                  "links": {
+                    "link": [
+                      {
+                        "match": null,
+                        "#text": "LC|no2007007507"
+                      },
+                      {
+                        "match": null,
+                        "#text": "DNB|1124785213"
+                      },
+                      {
+                        "match": null,
+                        "#text": "WKP|Q187553"
+                      },
+                      {
+                        "match": null,
+                        "#text": "NDL|00722792"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "100",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "T. M. Revolution,"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ]
+                  },
+                  "sources": {
+                    "s": "LC",
+                    "sid": "LC|no2007007507"
+                  },
+                  "id": "LC|no2007007507",
+                  "links": {
+                    "link": [
+                      {
+                        "match": null,
+                        "#text": "DNB|1124785213"
+                      },
+                      {
+                        "match": null,
+                        "#text": "WKP|Q187553"
+                      },
+                      {
+                        "match": null,
+                        "#text": "NDL|00722792"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "100",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "T.M.Revolution"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "Sänger"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ]
+                  },
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  },
+                  "id": "DNB|1124785213",
+                  "links": {
+                    "link": [
+                      {
+                        "match": null,
+                        "#text": "LC|no2007007507"
+                      },
+                      {
+                        "match": null,
+                        "#text": "WKP|Q187553"
+                      },
+                      {
+                        "match": null,
+                        "#text": "NDL|00722792"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "100",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "西川 貴教"
+                    }
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  },
+                  "id": "WKP|Q187553",
+                  "links": {
+                    "link": [
+                      {
+                        "match": null,
+                        "#text": "LC|no2007007507"
+                      },
+                      {
+                        "match": null,
+                        "#text": "DNB|1124785213"
+                      },
+                      {
+                        "match": null,
+                        "#text": "NII|DA12231995"
+                      },
+                      {
+                        "match": null,
+                        "#text": "NDL|00722792"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "100",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "西川, 貴教"
+                    }
+                  },
+                  "sources": {
+                    "s": "NII",
+                    "sid": "NII|DA12231995"
+                  },
+                  "id": "NII|DA12231995",
+                  "links": {
+                    "link": [
+                      {
+                        "match": null,
+                        "#text": "WKP|Q187553"
+                      },
+                      {
+                        "match": null,
+                        "#text": "NDL|00722792"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "100",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "西川, 貴教,"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ]
+                  },
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  },
+                  "id": "NDL|00722792",
+                  "links": {
+                    "link": [
+                      {
+                        "match": null,
+                        "#text": "NII|DA12231995"
+                      },
+                      {
+                        "match": null,
+                        "#text": "LC|no2007007507"
+                      },
+                      {
+                        "match": null,
+                        "#text": "DNB|1124785213"
+                      },
+                      {
+                        "match": null,
+                        "#text": "WKP|Q187553"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      },
+                      {
+                        "match": null,
+                        "#text": "ISNI|0000000084486247"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "fixed": {
+              "gender": "b"
+            },
+            "x400s": {
+              "x400": [
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "Nishikawa Takanori"
+                    },
+                    "normalized": "nishikawa takanori"
+                  },
+                  "sources": {
+                    "s": [
+                      "WKP",
+                      "ISNI"
+                    ],
+                    "sid": [
+                      "WKP|Q187553",
+                      "ISNI|0000000084486247"
+                    ]
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "Nishikawa, Takanori"
+                    },
+                    "normalized": "nishikawa takanori"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "100",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Nishikawa, Takanori,"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "nishikawa takanori 1970"
+                  },
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Nishikawa, Takanori,"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "nishikawa takanori 1970"
+                  },
+                  "sources": {
+                    "s": "LC",
+                    "sid": "LC|no2007007507"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": "4",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "Nishikawa, Takanori."
+                    },
+                    "normalized": "nishikawa takanori"
+                  },
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Nishikawa, Takanori"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "nishikawa takanori 1970"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Nishikawa, Takanori"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      },
+                      {
+                        "@code": "e",
+                        "#text": "Wirklicher Name"
+                      }
+                    ],
+                    "normalized": "nishikawa takanori 1970"
+                  },
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Nisikava Takanori"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "japán zenész"
+                      }
+                    ],
+                    "normalized": "nisikava takanori japan zenesz"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Revolution, T. M.,"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "revolution t m 1970"
+                  },
+                  "sources": {
+                    "s": "LC",
+                    "sid": "LC|no2007007507"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Revolution, T. M."
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "revolution t m 1970"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "T.M. Revolution"
+                    },
+                    "normalized": "t m revolution"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "T.M. Revolution"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "musicien japonais"
+                      }
+                    ],
+                    "normalized": "t m revolution musicien japonais"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "T.M.Revolution"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "t m revolution 1970"
+                  },
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "T.M.Revolution"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "cantante, attore teatrale e stilista giapponese"
+                      }
+                    ],
+                    "normalized": "t m revolution cantante attore teatrale e stilista giapponese"
+                  },
+                  "sources": {
+                    "s": [
+                      "WKP",
+                      "ISNI"
+                    ],
+                    "sid": [
+                      "WKP|Q187553",
+                      "ISNI|0000000084486247"
+                    ]
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "T.M.Revolution"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "kantante hapones"
+                      }
+                    ],
+                    "normalized": "t m revolution kantante hapones"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "TM Revoultion"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "tm revoultion 1970"
+                  },
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "TMR"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "tmr 1970"
+                  },
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "TNNK"
+                    },
+                    "normalized": "tnnk"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Takanori Makes Revolution,"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "takanori makes revolution 1970"
+                  },
+                  "sources": {
+                    "s": "LC",
+                    "sid": "LC|no2007007507"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Takanori Makes Revolution"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "takanori makes revolution 1970"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "Takanori Nishikawa"
+                    },
+                    "normalized": "takanori nishikawa"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Takanori Nishikawa"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "Japanese musician"
+                      }
+                    ],
+                    "normalized": "takanori nishikawa japanese musician"
+                  },
+                  "sources": {
+                    "s": [
+                      "WKP",
+                      "ISNI"
+                    ],
+                    "sid": [
+                      "WKP|Q187553",
+                      "ISNI|0000000084486247"
+                    ]
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Takanori Nishikawa"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "Japans zanger"
+                      }
+                    ],
+                    "normalized": "takanori nishikawa japans zanger"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Takanori Nishikawa"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "Músico Japonês"
+                      }
+                    ],
+                    "normalized": "takanori nishikawa musico japones"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Takanori Nishikawa"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "japanischer Pop-Musiker"
+                      }
+                    ],
+                    "normalized": "takanori nishikawa japanischer pop musiker"
+                  },
+                  "sources": {
+                    "s": [
+                      "WKP",
+                      "ISNI"
+                    ],
+                    "sid": [
+                      "WKP|Q187553",
+                      "ISNI|0000000084486247"
+                    ]
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Takanori Nishikawa"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "muzikant japonez"
+                      }
+                    ],
+                    "normalized": "takanori nishikawa muzikant japonez"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Takanori Nishikawa"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "músico japonés"
+                      }
+                    ],
+                    "normalized": "takanori nishikawa musico japones"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Takanori Nishikawa"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "penyanyi Jepang"
+                      }
+                    ],
+                    "normalized": "takanori nishikawa penyanyi jepang"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Takanori Nishikawa"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "ureueng meujangeun Jeupun"
+                      }
+                    ],
+                    "normalized": "takanori nishikawa ureueng meujangeun jeupun"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "Takanori Nišikawa"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "japonský zpěvák"
+                      }
+                    ],
+                    "normalized": "takanori nisikawa japonsky zpevak"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "Нисикава, Таканори"
+                    },
+                    "normalized": "нисикава таканори"
+                  },
+                  "sources": {
+                    "s": [
+                      "WKP",
+                      "ISNI"
+                    ],
+                    "sid": [
+                      "WKP|Q187553",
+                      "ISNI|0000000084486247"
+                    ]
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "تاكانورى نيشيكاوا"
+                    },
+                    "normalized": "تاكانورى نيشيكاوا"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "تاكانوري نيشيكاوا"
+                    },
+                    "normalized": "تاكانوري نيشيكاوا"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "تاكانوري نيشيكاوا"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "موسيقي ياباني"
+                      }
+                    ],
+                    "normalized": "تاكانوري نيشيكاوا موسيقي ياباني"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "تاکانوری نیشیکاوا"
+                    },
+                    "normalized": "تاکانوری نیشیکاوا"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "にしかわ たかのり"
+                    },
+                    "normalized": "にしかわ たかのり"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "にしかわたかのり"
+                    },
+                    "normalized": "にしかわたかのり"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "ニシカワ, タカノリ"
+                    },
+                    "normalized": "ニシカワ タカノリ"
+                  },
+                  "sources": {
+                    "s": "NII",
+                    "sid": "NII|DA12231995"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "100",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "ニシカワ, タカノリ,"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "ニシカワ タカノリ 1970"
+                  },
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "ニシカワ, タカノリ"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "ニシカワ タカノリ 1970"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "西川 貴教"
+                    },
+                    "normalized": "襾巛 貴敎"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "西川貴教"
+                    },
+                    "normalized": "襾巛貴敎"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "西川貴教"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "日本の歌手、タレント (1970- )"
+                      }
+                    ],
+                    "normalized": "襾巛貴敎 日夲の歌手 タレント 1970"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "西川貴教"
+                      },
+                      {
+                        "@code": "c",
+                        "#text": "日本男歌手"
+                      }
+                    ],
+                    "normalized": "襾巛貴敎 日夲男歌手"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "400",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "니시카와 다카노리"
+                    },
+                    "normalized": "니시카와 다카노리"
+                  },
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                }
+              ]
+            },
+            "x500s": {
+              "x500": [
+                {
+                  "datafield": {
+                    "@ind1": "1",
+                    "@ind2": " ",
+                    "@tag": "500",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "T. M. Revolution,"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "t m revolution 1970"
+                  },
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": "0",
+                    "@ind2": " ",
+                    "@tag": "500",
+                    "@dtype": "MARC21",
+                    "subfield": [
+                      {
+                        "@code": "a",
+                        "#text": "T. M. Revolution"
+                      },
+                      {
+                        "@code": "d",
+                        "#text": "1970-"
+                      }
+                    ],
+                    "normalized": "t m revolution 1970"
+                  },
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "datafield": {
+                    "@ind1": " ",
+                    "@ind2": " ",
+                    "@tag": "551",
+                    "@dtype": "MARC21",
+                    "subfield": {
+                      "@code": "a",
+                      "#text": "Yasu"
+                    },
+                    "normalized": "yasu"
+                  },
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  }
+                }
+              ]
+            },
+            "coauthors": {
+              "data": [
+                {
+                  "@count": "2",
+                  "@tag": "950",
+                  "text": "Asakura, Daisuke",
+                  "sources": {
+                    "s": [
+                      "DNB",
+                      "ISNI"
+                    ],
+                    "sid": [
+                      "DNB|1124785213",
+                      "ISNI|0000000084486247"
+                    ]
+                  }
+                },
+                {
+                  "@count": "1",
+                  "@tag": "951",
+                  "text": "西川くんとキリショー",
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "@tag": "951",
+                  "text": "the end of genesis T.M.R.evolution turbo type D",
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "@tag": "950",
+                  "text": "T.M.Revolution",
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "@tag": "950",
+                  "text": "Shibasaki, Hiroshi",
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "@tag": "950",
+                  "text": "SUNAO",
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "@tag": "950",
+                  "text": "Kishi, Toshiyuki",
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "@tag": "950",
+                  "text": "Kiryuin, Sho",
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "@tag": "950",
+                  "text": "Inoue, Akio",
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "@tag": "950",
+                  "text": "IKUO",
+                  "sources": {
+                    "s": "ISNI",
+                    "sid": "ISNI|0000000084486247"
+                  }
+                }
+              ]
+            },
+            "publishers": {
+              "data": [
+                {
+                  "@count": "2",
+                  "text": "角川書店",
+                  "sources": {
+                    "s": [
+                      "NDL",
+                      "ISNI"
+                    ],
+                    "sid": [
+                      "NDL|00722792",
+                      "ISNI|0000000084486247"
+                    ]
+                  }
+                },
+                {
+                  "@count": "2",
+                  "text": "オリコン・エンタテインメント",
+                  "sources": {
+                    "s": [
+                      "NDL",
+                      "ISNI"
+                    ],
+                    "sid": [
+                      "NDL|00722792",
+                      "ISNI|0000000084486247"
+                    ]
+                  }
+                },
+                {
+                  "@count": "2",
+                  "text": "アスコム",
+                  "sources": {
+                    "s": [
+                      "NDL",
+                      "ISNI"
+                    ],
+                    "sid": [
+                      "NDL|00722792",
+                      "ISNI|0000000084486247"
+                    ]
+                  }
+                },
+                {
+                  "@count": "2",
+                  "text": "Orikon Entateinmento",
+                  "sources": {
+                    "s": [
+                      "NDL",
+                      "ISNI"
+                    ],
+                    "sid": [
+                      "NDL|00722792",
+                      "ISNI|0000000084486247"
+                    ]
+                  }
+                },
+                {
+                  "@count": "2",
+                  "text": "Asukomu",
+                  "sources": {
+                    "s": [
+                      "NDL",
+                      "ISNI"
+                    ],
+                    "sid": [
+                      "NDL|00722792",
+                      "ISNI|0000000084486247"
+                    ]
+                  }
+                },
+                {
+                  "@count": "1",
+                  "text": "新潮社",
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "text": "Shinchosha.",
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "text": "Gan-Shin",
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  }
+                }
+              ]
+            },
+            "birthDate": "1970-09-19",
+            "deathDate": "0",
+            "dateType": "lived",
+            "dates": {
+              "@min": "199",
+              "@max": "202",
+              "date": [
+                {
+                  "@count": "5",
+                  "@scaled": "2.32",
+                  "#text": "199"
+                },
+                {
+                  "@count": "6",
+                  "@scaled": "2.58",
+                  "#text": "200"
+                },
+                {
+                  "@count": "8",
+                  "@scaled": "3.00",
+                  "#text": "201"
+                },
+                {
+                  "@count": "2",
+                  "@scaled": "1.00",
+                  "#text": "202"
+                }
+              ]
+            },
+            "RecFormats": {
+              "data": [
+                {
+                  "@count": "4",
+                  "text": "am",
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "text": "jm",
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  }
+                }
+              ]
+            },
+            "RelatorCodes": {
+              "data": [
+                {
+                  "@count": "1",
+                  "text": "sanger",
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "text": "sng",
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  }
+                }
+              ]
+            },
+            "ISBNs": {
+              "@unique": "4",
+              "data": [
+                {
+                  "@count": "1",
+                  "text": "9784871310628",
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "text": "9784776203001",
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "text": "9784103509912",
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "text": "9784048835787",
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  }
+                }
+              ]
+            },
+            "countries": {
+              "data": [
+                {
+                  "@count": "4",
+                  "@scaled": "2",
+                  "text": "JP",
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  }
+                },
+                {
+                  "@count": "1",
+                  "@scaled": "1",
+                  "text": "DE",
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  }
+                }
+              ]
+            },
+            "nationalityOfEntity": {
+              "data": {
+                "text": "JP",
+                "sources": {
+                  "s": [
+                    "ISNI",
+                    "WKP",
+                    "DNB"
+                  ]
+                }
+              }
+            },
+            "xLinks": {
+              "xLink": [
+                {
+                  "#text": "https://ar.wikipedia.org/wiki/تاكانوري_نيشيكاوا",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://arz.wikipedia.org/wiki/تاكانورى_نيشيكاوا",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://azb.wikipedia.org/wiki/تاکانوری_نیشیکاوا",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://de.wikipedia.org/wiki/Takanori_Nishikawa",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://en.wikipedia.org/wiki/Takanori_Nishikawa",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://es.wikipedia.org/wiki/Takanori_Nishikawa",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://fr.wikipedia.org/wiki/Takanori_Nishikawa",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://hu.wikipedia.org/wiki/Nisikava_Takanori",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://id.wikipedia.org/wiki/Takanori_Nishikawa",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://it.wikipedia.org/wiki/Takanori_Nishikawa",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://ja.wikipedia.org/wiki/西川貴教",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://ko.wikipedia.org/wiki/니시카와_다카노리",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://pt.wikipedia.org/wiki/Takanori_Nishikawa",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://ru.wikipedia.org/wiki/Нисикава,_Таканори",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://simple.wikipedia.org/wiki/Takanori_Nishikawa",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://vi.wikipedia.org/wiki/Nishikawa_Takanori",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://zh.wikipedia.org/wiki/西川贵教",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                {
+                  "#text": "https://zh_yue.wikipedia.org/wiki/西川貴教",
+                  "sources": {
+                    "s": "WKP",
+                    "sid": "WKP|Q187553"
+                  }
+                },
+                "https://www.worldcat.org/identities/lccn-no2007007507"
+              ]
+            },
+            "titles": {
+              "work": [
+                {
+                  "sources": {
+                    "s": "LC",
+                    "sid": "LC|no2007007507"
+                  },
+                  "title": "Mobile suit Gundam seed complete best, c2003:"
+                },
+                {
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  },
+                  "title": "Oshaberi na kinniku : Kokoro no waku auto nana mesoddo."
+                },
+                {
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  },
+                  "title": "Shissō : T.M.R T.M.R-e"
+                },
+                {
+                  "sources": {
+                    "s": "DNB",
+                    "sid": "DNB|1124785213"
+                  },
+                  "title": "Ten"
+                },
+                {
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  },
+                  "title": "Tonari no shibafu"
+                },
+                {
+                  "sources": {
+                    "s": "LC",
+                    "sid": "LC|no2007007507"
+                  },
+                  "title": "Wikipedia WWW home page, Jan. 23, 2007:"
+                },
+                {
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  },
+                  "title": "おしゃべりな筋肉 : 心のワークアウト7メソッド"
+                },
+                {
+                  "sources": {
+                    "s": [
+                      "NDL",
+                      "NII"
+                    ],
+                    "sid": [
+                      "NDL|00722792",
+                      "NII|DA12231995"
+                    ]
+                  },
+                  "title": "となりの芝生"
+                },
+                {
+                  "sources": {
+                    "s": "NDL",
+                    "sid": "NDL|00722792"
+                  },
+                  "title": "アンダーカバー = Under cover : T.M.Revolution the 10th debut anniversary book"
+                },
+                {
+                  "sources": {
+                    "s": [
+                      "NDL",
+                      "NII"
+                    ],
+                    "sid": [
+                      "NDL|00722792",
+                      "NII|DA12231995"
+                    ]
+                  },
+                  "title": "疾走 : (T.M.R.)→(T.M.R‐e) T.M.Revolution〜the end of genesis T.M.R.evolution turbo type D"
+                }
+              ]
+            },
+            "history": {
+              "ht": [
+                {
+                  "@recid": "LC|no2007007507",
+                  "@time": "2009-03-03T12:03:40+00:00"
+                },
+                {
+                  "@recid": "NDL|00722792",
+                  "@time": "2012-09-21T12:24:32+00:00"
+                },
+                {
+                  "@recid": "ISNI|0000000084486247",
+                  "@time": "2013-09-16T16:15:07+00:00"
+                },
+                {
+                  "@recid": "WKP|Q187553",
+                  "@time": "2015-04-14T18:56:54+00:00"
+                },
+                {
+                  "@recid": "WKP|Takanori_Nishikawa",
+                  "@time": "2015-04-14T18:56:54+00:00"
+                },
+                {
+                  "@recid": "NII|DA12231995",
+                  "@time": "2016-08-01T23:40:51.170477+00:00"
+                },
+                {
+                  "@recid": "DNB|1124785213",
+                  "@time": "2017-02-13T20:15:23.203974+00:00"
+                }
+              ]
+            },
+            "creationtime": "2022-07-18T06:16:07.197923+00:00"
+          }
+        }
+      }
+    ]
+  }
+}
