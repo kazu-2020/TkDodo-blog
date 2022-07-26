@@ -1,11 +1,12 @@
 import { ChangeEvent, useState } from 'react'
-import { Flex, Grid, GridItem, Stack } from '@chakra-ui/react'
+import { Box, Flex, Grid, GridItem, Stack } from '@chakra-ui/react'
 
 import PlaylistListItems from '@/features/playlists/components/PlaylistListItems'
 import ArticleModeSwitcher from '@/features/playlists/components/ArticleModeSwitch'
 import SearchTextInput from '@/components/SearchTextInput/SearchTextInput'
 import ListScreenSkeleton from '@/components/ListScreenSkeleton/ListScreenSkeleton'
 import APIStatusSelect from '@/components/APIStatusSelect/APIStatusSelect'
+import NoDataFound from '@/components/Alert/NoDataFound'
 
 import { usePlaylists } from '../api/getPlaylists'
 
@@ -48,7 +49,12 @@ const PlaylistList = () => {
       </Grid>
 
       {isLoading && <ListScreenSkeleton />}
-      {!isLoading && (
+      {!isLoading && totalCount === 0 && (
+        <Box pt={20}>
+          <NoDataFound />
+        </Box>
+      )}
+      {!isLoading && totalCount > 0 && (
         <PlaylistListItems
           items={playlists}
           page={page}
