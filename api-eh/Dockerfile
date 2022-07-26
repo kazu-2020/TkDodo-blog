@@ -39,10 +39,7 @@ WORKDIR $APP_HOME
 ADD Gemfile $APP_HOME/Gemfile
 ADD Gemfile.lock $APP_HOME/Gemfile.lock
 
-RUN gem install bundler && \
-    gem install nokogiri --platform=ruby -- --use-system-libraries && \
-    bundle config set force_ruby_platform true && \
-    bundle install -j8
+RUN gem install bundler && bundle install -j8
 
 ADD . $APP_HOME
 
