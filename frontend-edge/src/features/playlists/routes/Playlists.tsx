@@ -1,6 +1,6 @@
 import { Heading } from '@chakra-ui/react'
 
-import PlaylistList from '../components/PlaylistList'
+import { PlaylistList } from '../components/PlaylistList'
 
 const Playlists = () => (
   <>
