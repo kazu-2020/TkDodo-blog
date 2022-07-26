@@ -14,6 +14,7 @@ export const PlaylistList = () => {
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
   const [apiState, setApiState] = useState('open')
+  const [isArticle, setIsArticle] = useState(false)
 
   const { data, isLoading } = usePlaylists({
     query,
@@ -26,24 +27,18 @@ export const PlaylistList = () => {
 
   return (
     <Stack>
-      <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-        <GridItem colSpan={2}>
+      <Grid templateColumns="repeat(12, 1fr)" gap={6}>
+        <GridItem colSpan={5}>
           <SearchTextInput
             placeholder="プレイリストタイトルで検索"
             onAction={setQuery}
           />
         </GridItem>
 
-        <GridItem colStart={4} colEnd={6}>
+        <GridItem colStart={9} colEnd={13}>
           <Flex justify="flex-end">
-            {/* 記事モード作成までは無効化 */}
-            {false && <ArticleModeSwitch />}
-
-            <APIStatusSelect
-              onChange={(event: ChangeEvent<HTMLSelectElement>) => {
-                setApiState(event.target.value)
-              }}
-            />
+            <ArticleModeSwitch onChange={setIsArticle} />
+            <APIStatusSelect onChange={setApiState} />
           </Flex>
         </GridItem>
       </Grid>
@@ -59,6 +54,7 @@ export const PlaylistList = () => {
           items={playlists}
           page={page}
           totalCount={totalCount}
+          isArticle={isArticle}
           onChangePage={setPage}
         />
       )}
