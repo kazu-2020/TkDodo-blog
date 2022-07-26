@@ -16,13 +16,17 @@ person_organization_local = PersonOrganizationLocal.create!(
   image_data: ''
 )
 
+begin # プレイリスト作成を行っていないため、rescue で回避しています
 Supervisor.create!(
   person_organization_local_id: person_organization_local.id,
-  playlist_id: Playlist.last.id,
+  playlist_id: Playlist.first.id,
   image_data: '',
   contents_type: 'Playlist',
   contents_type_id: 1
 )
+rescue
+  puts "#プレイリストが存在しないため、Supervisorを作成できませんでした。"
+end
 
 wikidata_json = WikidataJson.create!(
   wikidata_id: 'Q187553',
@@ -103,7 +107,7 @@ person_organization_local2 = PersonOrganizationLocal.create!(
   image_data: ''
 )
 
-begin
+begin # プレイリスト作成を行っていないため、rescue で回避しています
   Supervisor.create!(
     person_organization_local_id: person_organization_local2.id,
     playlist_id: Playlist.last.id,
