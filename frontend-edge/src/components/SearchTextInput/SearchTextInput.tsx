@@ -16,7 +16,10 @@ type Props = {
   onAction?: (query: string) => void
 }
 
-const SearchTextInput = ({ placeholder = '', onAction = () => {} }: Props) => {
+export const SearchTextInput = ({
+  placeholder = '',
+  onAction = () => {}
+}: Props) => {
   const [text, setText] = useState('')
   return (
     <InputGroup>
@@ -51,5 +54,3 @@ const SearchTextInput = ({ placeholder = '', onAction = () => {} }: Props) => {
     </InputGroup>
   )
 }
-
-export default SearchTextInput

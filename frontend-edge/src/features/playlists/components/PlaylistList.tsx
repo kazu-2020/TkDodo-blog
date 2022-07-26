@@ -1,16 +1,16 @@
 import { ChangeEvent, useState } from 'react'
 import { Box, Flex, Grid, GridItem, Stack } from '@chakra-ui/react'
 
-import PlaylistListItems from '@/features/playlists/components/PlaylistListItems'
-import ArticleModeSwitcher from '@/features/playlists/components/ArticleModeSwitch'
-import SearchTextInput from '@/components/SearchTextInput/SearchTextInput'
-import ListScreenSkeleton from '@/components/ListScreenSkeleton/ListScreenSkeleton'
-import APIStatusSelect from '@/components/APIStatusSelect/APIStatusSelect'
-import NoDataFound from '@/components/Alert/NoDataFound'
+import { PlaylistListItems } from '@/features/playlists/components/PlaylistListItems'
+import { ArticleModeSwitch } from '@/features/playlists/components/ArticleModeSwitch'
+import { SearchTextInput } from '@/components/SearchTextInput'
+import { ListScreenSkeleton } from '@/components/ListScreenSkeleton'
+import { APIStatusSelect } from '@/components/APIStatusSelect'
+import { NoDataFound } from '@/components/Alert'
 
 import { usePlaylists } from '../api/getPlaylists'
 
-const PlaylistList = () => {
+export const PlaylistList = () => {
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
   const [apiState, setApiState] = useState('open')
@@ -37,7 +37,7 @@ const PlaylistList = () => {
         <GridItem colStart={4} colEnd={6}>
           <Flex justify="flex-end">
             {/* 記事モード作成までは無効化 */}
-            {false && <ArticleModeSwitcher />}
+            {false && <ArticleModeSwitch />}
 
             <APIStatusSelect
               onChange={(event: ChangeEvent<HTMLSelectElement>) => {
@@ -65,4 +65,3 @@ const PlaylistList = () => {
     </Stack>
   )
 }
-export default PlaylistList

@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { Box, Stack, useDisclosure } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
-import PlaylistListItem from '@/features/playlists/components/PlaylistListItem'
-import PlaylistDrawer from '@/features/playlists/components/PlaylistDrawer'
-import Pagination from '@/components/Pagination'
+import { PlaylistListItem } from '@/features/playlists/components/PlaylistListItem'
+import { PlaylistDrawer } from '@/features/playlists/components/PlaylistDrawer'
+import { Pagination } from '@/components/Pagination'
 
 type Props = {
   items?: Playlist[]
@@ -13,7 +13,7 @@ type Props = {
   onChangePage: (page: number) => void
 }
 
-const PlaylistListItems = ({
+export const PlaylistListItems = ({
   items = [],
   page = 1,
   totalCount = 0,
@@ -65,5 +65,3 @@ const PlaylistListItems = ({
     </Stack>
   )
 }
-
-export default PlaylistListItems

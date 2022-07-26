@@ -5,7 +5,7 @@ type Props = {
   onChange?: ChangeEventHandler<HTMLInputElement>
 }
 
-const ArticleModeSwitch = ({ onChange = undefined }: Props) => (
+export const ArticleModeSwitch = ({ onChange = undefined }: Props) => (
   <FormControl display="flex" alignItems="center">
     <Switch id="article-mode" colorScheme="teal" onChange={onChange} />
     <FormLabel htmlFor="article-mode" mb="0" ml="3" color="gray.600">
@@ -13,5 +13,3 @@ const ArticleModeSwitch = ({ onChange = undefined }: Props) => (
     </FormLabel>
   </FormControl>
 )
-
-export default ArticleModeSwitch

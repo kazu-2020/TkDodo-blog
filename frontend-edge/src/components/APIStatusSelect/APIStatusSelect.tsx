@@ -6,7 +6,7 @@ type Props = {
   onChange?: ChangeEventHandler<HTMLSelectElement>
 }
 
-const APIStatusSelect = ({
+export const APIStatusSelect = ({
   defaultValue = 'open',
   onChange = undefined
 }: Props) => (
@@ -21,5 +21,3 @@ const APIStatusSelect = ({
     <option value="">全て</option>
   </Select>
 )
-
-export default APIStatusSelect

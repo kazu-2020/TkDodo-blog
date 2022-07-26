@@ -1,7 +1,7 @@
 import React from 'react'
 import { ComponentMeta } from '@storybook/react'
 
-import NoDataFound from './NoDataFound'
+import { NoDataFound } from './NoDataFound'
 
 export default {
   title: 'Components/Alert/NoDataFound',

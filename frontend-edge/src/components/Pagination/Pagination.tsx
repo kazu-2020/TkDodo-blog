@@ -9,7 +9,7 @@ type Props = {
   onChangePage?: (page: number) => void
 }
 
-const Pagination = ({
+export const Pagination = ({
   page = 1,
   offset = 50,
   totalCount = 0,
@@ -72,5 +72,3 @@ const Pagination = ({
     </HStack>
   )
 }
-
-export default Pagination

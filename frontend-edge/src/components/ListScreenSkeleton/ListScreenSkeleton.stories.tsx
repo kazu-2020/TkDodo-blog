@@ -1,7 +1,7 @@
 import React from 'react'
 import { ComponentMeta } from '@storybook/react'
 
-import ListScreenSkeleton from './ListScreenSkeleton'
+import { ListScreenSkeleton } from './ListScreenSkeleton'
 
 export default {
   title: 'Components/ListScreenSkeleton',

@@ -5,7 +5,7 @@ import {
   AlertTitle
 } from '@chakra-ui/react'
 
-const NoDataFound = () => (
+export const NoDataFound = () => (
   <Alert status="warning">
     <AlertIcon />
     <AlertTitle>条件に一致するデータは見つかりませんでした</AlertTitle>
@@ -14,5 +14,3 @@ const NoDataFound = () => (
     </AlertDescription>
   </Alert>
 )
-
-export default NoDataFound

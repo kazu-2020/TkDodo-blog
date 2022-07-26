@@ -5,7 +5,7 @@ import { formatDatetime } from '@/utils/format'
 import { Playlist } from '@/types/playlist'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
-const PlaylistListItem = ({
+export const PlaylistListItem = ({
   playlist,
   setSelectedPlaylist,
   onOpen
@@ -52,4 +52,3 @@ const PlaylistListItem = ({
     </Flex>
   )
 }
-export default PlaylistListItem
