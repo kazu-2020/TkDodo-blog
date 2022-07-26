@@ -1,7 +1,7 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
-import Pagination from './Pagination'
+import { Pagination } from './Pagination'
 
 export default {
   title: 'Components/Pagination',
@@ -14,9 +14,9 @@ const Template: ComponentStory<typeof Pagination> = (props) => (
 
 export const Default = Template.bind({})
 Default.args = {
-  currentPage: 1,
+  page: 1,
   offset: 20,
   totalCount: 101,
   pageCount: 5,
-  onPageChange: () => {}
+  onChangePage: () => {}
 }

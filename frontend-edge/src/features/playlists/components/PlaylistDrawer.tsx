@@ -15,7 +15,7 @@ import { Playlist } from '@/types/playlist'
 import Link from '@/components/Link'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
-const PlaylistList = ({
+export const PlaylistDrawer = ({
   playlist,
   isOpen,
   onClose
@@ -69,4 +69,3 @@ const PlaylistList = ({
     </DrawerContent>
   </Drawer>
 )
-export default PlaylistList

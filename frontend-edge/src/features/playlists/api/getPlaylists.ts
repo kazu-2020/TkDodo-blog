@@ -1,12 +1,32 @@
 import { useQuery } from 'react-query'
 
 import { Playlist } from '@/types/playlist'
+import { Pagination } from '@/types/pagination'
 import axios from '@/lib/axios'
 
-export const getPlaylists = async (): Promise<Playlist[]> => {
-  const res = await axios.get('/playlists')
-  return res.data.playlists
+type Response = {
+  playlists: Playlist[]
+  pagination: Pagination
 }
 
-export const usePlaylists = () =>
-  useQuery<Playlist[], Error>('playlist', getPlaylists)
+type Params = {
+  query?: string
+  apiState?: string
+  page?: number
+}
+
+export const getPlaylists = async (params: Params): Promise<Response> => {
+  const res = await axios.get('/playlists', {
+    params: {
+      query: params.query,
+      api_state: params.apiState,
+      page: params.page
+    }
+  })
+  return res.data
+}
+
+export const usePlaylists = (params: Params) =>
+  useQuery<Response, Error>(['playlist', params], () => getPlaylists(params), {
+    keepPreviousData: true
+  })
