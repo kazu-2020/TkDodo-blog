@@ -3,8 +3,10 @@ import React from 'react'
 import { FormControl, Text, Checkbox, Button, HStack } from '@chakra-ui/react'
 
 import { Deck } from '@/types/deck'
-import FloatingLabelTextarea from '@/components/Form/FloatingLabelTextarea'
-import FloatingLabelInput from '@/components/Form/FloatingLabelInput'
+import {
+  FloatingLabelTextarea,
+  FloatingLabelInput
+} from '@/components/Form/FloatingLable'
 
 import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
 import { useCreateSeriesDeck } from '../api/createSeriesDeck'
