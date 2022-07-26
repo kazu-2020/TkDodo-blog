@@ -3,9 +3,9 @@ import { Flex, Grid, GridItem, Stack } from '@chakra-ui/react'
 
 import PlaylistListItems from '@/features/playlists/components/PlaylistListItems'
 import ArticleModeSwitcher from '@/features/playlists/components/ArticleModeSwitch'
-import SearchTextInput from '@/features/misc/components/SearchTextInput'
-import ListScreenSkeleton from '@/features/misc/components/ListScreenSkeleton'
-import APIStatusSelect from '@/features/misc/components/APIStatusSelect'
+import SearchTextInput from '@/components/SearchTextInput/SearchTextInput'
+import ListScreenSkeleton from '@/components/ListScreenSkeleton/ListScreenSkeleton'
+import APIStatusSelect from '@/components/APIStatusSelect/APIStatusSelect'
 
 import { usePlaylists } from '../api/getPlaylists'
 
