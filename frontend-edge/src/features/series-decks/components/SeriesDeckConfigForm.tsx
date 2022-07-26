@@ -3,7 +3,7 @@ import React from 'react'
 import { Button } from '@chakra-ui/react'
 
 import { Deck } from '@/types/deck'
-import FloatingLabelInput from '@/components/Form/FloatingLabelInput'
+import { FloatingLabelInput } from '@/components/Form/FloatingLable'
 
 import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
 
