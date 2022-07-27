@@ -64,7 +64,7 @@ class PlaylistItem < ApplicationRecord
     return false if episode_res&.dig(:videos).blank?
 
     episode_res[:videos].find do |video|
-      video.dig(:detailedContentStatus, :environmentId) == 'okushibu3' &&
+      video.dig(:detailedContentStatus, :environmentId) == 'okushibu' &&
         video.dig(:detailedContentStatus, :contentStatus) == 'ready'
     end.present?
   end

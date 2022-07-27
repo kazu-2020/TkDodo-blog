@@ -1,7 +1,7 @@
 export default class {
   static isOkushibuVideo(video: any) {
     return (
-      video.detailedContentStatus?.environmentId === 'okushibu3' &&
+      video.detailedContentStatus?.environmentId === 'okushibu' &&
       video.detailedContentStatus?.contentStatus === 'ready'
     )
   }
