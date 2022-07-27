@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler } from 'react'
+import { ChangeEvent } from 'react'
 import { FormControl, FormLabel, Switch } from '@chakra-ui/react'
 
 type Props = {
