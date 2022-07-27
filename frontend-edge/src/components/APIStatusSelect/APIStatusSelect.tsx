@@ -1,9 +1,9 @@
-import { ChangeEventHandler } from 'react'
+import { ChangeEvent } from 'react'
 import { Select } from '@chakra-ui/react'
 
 type Props = {
   defaultValue?: string
-  onChange?: ChangeEventHandler<HTMLSelectElement>
+  onChange?: (value: string) => void
 }
 
 export const APIStatusSelect = ({
@@ -13,7 +13,11 @@ export const APIStatusSelect = ({
   <Select
     variant="outline"
     bg="white"
-    onChange={onChange}
+    onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+      if (onChange) {
+        onChange(event.target.value)
+      }
+    }}
     defaultValue={defaultValue}
   >
     <option value="open">API公開中のみ</option>

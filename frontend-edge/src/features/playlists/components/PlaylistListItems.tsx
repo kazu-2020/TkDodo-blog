@@ -10,6 +10,7 @@ type Props = {
   items?: Playlist[]
   page?: number
   totalCount?: number
+  isArticle?: boolean
   onChangePage: (page: number) => void
 }
 
@@ -17,6 +18,7 @@ export const PlaylistListItems = ({
   items = [],
   page = 1,
   totalCount = 0,
+  isArticle = false,
   onChangePage = () => {}
 }: Props) => {
   const [selectedPlaylist, setSelectedPlaylist] = useState<
@@ -42,6 +44,7 @@ export const PlaylistListItems = ({
           playlist={playlist}
           setSelectedPlaylist={setSelectedPlaylist}
           onOpen={onOpen}
+          isArticle={isArticle}
         />
       ))}
 
