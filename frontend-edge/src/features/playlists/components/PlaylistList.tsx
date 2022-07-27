@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { Box, Flex, Grid, GridItem, Stack } from '@chakra-ui/react'
 
 import { PlaylistListItems } from '@/features/playlists/components/PlaylistListItems'
