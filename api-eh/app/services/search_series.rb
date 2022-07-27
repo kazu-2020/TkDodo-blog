@@ -54,12 +54,8 @@ class SearchSeries
   # @param [Hash] search_params
   def episode_from_series(search_params)
     merged_params = merge_params(search_params)
-    episode = client.episode_from_series(query: merged_params, type: 'tv', series_id: search_params[:series_id],
-                                         request_type: :l)&.deep_symbolize_keys
-    # okushibu3のために、r6.0からEpisodeを引き直して検索結果に設定し直している
-    episode[:videos] = PlaylistItem.new(episode_id: episode[:id]).fetch_episode_videos_data
-
-    episode
+    client.episode_from_series(query: merged_params, type: 'tv', series_id: search_params[:series_id],
+                               request_type: :l)&.deep_symbolize_keys
   end
 
   # パラメータをマージする
