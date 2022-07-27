@@ -1,160 +1,161 @@
 # ここから西川貴教のデータを作成
-person_organization_local = PersonOrganizationLocal.create!(
-  uuid: '89678CF2-2863-29F6-6079-721C96A104A0',
-  role: 'Person',
-  name: '西川 貴教',
-  occupation: '歌手,声優,俳優,レコード・プロデューサー,ラジオパーソナリティ,作詞家,タレント',
-  description: '日本の歌手、タレント (1970- )',
-  name_format: 1,
-  family_name: '西川',
-  given_name: '貴教',
-  additional_name: '',
-  name_ruby: 'にしかわ　たかのり',
-  family_name_ruby: 'にしかわ',
-  given_name_ruby: 'たかのり',
-  additional_name_ruby: '',
-  image_data: ''
-) if PersonOrganizationLocal.find_by(uuid: '89678CF2-2863-29F6-6079-721C96A104A0').nil?
 
-begin # プレイリスト作成を行っていないため、rescue で回避しています
-Supervisor.create!(
-  person_organization_local_id: person_organization_local.id,
-  playlist_id: Playlist.first.id,
-  image_data: '',
-  contents_type: 'Playlist',
-  contents_type_id: 1
-) if Supervisor.find_by(person_organization_local_id: person_organization_local.id).nil?
-rescue
-  puts "#プレイリストが存在しないため、Supervisorを作成できませんでした。"
+if Playlist.count < 2
+  p 'プレイリストが2件未満のためデータを作成できませんでした。'
+  return
 end
 
-wikidata_json = WikidataJson.create!(
-  wikidata_id: 'Q187553',
-  basic_json: File.read(Rails.root.join('db', 'jsons', 'Q187553_basic_wikidata.json')),
-  property_json: File.read(Rails.root.join('db', 'jsons', 'Q187553_property_wikidata.json'))
-) if WikidataJson.find_by(wikidata_id: 'Q187553').nil?
+person_organization_local = PersonOrganizationLocal.find_or_create_by(uuid: '89678CF2-2863-29F6-6079-721C96A104A0') do |person_organization_local|
+  person_organization_local.uuid = '89678CF2-2863-29F6-6079-721C96A104A0'
+  person_organization_local.role = 'Person'
+  person_organization_local.name = '西川 貴教'
+  person_organization_local.occupation = '歌手,声優,俳優,レコード・プロデューサー,ラジオパーソナリティ,作詞家,タレント'
+  person_organization_local.description = '日本の歌手、タレント (1970- )'
+  person_organization_local.name_format = 1
+  person_organization_local.family_name = '西川'
+  person_organization_local.given_name = '貴教'
+  person_organization_local.additional_name = ''
+  person_organization_local.name_ruby = 'にしかわ　たかのり'
+  person_organization_local.family_name_ruby = 'にしかわ'
+  person_organization_local.given_name_ruby = 'たかのり'
+  person_organization_local.additional_name_ruby = ''
+  person_organization_local.image_data = ''
+end
 
-ViafJson.create!(
-  viaf_id: '44068140',
-  json: File.read(Rails.root.join('db', 'jsons', '44068140_viaf.json'))
-) if ViafJson.find_by(viaf_id: '44068140').nil?
+Supervisor.find_or_create_by(person_organization_local_id: person_organization_local.id) do |supervisor|
+  supervisor.person_organization_local_id = person_organization_local.id
+  supervisor.playlist_id = Playlist.first.id
+  supervisor.image_data = ''
+  supervisor.contents_type = 'Playlist'
+  supervisor.contents_type_id = 1
+end
 
-PersonOrganizationGlobal.create!(
-  uuid: '89678CF2-2863-29F6-6079-721C96A104A0',
-  viaf_id: '44068140',
-  viaf_name: '西川 貴教',
-  wikidata_id: 'Q187553',
-  wikidata_name: '西川 貴教',
-  wikidata_occupation: '歌手,日本の声優,俳優,レコード・プロデューサー,ラジオパーソナリティ,作詞家,タレント',
-  wikidata_image_url: 'https://commons.wikimedia.org/wiki/File:T.M._Revolution_at_MTV_VMAJ_2014.jpg',
-  wikidata_description: '日本の歌手、タレント (1970- )',
-  wikidata_alias: false
-) if PersonOrganizationGlobal.find_by(uuid: '89678CF2-2863-29F6-6079-721C96A104A0').nil?
 
-SearchPersonsOrganization.create!(
-  uuid: '89678CF2-2863-29F6-6079-721C96A104A0',
-  names: 'T.M.Revolution, Nishikawa Takanori'
-) if SearchPersonsOrganization.find_by(uuid: '89678CF2-2863-29F6-6079-721C96A104A0').nil?
+wikidata_json = WikidataJson.find_or_create_by(wikidata_id: 'Q187553') do |wikidata_json|
+  wikidata_json.wikidata_id = 'Q187553'
+  wikidata_json.basic_json = File.read(Rails.root.join('db', 'jsons', 'Q187553_basic_wikidata.json'))
+  wikidata_json.property_json = File.read(Rails.root.join('db', 'jsons', 'Q187553_property_wikidata.json'))
+end
 
-wikidata_json.wikidata_properties.create!(
-  [
-    {
-      wikidata_id: 'Q177220',
-      name: '歌手'
-    },
-    {
-      wikidata_id: 'Q622807',
-      name: '日本の声優'
-    },
-    {
-      wikidata_id: 'Q33999',
-      name: '俳優'
-    },
-    {
-      wikidata_id: 'Q183945',
-      name: 'レコード・プロデューサー'
-    },
-    {
-      wikidata_id: 'Q2722764',
-      name: 'ラジオパーソナリティ'
-    },
-    {
-      wikidata_id: 'Q822146',
-      name: '作詞家'
-    },
-    {
-      wikidata_id: 'Q829',
-      name: 'タレント'
-    }
-  ]
-) if wikidata_json.wikidata_properties.find_by(wikidata_id: 'Q177220').nil?
+ViafJson.find_or_create_by(viaf_id: '44068140') do |viaf_json|
+  viaf_json.viaf_id = '44068140'
+  viaf_json.json = File.read(Rails.root.join('db', 'jsons', '44068140_viaf.json'))
+end
+
+PersonOrganizationGlobal.find_or_create_by(uuid: '89678CF2-2863-29F6-6079-721C96A104A0') do |person_organization_global|
+  person_organization_global.uuid = '89678CF2-2863-29F6-6079-721C96A104A0'
+  person_organization_global.viaf_id = '44068140'
+  person_organization_global.viaf_name = '西川 貴教'
+  person_organization_global.wikidata_id = 'Q187553'
+  person_organization_global.wikidata_name = '西川 貴教'
+  person_organization_global.wikidata_occupation = '歌手,日本の声優,俳優,レコード・プロデューサー,ラジオパーソナリティ,作詞家,タレント'
+  person_organization_global.wikidata_image_url = 'https://commons.wikimedia.org/wiki/File:T.M._Revolution_at_MTV_VMAJ_2014.jpg'
+  person_organization_global.wikidata_description = '日本の歌手、タレント (1970- )'
+  person_organization_global.wikidata_alias = false
+end
+
+SearchPersonsOrganization.find_or_create_by(uuid: '89678CF2-2863-29F6-6079-721C96A104A0') do |search_persons_organization|
+  search_persons_organization.uuid = '89678CF2-2863-29F6-6079-721C96A104A0'
+  search_persons_organization.names = 'T.M.Revolution, Nishikawa Takanori'
+end
+
+wikidata_json.wikidata_properties.find_or_create_by(wikidata_json_id: 'Q177220') do |wikidata_property|
+  wikidata_property.wikidata_id = 'Q177220'
+  wikidata_property.name = '歌手'
+end
+
+wikidata_json.wikidata_properties.find_or_create_by(wikidata_json_id: 'Q622807') do |wikidata_property|
+  wikidata_property.wikidata_id = 'Q622807'
+    wikidata_property.name = '日本の声優'
+end
+
+wikidata_json.wikidata_properties.find_or_create_by(wikidata_json_id: 'Q33999') do |wikidata_property|
+  wikidata_property.wikidata_id = 'Q33999'
+    wikidata_property.name = '俳優'
+end
+
+wikidata_json.wikidata_properties.find_or_create_by(wikidata_json_id: 'Q183945') do |wikidata_property|
+  wikidata_property.wikidata_id = 'Q183945'
+    wikidata_property.name = 'レコード・プロデューサー'
+end
+
+wikidata_json.wikidata_properties.find_or_create_by(wikidata_json_id: 'Q2722764') do |wikidata_property|
+  wikidata_property.wikidata_id = 'Q2722764'
+    wikidata_property.name = 'ラジオパーソナリティ'
+end
+
+wikidata_json.wikidata_properties.find_or_create_by(wikidata_json_id: 'Q822146') do |wikidata_property|
+  wikidata_property.wikidata_id = 'Q822146'
+    wikidata_property.name = '作詞家'
+end
+
+wikidata_json.wikidata_properties.find_or_create_by(wikidata_json_id: 'Q829146') do |wikidata_property|
+  wikidata_property.wikidata_id = 'Q829146'
+    wikidata_property.name = 'タレント'
+end
 
 # ここからT.M.Revolutionのデータを作成
-person_organization_local2 = PersonOrganizationLocal.create!(
-  uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11',
-  role: 'Organization',
-  name: 'T.M. Revolution',
-  occupation: '',
-  description: '西川貴教ひとりからなる日本のソロユニット (1996 - )',
-  name_format: 1,
-  family_name: '',
-  given_name: '',
-  additional_name: '',
-  name_ruby: '',
-  family_name_ruby: '',
-  given_name_ruby: '',
-  additional_name_ruby: '',
-  image_data: ''
-) if PersonOrganizationLocal.find_by(uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11').nil?
-
-begin # プレイリスト作成を行っていないため、rescue で回避しています
-  Supervisor.create!(
-    person_organization_local_id: person_organization_local2.id,
-    playlist_id: Playlist.last.id,
-    image_data: '',
-    contents_type: 'Playlist',
-    contents_type_id: 1
-  ) if Supervisor.find_by(person_organization_local_id: person_organization_local2.id).nil?
-rescue
-  puts 'プレイリストが存在しないためデータの作成に失敗しました。'
+person_organization_local2 = PersonOrganizationLocal.find_or_create_by(uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11')  do |person_organization_local|
+  person_organization_local.uuid = 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11'
+  person_organization_local.role = 'Organization'
+  person_organization_local.name = 'T.M. Revolution'
+  person_organization_local.occupation = ''
+  person_organization_local.description = '西川貴教ひとりからなる日本のソロユニット (1996 - )'
+  person_organization_local.name_format = 1
+  person_organization_local.family_name = ''
+  person_organization_local.given_name = ''
+  person_organization_local.additional_name = ''
+  person_organization_local.name_ruby = ''
+  person_organization_local.family_name_ruby = ''
+  person_organization_local.given_name_ruby = ''
+  person_organization_local.additional_name_ruby = ''
+  person_organization_local.image_data = ''
 end
 
-wikidata_json2 = WikidataJson.create!(
-  wikidata_id: 'Q14438405',
-  basic_json: File.read(Rails.root.join('db', 'jsons', 'Q14438405_basic_wikidata.json')),
-  property_json: File.read(Rails.root.join('db', 'jsons', 'Q14438405_property_wikidata.json'))
-) if WikidataJson.find_by(wikidata_id: 'Q14438405').nil?
+Supervisor.find_or_create_by(person_organization_local_id: person_organization_local2.id) do |supervisor|
+  supervisor.person_organization_local_id = person_organization_local2.id
+  supervisor.playlist_id = Playlist.last.id
+  supervisor.image_data = ''
+  supervisor.contents_type = 'Playlist'
+  supervisor.contents_type_id = 1
+end
 
-ViafJson.create!(
-  viaf_id: '9877151778245518130005',
-  json: File.read(Rails.root.join('db', 'jsons', '257886590_viaf.json'))
-) if ViafJson.find_by(viaf_id: '9877151778245518130005').nil?
+wikidata_json2 = WikidataJson.find_or_create_by(wikidata_id: 'Q14438405') do |wikidata_json|
+  wikidata_json.wikidata_id = 'Q14438405'
+  wikidata_json.basic_json = File.read(Rails.root.join('db', 'jsons', 'Q14438405_basic_wikidata.json'))
+  wikidata_json.property_json = File.read(Rails.root.join('db', 'jsons', 'Q14438405_property_wikidata.json'))
+end
 
-PersonOrganizationGlobal.create!(
-  uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11',
-  viaf_id: '257886590',
-  viaf_name: 'T. M. Revolution, 1970-',
-  wikidata_id: 'Q14438405',
-  wikidata_name: 'T.M. Revolution',
-  wikidata_occupation: '',
-  wikidata_image_url: 'https://commons.wikimedia.org/wiki/File:T.M._Revolution_at_MTV_VMAJ_2014.jpg',
-  wikidata_description: '西川貴教ひとりからなる日本のソロユニット (1996 - )',
-  wikidata_alias: false
-) if PersonOrganizationGlobal.find_by(uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11').nil?
+ViafJson.find_or_create_by(viaf_id: '9877151778245518130005') do |viaf_json|
+  viaf_json.viaf_id = '9877151778245518130005'
+  viaf_json.json = File.read(Rails.root.join('db', 'jsons', '257886590_viaf.json'))
+end
 
-SearchPersonsOrganization.create!(
-  uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11',
-  names: 'TMR'
-) if SearchPersonsOrganization.find_by(uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11').nil?
+PersonOrganizationGlobal.find_or_create_by(uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11') do |person_organization_global|
+  person_organization_global.uuid = 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11'
+  person_organization_global.viaf_id = '257886590'
+  person_organization_global.viaf_name = 'T. M. Revolution, 1970-'
+  person_organization_global.wikidata_id = 'Q14438405'
+  person_organization_global.wikidata_name = 'T.M. Revolution'
+  person_organization_global.wikidata_occupation = ''
+  person_organization_global.wikidata_image_url = 'https://commons.wikimedia.org/wiki/File:T.M._Revolution_at_MTV_VMAJ_2014.jpg'
+  person_organization_global.wikidata_description = '西川貴教ひとりからなる日本のソロユニット (1996 - )'
+  person_organization_global.wikidata_alias = false
+end
 
-WikidataSameAs.create!(
-  wikidata_id: 'Q14438405',
-  wikidata_json_id: wikidata_json.id,
-  same_as_wikidata_id: 'Q187553'
-) if WikidataSameAs.find_by(wikidata_id: 'Q14438405').nil?
+SearchPersonsOrganization.find_or_create_by(uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11') do |search_persons_organization|
+  search_persons_organization.uuid = 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11'
+  search_persons_organization.names = 'TMR'
+end
 
-WikidataSameAs.create!(
-  wikidata_id: 'Q187553',
-  wikidata_json_id: wikidata_json2.id,
-  same_as_wikidata_id: 'Q14438405'
-) if WikidataSameAs.find_by(wikidata_id: 'Q187553').nil?
+WikidataSameAs.find_or_create_by(wikidata_id: 'Q14438405') do |wikidata_same_as|
+  wikidata_same_as.wikidata_id = 'Q14438405'
+  wikidata_same_as.wikidata_json_id = wikidata_json.id
+  wikidata_same_as.same_as_wikidata_id = 'Q187553'
+end
+
+WikidataSameAs.find_or_create_by(wikidata_id: 'Q187553') do |wikidata_same_as|
+  wikidata_same_as.wikidata_id = 'Q187553'
+  wikidata_same_as.wikidata_json_id = wikidata_json2.id
+  wikidata_same_as.same_as_wikidata_id = 'Q14438405'
+end
