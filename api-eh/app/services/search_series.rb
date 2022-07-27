@@ -35,7 +35,7 @@ class SearchSeries
   #
   # @param [Hash] result
   # @param [Hash] search_params
-  def search_episodes_each_series(result: {}, search_params: {}) # rubocop: disable Metrics/AbcSize, Style/CommentedKeyword
+  def search_episodes_each_series(result: {}, search_params: {}) # rubocop: disable Style/CommentedKeyword
     search_params[:offset] = 0
     result.dig(:result, :tvseries, :result).each do |series|
       res = client.episode_from_series(query: merge_params(search_params), type: 'tv', series_id: series[:id],
@@ -44,10 +44,6 @@ class SearchSeries
       res = client.available_episode_from_series(series[:id],
                                                  query: { availableOn: DEFAULT_ENVIRONMENT, extendedEntities: true })
       series.store(:availableEpisodes, res)
-      # okushibu3のために、r6.0からEpisodeを引き直して検索結果に設定し直している
-      series.dig(:episodes, :result).each do |episode|
-        episode[:videos] = PlaylistItem.new(episode_id: episode[:id]).fetch_episode_videos_data
-      end
     end
 
     result
