@@ -58,12 +58,16 @@ class PlaylistItem < ApplicationRecord
     end_date - start_date
   end
 
+  # 20220727時点でプレイリスト検索がr6.0 にしかないので、r7 ができるまでokushibu3も参照しています
+  # 社会実証2期に向けてVideoObjectの参照先を変更する場合修正が必要になることに注意してください
+  # https://github.com/d7lab/aw-editorialhands/issues/1365
   def has_video
     episode_res = episode_data
     return false if episode_res&.dig(:videos).blank?
 
     episode_res[:videos].find do |video|
-      video.dig(:detailedContentStatus, :environmentId) == 'okushibu' &&
+      (video.dig(:detailedContentStatus, :environmentId) == 'okushibu' ||
+       video.dig(:detailedContentStatus, :environmentId) == 'okushibu3') &&
         video.dig(:detailedContentStatus, :contentStatus) == 'ready'
     end.present?
   end
