@@ -23,10 +23,6 @@ export default class {
       return null
     }
 
-    // 社会実証用にvideoUrlを置換する
-    // https://github.com/d7lab/dot-editorialhands/issues/53
     return hlsVideo[0].contentUrl
-      .replace('stream.media.poc.nhk.jp', 'stream.media.b-poc.nhk.jp')
-      .replace('/mp4cenc/', '/mp4/')
   }
 }
