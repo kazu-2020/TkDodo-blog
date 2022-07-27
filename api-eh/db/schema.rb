@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_22_004641) do
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", comment: "プレイリストID"
     t.text "image_data"
@@ -99,6 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
     t.json "image_data", comment: "表示用。外部公開はしない。"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "additional_name_ruby"
     t.index ["uuid"], name: "index_person_organization_locals_on_uuid", unique: true
   end
 
@@ -247,14 +248,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
   end
 
   create_table "supervisors", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "person_organization_locals_id", null: false
+    t.bigint "person_organization_local_id", null: false
     t.bigint "playlist_id", null: false
     t.json "image_data"
-    t.string "type"
-    t.bigint "type_id"
+    t.string "contents_type"
+    t.bigint "contents_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["person_organization_locals_id"], name: "index_supervisors_on_person_organization_locals_id"
+    t.index ["person_organization_local_id"], name: "index_supervisors_on_person_organization_local_id"
     t.index ["playlist_id"], name: "index_supervisors_on_playlist_id"
   end
 
@@ -277,6 +278,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
 
   create_table "wikidata_properties", charset: "utf8mb4", force: :cascade do |t|
     t.string "wikidata_id", null: false
+    t.bigint "wikidata_json_id"
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -285,6 +287,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
 
   create_table "wikidata_same_as", charset: "utf8mb4", force: :cascade do |t|
     t.string "wikidata_id", null: false
+    t.bigint "wikidata_json_id"
     t.string "same_as_wikidata_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -302,6 +305,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_015813) do
   add_foreign_key "same_as", "playlists"
   add_foreign_key "series_deck_playlists", "series_decks"
   add_foreign_key "series_deck_playlists", "series_playlists"
-  add_foreign_key "supervisors", "person_organization_locals", column: "person_organization_locals_id"
+  add_foreign_key "supervisors", "person_organization_locals"
   add_foreign_key "supervisors", "playlists"
 end

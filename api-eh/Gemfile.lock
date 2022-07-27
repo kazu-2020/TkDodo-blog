@@ -450,6 +450,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    seed-fu (2.3.9)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
     semantic_range (3.0.0)
     sidekiq (6.4.2)
       connection_pool (>= 2.2.2)
@@ -551,6 +554,7 @@ DEPENDENCIES
   rubocop
   rubocop-rspec
   sass-rails (>= 6)
+  seed-fu
   shrine!
   sidekiq
   sidekiq-scheduler
@@ -570,4 +574,4 @@ RUBY VERSION
    ruby 3.0.2p107
 
 BUNDLED WITH
-   2.3.15
+   2.3.18
