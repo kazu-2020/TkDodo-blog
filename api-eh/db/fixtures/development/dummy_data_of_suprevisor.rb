@@ -14,7 +14,7 @@ person_organization_local = PersonOrganizationLocal.create!(
   given_name_ruby: 'たかのり',
   additional_name_ruby: '',
   image_data: ''
-)
+) if PersonOrganizationLocal.find_by(uuid: '89678CF2-2863-29F6-6079-721C96A104A0').nil?
 
 begin # プレイリスト作成を行っていないため、rescue で回避しています
 Supervisor.create!(
@@ -23,7 +23,7 @@ Supervisor.create!(
   image_data: '',
   contents_type: 'Playlist',
   contents_type_id: 1
-)
+) if Supervisor.find_by(person_organization_local_id: person_organization_local.id).nil?
 rescue
   puts "#プレイリストが存在しないため、Supervisorを作成できませんでした。"
 end
@@ -32,12 +32,12 @@ wikidata_json = WikidataJson.create!(
   wikidata_id: 'Q187553',
   basic_json: File.read(Rails.root.join('db', 'jsons', 'Q187553_basic_wikidata.json')),
   property_json: File.read(Rails.root.join('db', 'jsons', 'Q187553_property_wikidata.json'))
-)
+) if WikidataJson.find_by(wikidata_id: 'Q187553').nil?
 
 ViafJson.create!(
   viaf_id: '44068140',
   json: File.read(Rails.root.join('db', 'jsons', '44068140_viaf.json'))
-)
+) if ViafJson.find_by(viaf_id: '44068140').nil?
 
 PersonOrganizationGlobal.create!(
   uuid: '89678CF2-2863-29F6-6079-721C96A104A0',
@@ -49,12 +49,12 @@ PersonOrganizationGlobal.create!(
   wikidata_image_url: 'https://commons.wikimedia.org/wiki/File:T.M._Revolution_at_MTV_VMAJ_2014.jpg',
   wikidata_description: '日本の歌手、タレント (1970- )',
   wikidata_alias: false
-)
+) if PersonOrganizationGlobal.find_by(uuid: '89678CF2-2863-29F6-6079-721C96A104A0').nil?
 
 SearchPersonsOrganization.create!(
   uuid: '89678CF2-2863-29F6-6079-721C96A104A0',
   names: 'T.M.Revolution, Nishikawa Takanori'
-)
+) if SearchPersonsOrganization.find_by(uuid: '89678CF2-2863-29F6-6079-721C96A104A0').nil?
 
 wikidata_json.wikidata_properties.create!(
   [
@@ -87,7 +87,7 @@ wikidata_json.wikidata_properties.create!(
       name: 'タレント'
     }
   ]
-)
+) if wikidata_json.wikidata_properties.find_by(wikidata_id: 'Q177220').nil?
 
 # ここからT.M.Revolutionのデータを作成
 person_organization_local2 = PersonOrganizationLocal.create!(
@@ -105,7 +105,7 @@ person_organization_local2 = PersonOrganizationLocal.create!(
   given_name_ruby: '',
   additional_name_ruby: '',
   image_data: ''
-)
+) if PersonOrganizationLocal.find_by(uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11').nil?
 
 begin # プレイリスト作成を行っていないため、rescue で回避しています
   Supervisor.create!(
@@ -114,7 +114,7 @@ begin # プレイリスト作成を行っていないため、rescue で回避�
     image_data: '',
     contents_type: 'Playlist',
     contents_type_id: 1
-  )
+  ) if Supervisor.find_by(person_organization_local_id: person_organization_local2.id).nil?
 rescue
   puts 'プレイリストが存在しないためデータの作成に失敗しました。'
 end
@@ -123,12 +123,12 @@ wikidata_json2 = WikidataJson.create!(
   wikidata_id: 'Q14438405',
   basic_json: File.read(Rails.root.join('db', 'jsons', 'Q14438405_basic_wikidata.json')),
   property_json: File.read(Rails.root.join('db', 'jsons', 'Q14438405_property_wikidata.json'))
-)
+) if WikidataJson.find_by(wikidata_id: 'Q14438405').nil?
 
 ViafJson.create!(
   viaf_id: '9877151778245518130005',
   json: File.read(Rails.root.join('db', 'jsons', '257886590_viaf.json'))
-)
+) if ViafJson.find_by(viaf_id: '9877151778245518130005').nil?
 
 PersonOrganizationGlobal.create!(
   uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11',
@@ -140,21 +140,21 @@ PersonOrganizationGlobal.create!(
   wikidata_image_url: 'https://commons.wikimedia.org/wiki/File:T.M._Revolution_at_MTV_VMAJ_2014.jpg',
   wikidata_description: '西川貴教ひとりからなる日本のソロユニット (1996 - )',
   wikidata_alias: false
-)
+) if PersonOrganizationGlobal.find_by(uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11').nil?
 
 SearchPersonsOrganization.create!(
   uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11',
   names: 'TMR'
-)
+) if SearchPersonsOrganization.find_by(uuid: 'A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11').nil?
 
 WikidataSameAs.create!(
   wikidata_id: 'Q14438405',
   wikidata_json_id: wikidata_json.id,
   same_as_wikidata_id: 'Q187553'
-)
+) if WikidataSameAs.find_by(wikidata_id: 'Q14438405').nil?
 
 WikidataSameAs.create!(
   wikidata_id: 'Q187553',
   wikidata_json_id: wikidata_json2.id,
   same_as_wikidata_id: 'Q14438405'
-)
+) if WikidataSameAs.find_by(wikidata_id: 'Q187553').nil?
