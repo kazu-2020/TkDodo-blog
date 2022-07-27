@@ -38,7 +38,8 @@
     "snakecase-keys": "^5.4.2",
     "type-fest": "^2.14.0",
     "use-react-router-breadcrumbs": "^3.2.1",
-    "vite": "^2.9.12"
+    "vite": "^2.9.12",
+    "zustand": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.5",
