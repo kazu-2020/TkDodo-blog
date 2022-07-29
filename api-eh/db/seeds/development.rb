@@ -1,1 +1,1 @@
-load(Rails.root, 'db', 'fixtures', 'dummy_data_of_supervisor.rb')
+load(Rails.root.join('db', 'fixtures', 'dummy_data_of_supervisor.rb'))
