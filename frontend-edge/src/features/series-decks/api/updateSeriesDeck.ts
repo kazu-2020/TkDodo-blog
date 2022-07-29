@@ -2,7 +2,7 @@ import snakecaseKeys from 'snakecase-keys'
 import { useMutation } from 'react-query'
 import { useToast } from '@chakra-ui/react'
 
-import { Deck as SeriesDeck } from '@/types/deck'
+import { SeriesDeck } from '@/types/series_deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
@@ -12,6 +12,8 @@ type SeriesDeckParams = {
   description?: string
   apiState?: boolean
   adminMemo?: string
+  playlists?: string[]
+  enableListUpdate: boolean
 }
 
 export type UpdateSeriesDeckDTO = {
@@ -26,7 +28,8 @@ const requestParams = (data: SeriesDeckParams) => {
       series_deck: snakecaseKeys({
         ...params,
         apiState: data.apiState ? 'open' : 'close'
-      })
+      }),
+      enable_list_update: data.enableListUpdate ? '1' : ''
     }
   }
 

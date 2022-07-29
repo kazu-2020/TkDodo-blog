@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import React from 'react'
 import { Button } from '@chakra-ui/react'
 
-import { Deck } from '@/types/deck'
+import { SeriesDeck } from '@/types/series_deck'
 import { FloatingLabelInput } from '@/components/Form/FloatingLable'
 
 import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
@@ -11,14 +11,14 @@ type Inputs = {
   adminMemo: string
 }
 
-const SeriesDeckConfigForm = ({ deck }: { deck: Deck }) => {
+const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
   } = useForm<Inputs>({
     defaultValues: {
-      adminMemo: deck?.adminMemo
+      adminMemo: seriesDeck?.adminMemo
     }
   })
 
@@ -26,8 +26,8 @@ const SeriesDeckConfigForm = ({ deck }: { deck: Deck }) => {
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
     await updateSeriesDeckMutation.mutateAsync({
-      data: values,
-      seriesDeckId: deck.id
+      data: { ...values, enableListUpdate: false },
+      seriesDeckId: seriesDeck.id
     })
   }
 
@@ -48,6 +48,7 @@ const SeriesDeckConfigForm = ({ deck }: { deck: Deck }) => {
         isLoading={isSubmitting}
         type="submit"
         bgColor="accent"
+        size="lg"
       >
         保存する
       </Button>

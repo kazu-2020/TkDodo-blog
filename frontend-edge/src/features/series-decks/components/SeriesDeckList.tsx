@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { nanoid } from 'nanoid'
-import { Skeleton, Stack, useDisclosure } from '@chakra-ui/react'
+import { Stack, useDisclosure } from '@chakra-ui/react'
 
-import { Deck as SeriesDeck } from '@/types/deck'
+import { SeriesDeck } from '@/types/series_deck'
+import { ListScreenSkeleton } from '@/components/ListScreenSkeleton'
 
 import { useSeriesDecks } from '../api/getSeriesDecks'
 
@@ -19,16 +19,7 @@ const SeriesDeckList = () => {
   if (isLoading) {
     return (
       <Stack>
-        {[...Array(20)].map(() => (
-          <Skeleton
-            data-testid="skeleton"
-            key={nanoid()}
-            h="48px"
-            px={3}
-            bg="white"
-            borderRadius="md"
-          />
-        ))}
+        <ListScreenSkeleton size={20} />
       </Stack>
     )
   }

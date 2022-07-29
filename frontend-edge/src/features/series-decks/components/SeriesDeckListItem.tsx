@@ -1,6 +1,6 @@
 import { Flex, HStack, Text } from '@chakra-ui/react'
 
-import { Deck as SeriesDeck } from '@/types/deck'
+import { SeriesDeck } from '@/types/series_deck'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
 const SeriesDeckListItem = ({
@@ -19,7 +19,7 @@ const SeriesDeckListItem = ({
 
   return (
     <Flex
-      key={seriesDeck.id}
+      key={seriesDeck.stringId}
       h="48px"
       px={3}
       bg="white"
