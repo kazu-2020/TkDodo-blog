@@ -1,5 +1,1 @@
-Dir.glob(File.join(Rails.root, 'db', 'fixtures', '*.rb')).each do |file|
-  puts "Seeding #{file}"
-  load(file)
-  puts 'Done.'
-end
+load(Rails.root, 'db', 'fixtures', 'dummy_data_of_supervisor.rb')
