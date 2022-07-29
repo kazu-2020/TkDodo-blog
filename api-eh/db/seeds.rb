@@ -1,2 +1,5 @@
-# rubocop:disable Lint/EmptyFile, Lint/RedundantCopDisableDirective
-# rubocop:enable Lint/EmptyFile, Lint/RedundantCopDisableDirective
+begin
+  load(Rails.root.join('db', 'seeds', "#{Rails.env}.rb"))
+rescue LoadError => e
+  puts e.message.to_s
+end
