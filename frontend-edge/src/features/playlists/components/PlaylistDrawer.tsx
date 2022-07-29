@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
-import DeletePlaylist from '@/features/playlists/components/DeletePlaylist'
+import { DeletePlaylist } from '@/features/playlists/components/DeletePlaylist'
 import Link from '@/components/Link'
 import ApiStateBadge from '@/components/ApiStateBadge'
 

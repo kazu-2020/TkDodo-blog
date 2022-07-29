@@ -18,7 +18,7 @@ type Props = {
   onDrawerClose: () => void
 }
 
-const DeleteSeriesDeck = ({ playlistId, onDrawerClose }: Props) => {
+export const DeletePlaylist = ({ playlistId, onDrawerClose }: Props) => {
   const deletePlaylistMutation = useDeletePlaylist()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef<HTMLButtonElement>(null)
@@ -77,4 +77,3 @@ const DeleteSeriesDeck = ({ playlistId, onDrawerClose }: Props) => {
     </>
   )
 }
-export default DeleteSeriesDeck
