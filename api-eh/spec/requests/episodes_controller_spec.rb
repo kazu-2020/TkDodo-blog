@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 describe EpisodesController, type: :request do
-  let!(:search_params) { { contents_type: contents } }
-
   describe 'GET #search' do
+    let!(:search_params) { { contents_type: contents } }
+
     before { create(:playlist_item) }
 
     context 'エピソード検索の場合' do
@@ -125,6 +125,27 @@ describe EpisodesController, type: :request do
             expect(response.status).to eq 200
           end
         end
+      end
+    end
+  end
+
+  describe 'GET #bundle_items' do
+    let(:playlist_id) { 'recommend-tep-0000000052' } # 20220801時点で各エピソードタイプを含むプレイリスト
+    let(:expected_json) do
+      {
+        'event' => 9,
+        'faqpage' => 2,
+        'howto' => 7,
+        'tvepisode' => 9
+        # TODO: Recipeを追加すること
+      }
+    end
+
+    it '各Subtypeのカウントが取得できること' do
+      VCR.use_cassette('requests/episodes/bundle_items') do
+        get bundle_items_episodes_path(playlist_id: playlist_id)
+        expect(response.status).to eq 200
+        expect(JSON.parse(response.body)).to eq expected_json
       end
     end
   end
