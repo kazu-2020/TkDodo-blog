@@ -60,17 +60,6 @@ export const actions = actionTree(
         commit('setPagination', { pagination: response.data.pagination })
       })
     },
-    async fetchSeriesDecks({ commit }, { page, query }) {
-      let url = `/series_decks?page=${page}`
-      if (query) {
-        url += `&query=${query}`
-      }
-
-      await this.$axios.get(url).then((response) => {
-        commit('setDecks', { decks: response.data.series_decks })
-        commit('setPagination', { pagination: response.data.pagination })
-      })
-    },
     async fetchDeck({ commit, dispatch }, targetId) {
       await this.$axios
         .get(`/decks/${targetId}?with_episode_count=1`)
@@ -81,9 +70,29 @@ export const actions = actionTree(
           })
         })
     },
-    async fetchSeriesDeck({ commit }, targetId) {
-      const url = `/series_decks/${targetId}`
+    async fetchSeriesDecks({ commit }, { page, withSubtypeItemCount }) {
+      let url = `/series_decks?page=${page}`
+      if (withSubtypeItemCount) {
+        url += `&with_subtype_item_count=${withSubtypeItemCount}`
+      }
 
+      await this.$axios.get(url).then((response) => {
+        commit('setDecks', { decks: response.data.series_decks })
+        commit('setPagination', { pagination: response.data.pagination })
+      })
+    },
+    async fetchSeriesDeck(
+      { commit },
+      { targetId, withEpisodeCount, withSubtypeItemCount }
+    ) {
+      let url = `/series_decks/${targetId}`
+      if (withEpisodeCount) {
+        url += `?with_episode_count=${withEpisodeCount}`
+      }
+      if (withSubtypeItemCount) {
+        withEpisodeCount ? (url += '&') : (url += '?')
+        url += `with_subtype_item_count=${withSubtypeItemCount}`
+      }
       await this.$axios.get(url).then((response) => {
         commit('setEditingDeck', { deck: response.data.deck })
       })
