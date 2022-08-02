@@ -260,7 +260,6 @@ import {
   adjustLinkLightColor,
   PALETTE_BASE_COLORS,
 } from '@/utils/adjustColor'
-import qs from 'qs'
 import ColorPalette from '~/components/playlists/ColorPalette.vue'
 import SeriesImagesForm from '~/components/playlists/SeriesImagesForm.vue'
 import SameAsForm from '~/components/playlists/SameAsForm.vue'
@@ -416,9 +415,6 @@ export default Vue.extend({
     },
     disableItemListSubset(): boolean {
       return !this.playlist.activeItemList
-    },
-    episodeIds(): string[] {
-      return this.playlist.items.map((item: any) => item.id)
     },
   },
   watch: {
@@ -621,10 +617,7 @@ export default Vue.extend({
     fetchBundleItemCount() {
       this.$axios
         .get(`/episodes/bundle_items`, {
-          params: { episode_ids: this.episodeIds },
-          paramsSerializer: (params) => {
-            return qs.stringify(params, { arrayFormat: 'comma' })
-          },
+          params: { playlist_id: this.$props.playlist.stringId },
         })
         .then((res) => {
           const countData = res.data
