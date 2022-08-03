@@ -34,17 +34,6 @@ describe PlaylistItem, type: :model do
       end
     end
 
-    describe '#fetch_episode_videos_data' do
-      let(:playlist_item) { build(:playlist_item, episode_id: episode_id) }
-      let(:episode_id) { 'Q8MP4RXRJW' }
-
-      it do
-        VCR.use_cassette('models/playlist_item_spec/caches/fetch_episode_videos_data') do
-          expect(playlist_item.episode_data).not_to be_nil
-        end
-      end
-    end
-
     describe '#duration' do
       let(:playlist_item) { build(:playlist_item, episode_id: playable_episode_id) }
       let(:playable_episode_id) { 'Y6J1Y3MK82' } # duration 1500.0

@@ -31,21 +31,6 @@ class PlaylistItem < ApplicationRecord
     end
   end
 
-  def fetch_episode_videos_data(force_fetch: false)
-    cache_key = "#{cache_key_with_version}/fetch_episode_data/#{episode_id}"
-    fetched_episode_data = Rails.cache.fetch(cache_key, expires_in: CACHED_DATA_TTL,
-                                                        force: force_fetch,
-                                                        skip_nil: true) do
-      res = DlabApiClient.new.episode(type: 'tv', episode_id: episode_id)
-      res&.deep_symbolize_keys
-    end
-
-    fetched_episode_data[:videos]
-  rescue => e
-    Rails.logger.error("#{e.class} (#{e.message}):\n  #{e.backtrace.join("\n  ")}")
-    []
-  end
-
   def duration
     episode_res = episode_data
     return 0 if episode_res.blank?
