@@ -14,7 +14,7 @@ describe PlaylistItem, type: :model do
   describe 'caches' do
     describe '#episode_data' do
       let(:playlist_item) { build(:playlist_item, episode_id: playable_episode_id) }
-      let(:playable_episode_id) { 'Y6J1Y3MK82' }
+      let(:playable_episode_id) { 'Q8MP4RXRJW' } # 2022/07/27時点で視聴可能なエピソード
 
       it do
         VCR.use_cassette('models/playlist_item_spec/caches/episode_data') do
@@ -34,20 +34,6 @@ describe PlaylistItem, type: :model do
       end
     end
 
-    describe '#fetch_episode_videos_data' do
-      let(:playlist_item) { build(:playlist_item, episode_id: episode_id) }
-
-      context 'r6で引けてr6.0で引けないEpisodeの場合' do
-        let(:episode_id) { 'R7VMXV59JP' }
-
-        it 'エラーにならないこと' do
-          VCR.use_cassette('models/playlist_item_spec/caches/fetch_episode_videos_data') do
-            expect(playlist_item.episode_data).not_to be_nil
-          end
-        end
-      end
-    end
-
     describe '#duration' do
       let(:playlist_item) { build(:playlist_item, episode_id: playable_episode_id) }
       let(:playable_episode_id) { 'Y6J1Y3MK82' } # duration 1500.0
@@ -61,7 +47,7 @@ describe PlaylistItem, type: :model do
 
     describe '#has_video' do
       let(:playlist_item) { build(:playlist_item, episode_id: playable_episode_id) }
-      let(:playable_episode_id) { '7WVY258P7G' } # 2022/02/01時点で視聴可能なエピソード
+      let(:playable_episode_id) { 'Q8MP4RXRJW' } # 2022/07/27時点で視聴可能なエピソード
 
       context '視聴可能なエピソードの場合' do
         it do

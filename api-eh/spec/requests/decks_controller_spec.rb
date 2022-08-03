@@ -105,7 +105,7 @@ describe DecksController, type: :request do
     let!(:deck) { create :deck, :with_playlists }
 
     before do
-      json = File.open(Rails.root.join('spec/fixtures/payloads/te_PG3Z16Q145.json')) do |file|
+      json = File.open(Rails.root.join('spec/fixtures/payloads/l_bundle_te_PG3Z16Q145.json')) do |file|
         json_string = file.read
         JSON.parse(json_string, symbolize_names: true)
       end

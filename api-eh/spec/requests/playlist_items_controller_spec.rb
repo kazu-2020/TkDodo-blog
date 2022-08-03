@@ -4,19 +4,22 @@ require 'rails_helper'
 
 describe PlaylistItemsController, type: :request do
   before do
-    json = File.open(Rails.root.join('spec/fixtures/payloads/te_PG3Z16Q145.json')) do |file|
+    l_bundle_json = File.open(Rails.root.join('spec/fixtures/payloads/l_bundle_te_PG3Z16Q145.json')) do |file|
+      json_string = file.read
+      JSON.parse(json_string, symbolize_names: true)
+    end
+
+    t_json = File.open(Rails.root.join('spec/fixtures/payloads/t_te_PG3Z16Q145.json')) do |file|
       json_string = file.read
       JSON.parse(json_string, symbolize_names: true)
     end
 
     dlab_client = instance_double(DlabApiClient)
     allow(DlabApiClient).to receive(:new).and_return(dlab_client)
-    allow(dlab_client).to receive(:episode_l_bundle).with(type: 'tv', episode_id: stub_episode_id).and_return(json)
+    allow(dlab_client).to receive(:episode_l_bundle).with(type: 'tv',
+                                                          episode_id: stub_episode_id).and_return(l_bundle_json)
     allow(dlab_client).to receive(:episode_list_bundle).with(type: 'tv', episode_id: anything).and_return({})
-
-    poc_client = instance_double(PocApiClient)
-    allow(PocApiClient).to receive(:new).and_return(poc_client)
-    allow(poc_client).to receive(:episode).with(episode_id: anything).and_return({})
+    allow(dlab_client).to receive(:episode).with(type: 'tv', episode_id: stub_episode_id).and_return(t_json)
   end
 
   let(:stub_episode_id) { 'PG3Z16Q145' }

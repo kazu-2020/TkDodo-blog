@@ -1,0 +1,306 @@
+// 20220725160535
+// https://dev-api.nr.nhk.jp/r6/t/tvepisode/te/PG3Z16Q145.json?extendedEntities=true&ignoreRange=true
+
+{
+  "type": "TVEpisode",
+  "id": "PG3Z16Q145",
+  "name": "「英語〜English〜」",
+  "identifierGroup": {
+    "tvEpisodeId": "PG3Z16Q145",
+    "tvSeriesId": "P2RMMPW5JM",
+    "tvEpisodeName": "「英語〜English〜」",
+    "tvSeriesName": "COOL JAPAN〜発掘!かっこいいニッポン〜",
+    "hashtag": [
+
+    ],
+    "serviceId": [
+      "s1",
+      "s2"
+    ],
+    "formatGenreTag": [
+      {
+        "id": "05",
+        "name": "バラエティ"
+      }
+    ],
+    "themeGenreTag": [
+      {
+        "id": "094",
+        "name": "文化"
+      },
+      {
+        "id": "084",
+        "name": "旅"
+      }
+    ]
+  },
+  "identifierGroupEx": {
+    "tvSeriesGroupId": "478V4G2QLK",
+    "tvSeriesGroupName": "COOL JAPAN",
+    "tvEpisodeNameTemp": "「英語〜English〜」",
+    "tvSeriesNameTemp": "COOL JAPAN〜発掘!かっこいいニッポン〜",
+    "releasedEventServiceIdTemp": "s1",
+    "releasedEventStartDateTemp": "2020-02-20T17:00:00+09:00",
+    "releasedEventEndDateTemp": "2020-02-20T17:45:00+09:00"
+  },
+  "keywords": [
+
+  ],
+  "description": "中学、高校と英語を学んできたはずなのに、なぜ日本人は英語が苦手なのか。日本の英語力向上への取り組みはクール？日本人の英語が世界からどう見られているのかを探る。",
+  "dateCreated": "2019-10-28T11:30:05+09:00",
+  "dateModified": "2020-03-01T19:51:07+09:00",
+  "actors": [
+
+  ],
+  "contributors": [
+
+  ],
+  "partOfSeries": {
+    "id": "P2RMMPW5JM",
+    "name": "COOL JAPAN〜発掘!かっこいいニッポン〜",
+    "identifierGroup": {
+      "tvSeriesId": "P2RMMPW5JM",
+      "tvSeriesName": "COOL JAPAN〜発掘!かっこいいニッポン〜",
+      "hashtag": [
+
+      ],
+      "serviceId": [
+        "s1",
+        "s2"
+      ]
+    },
+    "identifierGroupEx": {
+      "tvSeriesGroupId": "478V4G2QLK",
+      "tvSeriesGroupName": "COOL JAPAN",
+      "tvSeriesNameTemp": "COOL JAPAN〜発掘!かっこいいニッポン〜"
+    },
+    "url": "https://dev-api.nr.nhk.jp/r6/t/tvseries/ts/P2RMMPW5JM.json",
+    "canonical": "https://dev-www.nhk.jp/p/ts/P2RMMPW5JM/",
+    "description": "",
+    "logo": {
+      "main": {
+        "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-logo_42c980b058909d69ba62bdc9df3af6cf.jpg",
+        "width": 1080,
+        "height": 1080
+      },
+      "medium": {
+        "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-logo_d154da873b15b0605709a38637b4e90a.jpg",
+        "width": 640,
+        "height": 640
+      }
+    },
+    "eyecatch": {
+      "main": {
+        "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-eyecatch_e8d0e5b90cf725641536ccb3a8cc1e82.jpg",
+        "width": 1920,
+        "height": 1080
+      },
+      "tver": {
+        "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-eyecatch_0e286cda4d3d9c9608e39179d3e83a06.jpg",
+        "width": 928,
+        "height": 522
+      },
+      "medium": {
+        "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-eyecatch_edf4ac9cbfbf9c8b7596055835eb2d08.jpg",
+        "width": 640,
+        "height": 360
+      }
+    },
+    "hero": {
+      "main": {
+        "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-hero_a2f291611a5fe496a395fb322605aef4.jpg",
+        "width": 1920,
+        "height": 640
+      },
+      "medium": {
+        "url": "https://dev-www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-hero_864704671a44f33ccd8946d5aa786a89.jpg",
+        "width": 1080,
+        "height": 360
+      }
+    },
+    "style": {
+      "textLight": "#000000",
+      "textDark": "#FFFFFF",
+      "linkLight": "#B65B5D",
+      "linkDark": "#FF8082",
+      "primaryLight": "#E47374",
+      "primaryDark": "#FF8082"
+    },
+    "additionalProperty": {
+      "publishLevel": "full",
+      "layoutPattern": "summary",
+      "episodeOrderBy": "releasedEvent",
+      "availableOnPlus": false,
+      "enableVariablePlayBackSpeedControl": false,
+      "optional": [
+
+      ],
+      "seriesPackStatus": "notPacked"
+    }
+  },
+  "releasedEvent": {
+    "startDate": "2020-02-20T17:00:00+09:00",
+    "endDate": "2020-02-20T17:45:00+09:00",
+    "publishedOn": {
+      "type": "BroadcastService",
+      "name": "NHKBS1",
+      "url": "https://dev-api.nr.nhk.jp/r6/t/broadcastservice/bs/s1.json",
+      "videoFormat": [
+        "2K"
+      ],
+      "encodingFormat": [
+        "video/X-arib-mpeg2",
+        "audio/X-arib-mpeg2-aac"
+      ],
+      "images": {
+        "badgeSmall": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-badge_s.png",
+          "width": 100,
+          "height": 50
+        },
+        "badge": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-badge.png",
+          "width": 200,
+          "height": 100
+        },
+        "eyecatchMedium": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-eyecatch_m.png",
+          "width": 640,
+          "height": 360
+        },
+        "eyecatchLarge": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-eyecatch_l.png",
+          "width": 1280,
+          "height": 720
+        },
+        "eyecatch": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-eyecatch.png",
+          "width": 1920,
+          "height": 1080
+        },
+        "heroMedium": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-hero_m.png",
+          "width": 1080,
+          "height": 360
+        },
+        "hero": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-hero.png",
+          "width": 1920,
+          "height": 640
+        },
+        "logoSmall": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-logo_s.png",
+          "width": 200,
+          "height": 200
+        },
+        "logoMedium": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-logo_m.png",
+          "width": 640,
+          "height": 640
+        },
+        "logo": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-logo.png",
+          "width": 1080,
+          "height": 1080
+        }
+      },
+      "identifierGroup": {
+        "serviceId": "s1",
+        "serviceName": "NHKBS1",
+        "shortenedName": "NHKBS1",
+        "shortenedDisplayName": "BS1"
+      }
+    }
+  },
+  "detailedRecentEvent": {
+    "startDate": "2020-02-20T17:00:00+09:00",
+    "endDate": "2020-02-20T17:45:00+09:00",
+    "publishedOn": {
+      "type": "BroadcastService",
+      "name": "NHKBS1",
+      "url": "https://dev-api.nr.nhk.jp/r6/t/broadcastservice/bs/s1.json",
+      "videoFormat": [
+        "2K"
+      ],
+      "encodingFormat": [
+        "video/X-arib-mpeg2",
+        "audio/X-arib-mpeg2-aac"
+      ],
+      "images": {
+        "badgeSmall": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-badge_s.png",
+          "width": 100,
+          "height": 50
+        },
+        "badge": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-badge.png",
+          "width": 200,
+          "height": 100
+        },
+        "eyecatchMedium": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-eyecatch_m.png",
+          "width": 640,
+          "height": 360
+        },
+        "eyecatchLarge": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-eyecatch_l.png",
+          "width": 1280,
+          "height": 720
+        },
+        "eyecatch": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-eyecatch.png",
+          "width": 1920,
+          "height": 1080
+        },
+        "heroMedium": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-hero_m.png",
+          "width": 1080,
+          "height": 360
+        },
+        "hero": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-hero.png",
+          "width": 1920,
+          "height": 640
+        },
+        "logoSmall": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-logo_s.png",
+          "width": 200,
+          "height": 200
+        },
+        "logoMedium": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-logo_m.png",
+          "width": 640,
+          "height": 640
+        },
+        "logo": {
+          "url": "https://dev-www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-logo.png",
+          "width": 1080,
+          "height": 1080
+        }
+      },
+      "identifierGroup": {
+        "serviceId": "s1",
+        "serviceName": "NHKBS1",
+        "shortenedName": "NHKBS1",
+        "shortenedDisplayName": "BS1"
+      }
+    }
+  },
+  "keyvisuals": [
+
+  ],
+  "videos": [
+
+  ],
+  "citations": [
+
+  ],
+  "url": "https://dev-api.nr.nhk.jp/r6/t/tvepisode/te/PG3Z16Q145.json",
+  "canonical": "https://dev-www.nhk.jp/p/ts/P2RMMPW5JM/episode/te/PG3Z16Q145/",
+  "sameAs": [
+
+  ],
+  "detailedMemo": [
+
+  ]
+}
