@@ -31,19 +31,17 @@ const roleName = (role: Role) => {
   return roleTypes[roleType] || roleType
 }
 
-const NoActorContributor = () => {
-  return (
-    <Box borderTop="1px" borderColor="gray.200" px={7} py={5}>
-      <Text>出演者/スタッフ</Text>
-      <Spacer mt={5} />
-      <Box>
-        <Text fontSize="sm" color="rgba(0, 0, 0, 0.6)">
-          出演者/スタッフは登録されていません
-        </Text>
-      </Box>
+const NoActorContributor = () => (
+  <Box borderTop="1px" borderColor="gray.200" px={7} py={5}>
+    <Text>出演者/スタッフ</Text>
+    <Spacer mt={5} />
+    <Box>
+      <Text fontSize="sm" color="rgba(0, 0, 0, 0.6)">
+        出演者/スタッフは登録されていません
+      </Text>
     </Box>
-  )
-}
+  </Box>
+)
 
 export const PlaylistDrawerActorContributor = ({ playlist }: Props) => {
   const { data, isLoading } = usePlaylistActorsAndContributors(
@@ -60,7 +58,7 @@ export const PlaylistDrawerActorContributor = ({ playlist }: Props) => {
         <Text>出演者/スタッフ</Text>
         <Spacer mt={5} />
         <Box>
-          <ListScreenSkeleton lineCount={3} />
+          <ListScreenSkeleton size={3} />
         </Box>
       </Box>
     )

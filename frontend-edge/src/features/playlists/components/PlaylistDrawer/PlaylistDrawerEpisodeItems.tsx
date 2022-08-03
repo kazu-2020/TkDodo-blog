@@ -32,7 +32,7 @@ export const PlaylistDrawerEpisodeItems = ({ playlist }: Props) => {
   if (isLoading) {
     return (
       <Box px={7} py={5}>
-        <ListScreenSkeleton lineCount={playlist.itemNum} />
+        <ListScreenSkeleton size={playlist.itemNum} />
       </Box>
     )
   }
