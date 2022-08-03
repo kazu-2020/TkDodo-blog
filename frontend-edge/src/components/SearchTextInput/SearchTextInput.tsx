@@ -33,6 +33,7 @@ export const SearchTextInput = ({
         placeholder={placeholder}
         onKeyDown={(event: KeyboardEvent<HTMLInputElement>) => {
           if (event.key === 'Enter') {
+            event.preventDefault()
             onAction((event.target as HTMLInputElement).value)
           }
         }}
@@ -48,7 +49,7 @@ export const SearchTextInput = ({
             onAction('')
           }}
         >
-          <CloseIcon w={10} h={10} color="gray.500" />
+          <CloseIcon w={3} h={3} color="gray.500" />
         </InputRightElement>
       )}
     </InputGroup>

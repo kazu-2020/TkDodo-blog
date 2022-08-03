@@ -4,7 +4,7 @@ class SeriesDecksController < ApplicationController
   before_action :set_pagination, only: [:index]
 
   DEFAULT_PAGE = 1
-  DEFAULT_PER  = 50
+  DEFAULT_PER = 50
 
   def index
     @series_decks = SeriesDeck.page(@page).per(@per)
@@ -16,12 +16,12 @@ class SeriesDecksController < ApplicationController
   end
 
   def create
-    @series_deck = SeriesDeck.new(series_deck_params)
+    @series_deck = SeriesDeck.new(series_deck_params.except(:playlists))
 
     begin
       @series_deck.save!
 
-      playlist_series_ids = params.require(:series_deck).permit(playlists: [])[:playlists] || []
+      playlist_series_ids = series_deck_params[:playlists] || []
       @series_deck.rebuild_playlists_to(playlist_series_ids)
     rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
       render json: { messages: @series_deck.errors.full_messages }, status: :unprocessable_entity
@@ -30,9 +30,9 @@ class SeriesDecksController < ApplicationController
 
   def update
     @series_deck = SeriesDeck.find_by(id: params[:id])
-    if @series_deck.update(series_deck_params)
+    if @series_deck.update(series_deck_params.except(:playlists))
       if params[:enable_list_update]
-        playlist_series_ids = params.require(:series_deck).permit(playlists: [])[:playlists] || []
+        playlist_series_ids = series_deck_params[:playlists] || []
         @series_deck.rebuild_playlists_to(playlist_series_ids)
       end
 
@@ -52,11 +52,11 @@ class SeriesDecksController < ApplicationController
   private
 
   def series_deck_params
-    params.require(:series_deck).permit(:name, :description, :interfix, :admin_memo, :playlists, :api_state)
+    params.require(:series_deck).permit(:name, :description, :interfix, :admin_memo, :api_state, playlists: [])
   end
 
   def set_pagination
     @page = [params[:page].to_i, DEFAULT_PAGE].max
-    @per  = (params[:per] || DEFAULT_PER).to_i
+    @per = (params[:per] || DEFAULT_PER).to_i
   end
 end

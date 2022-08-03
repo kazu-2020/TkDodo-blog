@@ -5,7 +5,7 @@ import { Box, Flex } from '@chakra-ui/react'
 import { ArrowStepItem } from './ArrowStepItem'
 import { ArrowStepContext } from './ArrowStepContext'
 
-type StepItem = {
+export type StepItem = {
   title: string
   isSuccess?: boolean
   hasError?: boolean
