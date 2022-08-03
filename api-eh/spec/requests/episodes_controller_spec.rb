@@ -142,7 +142,7 @@ describe EpisodesController, type: :request do
     end
 
     it '各Subtypeのカウントが取得できること' do
-      VCR.use_cassette('requests/episodes/bundle_items') do
+      VCR.use_cassette('requests/episode_spec/bundle_items') do
         get bundle_items_episodes_path(playlist_id: playlist_id)
         expect(response.status).to eq 200
         expect(JSON.parse(response.body)).to eq expected_json
