@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query'
 import { useToast } from '@chakra-ui/react'
 
-import { Deck as SeriesDeck } from '@/types/deck'
+import { SeriesDeck } from '@/types/series_deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 

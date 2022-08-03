@@ -40,21 +40,21 @@ export const PlaylistDrawer = ({
         <Spacer mt={5} />
         <Center>
           <ButtonGroup spacing="6">
-            <Button
-              type="submit"
-              form="my-form"
-              colorScheme="orange"
-              leftIcon={<RiPencilFill />}
+            <Link
+              px={0}
+              py={0}
+              to={`/playlists/${playlist.playlistUId}`}
+              _hover={{ textDecoration: 'none' }}
             >
-              <Link
-                px={0}
-                py={0}
-                to={`/playlists/${playlist.playlistUId}`}
-                _hover={{ textDecoration: 'none' }}
+              <Button
+                type="submit"
+                form="my-form"
+                colorScheme="orange"
+                leftIcon={<RiPencilFill />}
               >
                 <Text>編集する</Text>
-              </Link>
-            </Button>
+              </Button>
+            </Link>
             <DeletePlaylist
               onDrawerClose={onClose}
               playlistId={playlist.playlistUId}

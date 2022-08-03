@@ -31,30 +31,27 @@ const ConfigSeriesDeck = () => {
   }
 
   return (
-    <>
+    <Box bg="white" p={5} borderRadius="sm">
       <Flex mb={5}>
         <Spacer />
-        <Button
-          type="submit"
-          form="my-form"
-          colorScheme="blackAlpha"
-          leftIcon={<RiPencilFill />}
+        <Link
+          px={0}
+          py={0}
+          to={`/series-decks/${seriesDeckId}`}
+          _hover={{ textDecoration: 'none' }}
         >
-          <Link
-            px={0}
-            py={0}
-            to={`/series-decks/${seriesDeckId}`}
-            _hover={{ textDecoration: 'none' }}
+          <Button
+            type="submit"
+            form="my-form"
+            colorScheme="blackAlpha"
+            leftIcon={<RiPencilFill />}
           >
             <Text>デッキ編集</Text>
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </Flex>
-
-      <Box bg="white" p={5} borderRadius="sm">
-        <SeriesDeckConfigForm deck={data} />
-      </Box>
-    </>
+      <SeriesDeckConfigForm seriesDeck={data} />
+    </Box>
   )
 }
 export default ConfigSeriesDeck

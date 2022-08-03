@@ -1,10 +1,10 @@
-# ここから西川貴教のデータを作成
-
+# プレイリストのseedデータを作成していないため暫定的にエラーを回避しています。実行時は環境にプレイリストが2件以上存在することを確認してください。
 if Playlist.count < 2
   p 'プレイリストが2件未満のためデータを作成できませんでした。'
   return
 end
 
+# ここから西川貴教のデータを作成
 person_organization_local = PersonOrganizationLocal.find_or_create_by(uuid: '89678CF2-2863-29F6-6079-721C96A104A0') do |person_organization_local|
   person_organization_local.uuid = '89678CF2-2863-29F6-6079-721C96A104A0'
   person_organization_local.role = 'Person'
