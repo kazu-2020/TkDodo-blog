@@ -6,6 +6,7 @@ import { Citation } from './citation'
 import { Article } from './article'
 
 export interface Playlist {
+  id?: string
   playlistUId: string
   stringId: string
   primaryId: string

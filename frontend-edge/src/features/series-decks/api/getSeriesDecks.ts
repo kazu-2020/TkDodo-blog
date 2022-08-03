@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 
-import { Deck as SeriesDeck } from '@/types/deck'
+import { SeriesDeck } from '@/types/series_deck'
 import axios from '@/lib/axios'
 
 export const getSeriesDecks = async (): Promise<SeriesDeck[]> => {

@@ -12,7 +12,7 @@ afterAll(() => {
   vi.mocked(console.error).mockRestore()
 })
 
-describe('シリーズデッキの新規作成', async () => {
+describe.skip('シリーズデッキの新規作成', async () => {
   it('成功すること', async () => {
     const { user } = render(<NewSeriesDeck />, { route: '/series-decks/new' })
 

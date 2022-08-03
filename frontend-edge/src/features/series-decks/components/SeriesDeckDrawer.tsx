@@ -11,7 +11,7 @@ import {
   Text
 } from '@chakra-ui/react'
 
-import { Deck as SeriesDeck } from '@/types/deck'
+import { SeriesDeck } from '@/types/series_deck'
 import Link from '@/components/Link'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
@@ -41,36 +41,36 @@ const SeriesDeckList = ({
         <Spacer mt={5} />
         <Center>
           <ButtonGroup spacing="6">
-            <Button
-              type="submit"
-              form="my-form"
-              colorScheme="gray"
-              leftIcon={<MdSettings />}
+            <Link
+              px={0}
+              py={0}
+              to={`/series-decks/${seriesDeck.id}/config`}
+              _hover={{ textDecoration: 'none' }}
             >
-              <Link
-                px={0}
-                py={0}
-                to={`/series-decks/${seriesDeck.id}/config`}
-                _hover={{ textDecoration: 'none' }}
+              <Button
+                type="submit"
+                form="my-form"
+                colorScheme="gray"
+                leftIcon={<MdSettings />}
               >
                 <Text>管理設定</Text>
-              </Link>
-            </Button>
-            <Button
-              type="submit"
-              form="my-form"
-              colorScheme="orange"
-              leftIcon={<RiPencilFill />}
+              </Button>
+            </Link>
+            <Link
+              px={0}
+              py={0}
+              to={`/series-decks/${seriesDeck.id}`}
+              _hover={{ textDecoration: 'none' }}
             >
-              <Link
-                px={0}
-                py={0}
-                to={`/series-decks/${seriesDeck.id}`}
-                _hover={{ textDecoration: 'none' }}
+              <Button
+                type="submit"
+                form="my-form"
+                colorScheme="orange"
+                leftIcon={<RiPencilFill />}
               >
                 <Text>デッキ編集</Text>
-              </Link>
-            </Button>
+              </Button>
+            </Link>
             <DeleteSeriesDeck
               onDrawerClose={onClose}
               seriesDeckId={seriesDeck.id}
