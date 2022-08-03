@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { TextCopyBadge } from './TextCopyBadge'
 
 export default {
-  title: 'Components/ListScreenSkeleton',
+  title: 'Components/TextCopyBadge',
   component: TextCopyBadge
 } as ComponentMeta<typeof TextCopyBadge>
 
