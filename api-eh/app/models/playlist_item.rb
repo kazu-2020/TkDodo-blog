@@ -20,7 +20,6 @@ class PlaylistItem < ApplicationRecord
   def episode_data(force_fetch: false)
     bundle_res = fetch_bundle_data(force_fetch: force_fetch)
     episode_res = bundle_res[:tvepisode][:result][0]
-    episode_res[:videos] = fetch_episode_videos_data
 
     episode_res&.deep_symbolize_keys
   end
