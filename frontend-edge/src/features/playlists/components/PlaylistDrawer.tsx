@@ -1,4 +1,4 @@
-import { MdDelete, RiPencilFill } from 'react-icons/all'
+import { RiPencilFill } from 'react-icons/all'
 import {
   Box,
   Button,
@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
+import { DeletePlaylist } from '@/features/playlists/components/DeletePlaylist'
 import Link from '@/components/Link'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
@@ -54,15 +55,10 @@ export const PlaylistDrawer = ({
                 <Text>編集する</Text>
               </Button>
             </Link>
-            <Button
-              type="submit"
-              form="my-form"
-              colorScheme="gray"
-              variant="outline"
-              leftIcon={<MdDelete />}
-            >
-              削除する
-            </Button>
+            <DeletePlaylist
+              onDrawerClose={onClose}
+              playlistId={playlist.playlistUId}
+            />
           </ButtonGroup>
         </Center>
       </DrawerBody>
