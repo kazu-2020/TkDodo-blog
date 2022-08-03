@@ -66,9 +66,9 @@ if params[:with_episode_count].present?
 end
 
 if params[:with_subtype_item_count].present?
-  json.howToCount playlist.how_to_count
-  json.faqPageCount playlist.faq_page_count
-  json.eventCount playlist.event_count
+  json.howToCount playlist.how_to_count(playlist.string_id)
+  json.faqPageCount playlist.faq_page_count(playlist.string_id)
+  json.eventCount playlist.event_count(playlist.string_id)
 end
 
 json.layoutPattern playlist.layout_pattern

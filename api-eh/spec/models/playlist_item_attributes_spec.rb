@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe PlaylistItemAttributes, type: :model do
   let(:playlist) { create(:playlist) }
+  let(:has_all_subtype_playlist) { create(:playlist, id: '52') } # 20220803時点でHowto,Faqpage,Eventのsubtypeが含まれるPlaylist
 
   describe '#total_time' do
     before do
@@ -66,42 +67,36 @@ describe PlaylistItemAttributes, type: :model do
 
   describe '#faq_page_count' do
     before do
-      create(:playlist_item, episode_id: 'WWXQGK6938', playlist: playlist) # faq
-      create(:playlist_item, episode_id: 'KZ2MN6PXRJ', playlist: playlist) # howto
-      create(:playlist_item, episode_id: 'XKNVY22PNP', playlist: playlist) # event
+      create(:playlist_item, episode_id: 'WWXQGK6938', playlist: has_all_subtype_playlist)
     end
 
     it do
       VCR.use_cassette('models/playlist_item_attributes_spec/sub_types_count') do
-        expect(playlist.reload.faq_page_count).to eq(1)
+        expect(has_all_subtype_playlist.faq_page_count(has_all_subtype_playlist.string_id)).to eq(2)
       end
     end
   end
 
   describe '#event_count' do
     before do
-      create(:playlist_item, episode_id: 'WWXQGK6938', playlist: playlist) # faq
-      create(:playlist_item, episode_id: 'KZ2MN6PXRJ', playlist: playlist) # howto
-      create(:playlist_item, episode_id: 'XKNVY22PNP', playlist: playlist) # event
+      create(:playlist_item, episode_id: 'WWXQGK6938', playlist: has_all_subtype_playlist)
     end
 
     it do
       VCR.use_cassette('models/playlist_item_attributes_spec/sub_types_count') do
-        expect(playlist.reload.event_count).to eq(1)
+        expect(has_all_subtype_playlist.reload.event_count(has_all_subtype_playlist.string_id)).to eq(9)
       end
     end
   end
 
   describe '#how_to_count' do
     before do
-      create(:playlist_item, episode_id: 'WWXQGK6938', playlist: playlist) # faq
-      create(:playlist_item, episode_id: 'KZ2MN6PXRJ', playlist: playlist) # howto
-      create(:playlist_item, episode_id: 'XKNVY22PNP', playlist: playlist) # event
+      create(:playlist_item, episode_id: 'WWXQGK6938', playlist: has_all_subtype_playlist)
     end
 
     it do
       VCR.use_cassette('models/playlist_item_attributes_spec/sub_types_count') do
-        expect(playlist.reload.how_to_count).to eq(1)
+        expect(has_all_subtype_playlist.reload.how_to_count(has_all_subtype_playlist.string_id)).to eq(7)
       end
     end
   end
