@@ -2,6 +2,7 @@ import { ImageHash } from './image_hash'
 
 export interface PartOfSeries {
   name: string
+  eyecatch?: ImageHash
 }
 
 export interface IdentifierGroup {
@@ -24,7 +25,9 @@ export interface EpisodeData {
   description?: string
   url?: string
   eyecatch?: ImageHash
+  keyvisuals?: Array<ImageHash>
   partOfSeries?: PartOfSeries
+  releasedEvent?: EventData
   detailedRecentEvent?: EventData
   videos?: object[]
 }
