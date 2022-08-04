@@ -49,7 +49,7 @@ module PlaylistItemAttributes
 
   def fetch_sub_types_count(force: false, playlist_string_id: '')
     Rails.cache.fetch("#{cache_key_with_version}/fetch_sub_type_count", expires_in: CACHED_DATA_TTL, force: force,
-                      skip_nil: true) do
+                                                                        skip_nil: true) do
       client = PocApiClient.new
 
       result = { event_count: 0, how_to_count: 0, faq_page_count: 0 }
