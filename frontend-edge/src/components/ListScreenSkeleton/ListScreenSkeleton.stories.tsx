@@ -1,5 +1,5 @@
 import React from 'react'
-import { ComponentMeta } from '@storybook/react'
+import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 import { ListScreenSkeleton } from './ListScreenSkeleton'
 
@@ -8,6 +8,11 @@ export default {
   component: ListScreenSkeleton
 } as ComponentMeta<typeof ListScreenSkeleton>
 
-const Template = () => <ListScreenSkeleton />
+const Template: ComponentStory<typeof ListScreenSkeleton> = (props) => (
+  <ListScreenSkeleton {...props} />
+)
 
 export const Default = Template.bind({})
+Default.args = {
+  size: 20
+}
