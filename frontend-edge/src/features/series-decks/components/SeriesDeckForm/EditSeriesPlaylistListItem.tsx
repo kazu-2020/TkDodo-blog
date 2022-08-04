@@ -1,6 +1,14 @@
 import { HiOutlineMinus } from 'react-icons/all'
 import React from 'react'
-import { Button, Grid, GridItem, HStack, Image, Text } from '@chakra-ui/react'
+import {
+  Button,
+  Flex,
+  Grid,
+  GridItem,
+  HStack,
+  Image,
+  Text
+} from '@chakra-ui/react'
 import { Icon } from '@chakra-ui/icons'
 
 import { SeriesPlaylist } from '@/types/series_playlist'
@@ -59,12 +67,14 @@ export const EditSeriesPlaylistListItem = ({
         </HStack>
       </GridItem>
       <GridItem colSpan={5} h="8">
-        <Text>
-          TEp:{countWrapper(playlist.itemNum)}/Hw:
-          {countWrapper(playlist.howToCount)}/Ev:
-          {countWrapper(playlist.eventCount)}/Fa:
-          {countWrapper(playlist.faqPageCount)}
-        </Text>
+        <Flex alignItems="center" h="8">
+          <Text>
+            TEp:{countWrapper(playlist.itemNum)}/Hw:
+            {countWrapper(playlist.howToCount)}/Ev:
+            {countWrapper(playlist.eventCount)}/Fa:
+            {countWrapper(playlist.faqPageCount)}
+          </Text>
+        </Flex>
       </GridItem>
     </Grid>
   )
