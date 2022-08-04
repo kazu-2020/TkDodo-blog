@@ -7,7 +7,7 @@ type Props = {
   playlist: Playlist
 }
 
-export const PlaylistDrawerArticle = ({ playlist }: Props) => {
+export const Article = ({ playlist }: Props) => {
   const plainBody = playlist.article?.plainBody?.slice(0, 50) || ''
   if (plainBody) {
     return (

@@ -4,7 +4,7 @@ import {
   Button,
   ButtonGroup,
   Center,
-  Drawer,
+  Drawer as ChakraDrawer,
   DrawerBody,
   DrawerContent,
   Spacer,
@@ -12,14 +12,14 @@ import {
 } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
-import { PlaylistDrawerInfo } from '@/features/playlists/components/PlaylistDrawer/PlaylistDrawerInfo'
-import { PlaylistDrawerEpisodeList } from '@/features/playlists/components/PlaylistDrawer/PlaylistDrawerEpisodeList'
-import { PlaylistDrawerArticle } from '@/features/playlists/components/PlaylistDrawer/PlaylistDrawerArticle'
-import { PlaylistDrawerActorContributor } from '@/features/playlists/components/PlaylistDrawer/PlaylistDrawerActorContributor'
+import { Info } from '@/features/playlists/components/PlaylistDrawer/Info'
+import { EpisodeList } from '@/features/playlists/components/PlaylistDrawer/EpisodeList'
+import { Article } from '@/features/playlists/components/PlaylistDrawer/Article'
+import { ActorContributor } from '@/features/playlists/components/PlaylistDrawer/ActorContributor'
 import { DeletePlaylist } from '@/features/playlists/components/DeletePlaylist'
 import Link from '@/components/Link'
 
-export const PlaylistDrawer = ({
+export const Drawer = ({
   playlist,
   isOpen,
   onClose
@@ -28,7 +28,7 @@ export const PlaylistDrawer = ({
   isOpen: any
   onClose: any
 }) => (
-  <Drawer
+  <ChakraDrawer
     isOpen={isOpen}
     onClose={onClose}
     size="md"
@@ -36,7 +36,7 @@ export const PlaylistDrawer = ({
   >
     <DrawerContent>
       <DrawerBody p={0}>
-        <PlaylistDrawerInfo playlist={playlist} />
+        <Info playlist={playlist} />
         <Spacer mt={5} />
         <Center>
           <ButtonGroup spacing="6">
@@ -61,10 +61,10 @@ export const PlaylistDrawer = ({
             />
           </ButtonGroup>
         </Center>
-        <PlaylistDrawerEpisodeList playlist={playlist} />
-        <PlaylistDrawerActorContributor playlist={playlist} />
-        <PlaylistDrawerArticle playlist={playlist} />
+        <EpisodeList playlist={playlist} />
+        <ActorContributor playlist={playlist} />
+        <Article playlist={playlist} />
       </DrawerBody>
     </DrawerContent>
-  </Drawer>
+  </ChakraDrawer>
 )

@@ -27,7 +27,7 @@ const dummyImageUrl = (dateTime: string, imageType: string) => {
   return `/dummy/default${num}/default${num}-${imageType}.png`
 }
 
-export const PlaylistDrawerInfo = ({ playlist }: Props) => {
+export const Info = ({ playlist }: Props) => {
   const toast = useToast()
   const onCopy = () => {
     toast({

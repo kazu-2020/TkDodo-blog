@@ -43,7 +43,7 @@ const NoActorContributor = () => (
   </Box>
 )
 
-export const PlaylistDrawerActorContributor = ({ playlist }: Props) => {
+export const ActorContributor = ({ playlist }: Props) => {
   const { data, isLoading } = usePlaylistActorsAndContributors(
     playlist.playlistUId
   )

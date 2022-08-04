@@ -3,7 +3,7 @@ import { Box, Stack, useDisclosure } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
 import { PlaylistListItem } from '@/features/playlists/components/PlaylistListItem'
-import { PlaylistDrawer } from '@/features/playlists/components/PlaylistDrawer'
+import { Drawer } from '@/features/playlists/components/PlaylistDrawer'
 import { Pagination } from '@/components/Pagination'
 
 type Props = {
@@ -59,11 +59,7 @@ export const PlaylistListItems = ({
       )}
 
       {selectedPlaylist && (
-        <PlaylistDrawer
-          playlist={selectedPlaylist}
-          isOpen={isOpen}
-          onClose={onClose}
-        />
+        <Drawer playlist={selectedPlaylist} isOpen={isOpen} onClose={onClose} />
       )}
     </Stack>
   )
