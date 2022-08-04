@@ -1,4 +1,4 @@
-export * from './Drawer'
+export * from './PlaylistDrawer'
 export * from './ActorContributor'
 export * from './Info'
 export * from './EpisodeList'

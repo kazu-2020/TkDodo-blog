@@ -4,7 +4,7 @@ import {
   Button,
   ButtonGroup,
   Center,
-  Drawer as ChakraDrawer,
+  Drawer,
   DrawerBody,
   DrawerContent,
   Spacer,
@@ -19,7 +19,7 @@ import { ActorContributor } from '@/features/playlists/components/PlaylistDrawer
 import { DeletePlaylist } from '@/features/playlists/components/DeletePlaylist'
 import Link from '@/components/Link'
 
-export const Drawer = ({
+export const PlaylistDrawer = ({
   playlist,
   isOpen,
   onClose
@@ -28,7 +28,7 @@ export const Drawer = ({
   isOpen: any
   onClose: any
 }) => (
-  <ChakraDrawer
+  <Drawer
     isOpen={isOpen}
     onClose={onClose}
     size="md"
@@ -66,5 +66,5 @@ export const Drawer = ({
         <Article playlist={playlist} />
       </DrawerBody>
     </DrawerContent>
-  </ChakraDrawer>
+  </Drawer>
 )
