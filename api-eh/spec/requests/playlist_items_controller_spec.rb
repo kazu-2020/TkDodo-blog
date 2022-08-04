@@ -4,25 +4,28 @@ require 'rails_helper'
 
 describe PlaylistItemsController, type: :request do
   before do
-    json = File.open(Rails.root.join('spec/fixtures/payloads/te_PG3Z16Q145.json')) do |file|
+    l_bundle_json = File.open(Rails.root.join('spec/fixtures/payloads/te_PG3Z16Q145.json')) do |file|
       json_string = file.read
       JSON.parse(json_string, symbolize_names: true)
     end
 
     dlab_client = instance_double(DlabApiClient)
     allow(DlabApiClient).to receive(:new).and_return(dlab_client)
-    allow(dlab_client).to receive(:episode_l_bundle).with(type: 'tv', episode_id: stub_episode_id).and_return(json)
-    allow(dlab_client).to receive(:episode_list_bundle).with(type: 'tv', episode_id: anything).and_return({})
+    allow(dlab_client).to receive(:episode_l_bundle).with(type: 'tv',
+                                                          episode_id: stub_episode_id).and_return(l_bundle_json)
 
     poc_client = instance_double(PocApiClient)
     allow(PocApiClient).to receive(:new).and_return(poc_client)
     allow(poc_client).to receive(:episode).with(episode_id: anything).and_return({})
+    allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
   end
 
   let(:stub_episode_id) { 'PG3Z16Q145' }
 
   describe 'GET #index' do
-    let(:playlist) { create(:playlist, playlist_items: [playlist_item]) }
+    let(:playlist) {
+      create(:playlist, id: '52', playlist_items: [playlist_item])
+    }     # playlist_string_idはidから生成されるため、idはstubに合わせて固定値にする
     let(:playlist_item) { create(:playlist_item, episode_id: stub_episode_id) }
 
     it 'returns success response' do

@@ -1,0 +1,30 @@
+// 20220803104614
+// https://dev-api.nr.nhk.jp/r6.0/ll/bundle/pl/recommend-tep-0000000052/types.json
+
+{
+  "tvepisode": {
+    "active": true,
+    "available": true,
+    "count": 9
+  },
+  "event": {
+    "active": true,
+    "available": true,
+    "count": 9
+  },
+  "faqpage": {
+    "active": true,
+    "available": true,
+    "count": 2
+  },
+  "howto": {
+    "active": true,
+    "available": true,
+    "count": 7
+  },
+  "recipe": {
+    "active": true,
+    "available": true,
+    "count": 9
+  }
+}
