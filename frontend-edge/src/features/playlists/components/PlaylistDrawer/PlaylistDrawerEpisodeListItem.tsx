@@ -40,7 +40,7 @@ const startDate = (episodeItem: EpisodeData) => {
   return formatDatetimeWithWeekday(date)
 }
 
-export const PlaylistDrawerEpisodeItem = ({ episodeItem }: Props) => {
+export const PlaylistDrawerEpisodeListItem = ({ episodeItem }: Props) => {
   const serviceLogoUrl =
     episodeItem.releasedEvent?.publishedOn?.images?.badgeSmall?.url || ''
   const seriesName = episodeItem.partOfSeries?.name || ''

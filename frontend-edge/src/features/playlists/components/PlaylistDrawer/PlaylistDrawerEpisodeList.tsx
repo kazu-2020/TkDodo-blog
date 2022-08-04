@@ -3,7 +3,7 @@ import { Alert, AlertIcon, Box, Spacer, Text, VStack } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
-import { PlaylistDrawerEpisodeItem } from '@/features/playlists/components/PlaylistDrawer/PlaylistDrawerEpisodeItem'
+import { PlaylistDrawerEpisodeListItem } from '@/features/playlists/components/PlaylistDrawer/PlaylistDrawerEpisodeListItem'
 import { usePlaylistItems } from '@/features/playlists/api/getPlaylistItems'
 import { ListScreenSkeleton } from '@/components/ListScreenSkeleton'
 
@@ -20,7 +20,7 @@ const NoEpisode = () => (
   </Box>
 )
 
-export const PlaylistDrawerEpisodeItems = ({ playlist }: Props) => {
+export const PlaylistDrawerEpisodeList = ({ playlist }: Props) => {
   const { data, isLoading, isError, isSuccess } = usePlaylistItems(
     playlist.playlistUId
   )
@@ -52,7 +52,7 @@ export const PlaylistDrawerEpisodeItems = ({ playlist }: Props) => {
         <Spacer mt={5} />
         <VStack align="flex-start" spacing={3}>
           {data?.map((item: EpisodeData) => (
-            <PlaylistDrawerEpisodeItem key={item.id} episodeItem={item} />
+            <PlaylistDrawerEpisodeListItem key={item.id} episodeItem={item} />
           ))}
         </VStack>
       </Box>

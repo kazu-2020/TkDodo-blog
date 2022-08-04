@@ -13,7 +13,7 @@ import {
 
 import { Playlist } from '@/types/playlist'
 import { PlaylistDrawerInfo } from '@/features/playlists/components/PlaylistDrawer/PlaylistDrawerInfo'
-import { PlaylistDrawerEpisodeItems } from '@/features/playlists/components/PlaylistDrawer/PlaylistDrawerEpisodeItems'
+import { PlaylistDrawerEpisodeList } from '@/features/playlists/components/PlaylistDrawer/PlaylistDrawerEpisodeList'
 import { PlaylistDrawerArticle } from '@/features/playlists/components/PlaylistDrawer/PlaylistDrawerArticle'
 import { PlaylistDrawerActorContributor } from '@/features/playlists/components/PlaylistDrawer/PlaylistDrawerActorContributor'
 import { DeletePlaylist } from '@/features/playlists/components/DeletePlaylist'
@@ -61,7 +61,7 @@ export const PlaylistDrawer = ({
             />
           </ButtonGroup>
         </Center>
-        <PlaylistDrawerEpisodeItems playlist={playlist} />
+        <PlaylistDrawerEpisodeList playlist={playlist} />
         <PlaylistDrawerActorContributor playlist={playlist} />
         <PlaylistDrawerArticle playlist={playlist} />
       </DrawerBody>
