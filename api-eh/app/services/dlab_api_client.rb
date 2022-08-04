@@ -30,16 +30,6 @@ class DlabApiClient < DlabApiBase
     handle_response(res)
   end
 
-  # TVEpisode に紐づくサブタイプの数をリクエストする
-  #
-  # @param [String] type: 'tv' or 'radio'
-  # @param [String] episode_id: エピソードID
-  def episode_list_bundle(type:, episode_id:, query: {})
-    res = client.get "/#{version}/l/bundle/#{type.downcase.first}e/#{episode_id}/types.json",
-                     INTERNAL_PARAMS.merge(query)
-    handle_response(res)
-  end
-
   # Episode データ一式をリクエストする
   #
   # @param [String] type: 'tv' or 'radio'
