@@ -1,12 +1,7 @@
 import React from 'react'
-// data-fns Issue
-// https://github.com/import-js/eslint-import-resolver-typescript/issues/72
-// eslint-disable-next-line import/no-duplicates
-import { ja } from 'date-fns/locale'
-// eslint-disable-next-line import/no-duplicates
-import { format } from 'date-fns'
 import { Box, HStack, Image, Text, VStack } from '@chakra-ui/react'
 
+import { formatDatetimeWithWeekday } from '@/utils/format'
 import { EpisodeData } from '@/types/episode_data'
 
 type Props = {
@@ -42,9 +37,7 @@ const startDate = (episodeItem: EpisodeData) => {
     return '-'
   }
 
-  return format(new Date(date), 'yyyy年MM月dd日(E) HH:mm', {
-    locale: ja
-  }).toString()
+  return formatDatetimeWithWeekday(date)
 }
 
 export const PlaylistDrawerEpisodeItem = ({ episodeItem }: Props) => {
