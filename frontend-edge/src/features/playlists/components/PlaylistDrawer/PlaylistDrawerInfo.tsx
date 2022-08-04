@@ -1,12 +1,10 @@
 import React from 'react'
 import {
-  AlertDialog,
   Badge,
   Box,
   HStack,
   Image,
   Text,
-  useDisclosure,
   useToast,
   VStack
 } from '@chakra-ui/react'
