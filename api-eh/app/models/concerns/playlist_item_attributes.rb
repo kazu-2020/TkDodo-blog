@@ -6,7 +6,7 @@ module PlaylistItemAttributes
   CACHED_DATA_TTL = 3.hour
 
   included do
-    after_save :force_fetch_sub_types_count
+    after_save -> { force_fetch_sub_types_count(playlist_items.ids) }
   end
 
   def total_time
@@ -49,7 +49,7 @@ module PlaylistItemAttributes
 
   def fetch_sub_types_count(force: false, playlist_string_id: '')
     Rails.cache.fetch("#{cache_key_with_version}/fetch_sub_type_count", expires_in: CACHED_DATA_TTL, force: force,
-                                                                        skip_nil: true) do
+                      skip_nil: true) do
       client = PocApiClient.new
 
       result = { event_count: 0, how_to_count: 0, faq_page_count: 0 }
@@ -69,8 +69,11 @@ module PlaylistItemAttributes
     end
   end
 
-  def force_fetch_sub_types_count
-    fetch_sub_types_count(force: true)
+  def force_fetch_sub_types_count(playlist_items_ids)
+    playlists = Playlist.where(id: playlist_items_ids)
+    playlists.each do |playlist|
+      fetch_sub_types_count(force: true, playlist_string_id: playlist.string_id)
+    end
   end
 
   def fetch_playable_episode_count(playlist_string_id)
