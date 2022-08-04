@@ -1,6 +1,6 @@
 import { RiPencilFill } from 'react-icons/all'
+import React from 'react'
 import {
-  Box,
   Button,
   ButtonGroup,
   Center,
@@ -12,9 +12,12 @@ import {
 } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
+import { Info } from '@/features/playlists/components/PlaylistDrawer/Info'
+import { EpisodeList } from '@/features/playlists/components/PlaylistDrawer/EpisodeList'
+import { Article } from '@/features/playlists/components/PlaylistDrawer/Article'
+import { ActorContributor } from '@/features/playlists/components/PlaylistDrawer/ActorContributor'
 import { DeletePlaylist } from '@/features/playlists/components/DeletePlaylist'
 import Link from '@/components/Link'
-import ApiStateBadge from '@/components/ApiStateBadge'
 
 export const PlaylistDrawer = ({
   playlist,
@@ -32,11 +35,8 @@ export const PlaylistDrawer = ({
     blockScrollOnMount={false}
   >
     <DrawerContent>
-      <DrawerBody px={3}>
-        <Box borderWidth={1} borderRadius="sm" p={3}>
-          <Text fontWeight={700}>{playlist.name}</Text>
-          <ApiStateBadge apiState={playlist.apiState} />
-        </Box>
+      <DrawerBody p={0}>
+        <Info playlist={playlist} />
         <Spacer mt={5} />
         <Center>
           <ButtonGroup spacing="6">
@@ -61,6 +61,9 @@ export const PlaylistDrawer = ({
             />
           </ButtonGroup>
         </Center>
+        <EpisodeList playlist={playlist} />
+        <ActorContributor playlist={playlist} />
+        <Article playlist={playlist} />
       </DrawerBody>
     </DrawerContent>
   </Drawer>
