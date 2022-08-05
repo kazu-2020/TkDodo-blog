@@ -320,7 +320,8 @@ describe PlaylistsController, type: :request do
         'event' => 9,
         'faqpage' => 2,
         'howto' => 7,
-        'tvepisode' => 9
+        'tvepisode' => 9,
+        'recipe' => 9
       }
     end
 

@@ -112,4 +112,16 @@ describe PlaylistItemAttributes, type: :model do
       end
     end
   end
+
+  describe '#recipe_count' do
+    before do
+      create(:playlist_item, episode_id: 'WWXQGK6938', playlist: has_all_subtype_playlist)
+    end
+
+    it do
+      VCR.use_cassette('models/playlist_item_attributes_spec/sub_types_count') do
+        expect(has_all_subtype_playlist.reload.recipe_count(has_all_subtype_playlist.string_id)).to eq(9)
+      end
+    end
+  end
 end
