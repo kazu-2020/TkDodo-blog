@@ -1,0 +1,294 @@
+{
+  "tvepisode": {
+    "result": [
+      {
+        "type": "TVEpisode",
+        "id": "PG3Z16Q145",
+        "name": "「英語〜English〜」",
+        "identifierGroup": {
+          "episodeId": "PG3Z16Q145",
+          "seriesId": "P2RMMPW5JM",
+          "episodeName": "「英語〜English〜」",
+          "seriesName": "COOL JAPAN〜発掘!かっこいいニッポン〜",
+          "hashtag": [],
+          "siteId": "0107",
+          "serviceId": [
+            "s1",
+            "s2"
+          ],
+          "aliasId": "cooljapan",
+          "formatGenreTag": [
+            {
+              "id": "05",
+              "name": "バラエティ"
+            }
+          ],
+          "themeGenreTag": [
+            {
+              "id": "094",
+              "name": "文化"
+            },
+            {
+              "id": "084",
+              "name": "旅"
+            }
+          ]
+        },
+        "identifierGroupEx": {
+          "seriesGroupId": "478V4G2QLK",
+          "seriesGroupName": "COOL JAPAN",
+          "episodeNameTemp": "「英語〜English〜」",
+          "seriesNameTemp": "COOL JAPAN〜発掘!かっこいいニッポン〜",
+          "releasedEventServiceIdTemp": "s1",
+          "releasedEventStartDateTemp": "2020-02-20T17:00:00+09:00",
+          "releasedEventEndDateTemp": "2020-02-20T17:45:00+09:00"
+        },
+        "keywords": [],
+        "description": "中学、高校と英語を学んできたはずなのに、なぜ日本人は英語が苦手なのか。日本の英語力向上への取り組みはクール？日本人の英語が世界からどう見られているのかを探る。",
+        "dateCreated": "2020-02-07T12:17:14+09:00",
+        "dateModified": "2020-03-20T00:27:04+09:00",
+        "actors": [],
+        "contributors": [],
+        "partOfSeries": {
+          "id": "P2RMMPW5JM",
+          "name": "COOL JAPAN〜発掘!かっこいいニッポン〜",
+          "detailedSeriesNameRuby": "くーるじゃぱん　はっくつ　かっこいいにっぽん",
+          "identifierGroup": {
+            "seriesId": "P2RMMPW5JM",
+            "seriesName": "COOL JAPAN〜発掘!かっこいいニッポン〜",
+            "hashtag": [],
+            "siteId": "0107",
+            "serviceId": [
+              "s1",
+              "s2"
+            ],
+            "aliasId": "cooljapan"
+          },
+          "identifierGroupEx": {
+            "seriesGroupId": "478V4G2QLK",
+            "seriesGroupName": "COOL JAPAN",
+            "seriesNameTemp": "COOL JAPAN〜発掘!かっこいいニッポン〜"
+          },
+          "url": "https://www.nhk.jp/p/ts/P2RMMPW5JM/",
+          "description": "日本のさまざまな文化が外国人にカッコイイものとして受け入れられています。\r\n「COOL JAPAN」は、外国人の感性をフルに生かしてクールな日本の文化を発掘し、その魅力と秘密を探ろうという番組です。",
+          "detailedCatch": "日本人には気づかない日本文化の魅力を再発見！",
+          "logo": {
+            "main": {
+              "url": "https://www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-logo_d065ba367ece44132b8477ab92430dea.png",
+              "width": 1080,
+              "height": 1080
+            },
+            "medium": {
+              "url": "https://www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-logo_cd3485b6f2667b6c04dcbcb34c4c4c66.png",
+              "width": 640,
+              "height": 640
+            }
+          },
+          "eyecatch": {
+            "main": {
+              "url": "https://www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-eyecatch_c61341bc39d8fa0189d3bcf514f30a88.png",
+              "width": 1920,
+              "height": 1080
+            },
+            "tver": {
+              "url": "https://www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-eyecatch_a287098b2e0418829c28822726db37a4.png",
+              "width": 928,
+              "height": 522
+            },
+            "medium": {
+              "url": "https://www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-eyecatch_443aaa2204c4d3c22957ddbdffc5a79d.png",
+              "width": 640,
+              "height": 360
+            }
+          },
+          "hero": {
+            "main": {
+              "url": "https://www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-hero_54619387d54b27e2e3a6622a73774280.jpg",
+              "width": 1920,
+              "height": 640
+            },
+            "medium": {
+              "url": "https://www.nhk.jp/static/assets/images/tvseries/ts/P2RMMPW5JM/P2RMMPW5JM-hero_a35a59e81c32b625952c303f08ea3208.jpg",
+              "width": 1080,
+              "height": 360
+            }
+          },
+          "style": {
+            "textLight": "#000000",
+            "textDark": "#FFFFFF",
+            "linkLight": "#327EA4",
+            "linkDark": "#4DC4FF",
+            "primaryLight": "#3E9ECE",
+            "primaryDark": "#4DC4FF"
+          },
+          "additionalProperty": {
+            "publishLevel": "full",
+            "layoutPattern": "summary",
+            "episodeOrder": "releasedEvent",
+            "availableOnPlus": false,
+            "enableVariablePlayBackSpeedControl": false,
+            "optional": []
+          }
+        },
+        "releasedEvent": {
+          "startDate": "2020-02-20T17:00:00+09:00",
+          "endDate": "2020-02-20T17:45:00+09:00",
+          "publishedOn": {
+            "type": "BroadcastService",
+            "name": "NHKBS1",
+            "videoFormat": [
+              "2K"
+            ],
+            "encodingFormat": [
+              "video/X-arib-mpeg2",
+              "audio/X-arib-mpeg2-aac"
+            ],
+            "images": {
+              "badgeSmall": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-badge_s.png",
+                "width": 100,
+                "height": 50
+              },
+              "badge": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-badge.png",
+                "width": 200,
+                "height": 100
+              },
+              "eyecatchMedium": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-eyecatch_m.png",
+                "width": 640,
+                "height": 360
+              },
+              "eyecatchLarge": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-eyecatch_l.png",
+                "width": 1280,
+                "height": 720
+              },
+              "eyecatch": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-eyecatch.png",
+                "width": 1920,
+                "height": 1080
+              },
+              "hero": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-hero.png",
+                "width": 1080,
+                "height": 360
+              },
+              "heroMedium": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-hero_m.png",
+                "width": 1920,
+                "height": 640
+              },
+              "logoSmall": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-logo_s.png",
+                "width": 200,
+                "height": 200
+              },
+              "logoMedium": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-logo_m.png",
+                "width": 640,
+                "height": 640
+              },
+              "logo": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-logo.png",
+                "width": 1080,
+                "height": 1080
+              }
+            },
+            "identifierGroup": {
+              "serviceId": "s1",
+              "serviceName": "NHKBS1",
+              "shortenedName": "NHKBS1",
+              "shortenedDisplayName": "BS1"
+            }
+          }
+        },
+        "detailedRecentEvent": {
+          "startDate": "2020-02-20T17:00:00+09:00",
+          "endDate": "2020-02-20T17:45:00+09:00",
+          "publishedOn": {
+            "type": "BroadcastService",
+            "name": "NHKBS1",
+            "videoFormat": [
+              "2K"
+            ],
+            "encodingFormat": [
+              "video/X-arib-mpeg2",
+              "audio/X-arib-mpeg2-aac"
+            ],
+            "images": {
+              "badgeSmall": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-badge_s.png",
+                "width": 100,
+                "height": 50
+              },
+              "badge": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-badge.png",
+                "width": 200,
+                "height": 100
+              },
+              "eyecatchMedium": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-eyecatch_m.png",
+                "width": 640,
+                "height": 360
+              },
+              "eyecatchLarge": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-eyecatch_l.png",
+                "width": 1280,
+                "height": 720
+              },
+              "eyecatch": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-eyecatch.png",
+                "width": 1920,
+                "height": 1080
+              },
+              "hero": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-hero.png",
+                "width": 1080,
+                "height": 360
+              },
+              "heroMedium": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-hero_m.png",
+                "width": 1920,
+                "height": 640
+              },
+              "logoSmall": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-logo_s.png",
+                "width": 200,
+                "height": 200
+              },
+              "logoMedium": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-logo_m.png",
+                "width": 640,
+                "height": 640
+              },
+              "logo": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/s1/s1-logo.png",
+                "width": 1080,
+                "height": 1080
+              }
+            },
+            "identifierGroup": {
+              "serviceId": "s1",
+              "serviceName": "NHKBS1",
+              "shortenedName": "NHKBS1",
+              "shortenedDisplayName": "BS1"
+            }
+          }
+        },
+        "keyvisuals": [],
+        "videos": [],
+        "citations": [],
+        "url": "https://www.nhk.jp/p/ts/P2RMMPW5JM/episode/te/PG3Z16Q145/",
+        "sameAs": [],
+        "detailedMemo": []
+      }
+    ],
+    "count": 1
+  },
+  "faqpage": {
+    "result": [],
+    "resultUrl": "https://api.nr.nhk.jp/r6/l/faqpage/te/PG3Z16Q145.json?offset=0&size=1",
+    "count": 0
+  }
+}

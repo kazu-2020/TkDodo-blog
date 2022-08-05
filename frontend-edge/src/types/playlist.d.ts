@@ -1,4 +1,5 @@
 import { SameAs } from './same_as'
+import { Role } from './role'
 import { PlaylistStyle } from './playlist_style'
 import { ImageHash } from './image_hash'
 import { EpisodeData } from './episode_data'
@@ -56,8 +57,8 @@ export interface Playlist {
   sameAs: Array<SameAs>
   citations: Array<Citation>
   aliasId: string
-  actor: Array<Object>
-  contributor: Array<Object>
+  actor: Array<Role>
+  contributor: Array<Role>
   article: Article
   layoutPattern: string
   publishLevel: string

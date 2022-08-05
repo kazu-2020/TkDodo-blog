@@ -32,13 +32,13 @@ describe PlaylistItemAttributes, type: :model do
 
   describe '#playable_total_time' do
     before do
-      create(:playlist_item, episode_id: 'Y6J1Y3MK82', playlist: playlist) # duration: 1500, has_video: true
-      create(:playlist_item, episode_id: 'G9829WW2WW', playlist: playlist) # duration: 1500, has_video: false
+      create(:playlist_item, episode_id: 'Q8MP4RXRJW', playlist: playlist) # duration: has_video: true 20220727時点
+      create(:playlist_item, episode_id: 'G9829WW2WW', playlist: playlist) # has_video: false
     end
 
     it do
       VCR.use_cassette('models/playlist_item_attributes_spec/playable_total_time') do
-        expect(playlist.reload.playable_total_time).to eq(300)
+        expect(playlist.reload.playable_total_time).to eq(3000.0)
       end
     end
   end

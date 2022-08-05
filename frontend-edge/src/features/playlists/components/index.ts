@@ -1,5 +1,5 @@
 export * from './ArticleModeSwitch'
-export * from './PlaylistDrawer'
+export * from './DeletePlaylist'
 export * from './PlaylistList'
 export * from './PlaylistListItems'
 export * from './PlaylistListItem'
