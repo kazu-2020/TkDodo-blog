@@ -9,10 +9,10 @@ import {
   VStack
 } from '@chakra-ui/react'
 
+import { dummyImageUrl } from '@/utils/image'
 import { Playlist } from '@/types/playlist'
 import { TextCopyBadge } from '@/components/TextCopyBadge'
 import ApiStateBadge from '@/components/ApiStateBadge'
-import { dummyImageUrl } from '@/utils/image'
 
 type Props = {
   playlist: Playlist
