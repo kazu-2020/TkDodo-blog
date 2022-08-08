@@ -12,6 +12,7 @@ import {
 import { Playlist } from '@/types/playlist'
 import { TextCopyBadge } from '@/components/TextCopyBadge'
 import ApiStateBadge from '@/components/ApiStateBadge'
+import { dummyImageUrl } from '@/utils/image'
 
 type Props = {
   playlist: Playlist
@@ -20,11 +21,6 @@ type Props = {
 const ellipsizeUid = (playlist: Playlist): string => {
   const uid = playlist.playlistUId || ''
   return uid.length > 8 ? `${uid.slice(0, 8)}...` : uid
-}
-
-const dummyImageUrl = (dateTime: string, imageType: string) => {
-  const num = Number(new Date(dateTime).getUTCDate() % 10) + 1 || 1
-  return `/dummy/default${num}/default${num}-${imageType}.png`
 }
 
 export const Info = ({ playlist }: Props) => {
