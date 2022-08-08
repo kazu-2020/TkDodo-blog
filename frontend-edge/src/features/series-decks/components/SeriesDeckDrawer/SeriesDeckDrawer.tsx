@@ -1,6 +1,5 @@
 import { RiPencilFill, MdSettings } from 'react-icons/all'
 import {
-  Box,
   Button,
   ButtonGroup,
   Center,
@@ -12,12 +11,12 @@ import {
 } from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'
+import { PlaylistList } from '@/features/series-decks/components/SeriesDeckDrawer/PlaylistList'
+import { Info } from '@/features/series-decks/components/SeriesDeckDrawer/Info'
+import DeleteSeriesDeck from '@/features/series-decks/components/DeleteSeriesDeck'
 import Link from '@/components/Link'
-import ApiStateBadge from '@/components/ApiStateBadge'
 
-import DeleteSeriesDeck from './DeleteSeriesDeck'
-
-const SeriesDeckList = ({
+export const SeriesDeckDrawer = ({
   seriesDeck,
   isOpen,
   onClose
@@ -33,11 +32,8 @@ const SeriesDeckList = ({
     blockScrollOnMount={false}
   >
     <DrawerContent>
-      <DrawerBody px={3}>
-        <Box borderWidth={1} borderRadius="sm" p={3}>
-          <Text fontWeight={700}>{seriesDeck.name}</Text>
-          <ApiStateBadge apiState={seriesDeck.apiState} />
-        </Box>
+      <DrawerBody p={0}>
+        <Info seriesDeck={seriesDeck} />
         <Spacer mt={5} />
         <Center>
           <ButtonGroup spacing="6">
@@ -77,8 +73,8 @@ const SeriesDeckList = ({
             />
           </ButtonGroup>
         </Center>
+        <PlaylistList seriesDeck={seriesDeck} />
       </DrawerBody>
     </DrawerContent>
   </Drawer>
 )
-export default SeriesDeckList

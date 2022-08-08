@@ -3,7 +3,7 @@ import { Box, Stack, useDisclosure } from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'
 import SeriesDeckListItem from '@/features/series-decks/components/SeriesDeckListItem'
-import SeriesDeckDrawer from '@/features/series-decks/components/SeriesDeckDrawer'
+import { SeriesDeckDrawer } from '@/features/series-decks/components/SeriesDeckDrawer/SeriesDeckDrawer'
 import { Pagination } from '@/components/Pagination'
 
 type Props = {
