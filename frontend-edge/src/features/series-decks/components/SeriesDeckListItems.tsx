@@ -24,8 +24,6 @@ const SeriesDeckListItems = ({
   >(undefined)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  console.log(items)
-
   return (
     <Stack>
       {totalCount > 0 && (
