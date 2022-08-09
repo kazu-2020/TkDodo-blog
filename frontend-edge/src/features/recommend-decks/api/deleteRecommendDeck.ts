@@ -8,7 +8,7 @@ export const deleteRecommendDeck = ({
   recommendDeckId
 }: {
   recommendDeckId: string
-}) => axios.delete(`/recommend-decks/${recommendDeckId}`)
+}) => axios.delete(`/decks/${recommendDeckId}`)
 
 type UseDeleteRecommendDeckOptions = {
   config?: MutationConfig<typeof deleteRecommendDeck>
