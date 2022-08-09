@@ -12,9 +12,9 @@ import {
 
 import { SeriesDeck } from '@/types/series_deck'
 import { PlaylistList } from '@/features/series-decks/components/SeriesDeckDrawer/PlaylistList'
-import { Info } from '@/features/series-decks/components/SeriesDeckDrawer/Info'
 import DeleteSeriesDeck from '@/features/series-decks/components/DeleteSeriesDeck'
 import Link from '@/components/Link'
+import { Info } from '@/features/series-decks/components/SeriesDeckDrawer/Info'
 
 export const SeriesDeckDrawer = ({
   seriesDeck,
