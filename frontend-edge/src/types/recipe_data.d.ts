@@ -1,4 +1,4 @@
-export interface RecipeData {
+export type RecipeData = {
   name: string
   description: string
   image: Array<string>

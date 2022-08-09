@@ -1,6 +1,6 @@
 import { ImageRole } from '@/types/image_role'
 
-export interface Organization {
+export type Organization = {
   description: string
   detailedNameRuby: string
   image: ImageRole

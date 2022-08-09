@@ -1,4 +1,4 @@
-export interface Citation {
+export type Citation = {
   id: number
   name: string
   url: string
