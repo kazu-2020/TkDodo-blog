@@ -84,9 +84,13 @@
     "jest": "27",
     "jest-extended": "^2.0.0",
     "jsdom": "^20.0.0",
+    "msw-storybook-addon": "^1.6.3",
     "prettier": "^2.7.1",
     "typescript": "^4.7.4",
     "vitest": "^0.20.3"
   },
-  "main": "src/main.tsx"
+  "main": "src/main.tsx",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
