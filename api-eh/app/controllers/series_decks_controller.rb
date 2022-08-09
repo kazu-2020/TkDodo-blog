@@ -7,7 +7,14 @@ class SeriesDecksController < ApplicationController
   DEFAULT_PER = 50
 
   def index
-    @series_decks = SeriesDeck.page(@page).per(@per)
+    query = params[:query] ? SeriesDeck.name_or_admin_memo_like(params[:query]) : SeriesDeck
+    case params[:api_state]
+    when 'open'
+      query = query.api_state_open
+    when 'close'
+      query = query.api_state_close
+    end
+    @series_decks = query.page(@page).per(@per)
   end
 
   def show
