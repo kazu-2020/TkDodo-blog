@@ -1,16 +1,16 @@
 import { Box, HStack, Image, Skeleton, Text, VStack } from '@chakra-ui/react'
 
+import { dummyImageUrl } from '@/utils/image'
 import { RecommendDeck } from '@/types/recommend_deck'
 import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import { usePlaylistItems } from '@/features/recommend-decks/api/getPlaylistItems'
 
-import { dummyImageUrl } from '@/utils/image'
-
 type Props = {
   recommendDeck: RecommendDeck
   playlistItem: Playlist
 }
+
 export const PlaylistListItem = ({ recommendDeck, playlistItem }: Props) => {
   const { data, isLoading, isError, isSuccess } = usePlaylistItems({
     playlistUid: playlistItem.playlistUId,

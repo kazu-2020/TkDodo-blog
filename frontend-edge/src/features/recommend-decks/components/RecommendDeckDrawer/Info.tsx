@@ -1,12 +1,12 @@
 import React from 'react'
 import { Box, Text, useToast, VStack } from '@chakra-ui/react'
 
-import { Deck } from '@/types/deck'
+import { RecommendDeck } from '@/types/recommend_deck'
 import { TextCopyBadge } from '@/components/TextCopyBadge'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
 type Props = {
-  recommendDeck: Deck
+  recommendDeck: RecommendDeck
 }
 
 export const Info = ({ recommendDeck }: Props) => {
