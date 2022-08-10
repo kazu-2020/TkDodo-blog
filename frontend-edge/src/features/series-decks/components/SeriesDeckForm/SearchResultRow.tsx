@@ -20,6 +20,7 @@ export const SearchResultRow = ({
   >
     <GridItem h="8">
       <Button
+        aria-label="追加"
         boxShadow="md"
         h="8"
         w="8"
