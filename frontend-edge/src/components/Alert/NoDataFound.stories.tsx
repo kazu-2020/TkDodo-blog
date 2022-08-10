@@ -1,4 +1,3 @@
-import React from 'react'
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 
 import { NoDataFound } from './NoDataFound'
