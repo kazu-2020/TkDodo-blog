@@ -37,7 +37,7 @@ export const PlaylistList = ({ recommendDeck }: Props) => {
             ?.slice(0, maxPreviewCount)
             ?.map((item: Playlist) => (
               <PlaylistListItem
-                key={item.id}
+                key={item.playlistUId}
                 recommendDeck={recommendDeck}
                 playlistItem={item}
               />

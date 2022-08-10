@@ -27,6 +27,10 @@ export const getPlaylistItems = async (
 }
 
 export const usePlaylistItems = (params: Params) =>
-  useQuery(['playlist_items', params], () => getPlaylistItems(params), {
-    enabled: Boolean(params.playlistUid)
-  })
+  useQuery(
+    ['recommend-deck-playlist-items', params],
+    () => getPlaylistItems(params),
+    {
+      enabled: Boolean(params.playlistUid)
+    }
+  )
