@@ -22,6 +22,9 @@ overrides:
       - '*.stories.@(ts|tsx|js|jsx|mjs|cjs)'
     extends:
       - plugin:storybook/recommended
+    rules:
+      react-hooks/rules-of-hooks: off
+      max-lines-per-function: off
 parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaFeatures:
