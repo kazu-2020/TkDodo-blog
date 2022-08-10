@@ -16,7 +16,7 @@ export const getPlaylistItems = async (
 
 export const usePlaylistItems = (playlistUId: string | undefined) =>
   useQuery(
-    ['playlist_items', playlistUId],
+    ['playlist-items', playlistUId],
     () => getPlaylistItems(playlistUId),
     {
       enabled: Boolean(playlistUId)
