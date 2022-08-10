@@ -1,4 +1,4 @@
-import { SeriesPlaylist } from './series_playlist'
+import { Playlist } from './playlist'
 
 export type RecommendDeck = {
   id: string
@@ -9,7 +9,7 @@ export type RecommendDeck = {
   adminMemo?: string
   apiState: 'open' | 'close' | 'waiting'
   playListCount: number
-  playlists: SeriesPlaylist[]
+  playlists: Playlist[]
   dateCreated: string
   dateModified: string
 }
