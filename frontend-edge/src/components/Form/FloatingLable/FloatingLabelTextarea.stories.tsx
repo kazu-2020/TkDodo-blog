@@ -19,7 +19,6 @@ export const Default: ComponentStoryObj<typeof FloatingLabelTextarea & any> = {
     const {
       register,
       formState: { errors }
-      // eslint-disable-next-line react-hooks/rules-of-hooks
     } = useForm<Inputs>()
 
     return (

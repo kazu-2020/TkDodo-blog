@@ -27,19 +27,12 @@ export const Default: ComponentStoryObj<typeof ArrowStep> = {
 }
 
 export const ChangeContent: ComponentStoryObj<typeof ArrowStep> = {
-  // eslint-disable-next-line max-lines-per-function
   render: () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [isSuccessList, setSuccessList] = useState(false)
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [hasErrorList, setErrorList] = useState(false)
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [isSuccessArticle, setSuccessArticle] = useState(false)
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [hasErrorArticle, setErrorArticle] = useState(false)
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [isSuccessSeries, setSuccessSeries] = useState(false)
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [hasErrorSeries, setErrorSeries] = useState(false)
     const steps = [
       {
