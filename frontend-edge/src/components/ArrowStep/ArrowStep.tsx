@@ -24,9 +24,9 @@ export const ArrowStep = ({ items = [], ...props }: Props & StyleProps) => {
   const { currentIndex } = arrowStepContext.state
 
   return (
-    <Flex wrap="nowrap" justify="center" {...props}>
+    <Flex wrap="nowrap" justify="center" {...props} role="tablist">
       {items.map((item, index) => (
-        <Box flex="1" key={item.title}>
+        <Box flex="1" key={item.title} role="tab" aria-label={item.title}>
           <ArrowStepItem
             title={item.title}
             isSuccess={item.isSuccess}
