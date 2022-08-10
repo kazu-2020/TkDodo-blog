@@ -1,6 +1,6 @@
 import { EpisodeData } from './episode_data'
 
-export interface Article {
+export type Article = {
   header?: string
   body?: string
   footer?: string

@@ -1,6 +1,6 @@
 import { ImageObject } from './image_object'
 
-export interface ImageRole {
+export type ImageRole = {
   main?: ImageObject
   medium?: ImageObject
   small?: ImageObject

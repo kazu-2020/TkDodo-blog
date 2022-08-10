@@ -6,7 +6,7 @@ import { EpisodeData } from './episode_data'
 import { Citation } from './citation'
 import { Article } from './article'
 
-export interface Playlist {
+export type Playlist = {
   id?: string
   playlistUId: string
   stringId: string

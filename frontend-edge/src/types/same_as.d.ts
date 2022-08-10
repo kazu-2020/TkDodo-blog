@@ -1,4 +1,4 @@
-export interface SameAs {
+export type SameAs = {
   id: number
   name: string
   url: string

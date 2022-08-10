@@ -1,6 +1,6 @@
 import { ImageHash } from './image_hash'
 
-export interface TvEventData {
+export type TvEventData = {
   name?: string
   image: ImageHash
   startDate?: string

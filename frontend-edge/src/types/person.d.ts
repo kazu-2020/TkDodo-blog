@@ -1,6 +1,6 @@
 import { ImageRole } from './image_role'
 
-export interface Person {
+export type Person = {
   additionalName: string
   characterName: string
   description: string
