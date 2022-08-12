@@ -39,7 +39,7 @@ jobs:
           version: 7
       - uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 16
           cache: 'pnpm'
           cache-dependency-path: frontend-edge/pnpm-lock.yaml
       - run: pnpm install
