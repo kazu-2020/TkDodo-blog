@@ -39,14 +39,14 @@ jobs:
           version: 7
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
-          cache: 'pnpm'
-          cache-dependency-path: frontend-edge/pnpm-lock.yaml
-      - run: pnpm install
+          node-version: 18
+          cache: 'yarn'
+          cache-dependency-path: frontend-edge/yarn.lock
+      - run: yarn install
       - name: Install Playwright
         run: npx playwright install --with-deps
       - name: Run Storybook tests
         run: |
-          export NODE_OPTIONS="--max_old_space_size=4096"
+          export NODE_OPTIONS="--openssl-legacy-provider --max_old_space_size=4096"
           export DEBUG=pw:browser*
           pnpm test-storybook:ci
