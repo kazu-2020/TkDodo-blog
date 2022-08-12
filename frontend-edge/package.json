@@ -16,8 +16,7 @@
     "coverage": "vitest run --coverage",
     "storybook": "start-storybook -p 6006",
     "test-storybook": "test-storybook",
-    "test-storybook:ci": "npx concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"yarn start-storybook -p 6006 --ci\" \"npx wait-on http://localhost:6006 && yarn test-storybook\"",
-    "test-storybook:cix": "npx concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && npx http-server storybook-static --port 6006\" \"npx wait-on http://127.0.0.1:6006 && pnpm test-storybook --maxWorkers=2\"",
+    "test-storybook:ci": "npx concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm start-storybook -p 6006 --ci\" \"npx wait-on http://localhost:6006 && pnpm test-storybook\"",
     "build-storybook": "build-storybook",
     "webstorm-integration": "vitest --watch --reporter=dot --reporter=json --outputFile=.vitest-result.json"
   },
