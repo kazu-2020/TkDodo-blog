@@ -18,7 +18,14 @@ export const seriesDecksHandlers = [
     try {
       const result = db.seriesDeck.getAll()
 
-      return delayedResponse(ctx.json({ series_decks: result }))
+      return delayedResponse(
+        ctx.json({
+          series_decks: result,
+          pagination: {
+            count: result.length
+          }
+        })
+      )
     } catch (error: any) {
       return delayedResponse(
         ctx.status(400),
