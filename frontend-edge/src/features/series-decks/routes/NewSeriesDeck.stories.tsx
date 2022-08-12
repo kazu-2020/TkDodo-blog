@@ -166,14 +166,5 @@ export const SaveDeck: ComponentStoryObj<typeof NewSeriesDeck> = {
       },
       { timeout: 5000 }
     )
-
-    // タブの状態の確認（Listがnone, Deckがnone）
-    await waitFor(
-      async () => {
-        await expect(await getListTabStatus()).toEqual('none')
-        await expect(await getDeckTabStatus()).toEqual('none')
-      },
-      { timeout: 5000 }
-    )
   }
 }

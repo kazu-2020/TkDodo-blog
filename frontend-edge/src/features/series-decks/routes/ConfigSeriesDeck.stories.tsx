@@ -43,7 +43,6 @@ export const EditDeckConfig: ComponentStoryObj<typeof ConfigSeriesDeck> = {
   name: '管理設定編集',
   // eslint-disable-next-line max-statements
   play: async ({ canvasElement }: StoryContext<ReactFramework, unknown>) => {
-    await queryClient.clear()
     await resetDb()
 
     await db.seriesDeck.create(fakeSeriesDeck)
@@ -69,7 +68,6 @@ export const EditDeckConfig: ComponentStoryObj<typeof ConfigSeriesDeck> = {
       { timeout: 5000 }
     )
 
-    await queryClient.clear()
     await resetDb()
   }
 }
