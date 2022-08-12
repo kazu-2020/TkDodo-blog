@@ -36,6 +36,7 @@ export const EditSeriesPlaylistListItem = ({
     >
       <GridItem h="8">
         <Button
+          aria-label="削除"
           boxShadow="md"
           h="8"
           w="8"

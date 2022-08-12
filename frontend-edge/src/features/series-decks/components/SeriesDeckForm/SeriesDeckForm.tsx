@@ -27,18 +27,20 @@ type Props = {
 
 export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
   const formMethods = useSeriesForm(seriesDeck)
-  const { getValues, handleSubmit, trigger } = formMethods
+  const { getValues, handleSubmit, trigger, reset } = formMethods
 
   const {
     setInputValues,
     seriesPlaylists,
     setSeriesPlaylists,
-    hasChangedSeriesPlaylists
+    hasChangedSeriesPlaylists,
+    resetHasChangedSeriesPlaylists
   } = useSeriesDeckFormStore((state) => ({
     setInputValues: state.setInputValues,
     seriesPlaylists: state.seriesPlaylists,
     setSeriesPlaylists: state.setSeriesPlaylists,
-    hasChangedSeriesPlaylists: state.hasChangedSeriesPlaylists
+    hasChangedSeriesPlaylists: state.hasChangedSeriesPlaylists,
+    resetHasChangedSeriesPlaylists: state.resetHasChangedSeriesPlaylists
   }))
 
   useEffect(() => {
@@ -67,6 +69,8 @@ export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
         seriesDeckId: seriesDeck.id
       })
     }
+    resetHasChangedSeriesPlaylists()
+    reset(values)
   }
 
   return (

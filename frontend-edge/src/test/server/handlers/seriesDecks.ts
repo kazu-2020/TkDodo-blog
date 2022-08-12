@@ -14,7 +14,7 @@ type SeriesDeckBody = {
 }
 
 export const seriesDecksHandlers = [
-  rest.get(`http://localhost:8888/series_decks`, (req, res, ctx) => {
+  rest.get(`${API_BASE_URL}/series_decks`, (req, res, ctx) => {
     try {
       const result = db.seriesDeck.getAll()
 

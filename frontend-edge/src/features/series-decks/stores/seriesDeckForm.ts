@@ -8,6 +8,7 @@ type SeriesDeckFormStore = {
   setInputValues: (inputValues: SeriesDeckFormInputs) => void
   seriesPlaylists: SeriesPlaylist[]
   hasChangedSeriesPlaylists: boolean
+  resetHasChangedSeriesPlaylists: () => void
   setSeriesPlaylists: (seriesPlaylists: SeriesPlaylist[]) => void
   addSeriesPlaylist: (seriesPlaylist: SeriesPlaylist) => void
   removeSeriesPlaylist: (id: string) => void
@@ -29,6 +30,8 @@ export const useSeriesDeckFormStore = create<SeriesDeckFormStore>((set) => ({
   setInputValues: (inputValues) => set({ inputValues }),
   seriesPlaylists: [],
   hasChangedSeriesPlaylists: false,
+  resetHasChangedSeriesPlaylists: () =>
+    set({ hasChangedSeriesPlaylists: false }),
   setSeriesPlaylists: (seriesPlaylists) => set({ seriesPlaylists }),
   addSeriesPlaylist: (playlistSearchResult) =>
     set((state) => ({

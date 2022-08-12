@@ -1,5 +1,4 @@
 import React from 'react'
-import { nanoid } from 'nanoid'
 import { Box, Text } from '@chakra-ui/react'
 
 import { SeriesPlaylist } from '@/types/series_playlist'
@@ -68,18 +67,18 @@ export const SearchSeriesPlaylist = () => {
         <Text>検索結果がありませんでした。</Text>
       )}
       {isSearched && !isLoading && data && (
-        <Box>
+        <Box data-testid="series-playlist-search-results">
           <SearchResultHeader searchResultCount={data.pages[0].count} />
 
           {data?.pages.map(({ result }) =>
-            result.map((playlist) => {
+            result?.map((playlist) => {
               if (hasSeriesPlaylist(playlist)) {
                 return null
               }
 
               return (
                 <SearchResultRow
-                  key={nanoid()}
+                  key={playlist.stringId}
                   onClick={() => {
                     addSeriesPlaylist(playlist)
                   }}

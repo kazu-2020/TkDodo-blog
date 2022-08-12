@@ -23,7 +23,7 @@ export const ArrowStepContainer = () => {
 
   const stepItems: StepItem[] = [
     {
-      title: 'リスト (Playlist)',
+      title: 'リスト(Playlist)',
       isSuccess: hasChangedSeriesPlaylists,
       hasError: false
     },

@@ -8,12 +8,14 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions'
   ],
+  staticDirs: ['../public'],
   framework: '@storybook/react',
   core: {
     builder: '@storybook/builder-vite'
   },
   features: {
-    storyStoreV7: true
+    storyStoreV7: true,
+    interactionsDebugger: true
   },
   //https://github.com/storybookjs/builder-vite/issues/85#issuecomment-900831050
   async viteFinal(config, { configType }) {
