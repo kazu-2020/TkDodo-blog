@@ -42,7 +42,7 @@ class EpisodesController < ApplicationController
     result[:faqpage] = data.dig(:faqpage, :count) || 0
     result[:event] = data.dig(:event, :count) || 0
     result[:howto] = data.dig(:howto, :count) || 0
-    # TODO: 別PRでRecipeの件数を取得できるように実装すること
+    # TODO: Recipeの件数を取得できるように実装すること
     render json: result
   end
 
