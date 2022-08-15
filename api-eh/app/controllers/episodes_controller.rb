@@ -27,6 +27,8 @@ class EpisodesController < ApplicationController
   end
 
   def bundle_items
+    return if params[:playlist_id].blank?
+
     playlist = Playlist.find_by(string_id: params[:playlist_id])
     @result = playlist.fetch_sub_types_count(playlist_string_id: params[:playlist_id])
   end
