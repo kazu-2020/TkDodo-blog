@@ -27,23 +27,8 @@ class EpisodesController < ApplicationController
   end
 
   def bundle_items
-    client = PocApiClient.new
-
-    result = { tvepisode: 0, event: 0, howto: 0, faqpage: 0 }
-
-    data =
-      begin
-        client.playlist_ll_bundle(playlist_id: params[:playlist_id])
-      rescue PocApiClient::NotFound
-        {}
-      end
-
-    result[:tvepisode] = data.dig(:tvepisode, :count) || 0
-    result[:faqpage] = data.dig(:faqpage, :count) || 0
-    result[:event] = data.dig(:event, :count) || 0
-    result[:howto] = data.dig(:howto, :count) || 0
-    # TODO: Recipeの件数を取得できるように実装すること
-    render json: result
+    playlist = Playlist.find_by(string_id: params[:playlist_id])
+    @result = playlist.fetch_sub_types_count(playlist_string_id: params[:playlist_id])
   end
 
   def playlists

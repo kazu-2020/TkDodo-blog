@@ -4,6 +4,7 @@
 module PlaylistItemAttributes
   extend ActiveSupport::Concern
   CACHED_DATA_TTL = 3.hour
+  SUB_TYPES = %i[tvepisode event howto faqpage recipe].freeze
 
   included do
     after_save -> { force_fetch_sub_types_count(playlist_items.ids) }
@@ -30,9 +31,9 @@ module PlaylistItemAttributes
     @playable_playlist_items ||= playlist_items.kept.select(&:has_video)
   end
 
-  def faq_page_count(playlist_string_id)
+  def faqpage_count(playlist_string_id)
     res = fetch_sub_types_count(playlist_string_id: playlist_string_id)
-    @faq_page_count ||= res[:faq_page_count]
+    @faqpage_count ||= res[:faqpage_count]
   end
 
   def event_count(playlist_string_id)
@@ -40,19 +41,22 @@ module PlaylistItemAttributes
     @event_count ||= res[:event_count]
   end
 
-  def how_to_count(playlist_string_id)
+  def howto_count(playlist_string_id)
     res = fetch_sub_types_count(playlist_string_id: playlist_string_id)
-    @how_to_count ||= res[:how_to_count]
+    @howto_count ||= res[:howto_count]
   end
 
-  private
+  def tvepisode_count(playlist_string_id)
+    res = fetch_sub_types_count(playlist_string_id: playlist_string_id)
+    @tvepisode_count ||= res[:tvepisode_count]
+  end
 
   def fetch_sub_types_count(force: false, playlist_string_id: '')
     Rails.cache.fetch("#{cache_key_with_version}/fetch_sub_type_count", expires_in: CACHED_DATA_TTL, force: force,
                                                                         skip_nil: true) do
       client = PocApiClient.new
 
-      result = { event_count: 0, how_to_count: 0, faq_page_count: 0 }
+      result = {}
 
       data =
         begin
@@ -61,13 +65,15 @@ module PlaylistItemAttributes
           {}
         end
 
-      result[:faq_page_count] = data.dig(:faqpage, :count) || 0
-      result[:event_count] = data.dig(:event, :count) || 0
-      result[:how_to_count] = data.dig(:howto, :count) || 0
+      SUB_TYPES.each do |sub_type|
+        result["#{sub_type}_count"] = data.dig(sub_type, :count) || 0
+      end
 
-      result
+      result.symbolize_keys
     end
   end
+
+  private
 
   def force_fetch_sub_types_count(playlist_items_ids)
     playlists = Playlist.where(id: playlist_items_ids)
