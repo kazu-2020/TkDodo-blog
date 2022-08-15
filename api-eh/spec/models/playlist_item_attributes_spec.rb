@@ -65,14 +65,14 @@ describe PlaylistItemAttributes, type: :model do
     end
   end
 
-  describe '#faq_page_count' do
+  describe '#faqpage_count' do
     before do
       create(:playlist_item, episode_id: 'WWXQGK6938', playlist: has_all_subtype_playlist)
     end
 
     it do
       VCR.use_cassette('models/playlist_item_attributes_spec/sub_types_count') do
-        expect(has_all_subtype_playlist.faq_page_count(has_all_subtype_playlist.string_id)).to eq(2)
+        expect(has_all_subtype_playlist.faqpage_count(has_all_subtype_playlist.string_id)).to eq(2)
       end
     end
   end
@@ -89,14 +89,26 @@ describe PlaylistItemAttributes, type: :model do
     end
   end
 
-  describe '#how_to_count' do
+  describe '#howto_count' do
     before do
       create(:playlist_item, episode_id: 'WWXQGK6938', playlist: has_all_subtype_playlist)
     end
 
     it do
       VCR.use_cassette('models/playlist_item_attributes_spec/sub_types_count') do
-        expect(has_all_subtype_playlist.reload.how_to_count(has_all_subtype_playlist.string_id)).to eq(7)
+        expect(has_all_subtype_playlist.reload.howto_count(has_all_subtype_playlist.string_id)).to eq(7)
+      end
+    end
+  end
+
+  describe '#tvepisode_count' do
+    before do
+      create(:playlist_item, episode_id: 'WWXQGK6938', playlist: has_all_subtype_playlist)
+    end
+
+    it do
+      VCR.use_cassette('models/playlist_item_attributes_spec/tvepisode_count') do
+        expect(has_all_subtype_playlist.reload.tvepisode_count(has_all_subtype_playlist.string_id)).to eq(9)
       end
     end
   end
