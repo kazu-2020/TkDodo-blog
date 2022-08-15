@@ -133,7 +133,7 @@ describe EpisodesController, type: :request do
     before { create(:playlist, id: playlist_id) }
 
     let(:playlist_id) { 52 }
-    let(:playlist_string_id) { 'recommend-tep-0000000052' }# 20220801時点で各エピソードタイプを含むプレイリスト
+    let(:playlist_string_id) { 'recommend-tep-0000000052' } # 20220801時点で各エピソードタイプを含むプレイリスト
     let(:expected_json) do
       {
         'event' => 9,
