@@ -61,6 +61,7 @@ specifiers:
   react-query: ^3.39.1
   react-router-dom: '6'
   snakecase-keys: ^5.4.2
+  storybook-addon-react-router-v6: ^0.1.13
   type-fest: ^2.14.0
   typescript: ^4.7.4
   use-react-router-breadcrumbs: ^3.2.1
@@ -135,6 +136,7 @@ devDependencies:
   jsdom: 20.0.0
   msw-storybook-addon: 1.6.3_biqbaboplfbrettd7655fr4n2y
   prettier: 2.7.1
+  storybook-addon-react-router-v6: 0.1.13_lrzw4la7yuvtfocpv5pang77wq
   typescript: 4.7.4
   vitest: 0.20.3_edqbg33yzmsudzf7hdqef43oo4
 
@@ -9605,7 +9607,6 @@ packages:
     resolution: {integrity: sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==}
     dependencies:
       '@babel/runtime': 7.18.6
-    dev: false
 
   /hmac-drbg/1.0.1:
     resolution: {integrity: sha512-Tti3gMqLdZfhOQY1Mzf/AanLiqh1WTiJgEj26ZuYQ9fbkLomzGchCws4FyrSd4VkpBfiNhaE1On+lOz894jvXg==}
@@ -13188,7 +13189,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-router: 6.3.0_react@18.2.0
-    dev: false
 
   /react-router/6.3.0_react@18.2.0:
     resolution: {integrity: sha512-7Wh1DzVQ+tlFjkeo+ujvjSqSJmkt1+8JO+T5xklPlgrh70y7ogx75ODRW0ThWhY7S+6yEDks8TYrtQe/aoboBQ==}
@@ -13197,7 +13197,6 @@ packages:
     dependencies:
       history: 5.3.0
       react: 18.2.0
-    dev: false
 
   /react-style-singleton/2.2.1_luyos4mouogwq6z3wafb3re4ce:
     resolution: {integrity: sha512-ZWj0fHEMyWkHzKYUr2Bs/4zU6XLmq9HsgBURm7g5pAVfyn49DgUiNgY2d4lXRlYSiCif9YBGpQleewkcqddc7g==}
@@ -14070,6 +14069,30 @@ packages:
 
   /store2/2.13.2:
     resolution: {integrity: sha512-CMtO2Uneg3SAz/d6fZ/6qbqqQHi2ynq6/KzMD/26gTkiEShCcpqFfTHgOxsE0egAq6SX3FmN4CeSqn8BzXQkJg==}
+
+  /storybook-addon-react-router-v6/0.1.13_lrzw4la7yuvtfocpv5pang77wq:
+    resolution: {integrity: sha512-yC7f8HnEi9+8/ei/beoBF4+8ydH2BpcT8UOlCdQWyu1zNeRyKQsRWSUOztPCcVlfWdUa3R5PLCm5cVC0ymtoXg==}
+    peerDependencies:
+      '@storybook/addons': ^6.4.0
+      '@storybook/api': ^6.4.0
+      '@storybook/components': ^6.4.0
+      '@storybook/core-events': ^6.4.0
+      '@storybook/theming': ^6.4.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-router: ^6.3.0
+      react-router-dom: ^6.3.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-inspector: 5.1.1_react@18.2.0
+      react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
+    dev: true
 
   /stream-browserify/2.0.2:
     resolution: {integrity: sha512-nX6hmklHs/gr2FuxYDltq8fJA1GDlxKQCz8O/IM4atRqBH8OORmBNgfvW5gG10GT/qQ9u0CzIvr2X5Pkt6ntqg==}

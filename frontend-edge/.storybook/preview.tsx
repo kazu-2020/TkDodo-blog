@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../src/lib/theme'
-import { MemoryRouter } from 'react-router-dom'
+import { withRouter } from 'storybook-addon-react-router-v6'
 
 import { initialize, mswDecorator } from 'msw-storybook-addon'
 
@@ -23,12 +23,10 @@ const withChakra = (StoryFn: Function) => {
   return (
     <ChakraProvider theme={theme}>
       <div id="story-wrapper">
-        <MemoryRouter initialEntries={['/playlists/new']}>
-          <StoryFn />
-        </MemoryRouter>
+        <StoryFn />
       </div>
     </ChakraProvider>
   )
 }
 
-export const decorators = [withChakra, mswDecorator]
+export const decorators = [withRouter, withChakra, mswDecorator]
