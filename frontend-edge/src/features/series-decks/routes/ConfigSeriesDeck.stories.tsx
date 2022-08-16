@@ -32,7 +32,7 @@ const Default: ComponentStoryObj<typeof ConfigSeriesDeck> = {
       handlers
     },
     reactRouter: {
-      routePath: '/series-decks/:seriesDeckId',
+      routePath: '/series-decks/:seriesDeckId/config',
       routeParams: { seriesDeckId: fakeSeriesDeck.id }
     }
   }

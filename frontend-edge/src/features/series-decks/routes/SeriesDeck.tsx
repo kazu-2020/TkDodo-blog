@@ -16,7 +16,9 @@ const SeriesDeck = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
 
-    breadcrumbDispatch({ name: data?.name ?? '' })
+    if (typeof breadcrumbDispatch === 'function') {
+      breadcrumbDispatch({ name: data?.name ?? '' })
+    }
   }, [breadcrumbDispatch, data])
 
   if (isLoading) {
