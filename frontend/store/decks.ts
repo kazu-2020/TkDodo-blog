@@ -50,19 +50,30 @@ export const actions = actionTree(
   { state, getters, mutations },
   {
     async fetchDecks({ commit }, { page, apiState, query }) {
-      let url = `/decks?page=${page}&api_state=${apiState}`
-      if (query) {
-        url += `&query=${query}`
-      }
+      const url = `/decks`
 
-      await this.$axios.get(url).then((response) => {
-        commit('setDecks', { decks: response.data.decks })
-        commit('setPagination', { pagination: response.data.pagination })
-      })
-    },
-    async fetchDeck({ commit, dispatch }, targetId) {
       await this.$axios
-        .get(`/decks/${targetId}?with_episode_count=1`)
+        .get(url, {
+          params: {
+            page,
+            api_state: apiState,
+            query,
+          },
+        })
+        .then((response) => {
+          commit('setDecks', { decks: response.data.decks })
+          commit('setPagination', { pagination: response.data.pagination })
+        })
+    },
+    async fetchDeck({ commit, dispatch }, { targetId, withEpisodeCount }) {
+      const url = `/decks/${targetId}`
+
+      await this.$axios
+        .get(url, {
+          params: {
+            with_episode_count: withEpisodeCount,
+          },
+        })
         .then((response) => {
           commit('setEditingDeck', { deck: response.data.deck })
           dispatch('sameAs/updateAll', response.data.deck.sameAs, {
@@ -71,11 +82,12 @@ export const actions = actionTree(
         })
     },
     async fetchSeriesDecks({ commit }, { page, withSubtypeItemCount }) {
-      const url = `/series_decks?page=${page}`
+      const url = '/series_decks'
 
       await this.$axios
         .get(url, {
           params: {
+            page,
             with_subtype_item_count: withSubtypeItemCount,
           },
         })

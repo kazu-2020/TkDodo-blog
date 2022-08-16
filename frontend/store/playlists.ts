@@ -72,7 +72,12 @@ export const actions = actionTree(
     },
     async fetchD5Playlists({ commit }, payloads) {
       await this.$axios
-        .get(`/playlists?area=${payloads.area}&page=${payloads.page}`)
+        .get('/playlists', {
+          params: {
+            area: payloads.area,
+            page: payloads.page,
+          },
+        })
         .then((response) => {
           commit('setPlaylists', { playlists: response.data.playlists })
           commit('setPagination', { pagination: response.data.pagination })
