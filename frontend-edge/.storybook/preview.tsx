@@ -1,6 +1,13 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../src/lib/theme'
-import {MemoryRouter} from 'react-router-dom'
+import { withRouter } from 'storybook-addon-react-router-v6'
+
+import { initialize, mswDecorator } from 'msw-storybook-addon'
+
+// Initialize MSW
+initialize({
+  onUnhandledRequest: 'bypass' // MSWに処理されないリクエストをバイパスする
+})
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -16,12 +23,10 @@ const withChakra = (StoryFn: Function) => {
   return (
     <ChakraProvider theme={theme}>
       <div id="story-wrapper">
-        <MemoryRouter initialEntries={['/playlists/new']}>
-          <StoryFn />
-        </MemoryRouter>
+        <StoryFn />
       </div>
     </ChakraProvider>
   )
 }
 
-export const decorators = [withChakra]
+export const decorators = [withRouter, withChakra, mswDecorator]

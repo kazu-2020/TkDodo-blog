@@ -91,8 +91,16 @@ export const ArrowStepItem = ({
       ...(isCurrent ? currentStepAfterStyle : {})
     }}
   >
-    {hasError && <Text sx={errorBadgeStyle}>●</Text>}
-    {!hasError && isSuccess && <Text sx={successBadgeStyle}>●</Text>}
+    {hasError && (
+      <Text sx={errorBadgeStyle} role="status" aria-label="error">
+        ●
+      </Text>
+    )}
+    {!hasError && isSuccess && (
+      <Text sx={successBadgeStyle} role="status" aria-label="success">
+        ●
+      </Text>
+    )}
     <Text sx={labelStyle}>{title}</Text>
   </Flex>
 )

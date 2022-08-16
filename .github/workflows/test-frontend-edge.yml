@@ -8,11 +8,12 @@ on:
 
 jobs:
   lint-and-test:
-      env:
+    defaults:
+      run:
         working-directory: ./frontend-edge
-      runs-on: ubuntu-latest
-      timeout-minutes: 10
-      steps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2.2.2
         with:
@@ -23,8 +24,30 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: frontend-edge/pnpm-lock.yaml
       - run: pnpm install
-        working-directory: ${{env.working-directory}}
       - run: pnpm lint
-        working-directory: ${{env.working-directory}}
       - run: pnpm test run
-        working-directory: ${{env.working-directory}}
+# CIで動作しないので一旦コメントアウト https://github.com/storybookjs/test-runner/releases のv0.6.0リリースされたら再度試してみる
+#  storybook:
+#    defaults:
+#      run:
+#        working-directory: ./frontend-edge
+#    runs-on: ubuntu-latest
+#    timeout-minutes: 10
+#    steps:
+#      - uses: actions/checkout@v3
+#      - uses: pnpm/action-setup@v2.2.2
+#        with:
+#          version: 7
+#      - uses: actions/setup-node@v3
+#        with:
+#          node-version: 18
+#          cache: 'pnpm'
+#          cache-dependency-path: frontend-edge/pnpm-lock.yaml
+#      - run: pnpm install
+#      - name: Install Playwright
+#        run: npx playwright install --with-deps
+#      - name: Run Storybook tests
+#        run: |
+#          export NODE_OPTIONS="--openssl-legacy-provider --max_old_space_size=4096"
+#          export DEBUG=pw:browser*
+#          pnpm test-storybook:ci

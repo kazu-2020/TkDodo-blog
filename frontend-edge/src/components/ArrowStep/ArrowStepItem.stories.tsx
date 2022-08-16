@@ -1,21 +1,18 @@
 import React from 'react'
-import { ComponentStory } from '@storybook/react'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 
 import { ArrowStepItem } from '@/components/ArrowStep/ArrowStepItem'
 
 export default {
-  title: 'Components/ArrowStep/ArrowStepItem',
   component: ArrowStepItem
-}
+} as ComponentMeta<typeof ArrowStepItem>
 
-const Template: ComponentStory<typeof ArrowStepItem> = (props) => (
-  <ArrowStepItem {...props} />
-)
-
-export const Default = Template.bind({})
-Default.args = {
-  title: 'ここにラベルがはいります',
-  isCurrent: false,
-  isSuccess: false,
-  hasError: false
+export const Default: ComponentStoryObj<typeof ArrowStepItem> = {
+  render: (args) => <ArrowStepItem {...args} />,
+  args: {
+    title: 'ここにラベルがはいります',
+    isCurrent: false,
+    isSuccess: false,
+    hasError: false
+  }
 }

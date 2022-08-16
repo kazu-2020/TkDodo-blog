@@ -14,11 +14,18 @@ type SeriesDeckBody = {
 }
 
 export const seriesDecksHandlers = [
-  rest.get(`http://localhost:8888/series_decks`, (req, res, ctx) => {
+  rest.get(`${API_BASE_URL}/series_decks`, (req, res, ctx) => {
     try {
       const result = db.seriesDeck.getAll()
 
-      return delayedResponse(ctx.json({ series_decks: result }))
+      return delayedResponse(
+        ctx.json({
+          series_decks: result,
+          pagination: {
+            count: result.length
+          }
+        })
+      )
     } catch (error: any) {
       return delayedResponse(
         ctx.status(400),
@@ -37,7 +44,7 @@ export const seriesDecksHandlers = [
           }
         }
       })
-      return delayedResponse(ctx.json(result))
+      return delayedResponse(ctx.json({ deck: result }))
     } catch (error: any) {
       return delayedResponse(
         ctx.status(400),
@@ -81,7 +88,7 @@ export const seriesDecksHandlers = [
           data
         })
         persistDb('seriesDeck')
-        return delayedResponse(ctx.json(result))
+        return delayedResponse(ctx.json({ deck: result }))
       } catch (error: any) {
         return delayedResponse(
           ctx.status(400),

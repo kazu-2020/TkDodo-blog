@@ -1,4 +1,4 @@
-export interface PlaylistStyle {
+export type PlaylistStyle = {
   selectedPalette: string
   primaryLight: string
   primaryDark: string

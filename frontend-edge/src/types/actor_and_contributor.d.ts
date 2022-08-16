@@ -1,6 +1,6 @@
 import { Role } from './role'
 
-export interface ActorAndContributor {
+export type ActorAndContributor = {
   actor?: Array<Role>
   contributor?: Array<Role>
 }

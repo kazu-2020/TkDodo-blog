@@ -58,7 +58,7 @@ export const EditSeriesPlaylist = () => {
 
   // @ts-ignore
   return (
-    <Box mb={10}>
+    <Box mb={10} data-testid="edit-series-playlist">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}

@@ -6,14 +6,17 @@ module.exports = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/addon-interactions'
+    '@storybook/addon-interactions',
+    'storybook-addon-react-router-v6'
   ],
+  staticDirs: ['../public'],
   framework: '@storybook/react',
   core: {
     builder: '@storybook/builder-vite'
   },
   features: {
-    storyStoreV7: true
+    storyStoreV7: true,
+    interactionsDebugger: true
   },
   //https://github.com/storybookjs/builder-vite/issues/85#issuecomment-900831050
   async viteFinal(config, { configType }) {

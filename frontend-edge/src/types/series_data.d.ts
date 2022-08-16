@@ -1,6 +1,6 @@
 import { EpisodeData } from './episode_data'
 
-export interface SeriesStyle {
+export type SeriesStyle = {
   textLight?: string
   textDark?: string
   linkLight?: string
@@ -9,7 +9,7 @@ export interface SeriesStyle {
   primaryDark?: string
 }
 
-export interface SeriesData {
+export type SeriesData = {
   style: SeriesStyle
   episodes: Array<EpisodeData>
 }

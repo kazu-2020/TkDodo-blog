@@ -27,6 +27,7 @@ export const SearchTextInput = ({
         <SearchIcon color="gray.300" />
       </InputLeftElement>
       <Input
+        data-testid="search-text-input"
         bg="white"
         type="text"
         value={text}

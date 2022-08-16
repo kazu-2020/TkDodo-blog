@@ -1,10 +1,9 @@
 import React from 'react'
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 
 import { APIStatusSelect } from './APIStatusSelect'
 
 export default {
-  title: 'Components/APIStatusSelect',
   component: APIStatusSelect,
   argTypes: {
     defaultValue: {
@@ -14,12 +13,10 @@ export default {
   }
 } as ComponentMeta<typeof APIStatusSelect>
 
-const Template: ComponentStory<typeof APIStatusSelect> = (props) => (
-  <APIStatusSelect {...props} />
-)
-
-export const Default = Template.bind({})
-Default.args = {
-  defaultValue: 'open',
-  onChange: () => {}
+export const Default: ComponentStoryObj<typeof APIStatusSelect> = {
+  render: (args) => <APIStatusSelect {...args} />,
+  args: {
+    defaultValue: 'open',
+    onChange: () => {}
+  }
 }

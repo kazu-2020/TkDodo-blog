@@ -20,7 +20,7 @@ export const usePlaylistActorsAndContributors = (
   playlistUId: string | undefined
 ) =>
   useQuery(
-    ['actors_and_contributors', playlistUId],
+    ['actors-and-contributors', playlistUId],
     () => getPlaylistActorsAndContributors(playlistUId),
     {
       enabled: Boolean(playlistUId)

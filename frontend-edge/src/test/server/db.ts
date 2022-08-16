@@ -10,6 +10,18 @@ const models = {
     apiState: String,
     stringId: String,
     adminMemo: String
+  },
+  seriesPlaylist: {
+    id: primaryKey(String),
+    stringId: String,
+    seriesId: String,
+    name: String,
+    logo: String,
+    videos: String,
+    itemNum: Number,
+    howToCount: Number,
+    eventCount: Number,
+    faqPageCount: Number
   }
 }
 

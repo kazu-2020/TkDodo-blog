@@ -1,25 +1,25 @@
 import { ImageHash } from './image_hash'
 
-export interface PartOfSeries {
+export type PartOfSeries = {
   name: string
   eyecatch?: ImageHash
 }
 
-export interface IdentifierGroup {
+export type IdentifierGroup = {
   shortenedDisplayName: string
 }
 
-export interface PublishedOn {
+export type PublishedOn = {
   identifierGroup: IdentifierGroup
   images: ImageHash
 }
 
-export interface EventData {
+export type EventData = {
   startDate: string
   publishedOn: PublishedOn
 }
 
-export interface EpisodeData {
+export type EpisodeData = {
   id?: string
   name?: string
   description?: string

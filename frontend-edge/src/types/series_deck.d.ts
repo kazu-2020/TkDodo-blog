@@ -8,5 +8,8 @@ export type SeriesDeck = {
   stringId: string
   adminMemo?: string
   apiState: 'open' | 'close' | 'waiting'
+  playlistCount: number
   playlists: SeriesPlaylist[]
+  dateCreated: string
+  dateModified: string
 }
