@@ -26,13 +26,6 @@ class EpisodesController < ApplicationController
     @result = client.episode_l_bundle(type: 'tv', episode_id: params[:id], query: { size: 10 })
   end
 
-  def bundle_items
-    return if params[:playlist_id].blank?
-
-    playlist = Playlist.find_by(string_id: params[:playlist_id])
-    @result = playlist.fetch_sub_types_count(playlist_string_id: params[:playlist_id])
-  end
-
   def playlists
     playlist_ids = PlaylistItem.where(episode_id: params[:id]).kept.pluck(:playlist_id).uniq
     @playlists = Playlist.where(id: playlist_ids)

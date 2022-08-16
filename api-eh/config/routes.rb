@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     collection do
       post :upload_article_image_by_url
       post :upload_article_image_by_file
+      get :bundle_items
     end
 
     member do
@@ -47,7 +48,6 @@ Rails.application.routes.draw do
   resources :episodes, only: [], format: 'json' do
     collection do
       get :search
-      get :bundle_items
     end
 
     member do

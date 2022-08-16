@@ -616,7 +616,7 @@ export default Vue.extend({
   methods: {
     fetchBundleItemCount() {
       this.$axios
-        .get(`/episodes/bundle_items`, {
+        .get(`/playlists/bundle_items`, {
           params: { playlist_id: this.$props.playlist.stringId },
         })
         .then((res) => {

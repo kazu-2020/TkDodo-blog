@@ -128,28 +128,4 @@ describe EpisodesController, type: :request do
       end
     end
   end
-
-  describe 'GET #bundle_items' do
-    before { create(:playlist, id: playlist_id) }
-
-    let(:playlist_id) { 52 }
-    let(:playlist_string_id) { 'recommend-tep-0000000052' } # 20220801時点で各エピソードタイプを含むプレイリスト
-    let(:expected_json) do
-      {
-        'event' => 9,
-        'faqpage' => 2,
-        'howto' => 7,
-        'tvepisode' => 9
-        # TODO: Recipeを追加すること
-      }
-    end
-
-    it '各Subtypeのカウントが取得できること' do
-      VCR.use_cassette('requests/episode_spec/bundle_items') do
-        get bundle_items_episodes_path(playlist_id: playlist_string_id)
-        expect(response.status).to eq 200
-        expect(JSON.parse(response.body)).to eq expected_json
-      end
-    end
-  end
 end
