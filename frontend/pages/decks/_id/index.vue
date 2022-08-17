@@ -155,11 +155,17 @@ export default Vue.extend({
   },
   mixins: [unloadAlertMixin],
   async asyncData({ store, params, error }) {
-    await store.dispatch('decks/fetchDeck', params.id).catch((e) => {
-      if (e.response.status === 404) {
-        error({ statusCode: 404, message: e.response.data.messages })
-      }
-    })
+    const withEpisodeCount = 1 // このフラグを指定すると、エピソード数を取得する
+    await store
+      .dispatch('decks/fetchDeck', {
+        targetId: params.id,
+        withEpisodeCount,
+      })
+      .catch((e) => {
+        if (e.response.status === 404) {
+          error({ statusCode: 404, message: e.response.data.messages })
+        }
+      })
   },
   data(): DataType {
     return {

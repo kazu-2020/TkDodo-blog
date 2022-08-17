@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 describe EpisodesController, type: :request do
-  let!(:search_params) { { contents_type: contents } }
-
   describe 'GET #search' do
+    let!(:search_params) { { contents_type: contents } }
+
     before { create(:playlist_item) }
 
     context 'エピソード検索の場合' do

@@ -26,29 +26,6 @@ class EpisodesController < ApplicationController
     @result = client.episode_l_bundle(type: 'tv', episode_id: params[:id], query: { size: 10 })
   end
 
-  def bundle_items # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
-    episode_ids = (params[:episode_ids] || '').split(',')
-    client = DlabApiClient.new
-
-    result = { tvepisode: 0, event: 0, howto: 0, faqpage: 0 }
-
-    episode_ids.each do |episode_id|
-      data =
-        begin
-          client.episode_list_bundle(type: 'tv', episode_id: episode_id)
-        rescue DlabApiClient::NotFound
-          {}
-        end
-
-      result[:tvepisode] += data.dig(:tvepisode, :count) || 0
-      result[:faqpage] += data.dig(:faqpage, :count) || 0
-      result[:event] += data.dig(:event, :count) || 0
-      result[:howto] += data.dig(:howto, :count) || 0
-    end
-
-    render json: result
-  end
-
   def playlists
     playlist_ids = PlaylistItem.where(episode_id: params[:id]).kept.pluck(:playlist_id).uniq
     @playlists = Playlist.where(id: playlist_ids)

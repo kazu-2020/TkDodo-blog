@@ -66,12 +66,6 @@ if params[:with_episode_count].present?
   json.playableItemsCount playlist.playable_playlist_items_count(playlist.string_id)
 end
 
-if params[:with_subtype_item_count].present?
-  json.howToCount playlist.how_to_count
-  json.faqPageCount playlist.faq_page_count
-  json.eventCount playlist.event_count
-end
-
 json.layoutPattern playlist.layout_pattern
 json.datePublished playlist.published_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
 

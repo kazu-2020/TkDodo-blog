@@ -21,7 +21,7 @@ http_interactions:
       connection:
       - keep-alive
       date:
-      - Wed, 03 Aug 2022 00:58:40 GMT
+      - Tue, 16 Aug 2022 06:47:59 GMT
       content-security-policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -56,19 +56,19 @@ http_interactions:
       cache-control:
       - max-age=30
       commit-hash:
-      - '"9ba102f"'
+      - '"cd9aa19"'
       etag:
       - '"107-By0rLSLRoMyTes13ahNmy7gYj8Y"'
       x-cache:
       - Miss from cloudfront
       via:
-      - 1.1 d8c928873f156b774d8672a0fe24a434.cloudfront.net (CloudFront)
+      - 1.1 4ebf5c84ac7a630749a7cc9e37f757aa.cloudfront.net (CloudFront)
       x-amz-cf-pop:
       - NRT20-C3
       x-amz-cf-id:
-      - 6Frnzm0QNvAv04GlBUsqrL8lN5GDNwuxAi3Nz2aEuc1_Y0MH7BASjA==
+      - CwqCipfyrCt-FPeQ2skpE7hEv3Q1vD51AY0bvIOTPPlIuJoi11g0vw==
     body:
       encoding: UTF-8
       string: '{"tvepisode":{"active":true,"available":true,"count":9},"event":{"active":true,"available":true,"count":9},"faqpage":{"active":true,"available":true,"count":2},"howto":{"active":true,"available":true,"count":7},"recipe":{"active":true,"available":true,"count":9}}'
-  recorded_at: Wed, 03 Aug 2022 00:58:40 GMT
+  recorded_at: Tue, 16 Aug 2022 06:47:59 GMT
 recorded_with: VCR 6.1.0

@@ -122,9 +122,12 @@ export default Vue.extend({
       this.playlistLoading = true
 
       this.$axios
-        .get(
-          `/playlists?per=1000&with_subtype_item_count=1&with_episode_count=1`
-        )
+        .get(`/playlists`, {
+          params: {
+            per: 1000,
+            with_episode_count: 1,
+          },
+        })
         .then((res) => {
           this.playlists = res.data.playlists
         })
