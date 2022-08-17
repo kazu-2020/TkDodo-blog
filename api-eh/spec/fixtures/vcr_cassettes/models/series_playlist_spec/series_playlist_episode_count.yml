@@ -1,0 +1,74 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://dev-api.nr.nhk.jp/r6/ll/bundle/ts/R7Y6NGLJ6G/types.json?extendedEntities=true&ignoreRange=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '114'
+      connection:
+      - keep-alive
+      date:
+      - Wed, 17 Aug 2022 09:34:49 GMT
+      content-security-policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
+        data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src
+        ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      x-dns-prefetch-control:
+      - 'off'
+      expect-ct:
+      - max-age=0
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-download-options:
+      - noopen
+      x-content-type-options:
+      - nosniff
+      origin-agent-cluster:
+      - "?1"
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - no-referrer
+      x-xss-protection:
+      - '0'
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Authorization
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      cache-control:
+      - max-age=30
+      commit-hash:
+      - '"cd9aa19"'
+      etag:
+      - '"72-vOJfxsvfeFp1K0qWQyw/IPymChI"'
+      x-cache:
+      - Miss from cloudfront
+      via:
+      - 1.1 f10b600ea97ac09e072e022f40ed7078.cloudfront.net (CloudFront)
+      x-amz-cf-pop:
+      - NRT57-P1
+      x-amz-cf-id:
+      - 1i6M09cEhaZxqGm5sdsUIykNiGOVq12xjm-H2ZcbFG1htCxCkcsMVw==
+    body:
+      encoding: UTF-8
+      string: '{"tvepisode":{"count":379},"event":{"count":29},"faqpage":{"count":21},"howto":{"count":31},"recipe":{"count":17}}'
+  recorded_at: Wed, 17 Aug 2022 09:34:49 GMT
+recorded_with: VCR 6.1.0
