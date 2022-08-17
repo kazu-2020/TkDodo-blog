@@ -20,4 +20,5 @@ if params[:with_episode_count]
   json.howToCount playlist.how_to_count
   json.faqPageCount playlist.faq_page_count
   json.eventCount playlist.event_count
+  json.recipeCount playlist.recipe_count
 end
