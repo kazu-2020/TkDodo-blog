@@ -16,11 +16,14 @@ export type PublishedOn = {
 
 export type EventData = {
   startDate: string
+  endDate: string
   publishedOn: PublishedOn
 }
 
+// FIXME: episodeId
 export type EpisodeData = {
   id?: string
+  episodeId: string
   name?: string
   description?: string
   url?: string
