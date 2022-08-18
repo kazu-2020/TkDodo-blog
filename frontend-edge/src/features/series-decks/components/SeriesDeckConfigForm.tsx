@@ -1,11 +1,12 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React from 'react'
-import { Button } from '@chakra-ui/react'
+import { Button, Spacer, Text, VStack } from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'
 import { FloatingLabelInput } from '@/components/Form/FloatingLable'
 
 import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
+import ApiStateBadge from '@/components/ApiStateBadge'
 
 type Inputs = {
   adminMemo: string
@@ -33,13 +34,18 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} data-testid="seriesDeckConfigForm">
-      <FloatingLabelInput
-        id="adminMemo"
-        label="管理メモ"
-        error={errors?.adminMemo}
-        register={register('adminMemo')}
-        mb={10}
-      />
+      <VStack align="flex-start">
+        <Text>公開状態</Text>
+        <ApiStateBadge apiState={seriesDeck.apiState} />
+        <Spacer py={2} />
+        <FloatingLabelInput
+          id="adminMemo"
+          label="管理メモ"
+          error={errors?.adminMemo}
+          register={register('adminMemo')}
+          mb={10}
+        />
+      </VStack>
 
       <Button
         mt={4}

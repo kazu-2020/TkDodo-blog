@@ -35,6 +35,9 @@ const ConfigSeriesDeck = () => {
   return (
     <Box bg="white" p={5} borderRadius="sm">
       <Flex mb={5}>
+        <Text fontSize="xl" fontWeight={500}>
+          {data.name}
+        </Text>
         <Spacer />
         <Link
           px={0}
