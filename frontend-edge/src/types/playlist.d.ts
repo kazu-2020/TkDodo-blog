@@ -1,6 +1,5 @@
 import { SameAs } from './same_as'
 import { Role } from './role'
-import { PlaylistStyle } from './playlist_style'
 import { ImageHash } from './image_hash'
 import { EpisodeData } from './episode_data'
 import { Citation } from './citation'
@@ -22,12 +21,12 @@ export type Playlist = {
   themeGenre: string
   themeGenreName?: string
   selectedPalette: string
-  primaryLightColor: string
-  primaryDarkColor: string
-  textLightColor: string
-  textDarkColor: string
-  linkLightColor: string
-  linkDarkColor: string
+  primaryLight: string
+  primaryDark: string
+  textLight: string
+  textDark: string
+  linkLight: string
+  linkDark: string
   apiState: string
   reservePublishTimeAt: string
   reserveFinishTimeAt: string
@@ -65,5 +64,4 @@ export type Playlist = {
   dateCreated: string
   dateModified: string
   itemNum: number
-  style: PlaylistStyle
 }

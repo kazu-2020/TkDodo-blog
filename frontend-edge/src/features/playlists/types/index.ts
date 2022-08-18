@@ -1,4 +1,4 @@
-export type SeriesDeckFormInputs = {
+export type PlaylistFormInputs = {
   name: string
   interfix: string
   description: string
