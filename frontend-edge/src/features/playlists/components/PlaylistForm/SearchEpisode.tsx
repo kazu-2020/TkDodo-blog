@@ -47,7 +47,7 @@ export const SearchEpisode = () => {
     })
 
   function hasEpisode(episode: EpisodeData) {
-    return episodes.find((ep) => ep.episodeId === episode.episodeId)
+    return episodes.find((ep) => ep.id === episode.id)
   }
 
   return (
@@ -78,7 +78,7 @@ export const SearchEpisode = () => {
 
               return (
                 <SearchResultRow
-                  key={episode.episodeId}
+                  key={episode.id}
                   onClick={() => {
                     addEpisode(episode)
                   }}

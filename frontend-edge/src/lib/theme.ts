@@ -25,6 +25,7 @@ const theme = extendTheme({
     info: '#607d8b',
     success: '#8bc340',
     link: '#009688',
+    lightGray: '#eeeeee',
     disabled: 'rgba(0,0,0,.38)'
   }
 })

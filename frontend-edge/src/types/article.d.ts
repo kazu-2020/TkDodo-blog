@@ -1,8 +1,10 @@
+import { OutputData } from '@editorjs/editorjs'
+
 import { EpisodeData } from './episode_data'
 
 export type Article = {
   header?: string
-  body?: string
+  body?: OutputData
   footer?: string
   plainBody?: string
   markedBody?: string

@@ -40,9 +40,9 @@ export type Playlist = {
   removeEyecatchImage: boolean
   removeHeroImage: boolean
   playableItemsCount?: number
-  howToCount?: number
+  howtoCount?: number
   eventCount?: number
-  faqPageCount?: number
+  faqpageCount?: number
   hasHowTo: boolean
   hasEvent: boolean
   hasFaqPage: boolean
@@ -63,5 +63,5 @@ export type Playlist = {
   publishLevel: string
   dateCreated: string
   dateModified: string
-  itemNum: number
+  tvepisodeCount: number
 }

@@ -1,6 +1,6 @@
 import chroma from 'chroma-js'
 
-export const PALETTE_BASE_COLORS: Array<String> = [
+export const PALETTE_BASE_COLORS: Array<string> = [
   '#faf100',
   '#f6aa00',
   '#ff2800',
