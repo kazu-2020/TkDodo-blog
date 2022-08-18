@@ -43,8 +43,8 @@ export const EditEpisodeList = () => {
     const { active, over } = event
 
     if (active.id !== over?.id) {
-      const oldIndex = episodes.findIndex((ep) => ep.episodeId === active.id)
-      const newIndex = episodes.findIndex((ep) => ep.episodeId === over?.id)
+      const oldIndex = episodes.findIndex((ep) => ep.id === active.id)
+      const newIndex = episodes.findIndex((ep) => ep.id === over?.id)
       const newEpisodes = arrayMove(episodes, oldIndex, newIndex)
       setEpisodes(newEpisodes)
     }
@@ -93,12 +93,12 @@ export const EditEpisodeList = () => {
           </Alert>
         )}
         <SortableContext
-          items={episodes.map((ep) => ep.episodeId)}
+          items={episodes.map((ep) => ep.id)}
           strategy={verticalListSortingStrategy}
         >
           {episodes.map((ep) => (
-            <SortableItem id={ep.episodeId} key={ep.episodeId}>
-              <EditEpisodeListItem key={ep.episodeId} episode={ep} />
+            <SortableItem id={ep.id} key={ep.id}>
+              <EditEpisodeListItem key={ep.id} episode={ep} />
             </SortableItem>
           ))}
         </SortableContext>

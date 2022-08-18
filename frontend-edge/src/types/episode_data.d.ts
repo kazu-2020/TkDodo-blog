@@ -20,11 +20,9 @@ export type EventData = {
   publishedOn: PublishedOn
 }
 
-// FIXME: episodeId
 export type EpisodeData = {
-  id?: string
-  episodeId: string
-  name?: string
+  id: string
+  name: string
   description?: string
   url?: string
   eyecatch?: ImageHash
