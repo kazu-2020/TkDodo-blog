@@ -4,9 +4,9 @@ import { Button, Spacer, Text, VStack } from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'
 import { FloatingLabelInput } from '@/components/Form/FloatingLable'
+import ApiStateBadge from '@/components/ApiStateBadge'
 
 import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
-import ApiStateBadge from '@/components/ApiStateBadge'
 
 type Inputs = {
   adminMemo: string
