@@ -100,7 +100,7 @@ export default Vue.extend({
       return name.length > 24 ? name.slice(0, 24) + '…' : name
     },
     primaryColor(): string {
-      return this.playlist.style.primaryLight
+      return this.playlist.primaryLight
     },
   },
   methods: {

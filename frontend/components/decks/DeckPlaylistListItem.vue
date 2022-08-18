@@ -71,7 +71,7 @@ export default Vue.extend({
       )
     },
     primaryColor(): string {
-      return this.playlist.style.primaryLight
+      return this.playlist.primaryLight
     },
   },
   mounted() {

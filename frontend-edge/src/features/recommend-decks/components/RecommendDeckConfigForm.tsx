@@ -2,41 +2,48 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import React from 'react'
 import { Button, Spacer, Text, VStack } from '@chakra-ui/react'
 
-import { SeriesDeck } from '@/types/series_deck'
+import { RecommendDeck } from '@/types/recommend_deck'
 import { FloatingLabelInput } from '@/components/Form/FloatingLable'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
-import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
+import { useUpdateRecommendDeck } from '../api/updateRecommendDeck'
 
 type Inputs = {
   adminMemo: string
 }
 
-const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
+const RecommendDeckConfigForm = ({
+  recommendDeck
+}: {
+  recommendDeck: RecommendDeck
+}) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
   } = useForm<Inputs>({
     defaultValues: {
-      adminMemo: seriesDeck?.adminMemo
+      adminMemo: recommendDeck?.adminMemo
     }
   })
 
-  const updateSeriesDeckMutation = useUpdateSeriesDeck()
+  const updateRecommendDeckMutation = useUpdateRecommendDeck()
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
-    await updateSeriesDeckMutation.mutateAsync({
+    await updateRecommendDeckMutation.mutateAsync({
       data: { ...values, enableListUpdate: false },
-      seriesDeckId: seriesDeck.id
+      recommendDeckId: recommendDeck.id
     })
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} data-testid="seriesDeckConfigForm">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      data-testid="recommendDeckConfigForm"
+    >
       <VStack align="flex-start">
         <Text>公開状態</Text>
-        <ApiStateBadge apiState={seriesDeck.apiState} />
+        <ApiStateBadge apiState={recommendDeck.apiState} />
         <Spacer py={2} />
         <FloatingLabelInput
           id="adminMemo"
@@ -61,4 +68,4 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
     </form>
   )
 }
-export default SeriesDeckConfigForm
+export default RecommendDeckConfigForm
