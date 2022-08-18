@@ -65,7 +65,7 @@ export const actions = actionTree(
           commit('setPagination', { pagination: response.data.pagination })
         })
     },
-    async fetchDeck({ commit, dispatch }, { targetId, withEpisodeCount }) {
+    async fetchDeck({ commit, dispatch }, { targetId, withEpisodeCount = 0 }) {
       const url = `/decks/${targetId}`
 
       await this.$axios
@@ -81,7 +81,7 @@ export const actions = actionTree(
           })
         })
     },
-    async fetchSeriesDecks({ commit }, { page, withSubtypeItemCount }) {
+    async fetchSeriesDecks({ commit }, { page, withSubtypeItemCount = 0 }) {
       const url = '/series_decks'
 
       await this.$axios
@@ -98,7 +98,7 @@ export const actions = actionTree(
     },
     async fetchSeriesDeck(
       { commit },
-      { targetId, withEpisodeCount, withSubtypeItemCount }
+      { targetId, withEpisodeCount = 0, withSubtypeItemCount = 0 }
     ) {
       const url = `/series_decks/${targetId}`
 
