@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 
-import { Deck as RecommendDeck } from '@/types/deck'
+import { RecommendDeck } from '@/types/recommend_deck'
 import axios from '@/lib/axios'
 
 export const getRecommendDeck = async (
@@ -9,7 +9,7 @@ export const getRecommendDeck = async (
   if (typeof recommendDeckId === undefined) {
     return Promise.reject(new Error('Invalid id'))
   }
-  const res = await axios.get(`recommend_decks/${recommendDeckId}`)
+  const res = await axios.get(`decks/${recommendDeckId}`)
   return res.data.deck
 }
 

@@ -51,11 +51,16 @@ export default Vue.extend({
     DeckApiStateBadge,
   },
   async asyncData({ store, params, error }) {
-    await store.dispatch('decks/fetchDeck', params.id).catch((e) => {
-      if (e.response.status === 404) {
-        error({ statusCode: 404, message: e.response.data.messages })
-      }
-    })
+    await store
+      .dispatch('decks/fetchDeck', {
+        targetId: params.id,
+        withEpisodeCount: 100,
+      })
+      .catch((e) => {
+        if (e.response.status === 404) {
+          error({ statusCode: 404, message: e.response.data.messages })
+        }
+      })
   },
   computed: {
     breadcrumbItems(): Breadcrumb[] {
