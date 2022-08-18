@@ -39,11 +39,11 @@
             {{ playlist.name }}
           </td>
           <td>
-            TVEpisode: {{ countWrapper(playlist.itemNum) }} HowTo:
-            {{ countWrapper(playlist.howToCount) }}
+            TVEpisode: {{ countWrapper(playlist.tvepisodeCount) }} HowTo:
+            {{ countWrapper(playlist.howtoCount) }}
             <br />
             Event: {{ countWrapper(playlist.eventCount) }} FaqPage:
-            {{ countWrapper(playlist.faqPageCount) }}
+            {{ countWrapper(playlist.faqpageCount) }}
           </td>
         </tr>
       </draggable>

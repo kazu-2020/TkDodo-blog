@@ -622,9 +622,9 @@ export default Vue.extend({
         .then((res) => {
           const countData = res.data
           this.episodeCount = countData.tvepisodeCount
-          this.faqPageCount = countData.faqPageCount
+          this.faqPageCount = countData.faqpageCount
           this.eventCount = countData.eventCount
-          this.howToCount = countData.howToCount
+          this.howToCount = countData.howtoCount
         })
     },
     updateSeriesImage(data: { type: string; file: string }) {
