@@ -621,10 +621,10 @@ export default Vue.extend({
         })
         .then((res) => {
           const countData = res.data
-          this.episodeCount = countData.tvepisode
-          this.faqPageCount = countData.faqpage
-          this.eventCount = countData.event
-          this.howToCount = countData.howto
+          this.episodeCount = countData.tvepisodeCount
+          this.faqPageCount = countData.faqPageCount
+          this.eventCount = countData.eventCount
+          this.howToCount = countData.howToCount
         })
     },
     updateSeriesImage(data: { type: string; file: string }) {
