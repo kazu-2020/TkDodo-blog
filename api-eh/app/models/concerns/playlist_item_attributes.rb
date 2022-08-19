@@ -31,9 +31,9 @@ module PlaylistItemAttributes
     @playable_playlist_items ||= playlist_items.kept.select(&:has_video)
   end
 
-  def faq_page_count(playlist_string_id)
+  def faqpage_count(playlist_string_id)
     res = fetch_sub_types_count(playlist_string_id: playlist_string_id)
-    @faq_page_count ||= res[:faqpage_count]
+    @faqpage_count ||= res[:faqpage_count]
   end
 
   def event_count(playlist_string_id)
@@ -41,9 +41,9 @@ module PlaylistItemAttributes
     @event_count ||= res[:event_count]
   end
 
-  def how_to_count(playlist_string_id)
+  def howto_count(playlist_string_id)
     res = fetch_sub_types_count(playlist_string_id: playlist_string_id)
-    @how_to_count ||= res[:howto_count]
+    @howto_count ||= res[:howto_count]
   end
 
   def tvepisode_count(playlist_string_id)
