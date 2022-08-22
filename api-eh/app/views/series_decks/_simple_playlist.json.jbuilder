@@ -16,8 +16,9 @@ end
 json.set_raw! :videos, playlist.videos.to_json
 
 if params[:with_episode_count]
-  json.itemNum playlist.episode_count
-  json.howToCount playlist.how_to_count
-  json.faqPageCount playlist.faq_page_count
+  json.tvepisodeCount playlist.episode_count
+  json.howtoCount playlist.how_to_count
+  json.faqpageCount playlist.faq_page_count
   json.eventCount playlist.event_count
+  json.recipeCount playlist.recipe_count
 end
