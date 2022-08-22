@@ -58,35 +58,46 @@ describe PlaylistItem, type: :model do
       end
     end
 
-    describe '#has_how_to' do
-      let(:playlist_item) { build(:playlist_item, episode_id: playable_episode_id) }
-      let(:playable_episode_id) { 'KZ2MN6PXRJ' }
+    describe '#has_howto' do
+      let(:playlist_item) { build(:playlist_item, episode_id: episode_id) }
+      let(:episode_id) { 'KZ2MN6PXRJ' }
 
       it do
-        VCR.use_cassette("r6/l/bundle/te/#{playable_episode_id}.json?extendedEntities=true&ignoreRange=true") do
-          expect(playlist_item.has_how_to).to be_truthy
+        VCR.use_cassette("r6/l/bundle/te/#{episode_id}.json?extendedEntities=true&ignoreRange=true") do
+          expect(playlist_item.has_howto).to be_truthy
         end
       end
     end
 
     describe '#has_event' do
-      let(:playlist_item) { build(:playlist_item, episode_id: playable_episode_id) }
-      let(:playable_episode_id) { 'XKNVY22PNP' }
+      let(:playlist_item) { build(:playlist_item, episode_id: episode_id) }
+      let(:episode_id) { 'XKNVY22PNP' }
 
       it do
-        VCR.use_cassette("r6/l/bundle/te/#{playable_episode_id}.json?extendedEntities=true&ignoreRange=true") do
+        VCR.use_cassette("r6/l/bundle/te/#{episode_id}.json?extendedEntities=true&ignoreRange=true") do
           expect(playlist_item.has_event).to be_truthy
         end
       end
     end
 
-    describe '#has_faq_page' do
-      let(:playlist_item) { build(:playlist_item, episode_id: playable_episode_id) }
-      let(:playable_episode_id) { 'WWXQGK6938' }
+    describe '#has_faqpage' do
+      let(:playlist_item) { build(:playlist_item, episode_id: episode_id) }
+      let(:episode_id) { 'WWXQGK6938' }
 
       it do
-        VCR.use_cassette("r6/l/bundle/te/#{playable_episode_id}.json?extendedEntities=true&ignoreRange=true") do
-          expect(playlist_item.has_faq_page).to be_truthy
+        VCR.use_cassette("r6/l/bundle/te/#{episode_id}.json?extendedEntities=true&ignoreRange=true") do
+          expect(playlist_item.has_faqpage).to be_truthy
+        end
+      end
+    end
+
+    describe '#has_recipe' do
+      let(:playlist_item) { build(:playlist_item, episode_id: episode_id) }
+      let(:episode_id) { 'Y1GJ9QKGKR' }
+
+      it do
+        VCR.use_cassette("r6/l/bundle/te/#{episode_id}.json?extendedEntities=true&ignoreRange=true") do
+          expect(playlist_item.has_recipe).to be_truthy
         end
       end
     end

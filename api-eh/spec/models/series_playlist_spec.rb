@@ -43,10 +43,10 @@ describe SeriesPlaylist, type: :model do
     end
   end
 
-  describe '#how_to_count' do
+  describe '#howto_count' do
     it 'how to件数が取得できること' do
-      VCR.use_cassette('models/series_playlist_spec/series_playlist_how_to_count') do
-        expect(series_playlist.how_to_count).to eq(31) # 2022/08/17時点
+      VCR.use_cassette('models/series_playlist_spec/series_playlist_howto_count') do
+        expect(series_playlist.howto_count).to eq(31) # 2022/08/17時点
       end
     end
   end
@@ -59,10 +59,10 @@ describe SeriesPlaylist, type: :model do
     end
   end
 
-  describe '#faq_page_count' do
+  describe '#faqpage_count' do
     it 'faq page件数が取得できること' do
-      VCR.use_cassette('models/series_playlist_spec/series_playlist_faq_page_count') do
-        expect(series_playlist.faq_page_count).to eq(21) # 2022/08/17時点
+      VCR.use_cassette('models/series_playlist_spec/series_playlist_faqpage_count') do
+        expect(series_playlist.faqpage_count).to eq(21) # 2022/08/17時点
       end
     end
   end
