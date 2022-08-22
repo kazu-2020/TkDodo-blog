@@ -56,7 +56,7 @@ class PlaylistItem < ApplicationRecord
     end.present?
   end
 
-  def has_how_to
+  def has_howto
     bundle_res = fetch_bundle_data
     (bundle_res[:howto]&.[](:count) || 0).positive?
   end
@@ -66,9 +66,14 @@ class PlaylistItem < ApplicationRecord
     (bundle_res[:event]&.[](:count) || 0).positive?
   end
 
-  def has_faq_page
+  def has_faqpage
     bundle_res = fetch_bundle_data
     (bundle_res[:faqpage]&.[](:count) || 0).positive?
+  end
+
+  def has_recipe
+    bundle_res = fetch_bundle_data
+    (bundle_res[:recipe]&.[](:count) || 0).positive?
   end
 
   private

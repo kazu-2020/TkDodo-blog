@@ -32,7 +32,7 @@ class SeriesPlaylist < ApplicationRecord
     series_types_api_response[:tvepisode]&.[](:count) || 0
   end
 
-  def how_to_count
+  def howto_count
     series_types_api_response[:howto]&.[](:count) || 0
   end
 
@@ -40,7 +40,7 @@ class SeriesPlaylist < ApplicationRecord
     series_types_api_response[:event]&.[](:count) || 0
   end
 
-  def faq_page_count
+  def faqpage_count
     series_types_api_response[:faqpage]&.[](:count) || 0
   end
 
