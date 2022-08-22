@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_29_012809) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_22_083555) do
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", comment: "プレイリストID"
     t.text "image_data"
@@ -78,9 +78,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_29_012809) do
     t.boolean "wikidata_alias"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["uuid"], name: "index_person_organization_globals_on_uuid", unique: true
-    t.index ["viaf_id"], name: "index_person_organization_globals_on_viaf_id", unique: true
-    t.index ["wikidata_id"], name: "index_person_organization_globals_on_wikidata_id", unique: true
+    t.index ["uuid"], name: "index_person_organization_globals_on_uuid"
+    t.index ["viaf_id"], name: "index_person_organization_globals_on_viaf_id"
+    t.index ["wikidata_id"], name: "index_person_organization_globals_on_wikidata_id"
   end
 
   create_table "person_organization_locals", charset: "utf8mb4", force: :cascade do |t|
@@ -165,9 +165,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_29_012809) do
     t.boolean "available_article", default: false, comment: "article が available かどうか"
     t.boolean "active_item_list", default: false, comment: "item_list の入力がアクティブかどうか"
     t.boolean "active_episode", default: true, comment: "episode の入力がアクティブかどうか"
-    t.boolean "active_faq_page", default: false, comment: "faq_page の入力がアクティブかどうか"
+    t.boolean "active_faqpage", default: false, comment: "faqpage の入力がアクティブかどうか"
     t.boolean "active_article", default: false, comment: "article の入力がアクティブかどうか"
-    t.boolean "active_how_to", default: false, comment: "how_to の入力がアクティブかどうか"
+    t.boolean "active_howto", default: false, comment: "howto の入力がアクティブかどうか"
     t.boolean "active_event", default: false, comment: "event の入力がアクティブかどうか"
     t.boolean "active_recipe", default: false, comment: "recipe の入力がアクティブかどうか"
     t.string "author_type", comment: "Person or Organization"
