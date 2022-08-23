@@ -51,6 +51,11 @@ module PlaylistItemAttributes
     @tvepisode_count ||= res[:tvepisode_count]
   end
 
+  def recipe_count(playlist_string_id)
+    res = fetch_sub_types_count(playlist_string_id: playlist_string_id)
+    @recipe_count ||= res[:recipe_count]
+  end
+
   def fetch_sub_types_count(force: false, playlist_string_id: '')
     Rails.cache.fetch("#{cache_key_with_version}/fetch_sub_type_count", expires_in: CACHED_DATA_TTL, force: force,
                                                                         skip_nil: true) do

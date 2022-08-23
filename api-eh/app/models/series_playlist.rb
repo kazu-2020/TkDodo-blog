@@ -44,6 +44,10 @@ class SeriesPlaylist < ApplicationRecord
     series_types_api_response[:faqpage]&.[](:count) || 0
   end
 
+  def recipe_count
+    series_types_api_response[:recipe]&.[](:count) || 0
+  end
+
   private
 
   def client

@@ -317,10 +317,11 @@ describe PlaylistsController, type: :request do
     let(:playlist_string_id) { 'recommend-tep-0000000052' } # 20220801時点で各エピソードタイプを含むプレイリスト
     let(:expected_json) do
       {
-        'event' => 9,
-        'faqpage' => 2,
-        'howto' => 7,
-        'tvepisode' => 9
+        'eventCount' => 9,
+        'faqpageCount' => 2,
+        'howtoCount' => 7,
+        'tvepisodeCount' => 9,
+        'recipeCount' => 9
       }
     end
 

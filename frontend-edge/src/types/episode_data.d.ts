@@ -16,12 +16,13 @@ export type PublishedOn = {
 
 export type EventData = {
   startDate: string
+  endDate: string
   publishedOn: PublishedOn
 }
 
 export type EpisodeData = {
-  id?: string
-  name?: string
+  id: string
+  name: string
   description?: string
   url?: string
   eyecatch?: ImageHash
