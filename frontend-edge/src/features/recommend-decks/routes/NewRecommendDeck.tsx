@@ -1,4 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const NewRecommendDeck = () => <h3>NewRecommendDeck</h3>
+import { RecommendDeckForm } from '@/features/recommend-decks/components/RecommendDeckForm'
+
+const NewRecommendDeck = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  })
+
+  return <RecommendDeckForm />
+}
 export default NewRecommendDeck

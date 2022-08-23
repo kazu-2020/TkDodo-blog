@@ -27,10 +27,13 @@ const requestParams = (data: RecommendDeckParams) => {
   if (Object.hasOwn(data, 'apiState')) {
     const { apiState, ...params } = data
     return {
-      deck: snakecaseKeys({
-        ...params,
-        apiState: data.apiState ? 'open' : 'close'
-      }),
+      deck: snakecaseKeys(
+        {
+          ...params,
+          apiState: data.apiState ? 'open' : 'close'
+        },
+        { exclude: ['_destroy'] }
+      ),
       enable_list_update: data.enableListUpdate ? '1' : ''
     }
   }
