@@ -35,16 +35,16 @@ describe SeriesPlaylist, type: :model do
     end
   end
 
-  describe '#episode_count' do
-    it 'エピソード件数が取得できること' do
+  describe '#tvepisode_count' do
+    it 'tvepisodeの件数が取得できること' do
       VCR.use_cassette('models/series_playlist_spec/series_playlist_episode_count') do
-        expect(series_playlist.episode_count).to eq(379) # 2022/08/17時点
+        expect(series_playlist.tvepisode_count).to eq(379) # 2022/08/17時点
       end
     end
   end
 
   describe '#howto_count' do
-    it 'how to件数が取得できること' do
+    it 'howtoの件数が取得できること' do
       VCR.use_cassette('models/series_playlist_spec/series_playlist_howto_count') do
         expect(series_playlist.howto_count).to eq(31) # 2022/08/17時点
       end
@@ -52,7 +52,7 @@ describe SeriesPlaylist, type: :model do
   end
 
   describe '#event_count' do
-    it 'event件数が取得できること' do
+    it 'eventの件数が取得できること' do
       VCR.use_cassette('models/series_playlist_spec/series_playlist_event_count') do
         expect(series_playlist.event_count).to eq(29) # 2022/08/17時点
       end
@@ -60,7 +60,7 @@ describe SeriesPlaylist, type: :model do
   end
 
   describe '#faqpage_count' do
-    it 'faq page件数が取得できること' do
+    it 'faqpageの件数が取得できること' do
       VCR.use_cassette('models/series_playlist_spec/series_playlist_faqpage_count') do
         expect(series_playlist.faqpage_count).to eq(21) # 2022/08/17時点
       end
@@ -68,7 +68,7 @@ describe SeriesPlaylist, type: :model do
   end
 
   describe '#recipe_count' do
-    it 'レシピの件数が取得できること' do
+    it 'recipeの件数が取得できること' do
       VCR.use_cassette('models/series_playlist_spec/series_playlist_recipe_count') do
         expect(series_playlist.recipe_count).to eq(17) # 2022/08/17時点
       end

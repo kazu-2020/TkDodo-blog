@@ -55,7 +55,7 @@ json.hasEvent playlist.playlist_items.any?(&:has_event)
 json.hasRecipe playlist.playlist_items.any?(&:has_recipe)
 
 json.activeItemList playlist.active_item_list
-json.activeTvepisode playlist.active_episode
+json.activeTvepisode playlist.active_tvepisode
 json.activeFaqpage playlist.active_faqpage
 json.activeArticle playlist.active_article
 json.activeHowto playlist.active_howto

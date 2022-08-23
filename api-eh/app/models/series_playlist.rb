@@ -28,7 +28,7 @@ class SeriesPlaylist < ApplicationRecord
     {}
   end
 
-  def episode_count
+  def tvepisode_count
     series_types_api_response[:tvepisode]&.[](:count) || 0
   end
 

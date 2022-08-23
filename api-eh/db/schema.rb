@@ -164,7 +164,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_22_083555) do
     t.json "editor_data", comment: "editorのjsonデータ"
     t.boolean "available_article", default: false, comment: "article が available かどうか"
     t.boolean "active_item_list", default: false, comment: "item_list の入力がアクティブかどうか"
-    t.boolean "active_episode", default: true, comment: "episode の入力がアクティブかどうか"
+    t.boolean "active_tvepisode", default: true, comment: "tvepisode の入力がアクティブかどうか"
     t.boolean "active_faqpage", default: false, comment: "faqpage の入力がアクティブかどうか"
     t.boolean "active_article", default: false, comment: "article の入力がアクティブかどうか"
     t.boolean "active_howto", default: false, comment: "howto の入力がアクティブかどうか"
