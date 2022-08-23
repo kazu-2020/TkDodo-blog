@@ -14,10 +14,10 @@ FactoryBot.define do
     eyecatch_image_data { ImageData.image_data }
     hero_image_data { ImageData.image_data }
     active_item_list { [true, false].sample }
-    active_episode { [true, false].sample }
-    active_faq_page { [true, false].sample }
+    active_tvepisode { [true, false].sample }
+    active_faqpage { [true, false].sample }
     active_article { [true, false].sample }
-    active_how_to { [true, false].sample }
+    active_howto { [true, false].sample }
     active_event { [true, false].sample }
 
     trait :with_same_as do

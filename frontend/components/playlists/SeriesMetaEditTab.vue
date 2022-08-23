@@ -405,10 +405,10 @@ export default Vue.extend({
       )
     },
     hasHowTo(): boolean {
-      return this.playlist.hasHowTo
+      return this.playlist.hasHowto
     },
     hasFaqPage(): boolean {
-      return this.playlist.hasFaqPage
+      return this.playlist.hasFaqpage
     },
     hasEvent(): boolean {
       return this.playlist.hasEvent

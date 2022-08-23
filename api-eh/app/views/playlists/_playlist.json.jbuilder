@@ -49,15 +49,18 @@ json.publishLevel playlist.publish_level
 if params[:with_episode_count].present?
   json.playableItemsCount playlist.playable_playlist_items_count(playlist.string_id)
 end
-json.hasHowTo playlist.playlist_items.any?(&:has_how_to)
+json.hasHowto playlist.playlist_items.any?(&:has_howto)
+json.hasFaqpage playlist.playlist_items.any?(&:has_faqpage)
 json.hasEvent playlist.playlist_items.any?(&:has_event)
-json.hasFaqPage playlist.playlist_items.any?(&:has_faq_page)
+json.hasRecipe playlist.playlist_items.any?(&:has_recipe)
+
 json.activeItemList playlist.active_item_list
-json.activeEpisode playlist.active_episode
-json.activeFaqPage playlist.active_faq_page
+json.activeTvepisode playlist.active_tvepisode
+json.activeFaqpage playlist.active_faqpage
 json.activeArticle playlist.active_article
-json.activeHowTo playlist.active_how_to
+json.activeHowto playlist.active_howto
 json.activeEvent playlist.active_event
+json.activeRecipe playlist.active_recipe
 
 json.article do
   json.header playlist.marked_header
