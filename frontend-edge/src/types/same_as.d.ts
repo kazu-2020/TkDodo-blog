@@ -1,5 +1,5 @@
 export type SameAs = {
-  id: number
+  id?: number
   name: string
   url: string
   _destroy: number
