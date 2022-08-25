@@ -1,4 +1,4 @@
-import { HiOutlineMinus } from 'react-icons/all'
+import { HiOutlinePlus } from 'react-icons/all'
 import React from 'react'
 import {
   Button,
@@ -12,17 +12,18 @@ import {
 import { Icon } from '@chakra-ui/icons'
 
 import { RecommendPlaylist } from '@/types/recommend_playlist'
-import { useRecommendDeckFormStore } from '@/features/recommend-decks/stores/recommendDeckForm'
 
-export const EditRecommendPlaylistListItem = ({
-  playlist
-}: {
+type Props = {
   playlist: RecommendPlaylist
-}) => {
-  const removeRecommendPlaylist = useRecommendDeckFormStore(
-    (state) => state.removeRecommendPlaylist
-  )
+  onClick: () => void
+  hasRecommendPlaylist: boolean
+}
 
+export const RecommendPlaylistListItem = ({
+  playlist,
+  onClick,
+  hasRecommendPlaylist
+}: Props) => {
   const logoImage =
     playlist.logo?.medium?.url ?? '/public/dummy/default1/default1-logo.png'
 
@@ -37,22 +38,23 @@ export const EditRecommendPlaylistListItem = ({
       p={2}
     >
       <GridItem colSpan={2} h={8} textAlign="center">
-        <Button
-          aria-label="削除"
-          boxShadow="md"
-          h="8"
-          w="8"
-          minW="8"
-          colorScheme="orange"
-          bg="accent"
-          color="black"
-          borderRadius="sm"
-          onClick={() => {
-            removeRecommendPlaylist(playlist.playlistUId)
-          }}
-        >
-          <Icon as={HiOutlineMinus} />
-        </Button>
+        {hasRecommendPlaylist && <Center h="100%">追加済み</Center>}
+        {!hasRecommendPlaylist && (
+          <Button
+            aria-label="追加"
+            boxShadow="md"
+            h="8"
+            w="8"
+            minW="8"
+            colorScheme="orange"
+            bg="accent"
+            color="black"
+            borderRadius="sm"
+            onClick={onClick}
+          >
+            <Icon as={HiOutlinePlus} />
+          </Button>
+        )}
       </GridItem>
       <GridItem colSpan={8} h={8}>
         <HStack>
@@ -61,7 +63,7 @@ export const EditRecommendPlaylistListItem = ({
         </HStack>
       </GridItem>
       <GridItem colSpan={5} h={8}>
-        <Center>
+        <Center h="100%">
           <Text fontSize="xl" fontWeight="normal">
             {playlist.article.markedBody ? '○' : '×'}
           </Text>

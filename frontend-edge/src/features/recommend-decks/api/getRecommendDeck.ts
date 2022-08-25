@@ -9,7 +9,11 @@ export const getRecommendDeck = async (
   if (typeof recommendDeckId === undefined) {
     return Promise.reject(new Error('Invalid id'))
   }
-  const res = await axios.get(`decks/${recommendDeckId}`)
+  const res = await axios.get(`decks/${recommendDeckId}`, {
+    params: {
+      with_episode_count: 1
+    }
+  })
   return res.data.deck
 }
 

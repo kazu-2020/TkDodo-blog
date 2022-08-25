@@ -54,7 +54,9 @@ export const RecommendDeckForm = ({ recommendDeck = undefined }: Props) => {
   const updateRecommendDeckMutation = useUpdateRecommendDeck()
 
   const onSubmit: SubmitHandler<RecommendDeckFormInputs> = async (values) => {
-    const recommendIds = recommendPlaylists.map((playlist) => playlist.seriesId)
+    const recommendIds = recommendPlaylists.map(
+      (playlist) => playlist.primaryId
+    )
 
     if (recommendDeck === undefined) {
       await createRecommendDeckMutation.mutateAsync({

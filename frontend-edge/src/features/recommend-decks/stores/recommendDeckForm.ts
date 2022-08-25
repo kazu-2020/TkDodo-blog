@@ -12,12 +12,6 @@ type RecommendDeckFormStore = {
   setRecommendPlaylists: (recommendPlaylists: RecommendPlaylist[]) => void
   addRecommendPlaylist: (recommendPlaylist: RecommendPlaylist) => void
   removeRecommendPlaylist: (id: string) => void
-  searchQuery: string
-  setSearchQuery: (query: string) => void
-  searchQueryKey: 'word' | 'keyword' | 'concern'
-  setSearchQueryKey: (query: 'word' | 'keyword' | 'concern') => void
-  isSearched: boolean
-  setSearched: (isSearched: boolean) => void
 }
 
 export const useRecommendDeckFormStore = create<RecommendDeckFormStore>(
@@ -46,15 +40,8 @@ export const useRecommendDeckFormStore = create<RecommendDeckFormStore>(
       set((state) => ({
         hasChangedRecommendPlaylists: true,
         recommendPlaylists: state.recommendPlaylists.filter(
-          (recommendPlaylist) => recommendPlaylist.seriesId !== recommendId
+          (recommendPlaylist) => recommendPlaylist.playlistUId !== recommendId
         )
-      })),
-    searchQuery: '',
-    setSearchQuery: (searchQuery: string) => set({ searchQuery }),
-    searchQueryKey: 'word',
-    setSearchQueryKey: (searchQueryKey: 'word' | 'keyword' | 'concern') =>
-      set({ searchQueryKey }),
-    isSearched: false,
-    setSearched: (isSearched: boolean) => set({ isSearched })
+      }))
   })
 )

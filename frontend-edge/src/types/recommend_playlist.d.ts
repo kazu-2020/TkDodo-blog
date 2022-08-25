@@ -1,7 +1,11 @@
+import { Article } from '@/types/article'
+
 import { ImageHash } from './image_hash'
 
 export type RecommendPlaylist = {
+  primaryId: number
   id?: string
+  playlistUId: string
   stringId: string
   seriesId: string
   name: string
@@ -11,4 +15,6 @@ export type RecommendPlaylist = {
   howToCount?: number
   eventCount?: number
   faqPageCount?: number
+  article: Article
+  playableItemsCount?: number
 }
