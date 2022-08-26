@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box, HStack, Image, Text, VStack } from '@chakra-ui/react'
 
+import { episodeThumbnailUrl } from '@/utils/image'
 import { formatDatetimeWithWeekday } from '@/utils/format'
 import { EpisodeData } from '@/types/episode_data'
-import { episodeThumbnailUrl } from '@/utils/image'
 
 type Props = {
   episodeItem: EpisodeData

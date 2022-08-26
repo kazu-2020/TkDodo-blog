@@ -6,11 +6,9 @@ import { RecommendPlaylistListHeader } from '@/features/recommend-decks/componen
 import { EditRecommendPlaylistListItem } from '@/features/recommend-decks/components/RecommendDeckForm/EditRecommendPlaylistListItem'
 
 export const EditRecommendPlaylist = () => {
-  const { recommendPlaylists, setRecommendPlaylists } =
-    useRecommendDeckFormStore((state) => ({
-      recommendPlaylists: state.recommendPlaylists,
-      setRecommendPlaylists: state.setRecommendPlaylists
-    }))
+  const { recommendPlaylists } = useRecommendDeckFormStore((state) => ({
+    recommendPlaylists: state.recommendPlaylists
+  }))
 
   // @ts-ignore
   return (

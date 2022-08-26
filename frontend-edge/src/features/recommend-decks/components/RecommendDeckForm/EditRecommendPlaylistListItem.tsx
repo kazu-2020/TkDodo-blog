@@ -1,6 +1,5 @@
 import { HiOutlineMinus } from 'react-icons/all'
 import React from 'react'
-import { nanoid } from 'nanoid'
 import {
   Accordion,
   AccordionButton,
@@ -25,6 +24,7 @@ import { EpisodeData } from '@/types/episode_data'
 import { useRecommendDeckFormStore } from '@/features/recommend-decks/stores/recommendDeckForm'
 import { usePlaylistItems } from '@/features/recommend-decks/api/getPlaylistItems'
 
+// eslint-disable-next-line max-lines-per-function
 export const EditRecommendPlaylistListItem = ({
   playlist
 }: {
