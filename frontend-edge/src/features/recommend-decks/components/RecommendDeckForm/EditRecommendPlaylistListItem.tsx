@@ -1,82 +1,85 @@
-import { HiOutlineMinus } from 'react-icons/all'
 import React from 'react'
 import {
-  Button,
-  Flex,
-  Grid,
-  GridItem,
+  Accordion,
+  AccordionItem,
+  AccordionPanel,
+  Box,
   HStack,
   Image,
+  Skeleton,
   Text
 } from '@chakra-ui/react'
-import { Icon } from '@chakra-ui/icons'
 
+import { episodeThumbnailUrl } from '@/utils/image'
 import { RecommendPlaylist } from '@/types/recommend_playlist'
-import { useRecommendDeckFormStore } from '@/features/recommend-decks/stores/recommendDeckForm'
+import { EpisodeData } from '@/types/episode_data'
+import { EditRecommendPlaylistListItemDetail } from '@/features/recommend-decks/components/RecommendDeckForm/EditRecommendPlaylistListItemDetail'
+import { usePlaylistItems } from '@/features/recommend-decks/api/getPlaylistItems'
 
-const countWrapper = (count: number | undefined): number | string =>
-  count === undefined ? '-' : count
 export const EditRecommendPlaylistListItem = ({
   playlist
 }: {
   playlist: RecommendPlaylist
 }) => {
-  const removeRecommendPlaylist = useRecommendDeckFormStore(
-    (state) => state.removeRecommendPlaylist
-  )
+  const { data, isLoading, refetch } = usePlaylistItems({
+    playlistUid: playlist.playlistUId,
+    limit: 10,
+    enabled: false
+  })
 
   return (
-    <Grid
-      templateColumns="repeat(12, 1fr)"
-      gap={6}
-      fontSize="sm"
-      py={3}
-      borderBottom="1px"
-      borderColor="gray.200"
-    >
-      <GridItem h="8">
-        <Button
-          aria-label="削除"
-          boxShadow="md"
-          h="8"
-          w="8"
-          minW="8"
-          colorScheme="orange"
-          bg="accent"
-          color="black"
-          borderRadius="sm"
-          onClick={() => {
-            removeRecommendPlaylist(playlist.seriesId)
-          }}
-        >
-          <Icon as={HiOutlineMinus} />
-        </Button>
-      </GridItem>
-      <GridItem colSpan={6} h="8">
-        <HStack>
-          <Image
-            src={
-              playlist.logo?.medium?.url ??
-              '/public/dummy/default1/default1-logo.png' // FIXME: recommend画像にフォールバック
+    <Accordion allowToggle>
+      <AccordionItem
+        border="none"
+        borderBottom="1px"
+        borderBottomColor="rgba(0, 0, 0, 0.12)"
+      >
+        <EditRecommendPlaylistListItemDetail
+          playlist={playlist}
+          onToggleAccordion={() => {
+            if (!data) {
+              refetch()
             }
-            alt={playlist.name}
-            h="32px"
-            boxShadow="md"
-            mr={1}
-          />
-          <Text>{playlist.name}</Text>
-        </HStack>
-      </GridItem>
-      <GridItem colSpan={5} h="8">
-        <Flex alignItems="center" h="8">
-          <Text>
-            TEp:{countWrapper(playlist.itemNum)}/Hw:
-            {countWrapper(playlist.howToCount)}/Ev:
-            {countWrapper(playlist.eventCount)}/Fa:
-            {countWrapper(playlist.faqPageCount)}
-          </Text>
-        </Flex>
-      </GridItem>
-    </Grid>
+          }}
+        />
+        <AccordionPanel border="none" py={0} px={2}>
+          <Box
+            ml="90px"
+            borderTop="1px"
+            borderTopColor="rgba(0, 0, 0, 0.12)"
+            py={3}
+          >
+            {isLoading && (
+              <Skeleton
+                data-testid="skeleton"
+                h={8}
+                bg="white"
+                borderRadius="md"
+              />
+            )}
+            {!isLoading && (!data || data.length <= 0) && (
+              <Text fontSize="sm">エピソードはありません</Text>
+            )}
+            {!isLoading && data && (
+              <HStack px={0}>
+                {data.map((episodeData: EpisodeData) => (
+                  <Image
+                    key={episodeData.id}
+                    w="44px"
+                    h="24px"
+                    alt={episodeData.name}
+                    title={episodeData.name}
+                    src={episodeThumbnailUrl(
+                      episodeData,
+                      'https://placehold.jp/100x56.png'
+                    )}
+                  />
+                ))}
+              </HStack>
+            )}
+          </Box>
+        </AccordionPanel>
+      </AccordionItem>
+    </Accordion>
   )
 }

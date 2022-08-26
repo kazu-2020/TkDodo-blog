@@ -5,6 +5,7 @@ export type Article = {
   body?: string
   footer?: string
   plainBody?: string
+  markedBody?: string
   authorType?: string
   authorName?: string
   publisherType?: string

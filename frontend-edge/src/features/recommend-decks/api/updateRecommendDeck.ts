@@ -14,7 +14,7 @@ type RecommendDeckParams = {
   apiState?: boolean
   adminMemo?: string
   deckSameAsAttributes?: SameAs[]
-  playlists?: string[]
+  playlists?: number[]
   enableListUpdate: boolean
 }
 

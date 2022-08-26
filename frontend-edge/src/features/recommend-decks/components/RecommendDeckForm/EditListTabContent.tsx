@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SearchRecommendPlaylist } from '@/features/recommend-decks/components/RecommendDeckForm/SearchRecommendPlaylist'
+import { RecommendPlaylistList } from '@/features/recommend-decks/components/RecommendDeckForm/RecommendPlaylistList'
 import { EditRecommendPlaylist } from '@/features/recommend-decks/components/RecommendDeckForm/EditRecommendPlaylist'
 import { ArrowStepContent } from '@/components/ArrowStep'
 
@@ -11,6 +11,6 @@ export const EditListTabContent = ({
 }) => (
   <ArrowStepContent index={contentIndex}>
     <EditRecommendPlaylist />
-    <SearchRecommendPlaylist />
+    <RecommendPlaylistList />
   </ArrowStepContent>
 )

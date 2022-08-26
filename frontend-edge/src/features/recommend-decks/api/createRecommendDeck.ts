@@ -12,7 +12,7 @@ type RecommendDeckParams = {
   description?: string
   apiState?: boolean
   deckSameAsAttributes?: SameAs[]
-  playlists?: string[]
+  playlists?: number[]
 }
 
 export type CreateRecommendDeckDTO = {

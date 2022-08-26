@@ -6,20 +6,20 @@ import {
   verticalListSortingStrategy
 } from '@dnd-kit/sortable'
 import {
-  DndContext,
   closestCenter,
-  PointerSensor,
+  DndContext,
+  DragEndEvent,
   KeyboardSensor,
+  PointerSensor,
   useSensor,
-  useSensors,
-  DragEndEvent
+  useSensors
 } from '@dnd-kit/core'
-import { Alert, AlertIcon, Box, Grid, GridItem, Text } from '@chakra-ui/react'
+import { Alert, AlertIcon, Box } from '@chakra-ui/react'
 
 import { useRecommendDeckFormStore } from '@/features/recommend-decks/stores/recommendDeckForm'
+import { SortableItem } from '@/features/recommend-decks/components/RecommendDeckForm/SortableItem'
+import { RecommendPlaylistListHeader } from '@/features/recommend-decks/components/RecommendDeckForm/RecommendPlaylistListHeader'
 import { EditRecommendPlaylistListItem } from '@/features/recommend-decks/components/RecommendDeckForm/EditRecommendPlaylistListItem'
-
-import { SortableItem } from './SortableItem'
 
 export const EditRecommendPlaylist = () => {
   const { recommendPlaylists, setRecommendPlaylists } =
@@ -40,68 +40,48 @@ export const EditRecommendPlaylist = () => {
       coordinateGetter: sortableKeyboardCoordinates
     })
   )
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
 
     if (active.id !== over?.id) {
       const oldIndex = recommendPlaylists.findIndex(
-        (pl) => pl.seriesId === active.id
+        (pl) => pl.playlistUId === active.id
       )
       const newIndex = recommendPlaylists.findIndex(
-        (pl) => pl.seriesId === over?.id
+        (pl) => pl.playlistUId === over?.id
       )
-      const newRecommendPlaylists = arrayMove(
+      const newSeriesPlaylists = arrayMove(
         recommendPlaylists,
         oldIndex,
         newIndex
       )
-      setRecommendPlaylists(newRecommendPlaylists)
+      setRecommendPlaylists(newSeriesPlaylists)
     }
   }
 
   // @ts-ignore
   return (
     <Box mb={10} data-testid="edit-recommend-playlist">
+      <RecommendPlaylistListHeader />
+      {recommendPlaylists.length < 1 && (
+        <Alert status="warning" colorScheme="gray">
+          <AlertIcon />
+          編成可能なプレイリストからプレイリストを追加してください
+        </Alert>
+      )}
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
       >
-        <Grid
-          templateColumns="repeat(12, 1fr)"
-          gap={6}
-          borderBottom="1px"
-          borderColor="gray.200"
-          fontSize="xs"
-          fontWeight="bold"
-          color="gray"
-          p={2}
-        >
-          <GridItem h="5" />
-          <GridItem colSpan={6} h="5">
-            <Text>シリーズ</Text>
-          </GridItem>
-          <GridItem colSpan={5} h="5">
-            <Text>アイテム数</Text>
-          </GridItem>
-        </Grid>
-
-        {recommendPlaylists.length < 1 && (
-          <Alert status="warning" colorScheme="gray">
-            <AlertIcon />
-            プレイリストを追加してください
-          </Alert>
-        )}
         <SortableContext
-          items={recommendPlaylists.map((pl) => pl.seriesId)}
+          items={recommendPlaylists.map((pl) => pl.playlistUId)}
           strategy={verticalListSortingStrategy}
         >
           {recommendPlaylists.map((playlist) => (
-            <SortableItem id={playlist.seriesId} key={playlist.seriesId}>
-              <EditRecommendPlaylistListItem
-                key={playlist.seriesId}
-                playlist={playlist}
-              />
+            <SortableItem id={playlist.playlistUId} key={playlist.playlistUId}>
+              <EditRecommendPlaylistListItem playlist={playlist} />
             </SortableItem>
           ))}
         </SortableContext>
