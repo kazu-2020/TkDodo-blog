@@ -13,14 +13,15 @@ export const RecommendPlaylistListHeader = () => (
     p={2}
   >
     <GridItem colSpan={2} h="5" />
-    <GridItem colSpan={8} h="5">
+    <GridItem colSpan={6} h="5">
       <Text>プレイリスト</Text>
     </GridItem>
-    <GridItem colSpan={5} h="5">
+    <GridItem colSpan={4} h="5">
       <Text align="center">記事の有無</Text>
     </GridItem>
-    <GridItem colSpan={5} h="5">
+    <GridItem colSpan={4} h="5">
       <Text align="center">視聴可能エピソード数</Text>
     </GridItem>
+    <GridItem colSpan={4} h="5" />
   </Grid>
 )

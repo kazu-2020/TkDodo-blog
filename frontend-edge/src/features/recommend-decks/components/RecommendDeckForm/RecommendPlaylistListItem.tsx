@@ -56,20 +56,20 @@ export const RecommendPlaylistListItem = ({
           </Button>
         )}
       </GridItem>
-      <GridItem colSpan={8} h={8}>
+      <GridItem colSpan={6} h={8}>
         <HStack>
           <Image src={logoImage} alt={playlist.name} h="30px" />
           <Text>{playlist.name}</Text>
         </HStack>
       </GridItem>
-      <GridItem colSpan={5} h={8}>
+      <GridItem colSpan={4} h={8}>
         <Center h="100%">
           <Text fontSize="xl" fontWeight="normal">
             {playlist.article.markedBody ? '○' : '×'}
           </Text>
         </Center>
       </GridItem>
-      <GridItem colSpan={5} h={8}>
+      <GridItem colSpan={4} h={8}>
         <Center h="100%">
           <Center
             fontSize="sm"
@@ -83,6 +83,7 @@ export const RecommendPlaylistListItem = ({
           </Center>
         </Center>
       </GridItem>
+      <GridItem colSpan={4} h={8} />
     </Grid>
   )
 }

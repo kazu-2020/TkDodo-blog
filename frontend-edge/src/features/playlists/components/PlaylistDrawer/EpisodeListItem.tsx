@@ -3,23 +3,10 @@ import { Box, HStack, Image, Text, VStack } from '@chakra-ui/react'
 
 import { formatDatetimeWithWeekday } from '@/utils/format'
 import { EpisodeData } from '@/types/episode_data'
+import { episodeThumbnailUrl } from '@/utils/image'
 
 type Props = {
   episodeItem: EpisodeData
-}
-
-const thumbnailUrl = (episodeItem: EpisodeData) => {
-  if (episodeItem?.eyecatch !== undefined) {
-    return episodeItem.eyecatch?.medium?.url
-  }
-  if (episodeItem?.keyvisuals?.length) {
-    return episodeItem?.keyvisuals[0]?.small?.url
-  }
-  if (episodeItem?.partOfSeries?.eyecatch !== undefined) {
-    return episodeItem?.partOfSeries?.eyecatch?.medium?.url
-  }
-
-  return ''
 }
 
 const hasVideo = (episodeItem: EpisodeData) => {
@@ -50,7 +37,7 @@ export const EpisodeListItem = ({ episodeItem }: Props) => {
       <Box pos="relative" w="100px" h="56px">
         <Image
           pos="absolute"
-          src={thumbnailUrl(episodeItem)}
+          src={episodeThumbnailUrl(episodeItem)}
           fallbackSrc="https://placehold.jp/71x40.png"
         />
         {!hasVideo(episodeItem) && (

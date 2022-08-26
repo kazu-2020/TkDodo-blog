@@ -6,6 +6,7 @@ import axios from '@/lib/axios'
 type Params = {
   playlistUid?: string
   limit?: number
+  enabled?: boolean
 }
 
 export const getPlaylistItems = async (
@@ -31,6 +32,6 @@ export const usePlaylistItems = (params: Params) =>
     ['recommend-deck-playlist-items', params],
     () => getPlaylistItems(params),
     {
-      enabled: Boolean(params.playlistUid)
+      enabled: params.enabled === false ? false : Boolean(params.playlistUid)
     }
   )
