@@ -1,20 +1,42 @@
+import snakecaseKeys from 'snakecase-keys'
 import { useMutation } from 'react-query'
 
+import { SameAs } from '@/types/same_as'
 import { Deck as RecommendDeck } from '@/types/deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
+type RecommendDeckParams = {
+  name?: string
+  interfix?: string
+  description?: string
+  apiState?: boolean
+  deckSameAsAttributes?: SameAs[]
+  playlists?: number[]
+}
+
 export type CreateRecommendDeckDTO = {
-  data: {
-    title: string
-    body: string
+  data: RecommendDeckParams
+}
+
+const requestParams = (data: RecommendDeckParams) => {
+  if (Object.hasOwn(data, 'apiState')) {
+    const { apiState, ...params } = data
+    return {
+      deck: snakecaseKeys({
+        ...params,
+        apiState: data.apiState ? 'open' : 'close'
+      })
+    }
   }
+
+  return { deck: snakecaseKeys(data) }
 }
 
 export const createRecommendDeck = ({
   data
 }: CreateRecommendDeckDTO): Promise<RecommendDeck> =>
-  axios.post(`/recommend_decks`, data)
+  axios.post(`/decks`, requestParams(data))
 
 type UseCreateRecommendDeckOptions = {
   config?: MutationConfig<typeof createRecommendDeck>
