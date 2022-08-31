@@ -83,7 +83,7 @@ export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
           color="black"
           borderRadius="sm"
           onClick={() => {
-            removeEpisode(episode.episodeId)
+            removeEpisode(episode.id)
           }}
         >
           <Icon as={HiOutlineMinus} />

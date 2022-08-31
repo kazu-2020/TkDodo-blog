@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Box, Hide, HStack, Show } from '@chakra-ui/react'
 
 import { PlaylistFormInputs } from '@/features/playlists/types'
@@ -13,47 +13,50 @@ import { EditMetaTabContent } from './EditMetaTabContent'
 import { EditListTabContent } from './EditListTabContent'
 import { EditArticleTabContent } from './EditArticleTabContent'
 
+const listIndex = 0
+const articleIndex = 1
+const metaIndex = 2
+
 export const ArrowStepContainer = () => {
   const {
     watch,
     formState: { isDirty, isValid }
   } = useFormContext()
 
-  const hasChangedEpisodes = usePlaylistFormStore(
-    (state) => state.hasChangedEpisodes
+  const { hasChangedEpisodes, hasChangedArticle, setInputValues } =
+    usePlaylistFormStore((state) => ({
+      hasChangedEpisodes: state.hasChangedEpisodes,
+      hasChangedArticle: state.hasChangedArticle,
+      setInputValues: state.setInputValues
+    }))
+
+  const stepItems: StepItem[] = useMemo(
+    () => [
+      {
+        title: 'リスト(NItemList)',
+        isSuccess: hasChangedEpisodes,
+        hasError: false
+      },
+      {
+        title: '記事(NArticle)',
+        isSuccess: hasChangedArticle,
+        hasError: false
+      },
+      {
+        title: '基本情報(NSeries)',
+        isSuccess: isDirty,
+        hasError: !isValid
+      }
+    ],
+    [hasChangedEpisodes, hasChangedArticle, isDirty, isValid]
   )
-
-  const stepItems: StepItem[] = [
-    {
-      title: 'リスト(NItemList)',
-      isSuccess: hasChangedEpisodes,
-      hasError: false
-    },
-    {
-      title: '記事(NArticle)',
-      isSuccess: isDirty,
-      hasError: !isValid
-    },
-    {
-      title: '基本情報(NSeries)',
-      isSuccess: isDirty,
-      hasError: !isValid
-    }
-  ]
-  const listIndex = 0
-  const articleIndex = 1
-  const metaIndex = 2
-
-  const { setInputValues } = usePlaylistFormStore((state) => ({
-    setInputValues: state.setInputValues
-  }))
 
   useEffect(() => {
     const subscription = watch((value) => {
       setInputValues(value as PlaylistFormInputs)
     })
     return () => subscription.unsubscribe()
-  }, [watch, setInputValues])
+  }, [watch])
 
   return (
     <ArrowStepContextProvider>

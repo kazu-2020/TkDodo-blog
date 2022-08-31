@@ -6,10 +6,10 @@ import { Playlist } from '@/types/playlist'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
+// TODO: 定義する
 export type CreatePlaylistDTO = {
   data: {
     name: string
-    interfix: string
     description: string
     apiState: boolean
     items?: string[]

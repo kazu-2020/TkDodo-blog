@@ -3,3 +3,19 @@
 @import 'how_to';
 @import 'recipe';
 @import 'multi_type_episode';
+
+.ce-toolbox__button[data-tool='episode'],
+.ce-toolbox__button[data-tool='tvEvent'],
+.ce-toolbox__button[data-tool='howTo'],
+.ce-toolbox__button[data-tool='recipe'] {
+  display: none;
+}
+
+.codex-editor--narrow .codex-editor__redactor {
+  margin-right: 0;
+}
+
+.ce-conversion-tool__icon svg {
+  width: 15px;
+  height: 15px;
+}
