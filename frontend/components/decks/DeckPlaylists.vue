@@ -13,93 +13,97 @@
       </template>
     </v-simple-table>
     <v-expansion-panels accordion tile focusable>
-      <v-expansion-panel
-        v-for="playlist in playlists"
-        :key="playlist.playlistUId"
-        v-model="isExpanded"
-        @click="fetchEpisodes(playlist)"
-      >
-        <v-expansion-panel-header class="px-5">
-          <template #actions>
-            <v-icon color="#3498db"> mdi-menu-down </v-icon>
-          </template>
-          <td>
-            <v-btn
-              tile
-              small
-              color="orange"
-              class="delete-button mr-4"
-              @click="deletePlaylist(playlist)"
-            >
-              <v-icon> mdi-minus </v-icon>
-            </v-btn>
-          </td>
-          <td class="px-0 mr-8" width="3%">
-            <v-img
-              :src="logoUrl(playlist)"
-              lazy-src="https://placehold.jp/40x40.png"
-              width="30"
-              height="30"
-              class="ma-2"
-            />
-          </td>
-          <td class="playlist-name">
-            {{ playlist.name }}
-          </td>
-          <td class="playlist-status">{{ articleStatus(playlist) }}</td>
-          <td class="playlist-can-be-watch">
-            <v-chip
-              v-if="hasVideo(playlist)"
-              class="mx-2"
-              color="pink"
-              label
-              text-color="white"
-              >{{ playlist.playableItemsCount }}/{{ playlist.itemNum }}
-            </v-chip>
-            <v-chip v-else class="mx-2" color="grey" label text-color="white"
-              >0/{{ playlist.itemNum }}</v-chip
-            >
-          </td>
-          <span class="display-episode">エピソード表示</span>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content class="pl-16">
-          <div v-if="isFetched">
-            <div v-if="playlist.itemNum !== 0">
-              <div
-                v-for="episode in filterPlaylistEpisodes(playlist)"
-                :key="`deck-playlist-list-item-ep-${episode.id}`"
+      <draggable>
+        <v-expansion-panel
+          v-for="playlist in playlists"
+          :key="playlist.playlistUId"
+          v-model="isExpanded"
+          @click="fetchEpisodes(playlist)"
+        >
+          <v-expansion-panel-header class="px-5">
+            <template #actions>
+              <v-icon color="#3498db"> mdi-menu-down </v-icon>
+            </template>
+            <td>
+              <v-btn
+                tile
+                small
+                color="orange"
+                class="delete-button mr-4"
+                @click="deletePlaylist(playlist)"
               >
-                <v-img
-                  :src="eyeCatchUrl(episode)"
-                  lazy-src="https://placehold.jp/100x56.png"
-                  width="44"
-                  height="24"
-                  class="episode-image float-left mr-1"
-                />
+                <v-icon> mdi-minus </v-icon>
+              </v-btn>
+            </td>
+            <td class="px-0 mr-8" width="3%">
+              <v-img
+                :src="logoUrl(playlist)"
+                lazy-src="https://placehold.jp/40x40.png"
+                width="30"
+                height="30"
+                class="ma-2"
+              />
+            </td>
+            <td class="playlist-name">
+              {{ playlist.name }}
+            </td>
+            <td class="playlist-status">{{ articleStatus(playlist) }}</td>
+            <td class="playlist-can-be-watch">
+              <v-chip
+                v-if="hasVideo(playlist)"
+                class="mx-2"
+                color="pink"
+                label
+                text-color="white"
+                >{{ playlist.playableItemsCount }}/{{ playlist.itemNum }}
+              </v-chip>
+              <v-chip v-else class="mx-2" color="grey" label text-color="white"
+                >0/{{ playlist.itemNum }}</v-chip
+              >
+            </td>
+            <span class="display-episode">エピソード表示</span>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content class="pl-16">
+            <div v-if="isFetched">
+              <div v-if="playlist.itemNum !== 0">
+                <div
+                  v-for="episode in filterPlaylistEpisodes(playlist)"
+                  :key="`deck-playlist-list-item-ep-${episode.id}`"
+                >
+                  <v-img
+                    :src="eyeCatchUrl(episode)"
+                    lazy-src="https://placehold.jp/100x56.png"
+                    width="44"
+                    height="24"
+                    class="episode-image float-left mr-1"
+                  />
+                </div>
+              </div>
+              <div v-else>
+                <v-row align="center" justify="center"
+                  ><v-col class="body-2">エピソードはありません</v-col></v-row
+                >
               </div>
             </div>
-            <div v-else>
-              <v-row align="center" justify="center"
-                ><v-col class="body-2">エピソードはありません</v-col></v-row
+            <div v-else align="center" class="height-100">
+              <v-row v-if="isError" align="center" justify="center"
+                ><v-col class="body-2">エラーが発生しました</v-col></v-row
               >
+              <v-row v-else align="center" justify="center"
+                ><v-col
+                  ><v-progress-circular indeterminate color="amber" /></v-col
+              ></v-row>
             </div>
-          </div>
-          <div v-else align="center" class="height-100">
-            <v-row v-if="isError" align="center" justify="center"
-              ><v-col class="body-2">エラーが発生しました</v-col></v-row
-            >
-            <v-row v-else align="center" justify="center"
-              ><v-col><v-progress-circular indeterminate color="amber" /></v-col
-            ></v-row>
-          </div>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </draggable>
     </v-expansion-panels>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import draggable from 'vuedraggable'
 
 interface DataType {
   isError: boolean
@@ -114,6 +118,9 @@ interface DataType {
 }
 export default Vue.extend({
   name: 'DeckPlaylist',
+  components: {
+    draggable,
+  },
   props: {
     deck: {
       type: Object,
@@ -244,12 +251,12 @@ export default Vue.extend({
 }
 .v-expansion-panels {
   z-index: auto !important;
+  display: inline-block;
 }
 .v-expansion-panel-content::v-deep .v-expansion-panel-content__wrap {
   padding-top: 16px;
 }
 .delete-button.v-btn.v-btn--tile.v-size--small {
   min-width: 0;
-  //padding: 0 2px;
 }
 </style>
