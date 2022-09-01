@@ -1,3 +1,4 @@
+import snakecaseKeys from 'snakecase-keys'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from 'react-query'
 import { useToast } from '@chakra-ui/react'
@@ -5,20 +6,30 @@ import { useToast } from '@chakra-ui/react'
 import { Playlist } from '@/types/playlist'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
+import { CreatePlaylistParams } from '@/features/playlists/types'
 
-// TODO: 定義する
 export type CreatePlaylistDTO = {
-  data: {
-    name: string
-    description: string
-    apiState: boolean
-    items?: string[]
+  data: CreatePlaylistParams
+}
+
+const requestParams = (data: CreatePlaylistParams) => {
+  if (Object.hasOwn(data, 'apiState')) {
+    const { apiState, ...params } = data
+    return {
+      playlist: snakecaseKeys({
+        ...params,
+        apiState: data.apiState ? 'open' : 'close'
+      })
+    }
   }
+
+  return { playlist: snakecaseKeys(data) }
 }
 
 export const createPlaylist = ({
   data
-}: CreatePlaylistDTO): Promise<Playlist> => axios.post(`/playlists`, data)
+}: CreatePlaylistDTO): Promise<Playlist> =>
+  axios.post(`/playlists`, requestParams(data))
 
 type UseCreatePlaylistOptions = {
   config?: MutationConfig<typeof createPlaylist>

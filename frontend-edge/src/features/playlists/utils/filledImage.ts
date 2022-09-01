@@ -13,11 +13,11 @@ function getDominantColor(imageElement: HTMLImageElement, colorSpec: string) {
 export async function createFilledBackgroundImageSrc(
   imageElement: HTMLImageElement,
   mimeType: string,
-  aspectRatio: number[],
+  aspectRatio: number,
   colorSpec = 'black'
 ): Promise<any> {
   const canvasHeight = 1080
-  const canvasWidth = (canvasHeight * aspectRatio[0]) / aspectRatio[1]
+  const canvasWidth = canvasHeight * aspectRatio
 
   // Canvasの準備
   const canvas = document.createElement('canvas')

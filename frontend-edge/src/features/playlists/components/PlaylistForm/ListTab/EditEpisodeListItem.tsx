@@ -1,4 +1,6 @@
 import { HiOutlineMinus } from 'react-icons/all'
+import { UseFormSetValue } from 'react-hook-form/dist/types/form'
+import { useFormContext, UseFormGetValues } from 'react-hook-form'
 import React from 'react'
 import { differenceInMilliseconds } from 'date-fns'
 import {
@@ -15,7 +17,7 @@ import { Icon } from '@chakra-ui/icons'
 import { hasVideo } from '@/utils/video'
 import { formatDateWithWeekday } from '@/utils/format'
 import { EpisodeData } from '@/types/episode_data'
-import { usePlaylistFormStore } from '@/features/playlists/stores/playlistForm'
+import { PlaylistFormInputs } from '@/features/playlists/types'
 import { PlayableStatusBadge } from '@/components/PlayableStatusBadge'
 
 const eyecatchUrl = (episode: EpisodeData) => {
@@ -59,8 +61,19 @@ const resentEventStartDate = (episode: EpisodeData) => {
   return formatDateWithWeekday(startDate)
 }
 
+const removeEpisode = (
+  getValues: UseFormGetValues<PlaylistFormInputs>,
+  setValue: UseFormSetValue<any>,
+  episodeId: string
+) => {
+  const episodes = getValues('episodes').filter(
+    (episode) => episode.id !== episodeId
+  )
+  setValue('episodes', episodes, { shouldDirty: true })
+}
+
 export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
-  const removeEpisode = usePlaylistFormStore((state) => state.removeEpisode)
+  const { getValues, setValue } = useFormContext<PlaylistFormInputs>()
 
   return (
     <Grid
@@ -83,7 +96,7 @@ export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
           color="black"
           borderRadius="sm"
           onClick={() => {
-            removeEpisode(episode.id)
+            removeEpisode(getValues, setValue, episode.id)
           }}
         >
           <Icon as={HiOutlineMinus} />

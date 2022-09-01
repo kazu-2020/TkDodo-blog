@@ -2,10 +2,14 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import React, { useEffect } from 'react'
 
 import { Playlist } from '@/types/playlist'
-import { playlistToDefaultValues } from '@/features/playlists/utils/formMapper'
-import { usePlaylistFormStore } from '@/features/playlists/stores/playlistForm'
 
+import {
+  formValuesToCreateParams,
+  formValuesToUpdateParams,
+  playlistToDefaultValues
+} from '../../utils/form'
 import { PlaylistFormInputs } from '../../types'
+import { usePlaylistFormStore } from '../../stores/playlistForm'
 import { useUpdatePlaylist } from '../../api/updatePlaylist'
 import { useCreatePlaylist } from '../../api/createPlaylist'
 
@@ -26,65 +30,41 @@ type Props = {
 
 export const PlaylistForm = ({ playlist = undefined }: Props) => {
   const formMethods = usePlaylistForm(playlist)
-  const { getValues, handleSubmit, trigger, reset } = formMethods
-
   const {
-    inputValues,
-    setInputValues,
-    episodes,
-    setEpisodes,
-    hasChangedEpisodes,
-    resetHasChangedEpisodes,
-    article,
-    setArticle,
-    clearStore
-  } = usePlaylistFormStore((state) => ({
-    inputValues: state.inputValues,
-    setInputValues: state.setInputValues,
-    episodes: state.episodes,
-    setEpisodes: state.setEpisodes,
-    hasChangedEpisodes: state.hasChangedEpisodes,
-    resetHasChangedEpisodes: state.resetHasChangedEpisodes,
-    article: state.article,
-    setArticle: state.setArticle,
+    handleSubmit,
+    trigger,
+    reset,
+    formState: { dirtyFields }
+  } = formMethods
+
+  const { clearStore } = usePlaylistFormStore((state) => ({
     clearStore: state.clearStore
   }))
 
   useEffect(() => {
-    setEpisodes(playlist?.items || [])
-    setArticle(playlist?.article || {})
-    setInputValues(getValues())
     trigger()
     return () => {
-      clearStore()
+      if (clearStore !== undefined) {
+        clearStore()
+      }
     }
   }, [])
-
-  useEffect(() => {
-    trigger()
-  }, [inputValues, episodes, article, trigger])
 
   const createPlaylistMutation = useCreatePlaylist()
   const updatePlaylistMutation = useUpdatePlaylist()
 
   const onSubmit: SubmitHandler<PlaylistFormInputs> = async (values) => {
-    const episodeIds = episodes.map((episode) => episode.id)
-
-    if (playlist?.id === undefined) {
-      await createPlaylistMutation.mutateAsync({
-        data: { ...values, items: episodeIds }
-      })
+    if (playlist?.playlistUId === undefined) {
+      const data = formValuesToCreateParams(values, dirtyFields)
+      await createPlaylistMutation.mutateAsync({ data })
     } else {
+      const data = formValuesToUpdateParams(values, dirtyFields)
+
       await updatePlaylistMutation.mutateAsync({
-        data: {
-          ...values,
-          items: episodeIds,
-          enableListUpdate: hasChangedEpisodes
-        },
-        playlistId: playlist.id
+        data,
+        playlistUId: playlist.playlistUId
       })
     }
-    resetHasChangedEpisodes()
     reset(values)
   }
 

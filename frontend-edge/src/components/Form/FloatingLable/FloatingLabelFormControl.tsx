@@ -3,15 +3,6 @@ import React, { FC, ReactNode } from 'react'
 import { StyleProps } from '@chakra-ui/styled-system/dist/declarations/src/system.types'
 import { FormControl, FormErrorMessage, FormLabel, Tag } from '@chakra-ui/react'
 
-type Props = {
-  children: ReactNode
-  register: UseFormRegisterReturn
-  id: string
-  label: string
-  error: FieldError | undefined
-  isRequired?: boolean
-}
-
 const activeLabelStyles = {
   transform: 'scale(0.75) translateY(-24px)',
   backgroundColor: 'transparent'
@@ -73,6 +64,14 @@ const FormControlStyles = {
   }
 }
 
+type Props = {
+  children: ReactNode
+  register: UseFormRegisterReturn
+  id: string
+  label: string
+  error: FieldError | undefined
+  isRequired?: boolean
+}
 const FloatingLabelFormControl: FC<Props & StyleProps> = ({
   children,
   register,
