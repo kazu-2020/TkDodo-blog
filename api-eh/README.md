@@ -116,24 +116,27 @@ GET https://dev-api-eh.nr.nhk.jp/richlink?url=https://www3.nhk.or.jp/news/html/2
   "time_ago_in_words": "8分前"
 }
 ```
-## /people
+
+---
+
+### /people
 人物情報の詳細取得、追加、更新を行うAPIです
 
-### Path
+#### Path
 GET `/people/:person_id`
 
-### Description
+#### Description
 指定された人物IDの情報を取得します
 
-### Parameters
+#### Parameters
 なし
 
-### Example Request
+#### Example Request
 ```
 GET https://dev-api-eh.nr.nhk.jp/people/1
 ```
 
-### Example Response
+#### Example Response
 ```
 {
   id: 1,
@@ -155,14 +158,13 @@ GET https://dev-api-eh.nr.nhk.jp/people/1
   viafid:'44068140',
 }
 ```
----
-### Path
+#### Path
 POST `/people`
 
-### Description
+#### Description
 フォームに入力された値で人物のデータを新規作成します
 
-### Parameters(JSON Body)
+#### Parameters(JSON Body)
 
 |Properties|Description|Example|
 |:----|:----|:----|
@@ -184,7 +186,7 @@ POST `/people`
 |qid|Wikidata ID||
 |viafid|Viaf ID||
 
-### Error
+#### Error
 |Properties|Description|Example|
 |:----|:----|:----|
 |message|エラーメッセージ|Nameを入力してください|
@@ -193,13 +195,11 @@ POST `/people`
 |:----|:----|
 |422|Unprocessable Entity|
 
-
-
-### Example Request
+#### Example Request
 ```
 POST https://dev-api-eh.nr.nhk.jp/people
 ```
-### Example Response
+#### Example Response
 * Success
 ```
 {
@@ -226,16 +226,13 @@ POST https://dev-api-eh.nr.nhk.jp/people
 ```
 {"messages":["Nameを入力してください"]}
 ```
-
----
-
-### Path
+#### Path
 PUT `/people/:person_id`
 
-### Descrition
+#### Description
 指定された人物IDの情報を更新します
 
-### Parameters(JSON Body)
+#### Parameters(JSON Body)
 |Properties|Description|Example|
 |:----|:----|:----|
 |id|人物 ID|1|
@@ -256,7 +253,7 @@ PUT `/people/:person_id`
 |qid|Wikidata ID|Q187553|
 |viafid|Viaf ID|44068140|
 
-### Error
+#### Error
 |Properties|Description|Example|
 |:----|:----|:----|
 |message|エラーメッセージ|Nameを入力してください|
@@ -266,12 +263,12 @@ PUT `/people/:person_id`
 |422|Unprocessable Entity|
 
 
-### Example Request
+#### Example Request
 ```
 PUT https://dev-api-eh.nr.nhk.jp/people/1
 ```
 
-### Example Response
+#### Example Response
 * Success
 ```
 {
@@ -302,27 +299,27 @@ PUT https://dev-api-eh.nr.nhk.jp/people/1
 
 ---
 
-## /people/search
+### /people/search
 EH内部の人物検索用APIです
 
-### Path
+#### Path
 GET `/people/search`
 
-### Description
+#### Description
 検索ワードに該当する人物の一覧をEHまたは人物DBから取得します
 
-### Parameters
-|Parameter|Description|Example|
-|:----|:----|:----|
-|word|検索ワード|西川貴教|
-|resource|人物情報の取得先|local|
+#### Parameters
+| Parameter |Description|Example|
+|:----------|:----|:----|
+| word      |検索ワード|西川貴教|
+| location  |人物情報の取得先|local|
 
-### Example Request
+#### Example Request
 ```
-GET https://dev-api-eh.nr.nhk.jp/people/search?word=西川貴教&resource=local
+GET https://dev-api-eh.nr.nhk.jp/people/search?word=西川貴教&location=local
 ```
 
-### Example Response
+#### Example Response
 ```
 {
   id: 1,
