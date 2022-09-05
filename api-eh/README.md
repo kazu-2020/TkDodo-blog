@@ -168,24 +168,23 @@ POST `/people`
 
 |Properties|Description|Example|
 |:----|:----|:----|
-|id|人物 ID|1|
+|id|人物 ID|2|
 |role|分類|Person|
 |nameFormat|名前の形式|1|
-|name|人物名|野田雄大|
-|familyName|苗字|野田|
-|givenName|名前|雄大|
+|name|人物名|山田太郎|
+|familyName|苗字|山田|
+|givenName|名前|太郎|
 |additionalName|ミドルネーム||
-|nameRuby|人物名のルビ|のだゆうだい|
-|familyNameRuby|苗字のルビ|のだ|
-|givenNameRuby|名前のルビ|ゆうだい|
+|nameRuby|人物名のルビ|やまだたろう|
+|familyNameRuby|苗字のルビ|やまだ|
+|givenNameRuby|名前のルビ|たろう|
 |additionalNameRuby|ミドルネームのルビ||
 |occupation|職業|エンジニア|
-|description|人物詳細|日本のシステムエンジニア|
+|description|人物詳細|Wikidata,Viafに登録さていない人物|
 |thumbnail|サムネイル画像|data:image/png;base64,iVBORw0K...|
 |uuid|個人識別 ID||
 |qid|Wikidata ID||
 |viafid|Viaf ID||
-
 #### Error
 |Properties|Description|Example|
 |:----|:----|:----|
@@ -206,16 +205,16 @@ POST https://dev-api-eh.nr.nhk.jp/people
   id: 2,
   role: 'Person',
   name_format: 1,
-  name: '野田雄大',
-  family_name: '野田',
-  given_name: '雄大',
+  name: '山田太郎',
+  family_name: '山田',
+  given_name: '太郎',
   additional_name: '',
-  name_ruby: 'のだゆうだい',
-  family_name_ruby: 'のだ',
-  given_name_ruby: 'ゆうだい',
+  name_ruby: 'やまだたろう',
+  family_name_ruby: 'やまだ',
+  given_name_ruby: 'たろう',
   additional_name_ruby: '',
   occupation: 'エンジニア',
-  description: '日本のシステムエンジニア',
+  description: 'Wikidata,Viafに登録さていない人物 ',
   thumbnail: '{"id":" people/local/hero_ce9b9f9987028240f782ca2f272702a0.jpg","storage":"store","metadata":{"filename":"6Y2Kao2Xnm8SjP3p.jpeg","size":63460,"mime_type":"image/jpeg","width":1199,"height":399},"derivatives":{"default":{"id":" people/local/hero_f71b2e9bef7158bf01739e57be872474.jpg","storage":"store","metadata":{"filename":"image_processing20220815-1-eckgu7.jpg","size":121389,"mime_type":"image/jpeg","width":1920,"height":640}},"medium":{"id":" people/local/hero_be0887b359abc8cca2f439d21331d680.jpg","storage":"store","metadata":{"filename":"image_processing20220815-1-dznmrt.jpg","size":56538,"mime_type":"image/jpeg","width":1080,"height":360}}}}',
   uuid:'45632CF2-23456-35F6-35342-721C96A213D2',
   qid:'',
