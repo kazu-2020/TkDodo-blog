@@ -335,7 +335,7 @@ GET `/people/search`
 | word      |検索ワード|
 | type  |取得したい人物データの種別 <br><br>all：全タイプの人物データ<br>opendata：wikidata,viafから取得した人物データ<br>internal： システム内部の人物データ<br>デフォルト: all|
 
-<span style="color:red;">※EHではtypeを必ず指定するようにしてください。</span>
+※EHではtypeを必ず指定するようにしてください
 #### Path Parameters
 なし
 
