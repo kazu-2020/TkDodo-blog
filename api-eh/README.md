@@ -329,17 +329,23 @@ GET `/people/search`
 #### Description
 検索ワードに該当する人物の一覧をEHまたは人物DBから取得します
 
-#### Parameters
-| Parameter |Description|Example|
-|:----------|:----|:----|
-| word      |検索ワード|西川貴教|
-| location  |人物情報の取得先|local|
+#### Query Parameters
+| Parameter |Description|
+|:----------|:----|
+| word      |検索ワード|
+| type  |取得したい人物データの種別 <br><br>all：全タイプの人物データ<br>opendata：wikidata,viafから取得した人物データ<br>internal： システム内部の人物データ<br>デフォルト: all|
+
+<span style="color:red;">※EHではtypeを必ず指定するようにしてください。</span>
+#### Path Parameters
+なし
+
+#### Request Body
+なし
 
 #### Example Request
 ```
-GET https://dev-api-eh.nr.nhk.jp/people/search?word=西川貴教&location=local
+GET https://dev-api-eh.nr.nhk.jp/people/search?word=西川貴教&type=internal
 ```
-
 #### Example Response
 ```
 {
