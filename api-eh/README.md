@@ -329,13 +329,14 @@ GET `/people/search`
 #### Description
 検索ワードに該当する人物の一覧をEHまたは人物DBから取得します
 
-#### Query Parameters
-| Parameter |Description|
-|:----------|:----|
-| word      |検索ワード|
-| type  |取得したい人物データの種別 <br><br>all：全タイプの人物データ<br>opendata：wikidata,viafから取得した人物データ<br>internal： システム内部の人物データ<br>デフォルト: all|
 
-※EHではtypeを必ず指定するようにしてください
+#### Query Parameters
+| Parameter |Description|Required|
+|:----------|:----|:----|
+| word      |検索ワード|false|
+| type  |取得したい人物データの種別 <br><br>opendata：wikidata,viafから取得した人物データ<br>internal： システム内部の人物データ<br>デフォルト: internal|true|
+
+
 #### Path Parameters
 なし
 
