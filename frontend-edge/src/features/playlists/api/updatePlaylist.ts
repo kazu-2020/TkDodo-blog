@@ -5,23 +5,14 @@ import { useToast } from '@chakra-ui/react'
 import { Playlist } from '@/types/playlist'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
-
-type PlaylistParams = {
-  name?: string
-  interfix?: string
-  description?: string
-  apiState?: boolean
-  adminMemo?: string
-  items?: string[]
-  enableListUpdate: boolean
-}
+import { UpdatePlaylistParams } from '@/features/playlists/types'
 
 export type UpdatePlaylistDTO = {
-  data: PlaylistParams
-  playlistId: string
+  data: UpdatePlaylistParams
+  playlistUId: string
 }
 
-const requestParams = (data: PlaylistParams) => {
+const requestParams = (data: UpdatePlaylistParams) => {
   if (Object.hasOwn(data, 'apiState')) {
     const { apiState, ...params } = data
     return {
@@ -38,15 +29,16 @@ const requestParams = (data: PlaylistParams) => {
 
 export const updatePlaylist = async ({
   data,
-  playlistId
+  playlistUId
 }: UpdatePlaylistDTO): Promise<Playlist> => {
-  const res = await axios.patch(`/playlists/${playlistId}`, requestParams(data))
+  const res = await axios.patch(
+    `/playlists/${playlistUId}`,
+    requestParams(data)
+  )
 
   return {
     ...res.data.playlist,
-    // FIXME: レスポンスのidが数値になっていて、queryKeyに影響が出てしまうのでのでキャストしてる
-    // ex. ['playlist', 33] ['playlist', "33"] は別のキャッシュとして扱われる
-    id: `${res.data.playlist.id}`
+    playlistUId: res.data.playlist.playlistUId
   }
 }
 
@@ -63,18 +55,18 @@ export const useUpdatePlaylist = ({
     onMutate: async (updatingPlaylist) => {
       await queryClient.cancelQueries([
         'playlist',
-        updatingPlaylist?.playlistId
+        updatingPlaylist?.playlistUId
       ])
 
       const previousPlaylist = queryClient.getQueryData<Playlist>([
         'playlist',
-        updatingPlaylist?.playlistId
+        updatingPlaylist?.playlistUId
       ])
 
-      queryClient.setQueryData(['playlist', updatingPlaylist?.playlistId], {
+      queryClient.setQueryData(['playlist', updatingPlaylist?.playlistUId], {
         ...previousPlaylist,
         ...updatingPlaylist.data,
-        id: updatingPlaylist?.playlistId
+        playlistUId: updatingPlaylist?.playlistUId
       })
 
       return { previousPlaylist }
@@ -82,7 +74,7 @@ export const useUpdatePlaylist = ({
     onError: (_, __, context: any) => {
       if (context?.previousPlaylist) {
         queryClient.setQueryData(
-          ['playlist', context.previousPlaylist.id],
+          ['playlist', context.previousPlaylist.playlistUId],
           context.previousPlaylist
         )
       }
@@ -94,7 +86,7 @@ export const useUpdatePlaylist = ({
       })
     },
     onSuccess: (data) => {
-      queryClient.refetchQueries(['playlist', data.id])
+      queryClient.refetchQueries(['playlist', data.playlistUId])
       toast({
         title: '保存しました。',
         status: 'success',

@@ -1,3 +1,4 @@
+import { StepsStyleConfig as Steps } from 'chakra-ui-steps'
 import { extendTheme } from '@chakra-ui/react'
 
 // @see https://chakra-ui.com/docs/styled-system/customize-theme
@@ -27,6 +28,9 @@ const theme = extendTheme({
     link: '#009688',
     lightGray: '#eeeeee',
     disabled: 'rgba(0,0,0,.38)'
+  },
+  components: {
+    Steps
   }
 })
 

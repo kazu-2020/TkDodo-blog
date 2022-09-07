@@ -78,9 +78,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_22_083555) do
     t.boolean "wikidata_alias"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["uuid"], name: "index_person_organization_globals_on_uuid"
-    t.index ["viaf_id"], name: "index_person_organization_globals_on_viaf_id"
-    t.index ["wikidata_id"], name: "index_person_organization_globals_on_wikidata_id"
+    t.index ["uuid"], name: "index_person_organization_globals_on_uuid", unique: true
+    t.index ["viaf_id"], name: "index_person_organization_globals_on_viaf_id", unique: true
+    t.index ["wikidata_id"], name: "index_person_organization_globals_on_wikidata_id", unique: true
   end
 
   create_table "person_organization_locals", charset: "utf8mb4", force: :cascade do |t|

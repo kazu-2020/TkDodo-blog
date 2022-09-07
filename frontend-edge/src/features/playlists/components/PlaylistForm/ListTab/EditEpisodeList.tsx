@@ -1,3 +1,4 @@
+import { useFormContext } from 'react-hook-form'
 import React from 'react'
 import {
   arrayMove,
@@ -16,16 +17,13 @@ import {
 } from '@dnd-kit/core'
 import { Alert, AlertIcon, Box, Grid, GridItem, Text } from '@chakra-ui/react'
 
-import { usePlaylistFormStore } from '@/features/playlists/stores/playlistForm'
-import { EditEpisodeListItem } from '@/features/playlists/components/PlaylistForm/EditEpisodeListItem'
+import { PlaylistFormInputs } from '@/features/playlists/types'
+import { EditEpisodeListItem } from '@/features/playlists/components/PlaylistForm/ListTab/EditEpisodeListItem'
 
 import { SortableItem } from './SortableItem'
 
 export const EditEpisodeList = () => {
-  const { episodes, setEpisodes } = usePlaylistFormStore((state) => ({
-    episodes: state.episodes,
-    setEpisodes: state.setEpisodes
-  }))
+  const { getValues, setValue } = useFormContext<PlaylistFormInputs>()
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -43,10 +41,14 @@ export const EditEpisodeList = () => {
     const { active, over } = event
 
     if (active.id !== over?.id) {
-      const oldIndex = episodes.findIndex((ep) => ep.id === active.id)
-      const newIndex = episodes.findIndex((ep) => ep.id === over?.id)
-      const newEpisodes = arrayMove(episodes, oldIndex, newIndex)
-      setEpisodes(newEpisodes)
+      const oldIndex = getValues('episodes').findIndex(
+        (ep) => ep.id === active.id
+      )
+      const newIndex = getValues('episodes').findIndex(
+        (ep) => ep.id === over?.id
+      )
+      const newEpisodes = arrayMove(getValues('episodes'), oldIndex, newIndex)
+      setValue('episodes', newEpisodes, { shouldDirty: true })
     }
   }
 
@@ -86,17 +88,17 @@ export const EditEpisodeList = () => {
           </GridItem>
         </Grid>
 
-        {episodes.length < 1 && (
+        {getValues('episodes')?.length < 1 && (
           <Alert status="warning" colorScheme="gray">
             <AlertIcon />
             プレイリストを追加してください
           </Alert>
         )}
         <SortableContext
-          items={episodes.map((ep) => ep.id)}
+          items={getValues('episodes').map((ep) => ep.id)}
           strategy={verticalListSortingStrategy}
         >
-          {episodes.map((ep) => (
+          {getValues('episodes').map((ep) => (
             <SortableItem id={ep.id} key={ep.id}>
               <EditEpisodeListItem key={ep.id} episode={ep} />
             </SortableItem>
