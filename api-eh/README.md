@@ -128,7 +128,13 @@ GET `/people/:person_id`
 #### Description
 指定された人物IDの情報を取得します
 
-#### Parameters
+#### Query Parameters
+なし
+
+#### Path Parameters
+人物ID。必須
+
+#### Request Body
 なし
 
 #### Example Request
@@ -158,13 +164,21 @@ GET https://dev-api-eh.nr.nhk.jp/people/1
   viafid:'44068140',
 }
 ```
+---
+
 #### Path
 POST `/people`
 
 #### Description
 フォームに入力された値で人物のデータを新規作成します
 
-#### Parameters(JSON Body)
+#### Query Parameters
+なし
+
+#### Path Parameters
+なし
+
+#### Request Body
 
 |Properties|Description|Example|
 |:----|:----|:----|
@@ -225,13 +239,21 @@ POST https://dev-api-eh.nr.nhk.jp/people
 ```
 {"messages":["Nameを入力してください"]}
 ```
+---
+
 #### Path
 PUT `/people/:person_id`
 
 #### Description
 指定された人物IDの情報を更新します
 
-#### Parameters(JSON Body)
+#### Query Parameters
+なし
+
+#### Path Parameters
+人物ID。必須
+
+#### Request Body
 |Properties|Description|Example|
 |:----|:----|:----|
 |id|人物 ID|1|
