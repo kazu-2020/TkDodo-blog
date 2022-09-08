@@ -16,6 +16,10 @@ export const parameters = {
       color: /(background|color)$/i,
       date: /Date$/
     }
+  },
+  // パス未指定の場合のデフォルト値
+  reactRouter: {
+    routePath: '/playlists'
   }
 }
 
