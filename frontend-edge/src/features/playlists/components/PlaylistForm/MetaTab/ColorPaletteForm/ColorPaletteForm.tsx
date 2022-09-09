@@ -30,7 +30,7 @@ const colorPickerInitialColor = (selectedPalette: string) =>
   isSelectedFreePalette(selectedPalette) ? selectedPalette : '#000000'
 
 export const ColorPaletteForm = () => {
-  const { setValue } = useFormContext<PlaylistFormInputs>()
+  const { register, setValue } = useFormContext<PlaylistFormInputs>()
   const [
     selectedPalette,
     primaryLightColor,
@@ -53,6 +53,11 @@ export const ColorPaletteForm = () => {
 
   return (
     <Box w={600}>
+      <input type="hidden" {...register('selectedPalette')} />
+      <input type="hidden" {...register('primaryLightColor')} />
+      <input type="hidden" {...register('primaryDarkColor')} />
+      <input type="hidden" {...register('linkLightColor')} />
+      <input type="hidden" {...register('linkDarkColor')} />
       <HStack mb={4}>
         {PALETTE_BASE_COLORS.map((value) => (
           <PaletteCard
