@@ -9,13 +9,15 @@ import {
   Heading,
   HStack,
   Input,
-  Select
+  Select,
+  Text
 } from '@chakra-ui/react'
 
 import { PlaylistFormInputs } from '@/features/playlists/types'
+import { ColorPaletteForm } from '@/features/playlists/components/PlaylistForm/MetaTab/ColorPaletteForm/ColorPaletteForm'
 import {
-  FloatingLabelTextarea,
-  FloatingLabelInput
+  FloatingLabelInput,
+  FloatingLabelTextarea
 } from '@/components/Form/FloatingLable'
 import { ArrowStepContent } from '@/components/ArrowStep'
 
@@ -104,7 +106,15 @@ export const EditMetaTabContent = ({
         <PlaylistImageForm />
       </Box>
 
-      <Heading size="md">色</Heading>
+      <Heading size="md">色 - Color</Heading>
+      <Text>
+        ここで選んだ色がアクセシビリティに配慮された色に変換されページに反映されます。
+      </Text>
+      <Text>一番右側のパレットから自由に色を選択することができます。</Text>
+      <Box my={5}>
+        <ColorPaletteForm />
+      </Box>
+
       <FormControl>
         <FormLabel>リンク(同一内容) - SameAs</FormLabel>
         <Input />

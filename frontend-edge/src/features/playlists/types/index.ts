@@ -13,10 +13,10 @@ export type PlaylistFormInputs = {
   formatGenre: string
   themeGenre: string
   selectedPalette: string
-  primaryLight: string
-  primaryDark: string
-  linkLight: string
-  linkDark: string
+  primaryLightColor: string
+  primaryDarkColor: string
+  linkLightColor: string
+  linkDarkColor: string
   aliasId: string
   // sameAs: Object[]
   // citations: Object[]

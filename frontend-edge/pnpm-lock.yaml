@@ -67,6 +67,7 @@ specifiers:
   msw-storybook-addon: ^1.6.3
   prettier: ^2.7.1
   react: ^18.0.0
+  react-colorful: ^5.6.1
   react-cropper: ^2.1.8
   react-dom: ^18.0.0
   react-dropzone: ^14.2.2
@@ -111,6 +112,7 @@ dependencies:
   framer-motion: 6.3.16_biqbaboplfbrettd7655fr4n2y
   immer: 9.0.15
   react: 18.2.0
+  react-colorful: 5.6.1_biqbaboplfbrettd7655fr4n2y
   react-cropper: 2.1.8_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-dropzone: 14.2.2_react@18.2.0
@@ -3131,7 +3133,7 @@ packages:
       strict-event-emitter: 0.2.4
       uuid: 8.3.2
     optionalDependencies:
-      msw: 0.46.1_typescript@4.7.4
+      msw: 0.47.0_typescript@4.7.4
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -12086,8 +12088,8 @@ packages:
       - react-dom
     dev: true
 
-  /msw/0.46.1_typescript@4.7.4:
-    resolution: {integrity: sha512-yEKJcHjUbee6oeD/RDakFdr+RcdMtiREH4U4m/8eJnKpsH2kIA5DSU2wvpR1VKOBVVPyvmAIaU/OrPke8jNdTQ==}
+  /msw/0.47.0_typescript@4.7.4:
+    resolution: {integrity: sha512-e4zfVjv+YoTshwuatioFWWpfJOG2h9ZMqzlwsXX5146q4k2pn+wBrb4wPQP+Gp3Tghc44QZ9II2am532HNkumA==}
     engines: {node: '>=14'}
     hasBin: true
     requiresBuild: true
@@ -13297,6 +13299,16 @@ packages:
     dependencies:
       '@babel/runtime': 7.18.9
       react: 18.2.0
+    dev: false
+
+  /react-colorful/5.6.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-1exovf0uGTGyq5mXQT0zgQ80uvj2PCwvF8zY1RN9/vbJVSjSo3fsB/4L3ObbF7u70NduSiK4xu4Y6q1MHoUGEw==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react-cropper/2.1.8_react@18.2.0:

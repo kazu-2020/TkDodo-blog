@@ -24,10 +24,10 @@ export const playlistToDefaultValues = (
   selectedPalette:
     playlist?.selectedPalette ||
     PALETTE_BASE_COLORS[Math.floor(Math.random() * PALETTE_BASE_COLORS.length)],
-  primaryLight: playlist?.primaryLight || '#ffffff',
-  primaryDark: playlist?.primaryDark || '#ffffff',
-  linkLight: playlist?.linkLight || '#ffffff',
-  linkDark: playlist?.linkDark || '#ffffff',
+  primaryLightColor: playlist?.primaryLight || '#929292',
+  primaryDarkColor: playlist?.primaryDark || '#ffffff',
+  linkLightColor: playlist?.linkLight || '#747474',
+  linkDarkColor: playlist?.linkDark || '#ffffff',
   aliasId: playlist?.aliasId || '',
   // sameAs: playlist?.sameAs || [],
   // citations: playlist?.citations || [],
