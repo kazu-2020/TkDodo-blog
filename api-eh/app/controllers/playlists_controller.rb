@@ -33,9 +33,8 @@ class PlaylistsController < ApplicationController
 
   def create
     @playlist = Playlist.new(converted_params)
-
     begin
-      @playlist.save_with_notify!
+      @playlist.save_with_notify!(client)
 
       rebuild_episode_list
     rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
@@ -44,7 +43,7 @@ class PlaylistsController < ApplicationController
   end
 
   def update
-    if @playlist.update_with_notify(converted_params)
+    if @playlist.update_with_notify(converted_params, client)
 
       rebuild_episode_list
 
@@ -178,5 +177,13 @@ class PlaylistsController < ApplicationController
 
     items = params.require(:playlist).permit(items: [])[:items] || []
     @playlist.rebuild_episode_list_to(items)
+  end
+
+  def client
+    @client = if Rails.env.development? || Rails.env.test?
+                Mock::AwsSnsClient.new
+              else
+                Aws::SNS::Client.new(region: 'ap-northeast-1')
+              end
   end
 end

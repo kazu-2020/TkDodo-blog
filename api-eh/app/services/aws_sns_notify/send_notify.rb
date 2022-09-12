@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-class SnsNotify::Playlist
+class AwsSnsNotify::SendNotify
   # @param [Array] playlist_ids
-  def send(playlist_ids)
-    SnsNotify::Client.new(build_message(playlist_ids)).call
+  # @param [Aws::SNS::Client] client
+  def call(playlist_ids:, client:)
+    AwsSnsNotify::PublishNotify.new(message: build_message(playlist_ids), client: client).call
   end
 
   private

@@ -205,12 +205,13 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     editor_data['blocks'].select { |block| block['type'] == type }
   end
 
-  def save_with_notify!
+  def save_with_notify!(client)
     save!
-    SnsNotify::Playlist.new.send([string_id]) if string_id.present?
+
+    AwsSnsNotify::SendNotify.new.call(playlist_ids: [string_id], client: client) if string_id.present?
   end
 
-  def update_with_notify(params)
+  def update_with_notify(params, client)
     result = false
     ActiveRecord::Base.transaction do
       # 子テーブルの削除検知の marked_for_destruction? を有効にするために、assign_attributes を利用して更新しています。
@@ -219,7 +220,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
       result = save
 
-      SnsNotify::Playlist.new.send([string_id]) if is_changed
+      AwsSnsNotify::SendNotify.new.call(playlist_ids: [string_id], client: client) if is_changed
     end
 
     result
