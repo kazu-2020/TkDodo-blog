@@ -1,5 +1,6 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import React, { useEffect } from 'react'
+import { DevTool } from '@hookform/devtools'
 
 import { Playlist } from '@/types/playlist'
 
@@ -31,6 +32,7 @@ type Props = {
 export const PlaylistForm = ({ playlist = undefined }: Props) => {
   const formMethods = usePlaylistForm(playlist)
   const {
+    control,
     handleSubmit,
     trigger,
     reset,
@@ -73,6 +75,7 @@ export const PlaylistForm = ({ playlist = undefined }: Props) => {
       <form onSubmit={handleSubmit(onSubmit)} data-testid="playlistForm">
         <ArrowStepContainer />
       </form>
+      {import.meta.env.DEV && <DevTool control={control} />}
     </FormProvider>
   )
 }

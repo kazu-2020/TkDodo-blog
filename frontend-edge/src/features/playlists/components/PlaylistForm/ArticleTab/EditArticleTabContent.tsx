@@ -55,6 +55,7 @@ export const EditArticleTabContent = ({
       <Divider my={6} borderColor="gray.400" />
 
       <Container maxW="650px">
+        <input type="hidden" {...register('editorData')} />
         <Alert status="warning" mb={5}>
           <AlertIcon />
           <Box>
@@ -70,17 +71,15 @@ export const EditArticleTabContent = ({
             {textLength}文字
           </Text>
         </Flex>
-        {getValues('editorData') !== undefined && (
-          <ArticleEditor
-            defaultValue={getValues('editorData')}
-            onChange={() => {}}
-            onReady={() => {}}
-            onSave={(data) => {
-              setValue('editorData', data, { shouldDirty: true })
-              setTextLength(PlainTextParser.parse(data).length)
-            }}
-          />
-        )}
+        <ArticleEditor
+          defaultValue={getValues('editorData')}
+          onChange={() => {}}
+          onReady={() => {}}
+          onSave={(data) => {
+            setValue('editorData', data, { shouldDirty: true })
+            setTextLength(PlainTextParser.parse(data).length)
+          }}
+        />
       </Container>
 
       <Divider my={6} borderColor="gray.400" />

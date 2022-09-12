@@ -18,6 +18,7 @@ specifiers:
   '@emotion/react': ^11.9.3
   '@emotion/styled': ^11.9.3
   '@faker-js/faker': ^7.3.0
+  '@hookform/devtools': ^4.2.2
   '@mswjs/data': ^0.10.1
   '@storybook/addon-actions': ^6.5.10
   '@storybook/addon-essentials': ^6.5.10
@@ -67,6 +68,7 @@ specifiers:
   msw-storybook-addon: ^1.6.3
   prettier: ^2.7.1
   react: ^18.0.0
+  react-colorful: ^5.6.1
   react-cropper: ^2.1.8
   react-dom: ^18.0.0
   react-dropzone: ^14.2.2
@@ -101,6 +103,7 @@ dependencies:
   '@editorjs/paragraph': 2.8.0
   '@emotion/react': 11.9.3_4jaruczdv2uxjj3lb2xbkiuci4
   '@emotion/styled': 11.9.3_toiz7tndcw4z2b7gxmmeo5fkcu
+  '@hookform/devtools': 4.2.2_htxn4kwkfgevexeqvqmeooemhe
   '@storybook/react': 6.5.10_2jxk66lik4nsq2auqeyd3pkug4
   '@vitejs/plugin-react': 2.0.0_vite@3.0.4
   axios: 0.27.2
@@ -111,6 +114,7 @@ dependencies:
   framer-motion: 6.3.16_biqbaboplfbrettd7655fr4n2y
   immer: 9.0.15
   react: 18.2.0
+  react-colorful: 5.6.1_biqbaboplfbrettd7655fr4n2y
   react-cropper: 2.1.8_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-dropzone: 14.2.2_react@18.2.0
@@ -2699,6 +2703,27 @@ packages:
       '@hapi/hoek': 9.3.0
     dev: true
 
+  /@hookform/devtools/4.2.2_htxn4kwkfgevexeqvqmeooemhe:
+    resolution: {integrity: sha512-0Sfweb4jkoGDivO+UF8QH1tf4pQQ0Ll00MjxMFWL+rORy2Xrf5m0QlxRESJnCd72VYRCZA5TO+2G9h7uPlMLzQ==}
+    peerDependencies:
+      react: '>=17.0.2'
+      react-dom: '>=17.0.2'
+    dependencies:
+      '@emotion/react': 11.9.3_4jaruczdv2uxjj3lb2xbkiuci4
+      '@emotion/styled': 11.9.3_toiz7tndcw4z2b7gxmmeo5fkcu
+      '@types/lodash': 4.14.182
+      little-state-machine: 4.6.0_react@18.2.0
+      lodash: 4.17.21
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-simple-animate: 3.5.1_react-dom@18.2.0
+      use-deep-compare-effect: 1.8.1_react@18.2.0
+      uuid: 8.3.2
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@types/react'
+    dev: false
+
   /@humanwhocodes/config-array/0.10.4:
     resolution: {integrity: sha512-mXAIHxZT3Vcpg83opl1wGlVZ9xydbfZO3r5YfRSH6Gpp2J/PfdBP0wbDa2sO6/qRbcalpoevVyW6A/fI6LfeMw==}
     engines: {node: '>=10.10.0'}
@@ -3131,7 +3156,7 @@ packages:
       strict-event-emitter: 0.2.4
       uuid: 8.3.2
     optionalDependencies:
-      msw: 0.46.1_typescript@4.7.4
+      msw: 0.47.0_typescript@4.7.4
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -7661,6 +7686,11 @@ packages:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
     engines: {node: '>= 0.8'}
 
+  /dequal/2.0.3:
+    resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
+    engines: {node: '>=6'}
+    dev: false
+
   /des.js/1.0.1:
     resolution: {integrity: sha512-Q0I4pfFrv2VPd34/vfLrFOoRmlYj3OV50i7fskps1jZWK1kApMWWT9G6RRUeYedLcBDIhnSDaUvJMb3AhUlaEA==}
     dependencies:
@@ -11583,6 +11613,14 @@ packages:
   /lines-and-columns/1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
+  /little-state-machine/4.6.0_react@18.2.0:
+    resolution: {integrity: sha512-0e3pzIfeShL7Vsa2O2k7HmNhHL+R1SE0h7zxs0LUbemwgTk6r/QRgiTxumEfh8ftTjAvBaaaAWqdvidVmfhDhg==}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /load-json-file/1.1.0:
     resolution: {integrity: sha512-cy7ZdNRXdablkXYNI049pthVeXFurRyb9+hA/dZzerZ0pGTx42z+y+ssxBaVV2l70t1muq5IdKhn4UtcoGUY9A==}
     engines: {node: '>=0.10.0'}
@@ -12086,8 +12124,8 @@ packages:
       - react-dom
     dev: true
 
-  /msw/0.46.1_typescript@4.7.4:
-    resolution: {integrity: sha512-yEKJcHjUbee6oeD/RDakFdr+RcdMtiREH4U4m/8eJnKpsH2kIA5DSU2wvpR1VKOBVVPyvmAIaU/OrPke8jNdTQ==}
+  /msw/0.47.0_typescript@4.7.4:
+    resolution: {integrity: sha512-e4zfVjv+YoTshwuatioFWWpfJOG2h9ZMqzlwsXX5146q4k2pn+wBrb4wPQP+Gp3Tghc44QZ9II2am532HNkumA==}
     engines: {node: '>=14'}
     hasBin: true
     requiresBuild: true
@@ -13299,6 +13337,16 @@ packages:
       react: 18.2.0
     dev: false
 
+  /react-colorful/5.6.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-1exovf0uGTGyq5mXQT0zgQ80uvj2PCwvF8zY1RN9/vbJVSjSo3fsB/4L3ObbF7u70NduSiK4xu4Y6q1MHoUGEw==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /react-cropper/2.1.8_react@18.2.0:
     resolution: {integrity: sha512-QEj6CE9et/gMRqpaKMgZQdBgtzLjjq+zj1pmHwtoWG6GqscDl4QpTwoEElWN2pieYxkwFaZa0lPiD2b9nwqLKQ==}
     peerDependencies:
@@ -13543,6 +13591,14 @@ packages:
     dependencies:
       history: 5.3.0
       react: 18.2.0
+
+  /react-simple-animate/3.5.1_react-dom@18.2.0:
+    resolution: {integrity: sha512-VpQS4nYU3G8+xU9hMinbeFZqHRVe+rNicec+y+Jaz3kHCV5TlBSkTzoaz/Nycsh2ShoWWfqfhV3Rn8E85QNqZg==}
+    peerDependencies:
+      react-dom: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /react-style-singleton/2.2.1_luyos4mouogwq6z3wafb3re4ce:
     resolution: {integrity: sha512-ZWj0fHEMyWkHzKYUr2Bs/4zU6XLmq9HsgBURm7g5pAVfyn49DgUiNgY2d4lXRlYSiCif9YBGpQleewkcqddc7g==}
@@ -15409,6 +15465,17 @@ packages:
       tslib: 2.4.0
     dev: false
 
+  /use-deep-compare-effect/1.8.1_react@18.2.0:
+    resolution: {integrity: sha512-kbeNVZ9Zkc0RFGpfMN3MNfaKNvcLNyxOAAd9O4CBZ+kCBXXscn9s/4I+8ytUER4RDpEYs5+O6Rs4PqiZ+rHr5Q==}
+    engines: {node: '>=10', npm: '>=6'}
+    peerDependencies:
+      react: '>=16.13'
+    dependencies:
+      '@babel/runtime': 7.18.9
+      dequal: 2.0.3
+      react: 18.2.0
+    dev: false
+
   /use-react-router-breadcrumbs/3.2.1_react@18.2.0:
     resolution: {integrity: sha512-GpDhGo/A0I1ckGLER1/YZX/tgX+KOAyCGG2HgFIc0SVzQ30hTilufNdNRN3Gt+WXJW0zgn48CxxKvKSe+xA3TA==}
     peerDependencies:
@@ -15499,7 +15566,6 @@ packages:
   /uuid/8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
-    dev: true
 
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
