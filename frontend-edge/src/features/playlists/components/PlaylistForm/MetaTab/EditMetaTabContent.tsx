@@ -5,25 +5,32 @@ import {
   Checkbox,
   FormControl,
   FormErrorMessage,
+  FormHelperText,
   FormLabel,
   Heading,
   HStack,
   Input,
-  Select,
+  Spacer,
   Text
 } from '@chakra-ui/react'
 
 import { PlaylistFormInputs } from '@/features/playlists/types'
-import { ColorPaletteForm } from '@/features/playlists/components/PlaylistForm/MetaTab/ColorPaletteForm/ColorPaletteForm'
+import { ThemeGenreSelect } from '@/features/playlists/components/PlaylistForm/MetaTab/ThemeGenreSelect'
+import { FormatGenreSelect } from '@/features/playlists/components/PlaylistForm/MetaTab/FormatGenreSelect'
+import { MultiValueTextInput } from '@/components/Form/MultiValueTextInput/MultiValueTextInput'
 import {
   FloatingLabelInput,
   FloatingLabelTextarea
 } from '@/components/Form/FloatingLable'
 import { ArrowStepContent } from '@/components/ArrowStep'
 
+import { SameAsItems } from './SameAsItems'
 import { PlaylistImageForm } from './CropperImageModal/PlaylistImageForm'
+import { ColorPaletteForm } from './ColorPaletteForm/ColorPaletteForm'
+import { CitationItems } from './CitationItems'
+import { ActiveCheckboxes } from './ActiveCheckboxes'
 
-// NOTE: フォームの項目数自体が多いため
+// NOTE: フォームの項目数自体が多く分割すると見通しが悪くなるため
 // eslint-disable-next-line max-lines-per-function
 export const EditMetaTabContent = ({
   contentIndex
@@ -31,6 +38,7 @@ export const EditMetaTabContent = ({
   contentIndex: number
 }) => {
   const {
+    control,
     register,
     formState: { errors }
   } = useFormContext<PlaylistFormInputs>()
@@ -47,6 +55,7 @@ export const EditMetaTabContent = ({
         isRequired
         mb={10}
       />
+
       <FloatingLabelInput
         id="detailedNameRuby"
         label="ふりがな - Detailed Name Ruby"
@@ -54,6 +63,7 @@ export const EditMetaTabContent = ({
         register={register('detailedNameRuby')}
         mb={5}
       />
+
       <FloatingLabelTextarea
         id="detailedCatch"
         label="キャッチコピー - DetailedCatch"
@@ -61,6 +71,7 @@ export const EditMetaTabContent = ({
         register={register('detailedCatch')}
         mb={5}
       />
+
       <FloatingLabelTextarea
         id="description"
         label="説明 - Description"
@@ -68,39 +79,28 @@ export const EditMetaTabContent = ({
         register={register('description')}
         mb={5}
       />
-      <FloatingLabelInput
-        id="keywords"
-        label="キーワード - Keywords"
-        error={errors?.keywords}
-        register={register('keywords')}
-        mb={5}
-      />
-      <FloatingLabelInput
-        id="hashtags"
-        label="ハッシュタグ - Hashtags"
-        error={errors?.hashtags}
-        register={register('hashtags')}
-        mb={5}
-      />
-      <HStack my={8}>
-        <FormControl>
-          <FormLabel>ジャンル(フォーマット) - Format Genre</FormLabel>
-          <Select variant="flushed" placeholder="選択して下さい">
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-          </Select>
-        </FormControl>
 
-        <FormControl>
-          <FormLabel>ジャンル(テーマ) - Theme Genre</FormLabel>
-          <Select variant="flushed" placeholder="選択して下さい">
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-          </Select>
-        </FormControl>
+      <MultiValueTextInput
+        name="keywords"
+        label="キーワード - Keywords"
+        placeholder="キーワードを入力してください"
+        mb={5}
+      />
+
+      <MultiValueTextInput
+        name="hashtags"
+        label="ハッシュタグ - Hashtags"
+        placeholder="ハッシュタグを入力してください"
+        helperText="ハッシュタグは先頭に「#」をつけてください"
+        mb={5}
+      />
+
+      <HStack my={8} spacing={8}>
+        <FormatGenreSelect />
+        <Spacer />
+        <ThemeGenreSelect />
       </HStack>
+
       <Heading size="md">画像</Heading>
       <Box my={5}>
         <PlaylistImageForm />
@@ -115,30 +115,31 @@ export const EditMetaTabContent = ({
         <ColorPaletteForm />
       </Box>
 
-      <FormControl>
-        <FormLabel>リンク(同一内容) - SameAs</FormLabel>
-        <Input />
-      </FormControl>
-      <FormControl>
-        <FormLabel>関連リンク - Citation</FormLabel>
-        <Input />
-      </FormControl>
-      <FormControl>
+      <SameAsItems control={control} register={register} errors={errors} />
+
+      <CitationItems control={control} register={register} errors={errors} />
+
+      <FormControl mb={5}>
         <FormLabel>短縮URL - Alias Id</FormLabel>
-        <Input {...register('aliasId')} />
+        <Input variant="flushed" {...register('aliasId')} />
+        <FormHelperText>半角英数字、「-」「_」が利用できます</FormHelperText>
         <FormErrorMessage>
           {errors.aliasId && errors.aliasId.message}
         </FormErrorMessage>
       </FormControl>
+
       <FormControl mb={5}>
+        <FormLabel>APIへの公開/非公開</FormLabel>
         <Checkbox
           id="apiState"
           data-testid="apiState"
           {...register('apiState')}
         >
-          APIへ公開する
+          公開する
         </Checkbox>
       </FormControl>
+
+      <ActiveCheckboxes />
     </ArrowStepContent>
   )
 }

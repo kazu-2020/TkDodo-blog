@@ -1,27 +1,33 @@
+import { OptionBase } from 'chakra-react-select'
 import { OutputData } from '@editorjs/editorjs'
 
+import { SameAs } from '@/types/same_as'
 import { EpisodeData } from '@/types/episode_data'
+import { Citation } from '@/types/citation'
 
-// TODO
+export interface SelectOption extends OptionBase {
+  label: string
+  value: string
+}
+
 export type PlaylistFormInputs = {
   name: string
-  detailedNameRuby: string
-  detailedCatch: string
-  description: string
-  keywords: string
-  hashtags: string
-  formatGenre: string
-  themeGenre: string
+  detailedNameRuby?: string
+  detailedCatch?: string
+  description?: string
+  keywords: SelectOption[]
+  hashtags: SelectOption[]
+  formatGenre?: string
+  themeGenre?: string
   selectedPalette: string
   primaryLightColor: string
   primaryDarkColor: string
   linkLightColor: string
   linkDarkColor: string
-  aliasId: string
-  // sameAs: Object[]
-  // citations: Object[]
+  aliasId?: string
+  sameAsAttributes?: SameAs[]
+  citationsAttributes?: Citation[]
   apiState: boolean
-  // selectedTypes: string[]
   tvepisodeCount: number
   faqpageCount: number
   howtoCount: number
@@ -37,6 +43,13 @@ export type PlaylistFormInputs = {
   publisherName: string
   publisherType: string
   episodes: EpisodeData[]
+  activeTvepisode?: boolean
+  activeArticle?: boolean
+  activeFaqpage?: boolean
+  activeHowto?: boolean
+  activeEvent?: boolean
+  activeRecipe?: boolean
+  activeItemList?: boolean
 }
 export type CreatePlaylistParams = {
   name?: string
@@ -73,8 +86,8 @@ export type CreatePlaylistParams = {
   publisherName?: string
   apiState?: string
   withEpisodeCount?: number
-  sameAsAttributes?: []
-  citationsAttributes?: []
+  sameAsAttributes?: SameAs[]
+  citationsAttributes?: Citation[]
   playlistItemsAttributes?: []
   keywords?: string[]
   hashtags?: string[]

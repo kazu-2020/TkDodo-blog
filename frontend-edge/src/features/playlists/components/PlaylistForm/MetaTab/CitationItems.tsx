@@ -5,32 +5,33 @@ import React from 'react'
 import { Box, Button, HStack, Text, VStack } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 
-import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
-import { SameAsItem } from '@/features/recommend-decks/components/RecommendDeckForm/SameAsItem'
+import { PlaylistFormInputs } from '@/features/playlists/types'
+
+import { CitationItem } from './CitationItem'
 
 type Props = {
-  control: Control<RecommendDeckFormInputs>
-  register: UseFormRegister<RecommendDeckFormInputs>
-  errors: FieldErrors<RecommendDeckFormInputs>
+  control: Control<PlaylistFormInputs>
+  register: UseFormRegister<PlaylistFormInputs>
+  errors: FieldErrors<PlaylistFormInputs>
 }
 
-export const SameAsItems = ({ control, register, errors }: Props) => {
+export const CitationItems = ({ control, register, errors }: Props) => {
   const { fields, append, update, remove } = useFieldArray({
     control,
     // NOTE: keyNameを指定せず、keyにidをそのまま利用するとidにランダムな文字列が設定され更新や削除ができない
     // 次のメジャーバージョンで削除予定らしいので対応が必要になりそう https://react-hook-form.com/api/usefieldarray
     keyName: 'keyId',
-    name: 'deckSameAsAttributes'
+    name: 'citationsAttributes'
   })
 
   return (
     <Box>
       <HStack>
         <Text fontSize="lg" fontWeight="bold">
-          リンク（同一内容）-
+          関連リンク -
         </Text>
         <Text fontSize="md" fontWeight="normal" color="rgba(0, 0, 0, 0.6)">
-          SameAs
+          Citation
         </Text>
       </HStack>
       <VStack align="flex-start" mb={5} mt={5}>
@@ -38,7 +39,7 @@ export const SameAsItems = ({ control, register, errors }: Props) => {
           (field, index) =>
             // eslint-disable-next-line no-underscore-dangle
             !field._destroy && (
-              <SameAsItem
+              <CitationItem
                 key={field.keyId}
                 register={register}
                 errors={errors}
@@ -62,7 +63,7 @@ export const SameAsItems = ({ control, register, errors }: Props) => {
             })
           }}
         >
-          リンク（同一内容）を追加
+          関連リンクを追加
         </Button>
       </VStack>
     </Box>

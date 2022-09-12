@@ -5,13 +5,14 @@ import React from 'react'
 import { Box, Button, HStack, Text, VStack } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 
-import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
-import { SameAsItem } from '@/features/recommend-decks/components/RecommendDeckForm/SameAsItem'
+import { PlaylistFormInputs } from '@/features/playlists/types'
+
+import { SameAsItem } from './SameAsItem'
 
 type Props = {
-  control: Control<RecommendDeckFormInputs>
-  register: UseFormRegister<RecommendDeckFormInputs>
-  errors: FieldErrors<RecommendDeckFormInputs>
+  control: Control<PlaylistFormInputs>
+  register: UseFormRegister<PlaylistFormInputs>
+  errors: FieldErrors<PlaylistFormInputs>
 }
 
 export const SameAsItems = ({ control, register, errors }: Props) => {
@@ -20,7 +21,7 @@ export const SameAsItems = ({ control, register, errors }: Props) => {
     // NOTE: keyNameを指定せず、keyにidをそのまま利用するとidにランダムな文字列が設定され更新や削除ができない
     // 次のメジャーバージョンで削除予定らしいので対応が必要になりそう https://react-hook-form.com/api/usefieldarray
     keyName: 'keyId',
-    name: 'deckSameAsAttributes'
+    name: 'sameAsAttributes'
   })
 
   return (

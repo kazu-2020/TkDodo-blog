@@ -58,6 +58,7 @@ export const PlaylistForm = ({ playlist = undefined }: Props) => {
   const onSubmit: SubmitHandler<PlaylistFormInputs> = async (values) => {
     if (playlist?.playlistUId === undefined) {
       const data = formValuesToCreateParams(values, dirtyFields)
+
       await createPlaylistMutation.mutateAsync({ data })
     } else {
       const data = formValuesToUpdateParams(values, dirtyFields)

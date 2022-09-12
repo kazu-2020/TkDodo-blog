@@ -40,6 +40,7 @@
     "@storybook/react": "^6.5.10",
     "@vitejs/plugin-react": "^2.0.0",
     "axios": "^0.27.2",
+    "chakra-react-select": "^4.2.2",
     "chakra-ui-steps": "^1.7.4",
     "chroma-js": "^2.4.2",
     "colorthief": "^2.3.2",

@@ -13,9 +13,9 @@ export type Playlist = {
   name: string
   detailedNameRuby: string
   description: string
-  keywords: string
+  keywords: string[]
   detailedCatch: string
-  hashtag: string
+  hashtag: string[]
   formatGenre: string
   formatGenreName?: string
   themeGenre: string
@@ -48,11 +48,12 @@ export type Playlist = {
   hasEvent: boolean
   hasFaqPage: boolean
   activeItemList: boolean
-  activeEpisode: boolean
+  activeTvepisode: boolean
   activeArticle: boolean
-  activeHowTo: boolean
+  activeHowto: boolean
   activeEvent: boolean
-  activeFaqPage: boolean
+  activeFaqpage: boolean
+  activeRecipe: boolean
   items: Array<EpisodeData>
   sameAs: Array<SameAs>
   citations: Array<Citation>

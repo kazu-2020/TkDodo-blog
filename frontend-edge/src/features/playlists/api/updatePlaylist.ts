@@ -12,20 +12,9 @@ export type UpdatePlaylistDTO = {
   playlistUId: string
 }
 
-const requestParams = (data: UpdatePlaylistParams) => {
-  if (Object.hasOwn(data, 'apiState')) {
-    const { apiState, ...params } = data
-    return {
-      playlist: snakecaseKeys({
-        ...params,
-        apiState: data.apiState ? 'open' : 'close'
-      }),
-      enable_list_update: data.enableListUpdate ? '1' : ''
-    }
-  }
-
-  return { playlist: snakecaseKeys(data) }
-}
+const requestParams = (data: UpdatePlaylistParams) => ({
+  playlist: snakecaseKeys(data, { exclude: ['_destroy'] })
+})
 
 export const updatePlaylist = async ({
   data,
