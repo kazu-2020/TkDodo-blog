@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-class AwsSnsNotify::PublishNotify
+class SnsNotify::Client
   # @param [Hash] message
-  # @param [Aws::SNS::Client] client
-  # client = Mock::SnsClient.new OR Aws::SNS::Client.new(region: 'ap-northeast-1')
-  def initialize(message:, client:)
+  def initialize(message)
     @message = message
-    @client ||= client
+    @client ||= sns_client
   end
 
   def call
@@ -27,6 +25,12 @@ class AwsSnsNotify::PublishNotify
       message:
         #{@message.to_json}
     MESSAGE
+  end
+
+  def sns_client
+    return Mock::SnsClient.new if Rails.env.development? || Rails.env.test?
+
+    Aws::SNS::Client.new(region: 'ap-northeast-1')
   end
 
   def topic_arn

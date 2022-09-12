@@ -165,7 +165,7 @@ describe PlaylistsController, type: :request do
     describe '更新通知' do
       describe '更新通知が呼び出されること' do
         before do
-          expect_any_instance_of(AwsSnsNotify::SendNotify).to receive(:call) # rubocop: disable RSpec/ExpectInHook
+          expect_any_instance_of(SnsNotify::Playlist).to receive(:send) # rubocop: disable RSpec/ExpectInHook
         end
 
         context 'メタ情報' do
@@ -229,7 +229,7 @@ describe PlaylistsController, type: :request do
 
       describe '更新通知が呼び出されれないこと' do
         before do
-          expect_any_instance_of(AwsSnsNotify::SendNotify).not_to receive(:call) # rubocop: disable RSpec/ExpectInHook
+          expect_any_instance_of(SnsNotify::Playlist).not_to receive(:send) # rubocop: disable RSpec/ExpectInHook
         end
 
         context 'メタ情報' do
