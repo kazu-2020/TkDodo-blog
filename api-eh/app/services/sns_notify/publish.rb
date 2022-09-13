@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SnsNotify::Client
+class SnsNotify::Publish
   # @param [Hash] message
   def initialize(message)
     @message = message
