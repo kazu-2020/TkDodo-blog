@@ -207,7 +207,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def save_with_notify!
     save!
-    SnsNotify::Playlist.new.send([string_id]) if string_id.present?
+    SnsNotify::Playlist.new.publish([string_id]) if string_id.present?
   end
 
   def update_with_notify(params)
@@ -219,7 +219,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
       result = save
 
-      SnsNotify::Playlist.new.send([string_id]) if is_changed
+      SnsNotify::Playlist.new.publish([string_id]) if is_changed
     end
 
     result
