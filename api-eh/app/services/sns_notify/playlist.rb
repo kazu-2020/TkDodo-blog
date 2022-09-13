@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SnsNotify::Playlist
-  include SnsNotify::Model
+  include SnsNotify::Methods
   # @param [Array] playlist_ids
   def publish(playlist_ids)
     SnsNotify::Publish.new(build_message(playlist_ids)).call
