@@ -1,7 +1,9 @@
-# Interface相当のModuleです
-# 新しいメソッドを追加する場合は、このファイルに追加してください
+# frozen_string_literal: true
 
-module SnsNotify::Methods
+# Interface相当のModuleです
+module Publishable
+  extend ActiveSupport::Concern
+
   # @param [Array] ids
   def publish(ids)
     raise NotImplementedError, "#{self.class}##{__method__}を実装してください"
