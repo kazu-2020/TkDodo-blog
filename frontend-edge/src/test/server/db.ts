@@ -1,5 +1,5 @@
 import { ModelAPI } from '@mswjs/data/lib/glossary'
-import { factory, primaryKey } from '@mswjs/data'
+import { factory, oneOf, primaryKey } from '@mswjs/data'
 
 const models = {
   seriesDeck: {
@@ -10,6 +10,17 @@ const models = {
     apiState: String,
     stringId: String,
     adminMemo: String
+  },
+  recommendDeck: {
+    id: primaryKey(String),
+    name: String,
+    interfix: String,
+    description: String,
+    apiState: String,
+    stringId: String,
+    adminMemo: String,
+    sameAs: Array,
+    playlists: Array
   },
   seriesPlaylist: {
     id: primaryKey(String),
@@ -22,6 +33,18 @@ const models = {
     howToCount: Number,
     eventCount: Number,
     faqPageCount: Number
+  },
+  article: {
+    header: primaryKey(String),
+    // body?: OutputData
+    footer: String,
+    plainBody: String,
+    markedBody: String,
+    authorType: String,
+    authorName: String,
+    publisherType: String,
+    publisherName: String
+    // containsEpisodes?: Array<EpisodeData>}
   },
   playlist: {
     id: primaryKey(String),
@@ -57,7 +80,8 @@ const models = {
     // removeLogoImage: Boolean,
     // removeEyecatchImage: Boolean,
     // removeHeroImage: Boolean,
-    // playableItemsCount: Number,
+    playableItemsCount: Number,
+    itemNum: Number,
     // howToCount: Number,
     // eventCount: Number,
     // faqPageCount: Number,
@@ -76,7 +100,7 @@ const models = {
     // aliasId: String,
     // actor: Array,
     // contributor: Array,
-    // article: Object,
+    article: oneOf('article'),
     // layoutPattern: String,
     // publishLevel: String,
     dateCreated: String,

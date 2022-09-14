@@ -1,5 +1,7 @@
 import snakecaseKeys from 'snakecase-keys'
+import { useNavigate } from 'react-router-dom'
 import { useMutation } from 'react-query'
+import { useToast } from '@chakra-ui/react'
 
 import { SameAs } from '@/types/same_as'
 import { Deck as RecommendDeck } from '@/types/deck'
@@ -44,8 +46,11 @@ type UseCreateRecommendDeckOptions = {
 
 export const useCreateRecommendDeck = ({
   config
-}: UseCreateRecommendDeckOptions = {}) =>
-  useMutation({
+}: UseCreateRecommendDeckOptions = {}) => {
+  const navigate = useNavigate()
+  const toast = useToast()
+
+  return useMutation({
     onMutate: async (newRecommendDeck) => {
       await queryClient.cancelQueries('recommend-decks')
 
@@ -69,7 +74,15 @@ export const useCreateRecommendDeck = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries('recommend-decks')
+      navigate('/recommend-decks')
+      toast({
+        title: '作成しました。',
+        status: 'success',
+        isClosable: true,
+        position: 'top-right'
+      })
     },
     ...config,
     mutationFn: createRecommendDeck
   })
+}

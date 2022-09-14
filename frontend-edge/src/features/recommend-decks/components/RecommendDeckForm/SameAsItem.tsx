@@ -35,7 +35,14 @@ export const SameAsItem = ({ register, errors, index, onRemove }: Props) => (
       isRequired
       m={3}
     />
-    <Button m={4} w={40} colorScheme="red" onClick={() => onRemove(index)}>
+    <Button
+      id={`deckSameAsAttributes.${index}.remove`}
+      data-testid={`deckSameAsAttributes.${index}.remove`}
+      m={4}
+      w={40}
+      colorScheme="red"
+      onClick={() => onRemove(index)}
+    >
       削除
     </Button>
   </HStack>

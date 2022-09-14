@@ -3,7 +3,9 @@ import { faker } from '@faker-js/faker/locale/ja'
 
 import { SeriesPlaylist } from '@/types/series_playlist'
 import { SeriesDeck } from '@/types/series_deck'
+import { RecommendDeck } from '@/types/recommend_deck'
 import { Playlist } from '@/types/playlist'
+import { Article } from '@/types/article'
 
 type Overrides = Record<string, any>
 
@@ -19,6 +21,24 @@ export const seriesDeckGenerator = (overrides?: Overrides): SeriesDeck => ({
   playlistCount: faker.datatype.number(),
   dateCreated: faker.date.past().toISOString(),
   dateModified: faker.date.past().toISOString(),
+  ...overrides
+})
+
+export const recommendDeckGenerator = (
+  overrides?: Overrides
+): RecommendDeck => ({
+  id: `${faker.datatype.number()}`,
+  name: faker.word.adjective(),
+  description: faker.lorem.paragraph(),
+  interfix: faker.word.adjective(),
+  stringId: faker.datatype.uuid(),
+  adminMemo: faker.lorem.paragraph(),
+  apiState: faker.helpers.arrayElement(['open', 'close', 'waiting']),
+  playlists: [],
+  playListCount: faker.datatype.number(),
+  dateCreated: faker.date.past().toISOString(),
+  dateModified: faker.date.past().toISOString(),
+  sameAs: [],
   ...overrides
 })
 
@@ -73,9 +93,10 @@ export const playlistGenerator = (overrides?: Overrides): Playlist => ({
   removeEyecatchImage: false,
   removeHeroImage: false,
   playableItemsCount: faker.datatype.number(),
-  howToCount: faker.datatype.number(),
+  itemNum: faker.datatype.number(),
+  howtoCount: faker.datatype.number(),
   eventCount: faker.datatype.number(),
-  faqPageCount: faker.datatype.number(),
+  faqpageCount: faker.datatype.number(),
   hasHowTo: faker.datatype.boolean(),
   hasEvent: faker.datatype.boolean(),
   hasFaqPage: faker.datatype.boolean(),
@@ -96,6 +117,20 @@ export const playlistGenerator = (overrides?: Overrides): Playlist => ({
   publishLevel: faker.word.adjective(),
   dateCreated: faker.date.past().toDateString(),
   dateModified: faker.date.past().toDateString(),
-  itemNum: faker.datatype.number(),
+  tvepisodeCount: faker.datatype.number(),
+  ...overrides
+})
+
+export const articleGenerator = (overrides?: Overrides): Article => ({
+  header: faker.word.adjective(),
+  footer: faker.word.adjective(),
+  plainBody: faker.lorem.paragraph(),
+  markedBody: faker.helpers.maybe(() => faker.lorem.paragraph(), {
+    probability: 0.5
+  }),
+  authorType: faker.helpers.arrayElement(['Person', 'Organization']),
+  authorName: faker.word.adjective(),
+  publisherType: faker.helpers.arrayElement(['Person', 'Organization']),
+  publisherName: faker.word.adjective(),
   ...overrides
 })
