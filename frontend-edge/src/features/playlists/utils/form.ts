@@ -5,22 +5,32 @@ import { Playlist } from '@/types/playlist'
 import {
   CreatePlaylistParams,
   PlaylistFormInputs,
+  SelectOption,
   UpdatePlaylistParams
 } from '../types'
 
 import { PALETTE_BASE_COLORS } from './adjustColor'
 
+const arrayToOptions = (array: string[]): SelectOption[] =>
+  array.map((item) => ({
+    label: item,
+    value: item
+  }))
+
+const OptionsToArray = (options: SelectOption[]): string[] =>
+  options.map((item) => item.value)
+
 export const playlistToDefaultValues = (
   playlist: Playlist | undefined
 ): PlaylistFormInputs => ({
   name: playlist?.name || '',
-  detailedNameRuby: playlist?.detailedNameRuby || '',
-  detailedCatch: playlist?.detailedCatch || '',
-  description: playlist?.description || '',
-  keywords: playlist?.keywords || '',
-  hashtags: playlist?.hashtag || '',
-  formatGenre: playlist?.formatGenre || '',
-  themeGenre: playlist?.themeGenre || '',
+  detailedNameRuby: playlist?.detailedNameRuby,
+  detailedCatch: playlist?.detailedCatch,
+  description: playlist?.description,
+  keywords: playlist?.keywords ? arrayToOptions(playlist.keywords) : [],
+  hashtags: playlist?.hashtag ? arrayToOptions(playlist.hashtag) : [],
+  formatGenre: playlist?.formatGenre,
+  themeGenre: playlist?.themeGenre,
   selectedPalette:
     playlist?.selectedPalette ||
     PALETTE_BASE_COLORS[Math.floor(Math.random() * PALETTE_BASE_COLORS.length)],
@@ -28,10 +38,9 @@ export const playlistToDefaultValues = (
   primaryDarkColor: playlist?.primaryDark || '#ffffff',
   linkLightColor: playlist?.linkLight || '#747474',
   linkDarkColor: playlist?.linkDark || '#ffffff',
-  aliasId: playlist?.aliasId || '',
-  // sameAs: playlist?.sameAs || [],
-  // citations: playlist?.citations || [],
-  // selectedTypes: playlist?.selectedTypes || [],
+  aliasId: playlist?.aliasId,
+  sameAsAttributes: playlist?.sameAs,
+  citationsAttributes: playlist?.citations,
   tvepisodeCount: playlist?.tvepisodeCount || 0,
   faqpageCount: playlist?.faqpageCount || 0,
   howtoCount: playlist?.howtoCount || 0,
@@ -47,7 +56,14 @@ export const playlistToDefaultValues = (
   authorName: playlist?.article.authorName || 'NHK',
   publisherType: playlist?.article.publisherType || 'Organization',
   publisherName: playlist?.article.publisherName || 'NHK',
-  episodes: playlist?.items || []
+  episodes: playlist?.items || [],
+  activeTvepisode: playlist?.activeTvepisode,
+  activeArticle: playlist?.activeArticle,
+  activeFaqpage: playlist?.activeFaqpage,
+  activeHowto: playlist?.activeHowto,
+  activeEvent: playlist?.activeEvent,
+  activeRecipe: playlist?.activeRecipe,
+  activeItemList: playlist?.activeItemList
 })
 
 export const formValuesToCreateParams = (
@@ -66,8 +82,8 @@ export const formValuesToCreateParams = (
 
   const data: CreatePlaylistParams = {
     ...paramsValues,
-    keywords: [], // TODO
-    hashtags: [] // TODO
+    keywords: OptionsToArray(keywords),
+    hashtags: OptionsToArray(hashtags)
   }
 
   data.apiState = apiState ? 'open' : 'close'
@@ -92,6 +108,6 @@ export const formValuesToUpdateParams = (
     values,
     dirtyFields
   )
-  data.enableListUpdate = true
+  data.enableListUpdate = true // FIXME: 1 or 0
   return data
 }

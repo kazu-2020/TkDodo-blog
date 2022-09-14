@@ -12,19 +12,9 @@ export type CreatePlaylistDTO = {
   data: CreatePlaylistParams
 }
 
-const requestParams = (data: CreatePlaylistParams) => {
-  if (Object.hasOwn(data, 'apiState')) {
-    const { apiState, ...params } = data
-    return {
-      playlist: snakecaseKeys({
-        ...params,
-        apiState: data.apiState ? 'open' : 'close'
-      })
-    }
-  }
-
-  return { playlist: snakecaseKeys(data) }
-}
+const requestParams = (data: CreatePlaylistParams) => ({
+  playlist: snakecaseKeys(data, { exclude: ['_destroy'] })
+})
 
 export const createPlaylist = ({
   data

@@ -1,5 +1,6 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import React, { useEffect } from 'react'
+import { DevTool } from '@hookform/devtools'
 
 import { SeriesDeck } from '@/types/series_deck'
 import { useSeriesDeckFormStore } from '@/features/series-decks/stores/seriesDeckForm'
@@ -27,7 +28,7 @@ type Props = {
 
 export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
   const formMethods = useSeriesForm(seriesDeck)
-  const { getValues, handleSubmit, trigger, reset } = formMethods
+  const { control, getValues, handleSubmit, trigger, reset } = formMethods
 
   const {
     setInputValues,
@@ -78,6 +79,7 @@ export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
       <form onSubmit={handleSubmit(onSubmit)} data-testid="seriesDeckForm">
         <ArrowStepContainer />
       </form>
+      {import.meta.env.DEV && <DevTool control={control} />}
     </FormProvider>
   )
 }

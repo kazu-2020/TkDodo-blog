@@ -1,5 +1,6 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import React, { useEffect } from 'react'
+import { DevTool } from '@hookform/devtools'
 
 import { RecommendDeck } from '@/types/recommend_deck'
 import { useRecommendDeckFormStore } from '@/features/recommend-decks/stores/recommendDeckForm'
@@ -28,7 +29,7 @@ type Props = {
 
 export const RecommendDeckForm = ({ recommendDeck = undefined }: Props) => {
   const formMethods = useRecommendForm(recommendDeck)
-  const { getValues, handleSubmit, trigger, reset } = formMethods
+  const { control, getValues, handleSubmit, trigger, reset } = formMethods
 
   const {
     setInputValues,
@@ -81,6 +82,7 @@ export const RecommendDeckForm = ({ recommendDeck = undefined }: Props) => {
       <form onSubmit={handleSubmit(onSubmit)} data-testid="recommendDeckForm">
         <ArrowStepContainer />
       </form>
+      {import.meta.env.DEV && <DevTool control={control} />}
     </FormProvider>
   )
 }

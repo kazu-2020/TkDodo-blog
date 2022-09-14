@@ -8,7 +8,7 @@ import { AxiosError } from 'axios'
 
 const queryConfig: DefaultOptions = {
   queries: {
-    useErrorBoundary: true,
+    useErrorBoundary: true, // NOTE: 画面の一部だけ非同期で取る処理など useQueryのoptionで useErrorBoundary:false を設定しないとエラー画面に遷移してしまうので注意
     refetchOnWindowFocus: false,
     retry: false
   }
