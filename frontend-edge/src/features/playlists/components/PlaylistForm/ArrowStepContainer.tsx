@@ -1,62 +1,79 @@
-import { useFormContext } from 'react-hook-form'
-import React, { useEffect, useMemo } from 'react'
+import {
+  FieldNamesMarkedBoolean,
+  FieldValues,
+  useFormContext
+} from 'react-hook-form'
+import React from 'react'
 import { Box, Hide, HStack, Show } from '@chakra-ui/react'
 
-import { PlaylistFormInputs } from '@/features/playlists/types'
-import { usePlaylistFormStore } from '@/features/playlists/stores/playlistForm'
 import { ArrowStepContextProvider, StepItem } from '@/components/ArrowStep'
 
 import { VerticalPreview } from './VerticalPreview'
+import { EditMetaTabContent } from './MetaTab/EditMetaTabContent'
+import { EditListTabContent } from './ListTab/EditListTabContent'
 import { HorizontalPreview } from './HorizontalPreview'
 import { FormHeader } from './FormHeader'
-import { EditMetaTabContent } from './EditMetaTabContent'
-import { EditListTabContent } from './EditListTabContent'
-import { EditArticleTabContent } from './EditArticleTabContent'
+import { EditArticleTabContent } from './ArticleTab/EditArticleTabContent'
 
 const listIndex = 0
 const articleIndex = 1
 const metaIndex = 2
 
+const hasChangedEpisodes = (
+  dirtyFields: FieldNamesMarkedBoolean<FieldValues>
+): boolean => !!dirtyFields.episodes
+
+const hasChangedArticle = (
+  dirtyFields: FieldNamesMarkedBoolean<FieldValues>
+): boolean =>
+  dirtyFields.editorData ||
+  dirtyFields.markedHeader ||
+  dirtyFields.markedFooter ||
+  dirtyFields.authorType ||
+  dirtyFields.authorName ||
+  dirtyFields.publisherType ||
+  dirtyFields.publisherName
+
+const hasChangedSeries = (
+  dirtyFields: FieldNamesMarkedBoolean<FieldValues>
+): boolean => {
+  const {
+    episodes,
+    editorData,
+    markedHeader,
+    markedFooter,
+    authorType,
+    authorName,
+    publisherType,
+    publisherName,
+    ...fields
+  } = dirtyFields
+
+  return fields.length > 0
+}
+
 export const ArrowStepContainer = () => {
   const {
-    watch,
-    formState: { isDirty, isValid }
+    formState: { dirtyFields, isValid }
   } = useFormContext()
 
-  const { hasChangedEpisodes, hasChangedArticle, setInputValues } =
-    usePlaylistFormStore((state) => ({
-      hasChangedEpisodes: state.hasChangedEpisodes,
-      hasChangedArticle: state.hasChangedArticle,
-      setInputValues: state.setInputValues
-    }))
-
-  const stepItems: StepItem[] = useMemo(
-    () => [
-      {
-        title: 'リスト(NItemList)',
-        isSuccess: hasChangedEpisodes,
-        hasError: false
-      },
-      {
-        title: '記事(NArticle)',
-        isSuccess: hasChangedArticle,
-        hasError: false
-      },
-      {
-        title: '基本情報(NSeries)',
-        isSuccess: isDirty,
-        hasError: !isValid
-      }
-    ],
-    [hasChangedEpisodes, hasChangedArticle, isDirty, isValid]
-  )
-
-  useEffect(() => {
-    const subscription = watch((value) => {
-      setInputValues(value as PlaylistFormInputs)
-    })
-    return () => subscription.unsubscribe()
-  }, [watch])
+  const stepItems: StepItem[] = [
+    {
+      title: 'リスト(NItemList)',
+      isSuccess: hasChangedEpisodes(dirtyFields),
+      hasError: false
+    },
+    {
+      title: '記事(NArticle)',
+      isSuccess: hasChangedArticle(dirtyFields),
+      hasError: false
+    },
+    {
+      title: '基本情報(NSeries)',
+      isSuccess: hasChangedSeries(dirtyFields),
+      hasError: !isValid
+    }
+  ]
 
   return (
     <ArrowStepContextProvider>

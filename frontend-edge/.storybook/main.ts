@@ -18,6 +18,9 @@ module.exports = {
     storyStoreV7: true,
     interactionsDebugger: true
   },
+  refs: {
+    '@chakra-ui/react': { disable: true }
+  },
   //https://github.com/storybookjs/builder-vite/issues/85#issuecomment-900831050
   async viteFinal(config, { configType }) {
     const { config: userConfig } = await loadConfigFromFile(

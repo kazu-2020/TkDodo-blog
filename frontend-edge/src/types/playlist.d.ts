@@ -7,7 +7,7 @@ import { Article } from './article'
 
 export type Playlist = {
   id?: string
-  playlistUId: string
+  playlistUId: string // FIXME: playlistUid
   stringId: string
   primaryId: string
   name: string

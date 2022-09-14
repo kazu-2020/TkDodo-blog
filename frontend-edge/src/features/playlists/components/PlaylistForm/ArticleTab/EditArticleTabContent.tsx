@@ -1,6 +1,5 @@
 import { useFormContext } from 'react-hook-form'
 import React, { useEffect, useState } from 'react'
-import { OutputData } from '@editorjs/editorjs'
 import {
   Alert,
   AlertDescription,
@@ -17,8 +16,7 @@ import {
 
 import PlainTextParser from '@/lib/editorjs/plain_text_parser'
 import { PlaylistFormInputs } from '@/features/playlists/types'
-import { usePlaylistFormStore } from '@/features/playlists/stores/playlistForm'
-import { EditorInformationForm } from '@/features/playlists/components/PlaylistForm/EditorInformationForm'
+import { EditorInformationForm } from '@/features/playlists/components/PlaylistForm/ArticleTab/EditorInformationForm'
 import { ArticleEditor } from '@/components/ArticleEditor/ArticleEditor'
 import { ArrowStepContent } from '@/components/ArrowStep'
 
@@ -30,17 +28,17 @@ export const EditArticleTabContent = ({
   const {
     register,
     formState: { errors },
+    getValues,
     setValue
   } = useFormContext<PlaylistFormInputs>()
   const [textLength, setTextLength] = useState(0)
 
-  const article = usePlaylistFormStore((state) => state.article)
-
   useEffect(() => {
-    if (article) {
-      setTextLength(PlainTextParser.parse(article.body as OutputData).length)
+    const editorData = getValues('editorData')
+    if (editorData) {
+      setTextLength(PlainTextParser.parse(editorData).length)
     }
-  }, [article])
+  }, [])
 
   return (
     <ArrowStepContent index={contentIndex}>
@@ -57,6 +55,7 @@ export const EditArticleTabContent = ({
       <Divider my={6} borderColor="gray.400" />
 
       <Container maxW="650px">
+        <input type="hidden" {...register('editorData')} />
         <Alert status="warning" mb={5}>
           <AlertIcon />
           <Box>
@@ -72,17 +71,15 @@ export const EditArticleTabContent = ({
             {textLength}文字
           </Text>
         </Flex>
-        {article !== undefined && (
-          <ArticleEditor
-            defaultValue={article.body as OutputData}
-            onChange={() => {}}
-            onReady={() => {}}
-            onSave={(data) => {
-              setValue('editorData', data)
-              setTextLength(PlainTextParser.parse(data).length)
-            }}
-          />
-        )}
+        <ArticleEditor
+          defaultValue={getValues('editorData')}
+          onChange={() => {}}
+          onReady={() => {}}
+          onSave={(data) => {
+            setValue('editorData', data, { shouldDirty: true })
+            setTextLength(PlainTextParser.parse(data).length)
+          }}
+        />
       </Container>
 
       <Divider my={6} borderColor="gray.400" />
