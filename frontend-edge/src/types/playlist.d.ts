@@ -9,7 +9,7 @@ export type Playlist = {
   id?: string
   playlistUId: string // FIXME: playlistUid
   stringId: string
-  primaryId: string
+  primaryId: number
   name: string
   detailedNameRuby: string
   description: string
