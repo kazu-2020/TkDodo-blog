@@ -63,42 +63,39 @@ export const ColorPickerCard = ({
   }, [color])
 
   return (
-    <>
-      <Box as="label">
-        <Flex
-          cursor="pointer"
-          borderWidth="1px"
-          borderRadius="xs"
-          boxShadow="lg"
-          bgColor={color as string}
-          sx={{ ...(isSelected ? { boxShadow: 'outline' } : {}) }}
-          px={6}
-          onClick={() => {
-            onOpen()
-          }}
-          p={3}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Icon as={MdPalette} w={6} h={6} color="white" />
-        </Flex>
-      </Box>
-      <Popover
-        isOpen={isOpen}
-        onOpen={onOpen}
-        onClose={onClose}
-        placement="right"
-        size="xs"
-      >
-        <PopoverTrigger>
-          <div />
-        </PopoverTrigger>
-        <PopoverContent w="225px">
-          <PopoverBody>
-            <ColorPicker onCancel={onClose} color={color} setColor={setColor} />
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-    </>
+    <Popover
+      isOpen={isOpen}
+      onOpen={onOpen}
+      onClose={onClose}
+      placement="right"
+      size="xs"
+    >
+      <PopoverTrigger>
+        <Box as="label">
+          <Flex
+            cursor="pointer"
+            borderWidth="1px"
+            borderRadius="xs"
+            boxShadow="lg"
+            bgColor={color as string}
+            sx={{ ...(isSelected ? { boxShadow: 'outline' } : {}) }}
+            px={6}
+            onClick={() => {
+              onOpen()
+            }}
+            p={3}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Icon as={MdPalette} w={6} h={6} color="white" />
+          </Flex>
+        </Box>
+      </PopoverTrigger>
+      <PopoverContent w="225px">
+        <PopoverBody>
+          <ColorPicker onCancel={onClose} color={color} setColor={setColor} />
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
   )
 }

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Spacer, Text, VStack } from '@chakra-ui/react'
 
+import { RecommendPlaylist } from '@/types/recommend_playlist'
 import { RecommendDeck } from '@/types/recommend_deck'
-import { Playlist } from '@/types/playlist'
 import { PlaylistListItem } from '@/features/recommend-decks/components/RecommendDeckDrawer/PlaylistListItem'
 
 type Props = {
@@ -35,7 +35,7 @@ export const PlaylistList = ({ recommendDeck }: Props) => {
         <VStack align="flex-start" spacing={3}>
           {recommendDeck.playlists
             ?.slice(0, maxPreviewCount)
-            ?.map((item: Playlist) => (
+            ?.map((item: RecommendPlaylist) => (
               <PlaylistListItem
                 key={item.playlistUId}
                 recommendDeck={recommendDeck}

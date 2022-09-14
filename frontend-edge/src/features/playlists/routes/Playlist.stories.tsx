@@ -4,7 +4,7 @@ import { Box } from '@chakra-ui/react'
 
 import { handlers } from '@/test/server/handlers'
 import { db, resetDb } from '@/test/server/db'
-import { playlistGenerator } from '@/test/data-generators'
+import { articleGenerator, playlistGenerator } from '@/test/data-generators'
 import { queryClient } from '@/lib/react-query'
 
 import Playlist from './Playlist'
@@ -13,7 +13,8 @@ export default {
   component: Playlist
 } as ComponentMeta<typeof Playlist>
 
-const fakePlaylist = playlistGenerator()
+const article = db.article.create(articleGenerator())
+const fakePlaylist = playlistGenerator({ article })
 
 export const Default: ComponentStoryObj<typeof Playlist> = {
   render: () => (
@@ -44,6 +45,7 @@ export const Default: ComponentStoryObj<typeof Playlist> = {
       }
     })
     if (count < 1) {
+      // @ts-ignore
       await db.playlist.create(fakePlaylist)
     }
   }

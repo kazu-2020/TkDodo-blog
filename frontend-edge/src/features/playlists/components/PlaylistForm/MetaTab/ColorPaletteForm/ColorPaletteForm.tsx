@@ -1,7 +1,7 @@
 import { UseFormSetValue } from 'react-hook-form/dist/types/form'
 import { useFormContext, useWatch } from 'react-hook-form'
 import React, { useEffect } from 'react'
-import { Box, Flex, HStack } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 
 import {
   adjustLinkDarkColor,
@@ -52,13 +52,13 @@ export const ColorPaletteForm = () => {
   }, [selectedPalette])
 
   return (
-    <Box w={600}>
+    <Box maxW="650px">
       <input type="hidden" {...register('selectedPalette')} />
       <input type="hidden" {...register('primaryLightColor')} />
       <input type="hidden" {...register('primaryDarkColor')} />
       <input type="hidden" {...register('linkLightColor')} />
       <input type="hidden" {...register('linkDarkColor')} />
-      <HStack mb={4}>
+      <Flex mb={4} justify="space-between">
         {PALETTE_BASE_COLORS.map((value) => (
           <PaletteCard
             key={value}
@@ -70,7 +70,7 @@ export const ColorPaletteForm = () => {
           initialColor={colorPickerInitialColor(selectedPalette)}
           isSelected={isSelectedFreePalette(selectedPalette)}
         />
-      </HStack>
+      </Flex>
       <Flex justifyContent="space-between" w="100%">
         <AdjustedColorCard color={primaryLightColor} label="primaryLight" />
         <AdjustedColorCard color={primaryDarkColor} label="primaryDark" />
