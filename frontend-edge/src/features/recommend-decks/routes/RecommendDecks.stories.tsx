@@ -114,17 +114,17 @@ export const DeleteRecommendDeck: ComponentStoryObj<typeof RecommendDecks> = {
   }
 }
 
-export const GotoEditRecommendDeck: ComponentStoryObj<typeof RecommendDecks> = {
-  ...Default,
-  name: 'デッキの編集へ遷移',
-  // eslint-disable-next-line max-statements
-  play: async ({ canvasElement }: StoryContext<ReactFramework, unknown>) => {}
-}
-
-export const GotoConfigRecommendDeck: ComponentStoryObj<typeof RecommendDecks> =
-  {
-    ...Default,
-    name: 'デッキの管理設定へ遷移',
-    // eslint-disable-next-line max-statements
-    play: async ({ canvasElement }: StoryContext<ReactFramework, unknown>) => {}
-  }
+// export const GotoEditRecommendDeck: ComponentStoryObj<typeof RecommendDecks> = {
+//   ...Default,
+//   name: 'デッキの編集へ遷移',
+//   // eslint-disable-next-line max-statements
+//   play: async ({ canvasElement }: StoryContext<ReactFramework, unknown>) => {}
+// }
+//
+// export const GotoConfigRecommendDeck: ComponentStoryObj<typeof RecommendDecks> =
+//   {
+//     ...Default,
+//     name: 'デッキの管理設定へ遷移',
+//     // eslint-disable-next-line max-statements
+//     play: async ({ canvasElement }: StoryContext<ReactFramework, unknown>) => {}
+//   }

@@ -1,12 +1,12 @@
 import snakecaseKeys from 'snakecase-keys'
+import { useNavigate } from 'react-router-dom'
 import { useMutation } from 'react-query'
+import { useToast } from '@chakra-ui/react'
 
 import { SameAs } from '@/types/same_as'
 import { Deck as RecommendDeck } from '@/types/deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
-import { useNavigate } from 'react-router-dom'
-import { useToast } from '@chakra-ui/react'
 
 type RecommendDeckParams = {
   name?: string
