@@ -102,10 +102,10 @@ class PlaylistsController < ApplicationController
   def actors_and_contributors; end
 
   def bundle_items
-    playlist = Playlist.find_by(string_id: params[:playlist_id]) # FIXME: 他のエンドポイント同様にfriendly.findでidかUidで取得できるようにする
+    playlist = Playlist.friendly.find(params[:id])
     raise ActiveRecord::RecordNotFound if playlist.nil?
 
-    @result = playlist.fetch_sub_types_count(playlist_string_id: params[:playlist_id])
+    @result = playlist.fetch_sub_types_count
   rescue ActiveRecord::RecordNotFound
     render json: { messages: 'Playlistが見つかりませんでした' }, status: :not_found
   end

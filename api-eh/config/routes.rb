@@ -29,13 +29,13 @@ Rails.application.routes.draw do
     collection do
       post :upload_article_image_by_url
       post :upload_article_image_by_file
-      get :bundle_items # FIXME: これはmemberに定義すべき
     end
 
     member do
       post :upload_article_image_by_url
       post :upload_article_image_by_file
       get :actors_and_contributors
+      get :bundle_items
     end
 
     resources :playlist_items, only: [:index], format: 'json' do

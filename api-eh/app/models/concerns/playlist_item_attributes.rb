@@ -7,7 +7,7 @@ module PlaylistItemAttributes
   SUB_TYPES = %i[tvepisode event howto faqpage recipe].freeze
 
   included do
-    after_save -> { force_fetch_sub_types_count(playlist_items.ids) } # FIXME: 自分自身のみ更新すべき
+    after_save -> { force_fetch_sub_types_count }
   end
 
   def total_time
@@ -22,8 +22,8 @@ module PlaylistItemAttributes
     @playable_total_time ||= playable_playlist_items.map(&:duration)&.sum
   end
 
-  def playable_playlist_items_count(playlist_string_id) # FIXME: playlist_string_idを引数にするのはおかしい
-    res = fetch_playable_episode_count(playlist_string_id)
+  def playable_playlist_items_count
+    res = fetch_playable_episode_count
     @playable_playlist_items_count ||= res
   end
 
@@ -31,32 +31,32 @@ module PlaylistItemAttributes
     @playable_playlist_items ||= playlist_items.kept.select(&:has_video)
   end
 
-  def faqpage_count(playlist_string_id) # FIXME: playlist_string_idを引数にするのはおかしい
-    res = fetch_sub_types_count(playlist_string_id: playlist_string_id)
+  def faqpage_count
+    res = fetch_sub_types_count
     @faqpage_count ||= res[:faqpage_count]
   end
 
-  def event_count(playlist_string_id) # FIXME: playlist_string_idを引数にするのはおかしい
-    res = fetch_sub_types_count(playlist_string_id: playlist_string_id)
+  def event_count
+    res = fetch_sub_types_count
     @event_count ||= res[:event_count]
   end
 
-  def howto_count(playlist_string_id) # FIXME: playlist_string_idを引数にするのはおかしい
-    res = fetch_sub_types_count(playlist_string_id: playlist_string_id)
+  def howto_count
+    res = fetch_sub_types_count
     @howto_count ||= res[:howto_count]
   end
 
-  def tvepisode_count(playlist_string_id) # FIXME: playlist_string_idを引数にするのはおかしい
-    res = fetch_sub_types_count(playlist_string_id: playlist_string_id)
+  def tvepisode_count
+    res = fetch_sub_types_count
     @tvepisode_count ||= res[:tvepisode_count]
   end
 
-  def recipe_count(playlist_string_id) # FIXME: playlist_string_idを引数にするのはおかしい
-    res = fetch_sub_types_count(playlist_string_id: playlist_string_id)
+  def recipe_count
+    res = fetch_sub_types_count
     @recipe_count ||= res[:recipe_count]
   end
 
-  def fetch_sub_types_count(force: false, playlist_string_id: '') # FIXME: playlist_string_idを引数にするのはおかしい
+  def fetch_sub_types_count(force: false)
     Rails.cache.fetch("#{cache_key_with_version}/fetch_sub_type_count", expires_in: CACHED_DATA_TTL, force: force,
                                                                         skip_nil: true) do
       client = PocApiClient.new
@@ -65,7 +65,7 @@ module PlaylistItemAttributes
 
       data =
         begin
-          client.playlist_ll_bundle(playlist_id: playlist_string_id)
+          client.playlist_ll_bundle(playlist_id: string_id)
         rescue PocApiClient::NotFound
           {}
         end
@@ -80,17 +80,14 @@ module PlaylistItemAttributes
 
   private
 
-  def force_fetch_sub_types_count(playlist_items_ids) # FIXME: playlist_string_idを引数にするのはおかしい
-    playlists = Playlist.where(id: playlist_items_ids) # FIXME: episodeのidでPlaylistを取得している
-    playlists.each do |playlist|
-      fetch_sub_types_count(force: true, playlist_string_id: playlist.string_id)
-    end
+  def force_fetch_sub_types_count
+    fetch_sub_types_count(force: true)
   end
 
-  def fetch_playable_episode_count(playlist_string_id) # FIXME: playlist_string_idを引数にするのはおかしい
+  def fetch_playable_episode_count
     Rails.cache.fetch("#{cache_key_with_version}/fetch_episode_count", expires_in: CACHED_DATA_TTL, force: true,
                                                                        skip_nil: true) do
-      response = PocApiClient.new.available_episode_from_playlist(playlist_string_id)
+      response = PocApiClient.new.available_episode_from_playlist(string_id)
       response[:count].presence || 0
     end
   end
