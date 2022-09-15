@@ -102,14 +102,10 @@ class PlaylistsController < ApplicationController
   def actors_and_contributors; end
 
   def bundle_items
-    playlist =
-      begin
-        Playlist.friendly.find(params[:id])
-      rescue ActiveRecord::RecordNotFound
-        render json: { messages: "#{params[:id]}は見つかりませんでした" }, status: :not_found
-      end
-
-    @result = playlist.fetch_sub_types_count if playlist.instance_of?(Playlist)
+    playlist = Playlist.friendly.find(params[:id])
+    @result = playlist.fetch_sub_types_count
+  rescue ActiveRecord::RecordNotFound
+    render json: { messages: 'Playlistが見つかりませんでした' }, status: :not_found
   end
 
   private
