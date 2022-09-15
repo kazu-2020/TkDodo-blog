@@ -3,9 +3,10 @@ import { Alert, AlertIcon, Box, Spacer, Text, VStack } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
-import { EpisodeListItem } from '@/features/playlists/components/PlaylistDrawer/EpisodeListItem'
-import { usePlaylistItems } from '@/features/playlists/api/getPlaylistItems'
 import { ListScreenSkeleton } from '@/components/ListScreenSkeleton'
+
+import { EpisodeListItem } from '../EpisodeListItem'
+import { usePlaylistItems } from '../../api/getPlaylistItems'
 
 type Props = {
   playlist: Playlist
