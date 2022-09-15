@@ -102,18 +102,7 @@ describe DecksController, type: :request do
   end
 
   describe 'GET #show' do
-    let!(:deck) { create :deck, :with_playlists }
-
     before do
-      json = File.open(Rails.root.join('spec/fixtures/payloads/l_bundle_te_PG3Z16Q145.json')) do |file|
-        json_string = file.read
-        JSON.parse(json_string, symbolize_names: true)
-      end
-
-      dlab_client = instance_double(DlabApiClient)
-      allow(DlabApiClient).to receive(:new).and_return(dlab_client)
-      allow(dlab_client).to receive(:episode_l_bundle).with(type: 'tv', episode_id: anything).and_return(json)
-
       poc_client = instance_double(PocApiClient)
       allow(PocApiClient).to receive(:new).and_return(poc_client)
       allow(poc_client).to receive(:playlist_ll_bundle)
@@ -121,6 +110,8 @@ describe DecksController, type: :request do
 
       get deck_path(deck_id)
     end
+
+    let!(:deck) { create :deck, :with_playlists }
 
     context '対象のデッキが存在する場合' do
       let(:deck_id) { deck.id }
@@ -131,7 +122,7 @@ describe DecksController, type: :request do
     end
 
     context '対象のデッキが存在しない場合' do
-      let(:deck_id) { Deck.last.id + 1 }
+      let(:deck_id) { '999_999_999' }
 
       it 'エラーメッセージが返却されること' do
         expect(response.status).to eq 404
@@ -142,6 +133,15 @@ describe DecksController, type: :request do
   end
 
   describe 'POST #create' do
+    before do
+      poc_client = instance_double(PocApiClient)
+      allow(PocApiClient).to receive(:new).and_return(poc_client)
+      allow(poc_client).to receive(:playlist_ll_bundle)
+        .with(playlist_id: anything).and_return({})
+
+      post decks_path, params: input_data
+    end
+
     let!(:deck) { create :deck }
     let!(:playlists) { create_list(:playlist, 2) }
     let!(:input_data) do
@@ -154,20 +154,6 @@ describe DecksController, type: :request do
           ]
         }
       }
-    end
-
-    before do
-      playlist_json = File.open(Rails.root.join('spec/fixtures/payloads/playlist-index.json')) do |file|
-        json_string = file.read
-        JSON.parse(json_string, symbolize_names: true)
-      end
-
-      poc_client = instance_double(PocApiClient)
-      string_id = playlists.first.string_id
-      allow(PocApiClient).to receive(:new).and_return(poc_client)
-      allow(poc_client).to receive(:available_episode_from_playlist).with(string_id).and_return(playlist_json)
-
-      post decks_path, params: input_data
     end
 
     context 'name,interfixが設定されている場合' do
@@ -195,6 +181,14 @@ describe DecksController, type: :request do
   end
 
   describe 'PUT #update' do
+    before do
+      poc_client = instance_double(PocApiClient)
+      allow(PocApiClient).to receive(:new).and_return(poc_client)
+      allow(poc_client).to receive(:playlist_ll_bundle)
+        .with(playlist_id: anything).and_return({})
+      put deck_path(deck.id), params: updated_data
+    end
+
     let!(:deck) { create :deck, :with_playlists }
     let!(:updated_data) do
       {
@@ -207,20 +201,6 @@ describe DecksController, type: :request do
           ]
         }
       }
-    end
-
-    before do
-      playlist_json = File.open(Rails.root.join('spec/fixtures/payloads/playlist-index.json')) do |file|
-        json_string = file.read
-        JSON.parse(json_string, symbolize_names: true)
-      end
-
-      poc_client = instance_double(PocApiClient)
-      string_id = deck.playlists.first.string_id
-      allow(PocApiClient).to receive(:new).and_return(poc_client)
-      allow(poc_client).to receive(:available_episode_from_playlist).with(string_id).and_return(playlist_json)
-
-      put deck_path(deck.id), params: updated_data
     end
 
     context 'name,interfixが設定されている場合' do
@@ -263,9 +243,9 @@ describe DecksController, type: :request do
   end
 
   describe 'DELETE #delete' do
-    let!(:deck) { create :deck }
-
     before { delete "#{decks_path}/#{deck.id}" }
+
+    let!(:deck) { create :deck }
 
     it '対象のデータが一件削除されること' do
       expect(Deck.count).to eq 0

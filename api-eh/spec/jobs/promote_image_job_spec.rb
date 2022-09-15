@@ -17,6 +17,10 @@ RSpec.describe PromoteImageJob, type: :model do
     end
 
     before do
+      poc_client = instance_double(PocApiClient)
+      allow(PocApiClient).to receive(:new).and_return(poc_client)
+      allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
+
       # NOTE: reloadを入れないと画像のstorageがstoreにならない
       playlist.reload
     end

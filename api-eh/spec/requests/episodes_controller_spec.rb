@@ -6,9 +6,15 @@ describe EpisodesController, type: :request do
   describe 'GET #search' do
     let!(:search_params) { { contents_type: contents } }
 
-    before { create(:playlist_item) }
-
     context 'エピソード検索の場合' do
+      before do
+        poc_client = instance_double(PocApiClient)
+        allow(PocApiClient).to receive(:new).and_return(poc_client)
+        allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
+
+        create(:playlist_item)
+      end
+
       let(:contents) { 'tvepisode' }
 
       it '正常にレスポンスが返ってくること' do
@@ -44,6 +50,14 @@ describe EpisodesController, type: :request do
     end
 
     context 'シリーズ検索の場合' do
+      before do
+        poc_client = instance_double(PocApiClient)
+        allow(PocApiClient).to receive(:new).and_return(poc_client)
+        allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
+
+        create(:playlist_item)
+      end
+
       let(:contents) { 'tvseries' }
       let(:word) { { word: 'ブラタモリ' } } # 20220617： 視聴可能なビデオを含まないシリーズの場合404となるため、視聴可能なビデオを含むシリーズを引くwordを設定。
 

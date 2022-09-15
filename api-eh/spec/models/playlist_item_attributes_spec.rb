@@ -3,6 +3,18 @@
 require 'rails_helper'
 
 describe PlaylistItemAttributes, type: :model do
+  before do
+    json =
+      File.open(Rails.root.join('spec/fixtures/payloads/r6.0_ll_bundle_pl_recommend-tep-0000000052.json')) do |file|
+        json_string = file.read
+        JSON.parse(json_string, symbolize_names: true)
+      end
+
+    poc_client = instance_double(PocApiClient)
+    allow(PocApiClient).to receive(:new).and_return(poc_client)
+    allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return(json)
+  end
+
   let(:playlist) { create(:playlist) }
   let(:has_all_subtype_playlist) { create(:playlist, id: '52') } # 20220803時点でHowto,Faqpage,Eventのsubtypeが含まれるPlaylist
 

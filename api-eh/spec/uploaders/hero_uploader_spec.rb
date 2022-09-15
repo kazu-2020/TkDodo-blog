@@ -3,6 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe HeroUploader, type: :model do
+  before do
+    poc_client = instance_double(PocApiClient)
+    allow(PocApiClient).to receive(:new).and_return(poc_client)
+    allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
+  end
+
   let(:image) { playlist.hero_image }
   let(:derivatives) { playlist.hero_image_derivatives }
   let(:playlist) { create(:playlist, hero_image: File.open(Rails.root.join('spec', 'fixtures', 'images', 'test.jpg'))) }

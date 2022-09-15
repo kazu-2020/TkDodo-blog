@@ -3,6 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe EyecatchUploader, type: :model do
+  before do
+    poc_client = instance_double(PocApiClient)
+    allow(PocApiClient).to receive(:new).and_return(poc_client)
+    allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
+  end
+
   let(:image) { playlist.eyecatch_image }
   let(:derivatives) { playlist.eyecatch_image_derivatives }
   let(:playlist) {
