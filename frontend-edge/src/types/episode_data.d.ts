@@ -1,3 +1,4 @@
+import { VideoObject } from './video_object'
 import { ImageHash } from './image_hash'
 
 export type PartOfSeries = {
@@ -30,5 +31,5 @@ export type EpisodeData = {
   partOfSeries?: PartOfSeries
   releasedEvent?: EventData
   detailedRecentEvent?: EventData
-  videos?: object[]
+  videos?: VideoObject[]
 }
