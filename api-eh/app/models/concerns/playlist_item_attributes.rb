@@ -7,7 +7,7 @@ module PlaylistItemAttributes
   SUB_TYPES = %i[tvepisode event howto faqpage recipe].freeze
 
   included do
-    after_save -> { force_fetch_sub_types_count }
+    after_save -> { fetch_sub_types_count(force: true) }
   end
 
   def total_time
@@ -79,10 +79,6 @@ module PlaylistItemAttributes
   end
 
   private
-
-  def force_fetch_sub_types_count
-    fetch_sub_types_count(force: true)
-  end
 
   def fetch_playable_episode_count
     Rails.cache.fetch("#{cache_key_with_version}/fetch_episode_count", expires_in: CACHED_DATA_TTL, force: true,
