@@ -1,21 +1,13 @@
 import React from 'react'
 import { Box, HStack, Image, Text, VStack } from '@chakra-ui/react'
 
+import { hasVideo } from '@/utils/video'
 import { episodeThumbnailUrl } from '@/utils/image'
 import { formatDatetimeWithWeekday } from '@/utils/format'
 import { EpisodeData } from '@/types/episode_data'
 
 type Props = {
   episodeItem: EpisodeData
-}
-
-const hasVideo = (episodeItem: EpisodeData) => {
-  const okushibuVideo = episodeItem.videos?.find(
-    (video: any) =>
-      video.detailedContentStatus?.environmentId === 'okushibu3' &&
-      video.detailedContentStatus?.contentStatus === 'ready'
-  )
-  return !!okushibuVideo
 }
 
 const startDate = (episodeItem: EpisodeData) => {
@@ -40,7 +32,7 @@ export const EpisodeListItem = ({ episodeItem }: Props) => {
           src={episodeThumbnailUrl(episodeItem)}
           fallbackSrc="https://placehold.jp/71x40.png"
         />
-        {!hasVideo(episodeItem) && (
+        {episodeItem.videos && !hasVideo(episodeItem.videos) && (
           <Text
             pos="absolute"
             w="100px"
