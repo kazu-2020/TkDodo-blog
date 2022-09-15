@@ -49,7 +49,7 @@ const hasChangedSeries = (
     ...fields
   } = dirtyFields
 
-  return fields.length > 0
+  return Object.keys(fields).length > 0
 }
 
 export const ArrowStepContainer = () => {

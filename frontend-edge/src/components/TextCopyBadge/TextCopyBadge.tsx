@@ -1,4 +1,4 @@
-import { Badge } from '@chakra-ui/react'
+import { Badge, StyleProps } from '@chakra-ui/react'
 
 type Props = {
   prefix?: string
@@ -9,8 +9,9 @@ type Props = {
 export const TextCopyBadge = ({
   prefix = '',
   text = '',
-  onCopy = () => {}
-}: Props) => (
+  onCopy = () => {},
+  ...props
+}: Props & StyleProps) => (
   <Badge
     ml="1"
     px={3}
@@ -20,6 +21,8 @@ export const TextCopyBadge = ({
     colorScheme="teal"
     borderRadius="xl"
     cursor="pointer"
+    textTransform="none"
+    {...props}
     onClick={() => {
       if (navigator.clipboard) {
         navigator.clipboard.writeText(text).then(() => {
