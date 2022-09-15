@@ -107,9 +107,9 @@ class PlaylistsController < ApplicationController
         Playlist.friendly.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         render json: { messages: "#{params[:id]}は見つかりませんでした" }, status: :not_found
-        return
       end
-    @result = playlist.fetch_sub_types_count
+
+    @result = playlist.fetch_sub_types_count if playlist.instance_of?(Playlist)
   end
 
   private
