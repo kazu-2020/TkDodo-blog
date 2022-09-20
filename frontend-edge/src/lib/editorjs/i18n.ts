@@ -4,19 +4,19 @@ export const i18n = {
       blockTunes: {
         toggler: {
           'Click to tune': 'ブロックメニュー',
-          'or drag to move': 'ドラッグして移動',
-        },
+          'or drag to move': 'ドラッグして移動'
+        }
       },
       inlineToolbar: {
         converter: {
-          'Convert to': '変換',
-        },
+          'Convert to': '変換'
+        }
       },
       toolbar: {
         toolbox: {
-          Add: 'ブロックを追加',
-        },
-      },
+          Add: 'ブロックを追加'
+        }
+      }
     },
     toolNames: {
       Text: 'テキスト',
@@ -33,7 +33,7 @@ export const i18n = {
       Bold: '太字',
       Italic: '斜体',
       InlineCode: 'インラインコード',
-      MultiTypeEpisode: 'エピソードブロック',
+      MultiTypeEpisode: 'エピソードブロック'
     },
     tools: {
       linkTool: {
@@ -42,10 +42,10 @@ export const i18n = {
         "Couldn't fetch the link data": 'データが取得できませんでした。',
         'Wrong response format from the server':
           '誤ったフォーマットのレスポンスです',
-        "Couldn't get this link data, try the other one": '不正なURLです。',
+        "Couldn't get this link data, try the other one": '不正なURLです。'
       },
       stub: {
-        'The block can not be displayed correctly.': '',
+        'The block can not be displayed correctly.': ''
       },
       header: {},
       image: {
@@ -53,24 +53,24 @@ export const i18n = {
         Caption:
           '画像の代替テキストを入力（任意、キャプション表示ではありません）',
         'Couldn’t upload image. Please try another.':
-          '画像がアップロードできませんでした。別の画像を試してください。',
+          '画像がアップロードできませんでした。別の画像を試してください。'
       },
       list: {
         Ordered: '順序付きリスト',
-        Unordered: '順序なしリスト',
+        Unordered: '順序なしリスト'
       },
-      multiTypeEpisode: {},
+      multiTypeEpisode: {}
     },
     blockTunes: {
       delete: {
-        Delete: 'ブロックを削除',
+        Delete: 'ブロックを削除'
       },
       moveUp: {
-        'Move up': 'ブロックを上に移動',
+        'Move up': 'ブロックを上に移動'
       },
       moveDown: {
-        'Move down': 'ブロックを下に移動',
-      },
-    },
-  },
+        'Move down': 'ブロックを下に移動'
+      }
+    }
+  }
 }
