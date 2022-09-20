@@ -1,4 +1,4 @@
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 import React from 'react'
 import {
   arrayMove,
@@ -15,15 +15,18 @@ import {
   useSensors,
   DragEndEvent
 } from '@dnd-kit/core'
-import { Alert, AlertIcon, Box, Grid, GridItem, Text } from '@chakra-ui/react'
+import { Alert, AlertIcon, Box } from '@chakra-ui/react'
 
+import { EpisodeData } from '@/types/episode_data'
 import { PlaylistFormInputs } from '@/features/playlists/types'
+import { EpisodeHeader } from '@/features/playlists/components/PlaylistForm/ListTab/EpisodeHeader'
 import { EditEpisodeListItem } from '@/features/playlists/components/PlaylistForm/ListTab/EditEpisodeListItem'
 
 import { SortableItem } from './SortableItem'
 
 export const EditEpisodeList = () => {
   const { getValues, setValue } = useFormContext<PlaylistFormInputs>()
+  const episodes = useWatch({ name: 'episodes' })
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -60,45 +63,19 @@ export const EditEpisodeList = () => {
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
       >
-        <Grid
-          templateColumns="repeat(12, 1fr)"
-          gap={1}
-          borderBottom="1px"
-          borderColor="gray.200"
-          fontSize="xs"
-          fontWeight="bold"
-          color="gray"
-          p={2}
-        >
-          <GridItem h="5" />
-          <GridItem colSpan={5} h="5">
-            <Text>エピソード</Text>
-          </GridItem>
-          <GridItem colSpan={1} h="5">
-            <Text>再生時間</Text>
-          </GridItem>
-          <GridItem colSpan={2} h="5">
-            <Text>シリーズ名</Text>
-          </GridItem>
-          <GridItem colSpan={2} h="5">
-            <Text>直近放送日</Text>
-          </GridItem>
-          <GridItem colSpan={1} h="5">
-            <Text>視聴状況</Text>
-          </GridItem>
-        </Grid>
+        <EpisodeHeader />
 
-        {getValues('episodes')?.length < 1 && (
+        {episodes?.length < 1 && (
           <Alert status="warning" colorScheme="gray">
             <AlertIcon />
             プレイリストを追加してください
           </Alert>
         )}
         <SortableContext
-          items={getValues('episodes').map((ep) => ep.id)}
+          items={episodes?.map((ep: EpisodeData) => ep.id)}
           strategy={verticalListSortingStrategy}
         >
-          {getValues('episodes').map((ep) => (
+          {episodes?.map((ep: EpisodeData) => (
             <SortableItem id={ep.id} key={ep.id}>
               <EditEpisodeListItem key={ep.id} episode={ep} />
             </SortableItem>

@@ -1,111 +1,78 @@
-import { UseFormSetValue } from 'react-hook-form/dist/types/form'
-import { useFormContext, UseFormGetValues } from 'react-hook-form'
-import React from 'react'
-import { Box, Text } from '@chakra-ui/react'
+import { UseInfiniteQueryResult } from 'react-query'
+import { Box, Grid, GridItem, Text, VStack } from '@chakra-ui/react'
 
-import { EpisodeData } from '@/types/episode_data'
-import { PlaylistFormInputs } from '@/features/playlists/types'
-import { usePlaylistFormStore } from '@/features/playlists/stores/playlistForm'
-import { SearchResultRow } from '@/features/playlists/components/PlaylistForm/ListTab/SearchResultRow'
 import { SearchResultLoadMoreButton } from '@/features/playlists/components/PlaylistForm/ListTab/SearchResultLoadMoreButton'
-import { SearchResultHeader } from '@/features/playlists/components/PlaylistForm/ListTab/SearchResultHeader'
-import { SearchForm } from '@/features/playlists/components/PlaylistForm/ListTab/SearchForm'
-import { useSearchEpisodes } from '@/features/playlists/api/getEpisodes'
+import { SearchEpisodeItems } from '@/features/playlists/components/PlaylistForm/ListTab/SearchEpisodeItems'
+import { Response } from '@/features/playlists/api/getSearchEpisode'
 import { ListScreenSkeleton } from '@/components/ListScreenSkeleton'
+import { NoDataFound } from '@/components/Alert'
 
-const PER_PAGE = 10
-
-const addEpisode = (
-  getValues: UseFormGetValues<PlaylistFormInputs>,
-  setValue: UseFormSetValue<any>,
-  episode: EpisodeData
-) => {
-  const episodes = getValues('episodes')
-  setValue('episodes', [...episodes, { ...episode }], { shouldDirty: true })
+type Props = {
+  query: UseInfiniteQueryResult<Response, Error>
 }
 
-export const SearchEpisode = () => {
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchQueryKey,
-    setSearchQueryKey,
-    isSearched,
-    setSearched
-  } = usePlaylistFormStore((state) => ({
-    searchQuery: state.searchQuery,
-    setSearchQuery: state.setSearchQuery,
-    searchQueryKey: state.searchQueryKey,
-    setSearchQueryKey: state.setSearchQueryKey,
-    isSearched: state.isSearched,
-    setSearched: state.setSearched
-  }))
-  const { getValues, setValue } = useFormContext<PlaylistFormInputs>()
-
-  const onSearched = (q: string) => {
-    setSearchQuery(q)
-    setSearched(true)
-  }
-
-  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    useSearchEpisodes({
-      query: searchQuery,
-      queryKey: searchQueryKey,
-      size: PER_PAGE,
-      isSearched
-    })
-
-  function hasEpisode(episode: EpisodeData) {
-    return getValues('episodes').find((ep) => ep.id === episode.id)
-  }
-
+export const SearchEpisode = ({ query }: Props) => {
+  const totalCount = query.data?.pages?.at(0)?.total || 0
   return (
-    <Box>
-      <SearchForm
-        onAction={onSearched}
-        onChange={(event) => {
-          setSearchQueryKey(
-            event.target.value as 'word' | 'keyword' | 'concern'
-          )
-        }}
-      />
+    <Box p={0}>
+      <VStack p={0}>
+        <Grid
+          templateColumns="repeat(36, 1fr)"
+          gap={2}
+          borderBottom="1px"
+          borderColor="gray.200"
+          fontSize="xs"
+          fontWeight="bold"
+          color="gray"
+          p={2}
+          w="100%"
+        >
+          <GridItem h="5" colSpan={3} />
+          <GridItem colSpan={9} h="5" textAlign="left">
+            <Text>エピソード</Text>
+          </GridItem>
+          <GridItem colSpan={5} h="5" textAlign="center">
+            <Text>再生時間</Text>
+          </GridItem>
+          <GridItem colSpan={8} h="5" textAlign="left">
+            <Text>シリーズ名</Text>
+          </GridItem>
+          <GridItem colSpan={6} h="5" textAlign="center">
+            <Text>直近放送日</Text>
+          </GridItem>
+          <GridItem colSpan={5} h="5" textAlign="center">
+            <Text>視聴可能</Text>
+          </GridItem>
+        </Grid>
 
-      {/* 検索結果 */}
-      {isLoading && <ListScreenSkeleton size={PER_PAGE} />}
-      {isSearched && !isLoading && !data && (
-        <Text>検索結果がありませんでした。</Text>
-      )}
-      {isSearched && !isLoading && data && (
-        <Box data-testid="series-playlist-search-results">
-          <SearchResultHeader searchResultCount={data.pages[0].count} />
+        {!query.isLoading && !query.isFetching && totalCount === 0 && (
+          <Box w="100%">
+            <NoDataFound />
+          </Box>
+        )}
 
-          {data?.pages.map(({ result }) =>
-            result?.map((episode) => {
-              if (hasEpisode(episode)) {
-                return null
-              }
+        {!query.isLoading && totalCount > 0 && (
+          <Box w="100%">
+            {query.data?.pages.map(({ items }) => (
+              <SearchEpisodeItems key={items[0].id} items={items} />
+            ))}
+          </Box>
+        )}
 
-              return (
-                <SearchResultRow
-                  key={episode.id}
-                  onClick={() => {
-                    addEpisode(getValues, setValue, episode)
-                  }}
-                  playlist={episode}
-                />
-              )
-            })
-          )}
+        {(query.isLoading || query.isFetching) && (
+          <Box w="100%">
+            <ListScreenSkeleton size={10} />
+          </Box>
+        )}
 
-          {hasNextPage && (
-            <SearchResultLoadMoreButton
-              perPage={PER_PAGE}
-              onClick={() => fetchNextPage()}
-              isLoading={isFetchingNextPage}
-            />
-          )}
-        </Box>
-      )}
+        {query.hasNextPage && (
+          <SearchResultLoadMoreButton
+            perPage={10}
+            onClick={() => query.fetchNextPage()}
+            isLoading={query.isFetchingNextPage}
+          />
+        )}
+      </VStack>
     </Box>
   )
 }

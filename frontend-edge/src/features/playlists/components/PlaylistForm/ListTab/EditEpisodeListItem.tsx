@@ -1,10 +1,11 @@
 import { HiOutlineMinus } from 'react-icons/all'
 import { UseFormSetValue } from 'react-hook-form/dist/types/form'
-import { useFormContext, UseFormGetValues } from 'react-hook-form'
+import { useFormContext, UseFormGetValues, useWatch } from 'react-hook-form'
 import React from 'react'
 import { differenceInMilliseconds } from 'date-fns'
 import {
   Button,
+  Center,
   Flex,
   Grid,
   GridItem,
@@ -19,6 +20,7 @@ import { formatDateWithWeekday } from '@/utils/format'
 import { EpisodeData } from '@/types/episode_data'
 import { PlaylistFormInputs } from '@/features/playlists/types'
 import { PlayableStatusBadge } from '@/components/PlayableStatusBadge'
+import { episodeThumbnailUrl } from '@/utils/image'
 
 const eyecatchUrl = (episode: EpisodeData) => {
   if (episode.eyecatch !== undefined) {
@@ -77,14 +79,15 @@ export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
 
   return (
     <Grid
-      templateColumns="repeat(12, 1fr)"
-      gap={1}
-      fontSize="sm"
-      py={3}
+      templateColumns="repeat(36, 1fr)"
+      gap={2}
       borderBottom="1px"
       borderColor="gray.200"
+      fontSize="xs"
+      p={2}
+      w="100%"
     >
-      <GridItem h="8">
+      <GridItem h="8" colSpan={3}>
         <Button
           aria-label="削除"
           boxShadow="md"
@@ -102,41 +105,38 @@ export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
           <Icon as={HiOutlineMinus} />
         </Button>
       </GridItem>
-      <GridItem colSpan={5} h="8">
-        <HStack>
+      <GridItem colSpan={9} h="10" textAlign="left">
+        <HStack p={0} m={0}>
           <Image
-            src={eyecatchUrl(episode)}
-            alt={episode.name}
-            h={8}
-            boxShadow="md"
-            mr={1}
+            w="74px"
+            h="40px"
+            borderRadius="4px"
+            src={episodeThumbnailUrl(episode, 'https://placehold.jp/71x40.png')}
           />
           <Text>{episode.name}</Text>
         </HStack>
       </GridItem>
-      {/* 再生時間 */}
-      <GridItem colSpan={1} h="8">
-        <Flex alignItems="center" h="8">
-          {totalTime(episode)}
-        </Flex>
+      <GridItem colSpan={5} h="10">
+        <Center h="100%">
+          <Text>{totalTime(episode)}</Text>
+        </Center>
       </GridItem>
-      {/* シリーズ名 */}
-      <GridItem colSpan={2} h="8">
-        <Flex alignItems="center" h="8">
-          {seriesName(episode)}
-        </Flex>
+      <GridItem colSpan={8} h="10" textAlign="left">
+        <Center h="100%">
+          <Text w="100%" textAlign="left">
+            {episode.partOfSeries?.name || ''}
+          </Text>
+        </Center>
       </GridItem>
-      {/* 直近放送日 */}
-      <GridItem colSpan={2} h="8">
-        <Flex alignItems="center" h="8">
-          {resentEventStartDate(episode)}
-        </Flex>
+      <GridItem colSpan={6} h="10" textAlign="center">
+        <Center h="100%">
+          <Text>{resentEventStartDate(episode)}</Text>
+        </Center>
       </GridItem>
-      {/* 視聴状況 */}
-      <GridItem colSpan={1} h="8">
-        <Flex alignItems="center" h="8">
+      <GridItem colSpan={5} h="10" textAlign="center">
+        <Center h="100%">
           <PlayableStatusBadge isPlayable={hasVideo(episode?.videos || [])} />
-        </Flex>
+        </Center>
       </GridItem>
     </Grid>
   )

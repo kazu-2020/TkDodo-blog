@@ -5,12 +5,16 @@ export const PlayableStatusBadge = ({
   isPlayable
 }: { isPlayable: boolean } & StyleProps) => (
   <Badge
-    px={3}
-    py={1}
-    fontSize="sm"
+    w="64px"
+    h="23px"
+    color="#FEFEFB"
+    borderRadius="12px"
+    fontWeight="bold"
+    fontSize="sx"
+    lineHeight="23px"
     variant="solid"
-    colorScheme={isPlayable ? 'pink' : 'gray'}
-    borderRadius="sm"
+    bgColor={isPlayable ? '#F8BBD0' : '#BDBDBD'}
+    textAlign="center"
   >
     {isPlayable ? '視聴可能' : '視聴不可'}
   </Badge>

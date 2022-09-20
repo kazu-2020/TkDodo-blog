@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, ButtonProps, Grid, GridItem } from '@chakra-ui/react'
 
 export const SearchResultLoadMoreButton = ({
