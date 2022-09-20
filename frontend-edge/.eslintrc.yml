@@ -39,6 +39,8 @@ plugins:
   - '@typescript-eslint'
   - jest-dom
   - testing-library
+  - import
+  - unused-imports
 rules:
   import/order:
     - error
@@ -75,6 +77,8 @@ rules:
   semi:
     - error
     - never
+  typescript-eslint/no-unused-vars: off
+  unused-imports/no-unused-imports: error
 settings:
   import/resolver:
     typescript: []
