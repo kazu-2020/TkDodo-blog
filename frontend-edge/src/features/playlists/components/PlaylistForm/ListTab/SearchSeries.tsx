@@ -37,6 +37,7 @@ export const SearchSeries = ({ query }: Props) => {
       >
         <SearchSeriesSeriesList
           query={query}
+          isOpenEpisodes={isOpen}
           onClick={(item) => showEpisodes(item)}
         />
         <SearchSeriesEpisodeList

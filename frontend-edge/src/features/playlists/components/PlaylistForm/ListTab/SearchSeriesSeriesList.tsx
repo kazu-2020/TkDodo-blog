@@ -12,10 +12,15 @@ import { NoDataFound } from '@/components/Alert'
 
 type Props = {
   onClick: (item: SeriesData) => void
+  isOpenEpisodes: boolean
   query: UseInfiniteQueryResult<Response, Error>
 }
 
-export const SearchSeriesSeriesList = ({ query, onClick }: Props) => {
+export const SearchSeriesSeriesList = ({
+  query,
+  isOpenEpisodes,
+  onClick
+}: Props) => {
   const seriesCount = query.data?.pages?.at(0)?.total || 0
 
   return (
@@ -29,7 +34,7 @@ export const SearchSeriesSeriesList = ({ query, onClick }: Props) => {
           </Box>
         )}
 
-        {!query.isLoading && !query.isFetching && seriesCount > 0 && (
+        {!isOpenEpisodes && !query.isLoading && seriesCount > 0 && (
           <Box w="100%">
             {query.data?.pages.map(({ items }) => (
               <SearchSeriesItems

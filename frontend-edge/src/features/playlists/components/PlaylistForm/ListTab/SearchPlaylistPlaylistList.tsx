@@ -13,10 +13,15 @@ import { NoDataFound } from '@/components/Alert'
 
 type Props = {
   onClick: (item: Playlist) => void
+  isOpenEpisodes: boolean
   query: UseInfiniteQueryResult<Response, Error>
 }
 
-export const SearchPlaylistPlaylistList = ({ query, onClick }: Props) => {
+export const SearchPlaylistPlaylistList = ({
+  query,
+  isOpenEpisodes,
+  onClick
+}: Props) => {
   const playlistCount = query.data?.pages?.at(0)?.total || 0
 
   return (
@@ -30,17 +35,20 @@ export const SearchPlaylistPlaylistList = ({ query, onClick }: Props) => {
           </Box>
         )}
 
-        {!query.isLoading && !query.isFetching && playlistCount > 0 && (
-          <Box w="100%">
-            {query.data?.pages.map(({ items }) => (
-              <SearchPlaylistItems
-                key={items[0].id}
-                items={items}
-                onClick={(item) => onClick(item)}
-              />
-            ))}
-          </Box>
-        )}
+        {!isOpenEpisodes &&
+          !query.isLoading &&
+          !query.isFetching &&
+          playlistCount > 0 && (
+            <Box w="100%">
+              {query.data?.pages.map(({ items }) => (
+                <SearchPlaylistItems
+                  key={items[0].id}
+                  items={items}
+                  onClick={(item) => onClick(item)}
+                />
+              ))}
+            </Box>
+          )}
 
         {(query.isLoading || query.isFetching) && (
           <Box w="100%">

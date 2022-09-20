@@ -35,6 +35,7 @@ export const SearchPlaylist = ({ query }: Props) => {
       >
         <SearchPlaylistPlaylistList
           query={query}
+          isOpenEpisodes={isOpen}
           onClick={(item) => showEpisodes(item)}
         />
         <SearchPlaylistEpisodeList

@@ -33,15 +33,23 @@ export const SearchPlaylistEpisodeList = ({
 
   return (
     <Box>
-      <HStack onClick={onClickBack} cursor="pointer">
-        <ChevronLeftIcon />
-        <Text>{selectedPlaylist?.name}</Text>
+      <HStack
+        onClick={onClickBack}
+        cursor="pointer"
+        borderTop="1px"
+        borderBottom="1px"
+        h={14}
+        borderColor="gray.200"
+      >
+        <ChevronLeftIcon h="20px" w="20px" color="#009688" />
+        <Text fontSize="xs" fontWeight="bold">
+          {selectedPlaylist?.name}
+        </Text>
       </HStack>
       <VStack p={0}>
         <EpisodeHeader />
 
-        {isOpen &&
-          !episodeQuery.isLoading &&
+        {!episodeQuery.isLoading &&
           !episodeQuery.isFetching &&
           episodeCount === 0 && (
             <Box>
@@ -57,13 +65,13 @@ export const SearchPlaylistEpisodeList = ({
           </Box>
         )}
 
-        {isOpen && (episodeQuery.isLoading || episodeQuery.isFetching) && (
+        {episodeQuery.isFetching && (
           <Box w="100%">
             <ListScreenSkeleton size={10} />
           </Box>
         )}
 
-        {isOpen && episodeQuery.hasNextPage && (
+        {episodeQuery.hasNextPage && (
           <SearchResultLoadMoreButton
             perPage={10}
             onClick={() => episodeQuery.fetchNextPage()}

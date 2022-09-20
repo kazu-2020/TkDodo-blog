@@ -72,7 +72,7 @@ export const SearchSeriesItem = ({ item, onClick }: Props) => (
     </GridItem>
     <GridItem colSpan={2} h="10" textAlign="right">
       <Center h="100%" justifyContent="flex-end">
-        <ChevronRightIcon h="20px" w="20px" />
+        <ChevronRightIcon h="20px" w="20px" color="#009688" />
       </Center>
     </GridItem>
   </Grid>

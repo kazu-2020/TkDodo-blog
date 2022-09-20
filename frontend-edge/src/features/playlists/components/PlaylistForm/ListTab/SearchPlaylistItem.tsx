@@ -61,7 +61,7 @@ export const SearchPlaylistItem = ({ item, onClick }: Props) => (
       <PlayableStatusBadge isPlayable={isViewable(item)} />
     </GridItem>
     <GridItem colSpan={1} h="10" textAlign="right">
-      <ChevronRightIcon />
+      <ChevronRightIcon h="20px" w="20px" color="#009688" />
     </GridItem>
   </Grid>
 )

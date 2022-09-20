@@ -86,7 +86,7 @@ export const SearchEpisodeItem = ({ item }: Props) => {
             flexBasis="74px"
             src={episodeThumbnailUrl(item, 'https://placehold.jp/71x40.png')}
           />
-          <Text>{item.name}</Text>
+          <Text noOfLines={2}>{item.name}</Text>
         </HStack>
       </GridItem>
       <GridItem colSpan={5} h="10">
@@ -96,7 +96,7 @@ export const SearchEpisodeItem = ({ item }: Props) => {
       </GridItem>
       <GridItem colSpan={8} h="10" textAlign="left">
         <Center h="100%">
-          <Text w="100%" textAlign="left">
+          <Text w="100%" textAlign="left" noOfLines={2}>
             {item.partOfSeries?.name || ''}
           </Text>
         </Center>
