@@ -6,6 +6,9 @@ import * as React from 'react'
 import { Button, CircularProgress } from '@chakra-ui/react'
 
 import { queryClient } from '@/lib/react-query'
+// FIXME: Auth0を有効にするまで、コメントアウト
+// import { Auth0ProviderWithRedirectCallback } from '@/lib/auth0/Auth0ProviderWithRedirectCallback'
+// import { AUTH0_CLIENT_ID, AUTH0_DOMAIN } from '@/config'
 
 const ErrorFallback = () => (
   <div
@@ -37,7 +40,16 @@ const AppProvider = ({ children }: AppProviderProps) => (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <QueryClientProvider client={queryClient}>
         {process.env.NODE_ENV !== 'test' && <ReactQueryDevtools />}
-        <BrowserRouter>{children}</BrowserRouter>
+        <BrowserRouter>
+          {/* // FIXME: Auth0を有効にするまで、コメントアウト */}
+          {/* /!*<Auth0ProviderWithRedirectCallback*!/ */}
+          {/* /!*  domain={AUTH0_DOMAIN}*!/ */}
+          {/* /!*  clientId={AUTH0_CLIENT_ID}*!/ */}
+          {/* /!*  redirectUri={window.location.origin}*!/ */}
+          {/* /!*>*!/ */}
+          {children}
+          {/* </Auth0ProviderWithRedirectCallback> */}
+        </BrowserRouter>
       </QueryClientProvider>
     </ErrorBoundary>
   </React.Suspense>

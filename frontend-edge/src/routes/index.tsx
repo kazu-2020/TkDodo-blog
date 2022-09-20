@@ -1,5 +1,8 @@
 import { Outlet, Route, Routes } from 'react-router-dom'
 
+// FIXME: Auth0を有効にした後、コメントアウト
+// import { ProtectedRoute } from '@/lib/auth0/ProtectedRoute'
+
 import {
   SeriesDecks,
   SeriesDeck,
@@ -19,6 +22,7 @@ import Home from '@/components/Home'
 
 const AppRoutes = () => (
   <Routes>
+    {/* <Route path="/" element={<ProtectedRoute component={Layout} />}>  FIXME: Auth0の設定を変えてもらう */}
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
       <Route path="playlists" element={<Outlet />}>
