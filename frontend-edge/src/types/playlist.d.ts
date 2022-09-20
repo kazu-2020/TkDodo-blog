@@ -1,10 +1,11 @@
+import { AvailableEpisodes } from '@/types/series_data'
+
 import { SameAs } from './same_as'
 import { Role } from './role'
 import { ImageHash } from './image_hash'
 import { EpisodeData, PartOfSeries } from './episode_data'
 import { Citation } from './citation'
 import { Article } from './article'
-import { AvailableEpisodes } from '@/types/series_data'
 
 export type Playlist = {
   id?: string
