@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 
 import { SearchSeries } from '@/features/playlists/components/PlaylistForm/ListTab/SearchSeries'
@@ -55,7 +55,7 @@ export const SearchForm = () => {
   const searchSeriesQuery = useSearchSeries(createQueryParams())
   const searchPlaylistQuery = useSearchPlaylist(createQueryParams())
 
-  const search = () => {
+  useEffect(() => {
     if (filter.tabIndex === 0) {
       searchEpisodeQuery.refetch()
     } else if (filter.tabIndex === 1) {
@@ -63,14 +63,13 @@ export const SearchForm = () => {
     } else if (filter.tabIndex === 2) {
       searchPlaylistQuery.refetch()
     }
-  }
+  }, [filter])
 
   const onAction = (query: string) => {
     setFilter((prev) => ({
       ...prev,
       searchText: query
     }))
-    search()
   }
 
   return (
@@ -96,7 +95,6 @@ export const SearchForm = () => {
               ...prev,
               ...params
             }))
-            search()
           }}
         />
         <TabPanels>
