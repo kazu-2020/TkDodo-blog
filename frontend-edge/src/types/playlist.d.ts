@@ -1,9 +1,10 @@
 import { SameAs } from './same_as'
 import { Role } from './role'
 import { ImageHash } from './image_hash'
-import { EpisodeData } from './episode_data'
+import { EpisodeData, PartOfSeries } from './episode_data'
 import { Citation } from './citation'
 import { Article } from './article'
+import { AvailableEpisodes } from '@/types/series_data'
 
 export type Playlist = {
   id?: string
@@ -66,4 +67,8 @@ export type Playlist = {
   dateCreated: string
   dateModified: string
   tvepisodeCount: number
+  keyvisuals?: Array<ImageHash>
+  partOfSeries?: PartOfSeries
+  availableEpisodes?: AvailableEpisodes
+  videos: any[]
 }

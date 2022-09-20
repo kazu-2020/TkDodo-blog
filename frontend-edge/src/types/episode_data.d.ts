@@ -4,6 +4,7 @@ import { ImageHash } from './image_hash'
 export type PartOfSeries = {
   name: string
   eyecatch?: ImageHash
+  logo?: ImageHash
 }
 
 export type IdentifierGroup = {

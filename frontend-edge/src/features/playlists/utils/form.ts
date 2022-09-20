@@ -1,6 +1,7 @@
 import { FieldNamesMarkedBoolean } from 'react-hook-form'
 
 import { Playlist } from '@/types/playlist'
+import { EpisodeData } from '@/types/episode_data'
 
 import {
   CreatePlaylistParams,
@@ -66,6 +67,13 @@ export const playlistToDefaultValues = (
   activeItemList: playlist?.activeItemList
 })
 
+const episodesToIds = (episodes?: EpisodeData[]) => {
+  if (episodes) {
+    return episodes.map((episode: EpisodeData) => ({ episodeId: episode.id }))
+  }
+  return []
+}
+
 export const formValuesToCreateParams = (
   values: PlaylistFormInputs,
   dirtyFields: FieldNamesMarkedBoolean<PlaylistFormInputs>
@@ -82,6 +90,7 @@ export const formValuesToCreateParams = (
 
   const data: CreatePlaylistParams = {
     ...paramsValues,
+    playlistItemsAttributes: episodesToIds(paramsValues.episodes),
     keywords: OptionsToArray(keywords),
     hashtags: OptionsToArray(hashtags)
   }
