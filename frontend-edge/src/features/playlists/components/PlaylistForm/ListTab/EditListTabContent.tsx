@@ -1,8 +1,8 @@
 import React from 'react'
 
+import { SearchForm } from '@/features/playlists/components/PlaylistForm/ListTab/SearchForm'
 import { ArrowStepContent } from '@/components/ArrowStep'
 
-import { SearchEpisode } from './SearchEpisode'
 import { EditEpisodeList } from './EditEpisodeList'
 
 export const EditListTabContent = ({
@@ -12,6 +12,6 @@ export const EditListTabContent = ({
 }) => (
   <ArrowStepContent index={contentIndex}>
     <EditEpisodeList />
-    <SearchEpisode />
+    <SearchForm />
   </ArrowStepContent>
 )

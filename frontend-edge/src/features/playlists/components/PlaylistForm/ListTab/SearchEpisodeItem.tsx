@@ -1,7 +1,6 @@
-import { HiOutlineMinus } from 'react-icons/all'
+import { HiOutlinePlus } from 'react-icons/all'
 import { UseFormSetValue } from 'react-hook-form/dist/types/form'
-import { useFormContext, UseFormGetValues } from 'react-hook-form'
-import React from 'react'
+import { useFormContext, UseFormGetValues, useWatch } from 'react-hook-form'
 import {
   Button,
   Center,
@@ -23,19 +22,25 @@ import {
 import { PlaylistFormInputs } from '@/features/playlists/types'
 import { PlayableStatusBadge } from '@/components/PlayableStatusBadge'
 
-const removeEpisode = (
-  getValues: UseFormGetValues<PlaylistFormInputs>,
-  setValue: UseFormSetValue<any>,
-  episodeId: string
-) => {
-  const episodes = getValues('episodes').filter(
-    (episode) => episode.id !== episodeId
-  )
-  setValue('episodes', episodes, { shouldDirty: true })
+type Props = {
+  item: EpisodeData
 }
 
-export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
+const addEpisode = (
+  getValues: UseFormGetValues<PlaylistFormInputs>,
+  setValue: UseFormSetValue<any>,
+  episode: EpisodeData
+) => {
+  const episodes = getValues('episodes')
+  setValue('episodes', [...episodes, { ...episode }], { shouldDirty: true })
+}
+
+const hasEpisode = (episodes: Array<EpisodeData>, episode: EpisodeData) =>
+  episodes?.some((ep: EpisodeData) => ep.id === episode.id) || false
+
+export const SearchEpisodeItem = ({ item }: Props) => {
   const { getValues, setValue } = useFormContext<PlaylistFormInputs>()
+  const episodes = useWatch({ name: 'episodes' })
 
   return (
     <Grid
@@ -48,22 +53,29 @@ export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
       w="100%"
     >
       <GridItem h="8" colSpan={3}>
-        <Button
-          aria-label="削除"
-          boxShadow="md"
-          h="8"
-          w="8"
-          minW="8"
-          colorScheme="orange"
-          bg="accent"
-          color="black"
-          borderRadius="sm"
-          onClick={() => {
-            removeEpisode(getValues, setValue, episode.id)
-          }}
-        >
-          <Icon as={HiOutlineMinus} />
-        </Button>
+        {!hasEpisode(episodes, item) && (
+          <Button
+            aria-label="追加"
+            boxShadow="md"
+            h="8"
+            w="8"
+            minW="8"
+            colorScheme="orange"
+            bg="accent"
+            color="black"
+            borderRadius="sm"
+            onClick={() => {
+              addEpisode(getValues, setValue, item)
+            }}
+          >
+            <Icon as={HiOutlinePlus} />
+          </Button>
+        )}
+        {hasEpisode(episodes, item) && (
+          <Text lineHeight="40px" h="100%">
+            追加済み
+          </Text>
+        )}
       </GridItem>
       <GridItem colSpan={9} h="10" textAlign="left">
         <HStack p={0} m={0}>
@@ -71,31 +83,32 @@ export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
             w="74px"
             h="40px"
             borderRadius="4px"
-            src={episodeThumbnailUrl(episode, 'https://placehold.jp/71x40.png')}
+            flexBasis="74px"
+            src={episodeThumbnailUrl(item, 'https://placehold.jp/71x40.png')}
           />
-          <Text>{episode.name}</Text>
+          <Text noOfLines={2}>{item.name}</Text>
         </HStack>
       </GridItem>
       <GridItem colSpan={5} h="10">
         <Center h="100%">
-          <Text>{totalTime(episode)}</Text>
+          <Text>{totalTime(item)}</Text>
         </Center>
       </GridItem>
       <GridItem colSpan={8} h="10" textAlign="left">
         <Center h="100%">
-          <Text w="100%" textAlign="left">
-            {episode.partOfSeries?.name || ''}
+          <Text w="100%" textAlign="left" noOfLines={2}>
+            {item.partOfSeries?.name || ''}
           </Text>
         </Center>
       </GridItem>
       <GridItem colSpan={6} h="10" textAlign="center">
         <Center h="100%">
-          <Text>{resentEventStartDate(episode)}</Text>
+          <Text>{resentEventStartDate(item)}</Text>
         </Center>
       </GridItem>
       <GridItem colSpan={5} h="10" textAlign="center">
         <Center h="100%">
-          <PlayableStatusBadge isPlayable={hasVideo(episode?.videos || [])} />
+          <PlayableStatusBadge isPlayable={hasVideo(item?.videos || [])} />
         </Center>
       </GridItem>
     </Grid>
