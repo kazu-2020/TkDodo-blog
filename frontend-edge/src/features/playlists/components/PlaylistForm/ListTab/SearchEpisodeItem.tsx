@@ -52,30 +52,32 @@ export const SearchEpisodeItem = ({ item }: Props) => {
       p={2}
       w="100%"
     >
-      <GridItem h="8" colSpan={3}>
-        {!hasEpisode(episodes, item) && (
-          <Button
-            aria-label="追加"
-            boxShadow="md"
-            h="8"
-            w="8"
-            minW="8"
-            colorScheme="orange"
-            bg="accent"
-            color="black"
-            borderRadius="sm"
-            onClick={() => {
-              addEpisode(getValues, setValue, item)
-            }}
-          >
-            <Icon as={HiOutlinePlus} />
-          </Button>
-        )}
-        {hasEpisode(episodes, item) && (
-          <Text lineHeight="40px" h="100%">
-            追加済み
-          </Text>
-        )}
+      <GridItem h="10" colSpan={3}>
+        <Center h="100%">
+          {!hasEpisode(episodes, item) && (
+            <Button
+              aria-label="追加"
+              boxShadow="md"
+              h="8"
+              w="8"
+              minW="8"
+              colorScheme="orange"
+              bg="accent"
+              color="black"
+              borderRadius="sm"
+              onClick={() => {
+                addEpisode(getValues, setValue, item)
+              }}
+            >
+              <Icon as={HiOutlinePlus} />
+            </Button>
+          )}
+          {hasEpisode(episodes, item) && (
+            <Text lineHeight="40px" h="100%">
+              追加済み
+            </Text>
+          )}
+        </Center>
       </GridItem>
       <GridItem colSpan={9} h="10" textAlign="left">
         <HStack p={0} m={0}>
