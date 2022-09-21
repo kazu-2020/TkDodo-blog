@@ -114,6 +114,7 @@ export const playlistGenerator = (overrides?: Overrides): Playlist => ({
   actor: [],
   contributor: [],
   article: {},
+  videos: [],
   layoutPattern: faker.word.adjective(),
   publishLevel: faker.word.adjective(),
   dateCreated: faker.date.past().toDateString(),
