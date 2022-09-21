@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, GridItem, Text } from '@chakra-ui/react'
+import { Center, Grid, GridItem, Text } from '@chakra-ui/react'
 
 export const EpisodeHeader = () => (
   <Grid
@@ -18,16 +18,22 @@ export const EpisodeHeader = () => (
       <Text>エピソード</Text>
     </GridItem>
     <GridItem colSpan={5} h="5">
-      <Text>再生時間</Text>
+      <Center h="100%">
+        <Text>再生時間</Text>
+      </Center>
     </GridItem>
     <GridItem colSpan={8} h="5" textAlign="left">
       <Text>シリーズ名</Text>
     </GridItem>
     <GridItem colSpan={6} h="5">
-      <Text>直近放送日</Text>
+      <Center h="100%">
+        <Text>直近放送日</Text>
+      </Center>
     </GridItem>
     <GridItem colSpan={5} h="5">
-      <Text>視聴可能</Text>
+      <Center h="100%">
+        <Text>視聴可能</Text>
+      </Center>
     </GridItem>
   </Grid>
 )
