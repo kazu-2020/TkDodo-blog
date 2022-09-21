@@ -4,28 +4,26 @@ import {
   Box,
   Checkbox,
   FormControl,
-  FormErrorMessage,
-  FormHelperText,
   FormLabel,
   Heading,
   HStack,
-  Input,
   Spacer,
   Text
 } from '@chakra-ui/react'
 
 import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
 import { PlaylistFormInputs } from '@/features/playlists/types'
-import { ThemeGenreSelect } from '@/features/playlists/components/PlaylistForm/MetaTab/ThemeGenreSelect'
-import { FormatGenreSelect } from '@/features/playlists/components/PlaylistForm/MetaTab/FormatGenreSelect'
-import { MultiValueTextInput } from '@/components/Form/MultiValueTextInput/MultiValueTextInput'
 import {
-  FloatingLabelInput,
-  FloatingLabelTextarea
-} from '@/components/Form/FloatingLable'
+  PropertyInput,
+  PropertyTextarea,
+  MultiValueTextInput,
+  PropertyLabel
+} from '@/components/Form'
 import { ArrowStepContent } from '@/components/ArrowStep'
 
+import { ThemeGenreSelect } from './ThemeGenreSelect'
 import { SameAsItems } from './SameAsItems'
+import { FormatGenreSelect } from './FormatGenreSelect'
 import { PlaylistImageForm } from './CropperImageModal/PlaylistImageForm'
 import { ColorPaletteForm } from './ColorPaletteForm/ColorPaletteForm'
 import { CitationItems } from './CitationItems'
@@ -46,9 +44,10 @@ export const EditMetaTabContent = ({
 
   return (
     <ArrowStepContent index={contentIndex}>
-      <FloatingLabelInput
-        id="name"
-        label="名前 - Name"
+      <PropertyInput
+        name="name"
+        label="名前"
+        schemaName="Name"
         error={errors?.name}
         register={register('name', {
           required: '名前を入力してください',
@@ -58,9 +57,10 @@ export const EditMetaTabContent = ({
         mb={10}
       />
 
-      <FloatingLabelInput
-        id="detailedNameRuby"
-        label="ふりがな - Detailed Name Ruby"
+      <PropertyInput
+        name="detailedNameRuby"
+        label="ふりがな"
+        schemaName="Detailed Name Ruby"
         error={errors?.detailedNameRuby}
         register={register('detailedNameRuby', {
           setValueAs: setUndefinedOrString
@@ -68,9 +68,10 @@ export const EditMetaTabContent = ({
         mb={5}
       />
 
-      <FloatingLabelTextarea
-        id="detailedCatch"
-        label="キャッチコピー - DetailedCatch"
+      <PropertyTextarea
+        name="detailedCatch"
+        label="キャッチコピー"
+        schemaName="DetailedCatch"
         error={errors?.detailedCatch}
         register={register('detailedCatch', {
           setValueAs: setUndefinedOrString
@@ -78,9 +79,10 @@ export const EditMetaTabContent = ({
         mb={5}
       />
 
-      <FloatingLabelTextarea
-        id="description"
-        label="説明 - Description"
+      <PropertyTextarea
+        name="description"
+        label="説明"
+        schemaName="Description"
         error={errors?.description}
         register={register('description', {
           setValueAs: setUndefinedOrString
@@ -90,14 +92,16 @@ export const EditMetaTabContent = ({
 
       <MultiValueTextInput
         name="keywords"
-        label="キーワード - Keywords"
+        label="キーワード"
+        schemaName="Keywords"
         placeholder="キーワードを入力してください"
         mb={5}
       />
 
       <MultiValueTextInput
         name="hashtags"
-        label="ハッシュタグ - Hashtags"
+        label="ハッシュタグ"
+        schemaName="Hashtags"
         placeholder="ハッシュタグを入力してください"
         helperText="ハッシュタグは先頭に「#」をつけてください"
         mb={5}
@@ -114,7 +118,7 @@ export const EditMetaTabContent = ({
         <PlaylistImageForm />
       </Box>
 
-      <Heading size="md">色 - Color</Heading>
+      <PropertyLabel label="色" schemaName="Color" />
       <Text>
         ここで選んだ色がアクセシビリティに配慮された色に変換されページに反映されます。
       </Text>
@@ -127,19 +131,17 @@ export const EditMetaTabContent = ({
 
       <CitationItems control={control} register={register} errors={errors} />
 
-      <FormControl mb={5}>
-        <FormLabel>短縮URL - Alias Id</FormLabel>
-        <Input
-          variant="flushed"
-          {...register('aliasId', {
-            setValueAs: setUndefinedOrString
-          })}
-        />
-        <FormHelperText>半角英数字、「-」「_」が利用できます</FormHelperText>
-        <FormErrorMessage>
-          {errors.aliasId && errors.aliasId.message}
-        </FormErrorMessage>
-      </FormControl>
+      <PropertyInput
+        name="aliasId"
+        label="短縮URL"
+        schemaName="AliasId"
+        helperText="半角英数字、「-」「_」が利用できます"
+        error={errors?.aliasId}
+        register={register('aliasId', {
+          setValueAs: setUndefinedOrString
+        })}
+        mb={5}
+      />
 
       <FormControl mb={5}>
         <FormLabel>APIへの公開/非公開</FormLabel>

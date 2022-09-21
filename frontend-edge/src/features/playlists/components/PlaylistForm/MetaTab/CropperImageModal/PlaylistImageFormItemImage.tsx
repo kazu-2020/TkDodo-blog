@@ -13,11 +13,13 @@ import {
 type OverlayImageType = {
   onEdit: () => void
   onRemove: () => void
+  isInvalid: boolean
 } & ImageProps
 
 export const PlaylistImageFormItemImage = ({
   onEdit,
   onRemove,
+  isInvalid,
   ...props
 }: OverlayImageType) => (
   <HStack>
@@ -29,7 +31,7 @@ export const PlaylistImageFormItemImage = ({
         '.overlay': { opacity: 0.9 }
       }}
     >
-      <Image {...props} />
+      <Image {...props} sx={isInvalid ? { border: '2px solid red' } : {}} />
       <Flex
         className="overlay"
         sx={{
