@@ -47,23 +47,25 @@ export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
       p={2}
       w="100%"
     >
-      <GridItem h="8" colSpan={3}>
-        <Button
-          aria-label="削除"
-          boxShadow="md"
-          h="8"
-          w="8"
-          minW="8"
-          colorScheme="orange"
-          bg="accent"
-          color="black"
-          borderRadius="sm"
-          onClick={() => {
-            removeEpisode(getValues, setValue, episode.id)
-          }}
-        >
-          <Icon as={HiOutlineMinus} />
-        </Button>
+      <GridItem h="10" colSpan={3}>
+        <Center h="100%">
+          <Button
+            aria-label="削除"
+            boxShadow="md"
+            h="8"
+            w="8"
+            minW="8"
+            colorScheme="orange"
+            bg="accent"
+            color="black"
+            borderRadius="sm"
+            onClick={() => {
+              removeEpisode(getValues, setValue, episode.id)
+            }}
+          >
+            <Icon as={HiOutlineMinus} />
+          </Button>
+        </Center>
       </GridItem>
       <GridItem colSpan={9} h="10" textAlign="left">
         <HStack p={0} m={0}>
