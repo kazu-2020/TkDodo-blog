@@ -103,10 +103,16 @@ describe DecksController, type: :request do
 
   describe 'GET #show' do
     before do
+      json =
+        File.open(Rails.root.join('spec/fixtures/payloads/r6.0_l_tvepisode_pl_recommend-tep-0000000055.json')) do |file|
+          json_string = file.read
+          JSON.parse(json_string, symbolize_names: true)
+        end
+
       poc_client = instance_double(PocApiClient)
       allow(PocApiClient).to receive(:new).and_return(poc_client)
-      allow(poc_client).to receive(:playlist_ll_bundle)
-        .with(playlist_id: anything).and_return({})
+      allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
+      allow(poc_client).to receive(:available_episode_from_playlist).with(playlist_id: anything).and_return(json)
 
       get deck_path(deck_id)
     end
@@ -128,6 +134,19 @@ describe DecksController, type: :request do
         expect(response.status).to eq 404
         json = JSON.parse(response.body)
         expect(json['message']).to eq 'デッキが見つかりませんでした'
+      end
+    end
+
+    context 'with_episode_countが有効の場合' do
+      let(:deck_id) { deck.id }
+      let(:params) { { with_episode_count: 1 } }
+
+      it '視聴可能なエピソード数が取得できること' do
+        get deck_path, params: params
+
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json.dig('deck', 'playlists')[0]['playableItemsCount']).to eq 2
       end
     end
   end

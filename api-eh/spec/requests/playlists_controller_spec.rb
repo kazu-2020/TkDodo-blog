@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe PlaylistsController, type: :request do
   before do
-    playlist_ll_bundle =
+    json =
       File.open(Rails.root.join('spec/fixtures/payloads/r6.0_ll_bundle_pl_recommend-tep-0000000052.json')) do |file|
         json_string = file.read
         JSON.parse(json_string, symbolize_names: true)
@@ -12,7 +12,7 @@ describe PlaylistsController, type: :request do
 
     poc_client = instance_double(PocApiClient)
     allow(PocApiClient).to receive(:new).and_return(poc_client)
-    allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return(playlist_ll_bundle)
+    allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return(json)
   end
 
   describe 'GET #index' do
@@ -165,12 +165,40 @@ describe PlaylistsController, type: :request do
   end
 
   describe 'GET #show' do
-    let(:playlist) { create(:playlist) }
+    let(:playlist) { create(:playlist, id: 55) }
 
     it 'succeeds the request' do
       get playlist_path(playlist)
 
       expect(response.status).to eq 200
+    end
+
+    context 'with_episode_countが有効の場合' do
+      before do
+        json =
+          File.open(Rails.root.join(
+                      'spec/fixtures/payloads/r6.0_l_tvepisode_pl_recommend-tep-0000000055.json'
+                    )) do |file|
+            json_string = file.read
+            JSON.parse(json_string, symbolize_names: true)
+          end
+
+        poc_client = instance_double(PocApiClient)
+        allow(PocApiClient).to receive(:new).and_return(poc_client)
+        allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
+        allow(poc_client).to receive(:available_episode_from_playlist).with(playlist_id: playlist.string_id)
+                                                                      .and_return(json)
+      end
+
+      let(:params) { { with_episode_count: 1 } }
+
+      it 'エピソード数が取得できること' do
+        get playlists_url, params: params
+
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['playlists'][0]['playableItemsCount']).to eq 2
+      end
     end
   end
 
