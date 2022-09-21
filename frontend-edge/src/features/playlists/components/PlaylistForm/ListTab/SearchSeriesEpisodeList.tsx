@@ -31,10 +31,6 @@ export const SearchSeriesEpisodeList = ({
   )
   const episodeCount = episodeQuery.data?.pages?.at(0)?.total || 0
 
-  console.log(
-    `episodeCount: ${episodeCount} isLoading: ${episodeQuery.isLoading} isFetching: ${episodeQuery.isFetching} isRefetching: ${episodeQuery.isRefetching} isFetchingNextPage: ${episodeQuery.isFetchingNextPage}`
-  )
-
   return (
     <Box>
       <HStack
