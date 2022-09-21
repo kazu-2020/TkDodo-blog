@@ -79,7 +79,7 @@ export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
       <form onSubmit={handleSubmit(onSubmit)} data-testid="seriesDeckForm">
         <ArrowStepContainer />
       </form>
-      {import.meta.env.DEV && <DevTool control={control} />}
+      {import.meta.env.MODE === 'development' && <DevTool control={control} />}
     </FormProvider>
   )
 }

@@ -82,7 +82,7 @@ export const RecommendDeckForm = ({ recommendDeck = undefined }: Props) => {
       <form onSubmit={handleSubmit(onSubmit)} data-testid="recommendDeckForm">
         <ArrowStepContainer />
       </form>
-      {import.meta.env.DEV && <DevTool control={control} />}
+      {import.meta.env.MODE === 'development' && <DevTool control={control} />}
     </FormProvider>
   )
 }

@@ -39,7 +39,7 @@ const AppProvider = ({ children }: AppProviderProps) => (
   >
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <QueryClientProvider client={queryClient}>
-        {process.env.NODE_ENV !== 'test' && <ReactQueryDevtools />}
+        {import.meta.env.MODE === 'development' && <ReactQueryDevtools />}
         <BrowserRouter>
           {/* // FIXME: Auth0を有効にするまで、コメントアウト */}
           {/* /!*<Auth0ProviderWithRedirectCallback*!/ */}
