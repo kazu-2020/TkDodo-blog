@@ -1,5 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React from 'react'
+import { DevTool } from '@hookform/devtools'
 import { Button, Spacer, Text, VStack } from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'
@@ -15,6 +16,7 @@ type Inputs = {
 
 const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
@@ -34,34 +36,41 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} data-testid="seriesDeckConfigForm">
-      <VStack align="flex-start">
-        <Text>公開状態</Text>
-        <ApiStateBadge apiState={seriesDeck.apiState} />
-        <Spacer py={2} />
-        <FloatingLabelInput
-          id="adminMemo"
-          label="管理メモ"
-          error={errors?.adminMemo}
-          register={register('adminMemo', {
-            setValueAs: setUndefinedOrString
-          })}
-          mb={10}
-        />
-      </VStack>
-
-      <Button
-        mt={4}
-        colorScheme="orange"
-        loadingText="送信中"
-        isLoading={isSubmitting}
-        type="submit"
-        bgColor="accent"
-        size="lg"
+    <>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        data-testid="seriesDeckConfigForm"
       >
-        保存する
-      </Button>
-    </form>
+        <VStack align="flex-start">
+          <Text>公開状態</Text>
+          <ApiStateBadge apiState={seriesDeck.apiState} />
+          <Spacer py={2} />
+          <FloatingLabelInput
+            id="adminMemo"
+            label="管理メモ"
+            error={errors?.adminMemo}
+            register={register('adminMemo', {
+              setValueAs: setUndefinedOrString
+            })}
+            mb={10}
+          />
+        </VStack>
+
+        <Button
+          mt={4}
+          colorScheme="orange"
+          loadingText="送信中"
+          isLoading={isSubmitting}
+          type="submit"
+          bgColor="accent"
+          size="lg"
+        >
+          保存する
+        </Button>
+      </form>
+
+      {import.meta.env.MODE === 'development' && <DevTool control={control} />}
+    </>
   )
 }
 export default SeriesDeckConfigForm

@@ -76,7 +76,7 @@ export const PlaylistForm = ({ playlist = undefined }: Props) => {
       <form onSubmit={handleSubmit(onSubmit)} data-testid="playlistForm">
         <ArrowStepContainer />
       </form>
-      {import.meta.env.DEV && <DevTool control={control} />}
+      {import.meta.env.MODE === 'development' && <DevTool control={control} />}
     </FormProvider>
   )
 }
