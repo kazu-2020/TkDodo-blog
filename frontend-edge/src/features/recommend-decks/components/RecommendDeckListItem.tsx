@@ -1,4 +1,4 @@
-import { Center, Flex, Grid, GridItem, HStack, Text } from '@chakra-ui/react'
+import { Center, Grid, GridItem, HStack, Text } from '@chakra-ui/react'
 
 import { RecommendDeck } from '@/types/recommend_deck'
 import ApiStateBadge from '@/components/ApiStateBadge'

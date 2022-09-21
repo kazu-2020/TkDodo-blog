@@ -1,12 +1,4 @@
-import {
-  Center,
-  Flex,
-  Grid,
-  GridItem,
-  HStack,
-  Text,
-  VStack
-} from '@chakra-ui/react'
+import { Center, Grid, GridItem, HStack, Text } from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'
 import ApiStateBadge from '@/components/ApiStateBadge'
