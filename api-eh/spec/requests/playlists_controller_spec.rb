@@ -3,6 +3,18 @@
 require 'rails_helper'
 
 describe PlaylistsController, type: :request do
+  before do
+    json =
+      File.open(Rails.root.join('spec/fixtures/payloads/r6.0_ll_bundle_pl_recommend-tep-0000000052.json')) do |file|
+        json_string = file.read
+        JSON.parse(json_string, symbolize_names: true)
+      end
+
+    poc_client = instance_double(PocApiClient)
+    allow(PocApiClient).to receive(:new).and_return(poc_client)
+    allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return(json)
+  end
+
   describe 'GET #index' do
     before do
       json = File.open(Rails.root.join('spec/fixtures/payloads/playlist-index.json')) do |file|
@@ -12,6 +24,7 @@ describe PlaylistsController, type: :request do
 
       poc_client = instance_double(PocApiClient)
       allow(PocApiClient).to receive(:new).and_return(poc_client)
+      allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
       allow(poc_client).to receive(:available_episode_from_playlist).with(playlist.string_id).and_return(json)
     end
 
@@ -303,7 +316,6 @@ describe PlaylistsController, type: :request do
 
     it 'リクエストが成功する' do
       post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
-
       expect(response.status).to eq 200
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1
@@ -311,8 +323,7 @@ describe PlaylistsController, type: :request do
   end
 
   describe 'GET #bundle_items' do
-    before { create(:playlist, id: playlist_id) }
-
+    let!(:playlist) { create(:playlist, id: playlist_id) }
     let(:playlist_id) { 52 }
     let(:playlist_string_id) { 'recommend-tep-0000000052' } # 20220801時点で各エピソードタイプを含むプレイリスト
     let(:expected_json) do
@@ -327,7 +338,7 @@ describe PlaylistsController, type: :request do
 
     it '各Subtypeのカウントが取得できること' do
       VCR.use_cassette('requests/playlists_spec/bundle_items') do
-        get bundle_items_playlists_path(playlist_id: playlist_string_id)
+        get bundle_items_playlist_path(playlist.string_uid)
         expect(response.status).to eq 200
         expect(JSON.parse(response.body)).to eq expected_json
       end

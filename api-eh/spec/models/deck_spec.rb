@@ -47,6 +47,12 @@ describe Deck, type: :model do
   end
 
   describe '#rebuild_playlists_to' do
+    before do
+      poc_client = instance_double(PocApiClient)
+      allow(PocApiClient).to receive(:new).and_return(poc_client)
+      allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
+    end
+
     let!(:deck) { create(:deck, :with_playlists) }
 
     it 'playlistの紐付けが正しく行われること' do

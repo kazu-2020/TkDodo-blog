@@ -616,9 +616,7 @@ export default Vue.extend({
   methods: {
     fetchBundleItemCount() {
       this.$axios
-        .get(`/playlists/bundle_items`, {
-          params: { playlist_id: this.$props.playlist.stringId },
-        })
+        .get(`/playlists/${this.playlist.playlistUId}/bundle_items`)
         .then((res) => {
           const countData = res.data
           this.episodeCount = countData.tvepisodeCount

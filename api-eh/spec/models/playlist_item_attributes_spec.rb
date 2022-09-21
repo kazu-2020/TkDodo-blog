@@ -3,6 +3,18 @@
 require 'rails_helper'
 
 describe PlaylistItemAttributes, type: :model do
+  before do
+    json =
+      File.open(Rails.root.join('spec/fixtures/payloads/r6.0_ll_bundle_pl_recommend-tep-0000000052.json')) do |file|
+        json_string = file.read
+        JSON.parse(json_string, symbolize_names: true)
+      end
+
+    poc_client = instance_double(PocApiClient)
+    allow(PocApiClient).to receive(:new).and_return(poc_client)
+    allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return(json)
+  end
+
   let(:playlist) { create(:playlist) }
   let(:has_all_subtype_playlist) { create(:playlist, id: '52') } # 20220803時点でHowto,Faqpage,Eventのsubtypeが含まれるPlaylist
 
@@ -61,7 +73,7 @@ describe PlaylistItemAttributes, type: :model do
     end
 
     it do
-      expect(playlist.reload.playable_playlist_items_count(playlist.string_id)).to eq(2)
+      expect(playlist.reload.playable_playlist_items_count).to eq(2)
     end
   end
 
@@ -72,7 +84,7 @@ describe PlaylistItemAttributes, type: :model do
 
     it do
       VCR.use_cassette('models/playlist_item_attributes_spec/sub_types_count') do
-        expect(has_all_subtype_playlist.faqpage_count(has_all_subtype_playlist.string_id)).to eq(2)
+        expect(has_all_subtype_playlist.faqpage_count).to eq(2)
       end
     end
   end
@@ -84,7 +96,7 @@ describe PlaylistItemAttributes, type: :model do
 
     it do
       VCR.use_cassette('models/playlist_item_attributes_spec/sub_types_count') do
-        expect(has_all_subtype_playlist.reload.event_count(has_all_subtype_playlist.string_id)).to eq(9)
+        expect(has_all_subtype_playlist.reload.event_count).to eq(9)
       end
     end
   end
@@ -96,7 +108,7 @@ describe PlaylistItemAttributes, type: :model do
 
     it do
       VCR.use_cassette('models/playlist_item_attributes_spec/sub_types_count') do
-        expect(has_all_subtype_playlist.reload.howto_count(has_all_subtype_playlist.string_id)).to eq(7)
+        expect(has_all_subtype_playlist.reload.howto_count).to eq(7)
       end
     end
   end
@@ -108,7 +120,7 @@ describe PlaylistItemAttributes, type: :model do
 
     it do
       VCR.use_cassette('models/playlist_item_attributes_spec/tvepisode_count') do
-        expect(has_all_subtype_playlist.reload.tvepisode_count(has_all_subtype_playlist.string_id)).to eq(9)
+        expect(has_all_subtype_playlist.reload.tvepisode_count).to eq(9)
       end
     end
   end
@@ -120,7 +132,7 @@ describe PlaylistItemAttributes, type: :model do
 
     it do
       VCR.use_cassette('models/playlist_item_attributes_spec/sub_types_count') do
-        expect(has_all_subtype_playlist.reload.recipe_count(has_all_subtype_playlist.string_id)).to eq(9)
+        expect(has_all_subtype_playlist.reload.recipe_count).to eq(9)
       end
     end
   end
