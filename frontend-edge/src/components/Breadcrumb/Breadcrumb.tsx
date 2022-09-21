@@ -3,9 +3,10 @@ import { useLocation } from 'react-router-dom'
 import {
   Breadcrumb as ChakraBreadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   StyleProps
 } from '@chakra-ui/react'
+
+import Link from '../Link'
 
 import { BreadcrumbLabel } from './BreadcrumbLabel'
 
@@ -30,7 +31,7 @@ export const Breadcrumb = (props: StyleProps) => {
           </BreadcrumbItem>
         ) : (
           <BreadcrumbItem key={match.pathname} fontSize="sm" color="link">
-            <BreadcrumbLink href={match.pathname}>{breadcrumb}</BreadcrumbLink>
+            <Link to={match.pathname}>{breadcrumb}</Link>
           </BreadcrumbItem>
         )
       })}
