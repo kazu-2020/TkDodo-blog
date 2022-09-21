@@ -26,7 +26,8 @@ describe PlaylistsController, type: :request do
       poc_client = instance_double(PocApiClient)
       allow(PocApiClient).to receive(:new).and_return(poc_client)
       allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
-      allow(poc_client).to receive(:available_episode_from_playlist).with(playlist.string_id).and_return(json)
+      allow(poc_client).to receive(:available_episode_from_playlist).with(playlist_id: playlist.string_id)
+                                                                    .and_return(json)
     end
 
     context 'パラメータにdeck_idが含まれる場合' do

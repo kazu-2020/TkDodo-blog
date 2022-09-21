@@ -69,7 +69,8 @@ describe PlaylistItemAttributes, type: :model do
 
       poc_client = instance_double(PocApiClient)
       allow(PocApiClient).to receive(:new).and_return(poc_client)
-      allow(poc_client).to receive(:available_episode_from_playlist).with(playlist.string_id).and_return(playlist_json)
+      allow(poc_client).to receive(:available_episode_from_playlist).with(playlist_id: playlist.string_id)
+                                                                    .and_return(playlist_json)
     end
 
     it do
