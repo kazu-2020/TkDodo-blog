@@ -2,12 +2,9 @@ import { useController, UseControllerProps } from 'react-hook-form'
 import React, { useState } from 'react'
 import { CreatableSelect, OptionBase, Props } from 'chakra-react-select'
 import { StyleProps } from '@chakra-ui/styled-system/dist/declarations/src/system.types'
-import {
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel
-} from '@chakra-ui/react'
+import { FormControl, FormErrorMessage, FormHelperText } from '@chakra-ui/react'
+
+import { PropertyLabel } from './PropertyLabel'
 
 const components = {
   DropdownIndicator: null
@@ -27,6 +24,7 @@ type MultiValueTextInputProps = UseControllerProps &
   Props &
   StyleProps & {
     label: string
+    schemaName: string
     helperText?: string
   }
 
@@ -34,6 +32,7 @@ export const MultiValueTextInput = ({
   control,
   name,
   label,
+  schemaName,
   rules,
   helperText,
   ...props
@@ -52,7 +51,7 @@ export const MultiValueTextInput = ({
 
   return (
     <FormControl isInvalid={!!error} id={name} {...styleProps}>
-      <FormLabel>{label}</FormLabel>
+      <PropertyLabel label={label} schemaName={schemaName} />
 
       <CreatableSelect
         name={name}
