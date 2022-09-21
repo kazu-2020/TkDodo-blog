@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe PlaylistsController, type: :request do
   before do
-    json =
+    playlist_ll_bundle =
       File.open(Rails.root.join('spec/fixtures/payloads/r6.0_ll_bundle_pl_recommend-tep-0000000052.json')) do |file|
         json_string = file.read
         JSON.parse(json_string, symbolize_names: true)
@@ -12,15 +12,16 @@ describe PlaylistsController, type: :request do
 
     poc_client = instance_double(PocApiClient)
     allow(PocApiClient).to receive(:new).and_return(poc_client)
-    allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return(json)
+    allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return(playlist_ll_bundle)
   end
 
   describe 'GET #index' do
     before do
-      json = File.open(Rails.root.join('spec/fixtures/payloads/playlist-index.json')) do |file|
-        json_string = file.read
-        JSON.parse(json_string, symbolize_names: true)
-      end
+      json =
+        File.open(Rails.root.join('spec/fixtures/payloads/r6.0_l_tvepisode_pl_recommend-tep-0000000055.json')) do |file|
+          json_string = file.read
+          JSON.parse(json_string, symbolize_names: true)
+        end
 
       poc_client = instance_double(PocApiClient)
       allow(PocApiClient).to receive(:new).and_return(poc_client)
@@ -105,6 +106,19 @@ describe PlaylistsController, type: :request do
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['playlists'][0]['name']).to eq 'オウサム ネーム'
+      end
+    end
+
+    context 'with_episode_countが有効の場合' do
+      let(:playlist) { create(:playlist, id: 55) }
+      let(:params) { { with_episode_count: 1 } }
+
+      it 'エピソード数が取得できること' do
+        get playlists_url, params: params
+
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['playlists'][0]['playableItemsCount']).to eq 2
       end
     end
   end
