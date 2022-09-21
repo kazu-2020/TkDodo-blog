@@ -1,11 +1,19 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React from 'react'
 import { DevTool } from '@hookform/devtools'
-import { Button, Spacer, Text, VStack } from '@chakra-ui/react'
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  Spacer,
+  Text,
+  VStack
+} from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'
 import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
-import { FloatingLabelInput } from '@/components/Form/FloatingLable'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
 import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
@@ -45,15 +53,19 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
           <Text>公開状態</Text>
           <ApiStateBadge apiState={seriesDeck.apiState} />
           <Spacer py={2} />
-          <FloatingLabelInput
-            id="adminMemo"
-            label="管理メモ"
-            error={errors?.adminMemo}
-            register={register('adminMemo', {
-              setValueAs: setUndefinedOrString
-            })}
-            mb={10}
-          />
+          <FormControl id="adminMemo" isInvalid={!!errors?.adminMemo} mb={10}>
+            <FormLabel>管理メモ</FormLabel>
+            <Input
+              data-testid="adminMemo"
+              variant="flushed"
+              {...register('adminMemo', {
+                setValueAs: setUndefinedOrString
+              })}
+            />
+            {errors?.adminMemo && (
+              <FormErrorMessage>{errors.adminMemo.message}</FormErrorMessage>
+            )}
+          </FormControl>
         </VStack>
 
         <Button
