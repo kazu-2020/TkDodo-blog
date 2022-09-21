@@ -1,3 +1,4 @@
+import snakecaseKeys from 'snakecase-keys'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from 'react-query'
 import { useToast } from '@chakra-ui/react'
@@ -6,20 +7,37 @@ import { SeriesDeck } from '@/types/series_deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
+type SeriesDeckParams = {
+  name: string
+  interfix: string
+  description?: string
+  apiState?: boolean
+  adminMemo?: string
+  playlists?: string[]
+}
+
 export type CreateSeriesDeckDTO = {
-  data: {
-    name: string
-    interfix: string
-    description?: string
-    apiState: boolean
-    playlists?: string[]
+  data: SeriesDeckParams
+}
+
+const requestParams = (data: SeriesDeckParams) => {
+  if (Object.hasOwn(data, 'apiState')) {
+    const { apiState, ...params } = data
+    return {
+      series_deck: snakecaseKeys({
+        ...params,
+        apiState: data.apiState ? 'open' : 'close'
+      })
+    }
   }
+
+  return { series_deck: snakecaseKeys(data) }
 }
 
 export const createSeriesDeck = ({
   data
 }: CreateSeriesDeckDTO): Promise<SeriesDeck> =>
-  axios.post(`/series_decks`, data)
+  axios.post(`/series_decks`, requestParams(data))
 
 type UseCreateSeriesDeckOptions = {
   config?: MutationConfig<typeof createSeriesDeck>
