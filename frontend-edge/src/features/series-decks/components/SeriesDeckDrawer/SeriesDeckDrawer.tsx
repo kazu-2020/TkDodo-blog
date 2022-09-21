@@ -1,5 +1,6 @@
 import { RiPencilFill, MdSettings } from 'react-icons/all'
 import {
+  Box,
   Button,
   ButtonGroup,
   Center,
@@ -73,7 +74,9 @@ export const SeriesDeckDrawer = ({
             />
           </ButtonGroup>
         </Center>
-        <PlaylistList seriesDeck={seriesDeck} />
+        <Box w="100%">
+          <PlaylistList seriesDeck={seriesDeck} />
+        </Box>
       </DrawerBody>
     </DrawerContent>
   </Drawer>

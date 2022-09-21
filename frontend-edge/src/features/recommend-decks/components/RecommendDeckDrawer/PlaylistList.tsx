@@ -19,11 +19,6 @@ const NoPlaylist = () => (
 
 export const PlaylistList = ({ recommendDeck }: Props) => {
   const maxPreviewCount = 10
-
-  if (recommendDeck.playListCount <= 0) {
-    return NoPlaylist()
-  }
-
   const otherPlaylistCount = recommendDeck.playListCount - maxPreviewCount
   return (
     <Box px={7} py={5}>
