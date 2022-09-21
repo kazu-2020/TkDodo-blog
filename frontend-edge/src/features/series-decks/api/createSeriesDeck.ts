@@ -10,7 +10,7 @@ export type CreateSeriesDeckDTO = {
   data: {
     name: string
     interfix: string
-    description: string
+    description?: string
     apiState: boolean
     playlists?: string[]
   }

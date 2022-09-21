@@ -2,6 +2,7 @@ import { useFormContext } from 'react-hook-form'
 import React from 'react'
 import { Checkbox, FormControl, HStack, Text } from '@chakra-ui/react'
 
+import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
 import { SeriesDeckFormInputs } from '@/features/series-decks/types'
 import {
   FloatingLabelTextarea,
@@ -51,7 +52,9 @@ export const EditDeckTabContent = ({
         id="description"
         label="説明 - Description"
         error={errors?.description}
-        register={register('description')}
+        register={register('description', {
+          setValueAs: setUndefinedOrString
+        })}
         mb={5}
       />
       <FormControl mb={5}>

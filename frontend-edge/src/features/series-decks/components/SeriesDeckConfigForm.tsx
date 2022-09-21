@@ -3,13 +3,14 @@ import React from 'react'
 import { Button, Spacer, Text, VStack } from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'
+import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
 import { FloatingLabelInput } from '@/components/Form/FloatingLable'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
 import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
 
 type Inputs = {
-  adminMemo: string
+  adminMemo?: string
 }
 
 const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
@@ -42,7 +43,9 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
           id="adminMemo"
           label="管理メモ"
           error={errors?.adminMemo}
-          register={register('adminMemo')}
+          register={register('adminMemo', {
+            setValueAs: setUndefinedOrString
+          })}
           mb={10}
         />
       </VStack>
