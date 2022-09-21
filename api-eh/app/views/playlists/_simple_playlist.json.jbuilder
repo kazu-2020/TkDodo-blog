@@ -61,7 +61,7 @@ end
 
 json.itemNum playlist.playlist_items.count
 if params[:with_episode_count].present?
-  json.playableItemsCount playlist.playable_playlist_items_count(playlist.string_id)
+  json.playableItemsCount playlist.playable_playlist_items_count
 end
 
 json.layoutPattern playlist.layout_pattern
