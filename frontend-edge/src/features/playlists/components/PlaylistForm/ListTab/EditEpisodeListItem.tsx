@@ -73,7 +73,7 @@ export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
             borderRadius="4px"
             src={episodeThumbnailUrl(episode, 'https://placehold.jp/71x40.png')}
           />
-          <Text>{episode.name}</Text>
+          <Text noOfLines={2}>{episode.name}</Text>
         </HStack>
       </GridItem>
       <GridItem colSpan={5} h="10">
@@ -83,7 +83,7 @@ export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
       </GridItem>
       <GridItem colSpan={8} h="10" textAlign="left">
         <Center h="100%">
-          <Text w="100%" textAlign="left">
+          <Text w="100%" textAlign="left" noOfLines={2}>
             {episode.partOfSeries?.name || ''}
           </Text>
         </Center>

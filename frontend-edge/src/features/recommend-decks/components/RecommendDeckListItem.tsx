@@ -1,4 +1,4 @@
-import { Flex, HStack, Text } from '@chakra-ui/react'
+import { Center, Flex, Grid, GridItem, HStack, Text } from '@chakra-ui/react'
 
 import { RecommendDeck } from '@/types/recommend_deck'
 import ApiStateBadge from '@/components/ApiStateBadge'
@@ -18,24 +18,35 @@ const RecommendDeckListItem = ({
   }
 
   return (
-    <Flex
+    <Grid
       key={recommendDeck.stringId}
       h="48px"
       px={3}
       bg="white"
       boxShadow="sm"
-      justifyContent="space-between"
       cursor="pointer"
       onClick={() => handleClick()}
       role="listitem"
+      templateColumns="repeat(12, 1fr)"
     >
-      <HStack>
-        <Text color="primary" fontWeight="700">
-          {recommendDeck.name}
-        </Text>
-        <ApiStateBadge apiState={recommendDeck.apiState} />
-      </HStack>
-    </Flex>
+      <GridItem colSpan={4}>
+        <HStack h="100%" alignItems="center">
+          <Text color="primary" fontWeight="700" noOfLines={1}>
+            {recommendDeck.name}
+          </Text>
+        </HStack>
+      </GridItem>
+      <GridItem colSpan={2}>
+        <Center h="100%">
+          <ApiStateBadge apiState={recommendDeck.apiState} />
+        </Center>
+      </GridItem>
+      <GridItem colSpan={6}>
+        <HStack h="100%" alignItems="center">
+          <Text noOfLines={1}>{recommendDeck.adminMemo}</Text>
+        </HStack>
+      </GridItem>
+    </Grid>
   )
 }
 export default RecommendDeckListItem

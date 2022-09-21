@@ -4,13 +4,11 @@ import { BreadcrumbContext } from './BreadcrumbContext'
 
 const EditTitle = (): string => {
   const context = useContext(BreadcrumbContext)
-  return context.state.name
+  const { name } = context.state
+  return name.length > 26 ? `${name.substring(0, 26)}…` : name
 }
 
-const ConfigTitle = (): string => {
-  const context = useContext(BreadcrumbContext)
-  return `[管理] ${context.state.name}`
-}
+const ConfigTitle = (): string => `[管理] ${EditTitle()}`
 
 export const BreadcrumbLabel = [
   {
