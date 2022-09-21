@@ -4,7 +4,7 @@ import { ImageHash } from '@/types/image_hash'
 export type RecommendDeckFormInputs = {
   name: string
   interfix: string
-  description: string
+  description?: string
   apiState: boolean
   deckSameAsAttributes?: SameAs[]
 }

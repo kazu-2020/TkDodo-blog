@@ -9,8 +9,8 @@ import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
 type RecommendDeckParams = {
-  name?: string
-  interfix?: string
+  name: string
+  interfix: string
   description?: string
   apiState?: boolean
   deckSameAsAttributes?: SameAs[]
