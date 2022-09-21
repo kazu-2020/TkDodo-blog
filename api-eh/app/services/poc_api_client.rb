@@ -65,7 +65,7 @@ class PocApiClient < DlabApiBase
   # 視聴可能なエピソードを取得する
   #
   # @param [String] playlist_id: プレイリストID
-  def available_episode_from_playlist(playlist_id)
+  def available_episode_from_playlist(playlist_id:)
     res = client.get "/#{version}/l/tvepisode/pl/#{playlist_id}.json", { availableOn: DEFAULT_ENVIRONMENT }
     JSON.parse(res.body, symbolize_names: true) # 視聴可能なエピソードが存在しない場合404が返却されるためその対応
   end
