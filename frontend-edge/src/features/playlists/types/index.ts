@@ -28,16 +28,12 @@ export type PlaylistFormInputs = {
   sameAsAttributes?: SameAs[]
   citationsAttributes?: Citation[]
   apiState: boolean
-  tvepisodeCount: number
-  faqpageCount: number
-  howtoCount: number
-  eventCount: number
   logoImageSrc: string
   eyecatchImageSrc: string
   heroImageSrc: string
   editorData: OutputData
-  markedHeader: string
-  markedFooter: string
+  markedHeader?: string
+  markedFooter?: string
   authorType: string
   authorName: string
   publisherName: string

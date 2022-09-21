@@ -14,6 +14,7 @@ import {
   Text
 } from '@chakra-ui/react'
 
+import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
 import { PlaylistFormInputs } from '@/features/playlists/types'
 import { ThemeGenreSelect } from '@/features/playlists/components/PlaylistForm/MetaTab/ThemeGenreSelect'
 import { FormatGenreSelect } from '@/features/playlists/components/PlaylistForm/MetaTab/FormatGenreSelect'
@@ -50,7 +51,8 @@ export const EditMetaTabContent = ({
         label="名前 - Name"
         error={errors?.name}
         register={register('name', {
-          required: '名前を入力してください'
+          required: '名前を入力してください',
+          setValueAs: setUndefinedOrString
         })}
         isRequired
         mb={10}
@@ -60,7 +62,9 @@ export const EditMetaTabContent = ({
         id="detailedNameRuby"
         label="ふりがな - Detailed Name Ruby"
         error={errors?.detailedNameRuby}
-        register={register('detailedNameRuby')}
+        register={register('detailedNameRuby', {
+          setValueAs: setUndefinedOrString
+        })}
         mb={5}
       />
 
@@ -68,7 +72,9 @@ export const EditMetaTabContent = ({
         id="detailedCatch"
         label="キャッチコピー - DetailedCatch"
         error={errors?.detailedCatch}
-        register={register('detailedCatch')}
+        register={register('detailedCatch', {
+          setValueAs: setUndefinedOrString
+        })}
         mb={5}
       />
 
@@ -76,7 +82,9 @@ export const EditMetaTabContent = ({
         id="description"
         label="説明 - Description"
         error={errors?.description}
-        register={register('description')}
+        register={register('description', {
+          setValueAs: setUndefinedOrString
+        })}
         mb={5}
       />
 
@@ -121,7 +129,12 @@ export const EditMetaTabContent = ({
 
       <FormControl mb={5}>
         <FormLabel>短縮URL - Alias Id</FormLabel>
-        <Input variant="flushed" {...register('aliasId')} />
+        <Input
+          variant="flushed"
+          {...register('aliasId', {
+            setValueAs: setUndefinedOrString
+          })}
+        />
         <FormHelperText>半角英数字、「-」「_」が利用できます</FormHelperText>
         <FormErrorMessage>
           {errors.aliasId && errors.aliasId.message}
