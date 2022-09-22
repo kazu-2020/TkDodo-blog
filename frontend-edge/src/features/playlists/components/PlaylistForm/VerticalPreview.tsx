@@ -8,7 +8,6 @@ import {
   Heading,
   HStack,
   Image,
-  Spacer,
   Text,
   useToast,
   VStack
@@ -47,20 +46,21 @@ const EpisodeList = () => {
     name: ['episodes']
   })
 
-  return (
-    <Box>
-      {episodes.length > 0 ? (
-        episodes?.slice(0, 9).map((item: EpisodeData) => (
-          <>
-            <Spacer mb={2} />
-            <EpisodeListItem key={item.id} episodeItem={item} />
-          </>
-        ))
-      ) : (
-        <Text fontSize="sm" my={4}>
+  if (episodes.length < 1) {
+    return (
+      <Box>
+        <Text fontSize="sm" my={4} key="episodes-undefined">
           エピソードは登録されていません
         </Text>
-      )}
+      </Box>
+    )
+  }
+
+  return (
+    <Box>
+      {episodes?.slice(0, 9).map((item: EpisodeData) => (
+        <EpisodeListItem key={item.id} episodeItem={item} mb={2} />
+      ))}
     </Box>
   )
 }
