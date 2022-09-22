@@ -1,4 +1,5 @@
 import React from 'react'
+import { StyleProps } from '@chakra-ui/styled-system/dist/declarations/src/system.types'
 import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react'
 
 import { hasVideo } from '@/utils/video'
@@ -19,13 +20,16 @@ const startDate = (episodeItem: EpisodeData) => {
   return formatDatetimeWithWeekday(date)
 }
 
-export const EpisodeListItem = ({ episodeItem }: Props) => {
+export const EpisodeListItem = ({
+  episodeItem,
+  ...props
+}: Props & StyleProps) => {
   const serviceLogoUrl =
     episodeItem.releasedEvent?.publishedOn?.images?.badgeSmall?.url || ''
   const seriesName = episodeItem.partOfSeries?.name || ''
 
   return (
-    <Flex>
+    <Flex {...props}>
       <Box pos="relative" flex="0 0 100px">
         <Image
           w="100px"
