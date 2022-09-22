@@ -47,7 +47,7 @@ class SearchPlaylists
       res = client.episode_from_playlist(query: search_query_hash, playlist_id: playlist[:id])
       playlist.store(:episodes, res)
 
-      res = client.available_episode_from_playlist(playlist[:id])
+      res = client.available_episode_from_playlist(playlist_id: playlist[:id])
       playlist.store(:availableEpisodes, res)
     end
     playlists
