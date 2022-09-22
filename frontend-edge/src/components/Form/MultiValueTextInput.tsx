@@ -70,16 +70,14 @@ export const MultiValueTextInput = ({
         onKeyDown={(event) => {
           if (!inputValue) return
 
-          // eslint-disable-next-line default-case
-          switch (event.key) {
-            case 'Enter':
-            case 'Tab':
-              // 重複している場合は追加しない
-              if (value.some((option: Option) => option.value === inputValue))
-                return
-              onChange([...value, createOption(inputValue)])
-              setInputValue('')
-              event.preventDefault()
+          if (event.key === 'Enter' || event.key === 'Tab') {
+            if (event.nativeEvent.isComposing) return // 全角の確定の場合は何もしない。 FIXME: ブラウザによって挙動が違うので注意
+            // 重複している場合は追加しない
+            if (value.some((option: Option) => option.value === inputValue))
+              return
+            onChange([...value, createOption(inputValue)])
+            setInputValue('')
+            event.preventDefault()
           }
         }}
         variant="flushed"
