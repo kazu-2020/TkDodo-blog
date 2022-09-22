@@ -4,17 +4,18 @@ import {
   Box,
   FormControl,
   FormErrorMessage,
-  FormLabel,
   StyleProps
 } from '@chakra-ui/react'
 
 import { dummyImageUrl } from '@/utils/image'
 import { PlaylistFormInputs } from '@/features/playlists/types'
 import { PlaylistImageFormItemImage } from '@/features/playlists/components/PlaylistForm/MetaTab/CropperImageModal/PlaylistImageFormItemImage'
+import { PropertyLabel } from '@/components/Form'
 
 export const PlaylistImageFormItem = ({
   imageType,
   label,
+  schemaName,
   onOpen,
   setImageType,
   width,
@@ -23,6 +24,7 @@ export const PlaylistImageFormItem = ({
 }: {
   imageType: 'logo' | 'eyecatch' | 'hero'
   label: string
+  schemaName: string
   onOpen: () => void
   setImageType: Dispatch<any>
   width: string | number
@@ -41,19 +43,8 @@ export const PlaylistImageFormItem = ({
   const error = errors[name]
 
   return (
-    <FormControl
-      id={name}
-      isInvalid={!!error}
-      isRequired
-      sx={{
-        'label[data-invalid]': {
-          color: 'red.500'
-        }
-      }}
-      w={width}
-      {...props}
-    >
-      <FormLabel htmlFor={name}>{label}</FormLabel>
+    <FormControl id={name} isInvalid={!!error} isRequired w={width} {...props}>
+      <PropertyLabel label={label} schemaName={schemaName} />
       <PlaylistImageFormItemImage
         src={getValues(name)}
         htmlWidth={width}
@@ -67,6 +58,7 @@ export const PlaylistImageFormItem = ({
         onRemove={() => {
           setValue(name, '')
         }}
+        isInvalid={!!error}
       />
       <input
         type="hidden"

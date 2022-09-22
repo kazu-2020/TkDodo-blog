@@ -5,10 +5,7 @@ import { Checkbox, FormControl, HStack, Text } from '@chakra-ui/react'
 import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
 import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
 import { SameAsItems } from '@/features/recommend-decks/components/RecommendDeckForm/SameAsItems'
-import {
-  FloatingLabelTextarea,
-  FloatingLabelInput
-} from '@/components/Form/FloatingLable'
+import { PropertyInput, PropertyTextarea } from '@/components/Form'
 import { ArrowStepContent } from '@/components/ArrowStep'
 
 export const EditDeckTabContent = ({
@@ -24,9 +21,10 @@ export const EditDeckTabContent = ({
 
   return (
     <ArrowStepContent index={contentIndex}>
-      <FloatingLabelInput
-        id="name"
-        label="名前 - Name"
+      <PropertyInput
+        name="name"
+        label="名前"
+        schemaName="Name"
         error={errors?.name}
         register={register('name', {
           required: '名前を入力してください'
@@ -37,9 +35,10 @@ export const EditDeckTabContent = ({
 
       <HStack mb={10}>
         <Text>recommend-tv-for-</Text>
-        <FloatingLabelInput
-          id="interfix"
-          label="中間接辞 - Interfix"
+        <PropertyInput
+          name="interfix"
+          label="中間接辞"
+          schemaName="Interfix"
           error={errors?.interfix}
           register={register('interfix', {
             required: '中間接辞 - Interfixを入力してください'
@@ -50,9 +49,10 @@ export const EditDeckTabContent = ({
         <Text ml={3}>-xxxxxxxxxx</Text>
       </HStack>
 
-      <FloatingLabelTextarea
-        id="description"
-        label="説明 - Description"
+      <PropertyTextarea
+        name="description"
+        label="説明"
+        schemaName="Description"
         error={errors?.description}
         register={register('description', {
           setValueAs: setUndefinedOrString

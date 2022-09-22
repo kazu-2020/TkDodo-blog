@@ -1,7 +1,9 @@
 import { useController } from 'react-hook-form'
 import React from 'react'
 import { OptionBase, Select } from 'chakra-react-select'
-import { FormControl, FormLabel } from '@chakra-ui/react'
+import { FormControl } from '@chakra-ui/react'
+
+import { PropertyLabel } from '@/components/Form'
 
 interface Option extends OptionBase {
   label: string
@@ -33,7 +35,7 @@ export const FormatGenreSelect = () => {
 
   return (
     <FormControl>
-      <FormLabel>ジャンル(フォーマット) - Format Genre</FormLabel>
+      <PropertyLabel label="ジャンル(フォーマット)" schemaName="Format Genre" />
       <Select
         name="formatGenre"
         ref={ref}

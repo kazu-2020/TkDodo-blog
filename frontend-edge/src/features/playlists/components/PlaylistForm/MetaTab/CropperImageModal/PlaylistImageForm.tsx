@@ -15,7 +15,8 @@ export const PlaylistImageForm = () => {
       <HStack spacing={2} mb={5}>
         <PlaylistImageFormItem
           imageType="logo"
-          label="ロゴ - Logo"
+          label="ロゴ"
+          schemaName="Logo"
           onOpen={onOpen}
           setImageType={setImageType}
           width={140}
@@ -23,7 +24,8 @@ export const PlaylistImageForm = () => {
         />
         <PlaylistImageFormItem
           imageType="eyecatch"
-          label="アイキャッチ - Eyecatch"
+          label="アイキャッチ"
+          schemaName="Eyecatch"
           onOpen={onOpen}
           setImageType={setImageType}
           width={250}
@@ -31,7 +33,8 @@ export const PlaylistImageForm = () => {
         />
         <PlaylistImageFormItem
           imageType="hero"
-          label="ヒーロー - Hero"
+          label="ヒーロー"
+          schemaName="Hero"
           onOpen={onOpen}
           setImageType={setImageType}
           width={420}
