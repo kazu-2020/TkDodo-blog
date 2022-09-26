@@ -48,10 +48,6 @@ export type PlaylistFormInputs = {
   activeItemList?: boolean
 }
 
-export type EpisodeIdsParams = {
-  episodeId: string
-}
-
 export type CreatePlaylistParams = {
   name?: string
   detailedNameRuby?: string
@@ -89,7 +85,7 @@ export type CreatePlaylistParams = {
   withEpisodeCount?: number
   sameAsAttributes?: SameAs[]
   citationsAttributes?: Citation[]
-  playlistItemsAttributes?: EpisodeIdsParams[]
+  items?: string[]
   keywords?: string[]
   hashtags?: string[]
 }
@@ -98,5 +94,5 @@ export type UpdatePlaylistParams = CreatePlaylistParams & {
   removeLogoImage?: boolean
   removeEyecatchImage?: boolean
   removeHeroImage?: boolean
-  enableListUpdate?: boolean
+  enableListUpdate?: number
 }

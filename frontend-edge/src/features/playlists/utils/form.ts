@@ -65,7 +65,7 @@ export const playlistToDefaultValues = (
 
 const episodesToIds = (episodes?: EpisodeData[]) => {
   if (episodes) {
-    return episodes.map((episode: EpisodeData) => ({ episodeId: episode.id }))
+    return episodes.map((episode: EpisodeData) => episode.id)
   }
   return []
 }
@@ -81,12 +81,13 @@ export const formValuesToCreateParams = (
     keywords,
     hashtags,
     apiState,
+    episodes,
     ...paramsValues
   } = values
 
   const data: CreatePlaylistParams = {
     ...paramsValues,
-    playlistItemsAttributes: episodesToIds(paramsValues.episodes),
+    items: episodesToIds(episodes),
     keywords: OptionsToArray(keywords),
     hashtags: OptionsToArray(hashtags)
   }
@@ -113,6 +114,5 @@ export const formValuesToUpdateParams = (
     values,
     dirtyFields
   )
-  data.enableListUpdate = true // FIXME: 1 or 0
   return data
 }
