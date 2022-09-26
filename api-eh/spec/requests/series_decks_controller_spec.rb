@@ -130,7 +130,9 @@ describe SeriesDecksController, type: :request do
 
     it 'サブタイプが取得されること' do
       json = JSON.parse(response.body)
-      expect(json.dig('deck', 'playlists')[0].keys).to include('tvepisodeCount', 'howtoCount', 'faqpageCount', 'eventCount', 'recipeCount')
+      expect(json.dig('deck',
+                      'playlists')[0].keys).to include('tvepisodeCount', 'howtoCount', 'faqpageCount', 'eventCount',
+                                                       'recipeCount')
     end
   end
 end
