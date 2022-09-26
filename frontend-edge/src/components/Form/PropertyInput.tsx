@@ -5,7 +5,8 @@ import {
   FormControlProps,
   FormErrorMessage,
   FormHelperText,
-  Input
+  Input,
+  Spacer
 } from '@chakra-ui/react'
 
 import { PropertyLabel } from '@/components/Form/PropertyLabel'
@@ -41,6 +42,7 @@ export const PropertyInput: FC<Props & FormControlProps> = ({
       type={inputType}
       {...register}
     />
+    {!error && !helperText && <Spacer h="20px" mt="8px" />}
     {helperText && <FormHelperText>{helperText}</FormHelperText>}
     {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
   </FormControl>
