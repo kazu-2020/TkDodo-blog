@@ -5,7 +5,8 @@ import {
   FormControlProps,
   FormErrorMessage,
   FormHelperText,
-  Input
+  Input,
+  Spacer
 } from '@chakra-ui/react'
 
 import { PropertyLabel } from '@/components/Form/PropertyLabel'
@@ -13,11 +14,12 @@ import { PropertyLabel } from '@/components/Form/PropertyLabel'
 type Props = {
   name: string
   label: string
-  schemaName: string
+  schemaName?: string
   placeholder?: string
   helperText?: string
   register: UseFormRegisterReturn
   error: FieldError | undefined
+  inputType?: string
 }
 
 export const PropertyInput: FC<Props & FormControlProps> = ({
@@ -28,6 +30,7 @@ export const PropertyInput: FC<Props & FormControlProps> = ({
   helperText,
   register,
   error,
+  inputType = 'text',
   ...formControlProps
 }) => (
   <FormControl id={name} isInvalid={!!error} {...formControlProps}>
@@ -36,8 +39,10 @@ export const PropertyInput: FC<Props & FormControlProps> = ({
       data-testid={name}
       variant="flushed"
       placeholder={placeholder}
+      type={inputType}
       {...register}
     />
+    {!error && !helperText && <Spacer h="20px" mt="8px" />}
     {helperText && <FormHelperText>{helperText}</FormHelperText>}
     {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
   </FormControl>

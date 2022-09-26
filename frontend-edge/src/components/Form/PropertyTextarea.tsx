@@ -5,6 +5,7 @@ import {
   FormControlProps,
   FormErrorMessage,
   FormHelperText,
+  Spacer,
   Textarea
 } from '@chakra-ui/react'
 
@@ -38,6 +39,7 @@ export const PropertyTextarea: FC<Props & FormControlProps> = ({
       placeholder={placeholder}
       {...register}
     />
+    {!error && !helperText && <Spacer h="20px" mt="8px" />}
     {helperText && <FormHelperText>{helperText}</FormHelperText>}
     {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
   </FormControl>

@@ -6,13 +6,15 @@ export const PropertyLabel = ({
   schemaName
 }: {
   label: string
-  schemaName: string
+  schemaName?: string
 }) => (
   <FormLabel>
     {label}
-    <Text as="span" color="gray">
-      {' '}
-      - {schemaName}
-    </Text>
+    {schemaName && (
+      <Text as="span" color="gray">
+        {' '}
+        - {schemaName}
+      </Text>
+    )}
   </FormLabel>
 )
