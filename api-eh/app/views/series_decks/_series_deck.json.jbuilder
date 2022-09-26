@@ -3,7 +3,7 @@ json.name series_deck.name
 json.description series_deck.description
 json.interfix series_deck.interfix
 json.stringId series_deck.string_id
-json.playlistCount series_deck.series_playlists.select(&:active?).count
+# json.playlistCount series_deck.series_playlists.select(&:active?).count
 json.adminMemo series_deck.admin_memo
 json.apiState series_deck.api_state
 json.playlists do
