@@ -13,7 +13,8 @@ export type CreatePlaylistDTO = {
 }
 
 const requestParams = (data: CreatePlaylistParams) => ({
-  playlist: snakecaseKeys(data, { exclude: ['_destroy'] })
+  playlist: snakecaseKeys(data, { exclude: ['_destroy'] }),
+  enable_list_update: 1 // FIXME: 1 or 0
 })
 
 export const createPlaylist = ({

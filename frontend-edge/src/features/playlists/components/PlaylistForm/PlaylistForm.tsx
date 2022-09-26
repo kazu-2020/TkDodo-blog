@@ -62,7 +62,6 @@ export const PlaylistForm = ({ playlist = undefined }: Props) => {
       await createPlaylistMutation.mutateAsync({ data })
     } else {
       const data = formValuesToUpdateParams(values, dirtyFields)
-
       await updatePlaylistMutation.mutateAsync({
         data,
         playlistUId: playlist.playlistUId
