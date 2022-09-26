@@ -4,7 +4,7 @@ import React from 'react'
 import { Button, HStack } from '@chakra-ui/react'
 
 import { PlaylistFormInputs } from '@/features/playlists/types'
-import { FloatingLabelInput } from '@/components/Form/FloatingLable'
+import { PropertyInput } from '@/components/Form'
 
 type Props = {
   register: UseFormRegister<PlaylistFormInputs>
@@ -15,20 +15,21 @@ type Props = {
 
 export const SameAsItem = ({ register, errors, index, onRemove }: Props) => (
   <HStack w="100%" mb={2}>
-    <FloatingLabelInput
-      id={`sameAsAttributes.${index}.name`}
+    <PropertyInput
+      name={`sameAsAttributes.${index}.name`}
       label="名前"
-      error={errors?.name}
+      error={errors?.sameAsAttributes?.[index]?.name}
       register={register(`sameAsAttributes.${index}.name`, {
         required: '名前を入力してください'
       })}
       isRequired
       m={3}
     />
-    <FloatingLabelInput
-      id={`sameAsAttributes.${index}.url`}
+    <PropertyInput
+      inputType="url"
+      name={`sameAsAttributes.${index}.url`}
       label="URL"
-      error={errors?.name}
+      error={errors?.sameAsAttributes?.[index]?.url}
       register={register(`sameAsAttributes.${index}.url`, {
         required: 'URLを入力してください'
       })}
