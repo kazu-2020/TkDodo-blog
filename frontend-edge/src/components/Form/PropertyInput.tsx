@@ -18,6 +18,7 @@ type Props = {
   helperText?: string
   register: UseFormRegisterReturn
   error: FieldError | undefined
+  inputType?: string
 }
 
 export const PropertyInput: FC<Props & FormControlProps> = ({
@@ -28,6 +29,7 @@ export const PropertyInput: FC<Props & FormControlProps> = ({
   helperText,
   register,
   error,
+  inputType = 'text',
   ...formControlProps
 }) => (
   <FormControl id={name} isInvalid={!!error} {...formControlProps}>
@@ -36,6 +38,7 @@ export const PropertyInput: FC<Props & FormControlProps> = ({
       data-testid={name}
       variant="flushed"
       placeholder={placeholder}
+      type={inputType}
       {...register}
     />
     {helperText && <FormHelperText>{helperText}</FormHelperText>}
