@@ -1,0 +1,112 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activesupport (7.0.2.3)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
+    aws-eventstream (1.2.0)
+    aws-logs (0.4.0)
+      activesupport
+      aws-mfa-secure
+      aws-sdk-cloudwatchlogs
+      rainbow
+      thor
+      zeitwerk
+    aws-mfa-secure (0.4.4)
+      activesupport
+      aws-sdk-core
+      aws_config
+      memoist
+      rainbow
+      thor
+      zeitwerk
+    aws-partitions (1.567.0)
+    aws-sdk-cloudformation (1.68.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-cloudwatchlogs (1.52.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-codebuild (1.88.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-core (3.130.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.525.0)
+      aws-sigv4 (~> 1.1)
+      jmespath (~> 1.0)
+    aws-sdk-ssm (1.132.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
+      aws-sigv4 (~> 1.1)
+    aws-sigv4 (1.4.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+    aws_config (0.1.0)
+    aws_data (0.1.1)
+      aws-sdk-core
+      memoist
+    cfn-status (0.4.6)
+      aws-sdk-cloudformation
+    cfn_camelizer (0.4.9)
+      activesupport
+      memoist
+      rainbow
+    cli-format (0.2.2)
+      activesupport
+      text-table
+      zeitwerk
+    cody (1.1.0)
+      activesupport
+      aws-logs
+      aws-mfa-secure
+      aws-sdk-cloudformation
+      aws-sdk-codebuild
+      aws-sdk-ssm
+      aws_data
+      cfn-status
+      cfn_camelizer
+      cli-format
+      dsl_evaluator
+      memoist
+      rainbow
+      render_me_pretty
+      thor
+      zeitwerk
+    concurrent-ruby (1.1.9)
+    dsl_evaluator (0.3.0)
+      activesupport
+      memoist
+      rainbow
+      zeitwerk
+    i18n (1.10.0)
+      concurrent-ruby (~> 1.0)
+    jmespath (1.6.1)
+    memoist (0.16.2)
+    mini_portile2 (2.8.0)
+    minitest (5.15.0)
+    nokogiri (1.13.3)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
+    racc (1.6.0)
+    rainbow (3.1.1)
+    render_me_pretty (0.8.4)
+      activesupport
+      rainbow
+      tilt
+    text-table (1.2.4)
+    thor (1.2.1)
+    tilt (2.0.10)
+    tzinfo (2.0.4)
+      concurrent-ruby (~> 1.0)
+    zeitwerk (2.5.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cody
+  nokogiri
+
+BUNDLED WITH
+   2.2.22
