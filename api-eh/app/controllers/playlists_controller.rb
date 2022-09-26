@@ -125,7 +125,7 @@ class PlaylistsController < ApplicationController
                   :active_tvepisode, :active_article, :active_faqpage, :active_howto, :active_event, :active_recipe,
                   :reserve_publish_time_at, :reserve_finish_time_at, :alias_id, :marked_header, :editor_data,
                   :marked_footer, :author_type, :author_name, :publisher_type, :publisher_name, :api_state,
-                  :with_episode_count, :active_item_list,
+                  :with_episode_count, :active_item_list, :layout_pattern, :publish_level,
                   same_as_attributes: %i[id name url _destroy], citations_attributes: %i[id name url _destroy],
                   playlist_items_attributes: %i[episode_id], keywords: [], hashtags: [])
   end
@@ -138,17 +138,17 @@ class PlaylistsController < ApplicationController
   # FIXME: 変更予定 後ほどふさわしい場所に定義します
   # rubocop: disable Metrics/AbcSize
   def converted_params
-    params = playlist_params.except(:logo_image, :eyecatch_image, :hero_image)
+    tmp_params = playlist_params.except(:logo_image, :eyecatch_image, :hero_image)
     %i[logo_image eyecatch_image hero_image].each do |key|
-      params[key] = image_from_base64(playlist_params[key]) if playlist_params[key]
+      tmp_params[key] = image_from_base64(playlist_params[key]) if playlist_params[key]
     end
 
-    params[:editor_data] = JSON.parse(params[:editor_data]) if params[:editor_data].present?
+    tmp_params[:editor_data] = JSON.parse(tmp_params[:editor_data]) if tmp_params[:editor_data].present?
 
-    params[:keywords] = [] unless params.key?(:keywords)
-    params[:hashtags] = [] unless params.key?(:hashtags)
+    tmp_params[:keywords] = [] unless tmp_params.key?(:keywords)
+    tmp_params[:hashtags] = [] unless tmp_params.key?(:hashtags)
 
-    params
+    tmp_params
   end
 
   # rubocop: enable Metrics/AbcSize
