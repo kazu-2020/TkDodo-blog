@@ -36,7 +36,7 @@ export const SearchEpisode = ({ query }: Props) => {
           </Box>
         )}
 
-        {(query.isLoading || query.isFetching) && (
+        {query.isLoading && (
           <Box w="100%">
             <ListScreenSkeleton size={10} />
           </Box>

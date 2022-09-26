@@ -50,7 +50,7 @@ export const SearchPlaylistPlaylistList = ({
             </Box>
           )}
 
-        {(query.isLoading || query.isFetching) && (
+        {query.isLoading && (
           <Box w="100%">
             <ListScreenSkeleton size={10} />
           </Box>
