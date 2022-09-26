@@ -25,6 +25,7 @@ jobs:
           cache-dependency-path: frontend-edge/pnpm-lock.yaml
       - run: pnpm install
       - run: pnpm lint
+      - run: pnpm lint:tsc
       - run: pnpm test run
 # CIで動作しないので一旦コメントアウト https://github.com/storybookjs/test-runner/releases のv0.6.0リリースされたら再度試してみる
 #  storybook:

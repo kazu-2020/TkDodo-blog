@@ -10,6 +10,7 @@
     "build:prd": "tsc --noEmit && vite build --mode prd",
     "preview": "vite preview",
     "lint": "eslint --ext .tsx,.ts src/",
+    "lint:tsc": "tsc --noEmit",
     "format": "prettier --write \"**/*.+(js|json|yml|ts|tsx)\"",
     "test": "vitest",
     "snapshot": "vitest run -u",
