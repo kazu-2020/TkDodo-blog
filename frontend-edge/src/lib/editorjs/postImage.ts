@@ -16,7 +16,7 @@ const validateFileSize = (file: File) => {
 }
 
 const validateFileWidth = (img: any) => {
-  const limitWidth = 5
+  const limitWidth = 5000
   return img.width < limitWidth
 }
 const validateFileHeight = (img: any) => {
