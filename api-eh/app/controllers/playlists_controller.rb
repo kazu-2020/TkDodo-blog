@@ -150,7 +150,6 @@ class PlaylistsController < ApplicationController
 
     tmp_params
   end
-
   # rubocop: enable Metrics/AbcSize
 
   def image_param
