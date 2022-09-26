@@ -75,36 +75,30 @@ export const formValuesToCreateParams = (
   dirtyFields: FieldNamesMarkedBoolean<PlaylistFormInputs>
 ) => {
   const {
-    logoImageSrc,
+    apiState,
+    editorData,
+    episodes,
     eyecatchImageSrc,
+    hashtags,
     heroImageSrc,
     keywords,
-    hashtags,
-    apiState,
-    episodes,
-    editorData,
+    logoImageSrc,
     ...paramsValues
   } = values
 
   const data: CreatePlaylistParams = {
     ...paramsValues,
+    apiState: apiState ? 'open' : 'close',
+    editorData: JSON.stringify(editorData),
+    hashtags: OptionsToArray(hashtags),
     items: episodesToIds(episodes),
-    keywords: OptionsToArray(keywords),
-    hashtags: OptionsToArray(hashtags)
+    keywords: OptionsToArray(keywords)
   }
 
-  data.apiState = apiState ? 'open' : 'close'
-  data.editorData = JSON.stringify(editorData)
+  if (dirtyFields.logoImageSrc) data.logoImage = logoImageSrc
+  if (dirtyFields.eyecatchImageSrc) data.eyecatchImage = eyecatchImageSrc
+  if (dirtyFields.heroImageSrc) data.heroImage = heroImageSrc
 
-  if (dirtyFields.logoImageSrc) {
-    data.logoImage = logoImageSrc
-  }
-  if (dirtyFields.eyecatchImageSrc) {
-    data.eyecatchImage = eyecatchImageSrc
-  }
-  if (dirtyFields.heroImageSrc) {
-    data.heroImage = heroImageSrc
-  }
   return data
 }
 
