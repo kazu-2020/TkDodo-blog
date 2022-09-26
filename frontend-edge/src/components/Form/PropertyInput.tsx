@@ -13,7 +13,7 @@ import { PropertyLabel } from '@/components/Form/PropertyLabel'
 type Props = {
   name: string
   label: string
-  schemaName: string
+  schemaName?: string
   placeholder?: string
   helperText?: string
   register: UseFormRegisterReturn
