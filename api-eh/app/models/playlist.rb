@@ -157,6 +157,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     end.flatten.compact
   end
 
+  # FIXME: 不要なメソッド
   def replace_article_body_urls
     editor_data_text = editor_data.to_json.to_s
     editor_data_text.gsub!('psychic-eureka-90cdb0a4.pages.github.io', 'dev-www-eh.nr.nhk.jp')
