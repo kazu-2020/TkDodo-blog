@@ -110,11 +110,21 @@ describe SeriesDecksController, type: :request do
   end
 
   describe 'GET #show' do
-    let!(:series_playlist) { create :series_playlist, string_id: 'ts-5NVVN1G5PJ', series_id: '5NVVN1G5PJ' }
+    let!(:series_playlist) { create :series_playlist, string_id: 'ts-M33W1P3PLZ', series_id: 'M33W1P3PLZ' }
     let!(:series_deck) { create :series_deck, series_playlists: [series_playlist] }
     let(:params) { { with_subtype_item_count: '1' } }
 
     before do
+      t_tvseries_json = File.open('spec/fixtures/payloads/r6_t_tvseries_ts_M33W1P3PLZ.json') do |file|
+        json_string = file.read
+        JSON.parse(json_string, symbolize_names: true)
+      end
+
+      dlab_client = instance_double(DlabApiClient)
+      allow(DlabApiClient).to receive(:new).and_return(dlab_client)
+      allow(dlab_client).to receive(:series).with(type: 'tv', series_id: 'M33W1P3PLZ').and_return(t_tvseries_json)
+      allow(dlab_client).to receive(:series_ll_bundle_types).with(type: 'tv', series_id: anything).and_return({})
+
       get series_deck_path(series_deck.id), params: params
     end
 
