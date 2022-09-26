@@ -4,7 +4,7 @@ import React from 'react'
 import { Button, HStack } from '@chakra-ui/react'
 
 import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
-import { FloatingLabelInput } from '@/components/Form/FloatingLable'
+import { PropertyInput } from '@/components/Form'
 
 type Props = {
   register: UseFormRegister<RecommendDeckFormInputs>
@@ -15,20 +15,21 @@ type Props = {
 
 export const SameAsItem = ({ register, errors, index, onRemove }: Props) => (
   <HStack w="100%" mb={2}>
-    <FloatingLabelInput
-      id={`deckSameAsAttributes.${index}.name`}
+    <PropertyInput
+      name={`deckSameAsAttributes.${index}.name`}
       label="名前"
-      error={errors?.name}
+      error={errors?.deckSameAsAttributes?.[index]?.name}
       register={register(`deckSameAsAttributes.${index}.name`, {
         required: '名前を入力してください'
       })}
       isRequired
       m={3}
     />
-    <FloatingLabelInput
-      id={`deckSameAsAttributes.${index}.url`}
+    <PropertyInput
+      inputType="url"
+      name={`deckSameAsAttributes.${index}.url`}
       label="URL"
-      error={errors?.name}
+      error={errors?.deckSameAsAttributes?.[index]?.url}
       register={register(`deckSameAsAttributes.${index}.url`, {
         required: 'URLを入力してください'
       })}
