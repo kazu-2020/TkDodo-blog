@@ -65,7 +65,7 @@ export const SearchPlaylistEpisodeList = ({
           </Box>
         )}
 
-        {episodeQuery.isFetching && (
+        {episodeQuery.isLoading && (
           <Box w="100%">
             <ListScreenSkeleton size={10} />
           </Box>
