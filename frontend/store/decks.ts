@@ -81,14 +81,13 @@ export const actions = actionTree(
           })
         })
     },
-    async fetchSeriesDecks({ commit }, { page, withSubtypeItemCount = 0 }) {
+    async fetchSeriesDecks({ commit }, { page }) {
       const url = '/series_decks'
 
       await this.$axios
         .get(url, {
           params: {
             page,
-            with_subtype_item_count: withSubtypeItemCount,
           },
         })
         .then((response) => {

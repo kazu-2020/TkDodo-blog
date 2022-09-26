@@ -159,7 +159,6 @@ export default Vue.extend({
       .dispatch('decks/fetchSeriesDeck', {
         targetId: params.id,
         withSubtypeItemCount: 1, // このフラグを指定すると、サブタイプのカウントを取得する
-        withEpisodeCount: 1, // このフラグを指定すると、視聴可能なエピソードのカウントを取得する
       })
       .catch((e) => {
         if (e.response.status === 404) {
