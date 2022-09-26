@@ -3,6 +3,7 @@ import { Box, Stack, useDisclosure } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
 import { PlaylistListItem } from '@/features/playlists/components/PlaylistListItem'
+import { PlaylistListArticleItem } from '@/features/playlists/components/PlaylistListArticleItem'
 import { PlaylistDrawer } from '@/features/playlists/components/PlaylistDrawer'
 import { Pagination } from '@/components/Pagination'
 
@@ -26,6 +27,11 @@ export const PlaylistListItems = ({
   >(undefined)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
+  const handleClick = (playlist: Playlist) => {
+    setSelectedPlaylist(playlist)
+    onOpen()
+  }
+
   return (
     <Stack>
       {totalCount > 0 && (
@@ -38,15 +44,22 @@ export const PlaylistListItems = ({
         </Box>
       )}
 
-      {items?.map((playlist: Playlist) => (
-        <PlaylistListItem
-          key={playlist.playlistUId}
-          playlist={playlist}
-          setSelectedPlaylist={setSelectedPlaylist}
-          onOpen={onOpen}
-          isArticle={isArticle}
-        />
-      ))}
+      {!isArticle &&
+        items?.map((playlist: Playlist) => (
+          <PlaylistListItem
+            key={playlist.playlistUId}
+            playlist={playlist}
+            onClick={(value) => handleClick(value)}
+          />
+        ))}
+      {isArticle &&
+        items?.map((playlist: Playlist) => (
+          <PlaylistListArticleItem
+            key={playlist.playlistUId}
+            playlist={playlist}
+            onClick={(value) => handleClick(value)}
+          />
+        ))}
 
       {totalCount > 0 && (
         <Box pt={3} pb={10}>
