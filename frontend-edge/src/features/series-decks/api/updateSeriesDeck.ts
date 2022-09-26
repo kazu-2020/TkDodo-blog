@@ -7,8 +7,8 @@ import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
 type SeriesDeckParams = {
-  name: string
-  interfix: string
+  name?: string
+  interfix?: string
   description?: string
   apiState?: boolean
   adminMemo?: string
