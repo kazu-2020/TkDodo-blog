@@ -82,6 +82,7 @@ export const formValuesToCreateParams = (
     hashtags,
     apiState,
     episodes,
+    editorData,
     ...paramsValues
   } = values
 
@@ -93,6 +94,7 @@ export const formValuesToCreateParams = (
   }
 
   data.apiState = apiState ? 'open' : 'close'
+  data.editorData = JSON.stringify(editorData)
 
   if (dirtyFields.logoImageSrc) {
     data.logoImage = logoImageSrc
