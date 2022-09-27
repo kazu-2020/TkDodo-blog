@@ -5,7 +5,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 16
+      nodejs: 12
     commands:
       - npm install -g pnpm
   pre_build:
