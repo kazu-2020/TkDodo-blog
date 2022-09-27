@@ -59,7 +59,7 @@ if playlist.hero_image_url
   end
 end
 json.itemNum playlist.playlist_items.count
-json.playableItemsCount playlist.playable_playlist_items_count if params[:with_episode_count].present?
+json.playableItemsCount playlist.playable_playlist_items_count if ActiveRecord::Type::Boolean.new.cast(params[:with_episode_count])
 
 json.layoutPattern playlist.layout_pattern
 json.datePublished playlist.published_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
