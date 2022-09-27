@@ -122,6 +122,18 @@ describe PlaylistsController, type: :request do
         expect(json['playlists'][0]['playableItemsCount']).to eq 2
       end
     end
+
+    context 'with_episode_countが無効の場合' do
+      let(:playlist) { create(:playlist, id: 55) }
+      let(:params) { { with_episode_count: 0 } }
+
+      it 'エピソード数が取得できないこと' do
+        get playlists_url, params: params
+
+        json = JSON.parse(response.body)
+        expect(json['playlists'][0]['playableItemsCount']).to be_nil
+      end
+    end
   end
 
   describe 'POST #create' do
@@ -199,6 +211,33 @@ describe PlaylistsController, type: :request do
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['playlists'][0]['playableItemsCount']).to eq 2
+      end
+    end
+
+    context 'with_episode_countが無効の場合' do
+      before do
+        json =
+          File.open(Rails.root.join(
+                      'spec/fixtures/payloads/r6.0_l_tvepisode_pl_recommend-tep-0000000055.json'
+                    )) do |file|
+            json_string = file.read
+            JSON.parse(json_string, symbolize_names: true)
+          end
+
+        poc_client = instance_double(PocApiClient)
+        allow(PocApiClient).to receive(:new).and_return(poc_client)
+        allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
+        allow(poc_client).to receive(:available_episode_from_playlist).with(playlist_id: playlist.string_id)
+                                                                      .and_return(json)
+      end
+
+      let(:params) { { with_episode_count: 0 } }
+
+      it 'エピソード数が取得できないこと' do
+        get playlists_url, params: params
+
+        json = JSON.parse(response.body)
+        expect(json['playlists'][0]['playableItemsCount']).to be_nil
       end
     end
   end
