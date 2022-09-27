@@ -1,0 +1,119 @@
+// 20220926173818
+// https://stg-api.nr.nhk.jp/r6/t/tvseries/ts/M33W1P3PLZ.json
+
+{
+  "type": "TVSeries",
+  "id": "M33W1P3PLZ",
+  "name": "アニメ おじゃる丸",
+  "detailedSeriesNameRuby": "",
+  "identifierGroup": {
+    "tvSeriesId": "M33W1P3PLZ",
+    "tvSeriesName": "アニメ おじゃる丸",
+    "hashtag": [
+
+    ],
+    "serviceId": [
+      "e1",
+      "e3"
+    ],
+    "formatGenre": [
+      {
+        "id": "04",
+        "name": "アニメ"
+      }
+    ]
+  },
+  "keywords": [
+
+  ],
+  "description": "おじゃる丸",
+  "detailedCatch": "",
+  "style": {
+    "textLight": "#000000",
+    "textDark": "#FFFFFF",
+    "linkLight": "#E72400",
+    "linkDark": "#FF4928",
+    "primaryLight": "#FF2800",
+    "primaryDark": "#FF2800"
+  },
+  "dateCreated": "2019-12-07T00:01:56+09:00",
+  "dateModified": "2021-12-09T11:26:22+09:00",
+  "actors": [
+
+  ],
+  "contributors": [
+
+  ],
+  "logo": {
+    "main": {
+      "url": "https://stg-www.nhk.jp/static/assets/images/tvseries/ts/M33W1P3PLZ/M33W1P3PLZ-logo_9e48c0e5f89fccdbeb4790b67f76f6fc.jpg",
+      "width": 1080,
+      "height": 1080
+    },
+    "medium": {
+      "url": "https://stg-www.nhk.jp/static/assets/images/tvseries/ts/M33W1P3PLZ/M33W1P3PLZ-logo_ea4745cdbad0d390b3bdbfa762a58393.jpg",
+      "width": 640,
+      "height": 640
+    }
+  },
+  "eyecatch": {
+    "main": {
+      "url": "https://stg-www.nhk.jp/static/assets/images/tvseries/ts/M33W1P3PLZ/M33W1P3PLZ-eyecatch_ad383117f612dbbe0685c617d9b670a6.jpg",
+      "width": 1920,
+      "height": 1080
+    },
+    "tver": {
+      "url": "https://stg-www.nhk.jp/static/assets/images/tvseries/ts/M33W1P3PLZ/M33W1P3PLZ-eyecatch_391fec163f9f8fcd4eadd47aecdcb35c.jpg",
+      "width": 928,
+      "height": 522
+    },
+    "medium": {
+      "url": "https://stg-www.nhk.jp/static/assets/images/tvseries/ts/M33W1P3PLZ/M33W1P3PLZ-eyecatch_f9fc3293f95c966f4069569a54a18995.jpg",
+      "width": 640,
+      "height": 360
+    }
+  },
+  "hero": {
+    "main": {
+      "url": "https://stg-www.nhk.jp/static/assets/images/tvseries/ts/M33W1P3PLZ/M33W1P3PLZ-hero_b91cef84377581b18671e0ad4ebc1c5d.jpg",
+      "width": 1920,
+      "height": 640
+    },
+    "medium": {
+      "url": "https://stg-www.nhk.jp/static/assets/images/tvseries/ts/M33W1P3PLZ/M33W1P3PLZ-hero_2be89d6f2c5e49f02930422c5f105052.jpg",
+      "width": 1080,
+      "height": 360
+    }
+  },
+  "videos": [
+
+  ],
+  "releasedEvent": {
+
+  },
+  "citations": [
+
+  ],
+  "detailedTimetable": [
+
+  ],
+  "url": "https://stg-api.nr.nhk.jp/r6/t/tvseries/ts/M33W1P3PLZ.json",
+  "canonical": "https://stg-www.nhk.jp/p/ts/M33W1P3PLZ/",
+  "sameAs": [
+
+  ],
+  "detailedMemo": [
+
+  ],
+  "additionalProperty": {
+    "publishLevel": "full",
+    "layoutPattern": "summary",
+    "episodeOrderBy": "releasedEvent",
+    "availableOnPlus": false,
+    "enableVariablePlayBackSpeedControl": false,
+    "optional": [
+
+    ],
+    "seriesPackStatus": "notPacked"
+  }
+}

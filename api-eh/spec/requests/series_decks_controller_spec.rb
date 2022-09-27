@@ -28,7 +28,7 @@ describe SeriesDecksController, type: :request do
     before { get series_decks_url, params: params }
 
     context '検索クエリが空の場合' do
-      let(:params) { { query: '' } }
+      let(:params) { { query: '', with_subtype_item_count: '0' } }
 
       it 'データを全件取得できること' do
         expect(response.status).to eq 200
@@ -36,6 +36,14 @@ describe SeriesDecksController, type: :request do
         expect(json['series_decks'].length).to eq 2
         expect(json['series_decks'][0]).to include(expected_json)
         expect(json['series_decks'][1]).to include(expected_json_changed_name_and_admin_memo)
+      end
+
+      it 'サブタイプが取得されないこと' do
+        json = JSON.parse(response.body)
+        expect(json['series_decks'][0].keys).not_to include('tvepisodeCount', 'howtoCount', 'faqpageCount',
+                                                            'eventCount', 'recipeCount')
+        expect(json['series_decks'][1].keys).not_to include('tvepisodeCount', 'howtoCount', 'faqpageCount',
+                                                            'eventCount', 'recipeCount')
       end
     end
 
@@ -98,6 +106,43 @@ describe SeriesDecksController, type: :request do
           end
         end
       end
+    end
+  end
+
+  describe 'GET #show' do
+    let!(:series_playlist) { create :series_playlist, string_id: 'ts-M33W1P3PLZ', series_id: 'M33W1P3PLZ' }
+    let!(:series_deck) { create :series_deck, series_playlists: [series_playlist] }
+    let(:params) { { with_subtype_item_count: '1' } }
+
+    before do
+      t_tvseries_json = File.open('spec/fixtures/payloads/r6_t_tvseries_ts_M33W1P3PLZ.json') do |file|
+        json_string = file.read
+        JSON.parse(json_string, symbolize_names: true)
+      end
+
+      dlab_client = instance_double(DlabApiClient)
+      allow(DlabApiClient).to receive(:new).and_return(dlab_client)
+      allow(dlab_client).to receive(:series).with(type: 'tv', series_id: 'M33W1P3PLZ').and_return(t_tvseries_json)
+      allow(dlab_client).to receive(:series_ll_bundle_types).with(type: 'tv', series_id: anything).and_return({})
+
+      get series_deck_path(series_deck.id), params: params
+    end
+
+    it 'デッキの詳細情報が取得できること' do
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json['deck']['id']).to eq series_deck.id
+      expect(json['deck']['name']).to eq series_deck.name
+      expect(json['deck']['description']).to eq series_deck.description
+      expect(json['deck']['interfix']).to eq series_deck.interfix
+      expect(json['deck']['adminMemo']).to eq series_deck.admin_memo
+    end
+
+    it 'サブタイプが取得されること' do
+      json = JSON.parse(response.body)
+      expect(json.dig('deck',
+                      'playlists')[0].keys).to include('tvepisodeCount', 'howtoCount', 'faqpageCount', 'eventCount',
+                                                       'recipeCount')
     end
   end
 end

@@ -14,8 +14,7 @@ if playlist.logo.present?
   end
 end
 json.set_raw! :videos, playlist.videos.to_json
-
-if params[:with_episode_count]
+if ActiveRecord::Type::Boolean.new.cast(params[:with_subtype_item_count])
   json.tvepisodeCount playlist.tvepisode_count
   json.howtoCount playlist.howto_count
   json.faqpageCount playlist.faqpage_count
