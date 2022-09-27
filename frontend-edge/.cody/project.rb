@@ -8,5 +8,5 @@
 
 name("editorialhands-frontend-#{@env_values[:ENVIRONMENT]}")
 github_url('https://github.com/d7lab/aw-editorialhands.git')
-linux_image("aws/codebuild/amazonlinux2-x86_64-standard:3.0")
+linux_image("aws/codebuild/amazonlinux2-x86_64-standard:4.0")
 environment_variables(@env_values)
