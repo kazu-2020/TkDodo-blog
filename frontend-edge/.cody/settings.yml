@@ -1,0 +1,12 @@
+base:
+  stack_naming:
+    append_env: true
+
+development:
+  # aws_profile: tomigaya-dev
+
+staging:
+  # aws_profile: tomigaya-std
+
+production:
+  # aws_profile: tomigaya-prd

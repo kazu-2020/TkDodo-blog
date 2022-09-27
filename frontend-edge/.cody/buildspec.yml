@@ -1,0 +1,21 @@
+# Build Specification Reference for CodeBuild: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
+
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16.x
+    commands:
+      - npm install -g pnpm
+  pre_build:
+    commands:
+      - cd frontend-edge
+      - rm -rf node_modules
+      - pnpm install
+  build:
+    commands:
+      - export API_URL=$API_URL
+      - pnpm build:$ENVIRONMENT
+      - aws s3 sync ./dist s3://$S3_HOSTING_BUCKET_NAME/ --quiet
+      - AWS_PAGER="" aws cloudfront create-invalidation --distribution-id $CF_DISTRIBUTION_ID --paths '/*'
