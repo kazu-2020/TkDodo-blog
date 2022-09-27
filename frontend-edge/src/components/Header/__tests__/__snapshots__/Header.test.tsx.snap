@@ -219,16 +219,6 @@ exports[`Header component > should render correctly 1`] = `
                   レコメンドデッキ新規作成
                 </button>
               </a>
-              <button
-                class="chakra-menu__menuitem css-1k756t9"
-                data-index="2"
-                id="menu-list-:r6:-menuitem-:r9:"
-                role="menuitem"
-                tabindex="-1"
-                type="button"
-              >
-                レコメンドデッキビューア
-              </button>
               <hr
                 aria-orientation="horizontal"
                 class="chakra-menu__divider css-0"
@@ -240,8 +230,8 @@ exports[`Header component > should render correctly 1`] = `
               >
                 <button
                   class="chakra-menu__menuitem css-1k756t9"
-                  data-index="3"
-                  id="menu-list-:r6:-menuitem-:ra:"
+                  data-index="2"
+                  id="menu-list-:r6:-menuitem-:r9:"
                   role="menuitem"
                   tabindex="-1"
                   type="button"
@@ -255,8 +245,8 @@ exports[`Header component > should render correctly 1`] = `
               >
                 <button
                   class="chakra-menu__menuitem css-1k756t9"
-                  data-index="4"
-                  id="menu-list-:r6:-menuitem-:rb:"
+                  data-index="3"
+                  id="menu-list-:r6:-menuitem-:ra:"
                   role="menuitem"
                   tabindex="-1"
                   type="button"

@@ -98,7 +98,6 @@ export const Header = () => {
                     to="recommend-decks/new"
                     text="レコメンドデッキ新規作成"
                   />
-                  <MenuItem>レコメンドデッキビューア</MenuItem>
                   <MenuDivider />
                   <LinkWithMenuItem
                     to="series-decks"
