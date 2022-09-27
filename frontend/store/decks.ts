@@ -95,16 +95,12 @@ export const actions = actionTree(
           commit('setPagination', { pagination: response.data.pagination })
         })
     },
-    async fetchSeriesDeck(
-      { commit },
-      { targetId, withEpisodeCount = 0, withSubtypeItemCount = 0 }
-    ) {
+    async fetchSeriesDeck({ commit }, { targetId, withSubtypeItemCount = 0 }) {
       const url = `/series_decks/${targetId}`
 
       await this.$axios
         .get(url, {
           params: {
-            with_episode_count: withEpisodeCount,
             with_subtype_item_count: withSubtypeItemCount,
           },
         })

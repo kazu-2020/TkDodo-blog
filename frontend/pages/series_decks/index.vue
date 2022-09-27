@@ -158,7 +158,6 @@ export default Vue.extend({
   async asyncData({ store }) {
     await store.dispatch('decks/fetchSeriesDecks', {
       page: 1,
-      withSubtypeItemCount: 0, // このフラグを指定すると、サブタイプのカウントを取得する
     })
   },
   data(): DataType {

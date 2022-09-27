@@ -46,7 +46,7 @@ export default Vue.extend({
     await store
       .dispatch('decks/fetchSeriesDeck', {
         targetId: params.id,
-        withEpisodeCount: 0,
+        withSubtypeItemCount: 0,
       })
       .catch((e) => {
         if (e.response.status === 404) {
