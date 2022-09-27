@@ -1,5 +1,6 @@
 import { Outlet, Route, Routes } from 'react-router-dom'
 
+import { isTomigayaEnv } from '@/utils/env'
 import { ProtectedRoute } from '@/lib/auth0/ProtectedRoute'
 import {
   SeriesDecks,
@@ -20,7 +21,12 @@ import Home from '@/components/Home'
 
 const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={<ProtectedRoute component={Layout} />}>
+    <Route
+      path="/"
+      element={
+        !isTomigayaEnv() ? <Layout /> : <ProtectedRoute component={Layout} />
+      }
+    >
       <Route index element={<Home />} />
       <Route path="playlists" element={<Outlet />}>
         <Route index element={<Playlists />} />
