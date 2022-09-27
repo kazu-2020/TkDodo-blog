@@ -30,6 +30,15 @@ $ CODY_ENV=staging aws-vault exec nhk-tomigaya-stg -- bundle exec cody deploy ed
 $ CODY_ENV=production aws-vault exec nhk-tomigaya-prd -- bundle exec cody deploy editorialhands-frontend
 ```
 
+**※デプロイ後、AWSのコンパネからBuildspecのパスを `frontend-edge/.cody/buildspec.yml` に書き換えること**
+
+### localから手動で実行する例
+※ stack名に注意する
+https://cody.run/reference/cody-start/
+```
+$ CODY_ENV=development aws-vault exec nhk-tomigaya-dev -- bundle exec cody start editorialhands-frontend-development-cody
+```
+
 ### 新たな環境用の CodeBuild を増やしたい場合
 
 新たに `develop2` というブランチを対象にした CodeBuild を用意する場合で説明します。
