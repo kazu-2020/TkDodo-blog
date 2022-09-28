@@ -2,6 +2,7 @@ import { FieldNamesMarkedBoolean } from 'react-hook-form'
 
 import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
+import { dirtyValues } from '@/lib/react-hook-form/utils'
 
 import {
   CreatePlaylistParams,
@@ -70,10 +71,14 @@ const episodesToIds = (episodes?: EpisodeData[]) => {
   return []
 }
 
+// NOTE: 見通しが悪くなるため
+// eslint-disable-next-line max-statements
 export const formValuesToCreateParams = (
   values: PlaylistFormInputs,
   dirtyFields: FieldNamesMarkedBoolean<PlaylistFormInputs>
 ) => {
+  const onlyDirtyValues = dirtyValues(dirtyFields, values) as PlaylistFormInputs
+
   const {
     apiState,
     editorData,
@@ -84,20 +89,20 @@ export const formValuesToCreateParams = (
     keywords,
     logoImageSrc,
     ...paramsValues
-  } = values
+  } = onlyDirtyValues
 
   const data: CreatePlaylistParams = {
     ...paramsValues,
-    apiState: apiState ? 'open' : 'close',
-    editorData: JSON.stringify(editorData),
-    hashtags: OptionsToArray(hashtags),
-    items: episodesToIds(episodes),
-    keywords: OptionsToArray(keywords)
+    apiState: apiState ? 'open' : 'close'
   }
 
-  if (dirtyFields.logoImageSrc) data.logoImage = logoImageSrc
-  if (dirtyFields.eyecatchImageSrc) data.eyecatchImage = eyecatchImageSrc
-  if (dirtyFields.heroImageSrc) data.heroImage = heroImageSrc
+  if (editorData) data.editorData = JSON.stringify(editorData)
+  if (hashtags) data.hashtags = OptionsToArray(hashtags)
+  if (keywords) data.keywords = OptionsToArray(keywords)
+  if (episodes) data.items = episodesToIds(episodes)
+  if (logoImageSrc) data.logoImage = logoImageSrc
+  if (eyecatchImageSrc) data.eyecatchImage = eyecatchImageSrc
+  if (heroImageSrc) data.heroImage = heroImageSrc
 
   return data
 }

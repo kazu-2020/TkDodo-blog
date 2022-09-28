@@ -25,7 +25,7 @@ export const PaletteCard = ({
         px={6}
         py={6}
         onClick={() => {
-          setValue('selectedPalette', color)
+          setValue('selectedPalette', color, { shouldDirty: true })
         }}
       />
     </Box>

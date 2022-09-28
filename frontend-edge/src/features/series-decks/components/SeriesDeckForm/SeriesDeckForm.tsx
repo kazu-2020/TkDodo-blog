@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { DevTool } from '@hookform/devtools'
 
 import { SeriesDeck } from '@/types/series_deck'
+import { dirtyValues } from '@/lib/react-hook-form/utils'
 import { useSeriesDeckFormStore } from '@/features/series-decks/stores/seriesDeckForm'
 
 import { SeriesDeckFormInputs } from '../../types'
@@ -28,7 +29,14 @@ type Props = {
 
 export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
   const formMethods = useSeriesForm(seriesDeck)
-  const { control, getValues, handleSubmit, trigger, reset } = formMethods
+  const {
+    control,
+    getValues,
+    handleSubmit,
+    trigger,
+    reset,
+    formState: { dirtyFields }
+  } = formMethods
 
   const {
     setInputValues,
@@ -54,22 +62,31 @@ export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
   const updateSeriesDeckMutation = useUpdateSeriesDeck()
 
   const onSubmit: SubmitHandler<SeriesDeckFormInputs> = async (values) => {
+    const onlyDirtyValues = dirtyValues(
+      dirtyFields,
+      values
+    ) as SeriesDeckFormInputs
     const seriesIds = seriesPlaylists.map((playlist) => playlist.seriesId)
 
     if (seriesDeck === undefined) {
       await createSeriesDeckMutation.mutateAsync({
-        data: { ...values, playlists: seriesIds }
+        data: {
+          ...onlyDirtyValues,
+          playlists: seriesIds
+        }
       })
     } else {
       await updateSeriesDeckMutation.mutateAsync({
         data: {
-          ...values,
+          ...onlyDirtyValues,
           playlists: seriesIds,
           enableListUpdate: hasChangedSeriesPlaylists
         },
         seriesDeckId: seriesDeck.id
       })
     }
+
+    // NOTE: エラーの場合リセットされないの不思議
     resetHasChangedSeriesPlaylists()
     reset(values)
   }

@@ -31,7 +31,7 @@ export const PlaylistImageFormItem = ({
   height: string | number
 } & StyleProps) => {
   const {
-    getValues,
+    watch,
     setValue,
     register,
     formState: { errors }
@@ -46,7 +46,7 @@ export const PlaylistImageFormItem = ({
     <FormControl id={name} isInvalid={!!error} isRequired w={width} {...props}>
       <PropertyLabel label={label} schemaName={schemaName} />
       <PlaylistImageFormItemImage
-        src={getValues(name)}
+        src={watch(name)}
         htmlWidth={width}
         htmlHeight={height}
         boxShadow="md"
@@ -56,7 +56,7 @@ export const PlaylistImageFormItem = ({
           onOpen()
         }}
         onRemove={() => {
-          setValue(name, '')
+          setValue(name, '', { shouldDirty: true, shouldValidate: true })
         }}
         isInvalid={!!error}
       />

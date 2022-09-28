@@ -11,7 +11,6 @@ import {
   Text
 } from '@chakra-ui/react'
 
-import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
 import { PlaylistFormInputs } from '@/features/playlists/types'
 import {
   PropertyInput,
@@ -50,8 +49,7 @@ export const EditMetaTabContent = ({
         schemaName="Name"
         error={errors?.name}
         register={register('name', {
-          required: '名前を入力してください',
-          setValueAs: setUndefinedOrString
+          required: '名前を入力してください'
         })}
         isRequired
         mb={10}
@@ -62,9 +60,7 @@ export const EditMetaTabContent = ({
         label="ふりがな"
         schemaName="Detailed Name Ruby"
         error={errors?.detailedNameRuby}
-        register={register('detailedNameRuby', {
-          setValueAs: setUndefinedOrString
-        })}
+        register={register('detailedNameRuby')}
         mb={5}
       />
 
@@ -73,9 +69,7 @@ export const EditMetaTabContent = ({
         label="キャッチコピー"
         schemaName="DetailedCatch"
         error={errors?.detailedCatch}
-        register={register('detailedCatch', {
-          setValueAs: setUndefinedOrString
-        })}
+        register={register('detailedCatch')}
         mb={5}
       />
 
@@ -84,9 +78,7 @@ export const EditMetaTabContent = ({
         label="説明"
         schemaName="Description"
         error={errors?.description}
-        register={register('description', {
-          setValueAs: setUndefinedOrString
-        })}
+        register={register('description')}
         mb={5}
       />
 
@@ -137,9 +129,7 @@ export const EditMetaTabContent = ({
         schemaName="AliasId"
         helperText="半角英数字、「-」「_」が利用できます"
         error={errors?.aliasId}
-        register={register('aliasId', {
-          setValueAs: setUndefinedOrString
-        })}
+        register={register('aliasId')}
         mb={5}
       />
 

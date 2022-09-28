@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { DevTool } from '@hookform/devtools'
 
 import { RecommendDeck } from '@/types/recommend_deck'
+import { dirtyValues } from '@/lib/react-hook-form/utils'
 import { useRecommendDeckFormStore } from '@/features/recommend-decks/stores/recommendDeckForm'
 
 import { RecommendDeckFormInputs } from '../../types'
@@ -29,7 +30,14 @@ type Props = {
 
 export const RecommendDeckForm = ({ recommendDeck = undefined }: Props) => {
   const formMethods = useRecommendForm(recommendDeck)
-  const { control, getValues, handleSubmit, trigger, reset } = formMethods
+  const {
+    control,
+    getValues,
+    handleSubmit,
+    trigger,
+    reset,
+    formState: { dirtyFields }
+  } = formMethods
 
   const {
     setInputValues,
@@ -55,18 +63,26 @@ export const RecommendDeckForm = ({ recommendDeck = undefined }: Props) => {
   const updateRecommendDeckMutation = useUpdateRecommendDeck()
 
   const onSubmit: SubmitHandler<RecommendDeckFormInputs> = async (values) => {
+    const onlyDirtyValues = dirtyValues(
+      dirtyFields,
+      values
+    ) as RecommendDeckFormInputs
+
     const recommendIds = recommendPlaylists.map(
       (playlist) => playlist.primaryId
     )
 
     if (recommendDeck === undefined) {
       await createRecommendDeckMutation.mutateAsync({
-        data: { ...values, playlists: recommendIds }
+        data: {
+          ...onlyDirtyValues,
+          playlists: recommendIds
+        }
       })
     } else {
       await updateRecommendDeckMutation.mutateAsync({
         data: {
-          ...values,
+          ...onlyDirtyValues,
           playlists: recommendIds,
           enableListUpdate: hasChangedRecommendPlaylists
         },

@@ -13,7 +13,8 @@ import {
 } from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'
-import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
+import { dirtyValues } from '@/lib/react-hook-form/utils'
+import { SeriesDeckFormInputs } from '@/features/series-decks/types'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
 import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
@@ -27,7 +28,7 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
     control,
     register,
     handleSubmit,
-    formState: { errors, isSubmitting }
+    formState: { errors, dirtyFields, isSubmitting }
   } = useForm<Inputs>({
     defaultValues: {
       adminMemo: seriesDeck?.adminMemo
@@ -37,8 +38,13 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
   const updateSeriesDeckMutation = useUpdateSeriesDeck()
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    const onlyDirtyValues = dirtyValues(
+      dirtyFields,
+      values
+    ) as SeriesDeckFormInputs
+
     await updateSeriesDeckMutation.mutateAsync({
-      data: { ...values, enableListUpdate: false },
+      data: { ...onlyDirtyValues, enableListUpdate: false },
       seriesDeckId: seriesDeck.id
     })
   }
@@ -58,9 +64,7 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
             <Input
               data-testid="adminMemo"
               variant="flushed"
-              {...register('adminMemo', {
-                setValueAs: setUndefinedOrString
-              })}
+              {...register('adminMemo')}
             />
             {errors?.adminMemo && (
               <FormErrorMessage>{errors.adminMemo.message}</FormErrorMessage>

@@ -52,8 +52,8 @@ export const CitationItems = ({ control, register, errors }: Props) => {
           leftIcon={<AddIcon />}
           onClick={() => {
             append({
-              name: '',
-              url: ''
+              name: undefined,
+              url: undefined
             })
           }}
         >

@@ -13,7 +13,8 @@ import {
 } from '@chakra-ui/react'
 
 import { RecommendDeck } from '@/types/recommend_deck'
-import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
+import { dirtyValues } from '@/lib/react-hook-form/utils'
+import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
 import { useUpdateRecommendDeck } from '../api/updateRecommendDeck'
@@ -31,7 +32,7 @@ const RecommendDeckConfigForm = ({
     control,
     register,
     handleSubmit,
-    formState: { errors, isSubmitting }
+    formState: { errors, dirtyFields, isSubmitting }
   } = useForm<Inputs>({
     defaultValues: {
       adminMemo: recommendDeck?.adminMemo
@@ -41,8 +42,13 @@ const RecommendDeckConfigForm = ({
   const updateRecommendDeckMutation = useUpdateRecommendDeck()
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    const onlyDirtyValues = dirtyValues(
+      dirtyFields,
+      values
+    ) as RecommendDeckFormInputs
+
     await updateRecommendDeckMutation.mutateAsync({
-      data: { ...values, enableListUpdate: false },
+      data: { ...onlyDirtyValues, enableListUpdate: false },
       recommendDeckId: recommendDeck.id
     })
   }
@@ -62,9 +68,7 @@ const RecommendDeckConfigForm = ({
             <Input
               data-testid="adminMemo"
               variant="flushed"
-              {...register('adminMemo', {
-                setValueAs: setUndefinedOrString
-              })}
+              {...register('adminMemo')}
             />
             {errors?.adminMemo && (
               <FormErrorMessage>{errors.adminMemo.message}</FormErrorMessage>

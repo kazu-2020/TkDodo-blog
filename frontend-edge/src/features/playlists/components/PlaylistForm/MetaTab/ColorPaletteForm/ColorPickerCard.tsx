@@ -59,7 +59,7 @@ export const ColorPickerCard = ({
   const { setValue } = useFormContext<PlaylistFormInputs>()
 
   useEffect(() => {
-    setValue('selectedPalette', color)
+    setValue('selectedPalette', color, { shouldDirty: true })
   }, [color])
 
   return (

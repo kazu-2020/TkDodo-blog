@@ -2,7 +2,6 @@ import { useFormContext } from 'react-hook-form'
 import React from 'react'
 import { Checkbox, FormControl, HStack, Text } from '@chakra-ui/react'
 
-import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
 import { SeriesDeckFormInputs } from '@/features/series-decks/types'
 import { PropertyInput, PropertyTextarea } from '@/components/Form'
 import { ArrowStepContent } from '@/components/ArrowStep'
@@ -52,9 +51,7 @@ export const EditDeckTabContent = ({
         label="説明"
         schemaName="Description"
         error={errors?.description}
-        register={register('description', {
-          setValueAs: setUndefinedOrString
-        })}
+        register={register('description')}
         mb={5}
       />
       <FormControl mb={5}>
