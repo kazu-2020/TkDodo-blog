@@ -80,11 +80,11 @@ export const ActiveCheckboxes = () => {
         {...register('activeItemList')}
         onChange={(e) => {
           const isChecked = e.target.checked
-          setValue('activeTvepisode', isChecked)
-          setValue('activeFaqpage', isChecked)
-          setValue('activeHowto', isChecked)
-          setValue('activeEvent', isChecked)
-          setValue('activeRecipe', isChecked)
+          setValue('activeTvepisode', isChecked, { shouldDirty: true })
+          setValue('activeFaqpage', isChecked, { shouldDirty: true })
+          setValue('activeHowto', isChecked, { shouldDirty: true })
+          setValue('activeEvent', isChecked, { shouldDirty: true })
+          setValue('activeRecipe', isChecked, { shouldDirty: true })
         }}
       >
         NItemList

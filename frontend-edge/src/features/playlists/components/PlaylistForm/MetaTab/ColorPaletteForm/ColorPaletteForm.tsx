@@ -16,11 +16,19 @@ import { ColorPickerCard } from '@/features/playlists/components/PlaylistForm/Me
 import { AdjustedColorCard } from '@/features/playlists/components/PlaylistForm/MetaTab/ColorPaletteForm/AdjustedColorCard'
 
 const setAdjustColors = (colorHex: string, setValue: UseFormSetValue<any>) => {
-  setValue('selectedPalette', colorHex)
-  setValue('primaryLightColor', adjustPrimaryLightColor(colorHex))
-  setValue('primaryDarkColor', adjustPrimaryDarkColor(colorHex))
-  setValue('linkLightColor', adjustLinkLightColor(colorHex))
-  setValue('linkDarkColor', adjustLinkDarkColor(colorHex))
+  setValue('selectedPalette', colorHex, { shouldDirty: true })
+  setValue('primaryLightColor', adjustPrimaryLightColor(colorHex), {
+    shouldDirty: true
+  })
+  setValue('primaryDarkColor', adjustPrimaryDarkColor(colorHex), {
+    shouldDirty: true
+  })
+  setValue('linkLightColor', adjustLinkLightColor(colorHex), {
+    shouldDirty: true
+  })
+  setValue('linkDarkColor', adjustLinkDarkColor(colorHex), {
+    shouldDirty: true
+  })
 }
 
 const isSelectedFreePalette = (colorHex: string) =>
