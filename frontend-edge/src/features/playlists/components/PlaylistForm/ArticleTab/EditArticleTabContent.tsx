@@ -14,7 +14,6 @@ import {
   Textarea
 } from '@chakra-ui/react'
 
-import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
 import PlainTextParser from '@/lib/editorjs/plain_text_parser'
 import { PlaylistFormInputs } from '@/features/playlists/types'
 import { EditorInformationForm } from '@/features/playlists/components/PlaylistForm/ArticleTab/EditorInformationForm'
@@ -47,12 +46,7 @@ export const EditArticleTabContent = ({
         <Heading size="md" mb={2}>
           ヘッダー
         </Heading>
-        <Textarea
-          data-testid="markedHeader"
-          {...register('markedHeader', {
-            setValueAs: setUndefinedOrString
-          })}
-        />
+        <Textarea data-testid="markedHeader" {...register('markedHeader')} />
         <FormErrorMessage>
           {errors.markedHeader && errors.markedHeader.message}
         </FormErrorMessage>
@@ -94,12 +88,7 @@ export const EditArticleTabContent = ({
         <Heading size="md" mb={2}>
           フッター
         </Heading>
-        <Textarea
-          data-testid="markedFooter"
-          {...register('markedFooter', {
-            setValueAs: setUndefinedOrString
-          })}
-        />
+        <Textarea data-testid="markedFooter" {...register('markedFooter')} />
         <FormErrorMessage>
           {errors.markedFooter && errors.markedFooter.message}
         </FormErrorMessage>

@@ -13,7 +13,6 @@ import {
 } from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'
-import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
 import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
@@ -58,9 +57,7 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
             <Input
               data-testid="adminMemo"
               variant="flushed"
-              {...register('adminMemo', {
-                setValueAs: setUndefinedOrString
-              })}
+              {...register('adminMemo')}
             />
             {errors?.adminMemo && (
               <FormErrorMessage>{errors.adminMemo.message}</FormErrorMessage>

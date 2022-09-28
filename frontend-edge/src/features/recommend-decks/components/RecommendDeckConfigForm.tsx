@@ -13,7 +13,6 @@ import {
 } from '@chakra-ui/react'
 
 import { RecommendDeck } from '@/types/recommend_deck'
-import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
 import { useUpdateRecommendDeck } from '../api/updateRecommendDeck'
@@ -62,9 +61,7 @@ const RecommendDeckConfigForm = ({
             <Input
               data-testid="adminMemo"
               variant="flushed"
-              {...register('adminMemo', {
-                setValueAs: setUndefinedOrString
-              })}
+              {...register('adminMemo')}
             />
             {errors?.adminMemo && (
               <FormErrorMessage>{errors.adminMemo.message}</FormErrorMessage>

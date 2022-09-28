@@ -2,7 +2,6 @@ import { useFormContext } from 'react-hook-form'
 import React from 'react'
 import { Checkbox, FormControl, HStack, Text } from '@chakra-ui/react'
 
-import { setUndefinedOrString } from '@/lib/react-hook-form/utils'
 import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
 import { SameAsItems } from '@/features/recommend-decks/components/RecommendDeckForm/SameAsItems'
 import { PropertyInput, PropertyTextarea } from '@/components/Form'
@@ -54,9 +53,7 @@ export const EditDeckTabContent = ({
         label="説明"
         schemaName="Description"
         error={errors?.description}
-        register={register('description', {
-          setValueAs: setUndefinedOrString
-        })}
+        register={register('description')}
         mb={5}
       />
       <Text fontSize="lg" fontWeight="bold">
