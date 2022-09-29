@@ -46,7 +46,9 @@ json.partial! 'shared/playlist_images', playlist: playlist
 json.itemNum playlist.playlist_items.count
 json.layoutPattern playlist.layout_pattern
 json.publishLevel playlist.publish_level
-json.playableItemsCount playlist.playable_playlist_items_count if params[:with_episode_count].present?
+if ActiveRecord::Type::Boolean.new.cast(params[:with_episode_count])
+  json.playableItemsCount playlist.playable_playlist_items_count
+end
 json.hasHowto playlist.playlist_items.any?(&:has_howto)
 json.hasFaqpage playlist.playlist_items.any?(&:has_faqpage)
 json.hasEvent playlist.playlist_items.any?(&:has_event)

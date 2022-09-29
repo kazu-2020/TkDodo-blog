@@ -149,6 +149,16 @@ describe DecksController, type: :request do
         expect(json.dig('deck', 'playlists')[0]['playableItemsCount']).to eq 2
       end
     end
+
+    context 'with_episode_countが無効の場合' do
+      let(:deck_id) { deck.id }
+      let(:params) { { with_episode_count: 0 } }
+
+      it '視聴可能なエピソード数が取得できないこと' do
+        json = JSON.parse(response.body)
+        expect(json.dig('deck', 'playlists')[0]['playableItemsCount']).to be_nil
+      end
+    end
   end
 
   describe 'POST #create' do
