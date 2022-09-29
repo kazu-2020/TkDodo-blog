@@ -1,7 +1,7 @@
 import React from 'react'
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 
-import { CropperImageModal } from '@/features/playlists/components/PlaylistForm/MetaTab/CropperImageModal/CropperImageModal'
+import { CropperImageModal } from './CropperImageModal'
 
 export default {
   component: CropperImageModal

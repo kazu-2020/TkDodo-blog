@@ -1,7 +1,13 @@
 import { useParams } from 'react-router-dom'
 import { useFormContext, useWatch } from 'react-hook-form'
 import React from 'react'
-import { Checkbox, FormControl, FormLabel, Stack } from '@chakra-ui/react'
+import {
+  Checkbox,
+  FormControl,
+  FormLabel,
+  Skeleton,
+  Stack
+} from '@chakra-ui/react'
 
 import { PlaylistFormInputs } from '@/features/playlists/types'
 import { useBundleItems } from '@/features/playlists/api/getBundleItems'
@@ -32,6 +38,21 @@ const SubTypeCheckbox = ({
   )
 }
 
+const Skeletons = () => (
+  <>
+    <Skeleton h={7} w="200px" mb={2} />
+    <Skeleton h={7} w="100px" />
+    <Stack pl={6} my={3} spacing={3}>
+      <Skeleton h={6} w="150px" />
+      <Skeleton h={6} w="150px" />
+      <Skeleton h={6} w="150px" />
+      <Skeleton h={6} w="150px" />
+      <Skeleton h={6} w="150px" />
+    </Stack>
+    <Skeleton h={7} w="100px" />
+  </>
+)
+
 export const ActiveCheckboxes = () => {
   const { register, setValue } = useFormContext<PlaylistFormInputs>()
   const [
@@ -51,7 +72,11 @@ export const ActiveCheckboxes = () => {
   })
 
   const { playlistUId } = useParams()
-  const { data } = useBundleItems(playlistUId)
+  const { data, isLoading } = useBundleItems(playlistUId)
+
+  if (isLoading) {
+    return <Skeletons />
+  }
 
   const allChecked = [
     activeTvepisode,
