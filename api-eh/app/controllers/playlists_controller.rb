@@ -171,7 +171,7 @@ class PlaylistsController < ApplicationController
   end
 
   def rebuild_episode_list
-    return unless params[:enable_list_update]
+    return unless ActiveRecord::Type::Boolean.new.cast(params[:enable_list_update])
 
     items = params.require(:playlist).permit(items: [])[:items] || []
     @playlist.rebuild_episode_list_to(items)
