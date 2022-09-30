@@ -14,7 +14,7 @@ export type UpdatePlaylistDTO = {
 
 const requestParams = (data: UpdatePlaylistParams) => ({
   playlist: snakecaseKeys(data, { exclude: ['_destroy'] }),
-  enable_list_update: 1 // FIXME: 1 or 0
+  enable_list_update: data?.items ? 1 : 0
 })
 
 export const updatePlaylist = async ({
