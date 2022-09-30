@@ -2,6 +2,7 @@ import { UseInfiniteQueryResult } from 'react-query'
 import React, { useState } from 'react'
 import { Box, useDisclosure, VStack } from '@chakra-ui/react'
 
+import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import { SearchResultLoadMoreButton } from '@/features/playlists/components/PlaylistForm/ListTab/SearchResultLoadMoreButton'
 import { SearchResultCount } from '@/features/playlists/components/PlaylistForm/ListTab/SearchResultCount'
@@ -11,7 +12,6 @@ import { PlaylistEpisodeDrawer } from '@/features/playlists/components/PlaylistE
 import { Response } from '@/features/playlists/api/getSearchEpisode'
 import { ListScreenSkeleton } from '@/components/ListScreenSkeleton'
 import { NoDataFound } from '@/components/Alert'
-import { Playlist } from '@/types/playlist'
 
 type Props = {
   query: UseInfiniteQueryResult<Response, Error>

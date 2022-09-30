@@ -1,6 +1,7 @@
+import { Role } from '@/types/role'
+
 import { VideoObject } from './video_object'
 import { ImageHash } from './image_hash'
-import { Role } from '@/types/role'
 
 export type FormatType = {
   id: number
