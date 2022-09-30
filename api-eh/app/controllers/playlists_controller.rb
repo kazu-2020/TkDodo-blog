@@ -136,8 +136,7 @@ class PlaylistsController < ApplicationController
   end
 
   # FIXME: 変更予定 後ほどふさわしい場所に定義します
-  # rubocop: disable Metrics/AbcSize
-  def converted_params
+  def converted_params # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
     tmp_params = playlist_params.except(:logo_image, :eyecatch_image, :hero_image)
     %i[logo_image eyecatch_image hero_image].each do |key|
       tmp_params[key] = image_from_base64(playlist_params[key]) if playlist_params[key]
@@ -145,12 +144,10 @@ class PlaylistsController < ApplicationController
 
     tmp_params[:editor_data] = JSON.parse(tmp_params[:editor_data]) if tmp_params[:editor_data].present?
 
-    tmp_params[:keywords] = [] unless tmp_params.key?(:keywords)
-    tmp_params[:hashtags] = [] unless tmp_params.key?(:hashtags)
-
+    tmp_params[:keywords] = tmp_params[:keywords].uniq.select(&:present?) if tmp_params[:keywords].present?
+    tmp_params[:hashtags] = tmp_params[:hashtags].uniq.select(&:present?) if tmp_params[:hashtags].present?
     tmp_params
   end
-  # rubocop: enable Metrics/AbcSize
 
   def image_param
     params[:image]

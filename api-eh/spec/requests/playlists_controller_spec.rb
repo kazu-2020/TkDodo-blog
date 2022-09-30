@@ -278,7 +278,7 @@ describe PlaylistsController, type: :request do
           end
 
           it '削除' do
-            put playlist_path(playlist), params: { playlist: { name: playlist.name } }
+            put playlist_path(playlist), params: { playlist: { name: playlist.name, keywords: [] } }
           end
         end
 
@@ -291,7 +291,7 @@ describe PlaylistsController, type: :request do
           end
 
           it '削除' do
-            put playlist_path(playlist), params: { playlist: { name: playlist.name } }
+            put playlist_path(playlist), params: { playlist: { name: playlist.name, hashtags: [] } }
           end
         end
 
