@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useFormContext, useWatch } from 'react-hook-form'
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Checkbox,
   FormControl,
@@ -53,8 +53,7 @@ const Skeletons = () => (
   </>
 )
 
-export const ActiveCheckboxes = () => {
-  const { register, setValue } = useFormContext<PlaylistFormInputs>()
+const useActiveCheckboxes = () => {
   const [
     activeTvepisode,
     activeFaqpage,
@@ -70,13 +69,6 @@ export const ActiveCheckboxes = () => {
       'activeRecipe'
     ]
   })
-
-  const { playlistUId } = useParams()
-  const { data, isLoading } = useBundleItems(playlistUId)
-
-  if (isLoading) {
-    return <Skeletons />
-  }
 
   const allChecked = [
     activeTvepisode,
@@ -95,6 +87,42 @@ export const ActiveCheckboxes = () => {
       activeRecipe
     ].some(Boolean) && !allChecked
 
+  return {
+    activeTvepisode,
+    activeFaqpage,
+    activeHowto,
+    activeEvent,
+    activeRecipe,
+    allChecked,
+    isIndeterminate
+  }
+}
+
+export const ActiveCheckboxes = () => {
+  const { register, setValue } = useFormContext<PlaylistFormInputs>()
+  const {
+    activeTvepisode,
+    activeFaqpage,
+    activeHowto,
+    activeEvent,
+    activeRecipe,
+    allChecked,
+    isIndeterminate
+  } = useActiveCheckboxes()
+
+  useEffect(() => {
+    setValue('activeItemList', allChecked || isIndeterminate, {
+      shouldDirty: true
+    })
+  }, [allChecked, isIndeterminate, setValue])
+
+  const { playlistUId } = useParams()
+  const { data, isLoading } = useBundleItems(playlistUId)
+
+  if (isLoading) {
+    return <Skeletons />
+  }
+
   return (
     <FormControl mb={5}>
       <FormLabel>Typeごとのactive ON/OFF</FormLabel>
@@ -105,6 +133,7 @@ export const ActiveCheckboxes = () => {
         {...register('activeItemList')}
         onChange={(e) => {
           const isChecked = e.target.checked
+          setValue('activeItemList', isChecked, { shouldDirty: true })
           setValue('activeTvepisode', isChecked, { shouldDirty: true })
           setValue('activeFaqpage', isChecked, { shouldDirty: true })
           setValue('activeHowto', isChecked, { shouldDirty: true })
