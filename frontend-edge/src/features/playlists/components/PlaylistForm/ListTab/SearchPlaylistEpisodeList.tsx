@@ -3,6 +3,7 @@ import { Box, HStack, Text, VStack } from '@chakra-ui/react'
 import { ChevronLeftIcon } from '@chakra-ui/icons'
 
 import { Playlist } from '@/types/playlist'
+import { EpisodeData } from '@/types/episode_data'
 import { SearchResultLoadMoreButton } from '@/features/playlists/components/PlaylistForm/ListTab/SearchResultLoadMoreButton'
 import { SearchEpisodeItems } from '@/features/playlists/components/PlaylistForm/ListTab/SearchEpisodeItems'
 import { EpisodeHeader } from '@/features/playlists/components/PlaylistForm/ListTab/EpisodeHeader'
@@ -13,13 +14,15 @@ import { NoDataFound } from '@/components/Alert'
 type Props = {
   isOpen: boolean
   onClickBack: () => void
+  onClick: (episode: EpisodeData) => void
   selectedPlaylist?: Playlist
 }
 
 export const SearchPlaylistEpisodeList = ({
   isOpen,
   selectedPlaylist,
-  onClickBack
+  onClickBack,
+  onClick
 }: Props) => {
   const episodeQuery = useSearchEpisode(
     {
@@ -60,7 +63,11 @@ export const SearchPlaylistEpisodeList = ({
         {isOpen && !episodeQuery.isLoading && episodeCount > 0 && (
           <Box w="100%">
             {episodeQuery.data?.pages.map(({ items }) => (
-              <SearchEpisodeItems key={items[0].id} items={items} />
+              <SearchEpisodeItems
+                key={items[0].id}
+                items={items}
+                onClick={onClick}
+              />
             ))}
           </Box>
         )}

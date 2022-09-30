@@ -6,6 +6,7 @@ import {
 import React from 'react'
 import { Box, Hide, HStack, Show } from '@chakra-ui/react'
 
+import { Playlist } from '@/types/playlist'
 import { ArrowStepContextProvider, StepItem } from '@/components/ArrowStep'
 
 import { VerticalPreview } from './VerticalPreview'
@@ -52,7 +53,7 @@ const hasChangedSeries = (
   return Object.keys(fields).length > 0
 }
 
-export const ArrowStepContainer = () => {
+export const ArrowStepContainer = ({ playlist }: { playlist?: Playlist }) => {
   const {
     formState: { dirtyFields, isValid }
   } = useFormContext()
@@ -85,7 +86,7 @@ export const ArrowStepContainer = () => {
 
       <HStack spacing="4" alignItems="start">
         <Box bg="white" p={5} borderRadius="sm" minH="400px" flex={1}>
-          <EditListTabContent contentIndex={listIndex} />
+          <EditListTabContent playlist={playlist} contentIndex={listIndex} />
           <EditArticleTabContent contentIndex={articleIndex} />
           <EditMetaTabContent contentIndex={metaIndex} />
         </Box>

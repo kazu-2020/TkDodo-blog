@@ -1,5 +1,5 @@
 import { useFormContext, useWatch } from 'react-hook-form'
-import React from 'react'
+import React, { useState } from 'react'
 import {
   arrayMove,
   SortableContext,
@@ -15,17 +15,25 @@ import {
   useSensors,
   DragEndEvent
 } from '@dnd-kit/core'
-import { Alert, AlertIcon, Box } from '@chakra-ui/react'
+import { Alert, AlertIcon, Box, useDisclosure } from '@chakra-ui/react'
 
+import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import { PlaylistFormInputs } from '@/features/playlists/types'
 import { EpisodeHeader } from '@/features/playlists/components/PlaylistForm/ListTab/EpisodeHeader'
 import { EditEpisodeListItem } from '@/features/playlists/components/PlaylistForm/ListTab/EditEpisodeListItem'
+import { PlaylistEpisodeDrawer } from '@/features/playlists/components/PlaylistEpisodeDrawer'
 
 import { SortableItem } from './SortableItem'
 
-export const EditEpisodeList = () => {
+export const EditEpisodeList = ({ playlist }: { playlist?: Playlist }) => {
   const { getValues, setValue } = useFormContext<PlaylistFormInputs>()
+  const {
+    isOpen: isOpenEpisode,
+    onOpen: onOpenEpisode,
+    onClose: onCloseEpisode
+  } = useDisclosure()
+  const [selectedEpisode, setSelectedEpisode] = useState<EpisodeData>()
   const episodes = useWatch({ name: 'episodes' })
 
   const sensors = useSensors(
@@ -77,11 +85,27 @@ export const EditEpisodeList = () => {
         >
           {episodes?.map((ep: EpisodeData) => (
             <SortableItem id={ep.id} key={ep.id}>
-              <EditEpisodeListItem key={ep.id} episode={ep} />
+              <EditEpisodeListItem
+                key={ep.id}
+                episode={ep}
+                onClick={(episode) => {
+                  setSelectedEpisode(episode)
+                  onOpenEpisode()
+                }}
+              />
             </SortableItem>
           ))}
         </SortableContext>
       </DndContext>
+
+      {selectedEpisode && (
+        <PlaylistEpisodeDrawer
+          playlist={playlist}
+          episode={selectedEpisode}
+          isOpen={isOpenEpisode}
+          onClose={onCloseEpisode}
+        />
+      )}
     </Box>
   )
 }

@@ -9,7 +9,9 @@ export const isOkushibuVideo = (video: VideoObject) =>
   video.detailedContentStatus?.contentStatus === 'ready'
 
 export const hasVideo = (videos: VideoObject[]) => {
-  const okushibuVideo = videos.find((video: any) => isOkushibuVideo(video))
+  const okushibuVideo = videos.find((video: VideoObject) =>
+    isOkushibuVideo(video)
+  )
   return !!okushibuVideo
 }
 
