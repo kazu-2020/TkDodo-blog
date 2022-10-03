@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/shrinerb/shrine.git
-  revision: 7713f3bd357aa3d922f27acd8d9325def23f9f29
-  specs:
-    shrine (3.4.0)
-      content_disposition (~> 1.0)
-      down (~> 5.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -393,7 +385,6 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redcarpet (3.5.1)
     redis (4.6.0)
     regexp_parser (2.5.0)
     render_me_pretty (0.8.4)
@@ -451,6 +442,9 @@ GEM
       sprockets-rails
       tilt
     semantic_range (3.0.0)
+    shrine (3.4.0)
+      content_disposition (~> 1.0)
+      down (~> 5.1)
     sidekiq (6.4.2)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
@@ -537,7 +531,7 @@ DEPENDENCIES
   kaminari
   listen
   multi_json
-  mysql2 (~> 0.5)
+  mysql2
   ogp
   pipedream
   pry-byebug
@@ -545,13 +539,12 @@ DEPENDENCIES
   rack-cors
   rack-mini-profiler
   rails (~> 7.0.3)
-  redcarpet
   redis
   rspec-rails
   rubocop
   rubocop-rspec
   sass-rails (>= 6)
-  shrine!
+  shrine
   sidekiq
   sidekiq-scheduler
   sidekiq-worker-killer
@@ -570,4 +563,4 @@ RUBY VERSION
    ruby 3.0.2p107
 
 BUNDLED WITH
-   2.3.18
+   2.3.15
