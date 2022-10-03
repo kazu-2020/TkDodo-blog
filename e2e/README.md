@@ -25,7 +25,7 @@ $ docker-compose up --abort-on-container-exit --exit-code-from e2e
 
 ```
 $ cd e2e
-$ yarn install
+$ npm install
 ```
 
 ### 実行

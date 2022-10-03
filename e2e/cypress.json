@@ -1,7 +1,0 @@
-{
-  "baseUrl": "http://localhost:3000",
-  "experimentalInteractiveRunEvents": true,
-  "env": {
-    "API_URL": "http://localhost:8888"
-  }
-}

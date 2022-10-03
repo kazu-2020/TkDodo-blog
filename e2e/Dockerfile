@@ -1,4 +1,4 @@
-FROM cypress/browsers:node12.19.0-chrome86-ff82
+FROM cypress/base
 
 ENV APP_HOME /app
 
@@ -12,5 +12,5 @@ WORKDIR $APP_HOME
 
 COPY . .
 ENV CI=1
-RUN npm ci
-RUN npx cypress verify
+RUN npm install
+RUN $(npm bin)/cypress run
