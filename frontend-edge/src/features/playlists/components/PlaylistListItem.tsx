@@ -25,7 +25,7 @@ export const PlaylistListItem = ({
 
   return (
     <Grid
-      templateColumns="repeat(6, 1fr)"
+      templateColumns="repeat(8, 1fr)"
       gap={2}
       h="48px"
       px="8px"
@@ -38,7 +38,7 @@ export const PlaylistListItem = ({
       cursor="pointer"
       onClick={() => onClick(playlist)}
     >
-      <GridItem colSpan={4} h="40px">
+      <GridItem colSpan={5} h="40px">
         <Center h="100%" justifyContent="flex-start">
           <HStack textAlign="left">
             <Image
@@ -54,7 +54,7 @@ export const PlaylistListItem = ({
           </HStack>
         </Center>
       </GridItem>
-      <GridItem h="40px">
+      <GridItem h="40px" colSpan={2}>
         <Center h="100%">
           <HStack>
             <Icon as={MdUpdate} w={6} h={6} />
