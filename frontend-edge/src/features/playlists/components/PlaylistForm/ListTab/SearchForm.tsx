@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 
-import { Playlist } from '@/types/playlist'
 import { SearchSeries } from '@/features/playlists/components/PlaylistForm/ListTab/SearchSeries'
 import { SearchPlaylist } from '@/features/playlists/components/PlaylistForm/ListTab/SearchPlaylist'
 import {
@@ -26,7 +25,7 @@ type SearchQueryParams = {
   size: number
 }
 
-export const SearchForm = ({ playlist }: { playlist?: Playlist }) => {
+export const SearchForm = () => {
   const [filter, setFilter] = useState({
     tabIndex: 0,
     searchText: '',
