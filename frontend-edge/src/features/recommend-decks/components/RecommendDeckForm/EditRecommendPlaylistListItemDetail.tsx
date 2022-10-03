@@ -59,7 +59,7 @@ export const EditRecommendPlaylistListItemDetail = ({
       <GridItem colSpan={6} h={8}>
         <HStack>
           <Image src={logoImage} alt={playlist.name} h="30px" />
-          <Text>{playlist.name}</Text>
+          <Text noOfLines={1}>{playlist.name}</Text>
         </HStack>
       </GridItem>
       <GridItem colSpan={4} h={8}>

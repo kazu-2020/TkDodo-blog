@@ -27,7 +27,7 @@ export const PlaylistListItem = ({ recommendDeck, playlistItem }: Props) => {
         <Image src={logoUrl} w={10} h={10} />
       </Box>
       <VStack w="100%" align="flex-start" spacing={0}>
-        <Text>{playlistItem.name}</Text>
+        <Text noOfLines={1}>{playlistItem.name}</Text>
         {isError && <Text>エラーが発生しました</Text>}
         {isLoading && <Skeleton data-testid="skeleton" h="48px" w="100%" />}
         {isSuccess && data.length <= 0 && <Text>エピソードはありません</Text>}
