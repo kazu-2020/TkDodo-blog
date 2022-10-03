@@ -1,35 +1,26 @@
-FROM ruby:3.0.2-alpine
+FROM ruby:3.0.2-slim-buster
 
-ENV LANG C.UTF-8
-RUN apk upgrade && \
-    apk add --no-cache \
-    bash \
-    build-base \
-    curl-dev \
-    git \
-    imagemagick \
-    imagemagick-dev \
-    less \
-    libxml2-dev \
-    libxslt-dev \
-    mysql-client \
-    mysql-dev \
-    nodejs \
-    yarn \
-    openssl \
-    readline \
-    readline-dev \
-    rsync \
-    tar \
-    ttf-freefont \
-    tzdata \
-    udev \
-    wget \
-    yaml \
-    yaml-dev\
-    zip \
-    zlib \
-    zlib-dev
+ENV LANG ja_JP.UTF-8
+
+SHELL ["/bin/bash", "-c"]
+
+RUN apt update \
+    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt install -y \
+            build-essential \
+            default-libmysqlclient-dev \
+            imagemagick \
+            unzip \
+            nodejs \
+            npm \
+            fonts-vlgothic \
+            locales \
+            locales-all \
+            vim \
+            --no-install-recommends \
+    && npm install -g yarn \
+    && apt -y clean \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV APP_HOME /app
 RUN mkdir $APP_HOME
