@@ -53,7 +53,7 @@ export const VerticalPreview = () => {
             boxShadow="md"
             mr={1}
           />
-          <Text>{playlist.name}</Text>
+          <Text noOfLines={1}>{playlist.name}</Text>
         </HStack>
       ))}
     </Box>

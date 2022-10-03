@@ -64,7 +64,7 @@ export const EditSeriesPlaylistListItem = ({
             boxShadow="md"
             mr={1}
           />
-          <Text>{playlist.name}</Text>
+          <Text noOfLines={1}>{playlist.name}</Text>
         </HStack>
       </GridItem>
       <GridItem colSpan={5} h="8">
