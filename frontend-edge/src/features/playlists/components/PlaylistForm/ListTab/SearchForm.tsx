@@ -100,13 +100,13 @@ export const SearchForm = ({ playlist }: { playlist?: Playlist }) => {
         />
         <TabPanels>
           <TabPanel p={0}>
-            <SearchEpisode playlist={playlist} query={searchEpisodeQuery} />
+            <SearchEpisode query={searchEpisodeQuery} />
           </TabPanel>
           <TabPanel p={0}>
-            <SearchSeries playlist={playlist} query={searchSeriesQuery} />
+            <SearchSeries query={searchSeriesQuery} />
           </TabPanel>
           <TabPanel p={0}>
-            <SearchPlaylist playlist={playlist} query={searchPlaylistQuery} />
+            <SearchPlaylist query={searchPlaylistQuery} />
           </TabPanel>
         </TabPanels>
       </Tabs>

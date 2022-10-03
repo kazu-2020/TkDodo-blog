@@ -17,7 +17,6 @@ import {
 } from '@dnd-kit/core'
 import { Alert, AlertIcon, Box, useDisclosure } from '@chakra-ui/react'
 
-import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import { PlaylistFormInputs } from '@/features/playlists/types'
 import { EpisodeHeader } from '@/features/playlists/components/PlaylistForm/ListTab/EpisodeHeader'
@@ -26,7 +25,7 @@ import { PlaylistEpisodeDrawer } from '@/features/playlists/components/PlaylistE
 
 import { SortableItem } from './SortableItem'
 
-export const EditEpisodeList = ({ playlist }: { playlist?: Playlist }) => {
+export const EditEpisodeList = () => {
   const { getValues, setValue } = useFormContext<PlaylistFormInputs>()
   const {
     isOpen: isOpenEpisode,
@@ -100,7 +99,6 @@ export const EditEpisodeList = ({ playlist }: { playlist?: Playlist }) => {
 
       {selectedEpisode && (
         <PlaylistEpisodeDrawer
-          playlist={playlist}
           episode={selectedEpisode}
           isOpen={isOpenEpisode}
           onClose={onCloseEpisode}

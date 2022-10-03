@@ -5,7 +5,6 @@ import { Box, useDisclosure } from '@chakra-ui/react'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 import { SeriesData } from '@/types/series_data'
-import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import { SearchSeriesSeriesList } from '@/features/playlists/components/PlaylistForm/ListTab/SearchSeriesSeriesList'
 import { SearchSeriesEpisodeList } from '@/features/playlists/components/PlaylistForm/ListTab/SearchSeriesEpisodeList'
@@ -14,10 +13,9 @@ import { Response } from '@/features/playlists/api/getSearchSeries'
 
 type Props = {
   query: UseInfiniteQueryResult<Response, Error>
-  playlist?: Playlist
 }
 
-export const SearchSeries = ({ query, playlist }: Props) => {
+export const SearchSeries = ({ query }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [page, setPage] = useState(0)
   const [selectedSeries, setSelectedSeries] = useState<SeriesData>()
@@ -66,7 +64,6 @@ export const SearchSeries = ({ query, playlist }: Props) => {
       </Carousel>
       {selectedEpisode && (
         <PlaylistEpisodeDrawer
-          playlist={playlist}
           episode={selectedEpisode}
           isOpen={isOpenEpisode}
           onClose={onCloseEpisode}

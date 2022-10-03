@@ -1,6 +1,8 @@
+import { useParams } from 'react-router-dom'
 import React from 'react'
 import {
   Box,
+  Center,
   HStack,
   Image,
   Link,
@@ -15,7 +17,6 @@ import { GenreItems } from '@/features/playlists/components/PlaylistEpisodeDrawe
 import { useEpisodePlaylist } from '@/features/playlists/api/getEpisodePlaylists'
 
 type Props = {
-  currentPlaylist?: Playlist
   episode: EpisodeData
 }
 
@@ -33,8 +34,9 @@ const NoPlaylist = () => (
   </Box>
 )
 
-export const RelatedPlaylists = ({ currentPlaylist, episode }: Props) => {
+export const RelatedPlaylists = ({ episode }: Props) => {
   const { isLoading, data } = useEpisodePlaylist(episode.id)
+  const { playlistUId } = useParams()
   return (
     <VStack alignItems="flex-start" pt={4}>
       <Text
@@ -56,27 +58,31 @@ export const RelatedPlaylists = ({ currentPlaylist, episode }: Props) => {
             return (
               <Box key={playlist.playlistUId} maxWidth="33%" mr={4}>
                 <Link
+                  w="140px"
                   href={`/playlists/${playlist.playlistUId}`}
                   _hover={{ textDecoration: 'none' }}
                   fontWeight="bold"
+                  noOfLines={1}
                 >
                   {playlist.name}
                 </Link>
                 <Box pos="relative">
-                  <Link href={`/playlists/${playlist.playlistUId}`}>
-                    <Image
-                      src={logoImage}
-                      w="140px"
-                      h="140px"
-                      borderRadius="5px"
-                      alt={playlist.name}
-                    />
-                  </Link>
-                  {playlist.playlistUId === currentPlaylist?.playlistUId && (
+                  <Center>
+                    <Link href={`/playlists/${playlist.playlistUId}`}>
+                      <Image
+                        src={logoImage}
+                        w="140px"
+                        h="140px"
+                        borderRadius="5px"
+                        alt={playlist.name}
+                      />
+                    </Link>
+                  </Center>
+                  {playlist.playlistUId === playlistUId && (
                     <Text
                       pos="absolute"
                       top="8px"
-                      right="12px"
+                      right="8px"
                       px="4px"
                       borderRadius="5px"
                       color="white"

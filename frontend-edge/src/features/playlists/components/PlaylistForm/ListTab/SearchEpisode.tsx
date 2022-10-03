@@ -2,7 +2,6 @@ import { UseInfiniteQueryResult } from 'react-query'
 import React, { useState } from 'react'
 import { Box, useDisclosure, VStack } from '@chakra-ui/react'
 
-import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import { SearchResultLoadMoreButton } from '@/features/playlists/components/PlaylistForm/ListTab/SearchResultLoadMoreButton'
 import { SearchResultCount } from '@/features/playlists/components/PlaylistForm/ListTab/SearchResultCount'
@@ -15,10 +14,9 @@ import { NoDataFound } from '@/components/Alert'
 
 type Props = {
   query: UseInfiniteQueryResult<Response, Error>
-  playlist?: Playlist
 }
 
-export const SearchEpisode = ({ query, playlist }: Props) => {
+export const SearchEpisode = ({ query }: Props) => {
   const {
     isOpen: isOpenEpisode,
     onOpen: onOpenEpisode,
@@ -70,7 +68,6 @@ export const SearchEpisode = ({ query, playlist }: Props) => {
       </VStack>
       {selectedEpisode && (
         <PlaylistEpisodeDrawer
-          playlist={playlist}
           episode={selectedEpisode}
           isOpen={isOpenEpisode}
           onClose={onCloseEpisode}

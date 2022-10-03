@@ -12,10 +12,9 @@ import { Response } from '@/features/playlists/api/getSearchPlaylist'
 
 type Props = {
   query: UseInfiniteQueryResult<Response, Error>
-  playlist?: Playlist
 }
 
-export const SearchPlaylist = ({ query, playlist }: Props) => {
+export const SearchPlaylist = ({ query }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [page, setPage] = useState(0)
   const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist>()
@@ -63,7 +62,6 @@ export const SearchPlaylist = ({ query, playlist }: Props) => {
       </Carousel>
       {selectedEpisode && (
         <PlaylistEpisodeDrawer
-          playlist={playlist}
           episode={selectedEpisode}
           isOpen={isOpenEpisode}
           onClose={onCloseEpisode}

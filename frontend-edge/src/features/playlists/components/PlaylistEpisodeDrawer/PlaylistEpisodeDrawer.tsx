@@ -10,7 +10,6 @@ import {
 
 import { hasVideo, videoUrl } from '@/utils/video'
 import { episodeThumbnailUrl } from '@/utils/image'
-import { Playlist } from '@/types/playlist'
 import { EpisodeData } from '@/types/episode_data'
 import { resentEventStartDate } from '@/features/playlists/utils/episodeFormat'
 import { RelatedPlaylists } from '@/features/playlists/components/PlaylistEpisodeDrawer/RelatedPlaylists'
@@ -21,13 +20,11 @@ import { Video } from '@/components/Video/Video'
 export const PlaylistEpisodeDrawer = ({
   episode,
   isOpen,
-  onClose,
-  playlist
+  onClose
 }: {
   episode: EpisodeData
   isOpen: any
   onClose: any
-  playlist?: Playlist
 }) => (
   <Drawer
     isOpen={isOpen}
@@ -57,7 +54,7 @@ export const PlaylistEpisodeDrawer = ({
           <Genres episode={episode} />
 
           <ActorContributor episode={episode} />
-          <RelatedPlaylists currentPlaylist={playlist} episode={episode} />
+          <RelatedPlaylists episode={episode} />
         </VStack>
       </DrawerBody>
     </DrawerContent>
