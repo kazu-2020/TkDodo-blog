@@ -24,6 +24,7 @@ import { PlayableStatusBadge } from '@/components/PlayableStatusBadge'
 
 type Props = {
   item: EpisodeData
+  onClick: (episode: EpisodeData) => void
 }
 
 const addEpisode = (
@@ -38,7 +39,7 @@ const addEpisode = (
 const hasEpisode = (episodes: Array<EpisodeData>, episode: EpisodeData) =>
   episodes?.some((ep: EpisodeData) => ep.id === episode.id) || false
 
-export const SearchEpisodeItem = ({ item }: Props) => {
+export const SearchEpisodeItem = ({ item, onClick }: Props) => {
   const { getValues, setValue } = useFormContext<PlaylistFormInputs>()
   const episodes = useWatch({ name: 'episodes' })
 
@@ -51,6 +52,7 @@ export const SearchEpisodeItem = ({ item }: Props) => {
       fontSize="xs"
       p={2}
       w="100%"
+      cursor="pointer"
     >
       <GridItem h="10" colSpan={3}>
         <Center h="100%">
@@ -79,7 +81,12 @@ export const SearchEpisodeItem = ({ item }: Props) => {
           )}
         </Center>
       </GridItem>
-      <GridItem colSpan={9} h="10" textAlign="left">
+      <GridItem
+        colSpan={9}
+        h="10"
+        textAlign="left"
+        onClick={() => onClick(item)}
+      >
         <HStack p={0} m={0}>
           <Image
             w="74px"
@@ -91,24 +98,39 @@ export const SearchEpisodeItem = ({ item }: Props) => {
           <Text noOfLines={2}>{item.name}</Text>
         </HStack>
       </GridItem>
-      <GridItem colSpan={5} h="10">
+      <GridItem colSpan={5} h="10" onClick={() => onClick(item)}>
         <Center h="100%">
           <Text>{totalTime(item)}</Text>
         </Center>
       </GridItem>
-      <GridItem colSpan={8} h="10" textAlign="left">
+      <GridItem
+        colSpan={8}
+        h="10"
+        textAlign="left"
+        onClick={() => onClick(item)}
+      >
         <Center h="100%">
           <Text w="100%" textAlign="left" noOfLines={2}>
             {item.partOfSeries?.name || ''}
           </Text>
         </Center>
       </GridItem>
-      <GridItem colSpan={6} h="10" textAlign="center">
+      <GridItem
+        colSpan={6}
+        h="10"
+        textAlign="center"
+        onClick={() => onClick(item)}
+      >
         <Center h="100%">
           <Text>{resentEventStartDate(item)}</Text>
         </Center>
       </GridItem>
-      <GridItem colSpan={5} h="10" textAlign="center">
+      <GridItem
+        colSpan={5}
+        h="10"
+        textAlign="center"
+        onClick={() => onClick(item)}
+      >
         <Center h="100%">
           <PlayableStatusBadge isPlayable={hasVideo(item?.videos || [])} />
         </Center>

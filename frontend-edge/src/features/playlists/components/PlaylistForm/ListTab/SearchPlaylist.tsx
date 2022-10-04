@@ -4,8 +4,10 @@ import React, { useState } from 'react'
 import { Box, useDisclosure } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
+import { EpisodeData } from '@/types/episode_data'
 import { SearchPlaylistPlaylistList } from '@/features/playlists/components/PlaylistForm/ListTab/SearchPlaylistPlaylistList'
 import { SearchPlaylistEpisodeList } from '@/features/playlists/components/PlaylistForm/ListTab/SearchPlaylistEpisodeList'
+import { PlaylistEpisodeDrawer } from '@/features/playlists/components/PlaylistEpisodeDrawer'
 import { Response } from '@/features/playlists/api/getSearchPlaylist'
 
 type Props = {
@@ -16,6 +18,13 @@ export const SearchPlaylist = ({ query }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [page, setPage] = useState(0)
   const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist>()
+
+  const {
+    isOpen: isOpenEpisode,
+    onOpen: onOpenEpisode,
+    onClose: onCloseEpisode
+  } = useDisclosure()
+  const [selectedEpisode, setSelectedEpisode] = useState<EpisodeData>()
   const showEpisodes = (item: Playlist) => {
     onOpen()
     setSelectedPlaylist(item)
@@ -43,10 +52,21 @@ export const SearchPlaylist = ({ query }: Props) => {
             setPage(0)
             onClose()
           }}
+          onClick={(episode) => {
+            setSelectedEpisode(episode)
+            onOpenEpisode()
+          }}
           selectedPlaylist={selectedPlaylist}
           isOpen={isOpen}
         />
       </Carousel>
+      {selectedEpisode && (
+        <PlaylistEpisodeDrawer
+          episode={selectedEpisode}
+          isOpen={isOpenEpisode}
+          onClose={onCloseEpisode}
+        />
+      )}
     </Box>
   )
 }

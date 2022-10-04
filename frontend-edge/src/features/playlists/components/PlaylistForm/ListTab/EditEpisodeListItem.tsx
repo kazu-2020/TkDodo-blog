@@ -23,6 +23,11 @@ import {
 import { PlaylistFormInputs } from '@/features/playlists/types'
 import { PlayableStatusBadge } from '@/components/PlayableStatusBadge'
 
+type Props = {
+  episode: EpisodeData
+  onClick: (episode: EpisodeData) => void
+}
+
 const removeEpisode = (
   getValues: UseFormGetValues<PlaylistFormInputs>,
   setValue: UseFormSetValue<any>,
@@ -34,7 +39,7 @@ const removeEpisode = (
   setValue('episodes', episodes, { shouldDirty: true })
 }
 
-export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
+export const EditEpisodeListItem = ({ episode, onClick }: Props) => {
   const { getValues, setValue } = useFormContext<PlaylistFormInputs>()
 
   return (
@@ -46,6 +51,7 @@ export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
       fontSize="xs"
       p={2}
       w="100%"
+      cursor="pointer"
     >
       <GridItem h="10" colSpan={3}>
         <Center h="100%">
@@ -67,7 +73,12 @@ export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
           </Button>
         </Center>
       </GridItem>
-      <GridItem colSpan={9} h="10" textAlign="left">
+      <GridItem
+        colSpan={9}
+        h="10"
+        textAlign="left"
+        onClick={() => onClick(episode)}
+      >
         <HStack p={0} m={0}>
           <Image
             w="74px"
@@ -78,24 +89,39 @@ export const EditEpisodeListItem = ({ episode }: { episode: EpisodeData }) => {
           <Text noOfLines={2}>{episode.name}</Text>
         </HStack>
       </GridItem>
-      <GridItem colSpan={5} h="10">
+      <GridItem colSpan={5} h="10" onClick={() => onClick(episode)}>
         <Center h="100%">
           <Text>{totalTime(episode)}</Text>
         </Center>
       </GridItem>
-      <GridItem colSpan={8} h="10" textAlign="left">
+      <GridItem
+        colSpan={8}
+        h="10"
+        textAlign="left"
+        onClick={() => onClick(episode)}
+      >
         <Center h="100%">
           <Text w="100%" textAlign="left" noOfLines={2}>
             {episode.partOfSeries?.name || ''}
           </Text>
         </Center>
       </GridItem>
-      <GridItem colSpan={6} h="10" textAlign="center">
+      <GridItem
+        colSpan={6}
+        h="10"
+        textAlign="center"
+        onClick={() => onClick(episode)}
+      >
         <Center h="100%">
           <Text>{resentEventStartDate(episode)}</Text>
         </Center>
       </GridItem>
-      <GridItem colSpan={5} h="10" textAlign="center">
+      <GridItem
+        colSpan={5}
+        h="10"
+        textAlign="center"
+        onClick={() => onClick(episode)}
+      >
         <Center h="100%">
           <PlayableStatusBadge isPlayable={hasVideo(episode?.videos || [])} />
         </Center>
