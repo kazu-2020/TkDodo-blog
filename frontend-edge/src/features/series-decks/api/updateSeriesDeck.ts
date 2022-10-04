@@ -33,7 +33,10 @@ const requestParams = (data: SeriesDeckParams) => {
     }
   }
 
-  return { series_deck: snakecaseKeys(data) }
+  return {
+    series_deck: snakecaseKeys(data),
+    enable_list_update: data.enableListUpdate ? '1' : ''
+  }
 }
 
 export const updateSeriesDeck = async ({

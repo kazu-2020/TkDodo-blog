@@ -38,7 +38,10 @@ const requestParams = (data: RecommendDeckParams) => {
     }
   }
 
-  return { deck: snakecaseKeys(data) }
+  return {
+    deck: snakecaseKeys(data),
+    enable_list_update: data.enableListUpdate ? '1' : ''
+  }
 }
 
 export const updateRecommendDeck = async ({
