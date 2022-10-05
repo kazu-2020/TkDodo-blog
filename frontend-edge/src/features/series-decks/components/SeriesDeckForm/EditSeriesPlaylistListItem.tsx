@@ -27,14 +27,14 @@ export const EditSeriesPlaylistListItem = ({
 
   return (
     <Grid
-      templateColumns="repeat(12, 1fr)"
+      templateColumns="repeat(10, 1fr)"
       gap={6}
       fontSize="sm"
       py={3}
       borderBottom="1px"
       borderColor="gray.200"
     >
-      <GridItem h="8">
+      <GridItem h="8" textAlign="center">
         <Button
           aria-label="削除"
           boxShadow="md"
@@ -52,7 +52,7 @@ export const EditSeriesPlaylistListItem = ({
           <Icon as={HiOutlineMinus} />
         </Button>
       </GridItem>
-      <GridItem colSpan={6} h="8">
+      <GridItem colSpan={5} h="8">
         <HStack>
           <Image
             src={
@@ -67,7 +67,7 @@ export const EditSeriesPlaylistListItem = ({
           <Text noOfLines={1}>{playlist.name}</Text>
         </HStack>
       </GridItem>
-      <GridItem colSpan={5} h="8">
+      <GridItem colSpan={4} h="8">
         <Flex alignItems="center" h="8">
           <Text>
             TEp:{countWrapper(playlist.itemNum)}/Hw:

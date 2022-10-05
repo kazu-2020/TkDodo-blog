@@ -65,7 +65,7 @@ export const EditSeriesPlaylist = () => {
         onDragEnd={handleDragEnd}
       >
         <Grid
-          templateColumns="repeat(12, 1fr)"
+          templateColumns="repeat(10, 1fr)"
           gap={6}
           borderBottom="1px"
           borderColor="gray.200"
@@ -75,10 +75,10 @@ export const EditSeriesPlaylist = () => {
           p={2}
         >
           <GridItem h="5" />
-          <GridItem colSpan={6} h="5">
+          <GridItem colSpan={5} h="5">
             <Text>シリーズ</Text>
           </GridItem>
-          <GridItem colSpan={5} h="5">
+          <GridItem colSpan={4} h="5">
             <Text>アイテム数</Text>
           </GridItem>
         </Grid>
