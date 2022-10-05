@@ -71,18 +71,16 @@ export const SearchSeriesPlaylist = () => {
           <SearchResultHeader searchResultCount={data.pages[0].count} />
 
           {data?.pages.map(({ result }) =>
-            result?.map((playlist) => {
-              return (
-                <SearchResultRow
-                  key={playlist.stringId}
-                  hasSeriesPlaylist={hasSeriesPlaylist(playlist)}
-                  onClick={() => {
-                    addSeriesPlaylist(playlist)
-                  }}
-                  playlist={playlist}
-                />
-              )
-            })
+            result?.map((playlist) => (
+              <SearchResultRow
+                key={playlist.stringId}
+                hasSeriesPlaylist={hasSeriesPlaylist(playlist)}
+                onClick={() => {
+                  addSeriesPlaylist(playlist)
+                }}
+                playlist={playlist}
+              />
+            ))
           )}
 
           {hasNextPage && (
