@@ -242,7 +242,7 @@ describe PlaylistsController, type: :request do
     end
   end
 
-  describe 'PUT #update' do
+  describe 'PATCH #update' do
     let!(:playlist) { create(:playlist) }
 
     context '更新' do
@@ -250,7 +250,7 @@ describe PlaylistsController, type: :request do
       let(:params) { { playlist: { name: name } } }
 
       it 'updates playlist record' do
-        put playlist_path(playlist), params: params
+        patch playlist_path(playlist), params: params
 
         expect(response.status).to eq(200)
         expect(playlist.reload.name).to eq(name)
@@ -265,7 +265,7 @@ describe PlaylistsController, type: :request do
 
         context 'メタ情報' do
           it '更新' do
-            put playlist_path(playlist), params: { playlist: { name: "#{playlist.name} 2" } }
+            patch playlist_path(playlist), params: { playlist: { name: "#{playlist.name} 2" } }
           end
         end
 
@@ -273,12 +273,12 @@ describe PlaylistsController, type: :request do
           let!(:keyword1) { create(:playlist_keyword, playlist: playlist) }
 
           it '追加' do
-            put playlist_path(playlist),
+            patch playlist_path(playlist),
                 params: { playlist: { name: playlist.name, keywords: [keyword1.name, "#{keyword1.name} 2"] } }
           end
 
           it '削除' do
-            put playlist_path(playlist), params: { playlist: { name: playlist.name, keywords: [] } }
+            patch playlist_path(playlist), params: { playlist: { name: playlist.name, keywords: [] } }
           end
         end
 
@@ -286,12 +286,12 @@ describe PlaylistsController, type: :request do
           let!(:hashtag1) { create(:playlist_hashtag, playlist: playlist) }
 
           it '追加' do
-            put playlist_path(playlist),
+            patch playlist_path(playlist),
                 params: { playlist: { name: playlist.name, hashtags: [hashtag1.name, "#{hashtag1.name} 2"] } }
           end
 
           it '削除' do
-            put playlist_path(playlist), params: { playlist: { name: playlist.name, hashtags: [] } }
+            patch playlist_path(playlist), params: { playlist: { name: playlist.name, hashtags: [] } }
           end
         end
 
@@ -299,7 +299,7 @@ describe PlaylistsController, type: :request do
           let!(:citation1) { create(:citation, playlist: playlist) }
 
           it '追加' do
-            put playlist_path(playlist),
+            patch playlist_path(playlist),
                 params: { playlist: { name: playlist.name,
                                       citations_attributes: [{ id: citation1.id,
                                                                name: citation1.name,
@@ -309,14 +309,14 @@ describe PlaylistsController, type: :request do
           end
 
           it '更新' do
-            put playlist_path(playlist),
+            patch playlist_path(playlist),
                 params: { playlist: { name: playlist.name,
                                       citations_attributes: [{ id: citation1.id, name: "#{citation1.name} 2",
                                                                url: citation1.url }] } }
           end
 
           it '削除' do
-            put playlist_path(playlist),
+            patch playlist_path(playlist),
                 params: { playlist: { name: playlist.name, citations_attributes: [{ id: citation1.id, _destroy: 1 }] } }
           end
         end
@@ -329,7 +329,7 @@ describe PlaylistsController, type: :request do
 
         context 'メタ情報' do
           it '変更なし' do
-            put playlist_path(playlist), params: { playlist: { name: playlist.name } }
+            patch playlist_path(playlist), params: { playlist: { name: playlist.name } }
           end
         end
 
@@ -337,7 +337,7 @@ describe PlaylistsController, type: :request do
           let!(:keyword1) { create(:playlist_keyword, playlist: playlist) }
 
           it '変更なし' do
-            put playlist_path(playlist), params: { playlist: { name: playlist.name, keywords: [keyword1.name] } }
+            patch playlist_path(playlist), params: { playlist: { name: playlist.name, keywords: [keyword1.name] } }
           end
         end
 
@@ -345,7 +345,7 @@ describe PlaylistsController, type: :request do
           let!(:hashtag1) { create(:playlist_hashtag, playlist: playlist) }
 
           it '変更なし' do
-            put playlist_path(playlist), params: { playlist: { name: playlist.name, hashtags: [hashtag1.name] } }
+            patch playlist_path(playlist), params: { playlist: { name: playlist.name, hashtags: [hashtag1.name] } }
           end
         end
 
@@ -353,7 +353,7 @@ describe PlaylistsController, type: :request do
           let!(:citation1) { create(:citation, playlist: playlist) }
 
           it '変更なし' do
-            put playlist_path(playlist),
+            patch playlist_path(playlist),
                 params: { playlist: { name: playlist.name,
                                       citations_attributes: [{ id: citation1.id, name: citation1.name,
                                                                url: citation1.url }] } }

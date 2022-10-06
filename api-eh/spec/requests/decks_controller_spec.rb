@@ -209,13 +209,13 @@ describe DecksController, type: :request do
     end
   end
 
-  describe 'PUT #update' do
+  describe 'PATCH #update' do
     before do
       poc_client = instance_double(PocApiClient)
       allow(PocApiClient).to receive(:new).and_return(poc_client)
       allow(poc_client).to receive(:playlist_ll_bundle)
         .with(playlist_id: anything).and_return({})
-      put deck_path(deck.id), params: updated_data
+      patch deck_path(deck.id), params: updated_data
     end
 
     let!(:deck) { create :deck, :with_playlists }
