@@ -5,7 +5,7 @@ json.playlists do
 end
 
 json.pagination do
-  json.count @playlists.count
+  json.count @playlists.total_count
   json.totalPages @playlists.total_pages
   json.currentPage @playlists.current_page
   json.nextPage @playlists.next_page
