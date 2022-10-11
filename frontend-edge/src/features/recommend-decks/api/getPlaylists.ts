@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query'
+import { useInfiniteQuery } from 'react-query'
 
 import { RecommendPlaylist } from '@/types/recommend_playlist'
 import { Pagination } from '@/types/pagination'
@@ -10,6 +10,8 @@ type Response = {
 }
 
 type Params = {
+  query?: string
+  page?: number
   per?: number
   withEpisodeCount?: number
 }
@@ -17,6 +19,8 @@ type Params = {
 export const getPlaylists = async (params: Params): Promise<Response> => {
   const res = await axios.get('/playlists', {
     params: {
+      query: params.query,
+      page: params.page,
       per: params.per,
       with_episode_count: params.withEpisodeCount
     }
@@ -25,6 +29,11 @@ export const getPlaylists = async (params: Params): Promise<Response> => {
 }
 
 export const usePlaylists = (params: Params) =>
-  useQuery<Response, Error>(['playlist', params], () => getPlaylists(params), {
-    keepPreviousData: true
-  })
+  useInfiniteQuery<Response, Error>(
+    ['playlist', params],
+    ({ pageParam = 1 }) => getPlaylists({ ...params, page: pageParam }),
+    {
+      keepPreviousData: true,
+      getNextPageParam: (lastPage) => lastPage?.pagination?.nextPage
+    }
+  )
