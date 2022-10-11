@@ -1,5 +1,4 @@
-FROM cypress/base
-
+FROM cypress/browsers:node16.17.0-chrome106
 ENV APP_HOME /app
 
 # 日本語フォント表示用にnoto-cjkを追加
@@ -12,5 +11,5 @@ WORKDIR $APP_HOME
 
 COPY . .
 ENV CI=1
-RUN npm install
-RUN $(npm bin)/cypress run
+RUN npm ci
+RUN npx cypress verify
