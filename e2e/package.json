@@ -2,5 +2,11 @@
   "devDependencies": {
     "cypress": "^10.9.0",
     "cypress-file-upload": "^5.0.8"
+  },
+  "dependencies": {
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "prettier": "^2.7.1"
   }
 }

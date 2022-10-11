@@ -14,7 +14,7 @@ describe('シリーズデッキ削除', () => {
     cy.get('.v-navigation-drawer .delete_button:visible').click()
 
     cy.on('window:alert',(message)=>{
-      expect(message).to.contains('削除したデータは復元できません。本当に削除しますか？');
+      expect(message).to.contains('削除したデータは復元できません。本当に削除しますか？')
     })
     cy.on('window:confirm', () => true)
 
