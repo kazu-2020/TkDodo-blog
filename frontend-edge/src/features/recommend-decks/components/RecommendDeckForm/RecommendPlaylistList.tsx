@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Box, Text } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
+import { Alert, AlertIcon, AlertTitle, Box, Text } from '@chakra-ui/react'
 
 import { RecommendPlaylist } from '@/types/recommend_playlist'
 import { SearchResultLoadMoreButton } from '@/features/series-decks/components/SeriesDeckForm'
@@ -9,8 +9,21 @@ import { RecommendPlaylistListHeader } from '@/features/recommend-decks/componen
 import { usePlaylists } from '@/features/recommend-decks/api/getPlaylists'
 import { SearchTextInput } from '@/components/SearchTextInput'
 import { ListScreenSkeleton } from '@/components/ListScreenSkeleton'
+import { StartSearch } from '@/components/Alert'
 
 const PER_PAGE = 10
+
+type SearchQueryParams = {
+  query?: string
+  per: number
+  withEpisodeCount: number
+}
+
+const createQueryParams = (filter: any): SearchQueryParams => ({
+  query: filter.query,
+  per: PER_PAGE,
+  withEpisodeCount: 1
+})
 
 export const RecommendPlaylistList = () => {
   const { recommendPlaylists, addRecommendPlaylist } =
@@ -18,14 +31,24 @@ export const RecommendPlaylistList = () => {
       recommendPlaylists: state.recommendPlaylists,
       addRecommendPlaylist: state.addRecommendPlaylist
     }))
-  const [query, setQuery] = useState('')
 
-  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    usePlaylists({
-      query,
-      per: PER_PAGE,
-      withEpisodeCount: 1
-    })
+  const [filter, setFilter] = useState({
+    query: '',
+    isSearch: false
+  })
+
+  const {
+    data,
+    isLoading,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+    refetch
+  } = usePlaylists(createQueryParams(filter))
+
+  useEffect(() => {
+    refetch()
+  }, [filter])
 
   function hasRecommendPlaylist(playlist: RecommendPlaylist) {
     return recommendPlaylists.some(
@@ -34,7 +57,7 @@ export const RecommendPlaylistList = () => {
   }
 
   const onAction = (q: string) => {
-    setQuery(q)
+    setFilter({ query: q, isSearch: true })
   }
 
   return (
@@ -43,10 +66,24 @@ export const RecommendPlaylistList = () => {
         placeholder="プレイリストを検索する"
         onAction={onAction}
       />
+
+      {!filter.isSearch && (
+        <Box w="100%" py={10}>
+          <StartSearch />
+        </Box>
+      )}
+
       {/* 検索結果 */}
-      {isLoading && <ListScreenSkeleton size={PER_PAGE} />}
-      {!isLoading && !data && <Text>編成可能なプレイリストがありません</Text>}
-      {!isLoading && data && (
+      {filter.isSearch && isLoading && <ListScreenSkeleton size={PER_PAGE} />}
+      {filter.isSearch && !isLoading && !data && (
+        <Box w="100%" py={10}>
+          <Alert status="error">
+            <AlertIcon />
+            <AlertTitle>編成可能なプレイリストがありません</AlertTitle>
+          </Alert>
+        </Box>
+      )}
+      {filter.isSearch && !isLoading && data && (
         <Box py={3}>
           <Text>全{data?.pages?.at(0)?.pagination.count}件</Text>
           <RecommendPlaylistListHeader />
