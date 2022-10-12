@@ -47,7 +47,7 @@ export const SearchSeriesPlaylist = () => {
     })
 
   function hasSeriesPlaylist(playlist: SeriesPlaylist) {
-    return seriesPlaylists.find((pl) => pl.seriesId === playlist.seriesId)
+    return !!seriesPlaylists.find((pl) => pl.seriesId === playlist.seriesId)
   }
 
   return (
@@ -71,21 +71,16 @@ export const SearchSeriesPlaylist = () => {
           <SearchResultHeader searchResultCount={data.pages[0].count} />
 
           {data?.pages.map(({ result }) =>
-            result?.map((playlist) => {
-              if (hasSeriesPlaylist(playlist)) {
-                return null
-              }
-
-              return (
-                <SearchResultRow
-                  key={playlist.stringId}
-                  onClick={() => {
-                    addSeriesPlaylist(playlist)
-                  }}
-                  playlist={playlist}
-                />
-              )
-            })
+            result?.map((playlist) => (
+              <SearchResultRow
+                key={playlist.stringId}
+                hasSeriesPlaylist={hasSeriesPlaylist(playlist)}
+                onClick={() => {
+                  addSeriesPlaylist(playlist)
+                }}
+                playlist={playlist}
+              />
+            ))
           )}
 
           {hasNextPage && (
