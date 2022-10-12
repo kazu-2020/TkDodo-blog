@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text } from '@chakra-ui/react'
+import { Alert, AlertIcon, AlertTitle, Box } from '@chakra-ui/react'
 
 import { SeriesPlaylist } from '@/types/series_playlist'
 import { useSeriesDeckFormStore } from '@/features/series-decks/stores/seriesDeckForm'
@@ -9,6 +9,7 @@ import { SearchResultHeader } from '@/features/series-decks/components/SeriesDec
 import { SearchForm } from '@/features/series-decks/components/SeriesDeckForm/SearchForm'
 import { useSearchSeriesPlaylists } from '@/features/series-decks/api/getSeriesPlaylists'
 import { ListScreenSkeleton } from '@/components/ListScreenSkeleton'
+import { StartSearch } from '@/components/Alert'
 
 const PER_PAGE = 10
 
@@ -61,19 +62,30 @@ export const SearchSeriesPlaylist = () => {
         }}
       />
 
-      {/* 検索結果 */}
-      {isLoading && <ListScreenSkeleton size={PER_PAGE} />}
-      {isSearched && !isLoading && !data && (
-        <Text>検索結果がありませんでした。</Text>
+      {!isSearched && (
+        <Box w="100%" py={10}>
+          <StartSearch />
+        </Box>
       )}
-      {isSearched && !isLoading && data && (
+
+      {/* 検索結果 */}
+      {isSearched && isLoading && <ListScreenSkeleton size={PER_PAGE} />}
+      {isSearched && !isLoading && (!data || data.pages[0].count <= 0) && (
+        <Box w="100%" py={10}>
+          <Alert status="error">
+            <AlertIcon />
+            <AlertTitle>編成可能なシリーズがありません</AlertTitle>
+          </Alert>
+        </Box>
+      )}
+      {isSearched && !isLoading && data && data.pages[0].count > 0 && (
         <Box data-testid="series-playlist-search-results">
           <SearchResultHeader searchResultCount={data.pages[0].count} />
 
           {data?.pages.map(({ result }) =>
             result?.map((playlist) => (
               <SearchResultRow
-                key={playlist.stringId}
+                key={playlist.seriesId}
                 hasSeriesPlaylist={hasSeriesPlaylist(playlist)}
                 onClick={() => {
                   addSeriesPlaylist(playlist)
