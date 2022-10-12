@@ -31,16 +31,13 @@ class SearchSeries
     search_episodes_each_series(result: result, search_params: search_params)
   end
 
-  # シリーズ毎のエピソードと視聴可能なエピソードを検索する
+  # シリーズ毎の視聴可能なエピソードを検索する
   #
   # @param [Hash] result
   # @param [Hash] search_params
   def search_episodes_each_series(result: {}, search_params: {}) # rubocop: disable Style/CommentedKeyword
     search_params[:offset] = 0
     result.dig(:result, :tvseries, :result).each do |series|
-      res = client.episode_from_series(query: merge_params(search_params), type: 'tv', series_id: series[:id],
-                                       request_type: :l)
-      series.store(:episodes, res)
       res = client.available_episode_from_series(series[:id],
                                                  query: { availableOn: DEFAULT_ENVIRONMENT, extendedEntities: true })
       series.store(:availableEpisodes, res)
