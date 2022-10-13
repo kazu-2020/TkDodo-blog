@@ -1,7 +1,7 @@
 import { useController } from 'react-hook-form'
 import React from 'react'
 import { OptionBase, Select } from 'chakra-react-select'
-import { FormControl } from '@chakra-ui/react'
+import { Box, FormControl } from '@chakra-ui/react'
 
 import { PropertyLabel } from '@/components/Form'
 
@@ -36,20 +36,23 @@ export const FormatGenreSelect = () => {
   return (
     <FormControl>
       <PropertyLabel label="ジャンル(フォーマット)" schemaName="Format Genre" />
-      <Select
-        name="formatGenre"
-        ref={ref}
-        onChange={(newValue) => {
-          if (newValue?.value) {
-            onChange(newValue?.value)
-          }
-        }}
-        onBlur={onBlur}
-        value={options?.find((option) => option.value === value)}
-        options={options}
-        variant="flushed"
-        placeholder="選択して下さい"
-      />
+      <Box data-testid="format-genre-wrapper">
+        <Select
+          name="formatGenre"
+          data-testid="formatGenre"
+          ref={ref}
+          onChange={(newValue) => {
+            if (newValue?.value) {
+              onChange(newValue?.value)
+            }
+          }}
+          onBlur={onBlur}
+          value={options?.find((option) => option.value === value)}
+          options={options}
+          variant="flushed"
+          placeholder="選択して下さい"
+        />
+      </Box>
     </FormControl>
   )
 }

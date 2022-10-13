@@ -47,6 +47,7 @@ export const PlaylistDrawer = ({
               _hover={{ textDecoration: 'none' }}
             >
               <Button
+                data-testid="playlist-drawer-edit-button"
                 type="submit"
                 form="my-form"
                 colorScheme="orange"

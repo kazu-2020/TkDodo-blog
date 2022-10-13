@@ -47,7 +47,11 @@ export const CropperImageModal = ({
         <ModalHeader>画像を編集</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={4}>
-          <Flex flexDir="column" width="100%">
+          <Flex
+            flexDir="column"
+            width="100%"
+            data-testid="cropper-image-modal-body"
+          >
             <Steps
               labelOrientation="vertical"
               size="sm"

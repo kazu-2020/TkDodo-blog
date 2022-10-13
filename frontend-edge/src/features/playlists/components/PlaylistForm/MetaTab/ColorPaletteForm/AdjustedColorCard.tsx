@@ -14,7 +14,7 @@ export const AdjustedColorCard = ({
     </Text>
 
     <HStack spacing={4}>
-      <Text>{color}</Text>
+      <Text data-testid={`adjusted-color-text-${label}`}>{color}</Text>
       <Box bgColor={color} w={7} h={7} boxShadow="md" />
     </HStack>
   </Box>

@@ -48,6 +48,7 @@ export const Step2Content = ({
           戻る
         </Button>
         <Button
+          data-testid="next-button"
           onClick={() => {
             const imageElement: any = cropperRef?.current
             const cropper: any = imageElement?.cropper

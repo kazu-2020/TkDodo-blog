@@ -49,6 +49,7 @@ export const CitationItems = ({ control, register, errors }: Props) => {
             )
         )}
         <Button
+          data-testid="add-citation-button"
           leftIcon={<AddIcon />}
           onClick={() => {
             append({

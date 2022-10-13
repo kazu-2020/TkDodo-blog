@@ -72,6 +72,7 @@ export const Step1Content = ({
               画像を変更する
             </Button>
             <Button
+              data-testid="next-button"
               onClick={async () => {
                 // 背景を埋める
                 if (filledImageType) {

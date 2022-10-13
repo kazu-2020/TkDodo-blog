@@ -49,6 +49,7 @@ export const SameAsItems = ({ control, register, errors }: Props) => {
             )
         )}
         <Button
+          data-testid="add-same-as-button"
           leftIcon={<AddIcon />}
           onClick={() => {
             append({

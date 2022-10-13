@@ -11,12 +11,14 @@ import {
 } from '@chakra-ui/react'
 
 type OverlayImageType = {
+  name: string
   onEdit: () => void
   onRemove: () => void
   isInvalid: boolean
 } & ImageProps
 
 export const PlaylistImageFormItemImage = ({
+  name,
   onEdit,
   onRemove,
   isInvalid,
@@ -30,6 +32,7 @@ export const PlaylistImageFormItemImage = ({
       _hover={{
         '.overlay': { opacity: 0.9 }
       }}
+      data-testid={`${name}-image-wrapper`}
     >
       <Image {...props} sx={isInvalid ? { border: '2px solid red' } : {}} />
       <Flex

@@ -33,7 +33,7 @@ export const PlaylistListItems = ({
   }
 
   return (
-    <Stack>
+    <Stack data-testid="playlist-list-items">
       {totalCount > 0 && (
         <Box pt={10} pb={3}>
           <Pagination

@@ -2,7 +2,12 @@ import { useController, UseControllerProps } from 'react-hook-form'
 import React, { useState } from 'react'
 import { CreatableSelect, OptionBase, Props } from 'chakra-react-select'
 import { StyleProps } from '@chakra-ui/styled-system/dist/declarations/src/system.types'
-import { FormControl, FormErrorMessage, FormHelperText } from '@chakra-ui/react'
+import {
+  Box,
+  FormControl,
+  FormErrorMessage,
+  FormHelperText
+} from '@chakra-ui/react'
 
 import { PropertyLabel } from './PropertyLabel'
 
@@ -53,37 +58,38 @@ export const MultiValueTextInput = ({
     <FormControl isInvalid={!!error} id={name} {...styleProps}>
       <PropertyLabel label={label} schemaName={schemaName} />
 
-      <CreatableSelect
-        name={name}
-        data-testid={name}
-        ref={ref}
-        components={components}
-        inputValue={inputValue}
-        isClearable
-        isMulti
-        menuIsOpen={false}
-        onChange={onChange}
-        onBlur={onBlur}
-        onInputChange={(newValue: string) => {
-          setInputValue(newValue)
-        }}
-        onKeyDown={(event) => {
-          if (!inputValue) return
+      <Box data-testid={`${name}-input-wrapper`}>
+        <CreatableSelect
+          name={name}
+          ref={ref}
+          components={components}
+          inputValue={inputValue}
+          isClearable
+          isMulti
+          menuIsOpen={false}
+          onChange={onChange}
+          onBlur={onBlur}
+          onInputChange={(newValue: string) => {
+            setInputValue(newValue)
+          }}
+          onKeyDown={(event) => {
+            if (!inputValue) return
 
-          if (event.key === 'Enter' || event.key === 'Tab') {
-            if (event.nativeEvent.isComposing) return // 全角の確定の場合は何もしない。 FIXME: ブラウザによって挙動が違うので注意
-            // 重複している場合は追加しない
-            if (value.some((option: Option) => option.value === inputValue))
-              return
-            onChange([...value, createOption(inputValue)])
-            setInputValue('')
-            event.preventDefault()
-          }
-        }}
-        variant="flushed"
-        value={value}
-        {...props}
-      />
+            if (event.key === 'Enter' || event.key === 'Tab') {
+              if (event.nativeEvent.isComposing) return // 全角の確定の場合は何もしない。 FIXME: ブラウザによって挙動が違うので注意
+              // 重複している場合は追加しない
+              if (value.some((option: Option) => option.value === inputValue))
+                return
+              onChange([...value, createOption(inputValue)])
+              setInputValue('')
+              event.preventDefault()
+            }
+          }}
+          variant="flushed"
+          value={value}
+          {...props}
+        />
+      </Box>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
       <FormErrorMessage>{error && error.message}</FormErrorMessage>
     </FormControl>
