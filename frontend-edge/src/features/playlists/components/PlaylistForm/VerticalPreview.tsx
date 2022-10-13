@@ -118,7 +118,7 @@ export const VerticalPreview = () => {
         <VStack my={2} align="flex-start">
           <CopyBadge text={playlist?.stringId} />
           <CopyBadge text={playlistUId} />
-          <ApiStateBadge apiState={apiState} />
+          <ApiStateBadge apiState={apiState ? 'open' : 'close'} />
           {playlist?.layoutPattern && (
             <Badge
               ml="1"
