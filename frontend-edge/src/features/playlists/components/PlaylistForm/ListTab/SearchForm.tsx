@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 
 import { SearchSeries } from '@/features/playlists/components/PlaylistForm/ListTab/SearchSeries'
 import { SearchPlaylist } from '@/features/playlists/components/PlaylistForm/ListTab/SearchPlaylist'
@@ -12,6 +12,7 @@ import { useSearchSeries } from '@/features/playlists/api/getSearchSeries'
 import { useSearchPlaylist } from '@/features/playlists/api/getSearchPlaylist'
 import { useSearchEpisode } from '@/features/playlists/api/getSearchEpisode'
 import { SearchTextInput } from '@/components/SearchTextInput'
+import { StartSearch } from '@/components/Alert'
 
 type SearchQueryParams = {
   word?: string
@@ -25,6 +26,18 @@ type SearchQueryParams = {
   size: number
 }
 
+const createQueryParams = (filter: any): SearchQueryParams => ({
+  word: filter.searchTextType === 'word' ? filter.searchText : undefined,
+  concern: filter.searchTextType === 'concern' ? filter.searchText : undefined,
+  keyword: filter.searchTextType === 'keyword' ? filter.searchText : undefined,
+  ignoreRange: filter.ignoreRange,
+  offset: filter.offset,
+  filterService: filter.filterService,
+  orderBy: filter.orderBy,
+  order: filter.order,
+  size: 10
+})
+
 export const SearchForm = () => {
   const [filter, setFilter] = useState({
     tabIndex: 0,
@@ -34,41 +47,31 @@ export const SearchForm = () => {
     order: '',
     filterService: false,
     ignoreRange: false,
-    offset: 0
+    offset: 0,
+    isSearch: false
   })
 
-  const createQueryParams = (): SearchQueryParams => ({
-    word: filter.searchTextType === 'word' ? filter.searchText : undefined,
-    concern:
-      filter.searchTextType === 'concern' ? filter.searchText : undefined,
-    keyword:
-      filter.searchTextType === 'keyword' ? filter.searchText : undefined,
-    ignoreRange: filter.ignoreRange,
-    offset: filter.offset,
-    filterService: filter.filterService,
-    orderBy: filter.orderBy,
-    order: filter.order,
-    size: 10
-  })
-
-  const searchEpisodeQuery = useSearchEpisode(createQueryParams())
-  const searchSeriesQuery = useSearchSeries(createQueryParams())
-  const searchPlaylistQuery = useSearchPlaylist(createQueryParams())
+  const searchEpisodeQuery = useSearchEpisode(createQueryParams(filter))
+  const searchSeriesQuery = useSearchSeries(createQueryParams(filter))
+  const searchPlaylistQuery = useSearchPlaylist(createQueryParams(filter))
 
   useEffect(() => {
-    if (filter.tabIndex === 0) {
-      searchEpisodeQuery.refetch()
-    } else if (filter.tabIndex === 1) {
-      searchSeriesQuery.refetch()
-    } else if (filter.tabIndex === 2) {
-      searchPlaylistQuery.refetch()
+    if (filter.isSearch) {
+      if (filter.tabIndex === 0) {
+        searchEpisodeQuery.refetch()
+      } else if (filter.tabIndex === 1) {
+        searchSeriesQuery.refetch()
+      } else if (filter.tabIndex === 2) {
+        searchPlaylistQuery.refetch()
+      }
     }
   }, [filter])
 
   const onAction = (query: string) => {
     setFilter((prev) => ({
       ...prev,
-      searchText: query
+      searchText: query,
+      isSearch: true
     }))
   }
 
@@ -93,19 +96,35 @@ export const SearchForm = () => {
           onChange={(params: FilterParams) => {
             setFilter((prev) => ({
               ...prev,
-              ...params
+              ...params,
+              isSearch: true
             }))
           }}
         />
         <TabPanels>
           <TabPanel p={0}>
-            <SearchEpisode query={searchEpisodeQuery} />
+            {filter.isSearch && <SearchEpisode query={searchEpisodeQuery} />}
+            {!filter.isSearch && (
+              <Box w="100%">
+                <StartSearch />
+              </Box>
+            )}
           </TabPanel>
           <TabPanel p={0}>
-            <SearchSeries query={searchSeriesQuery} />
+            {filter.isSearch && <SearchSeries query={searchSeriesQuery} />}
+            {!filter.isSearch && (
+              <Box w="100%">
+                <StartSearch />
+              </Box>
+            )}
           </TabPanel>
           <TabPanel p={0}>
-            <SearchPlaylist query={searchPlaylistQuery} />
+            {filter.isSearch && <SearchPlaylist query={searchPlaylistQuery} />}
+            {!filter.isSearch && (
+              <Box w="100%">
+                <StartSearch />
+              </Box>
+            )}
           </TabPanel>
         </TabPanels>
       </Tabs>

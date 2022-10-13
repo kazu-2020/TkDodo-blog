@@ -34,6 +34,7 @@ export const usePlaylists = (params: Params) =>
     ({ pageParam = 1 }) => getPlaylists({ ...params, page: pageParam }),
     {
       keepPreviousData: true,
+      enabled: false,
       getNextPageParam: (lastPage) => lastPage?.pagination?.nextPage
     }
   )
