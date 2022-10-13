@@ -25,21 +25,22 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 import "cypress-real-events/support"
-import 'cypress-file-upload'
-
+import "cypress-file-upload"
 
 Cypress.Commands.add("waitLoading", () => {
-  cy.get('.v-progress-linear--visible', { timeout: 15000 }).should('not.exist')
+  cy.get(".v-progress-linear--visible", { timeout: 15000 }).should("not.exist")
 })
 
-Cypress.Commands.add("attachCoverPhoto", (index) => {
-  cy.get('.v-card.v-sheet.theme--light.rounded-0').eq(index).trigger('mouseenter')
-  cy.get('.v-card.v-sheet.theme--light.rounded-0').eq(index).find('button').eq(0).click()
-  cy.get('.v-dialog .v-stepper__content .image-input input[type="file"]').attachFile('domo.jpg')
-  cy.wait(200)
-  cy.get('.v-dialog .v-stepper__content:visible button.primary').click()
-  cy.wait(200)
-  cy.get('.v-dialog .v-stepper__content:visible button.primary').click()
-  cy.wait(200)
-  cy.get('.v-dialog .v-stepper__content:visible button.success').click()
+Cypress.Commands.add("attachCoverPhoto", (imageType) => {
+  cy.get(`[data-testid="${imageType}-image-wrapper"]`).focused()
+  cy.get(`[data-testid="${imageType}-image-wrapper"]`)
+    .find("button")
+    .eq(0)
+    .click({ force: true })
+  cy.get(
+    '[data-testid="cropper-image-modal-body"] input[type="file"]'
+  ).attachFile("domo.jpg")
+  cy.get('[data-testid="next-button"]').click()
+  cy.get('[data-testid="next-button"]').click()
+  cy.get('[data-testid="crop-image-button"]').click()
 })
