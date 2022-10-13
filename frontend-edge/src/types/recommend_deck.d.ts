@@ -9,9 +9,8 @@ export type RecommendDeck = {
   sameAs: SameAs[]
   stringId: string
   adminMemo?: string
-  apiState: 'open' | 'close' | 'waiting'
   playListCount: number
   playlists: RecommendPlaylist[]
   dateCreated: string
   dateModified: string
-}
+} & ApiState

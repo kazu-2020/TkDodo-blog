@@ -1,4 +1,5 @@
 import { Playlist } from 'src/types/playlist'
+import { ApiState } from '@/types/api_state'
 
 import { SameAs } from './same_as'
 
@@ -9,7 +10,6 @@ export type Deck = {
   interfix: string
   stringId: string
   adminMemo?: string
-  apiState: 'open' | 'close' | 'waiting'
   sameAs: SameAs[]
   playlists: Playlist[]
-}
+} & ApiState

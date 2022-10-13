@@ -1,6 +1,8 @@
 import { Badge } from '@chakra-ui/react'
 
-const PlaylistList = ({ apiState }: { apiState: string }) => (
+import { ApiState } from '@/types/api_state'
+
+const PlaylistList = ({ apiState }: ApiState) => (
   <Badge
     ml="1"
     px={3}

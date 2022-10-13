@@ -7,9 +7,8 @@ export type SeriesDeck = {
   interfix: string
   stringId: string
   adminMemo?: string
-  apiState: 'open' | 'close' | 'waiting'
   playlistCount: number
   playlists: SeriesPlaylist[]
   dateCreated: string
   dateModified: string
-}
+} & ApiState
