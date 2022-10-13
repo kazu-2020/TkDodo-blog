@@ -89,14 +89,14 @@ paths:
                   apiState: close
                   playlists: []
                   sameAs: []
-                  dateCreated: '2022-10-04T14:51:37+09:00'
-                  dateModified: '2022-10-04T14:51:37+09:00'
+                  dateCreated: '2022-10-13T11:45:02+09:00'
+                  dateModified: '2022-10-13T11:45:02+09:00'
                 pagination:
                   count: 1
                   totalPages: 1
                   currentPage: 1
-                  nextPage:
-                  previousPage:
+                  nextPage: 
+                  previousPage: 
                   isFirstPage: true
                   isLastPage: true
     post:
@@ -124,8 +124,8 @@ paths:
                         type: string
             example:
               deck:
-                name:
-                interfix:
+                name: 
+                interfix: 
                 playlists:
                 - '11'
       responses:
@@ -276,27 +276,27 @@ paths:
                 deck:
                   id: 18
                   name: deck 11
-                  description:
+                  description: 
                   interfix: sample
                   stringId: recommend-tv-for-sample-0000000018
                   playlistCount: 1
-                  adminMemo:
+                  adminMemo: 
                   apiState: close
                   playlists:
-                  - playlistUId: c42353aa-0ab2-428f-beac-5dabb7f6409d
+                  - playlistUId: dfcdc7ad-1d29-4588-a5bc-48cdb1e96d4b
                     stringId: recommend-tep-0000000009
                     primaryId: 9
                     name: Awesome Name
-                    apiState: close
+                    apiState: waiting
                     detailedNameRuby: オウサム ネーム
                     description: 説明テキストが入ります
                     headline: ヘッドラインのテキストが入ります
                     keywords: []
-                    detailedCatch:
+                    detailedCatch: 
                     hashtag: []
-                    formatGenre:
+                    formatGenre: 
                     formatGenreName: ''
-                    themeGenre:
+                    themeGenre: 
                     themeGenreName: ''
                     selectedPalette: "#ffffff"
                     primaryLight: "#757575"
@@ -307,33 +307,33 @@ paths:
                     linkDark: "#ffffff"
                     logo:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/72d4460d2cd4c190428caef699794b6b
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/aaef9cb72e4577d78df9e226fa5d2865
+                        width: 
+                        height: 
                     eyecatch:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/35ed850f8c9c62e8fb80dd9cc1a61e20
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/37e0db6d585efcf19e8a699824c786a3
+                        width: 
+                        height: 
                     hero:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/5d23b97dc4167ded2db5d4798dd59f9e
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/ae3da949ebc0ff3c0de42ee4ccdaf88e
+                        width: 
+                        height: 
                     itemNum: 0
                     layoutPattern: summary
-                    datePublished:
+                    datePublished: 
                     article:
-                      header:
-                      body:
-                      markedBody:
-                      plainBody:
-                      footer:
-                    dateCreated: '2022-10-04T14:52:00+09:00'
-                    dateModified: '2022-10-04T14:52:00+09:00'
+                      header: 
+                      body: 
+                      markedBody: 
+                      plainBody: 
+                      footer: 
+                    dateCreated: '2022-10-13T11:45:15+09:00'
+                    dateModified: '2022-10-13T11:45:15+09:00'
                   sameAs: []
-                  dateCreated: '2022-10-04T14:52:02+09:00'
-                  dateModified: '2022-10-04T14:52:02+09:00'
+                  dateCreated: '2022-10-13T11:45:17+09:00'
+                  dateModified: '2022-10-13T11:45:17+09:00'
         '422':
           description: データが保存されず、エラーメッセージが返却されること
           content:
@@ -521,22 +521,22 @@ paths:
                   stringId: recommend-tv-for-sample-0000000016
                   playlistCount: 2
                   adminMemo: test memo
-                  apiState: close
+                  apiState: open
                   playlists:
-                  - playlistUId: c00074b8-427e-4f1f-bc5d-99f4737b04d8
+                  - playlistUId: 94af7361-33a6-4e14-aff3-7e741d906673
                     stringId: recommend-tep-0000000007
                     primaryId: 7
                     name: Awesome Name
-                    apiState: waiting
+                    apiState: close
                     detailedNameRuby: オウサム ネーム
                     description: 説明テキストが入ります
                     headline: ヘッドラインのテキストが入ります
                     keywords: []
-                    detailedCatch:
+                    detailedCatch: 
                     hashtag: []
-                    formatGenre:
+                    formatGenre: 
                     formatGenreName: ''
-                    themeGenre:
+                    themeGenre: 
                     themeGenreName: ''
                     selectedPalette: "#ffffff"
                     primaryLight: "#757575"
@@ -547,31 +547,31 @@ paths:
                     linkDark: "#ffffff"
                     logo:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/c35e36a0cf57a28387aef6281a1eff39
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/7bde62ad223f88e1d5d065d3e2a36845
+                        width: 
+                        height: 
                     eyecatch:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/c3c127ab29934bc61460988d83b5c600
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/775654e076faf1428c7054aba5760c8e
+                        width: 
+                        height: 
                     hero:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/ed323f27f0dd5ff7de0a1aa6659a22c5
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/2021b423792d4d78f2d7e8460b53e10b
+                        width: 
+                        height: 
                     itemNum: 0
                     layoutPattern: summary
-                    datePublished:
+                    datePublished: 
                     article:
-                      header:
-                      body:
-                      markedBody:
-                      plainBody:
-                      footer:
-                    dateCreated: '2022-10-04T14:51:56+09:00'
-                    dateModified: '2022-10-04T14:51:56+09:00'
-                  - playlistUId: 54d1274b-0b14-4e2a-8e78-1c3f7cc4c171
+                      header: 
+                      body: 
+                      markedBody: 
+                      plainBody: 
+                      footer: 
+                    dateCreated: '2022-10-13T11:45:12+09:00'
+                    dateModified: '2022-10-13T11:45:12+09:00'
+                  - playlistUId: 4d65cd37-df4e-4982-b089-0b647503fff0
                     stringId: recommend-tep-0000000008
                     primaryId: 8
                     name: Awesome Name
@@ -580,11 +580,11 @@ paths:
                     description: 説明テキストが入ります
                     headline: ヘッドラインのテキストが入ります
                     keywords: []
-                    detailedCatch:
+                    detailedCatch: 
                     hashtag: []
-                    formatGenre:
+                    formatGenre: 
                     formatGenreName: ''
-                    themeGenre:
+                    themeGenre: 
                     themeGenreName: ''
                     selectedPalette: "#ffffff"
                     primaryLight: "#757575"
@@ -595,33 +595,33 @@ paths:
                     linkDark: "#ffffff"
                     logo:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/3e72521959fa0ab85666670000086d58
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/12f5d64460d4c560e2e4bceb7c87e640
+                        width: 
+                        height: 
                     eyecatch:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/b84d920d2419a7577992e887bc6dcfa1
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/d37afe85a77dec66aee7122e06027045
+                        width: 
+                        height: 
                     hero:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/c5ecc5ac2dad2da7ce33490f9bf0f9e8
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/5e6cfe1fbd16f28e4301b44a6651184d
+                        width: 
+                        height: 
                     itemNum: 0
                     layoutPattern: summary
-                    datePublished:
+                    datePublished: 
                     article:
-                      header:
-                      body:
-                      markedBody:
-                      plainBody:
-                      footer:
-                    dateCreated: '2022-10-04T14:51:58+09:00'
-                    dateModified: '2022-10-04T14:51:58+09:00'
+                      header: 
+                      body: 
+                      markedBody: 
+                      plainBody: 
+                      footer: 
+                    dateCreated: '2022-10-13T11:45:13+09:00'
+                    dateModified: '2022-10-13T11:45:13+09:00'
                   sameAs: []
-                  dateCreated: '2022-10-04T14:51:53+09:00'
-                  dateModified: '2022-10-04T14:51:53+09:00'
+                  dateCreated: '2022-10-13T11:45:10+09:00'
+                  dateModified: '2022-10-13T11:45:10+09:00'
         '404':
           description: エラーメッセージが返却されること
           content:
@@ -633,7 +633,30 @@ paths:
                     type: string
               example:
                 message: デッキが見つかりませんでした
-    put:
+    delete:
+      summary: destroy
+      tags:
+      - Deck
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23
+      responses:
+        '200':
+          description: 対象のデータが一件削除されること
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deleted:
+                    type: boolean
+              example:
+                deleted: true
+    patch:
       summary: update
       tags:
       - Deck
@@ -669,8 +692,8 @@ paths:
             example:
               enable_list_update: '1'
               deck:
-                name:
-                interfix:
+                name: 
+                interfix: 
                 playlists:
                 - '17'
       responses:
@@ -826,22 +849,22 @@ paths:
                   stringId: recommend-tv-for-sample-0000000021
                   playlistCount: 2
                   adminMemo: test memo
-                  apiState: close
+                  apiState: open
                   playlists:
-                  - playlistUId: 60ccaf39-f74d-4aee-b0d1-adb7732bd620
+                  - playlistUId: 79b92796-4754-4ec4-8091-b52d99ef14b1
                     stringId: recommend-tep-0000000015
                     primaryId: 15
                     name: Awesome Name
-                    apiState: open
+                    apiState: waiting
                     detailedNameRuby: オウサム ネーム
                     description: 説明テキストが入ります
                     headline: ヘッドラインのテキストが入ります
                     keywords: []
-                    detailedCatch:
+                    detailedCatch: 
                     hashtag: []
-                    formatGenre:
+                    formatGenre: 
                     formatGenreName: ''
-                    themeGenre:
+                    themeGenre: 
                     themeGenreName: ''
                     selectedPalette: "#ffffff"
                     primaryLight: "#757575"
@@ -852,31 +875,31 @@ paths:
                     linkDark: "#ffffff"
                     logo:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/6bb1d6ebce5b5a638b5055690fa70cee
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/d04ce0e06871b425860f475e77df2015
+                        width: 
+                        height: 
                     eyecatch:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/5e1b905db00220039b1e9ed3422497d3
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/75d891705ba219eef274a144ccaa43d2
+                        width: 
+                        height: 
                     hero:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/d6813448051e075fe3db837cec12b00c
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/728d49d8321034332bd43bbeb6b82344
+                        width: 
+                        height: 
                     itemNum: 0
                     layoutPattern: summary
-                    datePublished:
+                    datePublished: 
                     article:
-                      header:
-                      body:
-                      markedBody:
-                      plainBody:
-                      footer:
-                    dateCreated: '2022-10-04T14:52:14+09:00'
-                    dateModified: '2022-10-04T14:52:14+09:00'
-                  - playlistUId: 70eff30f-5698-4a46-b267-8bb648743e37
+                      header: 
+                      body: 
+                      markedBody: 
+                      plainBody: 
+                      footer: 
+                    dateCreated: '2022-10-13T11:45:22+09:00'
+                    dateModified: '2022-10-13T11:45:22+09:00'
+                  - playlistUId: 1588af94-f7e0-4b2b-a0b0-7faacad21159
                     stringId: recommend-tep-0000000016
                     primaryId: 16
                     name: Awesome Name
@@ -885,11 +908,11 @@ paths:
                     description: 説明テキストが入ります
                     headline: ヘッドラインのテキストが入ります
                     keywords: []
-                    detailedCatch:
+                    detailedCatch: 
                     hashtag: []
-                    formatGenre:
+                    formatGenre: 
                     formatGenreName: ''
-                    themeGenre:
+                    themeGenre: 
                     themeGenreName: ''
                     selectedPalette: "#ffffff"
                     primaryLight: "#757575"
@@ -900,33 +923,33 @@ paths:
                     linkDark: "#ffffff"
                     logo:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/c97c7b1b159e38df77a5c95658a4f3b8
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/7e7f1e0d6326c67e6744f10df0ce1fdc
+                        width: 
+                        height: 
                     eyecatch:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/4edea10d5f58f07030c17bb175512afb
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/af2f6b30d84c403809c8e9d0b9302cc6
+                        width: 
+                        height: 
                     hero:
                       medium:
-                        url: http://localhost:8888/uploads/test/private/f81b5d8a771bcfe1901d93463d14bfed
-                        width:
-                        height:
+                        url: http://localhost:8888/uploads/test/private/3b85ffd419e38aff3e72f3afd46c61f0
+                        width: 
+                        height: 
                     itemNum: 0
                     layoutPattern: summary
-                    datePublished:
+                    datePublished: 
                     article:
-                      header:
-                      body:
-                      markedBody:
-                      plainBody:
-                      footer:
-                    dateCreated: '2022-10-04T14:52:16+09:00'
-                    dateModified: '2022-10-04T14:52:16+09:00'
+                      header: 
+                      body: 
+                      markedBody: 
+                      plainBody: 
+                      footer: 
+                    dateCreated: '2022-10-13T11:45:24+09:00'
+                    dateModified: '2022-10-13T11:45:24+09:00'
                   sameAs: []
-                  dateCreated: '2022-10-04T14:52:11+09:00'
-                  dateModified: '2022-10-04T14:52:16+09:00'
+                  dateCreated: '2022-10-13T11:45:21+09:00'
+                  dateModified: '2022-10-13T11:45:24+09:00'
         '422':
           description: データが更新されないこと
           content:
@@ -942,29 +965,6 @@ paths:
                 messages:
                 - Nameを入力してください
                 - Interfixを入力してください
-    delete:
-      summary: destroy
-      tags:
-      - Deck
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        example: 23
-      responses:
-        '200':
-          description: 対象のデータが一件削除されること
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  deleted:
-                    type: boolean
-              example:
-                deleted: true
   "/editor/fetch_link":
     get:
       summary: fetch_link
@@ -975,7 +975,7 @@ paths:
         in: query
         schema:
           type: string
-        example: https://examplebba89105-5f9b-4274-95fc-fa9b5544d751.com
+        example: https://example06387d6e-3987-4414-8713-25c7837a608f.com
       responses:
         '200':
           description: リクエストは成功するが、レスポンスにエラーが含まれる
@@ -993,8 +993,8 @@ paths:
                     properties: {}
               example:
                 success: 0
-                error: 'Failed to open TCP connection to examplebba89105-5f9b-4274-95fc-fa9b5544d751.com:443
-                  (getaddrinfo: Name does not resolve)'
+                error: 'Failed to open TCP connection to example06387d6e-3987-4414-8713-25c7837a608f.com:443
+                  (getaddrinfo: Name or service not known)'
                 meta: {}
   "/embed/ts/{series_id}":
     get:
@@ -1116,7 +1116,7 @@ paths:
                 `perform_render&#39;&quot;, &quot;/usr/local/bundle/gems/view_component-2.56.2/lib/view_component/base.rb:108:in
                 `render_in&#39;&quot;, &quot;/usr/local/bundle/gems/actionview-7.0.3/lib/action_view/helpers/rendering_helper.rb:42:in
                 `render&#39;&quot;, &quot;/app/app/views/embed/playlists/show.html.erb:3:in
-                `_app_views_embed_playlists_show_html_erb__2670718904076972254_98180&#39;&quot;,
+                `_app_views_embed_playlists_show_html_erb__2619074415069163069_98660&#39;&quot;,
                 &quot;/usr/local/bundle/gems/actionview-7.0.3/lib/action_view/base.rb:244:in
                 `public_send&#39;&quot;, &quot;/usr/local/bundle/gems/actionview-7.0.3/lib/action_view/base.rb:244:in
                 `_run&#39;&quot;, &quot;/usr/local/bundle/gems/actionview-7.0.3/lib/action_view/template.rb:157:in
@@ -1237,13 +1237,13 @@ paths:
                 `instance_exec&#39;&quot;, &quot;/usr/local/bundle/gems/rspec-core-3.11.0/lib/rspec/core/hooks.rb:390:in
                 `execute_with&#39;&quot;, &quot;/usr/local/bundle/gems/rspec-core-3.11.0/lib/rspec/core/hooks.rb:628:in
                 `block (2 levels) in run_around_example_hooks_for&#39;&quot;, &quot;/usr/local/bundle/gems/rspec-core-3.11.0/lib/rspec/core/example.rb:352:in
-                `call&#39;&quot;, &quot;/app/spec/rails_helper.rb:65:in `block (3
+                `call&#39;&quot;, &quot;/app/spec/rails_helper.rb:63:in `block (3
                 levels) in &lt;top (required)&gt;&#39;&quot;, &quot;/usr/local/bundle/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in
                 `cleaning&#39;&quot;, &quot;/usr/local/lib/ruby/3.0.0/forwardable.rb:238:in
                 `cleaning&#39;&quot;, &quot;/usr/local/bundle/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in
                 `block (2 levels) in cleaning&#39;&quot;, &quot;/usr/local/bundle/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in
                 `cleaning&#39;&quot;, &quot;/usr/local/lib/ruby/3.0.0/forwardable.rb:238:in
-                `cleaning&#39;&quot;, &quot;/app/spec/rails_helper.rb:64:in `block
+                `cleaning&#39;&quot;, &quot;/app/spec/rails_helper.rb:62:in `block
                 (2 levels) in &lt;top (required)&gt;&#39;&quot;, &quot;/usr/local/bundle/gems/rspec-core-3.11.0/lib/rspec/core/example.rb:457:in
                 `instance_exec&#39;&quot;, &quot;/usr/local/bundle/gems/rspec-core-3.11.0/lib/rspec/core/example.rb:457:in
                 `instance_exec&#39;&quot;, &quot;/usr/local/bundle/gems/rspec-core-3.11.0/lib/rspec/core/hooks.rb:390:in
@@ -1277,19 +1277,19 @@ paths:
                 `invoke&#39;&quot;, &quot;/usr/local/bundle/gems/rspec-core-3.11.0/exe/rspec:4:in
                 `&lt;top (required)&gt;&#39;&quot;, &quot;/usr/local/bundle/bin/rspec:23:in
                 `load&#39;&quot;, &quot;/usr/local/bundle/bin/rspec:23:in `&lt;top
-                (required)&gt;&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.22/lib/bundler/cli/exec.rb:58:in
-                `load&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.22/lib/bundler/cli/exec.rb:58:in
-                `kernel_load&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.22/lib/bundler/cli/exec.rb:23:in
-                `run&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.22/lib/bundler/cli.rb:486:in
-                `exec&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.22/lib/bundler/vendor/thor/lib/thor/command.rb:27:in
-                `run&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.22/lib/bundler/vendor/thor/lib/thor/invocation.rb:127:in
-                `invoke_command&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.22/lib/bundler/vendor/thor/lib/thor.rb:392:in
-                `dispatch&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.22/lib/bundler/cli.rb:31:in
-                `dispatch&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.22/lib/bundler/vendor/thor/lib/thor/base.rb:485:in
-                `start&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.22/lib/bundler/cli.rb:25:in
-                `start&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.22/exe/bundle:48:in
-                `block in &lt;top (required)&gt;&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.22/lib/bundler/friendly_errors.rb:120:in
-                `with_friendly_errors&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.22/exe/bundle:36:in
+                (required)&gt;&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.23/lib/bundler/cli/exec.rb:58:in
+                `load&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.23/lib/bundler/cli/exec.rb:58:in
+                `kernel_load&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.23/lib/bundler/cli/exec.rb:23:in
+                `run&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.23/lib/bundler/cli.rb:486:in
+                `exec&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.23/lib/bundler/vendor/thor/lib/thor/command.rb:27:in
+                `run&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.23/lib/bundler/vendor/thor/lib/thor/invocation.rb:127:in
+                `invoke_command&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.23/lib/bundler/vendor/thor/lib/thor.rb:392:in
+                `dispatch&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.23/lib/bundler/cli.rb:31:in
+                `dispatch&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.23/lib/bundler/vendor/thor/lib/thor/base.rb:485:in
+                `start&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.23/lib/bundler/cli.rb:25:in
+                `start&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.23/exe/bundle:48:in
+                `block in &lt;top (required)&gt;&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.23/lib/bundler/friendly_errors.rb:120:in
+                `with_friendly_errors&#39;&quot;, &quot;/usr/local/bundle/gems/bundler-2.3.23/exe/bundle:36:in
                 `&lt;top (required)&gt;&#39;&quot;, &quot;/usr/local/bundle/bin/bundle:23:in
                 `load&#39;&quot;, &quot;/usr/local/bundle/bin/bundle:23:in `&lt;main&gt;&#39;&quot;]\"\n
                 \         class=\"rounded-sm w-full object-cover mask-image\"\n          alt=\"光秀のスマホ\"\n
@@ -7282,7 +7282,7 @@ paths:
                         playControlSimul: true
                         playControlDVR: true
                         playControlVOD: true
-                        playControlMulti:
+                        playControlMulti: 
                         publishedPeriodFrom: '2022-06-15T22:44:45+09:00'
                         publishedPeriodTo: '2022-06-22T22:44:45+09:00'
                       isLiveBroadcast: true
@@ -8154,7 +8154,7 @@ paths:
                         playControlSimul: true
                         playControlDVR: true
                         playControlVOD: true
-                        playControlMulti:
+                        playControlMulti: 
                         publishedPeriodFrom: '2022-06-18T02:07:45+09:00'
                         publishedPeriodTo: '2022-06-25T02:07:45+09:00'
                       isLiveBroadcast: true
@@ -8323,7 +8323,7 @@ paths:
                         playControlSimul: true
                         playControlDVR: true
                         playControlVOD: true
-                        playControlMulti:
+                        playControlMulti: 
                         publishedPeriodFrom: '2022-06-14T23:28:45+09:00'
                         publishedPeriodTo: '2022-06-21T23:28:45+09:00'
                       isLiveBroadcast: true
@@ -8471,7 +8471,7 @@ paths:
         required: true
         schema:
           type: string
-        example: ebb66b75-c7e2-4b0d-ba27-1897677a3f81
+        example: b9a43e89-02b8-43ba-bea9-b16c44ff66fb
       responses:
         '200':
           description: returns success response
@@ -9238,7 +9238,7 @@ paths:
                       width: 640
                       height: 360
                   videos: []
-                  broadcastEvent:
+                  broadcastEvent: 
                   citations: []
                   url: https://www.nhk.jp/p/ts/P2RMMPW5JM/episode/te/PG3Z16Q145/
                   sameAs: []
@@ -9253,7 +9253,7 @@ paths:
         required: true
         schema:
           type: string
-        example: 268106ab-9617-4584-abcd-294d0310490f
+        example: b7537cc5-b008-4a39-860a-bf4ba0916c3d
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -10036,7 +10036,7 @@ paths:
                       width: 640
                       height: 360
                   videos: []
-                  broadcastEvent:
+                  broadcastEvent: 
                   citations: []
                   url: https://www.nhk.jp/p/ts/P2RMMPW5JM/episode/te/PG3Z16Q145/
                   sameAs: []
@@ -10210,20 +10210,20 @@ paths:
                         type: boolean
               example:
                 playlists:
-                - playlistUId: 4024eb6d-6665-4da9-988d-dd29b696ed4c
+                - playlistUId: 3ab286a6-f364-4bf3-8e6c-176954835716
                   stringId: recommend-tep-0000000055
                   primaryId: 55
                   name: Awesome Name
-                  apiState: close
+                  apiState: open
                   detailedNameRuby: オウサム ネーム
                   description: 説明テキストが入ります
                   headline: ヘッドラインのテキストが入ります
                   keywords: []
-                  detailedCatch:
+                  detailedCatch: 
                   hashtag: []
-                  formatGenre:
+                  formatGenre: 
                   formatGenreName: ''
-                  themeGenre:
+                  themeGenre: 
                   themeGenreName: ''
                   selectedPalette: "#ffffff"
                   primaryLight: "#757575"
@@ -10234,36 +10234,36 @@ paths:
                   linkDark: "#ffffff"
                   logo:
                     medium:
-                      url: http://localhost:8888/uploads/test/private/99824a52fbfce2d8c6ff3ad52badab62
-                      width:
-                      height:
+                      url: http://localhost:8888/uploads/test/private/40877787178f85ad6fc4af1c02337c16
+                      width: 
+                      height: 
                   eyecatch:
                     medium:
-                      url: http://localhost:8888/uploads/test/private/e0ce5e085d5b215be90cf12d87169ba9
-                      width:
-                      height:
+                      url: http://localhost:8888/uploads/test/private/0f53d3cdf48511eba45c682267f298f2
+                      width: 
+                      height: 
                   hero:
                     medium:
-                      url: http://localhost:8888/uploads/test/private/14762ee3934949a130e95d51d559927f
-                      width:
-                      height:
+                      url: http://localhost:8888/uploads/test/private/06d62ce8e01ebc711eaad13af1c09401
+                      width: 
+                      height: 
                   itemNum: 0
                   layoutPattern: summary
-                  datePublished:
+                  datePublished: 
                   article:
-                    header:
-                    body:
-                    markedBody:
-                    plainBody:
-                    footer:
-                  dateCreated: '2022-10-04T14:53:32+09:00'
-                  dateModified: '2022-10-04T14:53:32+09:00'
+                    header: 
+                    body: 
+                    markedBody: 
+                    plainBody: 
+                    footer: 
+                  dateCreated: '2022-10-13T11:46:04+09:00'
+                  dateModified: '2022-10-13T11:46:04+09:00'
                 pagination:
                   count: 1
                   totalPages: 1
                   currentPage: 1
-                  nextPage:
-                  previousPage:
+                  nextPage: 
+                  previousPage: 
                   isFirstPage: true
                   isLastPage: true
     post:
@@ -10295,7 +10295,7 @@ paths:
                 logo_image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAAAW9yTlQBz6J3mgAAAApJREFUCNdjOA4AAMkAyLdTeSYAAAAASUVORK5CYII=
                 eyecatch_image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAAAW9yTlQBz6J3mgAAAApJREFUCNdjOA4AAMkAyLdTeSYAAAAASUVORK5CYII=
                 hero_image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAAAW9yTlQBz6J3mgAAAApJREFUCNdjOA4AAMkAyLdTeSYAAAAASUVORK5CYII=
-                editor_data: '{"time":1645163766121,"blocks":[{"type":"image","data":{"file":{"url":"playlist/article_images/dd887ea0db3fd81a499a5cc1eeba9369.jpg"}}}],"version":"2.19.1"}'
+                editor_data: '{"time":1645163766121,"blocks":[{"type":"image","data":{"file":{"url":"playlist/article_images/7f19c81f9661a2f1165744a235a3f686.jpg"}}}],"version":"2.19.1"}'
       responses:
         '200':
           description: returns success response
@@ -10536,19 +10536,19 @@ paths:
                         type: string
               example:
                 playlist:
-                  playlistUId: fef0efb1-cc0f-4050-b9a2-48e9ad87c302
+                  playlistUId: 521a02dc-7d1e-43a6-933b-19056304c192
                   stringId: recommend-tep-0000000061
                   primaryId: 61
                   name: cool name
                   apiState: close
-                  detailedNameRuby:
-                  description:
-                  headline:
+                  detailedNameRuby: 
+                  description: 
+                  headline: 
                   keywords: []
-                  detailedCatch:
+                  detailedCatch: 
                   hashtag: []
-                  formatGenre:
-                  themeGenre:
+                  formatGenre: 
+                  themeGenre: 
                   selectedPalette: "#ffffff"
                   primaryLight: "#757575"
                   primaryDark: "#999999"
@@ -10561,41 +10561,41 @@ paths:
                   items: []
                   logo:
                     main:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-logo_b8a9628cbbac537eb82cb0b948b3781c.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-logo_8057f7b85d81ad6bbcc2daaaadd960d8.png
                       width: 1
                       height: 1
                     medium:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-logo_17f027ac94e0a16e2ebd7026263c08fb.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-logo_77f90ee08f8b3853a040f5d466f3d263.png
                       width: 640
                       height: 640
                     small:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-logo_772eab287a91b0b8fad809e76bbe0f99.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-logo_ee23d2a9f0208d6ee61bf9e21e6a3ee0.png
                       width: 200
                       height: 200
                   eyecatch:
                     main:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-eyecatch_2b83312f6240052378d3c419e0030955.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-eyecatch_b9c480cdf349da664aa977192964e997.png
                       width: 1
                       height: 1
                     large:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-eyecatch_012fe926cd80f67e9184e76cabe9806a.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-eyecatch_b26a90ad4d28b940db499eb6b9d96723.png
                       width: 1280
                       height: 720
                     medium:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-eyecatch_f530c8100c95f1371a896a61562affb0.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-eyecatch_f73fd3b06b12e9933eb7029195a47ed3.png
                       width: 640
                       height: 360
                     small:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-eyecatch_b4a46b27ac3456667819c41ddd5b3070.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-eyecatch_c8da7a04f64f443d208bc299e7fe2860.png
                       width: 320
                       height: 180
                   hero:
                     main:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-hero_ae06393c6de520ce6e5a1fc31f6ee03f.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-hero_fc1a663e775dfed9e3f4fe5d103e0cb0.png
                       width: 1
                       height: 1
                     medium:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-hero_ae06393c6de520ce6e5a1fc31f6ee03f.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl/recommend-tep-0000000061/recommend-tep-0000000061-hero_fc1a663e775dfed9e3f4fe5d103e0cb0.png
                       width: 1
                       height: 1
                   itemNum: 0
@@ -10613,28 +10613,28 @@ paths:
                   activeEvent: false
                   activeRecipe: false
                   article:
-                    header:
+                    header: 
                     body:
                       time: 1645163766121
                       blocks:
                       - type: image
                         data:
                           file:
-                            url: playlist/article_images/dd887ea0db3fd81a499a5cc1eeba9369.jpg
+                            url: playlist/article_images/7f19c81f9661a2f1165744a235a3f686.jpg
                       version: 2.19.1
                     plainBody: "\n"
-                    footer:
+                    footer: 
                     containsEpisodes: []
-                    authorType:
-                    authorName:
-                    publisherType:
-                    publisherName:
-                  aliasId:
+                    authorType: 
+                    authorName: 
+                    publisherType: 
+                    publisherName: 
+                  aliasId: 
                   actor: []
                   contributor: []
-                  datePublished:
-                  dateCreated: '2022-10-04T14:53:23+09:00'
-                  dateModified: '2022-10-04T14:53:26+09:00'
+                  datePublished: 
+                  dateCreated: '2022-10-13T11:46:00+09:00'
+                  dateModified: '2022-10-13T11:46:01+09:00'
   "/playlists/{id}":
     get:
       summary: show
@@ -10646,7 +10646,7 @@ paths:
         required: true
         schema:
           type: string
-        example: 0bcbb3c0-0100-42a5-a994-3dc77d46d39a
+        example: 2d6c15f1-9abf-46f6-8b8c-f904eeb44f56
       responses:
         '200':
           description: succeeds the request
@@ -10865,7 +10865,7 @@ paths:
                         type: string
               example:
                 playlist:
-                  playlistUId: 0bcbb3c0-0100-42a5-a994-3dc77d46d39a
+                  playlistUId: 2d6c15f1-9abf-46f6-8b8c-f904eeb44f56
                   stringId: recommend-tep-0000000055
                   primaryId: 55
                   name: Awesome Name
@@ -10874,10 +10874,10 @@ paths:
                   description: 説明テキストが入ります
                   headline: ヘッドラインのテキストが入ります
                   keywords: []
-                  detailedCatch:
+                  detailedCatch: 
                   hashtag: []
-                  formatGenre:
-                  themeGenre:
+                  formatGenre: 
+                  themeGenre: 
                   selectedPalette: "#ffffff"
                   primaryLight: "#757575"
                   primaryDark: "#999999"
@@ -10890,43 +10890,43 @@ paths:
                   items: []
                   logo:
                     main:
-                      url: http://localhost:8888/uploads/test/private/33a8aa7e8b3b6f6162f7933c31587c6f
-                      width:
-                      height:
+                      url: http://localhost:8888/uploads/test/private/b4dab4600eaf4f6d5f01855a7ca936e2
+                      width: 
+                      height: 
                     medium:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl//-logo_eeac83484c10dbc04e598a03b863c8d1.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl//-logo_cff9111573ee4099f88430097ad70a74.png
                       width: 640
                       height: 640
                     small:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl//-logo_5105ccbc39df28e6cc6ea0cc213019c5.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl//-logo_a37a7c6aa90397ab6e531510d6ca6125.png
                       width: 200
                       height: 200
                   eyecatch:
                     main:
-                      url: http://localhost:8888/uploads/test/private/12315c0e682b5bed7b115204ab891a5e
-                      width:
-                      height:
+                      url: http://localhost:8888/uploads/test/private/4120b5893b07cda9a94b6cfc04da6be6
+                      width: 
+                      height: 
                     large:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl//-eyecatch_cc7a4e977dcc3472c7c38b2ec5f6deba.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl//-eyecatch_35fc1e47f6712ddae2f8e031a0839ba0.png
                       width: 1280
                       height: 720
                     medium:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl//-eyecatch_8a148bac46ddc3a406f7aa3622e5864f.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl//-eyecatch_0c824be62f73dde5b18923fc93616b29.png
                       width: 640
                       height: 360
                     small:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl//-eyecatch_51eed30e6bbde6d66fc47489cb7fe0b4.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl//-eyecatch_f3f63b1e056f343a089b6f61c40932ac.png
                       width: 320
                       height: 180
                   hero:
                     main:
-                      url: http://localhost:8888/uploads/test/private/cf3b8f77d9bca765c5acecd42b4afadd
-                      width:
-                      height:
+                      url: http://localhost:8888/uploads/test/private/3ad4685b36b05f0a497d9c7e2d3c9831
+                      width: 
+                      height: 
                     medium:
-                      url: http://localhost:8888/uploads/test/private/cf3b8f77d9bca765c5acecd42b4afadd
-                      width:
-                      height:
+                      url: http://localhost:8888/uploads/test/private/3ad4685b36b05f0a497d9c7e2d3c9831
+                      width: 
+                      height: 
                   itemNum: 0
                   layoutPattern: summary
                   publishLevel: ready
@@ -10936,28 +10936,51 @@ paths:
                   hasRecipe: false
                   activeItemList: false
                   activeTvepisode: true
-                  activeFaqpage: false
-                  activeArticle: false
-                  activeHowto: true
-                  activeEvent: true
+                  activeFaqpage: true
+                  activeArticle: true
+                  activeHowto: false
+                  activeEvent: false
                   activeRecipe: false
                   article:
-                    header:
-                    body:
-                    plainBody:
-                    footer:
+                    header: 
+                    body: 
+                    plainBody: 
+                    footer: 
                     containsEpisodes: []
-                    authorType:
-                    authorName:
-                    publisherType:
-                    publisherName:
+                    authorType: 
+                    authorName: 
+                    publisherType: 
+                    publisherName: 
                   aliasId: ALIAS-ID46
                   actor: []
                   contributor: []
-                  datePublished:
-                  dateCreated: '2022-10-04T14:53:28+09:00'
-                  dateModified: '2022-10-04T14:53:28+09:00'
-    put:
+                  datePublished: 
+                  dateCreated: '2022-10-13T11:46:02+09:00'
+                  dateModified: '2022-10-13T11:46:02+09:00'
+    delete:
+      summary: destroy
+      tags:
+      - Playlist
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: e8afffe2-e1fa-41d0-b642-b39b328f613e
+      responses:
+        '200':
+          description: delete playlist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deleted:
+                    type: boolean
+              example:
+                deleted: true
+    patch:
       summary: update
       tags:
       - Playlist
@@ -10967,7 +10990,7 @@ paths:
         required: true
         schema:
           type: string
-        example: 543fe265-5cbb-4c02-bafc-02fe3acadc9c
+        example: 3edeadc7-0ee9-4e18-a0c9-8d2493c169d8
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -11239,7 +11262,7 @@ paths:
                         type: string
               example:
                 playlist:
-                  playlistUId: 543fe265-5cbb-4c02-bafc-02fe3acadc9c
+                  playlistUId: 3edeadc7-0ee9-4e18-a0c9-8d2493c169d8
                   stringId: recommend-tep-0000000074
                   primaryId: 74
                   name: Awesome Name
@@ -11248,10 +11271,10 @@ paths:
                   description: 説明テキストが入ります
                   headline: ヘッドラインのテキストが入ります
                   keywords: []
-                  detailedCatch:
+                  detailedCatch: 
                   hashtag: []
-                  formatGenre:
-                  themeGenre:
+                  formatGenre: 
+                  themeGenre: 
                   selectedPalette: "#ffffff"
                   primaryLight: "#757575"
                   primaryDark: "#999999"
@@ -11267,96 +11290,73 @@ paths:
                   items: []
                   logo:
                     main:
-                      url: http://localhost:8888/uploads/test/private/95eccf0cd1010b9559fc2613a2172377
-                      width:
-                      height:
+                      url: http://localhost:8888/uploads/test/private/c74699e1482b53e46aa3378a5e15f6d4
+                      width: 
+                      height: 
                     medium:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl//-logo_744cbba627804078911eb26bcc3fde33.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl//-logo_ae4a3d08e434d12dd67a4dd297d7575c.png
                       width: 640
                       height: 640
                     small:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl//-logo_ddbf4c7e6eb2be38def76bbb19e4b8d0.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl//-logo_dc008ec03e88ffe4aa6f83a7fb0f07ce.png
                       width: 200
                       height: 200
                   eyecatch:
                     main:
-                      url: http://localhost:8888/uploads/test/private/7c79c2da1b52182589286902191602e8
-                      width:
-                      height:
+                      url: http://localhost:8888/uploads/test/private/7b6c198adaaffd601f44118fbd3f9af8
+                      width: 
+                      height: 
                     large:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl//-eyecatch_176355d928ffb91bd3a46e59cf42f95f.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl//-eyecatch_cb8df07fcf8f40857a3aeb61559b461d.png
                       width: 1280
                       height: 720
                     medium:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl//-eyecatch_eafdfc2dbaf48269b404720b63fac745.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl//-eyecatch_53975020d8b91b6c44a1c4d51eef8864.png
                       width: 640
                       height: 360
                     small:
-                      url: http://localhost:8888/uploads/test/private/playlist/pl//-eyecatch_f96c6dfa661d985ea3f707e89d91c0b4.png
+                      url: http://localhost:8888/uploads/test/private/playlist/pl//-eyecatch_4825c96ebf7cc0c43d02bc9a87694b46.png
                       width: 320
                       height: 180
                   hero:
                     main:
-                      url: http://localhost:8888/uploads/test/private/478b2e6d23af9eb662ccfaecb47a73b0
-                      width:
-                      height:
+                      url: http://localhost:8888/uploads/test/private/0e4d34433998a3e490d72ab77923989a
+                      width: 
+                      height: 
                     medium:
-                      url: http://localhost:8888/uploads/test/private/478b2e6d23af9eb662ccfaecb47a73b0
-                      width:
-                      height:
+                      url: http://localhost:8888/uploads/test/private/0e4d34433998a3e490d72ab77923989a
+                      width: 
+                      height: 
                   itemNum: 0
                   layoutPattern: summary
-                  publishLevel: ready
+                  publishLevel: notyet
                   hasHowto: false
                   hasFaqpage: false
                   hasEvent: false
                   hasRecipe: false
-                  activeItemList: false
+                  activeItemList: true
                   activeTvepisode: false
                   activeFaqpage: true
-                  activeArticle: false
+                  activeArticle: true
                   activeHowto: true
                   activeEvent: true
                   activeRecipe: false
                   article:
-                    header:
-                    body:
-                    plainBody:
-                    footer:
+                    header: 
+                    body: 
+                    plainBody: 
+                    footer: 
                     containsEpisodes: []
-                    authorType:
-                    authorName:
-                    publisherType:
-                    publisherName:
+                    authorType: 
+                    authorName: 
+                    publisherType: 
+                    publisherName: 
                   aliasId: ALIAS-ID61
                   actor: []
                   contributor: []
-                  datePublished:
-                  dateCreated: '2022-10-04T14:54:01+09:00'
-                  dateModified: '2022-10-04T14:54:01+09:00'
-    delete:
-      summary: destroy
-      tags:
-      - Playlist
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-        example: 4334f8e1-5794-491a-b1ab-cf91e50420a6
-      responses:
-        '200':
-          description: delete playlist
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  deleted:
-                    type: boolean
-              example:
-                deleted: true
+                  datePublished: 
+                  dateCreated: '2022-10-13T11:46:19+09:00'
+                  dateModified: '2022-10-13T11:46:19+09:00'
   "/playlists/{id}/upload_article_image_by_url":
     post:
       summary: upload_article_image_by_url
@@ -11368,7 +11368,7 @@ paths:
         required: true
         schema:
           type: string
-        example: 7556ebe0-2217-42ef-a6f7-4ed921e373fb
+        example: 4d7a5efe-3a0d-42c9-adbb-de8486639445
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -11397,7 +11397,7 @@ paths:
               example:
                 success: 1
                 file:
-                  url: playlist/article_images/5275112d6661b39cf2014ca8bbdfabc2.png
+                  url: playlist/article_images/ed82e98ef5fe34e91e25ec24409a30e1.png
   "/playlists/{id}/upload_article_image_by_file":
     post:
       summary: upload_article_image_by_file
@@ -11409,7 +11409,7 @@ paths:
         required: true
         schema:
           type: string
-        example: 6fe5e80a-b340-48fc-b043-cb1f05194a14
+        example: 892e35ea-c977-4704-b38d-b64cd5427d6d
       responses:
         '200':
           description: リクエストが成功する
@@ -11428,7 +11428,7 @@ paths:
               example:
                 success: 1
                 file:
-                  url: playlist/article_images/24c79e99cf9dec96984ff299be7958ca.png
+                  url: playlist/article_images/61c3945a123001eacafb841869eb74f3.png
   "/playlists/{id}/bundle_items":
     get:
       summary: bundle_items
@@ -11440,7 +11440,7 @@ paths:
         required: true
         schema:
           type: string
-        example: be517c19-4446-42e6-a4c1-4703a80f231e
+        example: 921adf13-2c66-4e74-85bb-acde3e3deec3
       responses:
         '200':
           description: 各Subtypeのカウントが取得できること
@@ -11495,8 +11495,8 @@ paths:
               example:
                 title: Awesome Name
                 description: 説明テキストが入ります
-                image: http://localhost:8888/uploads/test/private/cc53fb64b9d046136d6c22f8ee8eca1c
-                time_ago_in_words: 約22時間前
+                image: http://localhost:8888/uploads/test/private/e8484a70c9a3f60244f3300844144fa0
+                time_ago_in_words: 10日前
   "/series_decks":
     get:
       summary: index
@@ -11572,37 +11572,98 @@ paths:
                       isLastPage:
                         type: boolean
               example:
-                series_decks:
-                - id: 13
-                  name: series deck 7
-                  description: 'description for the sample '
-                  interfix: sample
-                  stringId: series-tv-for-sample-0000000013
-                  playlistCount: 0
-                  adminMemo: test memo
-                  apiState: close
-                  playlists: []
-                  dateCreated: '2022-10-04T14:54:17+09:00'
-                  dateModified: '2022-10-04T14:54:17+09:00'
-                - id: 14
-                  name: 夏デッキ
-                  description: 'description for the sample '
-                  interfix: sample
-                  stringId: series-tv-for-sample-0000000014
-                  playlistCount: 0
-                  adminMemo: 冬デッキ
-                  apiState: close
-                  playlists: []
-                  dateCreated: '2022-10-04T14:54:17+09:00'
-                  dateModified: '2022-10-04T14:54:17+09:00'
+                series_decks: []
                 pagination:
-                  count: 2
-                  totalPages: 1
+                  count: 0
+                  totalPages: 0
                   currentPage: 1
-                  nextPage:
-                  previousPage:
+                  nextPage: 
+                  previousPage: 
                   isFirstPage: true
-                  isLastPage: true
+                  isLastPage: false
+    post:
+      summary: create
+      tags:
+      - SeriesDeck
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                series_deck:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    interfix:
+                      type: string
+            example:
+              series_deck:
+                name: ''
+                interfix: ''
+      responses:
+        '200':
+          description: デッキが作成できること
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deck:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        nullable: true
+                      interfix:
+                        type: string
+                      stringId:
+                        type: string
+                      playlistCount:
+                        type: integer
+                      adminMemo:
+                        nullable: true
+                      apiState:
+                        type: string
+                      playlists:
+                        type: array
+                        items: {}
+                      dateCreated:
+                        type: string
+                      dateModified:
+                        type: string
+              example:
+                deck:
+                  id: 17
+                  name: テストデッキ
+                  description: 
+                  interfix: test
+                  stringId: series-tv-for-test-0000000017
+                  playlistCount: 0
+                  adminMemo: 
+                  apiState: close
+                  playlists: []
+                  dateCreated: '2022-10-13T11:46:28+09:00'
+                  dateModified: '2022-10-13T11:46:28+09:00'
+        '422':
+          description: デッキが作成できないこと
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                messages:
+                - Nameを入力してください
+                - Interfixを入力してください
   "/series_decks/{id}":
     get:
       summary: show
@@ -11698,7 +11759,7 @@ paths:
                   stringId: series-tv-for-sample-0000000016
                   playlistCount: 1
                   adminMemo: test memo
-                  apiState: open
+                  apiState: close
                   playlists:
                   - id: 2
                     seriesId: M33W1P3PLZ
@@ -11715,8 +11776,121 @@ paths:
                     faqpageCount: 0
                     eventCount: 0
                     recipeCount: 0
-                  dateCreated: '2022-10-04T14:54:17+09:00'
-                  dateModified: '2022-10-04T14:54:17+09:00'
+                  dateCreated: '2022-10-13T11:46:28+09:00'
+                  dateModified: '2022-10-13T11:46:28+09:00'
+    patch:
+      summary: update
+      tags:
+      - SeriesDeck
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 19
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                series_deck:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    interfix:
+                      type: string
+            example:
+              series_deck:
+                name: ''
+                interfix: ''
+      responses:
+        '200':
+          description: デッキが更新できること
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deck:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type: string
+                      interfix:
+                        type: string
+                      stringId:
+                        type: string
+                      playlistCount:
+                        type: integer
+                      adminMemo:
+                        type: string
+                      apiState:
+                        type: string
+                      playlists:
+                        type: array
+                        items: {}
+                      dateCreated:
+                        type: string
+                      dateModified:
+                        type: string
+              example:
+                deck:
+                  id: 18
+                  name: 更新デッキ
+                  description: 'description for the sample '
+                  interfix: sample
+                  stringId: series-tv-for-sample-0000000018
+                  playlistCount: 0
+                  adminMemo: test memo
+                  apiState: open
+                  playlists: []
+                  dateCreated: '2022-10-13T11:46:28+09:00'
+                  dateModified: '2022-10-13T11:46:28+09:00'
+        '422':
+          description: デッキが更新できないこと
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                messages:
+                - Nameを入力してください
+                - Interfixを入力してください
+    delete:
+      summary: destroy
+      tags:
+      - SeriesDeck
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 20
+      responses:
+        '200':
+          description: デッキが削除できること
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deleted:
+                    type: boolean
+              example:
+                deleted: true
   "/series_playlists/{id}/episodes":
     get:
       summary: episodes
@@ -12520,7 +12694,7 @@ paths:
                       width: 640
                       height: 360
                   videos: []
-                  broadcastEvent:
+                  broadcastEvent: 
                   citations: []
                   url: https://dev-www.nhk.jp/p/ts/1V1PJ9L5JN/episode/te/KV6Z2W53MQ/
                   sameAs: []
@@ -12761,7 +12935,7 @@ paths:
                       width: 640
                       height: 360
                   videos: []
-                  broadcastEvent:
+                  broadcastEvent: 
                   citations: []
                   url: https://dev-www.nhk.jp/p/ts/1V1PJ9L5JN/episode/te/Y5Y9Z2LR7R/
                   sameAs: []
@@ -13002,7 +13176,7 @@ paths:
                       width: 640
                       height: 360
                   videos: []
-                  broadcastEvent:
+                  broadcastEvent: 
                   citations: []
                   url: https://dev-www.nhk.jp/p/ts/1V1PJ9L5JN/episode/te/323NKPV86Z/
                   sameAs: []
@@ -13243,7 +13417,7 @@ paths:
                       width: 640
                       height: 360
                   videos: []
-                  broadcastEvent:
+                  broadcastEvent: 
                   citations: []
                   url: https://dev-www.nhk.jp/p/ts/1V1PJ9L5JN/episode/te/3JWZG82L8Z/
                   sameAs: []
@@ -13484,7 +13658,7 @@ paths:
                       width: 640
                       height: 360
                   videos: []
-                  broadcastEvent:
+                  broadcastEvent: 
                   citations: []
                   url: https://dev-www.nhk.jp/p/ts/1V1PJ9L5JN/episode/te/W5J2JZJ8Y2/
                   sameAs: []
@@ -13725,7 +13899,7 @@ paths:
                       width: 640
                       height: 360
                   videos: []
-                  broadcastEvent:
+                  broadcastEvent: 
                   citations: []
                   url: https://dev-www.nhk.jp/p/ts/1V1PJ9L5JN/episode/te/WW3MXYNJXG/
                   sameAs: []
@@ -13966,7 +14140,7 @@ paths:
                       width: 640
                       height: 360
                   videos: []
-                  broadcastEvent:
+                  broadcastEvent: 
                   citations: []
                   url: https://dev-www.nhk.jp/p/ts/1V1PJ9L5JN/episode/te/PM676VVRKR/
                   sameAs: []
@@ -14207,7 +14381,7 @@ paths:
                       width: 640
                       height: 360
                   videos: []
-                  broadcastEvent:
+                  broadcastEvent: 
                   citations: []
                   url: https://dev-www.nhk.jp/p/ts/1V1PJ9L5JN/episode/te/XZZ1Y8YNNL/
                   sameAs: []
@@ -14448,7 +14622,7 @@ paths:
                       width: 640
                       height: 360
                   videos: []
-                  broadcastEvent:
+                  broadcastEvent: 
                   citations: []
                   url: https://dev-www.nhk.jp/p/ts/1V1PJ9L5JN/episode/te/N5XPQX7643/
                   sameAs: []
@@ -14689,7 +14863,7 @@ paths:
                       width: 640
                       height: 360
                   videos: []
-                  broadcastEvent:
+                  broadcastEvent: 
                   citations: []
                   url: https://dev-www.nhk.jp/p/ts/1V1PJ9L5JN/episode/te/Y15WX6LKX5/
                   sameAs: []
