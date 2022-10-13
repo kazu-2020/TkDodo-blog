@@ -23,14 +23,14 @@ const options: Option[] = [
 ]
 
 interface FormValues {
-  formatGenre: Option | null
+  formatGenreCode: Option | null
 }
 
 export const FormatGenreSelect = () => {
   const {
     field: { onChange, onBlur, value, ref }
   } = useController<FormValues>({
-    name: 'formatGenre'
+    name: 'formatGenreCode'
   })
 
   return (
@@ -38,7 +38,7 @@ export const FormatGenreSelect = () => {
       <PropertyLabel label="ジャンル(フォーマット)" schemaName="Format Genre" />
       <Box data-testid="format-genre-wrapper">
         <Select
-          name="formatGenre"
+          name="formatGenreCode"
           data-testid="formatGenre"
           ref={ref}
           onChange={(newValue) => {

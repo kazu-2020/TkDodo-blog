@@ -20,14 +20,14 @@ const options: Option[] = [
 ]
 
 interface FormValues {
-  themeGenre: Option | null
+  themeGenreCode: Option | null
 }
 
 export const ThemeGenreSelect = () => {
   const {
     field: { onChange, onBlur, value, ref }
   } = useController<FormValues>({
-    name: 'themeGenre'
+    name: 'themeGenreCode'
   })
 
   return (
@@ -35,7 +35,7 @@ export const ThemeGenreSelect = () => {
       <PropertyLabel label="ジャンル(テーマ)" schemaName="Theme Genre" />
       <Box data-testid="theme-genre-wrapper">
         <Select
-          name="themeGenre"
+          name="themeGenreCode"
           ref={ref}
           onChange={(newValue) => {
             if (newValue?.value) {

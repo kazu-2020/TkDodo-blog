@@ -17,8 +17,8 @@ export type PlaylistFormInputs = {
   description?: string
   keywords: SelectOption[]
   hashtags: SelectOption[]
-  formatGenre?: string
-  themeGenre?: string
+  formatGenreCode?: string
+  themeGenreCode?: string
   selectedPalette: string
   primaryLightColor: string
   primaryDarkColor: string
