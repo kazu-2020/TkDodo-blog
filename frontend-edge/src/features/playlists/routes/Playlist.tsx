@@ -30,7 +30,12 @@ const Playlist = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
 
-    if (typeof breadcrumbDispatch === 'function') {
+    // TODO: 要原因調査
+    // 更新後に name が空のオブジェクト（name: {}）で渡ってくるため暫定対応として、文字列型のチェックを追加しています。
+    if (
+      typeof breadcrumbDispatch === 'function' &&
+      typeof data?.name === 'string'
+    ) {
       breadcrumbDispatch({ name: data?.name ?? '' })
     }
   }, [breadcrumbDispatch, data])
