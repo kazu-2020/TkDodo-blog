@@ -162,7 +162,7 @@ describe SeriesDecksController, type: :request do
     context '必須項目が入力されていない場合' do
       it 'デッキが作成できないこと' do
         expect do
-          post series_decks_path, params: { series_deck:  {  name: '', interfix: '' } }
+          post series_decks_path, params: { series_deck: { name: '', interfix: '' } }
         end.to change(SeriesDeck, :count).by(0)
         expect(response.status).to eq 422
         json = JSON.parse(response.body)
@@ -202,6 +202,5 @@ describe SeriesDecksController, type: :request do
       end.to change(SeriesDeck, :count).by(-1)
       expect(response.status).to eq 200
     end
-
   end
 end
