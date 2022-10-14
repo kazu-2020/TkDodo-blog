@@ -76,3 +76,7 @@ h4.ce-header {
 .link-tool__input-description[contentEditable='true'][data-placeholder]:empty:focus::before {
   display: none;
 }
+
+.codex-editor--narrow .ce-toolbox .ce-popover {
+  left: 0;
+}

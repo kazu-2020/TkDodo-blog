@@ -38,6 +38,8 @@ const sameAsUrl = "https://example.com/same-as"
 const citationName = "citation1"
 const citationUrl = "https://example.com/citation"
 const aliasId = "test-alias"
+const markedHeader = "ヘッダー"
+const markedFooter = "フッター"
 
 describe("プレイリスト新規作成", () => {
   it("プレイリストを新規作成し、メタの編集をする", () => {
@@ -46,7 +48,7 @@ describe("プレイリスト新規作成", () => {
     cy.contains("プレイリスト").click()
     cy.contains("新規作成").click()
 
-    // リスト(NItemList)の編集
+    // リスト(NItemList)の編集 ------------------------------------------------
     cy.contains("リスト(NItemList)").click()
 
     // エピソードの選択
@@ -57,7 +59,20 @@ describe("プレイリスト新規作成", () => {
     // 1件目追加の時点で、1件目はリストから除外されるため先頭が2件目となる
     cy.get('[aria-label="追加"]').first().click()
 
-    // 基本情報(NSeries)の編集
+    // 記事(NArticle)の編集 --------------------------------------------------
+    cy.contains("記事(NArticle)").click()
+    cy.get('[data-testid="markedHeader"]').type(markedHeader)
+
+    cy.get("#editorjs").get("div.ce-block")
+      .click().type("test{enter}")
+    cy.get('.ce-paragraph').last().paste({
+      'text/plain': 'https://picsum.photos/200.jpg',
+    })
+    cy.get('.image-tool__image-picture').should("have.lengthOf", 1)
+
+    cy.get('[data-testid="markedFooter"]').type(markedFooter)
+
+    // 基本情報(NSeries)の編集 ------------------------------------------------
     cy.contains("基本情報(NSeries)").click()
 
     cy.get('[data-testid="name"]').type(playlistName)
@@ -160,6 +175,14 @@ describe("プレイリスト新規作成", () => {
       2
     )
 
+    // 記事(NArticle) タブ
+    cy.contains("記事(NArticle)").click()
+    cy.get('[data-testid="markedHeader"]').should('have.value', markedHeader)
+
+    cy.get(".ce-paragraph").contains('test')
+    cy.get('.image-tool__image-picture').should("have.lengthOf", 1)
+    cy.get('[data-testid="markedFooter"]').should('have.value', markedFooter)
+
     // 基本情報(NSeries) タブ
     cy.contains("基本情報(NSeries)").click()
 
@@ -245,22 +268,30 @@ describe("プレイリスト新規作成", () => {
     )
   })
 
-  xit("新規作成したプレイリストが検索できること", () => {
-    const now = Cypress.env("NOW")
-
+  it("新規作成したプレイリストが検索できること", () => {
     cy.visit("/")
     cy.contains("プレイリスト").click()
     cy.contains("一覧").click({ force: true })
 
-    cy.url().should("eq", Cypress.config().baseUrl + "/")
+    // API非公開
+    cy.get('[data-testid="api-status-select"]').select("API非公開のみ", {
+      force: true,
+    })
 
-    cy.contains("記事モード").click()
+    // 対象のプレイリストが表示されていないこと
+    cy.get('[data-testid="playlist-list-items"]')
+      .contains(now)
+      .should("have.lengthOf", 0)
 
-    cy.get(".v-select__slot").click()
-    cy.get(".menuable__content__active").contains("API公開中のみ").click()
+    // 検索
+    cy.get('[data-testid="search-text-input"]').type(`${now}{enter}`, {
+      force: true,
+    })
 
-    cy.waitLoading()
-    cy.wait(500)
+    // 対象のプレイリストが表示されていないこと
+    cy.get('[data-testid="playlist-list-items"]')
+      .contains(now)
+      .should("have.lengthOf", 0)
 
     // 対象のプレイリストが表示されていないこと
     cy.get("body").then((body) => {
@@ -269,66 +300,42 @@ describe("プレイリスト新規作成", () => {
       }
     })
 
-    cy.get(".playlist-search input[type=text]").type(`${now}{enter}`, {
-      force: true,
-    })
-
-    // 対象のプレイリストが表示されていないこと
-    cy.get("body").then((body) => {
-      if (body[0].querySelector(".playlist-name")) {
-        cy.get(".playlist-name").contains(now).should("have.lengthOf", 0)
-      }
-    })
-
-    cy.get(".playlist-search button").click()
-
-    // 対象のプレイリストが表示されていないこと
-    cy.get("body").then((body) => {
-      if (body[0].querySelector(".playlist-name")) {
-        cy.get(".playlist-name").contains(now).should("have.lengthOf", 0)
-      }
-    })
-
-    cy.get(".v-select__slot").click()
-    cy.get(".menuable__content__active").contains("API非公開のみ").click()
-
-    cy.waitLoading()
-    cy.wait(500)
-
-    // 対象のプレイリストが表示されていること
-    cy.get(".playlist-name").contains(now).should("have.lengthOf", 1)
-
-    cy.get(".playlist-search input[type=text]").type(`${now}{enter}`, {
+    // API公開中
+    cy.get('[data-testid="api-status-select"]').select("API公開中のみ", {
       force: true,
     })
 
     // 対象のプレイリストが表示されていること
-    cy.get(".playlist-name").contains(now).should("have.lengthOf", 1)
+    cy.get('[data-testid="playlist-list-items"]')
+      .contains(now)
+      .should("have.lengthOf", 1)
 
-    cy.get(".playlist-search button").click()
-
-    // 対象のプレイリストが表示されていること
-    cy.get(".playlist-name").contains(now).should("have.lengthOf", 1)
-
-    cy.get(".v-select__slot").click()
-    cy.get(".menuable__content__active").contains("全て").click()
-
-    cy.waitLoading()
-    cy.wait(500)
-
-    // 対象のプレイリストが表示されていること
-    cy.get(".playlist-name").contains(now).should("have.lengthOf", 1)
-
-    cy.get(".playlist-search input[type=text]").type(`${now}{enter}`, {
+    // 検索
+    cy.get('[data-testid="search-text-input"]').clear().type(`${now}{enter}`, {
       force: true,
     })
 
     // 対象のプレイリストが表示されていること
-    cy.get(".playlist-name").contains(now).should("have.lengthOf", 1)
+    cy.get('[data-testid="playlist-list-items"]')
+      .contains(now)
+      .should("have.lengthOf", 1)
 
-    cy.get(".playlist-search button").click()
+    // 全て
+    cy.get('[data-testid="api-status-select"]').select("全て", { force: true })
 
     // 対象のプレイリストが表示されていること
-    cy.get(".playlist-name").contains(now).should("have.lengthOf", 1)
+    cy.get('[data-testid="playlist-list-items"]')
+      .contains(now)
+      .should("have.lengthOf", 1)
+
+    // 検索
+    cy.get('[data-testid="search-text-input"]').clear().type(`${now}{enter}`, {
+      force: true,
+    })
+
+    // 対象のプレイリストが表示されていること
+    cy.get('[data-testid="playlist-list-items"]')
+      .contains(now)
+      .should("have.lengthOf", 1)
   })
 })
