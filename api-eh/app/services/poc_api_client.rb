@@ -4,7 +4,8 @@
 class PocApiClient < DlabApiBase
   API_ENDPOINT =
     if Rails.env.development? || Rails.env.test?
-      'https://dev-api.nr.nhk.jp'
+      # TODO: e2eで使用するdocker-composeにIS_E2E環境変数を追加してください
+      ENV['IS_E2E'] == 'true' ? 'http://r6.0:4011' : 'https://dev-api.nr.nhk.jp'
     elsif Rails.env.dev?
       'https://dev-api-int.local.nr.nhk.jp'
     elsif Rails.env.staging?

@@ -50,6 +50,22 @@ services:
     image: redis:6.2-alpine
     ports:
       - "8379:6379"
+  r6:
+    image: mockoon/cli:latest
+    container_name: "r6"
+    command: mockoon-cli start -d /r6.json -p 4010
+    volumes:
+      - type: bind
+        source: ./r6.json
+        target: /r6.json
+  r6.0:
+    image: mockoon/cli:latest
+    container_name: "r6.0"
+    command: mockoon-cli start -d /r6.0.json -p 4011
+    volumes:
+      - type: bind
+        source: ./r6.0.json
+        target: /r6.0.json
 volumes:
   db-data:
     driver: local
