@@ -1,7 +1,7 @@
-import { faker } from "@faker-js/faker"
-faker.locale = "ja"
+import { playlist } from "../../fixtures/input"
 
 before(() => {
+  // FIXME: 効いてない？
   // APIモックを定義
   const apiUrl = Cypress.env("API_URL")
   cy.fixture("episodes/search.json").then((episodesSearchFixture) => {
@@ -24,24 +24,9 @@ before(() => {
   )
 })
 
-const now = Cypress.env("NOW")
-const playlistName = `${now}_プレイリスト`
-const playlistDetailedNameRuby = "ぷれいりすと１"
-const playlistDetailedCatch = "キャッチコピーはこちらに"
-const playlistDescription = "説明"
-const playlistKeywords = "キーワード1{enter}キーワード2{enter}"
-const playlistHashTags = "#ハッシュタグ1{enter}"
-const playlistFormatGenre = "報道"
-const playlistThemeGenre = "科学"
-const sameAsName = "same-as1"
-const sameAsUrl = "https://example.com/same-as"
-const citationName = "citation1"
-const citationUrl = "https://example.com/citation"
-const aliasId = "test-alias"
-const markedHeader = "ヘッダー"
-const markedFooter = "フッター"
-
 describe("プレイリスト新規作成", () => {
+  const now = Cypress.env("NOW")
+
   it("プレイリストを新規作成し、メタの編集をする", () => {
     cy.visit("/")
 
@@ -61,71 +46,73 @@ describe("プレイリスト新規作成", () => {
 
     // 記事(NArticle)の編集 --------------------------------------------------
     cy.contains("記事(NArticle)").click()
-    cy.get('[data-testid="markedHeader"]').type(markedHeader)
+    cy.get('[data-testid="markedHeader"]').type(playlist.markedHeader)
 
+    // paragraph
     cy.get("#editorjs").get("div.ce-block")
       .click().type("test{enter}")
+    // 画像をペースト
     cy.get('.ce-paragraph').last().paste({
       'text/plain': 'https://picsum.photos/200.jpg',
     })
     cy.get('.image-tool__image-picture').should("have.lengthOf", 1)
 
-    cy.get('[data-testid="markedFooter"]').type(markedFooter)
+    cy.get('[data-testid="markedFooter"]').type(playlist.markedFooter)
 
     // 基本情報(NSeries)の編集 ------------------------------------------------
     cy.contains("基本情報(NSeries)").click()
-
-    cy.get('[data-testid="name"]').type(playlistName)
-
+    // プレイリスト名
+    cy.get('[data-testid="name"]').type(playlist.name)
+    // ふりがな
     cy.get('[data-testid="detailedNameRuby"]')
       .clear()
-      .type(playlistDetailedNameRuby)
-
-    cy.get('[data-testid="detailedCatch"]').clear().type(playlistDetailedCatch)
-
-    cy.get('[data-testid="description"]').clear().type(playlistDescription)
-
+      .type(playlist.detailedNameRuby)
+    // キャッチコピー
+    cy.get('[data-testid="detailedCatch"]').clear().type(playlist.detailedCatch)
+    // 説明
+    cy.get('[data-testid="description"]').clear().type(playlist.description)
+    // キーワード
     cy.get('[data-testid="keywords-input-wrapper"] input[type=text]').type(
-      playlistKeywords,
+      playlist.keywords,
       { force: true }
     )
-
+    // ハッシュタグ
     cy.get('[data-testid="hashtags-input-wrapper"] input[type="text"]').type(
-      playlistHashTags,
+      playlist.hashTags,
       { force: true }
     )
-
+    // フォーマットジャンル
     cy.get('[data-testid="format-genre-wrapper"]').click()
-    cy.contains(playlistFormatGenre).click({ force: true })
-
+    cy.contains(playlist.formatGenre).click({ force: true })
+    // テーマジャンル
     cy.get('[data-testid="theme-genre-wrapper"]').click()
-    cy.contains(playlistThemeGenre).click({ force: true })
-
+    cy.contains(playlist.themeGenre).click({ force: true })
+    // 画像
     cy.attachCoverPhoto("logo")
     cy.attachCoverPhoto("eyecatch")
     cy.attachCoverPhoto("hero")
-
+    // 色
     cy.get('[data-testid="color-picker-card"]').click()
     cy.get('[data-testid="hex-color-input"]').clear().type("#FFFFFF{enter}")
-
+    // SameAs
     cy.get('[data-testid="add-same-as-button"]').click()
-    cy.get('[data-testid="sameAsAttributes.0.name"]').clear().type(sameAsName)
-    cy.get('[data-testid="sameAsAttributes.0.url"]').clear().type(sameAsUrl)
-
+    cy.get('[data-testid="sameAsAttributes.0.name"]').clear().type(playlist.sameAsName)
+    cy.get('[data-testid="sameAsAttributes.0.url"]').clear().type(playlist.sameAsUrl)
+    // Citation
     cy.get('[data-testid="add-citation-button"]').click()
     cy.get('[data-testid="citationsAttributes.0.name"]')
       .clear()
-      .type(citationName)
+      .type(playlist.citationName)
     cy.get('[data-testid="citationsAttributes.0.url"]')
       .clear()
-      .type(citationUrl)
-
-    cy.get('[data-testid="aliasId"]').type(aliasId)
-
+      .type(playlist.citationUrl)
+    // エイリアス
+    cy.get('[data-testid="aliasId"]').type(playlist.aliasId)
+    // API State
     cy.get('[data-testid="apiState"] input[type="checkbox"]').check({
       force: true,
     })
-
+    // Active ON/OFF
     cy.get('[data-testid="activeItemList"] input[type="checkbox"]').check({
       force: true,
     })
@@ -144,9 +131,7 @@ describe("プレイリスト新規作成", () => {
     cy.contains("プレイリスト").click()
     cy.contains("一覧").click({ force: true })
 
-    cy.get('[data-testid="api-status-select"]')
-      .contains("全て")
-      .click({ force: true })
+    cy.get('[data-testid="api-status-select"]').select("全て")
 
     cy.get('[data-testid="playlist-list-items"]').contains(now).click()
 
@@ -177,27 +162,27 @@ describe("プレイリスト新規作成", () => {
 
     // 記事(NArticle) タブ
     cy.contains("記事(NArticle)").click()
-    cy.get('[data-testid="markedHeader"]').should('have.value', markedHeader)
+    cy.get('[data-testid="markedHeader"]').should('have.value', playlist.markedHeader)
 
     cy.get(".ce-paragraph").contains('test')
     cy.get('.image-tool__image-picture').should("have.lengthOf", 1)
-    cy.get('[data-testid="markedFooter"]').should('have.value', markedFooter)
+    cy.get('[data-testid="markedFooter"]').should('have.value', playlist.markedFooter)
 
     // 基本情報(NSeries) タブ
     cy.contains("基本情報(NSeries)").click()
 
-    cy.get('[data-testid="name"]').should("have.value", playlistName)
+    cy.get('[data-testid="name"]').should("have.value", playlist.name)
     cy.get('[data-testid="detailedNameRuby"]').should(
       "have.value",
-      playlistDetailedNameRuby
+      playlist.detailedNameRuby
     )
     cy.get('[data-testid="detailedCatch"]').should(
       "have.value",
-      playlistDetailedCatch
+      playlist.detailedCatch
     )
     cy.get('[data-testid="description"]').should(
       "have.value",
-      playlistDescription
+      playlist.description
     )
     cy.get('[data-testid="keywords-input-wrapper"]').contains("キーワード1")
     cy.get('[data-testid="keywords-input-wrapper"]').contains("キーワード2")
@@ -205,9 +190,9 @@ describe("プレイリスト新規作成", () => {
     cy.get('[data-testid="hashtags-input-wrapper"]').contains("#ハッシュタグ1")
 
     cy.get('[data-testid="format-genre-wrapper"]').contains(
-      playlistFormatGenre
+      playlist.formatGenre
     )
-    cy.get('[data-testid="theme-genre-wrapper"]').contains(playlistThemeGenre)
+    cy.get('[data-testid="theme-genre-wrapper"]').contains(playlist.themeGenre)
 
     // 画像
     cy.get(`[data-testid="logo-image-wrapper"] img`).should(
@@ -236,26 +221,30 @@ describe("プレイリスト新規作成", () => {
     cy.get('[data-testid="adjusted-color-text-linkLight"]').contains("#747474")
     cy.get('[data-testid="adjusted-color-text-linkDark"]').contains("#ffffff")
 
+    // SameAs
     cy.get('[data-testid="sameAsAttributes.0.name"]').should(
       "have.value",
-      sameAsName
+      playlist.sameAsName
     )
     cy.get('[data-testid="sameAsAttributes.0.url"]').should(
       "have.value",
-      sameAsUrl
+      playlist.sameAsUrl
     )
 
+    // Citation
     cy.get('[data-testid="citationsAttributes.0.name"]').should(
       "have.value",
-      citationName
+      playlist.citationName
     )
     cy.get('[data-testid="citationsAttributes.0.url"]').should(
       "have.value",
-      citationUrl
+      playlist.citationUrl
     )
 
-    cy.get('[data-testid="aliasId"]').should("have.value", aliasId)
+    // エイリアスID
+    cy.get('[data-testid="aliasId"]').should("have.value", playlist.aliasId)
 
+    // API State
     cy.get('[data-testid="apiState"] input[type="checkbox"]').should(
       "be.checked"
     )

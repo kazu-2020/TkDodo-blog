@@ -26,6 +26,7 @@ export const DeletePlaylist = ({ playlistId, onDrawerClose }: Props) => {
   return (
     <>
       <Button
+        data-testid="playlist-drawer-delete-button"
         colorScheme="red"
         variant="outline"
         onClick={onOpen}
@@ -56,6 +57,7 @@ export const DeletePlaylist = ({ playlistId, onDrawerClose }: Props) => {
                 キャンセル
               </Button>
               <Button
+                data-testid="playlist-alert-delete-button"
                 colorScheme="red"
                 isLoading={deletePlaylistMutation.isLoading}
                 loadingText="送信中"
