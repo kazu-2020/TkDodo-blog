@@ -33,6 +33,7 @@ const PersonOrganizationRadio = ({
       control={control}
       render={({ field: { onChange, value } }) => (
         <RadioGroup
+          data-testid={`${inputName}-radio-group`}
           onChange={onChange}
           value={value}
           defaultValue="Organization"
