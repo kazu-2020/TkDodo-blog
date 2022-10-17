@@ -23,7 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-
+import '@testing-library/cypress/add-commands'
 import "cypress-real-events/support"
 import "cypress-file-upload"
 
@@ -45,20 +45,27 @@ Cypress.Commands.add("attachCoverPhoto", (imageType) => {
   cy.get('[data-testid="crop-image-button"]').click()
 })
 
-Cypress.Commands.add('paste', {
-  prevSubject: true,
-}, (subject, data) => {
-  const pasteEvent = Object.assign(new Event('paste', {
-    bubbles: true,
-    cancelable: true,
-  }), {
-    clipboardData: {
-      getData: (type) => data[type],
-      types: Object.keys(data),
-    },
-  })
+Cypress.Commands.add(
+  "paste",
+  {
+    prevSubject: true,
+  },
+  (subject, data) => {
+    const pasteEvent = Object.assign(
+      new Event("paste", {
+        bubbles: true,
+        cancelable: true,
+      }),
+      {
+        clipboardData: {
+          getData: (type) => data[type],
+          types: Object.keys(data),
+        },
+      }
+    )
 
-  subject[0].dispatchEvent(pasteEvent)
+    subject[0].dispatchEvent(pasteEvent)
 
-  return subject
-})
+    return subject
+  }
+)

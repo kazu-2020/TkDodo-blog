@@ -27,10 +27,10 @@ module.exports = (on, config) => {
 
   on("task", {
     log(message) {
-      console.log(message);
-      return null;
+      console.log(message)
+      return null
     },
-  });
+  })
 
   config.env.NOW = new Date()
 
