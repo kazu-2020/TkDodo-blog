@@ -34,13 +34,12 @@ const requestParams = (data: RecommendDeckParams) => {
         },
         { exclude: ['_destroy'] }
       ),
-      enable_list_update: data.enableListUpdate ? '1' : ''
+      enable_list_update: data.enableListUpdate
     }
   }
-
   return {
     deck: snakecaseKeys(data),
-    enable_list_update: data.enableListUpdate ? '1' : ''
+    enable_list_update: data.enableListUpdate
   }
 }
 

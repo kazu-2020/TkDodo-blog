@@ -29,13 +29,13 @@ const requestParams = (data: SeriesDeckParams) => {
         ...params,
         apiState: data.apiState ? 'open' : 'close'
       }),
-      enable_list_update: data.enableListUpdate ? '1' : ''
+      enable_list_update: data.enableListUpdate
     }
   }
 
   return {
     series_deck: snakecaseKeys(data),
-    enable_list_update: data.enableListUpdate ? '1' : ''
+    enable_list_update: data.enableListUpdate
   }
 }
 
