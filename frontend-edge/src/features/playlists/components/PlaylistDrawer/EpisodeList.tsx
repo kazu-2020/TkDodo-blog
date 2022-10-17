@@ -49,7 +49,7 @@ export const EpisodeList = ({ playlist }: Props) => {
 
   if (isSuccess && data?.length) {
     return (
-      <Box px={7} py={5}>
+      <Box px={7} py={5} data-testid="playlist-drawer-episode-list">
         <Spacer mt={5} />
         <VStack align="flex-start" spacing={3}>
           {data?.map((item: EpisodeData) => (

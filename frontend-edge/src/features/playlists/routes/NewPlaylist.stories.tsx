@@ -74,9 +74,7 @@ export const EditSeriesPlaylist: ComponentStoryObj<typeof NewPlaylist> = {
     )
 
     // マイナスボタンで編成解除
-    const editSeriesPlaylist = within(
-      canvas.getByTestId('edit-series-playlist')
-    )
+    const editSeriesPlaylist = within(canvas.getByTestId('edit-episode-list'))
     await userEvent.click(
       editSeriesPlaylist.getAllByRole('button', { name: '削除' })[0]
     )

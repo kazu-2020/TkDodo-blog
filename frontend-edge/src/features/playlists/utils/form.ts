@@ -31,8 +31,8 @@ export const playlistToDefaultValues = (
   description: playlist?.description,
   keywords: playlist?.keywords ? arrayToOptions(playlist.keywords) : [],
   hashtags: playlist?.hashtag ? arrayToOptions(playlist.hashtag) : [],
-  formatGenre: playlist?.formatGenre,
-  themeGenre: playlist?.themeGenre,
+  formatGenreCode: playlist?.formatGenre,
+  themeGenreCode: playlist?.themeGenre,
   selectedPalette:
     playlist?.selectedPalette ||
     PALETTE_BASE_COLORS[Math.floor(Math.random() * PALETTE_BASE_COLORS.length)],

@@ -44,6 +44,7 @@ export const EditEpisodeListItem = ({ episode, onClick }: Props) => {
 
   return (
     <Grid
+      data-testid="edit-episode-list__item"
       templateColumns="repeat(36, 1fr)"
       gap={2}
       borderBottom="1px"

@@ -29,7 +29,7 @@ export const EpisodeListItem = ({
   const seriesName = episodeItem.partOfSeries?.name || ''
 
   return (
-    <Flex {...props}>
+    <Flex {...props} data-testid="playlist-drawer-episode-list__item">
       <Box pos="relative" flex="0 0 100px">
         <Image
           w="100px"

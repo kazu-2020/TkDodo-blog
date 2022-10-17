@@ -70,7 +70,13 @@ export const ActorContributor = ({ playlist }: Props) => {
   }
 
   return (
-    <Box borderTop="1px" borderColor="gray.200" px={7} py={5}>
+    <Box
+      borderTop="1px"
+      borderColor="gray.200"
+      px={7}
+      py={5}
+      data-testid="playlist-drawer__actor-contributor"
+    >
       <Text>出演者/スタッフ</Text>
       <Spacer mt={5} />
       <VStack align="flex-start" spacing={4}>

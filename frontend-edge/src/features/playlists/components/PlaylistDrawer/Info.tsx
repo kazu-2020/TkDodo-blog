@@ -37,7 +37,7 @@ export const Info = ({ playlist }: Props) => {
   }
 
   return (
-    <Box>
+    <Box data-testid="playlist-drawer-info">
       <VStack
         align="flex-start"
         spacing={4}
@@ -73,7 +73,7 @@ export const Info = ({ playlist }: Props) => {
             </Badge>
           )}
         </Box>
-        <HStack>
+        <HStack data-testid="playlist-drawer-info__images">
           <Image
             w="73px"
             src={playlist.logo?.medium?.url}

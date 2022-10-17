@@ -46,6 +46,7 @@ export const PlaylistImageFormItem = ({
     <FormControl id={name} isInvalid={!!error} isRequired w={width} {...props}>
       <PropertyLabel label={label} schemaName={schemaName} />
       <PlaylistImageFormItemImage
+        name={imageType}
         src={watch(name)}
         htmlWidth={width}
         htmlHeight={height}

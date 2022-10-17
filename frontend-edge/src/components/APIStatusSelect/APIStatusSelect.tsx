@@ -11,6 +11,7 @@ export const APIStatusSelect = ({
   onChange = undefined
 }: Props) => (
   <Select
+    data-testid="api-status-select"
     variant="outline"
     bg="white"
     onChange={(event: ChangeEvent<HTMLSelectElement>) => {

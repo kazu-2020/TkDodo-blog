@@ -28,6 +28,7 @@ const ColorPicker = ({
   <Stack spacing={4}>
     <HexColorPicker color={color} onChange={setColor} />
     <HexColorInput
+      data-testid="hex-color-input"
       prefixed
       color={color}
       onChange={setColor}
@@ -71,7 +72,7 @@ export const ColorPickerCard = ({
       size="xs"
     >
       <PopoverTrigger>
-        <Box as="label">
+        <Box as="label" data-testid="color-picker-card">
           <Flex
             cursor="pointer"
             borderWidth="1px"

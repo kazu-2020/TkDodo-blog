@@ -87,6 +87,7 @@ export const Step3Content = ({
           戻る
         </Button>
         <Button
+          data-testid="crop-image-button"
           onClick={() => {
             setValue(`${imageType}ImageSrc`, croppedImageData || '', {
               shouldDirty: true,

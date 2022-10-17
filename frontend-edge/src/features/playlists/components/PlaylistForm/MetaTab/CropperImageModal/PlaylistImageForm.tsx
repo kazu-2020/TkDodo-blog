@@ -22,7 +22,7 @@ export const PlaylistImageForm = () => {
           width={140}
           height={140}
         />
-        <PlaylistImageFormItem
+         <PlaylistImageFormItem
           imageType="eyecatch"
           label="アイキャッチ"
           schemaName="Eyecatch"
@@ -30,8 +30,8 @@ export const PlaylistImageForm = () => {
           setImageType={setImageType}
           width={250}
           height={140}
-        />
-        <PlaylistImageFormItem
+         />
+         <PlaylistImageFormItem
           imageType="hero"
           label="ヒーロー"
           schemaName="Hero"
@@ -39,7 +39,7 @@ export const PlaylistImageForm = () => {
           setImageType={setImageType}
           width={420}
           height={140}
-        />
+         />
       </HStack>
       <CropperImageModal
         imageType={imageType}
