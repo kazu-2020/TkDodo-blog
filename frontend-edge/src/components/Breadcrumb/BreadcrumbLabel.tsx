@@ -14,6 +14,7 @@ export const BreadcrumbLabel = [
   {
     path: '/',
     children: [
+      { index: true, breadcrumb: 'ホーム' },
       { path: 'playlists', breadcrumb: 'プレイリスト一覧' },
       { path: 'playlists/new', breadcrumb: 'プレイリスト新規作成' },
       { path: 'playlists/:playlistUId', breadcrumb: EditTitle },

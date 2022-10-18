@@ -5,7 +5,7 @@ import Link from './Link'
 
 const Home = () => (
   <>
-    <Heading size="md" mb={4}>
+    <Heading size="md" mb={4} mt={4}>
       プレイリスト
     </Heading>
     <HStack spacing={4}>
