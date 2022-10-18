@@ -65,6 +65,7 @@ end
 group :test do
   gem 'database_cleaner-active_record'
   gem 'factory_bot'
+  gem 'rspec-openapi'
   gem 'rubocop-rspec'
   gem 'vcr'
 end

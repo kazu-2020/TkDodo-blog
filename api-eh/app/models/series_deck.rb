@@ -14,6 +14,8 @@ class SeriesDeck < ApplicationRecord
   before_save :set_string_id
   after_create :set_initial_string_id
 
+  validates :name, :interfix, presence: true
+
   scope :name_or_admin_memo_like, lambda { |query|
     where('name LIKE ?', "%#{query}%").or(where('admin_memo LIKE ?', "%#{query}%"))
   }

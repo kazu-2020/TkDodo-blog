@@ -145,4 +145,62 @@ describe SeriesDecksController, type: :request do
                                                        'recipeCount')
     end
   end
+
+  describe 'POST #create' do
+    context '必須項目が入力されている場合' do
+      it 'デッキが作成できること' do
+        expect do
+          post series_decks_path, params: { series_deck: { name: 'テストデッキ', interfix: 'test' } }
+        end.to change(SeriesDeck, :count).by(1)
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['deck']['name']).to eq 'テストデッキ'
+        expect(json['deck']['interfix']).to eq 'test'
+      end
+    end
+
+    context '必須項目が入力されていない場合' do
+      it 'デッキが作成できないこと' do
+        expect do
+          post series_decks_path, params: { series_deck: { name: '', interfix: '' } }
+        end.to change(SeriesDeck, :count).by(0)
+        expect(response.status).to eq 422
+        json = JSON.parse(response.body)
+        expect(json['messages']).to eq %w[Nameを入力してください Interfixを入力してください]
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    let!(:series_deck) { create :series_deck }
+
+    context '正常に更新された場合' do
+      it 'デッキが更新できること' do
+        patch series_deck_path(series_deck.id), params: { series_deck: { name: '更新デッキ' } }
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['deck']['name']).to eq '更新デッキ'
+      end
+    end
+
+    context '更新に失敗した場合' do
+      it 'デッキが更新できないこと' do
+        patch series_deck_path(series_deck.id), params: { series_deck: { name: '', interfix: '' } }
+        expect(response.status).to eq 422
+        json = JSON.parse(response.body)
+        expect(json['messages']).to eq %w[Nameを入力してください Interfixを入力してください]
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    let!(:series_deck) { create :series_deck }
+
+    it 'デッキが削除できること' do
+      expect do
+        delete series_deck_path(series_deck.id)
+      end.to change(SeriesDeck, :count).by(-1)
+      expect(response.status).to eq 200
+    end
+  end
 end
