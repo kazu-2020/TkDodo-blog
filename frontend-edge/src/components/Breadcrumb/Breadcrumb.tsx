@@ -24,7 +24,7 @@ export const Breadcrumb = (props: StyleProps) => {
           <BreadcrumbItem
             key={match.pathname}
             fontSize="sm"
-            color="disabled"
+            fontWeight="bold"
             isCurrentPage
           >
             {breadcrumb}
