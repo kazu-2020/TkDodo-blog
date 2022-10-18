@@ -31,6 +31,11 @@ export const SearchPlaylist = ({ query }: Props) => {
     setPage(1)
   }
 
+  if ((query.isLoading || query.isFetching) && page !== 0) {
+    setPage(0)
+    onClose()
+  }
+
   return (
     <Box>
       <Carousel

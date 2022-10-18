@@ -1,3 +1,4 @@
+import { UseInfiniteQueryResult } from 'react-query'
 import React from 'react'
 import { Box, HStack, Text, VStack } from '@chakra-ui/react'
 import { ChevronLeftIcon } from '@chakra-ui/icons'
@@ -7,7 +8,10 @@ import { EpisodeData } from '@/types/episode_data'
 import { SearchResultLoadMoreButton } from '@/features/playlists/components/PlaylistForm/ListTab/SearchResultLoadMoreButton'
 import { SearchEpisodeItems } from '@/features/playlists/components/PlaylistForm/ListTab/SearchEpisodeItems'
 import { EpisodeHeader } from '@/features/playlists/components/PlaylistForm/ListTab/EpisodeHeader'
-import { useSearchEpisode } from '@/features/playlists/api/getSearchEpisode'
+import {
+  Response,
+  useSearchEpisode
+} from '@/features/playlists/api/getSearchEpisode'
 import { ListScreenSkeleton } from '@/components/ListScreenSkeleton'
 import { NoDataFound } from '@/components/Alert'
 
@@ -17,6 +21,9 @@ type Props = {
   onClick: (episode: EpisodeData) => void
   selectedSeries?: SeriesData
 }
+
+const isNewFetching = (query: UseInfiniteQueryResult<Response, Error>) =>
+  query.isLoading || (query.isFetching && !query.isFetchingNextPage)
 
 export const SearchSeriesEpisodeList = ({
   isOpen,
@@ -52,15 +59,13 @@ export const SearchSeriesEpisodeList = ({
       <VStack p={0}>
         <EpisodeHeader />
 
-        {!episodeQuery.isLoading &&
-          !episodeQuery.isFetching &&
-          episodeCount === 0 && (
-            <Box>
-              <NoDataFound />
-            </Box>
-          )}
+        {!isNewFetching(episodeQuery) && episodeCount === 0 && (
+          <Box>
+            <NoDataFound />
+          </Box>
+        )}
 
-        {isOpen && !episodeQuery.isLoading && episodeCount > 0 && (
+        {isOpen && !isNewFetching(episodeQuery) && episodeCount > 0 && (
           <Box w="100%">
             {episodeQuery.data?.pages.map(({ items }) => (
               <SearchEpisodeItems
@@ -72,7 +77,7 @@ export const SearchSeriesEpisodeList = ({
           </Box>
         )}
 
-        {episodeQuery.isLoading && (
+        {isNewFetching(episodeQuery) && (
           <Box w="100%">
             <ListScreenSkeleton size={10} />
           </Box>
