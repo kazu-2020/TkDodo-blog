@@ -15,7 +15,7 @@
 docker compose run --rm frontend-edge pnpm install
 docker compose run --rm --service-ports frontend-edge pnpm dev --host
 ```
-http://localhost:3000/
+http://localhost:5173/
 
 #### local
 - Node 18+
@@ -25,7 +25,7 @@ pnpm install
 pnpm dev
 ```   
 
-http://localhost:3000/
+http://localhost:5173/
 
 ### 主な利用ライブラリ
 - [Vite](https://ja.vitejs.dev/) + react-ts
