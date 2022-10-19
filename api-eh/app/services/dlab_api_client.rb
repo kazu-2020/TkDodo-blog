@@ -3,7 +3,7 @@
 class DlabApiClient < DlabApiBase
   API_ENDPOINT =
     if Rails.env.development? || Rails.env.dev? || Rails.env.test?
-      ENV['IS_E2E'] == 'true' ? 'http://r6:4010' : 'https://dev-api.nr.nhk.jp'
+      ENV['E2E_MODE'] == '1' ? 'http://r6:4010' : 'https://dev-api.nr.nhk.jp'
     elsif Rails.env.staging?
       'https://stg-api.nr.nhk.jp'
     elsif Rails.env.production?

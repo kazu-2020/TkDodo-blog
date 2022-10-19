@@ -46,7 +46,7 @@ services:
       - DB_PORT=3306
       - RAILS_ENV=${RAILS_ENV:-development}
       - REDIS_URL=redis://redis:6379
-      - IS_E2E=true
+      - E2E_MODE=1
     depends_on:
       - db
       - redis
