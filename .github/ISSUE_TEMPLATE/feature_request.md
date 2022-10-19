@@ -1,6 +1,6 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
+name: UI変更・機能追加のテンプレート
+about: UI変更・機能追加のIssueを作成するためのテンプレートです
 title: 'UI変更・機能追加'
 labels: ''
 assignees: ''
