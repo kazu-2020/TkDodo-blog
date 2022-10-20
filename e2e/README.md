@@ -8,7 +8,7 @@ e2eディレクトリにて、以下のコマンドを実行してください�
 
 ```
 $ docker compose build
-$ docker compose run frontend npm install
+$ docker compose run frontend pnpm install
 $ docker compose run backend bin/setup
 ```
 
