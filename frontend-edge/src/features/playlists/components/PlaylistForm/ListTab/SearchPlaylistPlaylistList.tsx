@@ -17,6 +17,9 @@ type Props = {
   query: UseInfiniteQueryResult<Response, Error>
 }
 
+const isNewFetching = (query: UseInfiniteQueryResult<Response, Error>) =>
+  query.isLoading || (query.isFetching && !query.isFetchingNextPage)
+
 export const SearchPlaylistPlaylistList = ({
   query,
   isOpenEpisodes,
@@ -29,28 +32,25 @@ export const SearchPlaylistPlaylistList = ({
       <VStack pt={0} pb={3}>
         <SearchResultCount count={playlistCount} />
         <SeriesHeader />
-        {!query.isLoading && !query.isFetching && playlistCount === 0 && (
+        {!isNewFetching(query) && playlistCount === 0 && (
           <Box>
             <NoDataFound />
           </Box>
         )}
 
-        {!isOpenEpisodes &&
-          !query.isLoading &&
-          !query.isFetching &&
-          playlistCount > 0 && (
-            <Box w="100%">
-              {query.data?.pages.map(({ items }) => (
-                <SearchPlaylistItems
-                  key={items[0].id}
-                  items={items}
-                  onClick={(item) => onClick(item)}
-                />
-              ))}
-            </Box>
-          )}
+        {!isOpenEpisodes && !isNewFetching(query) && playlistCount > 0 && (
+          <Box w="100%">
+            {query.data?.pages.map(({ items }) => (
+              <SearchPlaylistItems
+                key={items[0].id}
+                items={items}
+                onClick={(item) => onClick(item)}
+              />
+            ))}
+          </Box>
+        )}
 
-        {query.isLoading && (
+        {isNewFetching(query) && (
           <Box w="100%">
             <ListScreenSkeleton size={10} />
           </Box>

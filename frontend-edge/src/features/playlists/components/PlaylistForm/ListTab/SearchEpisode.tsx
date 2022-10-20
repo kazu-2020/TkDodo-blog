@@ -16,6 +16,9 @@ type Props = {
   query: UseInfiniteQueryResult<Response, Error>
 }
 
+const isNewFetching = (query: UseInfiniteQueryResult<Response, Error>) =>
+  query.isLoading || (query.isFetching && !query.isFetchingNextPage)
+
 export const SearchEpisode = ({ query }: Props) => {
   const {
     isOpen: isOpenEpisode,
@@ -31,13 +34,13 @@ export const SearchEpisode = ({ query }: Props) => {
         <SearchResultCount count={totalCount} />
         <EpisodeHeader />
 
-        {!query.isLoading && !query.isFetching && totalCount === 0 && (
+        {!isNewFetching(query) && totalCount === 0 && (
           <Box w="100%">
             <NoDataFound />
           </Box>
         )}
 
-        {!query.isLoading && totalCount > 0 && (
+        {!isNewFetching(query) && totalCount > 0 && (
           <Box w="100%">
             {query.data?.pages.map(({ items }) => (
               <SearchEpisodeItems
@@ -52,7 +55,7 @@ export const SearchEpisode = ({ query }: Props) => {
           </Box>
         )}
 
-        {query.isLoading && (
+        {isNewFetching(query) && (
           <Box w="100%">
             <ListScreenSkeleton size={10} />
           </Box>
