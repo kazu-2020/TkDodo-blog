@@ -100,7 +100,7 @@ services:
       - CYPRESS_API_URL=http://backend:8888
     volumes:
       - ./e2e/cypress:/app/cypress
-      - ./e2e/cypress.config.js:/app/cypress.config.js
+      - ./e2e/cypress.config.ts:/app/cypress.config.ts
       - ./e2e/results:/results
 volumes:
   db-data:
