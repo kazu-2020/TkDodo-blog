@@ -1,29 +1,5 @@
 import { playlist } from "../../fixtures/input"
 
-before(() => {
-  // FIXME: 効いてない？
-  // APIモックを定義
-  const apiUrl = Cypress.env("API_URL")
-  cy.fixture("episodes/search.json").then((episodesSearchFixture) => {
-    cy.intercept(
-      "GET",
-      `${apiUrl}/episodes/search?word=&offset=0&order_by=score&order=desc&ignore_range=false&size=10`,
-      episodesSearchFixture
-    )
-  })
-
-  cy.intercept(
-    "GET",
-    `${apiUrl}/episodes/bundle_items?episode_ids=123JXPM5ZQ`,
-    { tvepisode: 1, event: 0, howto: 0, faqpage: 0 }
-  )
-  cy.intercept(
-    "GET",
-    `${apiUrl}/episodes/bundle_items?episode_ids=123JXPM5ZQ%2CQZ1M9NX81N`,
-    { tvepisode: 2, event: 0, howto: 0, faqpage: 0 }
-  )
-})
-
 describe("プレイリスト新規作成", () => {
   const now = Cypress.env("NOW")
 

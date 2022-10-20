@@ -14,8 +14,6 @@ describe('プレイリスト削除', () => {
 
     cy.get('[data-testid="playlist-alert-delete-button"]').click()
 
-    cy.wait(2000)
-
     cy.get('[data-testid="playlist-list-items"]').contains(now).should('have.lengthOf', 0)
   })
 })

@@ -12,5 +12,6 @@ export default defineConfig({
       return require("./cypress/plugins")(on, config)
     },
     baseUrl: "http://localhost:5173",
+    defaultCommandTimeout: 6000,
   },
 })

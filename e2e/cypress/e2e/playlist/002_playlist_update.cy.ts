@@ -62,8 +62,6 @@ describe("プレイリスト更新", () => {
 
     cy.get('[data-testid="api-status-select"]').select("全て")
 
-    cy.wait(1000)
-
     cy.get('[data-testid="playlist-list-items"]').contains(now).click()
 
     // ドロワーの内容チェック
