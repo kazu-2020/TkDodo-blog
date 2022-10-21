@@ -97,7 +97,7 @@ describe("プレイリスト新規作成", () => {
     })
 
     cy.contains("保存する").click({ force: true })
-    cy.wait(5000)
+    cy.wait(1000)
     cy.contains("作成しました")
   })
 
@@ -238,47 +238,24 @@ describe("プレイリスト新規作成", () => {
     cy.contains("プレイリスト").click()
     cy.contains("一覧").click({ force: true })
 
-    // API非公開
-    cy.get('[data-testid="api-status-select"]').select("API非公開のみ", {
-      force: true,
-    })
-
-    // 対象のプレイリストが表示されていないこと
-    cy.get('[data-testid="playlist-list-items"]')
-      .contains(now)
-      .should("have.lengthOf", 0)
-
     // 検索
     cy.get('[data-testid="search-text-input"]').type(`${now}{enter}`, {
       force: true,
     })
 
-    // 対象のプレイリストが表示されていないこと
-    cy.get('[data-testid="playlist-list-items"]')
-      .contains(now)
-      .should("have.lengthOf", 0)
-
-    // 対象のプレイリストが表示されていないこと
-    cy.get("body").then((body) => {
-      if (body[0].querySelector(".playlist-name")) {
-        cy.get(".playlist-name").contains(now).should("have.lengthOf", 0)
-      }
+    // API非公開
+    cy.get('[data-testid="api-status-select"]').select("API非公開のみ", {
+      force: true,
     })
+
+    cy.contains("見つかりませんでした")
 
     // API公開中
     cy.get('[data-testid="api-status-select"]').select("API公開中のみ", {
       force: true,
     })
 
-    // 対象のプレイリストが表示されていること
-    cy.get('[data-testid="playlist-list-items"]')
-      .contains(now)
-      .should("have.lengthOf", 1)
-
-    // 検索
-    cy.get('[data-testid="search-text-input"]').clear().type(`${now}{enter}`, {
-      force: true,
-    })
+    cy.wait(200)
 
     // 対象のプレイリストが表示されていること
     cy.get('[data-testid="playlist-list-items"]')
@@ -288,15 +265,7 @@ describe("プレイリスト新規作成", () => {
     // 全て
     cy.get('[data-testid="api-status-select"]').select("全て", { force: true })
 
-    // 対象のプレイリストが表示されていること
-    cy.get('[data-testid="playlist-list-items"]')
-      .contains(now)
-      .should("have.lengthOf", 1)
-
-    // 検索
-    cy.get('[data-testid="search-text-input"]').clear().type(`${now}{enter}`, {
-      force: true,
-    })
+    cy.wait(200)
 
     // 対象のプレイリストが表示されていること
     cy.get('[data-testid="playlist-list-items"]')

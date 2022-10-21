@@ -46,7 +46,8 @@ services:
       - DB_PORT=3306
       - RAILS_ENV=${RAILS_ENV:-development}
       - REDIS_URL=redis://redis:6379
-      - E2E_MODE=1
+      - R6_API_ENDPOINT=http://r6:4010
+      - R60_API_ENDPOINT=http://r6.0:4011
     depends_on:
       - db
       - redis
@@ -82,6 +83,7 @@ services:
         target: /r6.0.json
   e2e:
     build:
+      context: .
       dockerfile: Dockerfile
     command: /bin/sh -c "npx cypress run --browser chrome --headless"
     depends_on:
@@ -99,9 +101,9 @@ services:
       - CYPRESS_videosFolder=/results/videos
       - CYPRESS_API_URL=http://backend:8888
     volumes:
-      - ./e2e/cypress:/app/cypress
-      - ./e2e/cypress.config.ts:/app/cypress.config.ts
-      - ./e2e/results:/results
+      - ./cypress:/app/cypress
+      - ./cypress.config.ts:/app/cypress.config.ts
+      - ./results:/results
 volumes:
   db-data:
   bundle:

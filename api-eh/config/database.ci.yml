@@ -9,6 +9,10 @@ default: &default
   username: root
   password: root
 
+development:
+  <<: *default
+  database: aw-editorialhands
+
 test:
   <<: *default
   database: aw-editorialhands_test

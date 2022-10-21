@@ -1,5 +1,5 @@
 describe('シリーズデッキ削除', () => {
-  it('シリーズデッキを削除する', () => {
+  xit('シリーズデッキを削除する', () => {
     const now = Cypress.env('NOW')
 
     cy.visit('/')
@@ -21,7 +21,7 @@ describe('シリーズデッキ削除', () => {
     cy.wait(2000)
   })
 
-  it('削除したシリーズデッキが検索されないこと', () => {
+  xit('削除したシリーズデッキが検索されないこと', () => {
     const now = Cypress.env('NOW')
 
     cy.visit('/')
