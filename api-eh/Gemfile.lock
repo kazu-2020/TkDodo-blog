@@ -391,6 +391,8 @@ GEM
       activesupport
       rainbow
       tilt
+    request_store (1.5.1)
+      rack (>= 1.4)
     rexml (3.2.5)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
@@ -547,6 +549,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (~> 7.0.3)
   redis
+  request_store
   rspec-openapi
   rspec-rails
   rubocop
