@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class SeriesDecksController < ApplicationController
+  include ControllerHelper
+
+  after_action :set_x_api_url_to_header
   before_action :set_pagination, only: [:index]
 
   DEFAULT_PAGE = 1

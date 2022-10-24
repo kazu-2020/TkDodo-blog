@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class PlaylistsController < ApplicationController
+  include ControllerHelper
+
+  after_action :set_x_api_url_to_header
   before_action :set_playlist, only: %i[update destroy actors_and_contributors]
   before_action :set_pagination, only: [:index]
 
