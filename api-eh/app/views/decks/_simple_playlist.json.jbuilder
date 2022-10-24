@@ -21,7 +21,7 @@ json.primaryDark playlist.primary_dark_color
 json.textLight playlist.text_light_color
 json.textDark playlist.text_dark_color
 json.linkLight playlist.link_light_color
-json.linkDark playlist.text_dark_color
+json.linkDark playlist.link_dark_color
 if playlist.same_as.present?
   json.sameAs do
     json.array! playlist.same_as do |same_as|
