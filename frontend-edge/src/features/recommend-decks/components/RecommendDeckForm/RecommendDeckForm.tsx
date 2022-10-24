@@ -2,6 +2,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import React, { useEffect } from 'react'
 import { DevTool } from '@hookform/devtools'
 
+import { usePrompt } from '@/utils/form-guard'
 import { RecommendDeck } from '@/types/recommend_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
 import { useRecommendDeckFormStore } from '@/features/recommend-decks/stores/recommendDeckForm'
@@ -36,7 +37,7 @@ export const RecommendDeckForm = ({ recommendDeck = undefined }: Props) => {
     handleSubmit,
     trigger,
     reset,
-    formState: { dirtyFields }
+    formState: { dirtyFields, isDirty }
   } = formMethods
 
   const {
@@ -58,6 +59,8 @@ export const RecommendDeckForm = ({ recommendDeck = undefined }: Props) => {
     setInputValues(getValues())
     trigger()
   }, [recommendDeck, setRecommendPlaylists, setInputValues, getValues, trigger])
+
+  usePrompt('編集中のデータがあります。ページを離れますか？', isDirty)
 
   const createRecommendDeckMutation = useCreateRecommendDeck()
   const updateRecommendDeckMutation = useUpdateRecommendDeck()
