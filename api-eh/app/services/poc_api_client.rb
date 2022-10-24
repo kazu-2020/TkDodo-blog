@@ -20,7 +20,6 @@ class PocApiClient < DlabApiBase
   DEFAULT_ENVIRONMENT = 'okushibu3'
   DEFAULT_TYPE_OF_LIST = 'recommend'
   DEFAULT_MODE_OF_ITEM = 'tv'
-  DEFAULT_ENVIRONMENT = 'okushibu3'
 
   attr_reader :api_endpoint, :version
 
@@ -38,8 +37,9 @@ class PocApiClient < DlabApiBase
   #
   # @param [Hash] query
   def search(query: {})
-    res = client.get "/#{version}/s/extended.json", INTERNAL_PARAMS.merge(query)
-    handle_response(res)
+    url = "/#{version}/s/extended.json?#{INTERNAL_PARAMS.merge(query).to_query}"
+    res = client.get url
+    handle_response(response: res, url: url)
   end
 
   # TvEpisode データを取得する
@@ -50,8 +50,9 @@ class PocApiClient < DlabApiBase
   # @param [String] episode_id: エピソードID
   # @param [Hash] query
   def episode(episode_id:, query: {})
-    res = client.get "/#{version}/t/tvepisode/te/#{episode_id}.json", INTERNAL_PARAMS.merge(query)
-    handle_response(res)
+    url = "/#{version}/t/tvepisode/te/#{episode_id}.json?#{INTERNAL_PARAMS.merge(query).to_query}"
+    res = client.get url
+    handle_response(response: res, url: url)
   end
 
   # TvEpisode データを取得する
@@ -59,23 +60,28 @@ class PocApiClient < DlabApiBase
   # @param [String] playlist_id: プレイリストID
   # @param [Hash] query
   def episode_from_playlist(playlist_id:, query: {})
-    res = client.get "/#{version}/l/tvepisode/pl/#{playlist_id}.json", query
-    handle_response(res)
+    url = "/#{version}/l/tvepisode/pl/#{playlist_id}.json?#{INTERNAL_PARAMS.merge(query).to_query}"
+    res = client.get url
+    handle_response(response: res, url: url)
   end
 
   # 視聴可能なエピソードを取得する
   #
   # @param [String] playlist_id: プレイリストID
   def available_episode_from_playlist(playlist_id:)
-    res = client.get "/#{version}/l/tvepisode/pl/#{playlist_id}.json", { availableOn: DEFAULT_ENVIRONMENT }
-    JSON.parse(res.body, symbolize_names: true) # 視聴可能なエピソードが存在しない場合404が返却されるためその対応
+    url = "/#{version}/l/tvepisode/pl/#{playlist_id}.json?availableOn=#{DEFAULT_ENVIRONMENT}"
+    res = client.get url
+    return if res.status == 404 # 視聴可能なエピソードが存在しない場合404が返却されるためその対応
+
+    handle_response(response: res, url: url)
   end
 
   # プレイリスト下の全TvEpisodeID に紐づく各type数を取得する
   #
   # @param [String] playlist_id: プレイリストID
   def playlist_ll_bundle(playlist_id:)
-    res = client.get "/#{version}/ll/bundle/pl/#{playlist_id}/types.json"
-    handle_response(res)
+    url = "/#{version}/ll/bundle/pl/#{playlist_id}/types.json"
+    res = client.get url
+    handle_response(response: res, url: url)
   end
 end
