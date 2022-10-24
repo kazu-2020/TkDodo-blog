@@ -1,3 +1,4 @@
+import { useFormContext } from 'react-hook-form'
 import React from 'react'
 import {
   arrayMove,
@@ -16,18 +17,14 @@ import {
 } from '@dnd-kit/core'
 import { Alert, AlertIcon, Box, Grid, GridItem, Text } from '@chakra-ui/react'
 
-import { useSeriesDeckFormStore } from '@/features/series-decks/stores/seriesDeckForm'
+import { SeriesDeckFormInputs } from '@/features/series-decks/types'
 import { EditSeriesPlaylistListItem } from '@/features/series-decks/components/SeriesDeckForm/EditSeriesPlaylistListItem'
 
 import { SortableItem } from './SortableItem'
 
 export const EditSeriesPlaylist = () => {
-  const { seriesPlaylists, setSeriesPlaylists } = useSeriesDeckFormStore(
-    (state) => ({
-      seriesPlaylists: state.seriesPlaylists,
-      setSeriesPlaylists: state.setSeriesPlaylists
-    })
-  )
+  const { getValues, setValue } = useFormContext<SeriesDeckFormInputs>()
+  const seriesPlaylists = getValues('playlists')
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -44,6 +41,8 @@ export const EditSeriesPlaylist = () => {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
 
+    if (!seriesPlaylists) return
+
     if (active.id !== over?.id) {
       const oldIndex = seriesPlaylists.findIndex(
         (pl) => pl.seriesId === active.id
@@ -52,7 +51,7 @@ export const EditSeriesPlaylist = () => {
         (pl) => pl.seriesId === over?.id
       )
       const newSeriesPlaylists = arrayMove(seriesPlaylists, oldIndex, newIndex)
-      setSeriesPlaylists(newSeriesPlaylists)
+      setValue('playlists', newSeriesPlaylists, { shouldDirty: true })
     }
   }
 
@@ -83,25 +82,28 @@ export const EditSeriesPlaylist = () => {
           </GridItem>
         </Grid>
 
-        {seriesPlaylists.length < 1 && (
-          <Alert status="warning" colorScheme="gray">
-            <AlertIcon />
-            プレイリストを追加してください
-          </Alert>
-        )}
-        <SortableContext
-          items={seriesPlaylists.map((pl) => pl.seriesId)}
-          strategy={verticalListSortingStrategy}
-        >
-          {seriesPlaylists.map((playlist) => (
-            <SortableItem id={playlist.seriesId} key={playlist.seriesId}>
-              <EditSeriesPlaylistListItem
-                key={playlist.seriesId}
-                playlist={playlist}
-              />
-            </SortableItem>
+        {!seriesPlaylists ||
+          (seriesPlaylists.length < 1 && (
+            <Alert status="warning" colorScheme="gray">
+              <AlertIcon />
+              プレイリストを追加してください
+            </Alert>
           ))}
-        </SortableContext>
+        {seriesPlaylists && (
+          <SortableContext
+            items={seriesPlaylists.map((pl) => pl.seriesId)}
+            strategy={verticalListSortingStrategy}
+          >
+            {seriesPlaylists.map((playlist) => (
+              <SortableItem id={playlist.seriesId} key={playlist.seriesId}>
+                <EditSeriesPlaylistListItem
+                  key={playlist.seriesId}
+                  playlist={playlist}
+                />
+              </SortableItem>
+            ))}
+          </SortableContext>
+        )}
       </DndContext>
     </Box>
   )

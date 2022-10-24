@@ -1,7 +1,10 @@
+import { UseFormSetValue } from 'react-hook-form/dist/types/form'
+import { useFormContext, UseFormGetValues } from 'react-hook-form'
 import React from 'react'
 import { Alert, AlertIcon, AlertTitle, Box } from '@chakra-ui/react'
 
 import { SeriesPlaylist } from '@/types/series_playlist'
+import { SeriesDeckFormInputs } from '@/features/series-decks/types'
 import { useSeriesDeckFormStore } from '@/features/series-decks/stores/seriesDeckForm'
 import { SearchResultRow } from '@/features/series-decks/components/SeriesDeckForm/SearchResultRow'
 import { SearchResultLoadMoreButton } from '@/features/series-decks/components/SeriesDeckForm/SearchResultLoadMoreButton'
@@ -13,10 +16,25 @@ import { StartSearch } from '@/components/Alert'
 
 const PER_PAGE = 10
 
+const addSeriesPlaylist = (
+  getValues: UseFormGetValues<SeriesDeckFormInputs>,
+  setValue: UseFormSetValue<any>,
+  playlist: SeriesPlaylist
+) => {
+  const playlists = getValues('playlists') || []
+  setValue('playlists', [...playlists, { ...playlist }], { shouldDirty: true })
+}
+
+const hasSeriesPlaylist = (
+  getValues: UseFormGetValues<SeriesDeckFormInputs>,
+  playlist: SeriesPlaylist
+) => {
+  const playlists = getValues('playlists') || []
+  return playlists.some((pl) => pl.seriesId === playlist.seriesId)
+}
+
 export const SearchSeriesPlaylist = () => {
   const {
-    seriesPlaylists,
-    addSeriesPlaylist,
     searchQuery,
     setSearchQuery,
     searchQueryKey,
@@ -24,8 +42,6 @@ export const SearchSeriesPlaylist = () => {
     isSearched,
     setSearched
   } = useSeriesDeckFormStore((state) => ({
-    seriesPlaylists: state.seriesPlaylists,
-    addSeriesPlaylist: state.addSeriesPlaylist,
     searchQuery: state.searchQuery,
     setSearchQuery: state.setSearchQuery,
     searchQueryKey: state.searchQueryKey,
@@ -33,6 +49,8 @@ export const SearchSeriesPlaylist = () => {
     isSearched: state.isSearched,
     setSearched: state.setSearched
   }))
+
+  const { getValues, setValue } = useFormContext<SeriesDeckFormInputs>()
 
   const onSearched = (q: string) => {
     setSearchQuery(q)
@@ -46,10 +64,6 @@ export const SearchSeriesPlaylist = () => {
       size: PER_PAGE,
       isSearched
     })
-
-  function hasSeriesPlaylist(playlist: SeriesPlaylist) {
-    return !!seriesPlaylists.find((pl) => pl.seriesId === playlist.seriesId)
-  }
 
   return (
     <Box>
@@ -86,9 +100,9 @@ export const SearchSeriesPlaylist = () => {
             result?.map((playlist) => (
               <SearchResultRow
                 key={playlist.seriesId}
-                hasSeriesPlaylist={hasSeriesPlaylist(playlist)}
+                hasSeriesPlaylist={hasSeriesPlaylist(getValues, playlist)}
                 onClick={() => {
-                  addSeriesPlaylist(playlist)
+                  addSeriesPlaylist(getValues, setValue, playlist)
                 }}
                 playlist={playlist}
               />
