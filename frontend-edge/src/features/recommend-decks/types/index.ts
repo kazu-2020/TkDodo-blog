@@ -1,6 +1,6 @@
 import { SameAs } from '@/types/same_as'
-import { ImageHash } from '@/types/image_hash'
 import { RecommendPlaylist } from '@/types/recommend_playlist'
+import { ImageHash } from '@/types/image_hash'
 
 export type RecommendDeckFormInputs = {
   name: string
