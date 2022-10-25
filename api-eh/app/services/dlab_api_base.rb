@@ -19,10 +19,10 @@ class DlabApiBase
 
   private
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def handle_response(response)
+  def handle_response(response) # rubocop:disable Metrics/CyclomaticComplexity
     case response.status
     when 200..299
+      add_url_to_request_store(response.env.url)
       JSON.parse(response.body, symbolize_names: true)
     when 400 then raise BadRequest
     when 403 then raise Forbidden
@@ -35,7 +35,6 @@ class DlabApiBase
       raise UnexpectedError
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def api_endpoint
     raise NotImplementedError, "You must implement #{self.class}##{__method__}"
@@ -49,5 +48,10 @@ class DlabApiBase
       faraday.response :logger, logger
       faraday.adapter Faraday.default_adapter
     end
+  end
+
+  def add_url_to_request_store(url)
+    RequestStore.store[:api_request_urls] = [] if RequestStore.store[:api_request_urls].nil?
+    RequestStore.store[:api_request_urls] << url
   end
 end

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe SeriesPlaylist, type: :request do
   # 2022/04/25時点でエピソードが存在するseries_idで生成
-  let!(:has_episodes) { create(:series_playlist, string_id: 'ts-1V1PJ9L5JN', series_id: '1V1PJ9L5JN') }
+  let!(:has_episodes) { create(:series_playlist, string_id: 'ts-11P91YWWL4', series_id: '11P91YWWL4') }
 
   describe '#GET episodes' do
     it '編成されているエピソードの情報が返ってくること' do
@@ -13,7 +13,7 @@ describe SeriesPlaylist, type: :request do
 
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
-        expect(json['episodes'][0]['identifierGroup']['seriesId']).to eq has_episodes.series_id
+        expect(json['episodes'][0]['identifierGroup']['tvSeriesId']).to eq has_episodes.series_id
       end
     end
   end

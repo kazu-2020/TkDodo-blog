@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SeriesDecksController < ApplicationController
+class SeriesDecksController < ApiBaseController
   before_action :set_pagination, only: [:index]
 
   DEFAULT_PAGE = 1
