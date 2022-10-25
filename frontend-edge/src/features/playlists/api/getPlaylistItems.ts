@@ -19,6 +19,7 @@ export const usePlaylistItems = (playlistUId: string | undefined) =>
     ['playlist-items', playlistUId],
     () => getPlaylistItems(playlistUId),
     {
-      enabled: Boolean(playlistUId)
+      enabled: Boolean(playlistUId),
+      useErrorBoundary: false
     }
   )
