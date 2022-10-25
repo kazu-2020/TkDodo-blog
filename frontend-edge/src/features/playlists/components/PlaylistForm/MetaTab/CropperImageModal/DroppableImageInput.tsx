@@ -1,6 +1,7 @@
 import { MdCloudUpload, MdOutlineCloudUpload } from 'react-icons/all'
 import { useDropzone } from 'react-dropzone'
 import React, { useCallback } from 'react'
+import Compressor from 'compressorjs'
 import { Box, Center, Icon, HStack } from '@chakra-ui/react'
 
 import { useCropperImageModalStore } from '@/features/playlists/stores/cropperImageModal'
@@ -38,15 +39,26 @@ export const DroppableImageInput = () => {
       return
     }
 
-    const reader = new FileReader()
-    reader.onload = () => {
-      const image = new Image()
-      if (typeof reader.result === 'string') {
-        image.src = reader.result
-        setInputImage(image)
-      }
-    }
-    reader.readAsDataURL(file)
+    // eslint-disable-next-line no-new
+    new Compressor(file, {
+      quality: 0.8,
+      maxWidth: 2880,
+      maxHeight: 2880,
+      success(result) {
+        const reader = new FileReader()
+        reader.onload = () => {
+          const image = new Image()
+          if (typeof reader.result === 'string') {
+            image.src = reader.result
+            setInputImage(image)
+          }
+        }
+        reader.readAsDataURL(result)
+      },
+      error(err) {
+        console.log(err.message)
+      },
+    })
   }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })

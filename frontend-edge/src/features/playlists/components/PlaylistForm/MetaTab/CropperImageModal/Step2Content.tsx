@@ -52,7 +52,7 @@ export const Step2Content = ({
           onClick={() => {
             const imageElement: any = cropperRef?.current
             const cropper: any = imageElement?.cropper
-            setCroppedImageData(cropper.getCroppedCanvas().toDataURL())
+            setCroppedImageData(cropper.getCroppedCanvas({maxWidth: 2880, maxHeight: 2880}).toDataURL())
 
             steps.nextStep()
           }}
