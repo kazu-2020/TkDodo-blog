@@ -6,7 +6,8 @@ const PlaylistList = ({ apiState }: { apiState: string }) => (
     px={3}
     py={0.5}
     fontSize="xs"
-    colorScheme="blue"
+    bg={apiState === 'open' ? 'green.400' : 'gray.400'}
+    color="white"
     borderRadius="xl"
   >
     {apiState === 'open' ? 'API公開中' : 'API非公開'}
