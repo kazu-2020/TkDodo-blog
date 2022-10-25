@@ -45,11 +45,10 @@ class SearchPlaylists
     search_query_hash[:offset] = 0
     playlists.dig(:result, :nplaylist, :result).each do |playlist|
       res = client.episode_from_playlist(query: search_query_hash, playlist_id: playlist[:id])
-      playlist.store(:episodes, res)
+      playlist[:episodes] = res
 
       res = client.available_episode_from_playlist(playlist_id: playlist[:id])
-      res = 0 if res.nil?
-      playlist.store(:availableEpisodes, res)
+      playlist[:availableEpisodes] = res
     end
     playlists
   end
