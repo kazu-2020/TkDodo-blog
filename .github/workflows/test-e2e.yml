@@ -2,20 +2,84 @@ name: E2E Test
 
 on: [push]
 
+env:
+  R6_API_ENDPOINT: http://localhost:4010
+  R60_API_ENDPOINT: http://localhost:4011
+
 jobs:
   cypress-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
+    defaults:
+      run:
+        working-directory: e2e
     timeout-minutes: 30
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          REDIS_HOST: redis
+          REDIS_PORT: 6379
     steps:
       - uses: actions/checkout@v3
-      - run: docker version
-      - name: Setup docker compose
-        uses: yu-ichiro/spin-up-docker-compose-action@v1
+      - uses: pnpm/action-setup@v2.2.2
         with:
-          file: ./docker-compose.yml
-      - name: frontend yarn install
-        run: docker-compose run frontend yarn install
-      - name: rails setup
-        run: docker-compose run web bin/setup
-      - name: run cypress
-        run: docker-compose up --abort-on-container-exit --exit-code-from e2e
+          version: 7
+      - name: Install packages
+        run: |
+          sudo apt update
+          sudo apt install fonts-vlgothic
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'pnpm'
+          cache-dependency-path: frontend-edge/pnpm-lock.yaml
+      - name: Setup frontend
+        run: |
+          cd ../frontend-edge
+          pnpm install
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.2
+          bundler-cache: true
+          working-directory: ./api-eh
+      - name: Database prepare
+        run: |
+          mysql --version
+          sudo service mysql start
+          cp -v ../api-eh/config/database.ci.yml ../api-eh/config/database.yml
+      - name: Setup backend
+        run: |
+          cd ../api-eh
+          bin/setup
+          E2E_MODE=1 bin/rails server -b 0.0.0.0 -p 8888 -d
+      - name: Setup Sidekiq
+        run: |
+          cd ../api-eh
+          nohup bundle exec sidekiq -C config/sidekiq.yml > sidekiq.out 2> sidekiq.err < /dev/null &
+      - name: Setup api
+        run: |
+          npm i @mockoon/cli
+          npx mockoon-cli start --data ./mockoon/r6.json --port 4010
+          npx mockoon-cli start --data ./mockoon/r6.0.json --port 4011
+      - name: cypress run
+        uses: cypress-io/github-action@v4.2.0
+        with:
+          start: npm run start:ci
+          wait-on: 'http://localhost:5173'
+          browser: chrome
+          working-directory: e2e
+      - uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          retention-days: 1
+          path: |
+            e2e/cypress/screenshots/**/*
+            e2e/cypress/videos/**/*
+        if: failure()

@@ -3,7 +3,7 @@
 class DlabApiClient < DlabApiBase
   API_ENDPOINT =
     if Rails.env.development? || Rails.env.dev? || Rails.env.test?
-      ENV['IS_E2E'] == 'true' ? 'http://r6:4010' : 'https://dev-api.nr.nhk.jp'
+      'https://dev-api.nr.nhk.jp'
     elsif Rails.env.staging?
       'https://stg-api.nr.nhk.jp'
     elsif Rails.env.production?
@@ -18,7 +18,7 @@ class DlabApiClient < DlabApiBase
 
   def initialize(api_endpoint: nil, version: nil)
     super()
-    @api_endpoint = api_endpoint || API_ENDPOINT
+    @api_endpoint = ENV['R6_API_ENDPOINT'] || api_endpoint || API_ENDPOINT
     @version = version || VERSION
   end
 

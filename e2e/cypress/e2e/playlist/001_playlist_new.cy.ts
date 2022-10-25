@@ -1,29 +1,5 @@
 import { playlist } from "../../fixtures/input"
 
-before(() => {
-  // FIXME: 効いてない？
-  // APIモックを定義
-  const apiUrl = Cypress.env("API_URL")
-  cy.fixture("episodes/search.json").then((episodesSearchFixture) => {
-    cy.intercept(
-      "GET",
-      `${apiUrl}/episodes/search?word=&offset=0&order_by=score&order=desc&ignore_range=false&size=10`,
-      episodesSearchFixture
-    )
-  })
-
-  cy.intercept(
-    "GET",
-    `${apiUrl}/episodes/bundle_items?episode_ids=123JXPM5ZQ`,
-    { tvepisode: 1, event: 0, howto: 0, faqpage: 0 }
-  )
-  cy.intercept(
-    "GET",
-    `${apiUrl}/episodes/bundle_items?episode_ids=123JXPM5ZQ%2CQZ1M9NX81N`,
-    { tvepisode: 2, event: 0, howto: 0, faqpage: 0 }
-  )
-})
-
 describe("プレイリスト新規作成", () => {
   const now = Cypress.env("NOW")
 
@@ -121,7 +97,7 @@ describe("プレイリスト新規作成", () => {
     })
 
     cy.contains("保存する").click({ force: true })
-    cy.wait(5000)
+    cy.wait(1000)
     cy.contains("作成しました")
   })
 
@@ -262,47 +238,24 @@ describe("プレイリスト新規作成", () => {
     cy.contains("プレイリスト").click()
     cy.contains("一覧").click({ force: true })
 
-    // API非公開
-    cy.get('[data-testid="api-status-select"]').select("API非公開のみ", {
-      force: true,
-    })
-
-    // 対象のプレイリストが表示されていないこと
-    cy.get('[data-testid="playlist-list-items"]')
-      .contains(now)
-      .should("have.lengthOf", 0)
-
     // 検索
     cy.get('[data-testid="search-text-input"]').type(`${now}{enter}`, {
       force: true,
     })
 
-    // 対象のプレイリストが表示されていないこと
-    cy.get('[data-testid="playlist-list-items"]')
-      .contains(now)
-      .should("have.lengthOf", 0)
-
-    // 対象のプレイリストが表示されていないこと
-    cy.get("body").then((body) => {
-      if (body[0].querySelector(".playlist-name")) {
-        cy.get(".playlist-name").contains(now).should("have.lengthOf", 0)
-      }
+    // API非公開
+    cy.get('[data-testid="api-status-select"]').select("API非公開のみ", {
+      force: true,
     })
+
+    cy.contains("見つかりませんでした")
 
     // API公開中
     cy.get('[data-testid="api-status-select"]').select("API公開中のみ", {
       force: true,
     })
 
-    // 対象のプレイリストが表示されていること
-    cy.get('[data-testid="playlist-list-items"]')
-      .contains(now)
-      .should("have.lengthOf", 1)
-
-    // 検索
-    cy.get('[data-testid="search-text-input"]').clear().type(`${now}{enter}`, {
-      force: true,
-    })
+    cy.wait(200)
 
     // 対象のプレイリストが表示されていること
     cy.get('[data-testid="playlist-list-items"]')
@@ -312,15 +265,7 @@ describe("プレイリスト新規作成", () => {
     // 全て
     cy.get('[data-testid="api-status-select"]').select("全て", { force: true })
 
-    // 対象のプレイリストが表示されていること
-    cy.get('[data-testid="playlist-list-items"]')
-      .contains(now)
-      .should("have.lengthOf", 1)
-
-    // 検索
-    cy.get('[data-testid="search-text-input"]').clear().type(`${now}{enter}`, {
-      force: true,
-    })
+    cy.wait(200)
 
     // 対象のプレイリストが表示されていること
     cy.get('[data-testid="playlist-list-items"]')

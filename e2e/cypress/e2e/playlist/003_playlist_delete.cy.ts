@@ -14,8 +14,13 @@ describe('プレイリスト削除', () => {
 
     cy.get('[data-testid="playlist-alert-delete-button"]').click()
 
-    cy.wait(2000)
+    cy.contains("削除しました")
 
-    cy.get('[data-testid="playlist-list-items"]').contains(now).should('have.lengthOf', 0)
+    // 検索
+    cy.get('[data-testid="search-text-input"]').type(`${now}{enter}`, {
+      force: true,
+    })
+    cy.wait(200)
+    cy.contains("見つかりませんでした")
   })
 })
