@@ -48,6 +48,7 @@ class SearchPlaylists
       playlist.store(:episodes, res)
 
       res = client.available_episode_from_playlist(playlist_id: playlist[:id])
+      res = 0 if res.nil?
       playlist.store(:availableEpisodes, res)
     end
     playlists
