@@ -19,10 +19,10 @@ class DlabApiBase
 
   private
 
-  def handle_response(response: '', url: '') # rubocop:disable Metrics/CyclomaticComplexity
+  def handle_response(response) # rubocop:disable Metrics/CyclomaticComplexity
     case response.status
     when 200..299
-      add_url_to_request_store(url)
+      add_url_to_request_store(response.env.url)
       JSON.parse(response.body, symbolize_names: true)
     when 400 then raise BadRequest
     when 403 then raise Forbidden
@@ -51,7 +51,7 @@ class DlabApiBase
   end
 
   def add_url_to_request_store(url)
-    RequestStore.store[:url] = [] if RequestStore.store[:url].nil?
-    RequestStore.store[:url] << url
+    RequestStore.store[:api_request_urls] = [] if RequestStore.store[:api_request_urls].nil?
+    RequestStore.store[:api_request_urls] << url
   end
 end

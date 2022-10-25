@@ -13,21 +13,21 @@ class DlabR65ApiClient < DlabApiBase
 
   def episode_playlist(episode_id)
     res = client.get "/#{VERSION}/l/nplaylist/te/#{episode_id}.json"
-    handle_response(response: res)
+    handle_response(res)
   end
 
   def series_playlist_items(series_id, options = {})
     res = client.get "/#{VERSION}/l/tvepisode/pl/ts-#{series_id}.json", options
-    handle_response(response: res)
+    handle_response(res)
   end
 
   def keyword_playlist(keyword)
     res = client.get "/#{VERSION}/t/ndeck/search/tv.json", { keyword: keyword }
-    handle_response(response: res)
+    handle_response(res)
   end
 
   def get(url)
     res = client.get url
-    handle_response(response: res)
+    handle_response(res)
   end
 end

@@ -37,9 +37,8 @@ class PocApiClient < DlabApiBase
   #
   # @param [Hash] query
   def search(query: {})
-    url = "/#{version}/s/extended.json?#{INTERNAL_PARAMS.merge(query).to_query}"
-    res = client.get url
-    handle_response(response: res, url: url)
+    res = client.get "/#{version}/s/extended.json", INTERNAL_PARAMS.merge(query)
+    handle_response(res)
   end
 
   # TvEpisode データを取得する
@@ -50,9 +49,8 @@ class PocApiClient < DlabApiBase
   # @param [String] episode_id: エピソードID
   # @param [Hash] query
   def episode(episode_id:, query: {})
-    url = "/#{version}/t/tvepisode/te/#{episode_id}.json?#{INTERNAL_PARAMS.merge(query).to_query}"
-    res = client.get url
-    handle_response(response: res, url: url)
+    res = client.get "/#{version}/t/tvepisode/te/#{episode_id}.json", INTERNAL_PARAMS.merge(query)
+    handle_response(res)
   end
 
   # TvEpisode データを取得する
@@ -60,28 +58,25 @@ class PocApiClient < DlabApiBase
   # @param [String] playlist_id: プレイリストID
   # @param [Hash] query
   def episode_from_playlist(playlist_id:, query: {})
-    url = "/#{version}/l/tvepisode/pl/#{playlist_id}.json?#{INTERNAL_PARAMS.merge(query).to_query}"
-    res = client.get url
-    handle_response(response: res, url: url)
+    res = client.get "/#{version}/l/tvepisode/pl/#{playlist_id}.json", query
+    handle_response(res)
   end
 
   # 視聴可能なエピソードを取得する
   #
   # @param [String] playlist_id: プレイリストID
   def available_episode_from_playlist(playlist_id:)
-    url = "/#{version}/l/tvepisode/pl/#{playlist_id}.json?availableOn=#{DEFAULT_ENVIRONMENT}"
-    res = client.get url
+    res = client.get "/#{version}/l/tvepisode/pl/#{playlist_id}.json", { availableOn: DEFAULT_ENVIRONMENT }
     return if res.status == 404 # 視聴可能なエピソードが存在しない場合404が返却されるためその対応
 
-    handle_response(response: res, url: url)
+    handle_response(res)
   end
 
   # プレイリスト下の全TvEpisodeID に紐づく各type数を取得する
   #
   # @param [String] playlist_id: プレイリストID
   def playlist_ll_bundle(playlist_id:)
-    url = "/#{version}/ll/bundle/pl/#{playlist_id}/types.json"
-    res = client.get url
-    handle_response(response: res, url: url)
+    res = client.get "/#{version}/ll/bundle/pl/#{playlist_id}/types.json"
+    handle_response(res)
   end
 end
