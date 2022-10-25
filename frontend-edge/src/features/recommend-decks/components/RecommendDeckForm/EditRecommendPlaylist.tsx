@@ -1,3 +1,4 @@
+import { useFormContext } from 'react-hook-form'
 import React from 'react'
 import {
   arrayMove,
@@ -16,17 +17,14 @@ import {
 } from '@dnd-kit/core'
 import { Alert, AlertIcon, Box } from '@chakra-ui/react'
 
-import { useRecommendDeckFormStore } from '@/features/recommend-decks/stores/recommendDeckForm'
+import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
 import { SortableItem } from '@/features/recommend-decks/components/RecommendDeckForm/SortableItem'
 import { RecommendPlaylistListHeader } from '@/features/recommend-decks/components/RecommendDeckForm/RecommendPlaylistListHeader'
 import { EditRecommendPlaylistListItem } from '@/features/recommend-decks/components/RecommendDeckForm/EditRecommendPlaylistListItem'
 
 export const EditRecommendPlaylist = () => {
-  const { recommendPlaylists, setRecommendPlaylists } =
-    useRecommendDeckFormStore((state) => ({
-      recommendPlaylists: state.recommendPlaylists,
-      setRecommendPlaylists: state.setRecommendPlaylists
-    }))
+  const { getValues, setValue } = useFormContext<RecommendDeckFormInputs>()
+  const recommendPlaylists = getValues('playlists')
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -44,6 +42,8 @@ export const EditRecommendPlaylist = () => {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
 
+    if (!recommendPlaylists) return
+
     if (active.id !== over?.id) {
       const oldIndex = recommendPlaylists.findIndex(
         (pl) => pl.playlistUId === active.id
@@ -56,7 +56,7 @@ export const EditRecommendPlaylist = () => {
         oldIndex,
         newIndex
       )
-      setRecommendPlaylists(newSeriesPlaylists)
+      setValue('playlists', newSeriesPlaylists, { shouldDirty: true })
     }
   }
 
@@ -64,28 +64,34 @@ export const EditRecommendPlaylist = () => {
   return (
     <Box mb={10} data-testid="edit-recommend-playlist">
       <RecommendPlaylistListHeader />
-      {recommendPlaylists.length < 1 && (
-        <Alert status="warning" colorScheme="gray">
-          <AlertIcon />
-          編成可能なプレイリストからプレイリストを追加してください
-        </Alert>
-      )}
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext
-          items={recommendPlaylists.map((pl) => pl.playlistUId)}
-          strategy={verticalListSortingStrategy}
+      {!recommendPlaylists ||
+        (recommendPlaylists?.length < 1 && (
+          <Alert status="warning" colorScheme="gray">
+            <AlertIcon />
+            編成可能なプレイリストからプレイリストを追加してください
+          </Alert>
+        ))}
+      {recommendPlaylists && (
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
         >
-          {recommendPlaylists.map((playlist) => (
-            <SortableItem id={playlist.playlistUId} key={playlist.playlistUId}>
-              <EditRecommendPlaylistListItem playlist={playlist} />
-            </SortableItem>
-          ))}
-        </SortableContext>
-      </DndContext>
+          <SortableContext
+            items={recommendPlaylists.map((pl) => pl.playlistUId)}
+            strategy={verticalListSortingStrategy}
+          >
+            {recommendPlaylists.map((playlist) => (
+              <SortableItem
+                id={playlist.playlistUId}
+                key={playlist.playlistUId}
+              >
+                <EditRecommendPlaylistListItem playlist={playlist} />
+              </SortableItem>
+            ))}
+          </SortableContext>
+        </DndContext>
+      )}
     </Box>
   )
 }

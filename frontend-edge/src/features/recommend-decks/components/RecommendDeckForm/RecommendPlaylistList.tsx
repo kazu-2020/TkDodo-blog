@@ -1,9 +1,11 @@
+import { UseFormSetValue } from 'react-hook-form/dist/types/form'
+import { useFormContext, UseFormGetValues } from 'react-hook-form'
 import React, { useEffect, useState } from 'react'
 import { Alert, AlertIcon, AlertTitle, Box, Text } from '@chakra-ui/react'
 
 import { RecommendPlaylist } from '@/types/recommend_playlist'
 import { SearchResultLoadMoreButton } from '@/features/series-decks/components/SeriesDeckForm'
-import { useRecommendDeckFormStore } from '@/features/recommend-decks/stores/recommendDeckForm'
+import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
 import { RecommendPlaylistListItem } from '@/features/recommend-decks/components/RecommendDeckForm/RecommendPlaylistListItem'
 import { RecommendPlaylistListHeader } from '@/features/recommend-decks/components/RecommendDeckForm/RecommendPlaylistListHeader'
 import { usePlaylists } from '@/features/recommend-decks/api/getPlaylists'
@@ -25,12 +27,25 @@ const createQueryParams = (filter: any): SearchQueryParams => ({
   withEpisodeCount: 1
 })
 
+const addRecommendPlaylist = (
+  getValues: UseFormGetValues<RecommendDeckFormInputs>,
+  setValue: UseFormSetValue<any>,
+  playlist: RecommendPlaylist
+) => {
+  const playlists = getValues('playlists') || []
+  setValue('playlists', [...playlists, { ...playlist }], { shouldDirty: true })
+}
+
+const hasRecommendPlaylist = (
+  getValues: UseFormGetValues<RecommendDeckFormInputs>,
+  playlist: RecommendPlaylist
+) => {
+  const playlists = getValues('playlists') || []
+  return playlists.some((pl) => pl.playlistUId === playlist.playlistUId)
+}
+
 export const RecommendPlaylistList = () => {
-  const { recommendPlaylists, addRecommendPlaylist } =
-    useRecommendDeckFormStore((state) => ({
-      recommendPlaylists: state.recommendPlaylists,
-      addRecommendPlaylist: state.addRecommendPlaylist
-    }))
+  const { getValues, setValue } = useFormContext<RecommendDeckFormInputs>()
 
   const [filter, setFilter] = useState({
     query: '',
@@ -49,12 +64,6 @@ export const RecommendPlaylistList = () => {
   useEffect(() => {
     refetch()
   }, [filter])
-
-  function hasRecommendPlaylist(playlist: RecommendPlaylist) {
-    return recommendPlaylists.some(
-      (pl) => pl.playlistUId === playlist.playlistUId
-    )
-  }
 
   const onAction = (q: string) => {
     setFilter({ query: q, isSearch: true })
@@ -92,9 +101,14 @@ export const RecommendPlaylistList = () => {
               playlists?.map((playlist: RecommendPlaylist) => (
                 <RecommendPlaylistListItem
                   key={playlist.playlistUId}
-                  hasRecommendPlaylist={hasRecommendPlaylist(playlist)}
+                  hasRecommendPlaylist={hasRecommendPlaylist(
+                    getValues,
+                    playlist
+                  )}
                   playlist={playlist}
-                  onClick={() => addRecommendPlaylist(playlist)}
+                  onClick={() =>
+                    addRecommendPlaylist(getValues, setValue, playlist)
+                  }
                 />
               ))
             )}
