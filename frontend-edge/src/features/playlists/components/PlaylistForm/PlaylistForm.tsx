@@ -1,5 +1,5 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { DevTool } from '@hookform/devtools'
 
 import { Playlist } from '@/types/playlist'
@@ -10,7 +10,6 @@ import {
   playlistToDefaultValues
 } from '../../utils/form'
 import { PlaylistFormInputs } from '../../types'
-import { usePlaylistFormStore } from '../../stores/playlistForm'
 import { useUpdatePlaylist } from '../../api/updatePlaylist'
 import { useCreatePlaylist } from '../../api/createPlaylist'
 
@@ -34,23 +33,9 @@ export const PlaylistForm = ({ playlist = undefined }: Props) => {
   const {
     control,
     handleSubmit,
-    trigger,
     reset,
     formState: { dirtyFields }
   } = formMethods
-
-  const { clearStore } = usePlaylistFormStore((state) => ({
-    clearStore: state.clearStore
-  }))
-
-  useEffect(() => {
-    trigger()
-    return () => {
-      if (clearStore !== undefined) {
-        clearStore()
-      }
-    }
-  }, [])
 
   const createPlaylistMutation = useCreatePlaylist()
   const updatePlaylistMutation = useUpdatePlaylist()
