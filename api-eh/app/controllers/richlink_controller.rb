@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # aw-pl-webから呼び出されるリッチリンク対応のためのエンドポイント
-class RichlinkController < ApiBaseController
+class RichlinkController < ApplicationController
   def index
     raise DlabApiBase::InternalServerError if richlink_params[:url].blank?
 

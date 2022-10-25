@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OembedController < ApiBaseController
+class OembedController < ApplicationController
   def index
     res = Oembed::MakeResponse.new(url: params[:url], height: params[:height]).call
 
