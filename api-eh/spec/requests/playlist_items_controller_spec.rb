@@ -36,6 +36,7 @@ describe PlaylistItemsController, type: :request do
 
     it 'returns success response' do
       get "/playlists/#{playlist.string_uid}/playlist_items"
+
       expect(response.status).to eq 200
     end
   end
@@ -48,6 +49,7 @@ describe PlaylistItemsController, type: :request do
 
     it 'returns success response' do
       post "/playlists/#{playlist.string_uid}/playlist_items/bulk_update", params: params
+
       expect(response.status).to eq 200
       expect(playlist.playlist_items.count).to eq 1
     end
