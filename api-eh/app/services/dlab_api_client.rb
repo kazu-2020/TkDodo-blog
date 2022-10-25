@@ -111,8 +111,10 @@ class DlabApiClient < DlabApiBase
   # @param [String] series_id: シリーズID
   def available_episode_from_series(series_id, query: {})
     res = client.get "/#{version}/l/tvepisode/ts/#{series_id}.json", query
-    return if res.status == 404 # 視聴可能なエピソードが存在しない場合404として処理されるためその対応
-
-    handle_response(res)
+    begin
+      handle_response(res)
+    rescue DlabApiBase::NotFound # 視聴可能なエピソードがない場合エラーとして処理されるのでその対応
+      {}
+    end
   end
 end
