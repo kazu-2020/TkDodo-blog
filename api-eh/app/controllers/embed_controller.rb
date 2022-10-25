@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EmbedController < ApplicationController
+class EmbedController < ApiBaseController
   layout 'embed'
   after_action :allow_iframe
 

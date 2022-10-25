@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class SeriesPlaylistsController < ApplicationController
-  include ControllerHelper
+class SeriesPlaylistsController < ApiBaseController
   after_action :set_x_api_url_to_header
 
   def episodes

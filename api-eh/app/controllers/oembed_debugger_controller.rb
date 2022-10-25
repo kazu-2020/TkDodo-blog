@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OembedDebuggerController < ApplicationController
+class OembedDebuggerController < ApiBaseController
   def summary
     @type = params[:type] || 'episode'
 

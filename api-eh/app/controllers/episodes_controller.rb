@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class EpisodesController < ApplicationController
-  include ControllerHelper
+class EpisodesController < ApiBaseController
   after_action :set_x_api_url_to_header
 
   rescue_from DlabApiClient::NotFound do |exception|

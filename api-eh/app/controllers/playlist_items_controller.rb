@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class PlaylistItemsController < ApplicationController
-  include ControllerHelper
+class PlaylistItemsController < ApiBaseController
   after_action :set_x_api_url_to_header
   before_action :set_playlist
 
