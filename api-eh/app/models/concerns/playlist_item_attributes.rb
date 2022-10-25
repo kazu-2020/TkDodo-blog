@@ -84,7 +84,7 @@ module PlaylistItemAttributes
     Rails.cache.fetch("#{cache_key_with_version}/fetch_episode_count", expires_in: CACHED_DATA_TTL, force: true,
                                                                        skip_nil: true) do
       response = PocApiClient.new.available_episode_from_playlist(playlist_id: string_id)
-      response[:count].presence || 0
+      response.nil? ? 0 : response[:count]
     end
   end
 end

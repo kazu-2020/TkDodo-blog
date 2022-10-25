@@ -40,9 +40,9 @@ class SearchSeries
     result.dig(:result, :tvseries, :result).each do |series|
       res = client.available_episode_from_series(series[:id],
                                                  query: { availableOn: DEFAULT_ENVIRONMENT, extendedEntities: true })
+      res = 0 if res.nil?
       series.store(:availableEpisodes, res)
     end
-
     result
   end
 
