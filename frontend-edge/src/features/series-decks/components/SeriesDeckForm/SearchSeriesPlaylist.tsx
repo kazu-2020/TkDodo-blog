@@ -5,7 +5,6 @@ import { Alert, AlertIcon, AlertTitle, Box } from '@chakra-ui/react'
 
 import { SeriesPlaylist } from '@/types/series_playlist'
 import { SeriesDeckFormInputs } from '@/features/series-decks/types'
-import { useSeriesDeckFormStore } from '@/features/series-decks/stores/seriesDeckForm'
 import { SearchResultRow } from '@/features/series-decks/components/SeriesDeckForm/SearchResultRow'
 import { SearchResultLoadMoreButton } from '@/features/series-decks/components/SeriesDeckForm/SearchResultLoadMoreButton'
 import { SearchResultHeader } from '@/features/series-decks/components/SeriesDeckForm/SearchResultHeader'
