@@ -1,4 +1,6 @@
 import { HiOutlineMinus } from 'react-icons/all'
+import { UseFormSetValue } from 'react-hook-form/dist/types/form'
+import { useFormContext, UseFormGetValues } from 'react-hook-form'
 import React from 'react'
 import {
   Button,
@@ -12,18 +14,29 @@ import {
 import { Icon } from '@chakra-ui/icons'
 
 import { SeriesPlaylist } from '@/types/series_playlist'
-import { useSeriesDeckFormStore } from '@/features/series-decks/stores/seriesDeckForm'
+import { SeriesDeckFormInputs } from '@/features/series-decks/types'
 
 const countWrapper = (count: number | undefined): number | string =>
   count === undefined ? '-' : count
+
+const removeSeriesPlaylist = (
+  getValues: UseFormGetValues<SeriesDeckFormInputs>,
+  setValue: UseFormSetValue<any>,
+  seriesId: string
+) => {
+  const playlists =
+    getValues('playlists')?.filter(
+      (playlist) => playlist.seriesId !== seriesId
+    ) || []
+  setValue('playlists', playlists, { shouldDirty: true })
+}
+
 export const EditSeriesPlaylistListItem = ({
   playlist
 }: {
   playlist: SeriesPlaylist
 }) => {
-  const removeSeriesPlaylist = useSeriesDeckFormStore(
-    (state) => state.removeSeriesPlaylist
-  )
+  const { getValues, setValue } = useFormContext<SeriesDeckFormInputs>()
 
   return (
     <Grid
@@ -46,7 +59,7 @@ export const EditSeriesPlaylistListItem = ({
           color="black"
           borderRadius="sm"
           onClick={() => {
-            removeSeriesPlaylist(playlist.seriesId)
+            removeSeriesPlaylist(getValues, setValue, playlist.seriesId)
           }}
         >
           <Icon as={HiOutlineMinus} />
