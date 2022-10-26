@@ -1,6 +1,7 @@
 import { MdCloudUpload, MdOutlineCloudUpload } from 'react-icons/all'
 import { useDropzone } from 'react-dropzone'
 import React, { useCallback } from 'react'
+import Compressor from 'compressorjs'
 import { Box, Center, Icon, HStack } from '@chakra-ui/react'
 
 import { useCropperImageModalStore } from '@/features/playlists/stores/cropperImageModal'
@@ -17,10 +18,12 @@ const isAllowedFileSize = (file: File): boolean => {
 
 const validate = (file: File): boolean => {
   if (!isAllowedFileType(file)) {
+    // eslint-disable-next-line no-alert
     alert('対応形式のファイルを選択してください')
     return false
   }
   if (!isAllowedFileSize(file)) {
+    // eslint-disable-next-line no-alert
     alert('ファイルが大きすぎます（上限10MB）')
     return false
   }
@@ -28,9 +31,11 @@ const validate = (file: File): boolean => {
 }
 
 export const DroppableImageInput = () => {
-  const setInputImage = useCropperImageModalStore(
-    (state) => state.setInputImage
-  )
+  const { setInputImage, setImageMimeType } =
+    useCropperImageModalStore((state) => ({
+      setInputImage: state.setInputImage,
+      setImageMimeType: state.setImageMimeType,
+    }))
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0]
@@ -38,15 +43,28 @@ export const DroppableImageInput = () => {
       return
     }
 
-    const reader = new FileReader()
-    reader.onload = () => {
-      const image = new Image()
-      if (typeof reader.result === 'string') {
-        image.src = reader.result
-        setInputImage(image)
-      }
-    }
-    reader.readAsDataURL(file)
+    setImageMimeType(file.type)
+
+    // eslint-disable-next-line no-new
+    new Compressor(file, {
+      maxWidth: 2880,
+      maxHeight: 2880,
+      success(result) {
+        const reader = new FileReader()
+        reader.onload = () => {
+          const image = new Image()
+          if (typeof reader.result === 'string') {
+            image.src = reader.result
+            setInputImage(image)
+          }
+        }
+        reader.readAsDataURL(result)
+      },
+      error(err) {
+        // eslint-disable-next-line no-console
+        console.log(err.message)
+      },
+    })
   }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
