@@ -13,13 +13,19 @@ export const Step2Content = ({
   imageType: 'logo' | 'eyecatch' | 'hero'
   steps: ReturnType<typeof useSteps>
 }) => {
-  const { inputImage, filledImage, filledImageType, setCroppedImageData } =
-    useCropperImageModalStore((state) => ({
-      inputImage: state.inputImage,
-      filledImage: state.filledImage,
-      filledImageType: state.filledImageType,
-      setCroppedImageData: state.setCroppedImageData
-    }))
+  const {
+    inputImage,
+    imageMimeType,
+    filledImage,
+    filledImageType,
+    setCroppedImageData
+  } = useCropperImageModalStore((state) => ({
+    inputImage: state.inputImage,
+    imageMimeType: state.imageMimeType,
+    filledImage: state.filledImage,
+    filledImageType: state.filledImageType,
+    setCroppedImageData: state.setCroppedImageData
+  }))
 
   const cropperRef = useRef<HTMLImageElement>(null)
 
@@ -52,8 +58,10 @@ export const Step2Content = ({
           onClick={() => {
             const imageElement: any = cropperRef?.current
             const cropper: any = imageElement?.cropper
-            setCroppedImageData(cropper.getCroppedCanvas({maxWidth: 2880, maxHeight: 2880}).toDataURL())
-
+            const croppedImageDataUrl = cropper
+              .getCroppedCanvas({ maxWidth: 2880, maxHeight: 2880 })
+              .toDataURL(imageMimeType)
+            setCroppedImageData(croppedImageDataUrl)
             steps.nextStep()
           }}
           colorScheme="green"
