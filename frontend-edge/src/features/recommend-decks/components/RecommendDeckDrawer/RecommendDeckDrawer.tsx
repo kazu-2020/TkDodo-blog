@@ -8,8 +8,7 @@ import {
   DrawerContent,
   HStack,
   Spacer,
-  Text,
-  VStack
+  Text
 } from '@chakra-ui/react'
 
 import { RecommendDeck } from '@/types/recommend_deck'
@@ -34,56 +33,54 @@ export const RecommendDeckDrawer = ({
     blockScrollOnMount={false}
   >
     <DrawerContent>
-      <DrawerBody p={0}>
-        <VStack data-testid="recommend-deck-drawer">
-          <Info recommendDeck={recommendDeck} />
-          <Spacer mt={5} />
-          <Box m={4}>
-            <ButtonGroup w="100%" spacing="6">
-              <HStack w="100%" justify="space-between">
-                <HStack spacing="6">
-                  <Link
-                    px={0}
-                    py={0}
-                    to={`/recommend-decks/${recommendDeck.id}/config`}
-                    _hover={{ textDecoration: 'none' }}
+      <DrawerBody p={0} data-testid="recommend-deck-drawer">
+        <Info recommendDeck={recommendDeck} />
+        <Spacer mt={5} />
+        <Box m={4}>
+          <ButtonGroup w="100%" spacing="6">
+            <HStack w="100%" justify="space-between">
+              <HStack spacing="6">
+                <Link
+                  px={0}
+                  py={0}
+                  to={`/recommend-decks/${recommendDeck.id}/config`}
+                  _hover={{ textDecoration: 'none' }}
+                >
+                  <Button
+                    type="submit"
+                    form="my-form"
+                    colorScheme="gray"
+                    leftIcon={<MdSettings />}
                   >
-                    <Button
-                      type="submit"
-                      form="my-form"
-                      colorScheme="gray"
-                      leftIcon={<MdSettings />}
-                    >
-                      <Text>管理設定</Text>
-                    </Button>
-                  </Link>
-                  <Link
-                    px={0}
-                    py={0}
-                    to={`/recommend-decks/${recommendDeck.id}`}
-                    _hover={{ textDecoration: 'none' }}
+                    <Text>管理設定</Text>
+                  </Button>
+                </Link>
+                <Link
+                  px={0}
+                  py={0}
+                  to={`/recommend-decks/${recommendDeck.id}`}
+                  _hover={{ textDecoration: 'none' }}
+                >
+                  <Button
+                    type="submit"
+                    form="my-form"
+                    colorScheme="orange"
+                    leftIcon={<RiPencilFill />}
                   >
-                    <Button
-                      type="submit"
-                      form="my-form"
-                      colorScheme="orange"
-                      leftIcon={<RiPencilFill />}
-                    >
-                      <Text>デッキ編集</Text>
-                    </Button>
-                  </Link>
-                </HStack>
-                <DeleteRecommendDeck
-                  onDrawerClose={onClose}
-                  recommendDeckId={recommendDeck.id}
-                />
+                    <Text>デッキ編集</Text>
+                  </Button>
+                </Link>
               </HStack>
-            </ButtonGroup>
-          </Box>
-          <Box w="100%">
-            <PlaylistList recommendDeck={recommendDeck} />
-          </Box>
-        </VStack>
+              <DeleteRecommendDeck
+                onDrawerClose={onClose}
+                recommendDeckId={recommendDeck.id}
+              />
+            </HStack>
+          </ButtonGroup>
+        </Box>
+        <Box w="100%">
+          <PlaylistList recommendDeck={recommendDeck} />
+        </Box>
       </DrawerBody>
     </DrawerContent>
   </Drawer>
