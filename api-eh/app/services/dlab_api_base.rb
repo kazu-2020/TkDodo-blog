@@ -19,9 +19,12 @@ class DlabApiBase
 
   private
 
-  def handle_response(response) # rubocop:disable Metrics/CyclomaticComplexity
+  def handle_response(response) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
     case response.status
     when 200..299
+      puts "my-debug: response : #{response}"
+      puts "my-debbug: request_url : #{response.env.url}"
+      Logger.new($stdout).info "my-debbug: request_url : #{response.env.url}"
       add_url_to_request_store(response.env.url)
       JSON.parse(response.body, symbolize_names: true)
     when 400 then raise BadRequest
