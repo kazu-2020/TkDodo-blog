@@ -23,6 +23,7 @@ export const usePlaylistActorsAndContributors = (
     ['actors-and-contributors', playlistUId],
     () => getPlaylistActorsAndContributors(playlistUId),
     {
-      enabled: Boolean(playlistUId)
+      enabled: Boolean(playlistUId),
+      useErrorBoundary: false
     }
   )
