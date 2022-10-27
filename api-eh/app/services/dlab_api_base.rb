@@ -19,7 +19,7 @@ class DlabApiBase
 
   private
 
-  def handle_response(response) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  def handle_response(response) # rubocop:disable Metrics/CyclomaticComplexity
     case response.status
     when 200..299
       add_url_to_request_store(response.env.url)
