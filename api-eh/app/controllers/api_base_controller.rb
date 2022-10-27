@@ -7,6 +7,6 @@ class ApiBaseController < ApplicationController
     puts "my-debbug: api_request_urls] : #{RequestStore.store[:api_request_urls]}"
     Logger.new($stdout).info "my-debbug: api_request_urls] : #{RequestStore.store[:api_request_urls]}"
     response.headers['X-Api-Url'] =
-      (RequestStore.store[:api_request_urls].join(',') if RequestStore.store[:api_request_urls].present?)
+      RequestStore.store[:api_request_urls].join(',') if RequestStore.store[:api_request_urls].present?
   end
 end
