@@ -29,7 +29,8 @@ const DeleteRecommendDeck = ({
   return (
     <>
       <Button
-        colorScheme="red"
+        color="gray"
+        colorScheme="gray"
         variant="outline"
         onClick={onOpen}
         leftIcon={<MdDelete />}

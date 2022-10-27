@@ -1,12 +1,14 @@
 import { RiPencilFill } from 'react-icons/all'
 import React from 'react'
 import {
+  Box,
   Button,
   ButtonGroup,
   Center,
   Drawer,
   DrawerBody,
   DrawerContent,
+  HStack,
   Spacer,
   Text
 } from '@chakra-ui/react'
@@ -38,30 +40,32 @@ export const PlaylistDrawer = ({
       <DrawerBody p={0}>
         <Info playlist={playlist} />
         <Spacer mt={5} />
-        <Center>
-          <ButtonGroup spacing="6">
-            <Link
-              px={0}
-              py={0}
-              to={`/playlists/${playlist.playlistUId}`}
-              _hover={{ textDecoration: 'none' }}
-            >
-              <Button
-                data-testid="playlist-drawer-edit-button"
-                type="submit"
-                form="my-form"
-                colorScheme="orange"
-                leftIcon={<RiPencilFill />}
+        <Box m={4}>
+          <ButtonGroup w="100%" spacing="6">
+            <HStack w="100%" justify="space-between">
+              <Link
+                px={0}
+                py={0}
+                to={`/playlists/${playlist.playlistUId}`}
+                _hover={{ textDecoration: 'none' }}
               >
-                <Text>編集する</Text>
-              </Button>
-            </Link>
-            <DeletePlaylist
-              onDrawerClose={onClose}
-              playlistId={playlist.playlistUId}
-            />
+                <Button
+                  data-testid="playlist-drawer-edit-button"
+                  type="submit"
+                  form="my-form"
+                  colorScheme="orange"
+                  leftIcon={<RiPencilFill />}
+                >
+                  <Text>編集する</Text>
+                </Button>
+              </Link>
+              <DeletePlaylist
+                onDrawerClose={onClose}
+                playlistId={playlist.playlistUId}
+              />
+            </HStack>
           </ButtonGroup>
-        </Center>
+        </Box>
         <EpisodeList playlist={playlist} />
         <ActorContributor playlist={playlist} />
         <Article playlist={playlist} />
