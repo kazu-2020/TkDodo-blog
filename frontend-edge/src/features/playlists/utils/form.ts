@@ -103,6 +103,7 @@ export const formValuesToCreateParams = (
   if (logoImageSrc) data.logoImage = logoImageSrc
   if (eyecatchImageSrc) data.eyecatchImage = eyecatchImageSrc
   if (heroImageSrc) data.heroImage = heroImageSrc
+  if (apiState === undefined) data.apiState = values.apiState ? 'open' : 'close'
 
   return data
 }
@@ -115,5 +116,6 @@ export const formValuesToUpdateParams = (
     values,
     dirtyFields
   )
+
   return data
 }
