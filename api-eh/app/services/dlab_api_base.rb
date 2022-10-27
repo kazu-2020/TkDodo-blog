@@ -19,7 +19,7 @@ class DlabApiBase
 
   private
 
-  def handle_response(response) # rubocop:disable Metrics/CyclomaticComplexity
+  def handle_response(response) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
     case response.status
     when 200..299
       puts "my-debug: response : #{response}"

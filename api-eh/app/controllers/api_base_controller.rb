@@ -6,7 +6,8 @@ class ApiBaseController < ApplicationController
   def set_x_api_url_to_header
     puts "my-debbug: api_request_urls] : #{RequestStore.store[:api_request_urls]}"
     Logger.new($stdout).info "my-debbug: api_request_urls] : #{RequestStore.store[:api_request_urls]}"
-    response.headers['X-Api-Url'] =
-      RequestStore.store[:api_request_urls].join(',') if RequestStore.store[:api_request_urls].present?
+    return unless RequestStore.store[:api_request_urls].present?
+
+    response.headers['X-Api-Url'] = RequestStore.store[:api_request_urls].join(',')
   end
 end
