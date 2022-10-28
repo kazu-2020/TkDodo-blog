@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class SeriesDeck < ApplicationRecord
+  extend FriendlyId
   include ApiStatable
+
+  friendly_id :deck_uid
 
   has_many :series_deck_playlists, -> { order(position: :asc) }, dependent: :destroy
   has_many :series_playlists, through: :series_deck_playlists
