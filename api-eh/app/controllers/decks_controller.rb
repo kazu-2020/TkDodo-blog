@@ -36,7 +36,7 @@ class DecksController < ApiBaseController
   def update
     @deck = Deck.find_by(id: params[:id])
     if @deck.update(deck_params)
-      if params[:enable_list_update]
+      if ActiveRecord::Type::Boolean.new.cast(params[:enable_list_update])
         playlist_ids = params.require(:deck).permit(playlists: [])[:playlists] || []
         @deck.rebuild_playlists_to(playlist_ids)
       end

@@ -38,7 +38,7 @@ class SeriesDecksController < ApiBaseController
   def update
     @series_deck = SeriesDeck.find_by(id: params[:id])
     if @series_deck.update(series_deck_params.except(:playlists))
-      if params[:enable_list_update]
+      if ActiveRecord::Type::Boolean.new.cast(params[:enable_list_update])
         playlist_series_ids = series_deck_params[:playlists] || []
         @series_deck.rebuild_playlists_to(playlist_series_ids)
       end
