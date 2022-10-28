@@ -19,6 +19,7 @@ class DecksController < ApiBaseController
 
   def show
     @deck = Deck.friendly.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
   end
 
