@@ -45,7 +45,7 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
 
     await updateSeriesDeckMutation.mutateAsync({
       data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
-      seriesDeckId: seriesDeck.id
+      seriesDeckId: seriesDeck.deckUid
     })
   }
 

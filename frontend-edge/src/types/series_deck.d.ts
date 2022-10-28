@@ -6,6 +6,7 @@ export type SeriesDeck = {
   description?: string
   interfix: string
   stringId: string
+  deckUid: string
   adminMemo?: string
   apiState: 'open' | 'close' | 'waiting'
   playlistCount: number
