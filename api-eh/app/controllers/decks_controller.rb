@@ -18,7 +18,7 @@ class DecksController < ApiBaseController
   end
 
   def show
-    @deck = Deck.find_by(id: params[:id])
+    @deck = Deck.friendly.find(params[:id])
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
   end
 
@@ -34,12 +34,9 @@ class DecksController < ApiBaseController
   end
 
   def update
-    @deck = Deck.find_by(id: params[:id])
+    @deck = Deck.friendly.find(params[:id])
     if @deck.update(deck_params)
-      if params[:enable_list_update]
-        playlist_ids = params.require(:deck).permit(playlists: [])[:playlists] || []
-        @deck.rebuild_playlists_to(playlist_ids)
-      end
+      @deck.rebuild_playlists_to(fetch_playlist_ids) if params[:enable_list_update]
       @deck.touch # nested_attributesだけ更新された場合のための処理
     else
       render json: { messages: @deck.errors.full_messages }, status: :unprocessable_entity
@@ -47,7 +44,7 @@ class DecksController < ApiBaseController
   end
 
   def destroy
-    @deck = Deck.find(params[:id])
+    @deck = Deck.friendly.find(params[:id])
     @deck.destroy
     render json: { deleted: true }
   end
@@ -69,5 +66,9 @@ class DecksController < ApiBaseController
   def set_pagination
     @page = [params[:page].to_i, DEFAULT_PAGE].max
     @per = (params[:per] || DEFAULT_PER).to_i
+  end
+
+  def fetch_playlist_ids
+    params.require(:deck).permit(playlists: [])[:playlists] || []
   end
 end
