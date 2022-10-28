@@ -43,7 +43,7 @@ export const RecommendDeckDrawer = ({
               <Link
                 px={0}
                 py={0}
-                to={`/recommend-decks/${recommendDeck.id}/config`}
+                to={`/recommend-decks/${recommendDeck.deckUid}/config`}
                 _hover={{ textDecoration: 'none' }}
               >
                 <Button
@@ -58,7 +58,7 @@ export const RecommendDeckDrawer = ({
               <Link
                 px={0}
                 py={0}
-                to={`/recommend-decks/${recommendDeck.id}`}
+                to={`/recommend-decks/${recommendDeck.deckUid}`}
                 _hover={{ textDecoration: 'none' }}
               >
                 <Button
@@ -72,7 +72,7 @@ export const RecommendDeckDrawer = ({
               </Link>
               <DeleteRecommendDeck
                 onDrawerClose={onClose}
-                recommendDeckId={recommendDeck.id}
+                recommendDeckId={recommendDeck.deckUid}
               />
             </ButtonGroup>
           </Center>
