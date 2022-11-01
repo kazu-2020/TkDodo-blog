@@ -1,8 +1,10 @@
-import React from 'react'
+import { UseFormSetValue } from 'react-hook-form/dist/types/form'
+import { useFormContext, UseFormGetValues } from 'react-hook-form'
+import React, { useEffect, useState } from 'react'
 import { Alert, AlertIcon, AlertTitle, Box } from '@chakra-ui/react'
 
 import { SeriesPlaylist } from '@/types/series_playlist'
-import { useSeriesDeckFormStore } from '@/features/series-decks/stores/seriesDeckForm'
+import { SeriesDeckFormInputs } from '@/features/series-decks/types'
 import { SearchResultRow } from '@/features/series-decks/components/SeriesDeckForm/SearchResultRow'
 import { SearchResultLoadMoreButton } from '@/features/series-decks/components/SeriesDeckForm/SearchResultLoadMoreButton'
 import { SearchResultHeader } from '@/features/series-decks/components/SeriesDeckForm/SearchResultHeader'
@@ -13,64 +15,86 @@ import { StartSearch } from '@/components/Alert'
 
 const PER_PAGE = 10
 
+type SearchQueryParams = {
+  query?: string
+  queryKey: string
+  size: number
+  isSearched: boolean
+}
+
+const createQueryParams = (filter: any): SearchQueryParams => ({
+  query: filter.query,
+  queryKey: filter.queryKey,
+  size: PER_PAGE,
+  isSearched: filter.isSearched
+})
+
+const addSeriesPlaylist = (
+  getValues: UseFormGetValues<SeriesDeckFormInputs>,
+  setValue: UseFormSetValue<any>,
+  playlist: SeriesPlaylist
+) => {
+  const playlists = getValues('playlists') || []
+  setValue('playlists', [...playlists, { ...playlist }], { shouldDirty: true })
+}
+
+const hasSeriesPlaylist = (
+  getValues: UseFormGetValues<SeriesDeckFormInputs>,
+  playlist: SeriesPlaylist
+) => {
+  const playlists = getValues('playlists') || []
+  return playlists.some((pl) => pl.seriesId === playlist.seriesId)
+}
+
 export const SearchSeriesPlaylist = () => {
-  const {
-    seriesPlaylists,
-    addSeriesPlaylist,
-    searchQuery,
-    setSearchQuery,
-    searchQueryKey,
-    setSearchQueryKey,
-    isSearched,
-    setSearched
-  } = useSeriesDeckFormStore((state) => ({
-    seriesPlaylists: state.seriesPlaylists,
-    addSeriesPlaylist: state.addSeriesPlaylist,
-    searchQuery: state.searchQuery,
-    setSearchQuery: state.setSearchQuery,
-    searchQueryKey: state.searchQueryKey,
-    setSearchQueryKey: state.setSearchQueryKey,
-    isSearched: state.isSearched,
-    setSearched: state.setSearched
-  }))
+  const [filter, setFilter] = useState({
+    query: '',
+    queryKey: 'word',
+    isSearched: false
+  })
+
+  const { getValues, setValue } = useFormContext<SeriesDeckFormInputs>()
 
   const onSearched = (q: string) => {
-    setSearchQuery(q)
-    setSearched(true)
+    setFilter({ ...filter, ...{ query: q, isSearched: true } })
   }
 
-  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    useSearchSeriesPlaylists({
-      query: searchQuery,
-      queryKey: searchQueryKey,
-      size: PER_PAGE,
-      isSearched
-    })
+  const {
+    data,
+    isLoading,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+    refetch
+  } = useSearchSeriesPlaylists(createQueryParams(filter))
 
-  function hasSeriesPlaylist(playlist: SeriesPlaylist) {
-    return !!seriesPlaylists.find((pl) => pl.seriesId === playlist.seriesId)
-  }
+  useEffect(() => {
+    refetch()
+  }, [filter])
 
   return (
     <Box>
       <SearchForm
         onAction={onSearched}
         onChange={(event) => {
-          setSearchQueryKey(
-            event.target.value as 'word' | 'keyword' | 'concern'
-          )
+          setFilter({
+            ...filter,
+            ...{
+              queryKey: event.target.value as 'word' | 'keyword' | 'concern'
+            }
+          })
         }}
       />
 
-      {!isSearched && (
+      {!filter.isSearched && (
         <Box w="100%" py={10}>
           <StartSearch />
         </Box>
       )}
 
       {/* 検索結果 */}
-      {isSearched && isLoading && <ListScreenSkeleton size={PER_PAGE} />}
-      {isSearched && !isLoading && (!data || data.pages[0].count <= 0) && (
+      {filter.isSearched && isLoading && <ListScreenSkeleton size={PER_PAGE} />}
+      {filter.isSearched && !isLoading && (!data || data.pages[0].count <= 0) && (
         <Box w="100%" py={10}>
           <Alert status="error">
             <AlertIcon />
@@ -78,7 +102,7 @@ export const SearchSeriesPlaylist = () => {
           </Alert>
         </Box>
       )}
-      {isSearched && !isLoading && data && data.pages[0].count > 0 && (
+      {filter.isSearched && !isLoading && data && data.pages[0].count > 0 && (
         <Box data-testid="series-playlist-search-results">
           <SearchResultHeader searchResultCount={data.pages[0].count} />
 
@@ -86,9 +110,9 @@ export const SearchSeriesPlaylist = () => {
             result?.map((playlist) => (
               <SearchResultRow
                 key={playlist.seriesId}
-                hasSeriesPlaylist={hasSeriesPlaylist(playlist)}
+                hasSeriesPlaylist={hasSeriesPlaylist(getValues, playlist)}
                 onClick={() => {
-                  addSeriesPlaylist(playlist)
+                  addSeriesPlaylist(getValues, setValue, playlist)
                 }}
                 playlist={playlist}
               />

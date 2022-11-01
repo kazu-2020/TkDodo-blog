@@ -2,36 +2,34 @@ FROM ruby:3.0.2-slim-buster
 
 ENV LANG ja_JP.UTF-8
 
-SHELL ["/bin/bash", "-c"]
-
 RUN apt update \
-    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
     && apt install -y \
             build-essential \
+            curl \
             default-libmysqlclient-dev \
             imagemagick \
             unzip \
-            nodejs \
-            npm \
             fonts-vlgothic \
             locales \
             locales-all \
             vim \
             --no-install-recommends \
-    && npm install -g yarn \
+    && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt update  \
+    && apt install -y --no-install-recommends \
+            nodejs \
     && apt -y clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/cache/apt/archives/* \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && truncate -s 0 /var/log/*log \
+    && npm install -g yarn \
+    && gem update --system && gem install bundler
 
 ENV APP_HOME /app
-RUN mkdir $APP_HOME
-
+RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
 ADD Gemfile $APP_HOME/Gemfile
 ADD Gemfile.lock $APP_HOME/Gemfile.lock
 
-RUN gem install bundler && bundle install -j8
-
-ADD . $APP_HOME
-
-CMD ["bundle", "exec", "rails", "server", '-b', '0.0.0.0']
+CMD ["/usr/bin/bash"]

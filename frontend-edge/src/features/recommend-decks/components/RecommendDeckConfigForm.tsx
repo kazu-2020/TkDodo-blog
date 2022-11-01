@@ -51,7 +51,7 @@ const RecommendDeckConfigForm = ({
     ) as RecommendDeckFormInputs
 
     await updateRecommendDeckMutation.mutateAsync({
-      data: { ...onlyDirtyValues, enableListUpdate: false },
+      data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
       recommendDeckId: recommendDeck.id
     })
   }

@@ -1,11 +1,10 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { DevTool } from '@hookform/devtools'
 
 import { usePrompt } from '@/utils/form-guard'
 import { RecommendDeck } from '@/types/recommend_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
-import { useRecommendDeckFormStore } from '@/features/recommend-decks/stores/recommendDeckForm'
 
 import { RecommendDeckFormInputs } from '../../types'
 import { useUpdateRecommendDeck } from '../../api/updateRecommendDeck'
@@ -20,7 +19,8 @@ const useRecommendForm = (recommendDeck: RecommendDeck | undefined) =>
       interfix: recommendDeck?.interfix,
       description: recommendDeck?.description,
       apiState: recommendDeck?.apiState === 'open',
-      deckSameAsAttributes: recommendDeck?.sameAs
+      deckSameAsAttributes: recommendDeck?.sameAs,
+      playlists: recommendDeck?.playlists
     },
     mode: 'onChange'
   })
@@ -35,30 +35,9 @@ export const RecommendDeckForm = ({ recommendDeck = undefined }: Props) => {
     control,
     getValues,
     handleSubmit,
-    trigger,
     reset,
     formState: { dirtyFields, isDirty }
   } = formMethods
-
-  const {
-    setInputValues,
-    recommendPlaylists,
-    setRecommendPlaylists,
-    hasChangedRecommendPlaylists,
-    resetHasChangedRecommendPlaylists
-  } = useRecommendDeckFormStore((state) => ({
-    setInputValues: state.setInputValues,
-    recommendPlaylists: state.recommendPlaylists,
-    setRecommendPlaylists: state.setRecommendPlaylists,
-    hasChangedRecommendPlaylists: state.hasChangedRecommendPlaylists,
-    resetHasChangedRecommendPlaylists: state.resetHasChangedRecommendPlaylists
-  }))
-
-  useEffect(() => {
-    setRecommendPlaylists(recommendDeck?.playlists || [])
-    setInputValues(getValues())
-    trigger()
-  }, [recommendDeck, setRecommendPlaylists, setInputValues, getValues, trigger])
 
   usePrompt('編集中のデータがあります。ページを離れますか？', isDirty)
 
@@ -71,10 +50,8 @@ export const RecommendDeckForm = ({ recommendDeck = undefined }: Props) => {
       values
     ) as RecommendDeckFormInputs
 
-    const recommendIds = recommendPlaylists.map(
-      (playlist) => playlist.primaryId
-    )
-
+    const recommendIds =
+      getValues('playlists')?.map((playlist) => playlist.primaryId) || []
     if (recommendDeck === undefined) {
       await createRecommendDeckMutation.mutateAsync({
         data: {
@@ -87,12 +64,11 @@ export const RecommendDeckForm = ({ recommendDeck = undefined }: Props) => {
         data: {
           ...onlyDirtyValues,
           playlists: recommendIds,
-          enableListUpdate: hasChangedRecommendPlaylists
+          enableListUpdate: !!onlyDirtyValues.playlists
         },
         recommendDeckId: recommendDeck.id
       })
     }
-    resetHasChangedRecommendPlaylists()
     reset(values)
   }
 

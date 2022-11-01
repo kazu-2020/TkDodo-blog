@@ -1,9 +1,11 @@
-import { useFormContext } from 'react-hook-form'
-import React, { useEffect } from 'react'
+import {
+  FieldNamesMarkedBoolean,
+  FieldValues,
+  useFormContext
+} from 'react-hook-form'
+import React from 'react'
 import { Box, Hide, HStack } from '@chakra-ui/react'
 
-import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
-import { useRecommendDeckFormStore } from '@/features/recommend-decks/stores/recommendDeckForm'
 import { ArrowStepContextProvider, StepItem } from '@/components/ArrowStep'
 
 import { VerticalPreview } from './VerticalPreview'
@@ -11,41 +13,37 @@ import { FormHeader } from './FormHeader'
 import { EditListTabContent } from './EditListTabContent'
 import { EditDeckTabContent } from './EditDeckTabContent'
 
+const hasChangedPlaylists = (
+  dirtyFields: FieldNamesMarkedBoolean<FieldValues>
+): boolean => !!dirtyFields.playlists
+
+const hasChangedDek = (
+  dirtyFields: FieldNamesMarkedBoolean<FieldValues>
+): boolean => {
+  const { ...fields } = dirtyFields
+
+  return Object.keys(fields).length > 0
+}
+
 export const ArrowStepContainer = () => {
   const {
-    watch,
-    formState: { isDirty, isValid }
+    formState: { dirtyFields, isValid }
   } = useFormContext()
-
-  const hasChangedRecommendPlaylists = useRecommendDeckFormStore(
-    (state) => state.hasChangedRecommendPlaylists
-  )
 
   const stepItems: StepItem[] = [
     {
       title: 'リスト(Playlist)',
-      isSuccess: hasChangedRecommendPlaylists,
+      isSuccess: hasChangedPlaylists(dirtyFields),
       hasError: false
     },
     {
       title: '基本情報(Deck)',
-      isSuccess: isDirty,
+      isSuccess: hasChangedDek(dirtyFields),
       hasError: !isValid
     }
   ]
   const listIndex = 0
   const deckIndex = 1
-
-  const { setInputValues } = useRecommendDeckFormStore((state) => ({
-    setInputValues: state.setInputValues
-  }))
-
-  useEffect(() => {
-    const subscription = watch((value) => {
-      setInputValues(value as RecommendDeckFormInputs)
-    })
-    return () => subscription.unsubscribe()
-  }, [watch, setInputValues])
 
   return (
     <ArrowStepContextProvider>

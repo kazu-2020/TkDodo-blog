@@ -1,3 +1,4 @@
+import { FieldErrors } from 'react-hook-form/dist/types/errors'
 import {
   FieldNamesMarkedBoolean,
   FieldValues,
@@ -52,9 +53,36 @@ const hasChangedSeries = (
   return Object.keys(fields).length > 0
 }
 
+const hasErrorArticle = (errors: FieldErrors): boolean =>
+  !!(
+    errors.editorData ||
+    errors.markedHeader ||
+    errors.markedFooter ||
+    errors.authorType ||
+    errors.authorName ||
+    errors.publisherType ||
+    errors.publisherName
+  )
+
+const hasErrorSeries = (errors: FieldErrors): boolean => {
+  const {
+    episodes,
+    editorData,
+    markedHeader,
+    markedFooter,
+    authorType,
+    authorName,
+    publisherType,
+    publisherName,
+    ...fields
+  } = errors
+
+  return Object.keys(fields).length > 0
+}
+
 export const ArrowStepContainer = () => {
   const {
-    formState: { dirtyFields, isValid }
+    formState: { dirtyFields, errors }
   } = useFormContext()
 
   const stepItems: StepItem[] = [
@@ -66,12 +94,12 @@ export const ArrowStepContainer = () => {
     {
       title: '記事(NArticle)',
       isSuccess: hasChangedArticle(dirtyFields),
-      hasError: false
+      hasError: hasErrorArticle(errors)
     },
     {
       title: '基本情報(NSeries)',
       isSuccess: hasChangedSeries(dirtyFields),
-      hasError: !isValid
+      hasError: hasErrorSeries(errors)
     }
   ]
 

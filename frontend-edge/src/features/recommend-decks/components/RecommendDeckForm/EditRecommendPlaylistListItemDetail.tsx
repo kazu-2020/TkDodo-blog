@@ -1,4 +1,6 @@
 import { HiOutlineMinus } from 'react-icons/all'
+import { UseFormSetValue } from 'react-hook-form/dist/types/form'
+import { useFormContext, UseFormGetValues } from 'react-hook-form'
 import React from 'react'
 import {
   AccordionButton,
@@ -14,7 +16,19 @@ import {
 import { Icon } from '@chakra-ui/icons'
 
 import { RecommendPlaylist } from '@/types/recommend_playlist'
-import { useRecommendDeckFormStore } from '@/features/recommend-decks/stores/recommendDeckForm'
+import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
+
+const removeRecommendPlaylist = (
+  getValues: UseFormGetValues<RecommendDeckFormInputs>,
+  setValue: UseFormSetValue<any>,
+  playlistUId: string
+) => {
+  const playlists =
+    getValues('playlists')?.filter(
+      (playlist) => playlist.playlistUId !== playlistUId
+    ) || []
+  setValue('playlists', playlists, { shouldDirty: true })
+}
 
 export const EditRecommendPlaylistListItemDetail = ({
   playlist,
@@ -23,9 +37,7 @@ export const EditRecommendPlaylistListItemDetail = ({
   playlist: RecommendPlaylist
   onToggleAccordion: () => void
 }) => {
-  const removeRecommendPlaylist = useRecommendDeckFormStore(
-    (state) => state.removeRecommendPlaylist
-  )
+  const { getValues, setValue } = useFormContext<RecommendDeckFormInputs>()
 
   const logoImage =
     playlist.logo?.medium?.url ?? '/public/dummy/default1/default1-logo.png'
@@ -50,7 +62,7 @@ export const EditRecommendPlaylistListItemDetail = ({
           color="black"
           borderRadius="sm"
           onClick={() => {
-            removeRecommendPlaylist(playlist.playlistUId)
+            removeRecommendPlaylist(getValues, setValue, playlist.playlistUId)
           }}
         >
           <Icon as={HiOutlineMinus} />

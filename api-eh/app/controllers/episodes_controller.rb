@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EpisodesController < ApplicationController
+class EpisodesController < ApiBaseController
   rescue_from DlabApiClient::NotFound do |exception|
     render json: { message: 'エピソードが見つかりませんでした', error: exception.message }, status: 404
   end

@@ -1,4 +1,5 @@
 import { SameAs } from '@/types/same_as'
+import { RecommendPlaylist } from '@/types/recommend_playlist'
 import { ImageHash } from '@/types/image_hash'
 
 export type RecommendDeckFormInputs = {
@@ -7,6 +8,7 @@ export type RecommendDeckFormInputs = {
   description?: string
   apiState: boolean
   deckSameAsAttributes?: SameAs[]
+  playlists?: RecommendPlaylist[]
 }
 
 export type SeriesPlaylistSearchResult = {

@@ -4,8 +4,7 @@
 class PocApiClient < DlabApiBase
   API_ENDPOINT =
     if Rails.env.development? || Rails.env.test?
-      # TODO: e2eで使用するdocker-composeにIS_E2E環境変数を追加してください
-      ENV['IS_E2E'] == 'true' ? 'http://r6.0:4011' : 'https://dev-api.nr.nhk.jp'
+      'https://dev-api.nr.nhk.jp'
     elsif Rails.env.dev?
       'https://dev-api-int.local.nr.nhk.jp'
     elsif Rails.env.staging?
@@ -20,13 +19,12 @@ class PocApiClient < DlabApiBase
   DEFAULT_ENVIRONMENT = 'okushibu3'
   DEFAULT_TYPE_OF_LIST = 'recommend'
   DEFAULT_MODE_OF_ITEM = 'tv'
-  DEFAULT_ENVIRONMENT = 'okushibu3'
 
   attr_reader :api_endpoint, :version
 
   def initialize(api_endpoint: nil, version: nil)
     super()
-    @api_endpoint = api_endpoint || API_ENDPOINT
+    @api_endpoint = ENV['R60_API_ENDPOINT'] || api_endpoint || API_ENDPOINT
     @version = version || VERSION
   end
 
@@ -68,7 +66,11 @@ class PocApiClient < DlabApiBase
   # @param [String] playlist_id: プレイリストID
   def available_episode_from_playlist(playlist_id:)
     res = client.get "/#{version}/l/tvepisode/pl/#{playlist_id}.json", { availableOn: DEFAULT_ENVIRONMENT }
-    JSON.parse(res.body, symbolize_names: true) # 視聴可能なエピソードが存在しない場合404が返却されるためその対応
+    begin
+      handle_response(res)
+    rescue DlabApiBase::NotFound # 視聴可能なエピソードがない場合エラーとして処理されるのでその対応
+      {}
+    end
   end
 
   # プレイリスト下の全TvEpisodeID に紐づく各type数を取得する

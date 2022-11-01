@@ -1,0 +1,109 @@
+version: "3"
+
+x-base_rails: &base_rails
+  build:
+    context: ../api-eh
+    dockerfile: ../api-eh/Dockerfile
+  volumes:
+    - ../api-eh:/app
+    - bundle:/usr/local/bundle
+  tmpfs:
+    - /tmp
+
+services:
+  frontend:
+    build:
+      context: ../frontend-edge
+      dockerfile: ../frontend-edge/Dockerfile
+    tty: true
+    command: /bin/sh -c "pnpm install && pnpm dev --host"
+    environment:
+      API_URL: "http://backend:8888"
+    volumes:
+      - ../frontend-edge:/app
+    ports:
+      - 5173:5173
+    depends_on:
+      - backend
+      - db
+  db:
+    image: mysql:5.7
+    platform: linux/x86_64
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "4306:3306"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --ft_min_word_len=1
+    volumes:
+      - db-data:/var/lib/mysql
+  backend:
+    <<: *base_rails
+    command: bash -c "rm -f ./tmp/pids/server.pid && bin/setup && bundle exec rails server -b 0.0.0.0"
+    ports:
+      - 8888:3000
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - RAILS_ENV=${RAILS_ENV:-test}
+      - REDIS_URL=redis://redis:6379
+      - R6_API_ENDPOINT=http://r6:4010
+      - R60_API_ENDPOINT=http://r6.0:4011
+    depends_on:
+      - db
+      - redis
+    tty: true
+    stdin_open: true
+  sidekiq:
+    <<: *base_rails
+    command: /app/bin/start_sidekiq.sh
+    environment:
+      - DB_HOST=db
+      - REDIS_URL=redis://redis:6379
+      - LOCAL_DOCKER_COMPOSE_MODE=1
+    depends_on:
+      - db
+      - redis
+    tty: true
+    stdin_open: true
+  redis:
+    image: redis:6.2-alpine
+  r6:
+    image: mockoon/cli:latest
+    command: mockoon-cli start -d /r6.json -p 4010
+    volumes:
+      - type: bind
+        source: ./mockoon/r6.json
+        target: /r6.json
+  r6.0:
+    image: mockoon/cli:latest
+    command: mockoon-cli start -d /r6.0.json -p 4011
+    volumes:
+      - type: bind
+        source: ./mockoon/r6.0.json
+        target: /r6.0.json
+  e2e:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /bin/sh -c "npx cypress run --browser chrome --headless"
+    depends_on:
+      - backend
+      - frontend
+      - db
+      - sidekiq
+      - redis
+      - r6
+      - r6.0
+    environment:
+      - CYPRESS_baseUrl=http://frontend:5173
+      - CYPRESS_browser=chrome
+      - CYPRESS_screenshotsFolder=/results/screenshots
+      - CYPRESS_videosFolder=/results/videos
+      - CYPRESS_API_URL=http://backend:8888
+    volumes:
+      - ./cypress:/app/cypress
+      - ./cypress.config.ts:/app/cypress.config.ts
+      - ./results:/results
+volumes:
+  db-data:
+  bundle:

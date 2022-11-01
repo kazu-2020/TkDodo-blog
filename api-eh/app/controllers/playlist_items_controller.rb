@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PlaylistItemsController < ApplicationController
+class PlaylistItemsController < ApiBaseController
   before_action :set_playlist
 
   def index

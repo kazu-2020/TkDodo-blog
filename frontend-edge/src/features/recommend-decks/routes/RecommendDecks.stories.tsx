@@ -54,13 +54,15 @@ export const ShowRecommendDeckDrawer: ComponentStoryObj<typeof RecommendDecks> =
       await waitFor(
         async () => {
           await expect(
-            canvas.getByTestId('recommend-list-items')
+            canvas.getByTestId('recommend-deck-list-items')
           ).toBeInTheDocument()
         },
         { timeout: 10000 }
       )
 
-      const searchResult = within(canvas.getByTestId('recommend-list-items'))
+      const searchResult = within(
+        canvas.getByTestId('recommend-deck-list-items')
+      )
       await userEvent.click(searchResult.getAllByRole('listitem')[0])
       await waitFor(
         async () => {
@@ -93,13 +95,13 @@ export const ShowRecommendDeckDrawer: ComponentStoryObj<typeof RecommendDecks> =
 //     await waitFor(
 //       async () => {
 //         await expect(
-//           canvas.getByTestId('recommend-list-items')
+//           canvas.getByTestId('recommend-deck-list-items')
 //         ).toBeInTheDocument()
 //       },
 //       { timeout: 10000 }
 //     )
 //
-//     const searchResult = within(canvas.getByTestId('recommend-list-items'))
+//     const searchResult = within(canvas.getByTestId('recommend-deck-list-items'))
 //
 //     // ドロワーの表示
 //     await userEvent.click(searchResult.getAllByRole('listitem')[0])

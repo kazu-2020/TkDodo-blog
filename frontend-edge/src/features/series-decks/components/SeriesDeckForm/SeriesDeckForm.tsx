@@ -1,11 +1,10 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { DevTool } from '@hookform/devtools'
 
 import { usePrompt } from '@/utils/form-guard'
 import { SeriesDeck } from '@/types/series_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
-import { useSeriesDeckFormStore } from '@/features/series-decks/stores/seriesDeckForm'
 
 import { SeriesDeckFormInputs } from '../../types'
 import { useUpdateSeriesDeck } from '../../api/updateSeriesDeck'
@@ -19,7 +18,8 @@ const useSeriesForm = (seriesDeck: SeriesDeck | undefined) =>
       name: seriesDeck?.name,
       interfix: seriesDeck?.interfix,
       description: seriesDeck?.description,
-      apiState: seriesDeck?.apiState === 'open'
+      apiState: seriesDeck?.apiState === 'open',
+      playlists: seriesDeck?.playlists
     },
     mode: 'onChange'
   })
@@ -34,30 +34,9 @@ export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
     control,
     getValues,
     handleSubmit,
-    trigger,
     reset,
     formState: { dirtyFields, isDirty }
   } = formMethods
-
-  const {
-    setInputValues,
-    seriesPlaylists,
-    setSeriesPlaylists,
-    hasChangedSeriesPlaylists,
-    resetHasChangedSeriesPlaylists
-  } = useSeriesDeckFormStore((state) => ({
-    setInputValues: state.setInputValues,
-    seriesPlaylists: state.seriesPlaylists,
-    setSeriesPlaylists: state.setSeriesPlaylists,
-    hasChangedSeriesPlaylists: state.hasChangedSeriesPlaylists,
-    resetHasChangedSeriesPlaylists: state.resetHasChangedSeriesPlaylists
-  }))
-
-  useEffect(() => {
-    setSeriesPlaylists(seriesDeck?.playlists || [])
-    setInputValues(getValues())
-    trigger()
-  }, [seriesDeck, setSeriesPlaylists, setInputValues, getValues, trigger])
 
   usePrompt('編集中のデータがあります。ページを離れますか？', isDirty)
 
@@ -69,7 +48,8 @@ export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
       dirtyFields,
       values
     ) as SeriesDeckFormInputs
-    const seriesIds = seriesPlaylists.map((playlist) => playlist.seriesId)
+    const seriesIds =
+      getValues('playlists')?.map((playlist) => playlist.seriesId) || []
 
     if (seriesDeck === undefined) {
       await createSeriesDeckMutation.mutateAsync({
@@ -83,14 +63,12 @@ export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
         data: {
           ...onlyDirtyValues,
           playlists: seriesIds,
-          enableListUpdate: hasChangedSeriesPlaylists
+          enableListUpdate: !!onlyDirtyValues.playlists
         },
         seriesDeckId: seriesDeck.id
       })
     }
 
-    // NOTE: エラーの場合リセットされないの不思議
-    resetHasChangedSeriesPlaylists()
     reset(values)
   }
 

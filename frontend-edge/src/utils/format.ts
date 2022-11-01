@@ -4,12 +4,12 @@ import ja from 'date-fns/locale/ja'
 import format from 'date-fns/format'
 
 export const formatDatetime = (datetime: string): string =>
-  format(new Date(datetime), 'yyyy年M月d日 hh:mm', {
+  format(new Date(datetime), 'yyyy年M月d日 HH:mm', {
     locale: ja
   })
 
 export const formatDatetimeShort = (datetime: string): string =>
-  format(new Date(datetime), 'M月d日 hh:mm', {
+  format(new Date(datetime), 'M月d日 HH:mm', {
     locale: ja
   })
 

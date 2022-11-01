@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PlaylistsController < ApplicationController
+class PlaylistsController < ApiBaseController
   before_action :set_playlist, only: %i[update destroy actors_and_contributors]
   before_action :set_pagination, only: [:index]
 

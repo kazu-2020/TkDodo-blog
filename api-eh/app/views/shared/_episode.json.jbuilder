@@ -4,7 +4,7 @@ episode_data ||= episode.episode_data
 
 if episode_data.present?
   json.type episode_data[:type]
-  json.id episode_data[:id]
+  json.id episode.episode_id
   json.name episode_data[:name]
   json.set_raw! :identifierGroup, episode_data[:identifierGroup].to_json
   json.set_raw! :identifierGroupEx, episode_data[:identifierGroupEx].to_json
