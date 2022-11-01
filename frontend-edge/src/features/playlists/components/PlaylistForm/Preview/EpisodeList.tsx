@@ -1,8 +1,9 @@
 import { useWatch } from 'react-hook-form'
+import React from 'react'
 import { Box, Text } from '@chakra-ui/react'
+
 import { EpisodeData } from '@/types/episode_data'
 import { EpisodeListItem } from '@/features/playlists/components'
-import React from 'react'
 
 export const EpisodeList = () => {
   const [episodes] = useWatch({

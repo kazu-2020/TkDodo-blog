@@ -15,10 +15,10 @@ import {
 import { dummyImageUrl } from '@/utils/image'
 import PlainTextParser from '@/lib/editorjs/plain_text_parser'
 import { IDCopyBadge } from '@/features/playlists/components/PlaylistForm/Preview/IDCopyBadge'
-import { usePlaylist } from '@/features/playlists/api/getPlaylist'
-import ApiStateBadge from '@/components/ApiStateBadge'
 import { EpisodeList } from '@/features/playlists/components/PlaylistForm/Preview/EpisodeList'
 import { ActorContributor } from '@/features/playlists/components/PlaylistForm/Preview/ActorContributor'
+import { usePlaylist } from '@/features/playlists/api/getPlaylist'
+import ApiStateBadge from '@/components/ApiStateBadge'
 
 export const VerticalPreview = () => {
   const [
