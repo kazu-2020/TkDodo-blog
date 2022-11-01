@@ -38,12 +38,11 @@ class SeriesDecksController < ApiBaseController
   def update
     @series_deck = SeriesDeck.find_by(id: params[:id])
     if @series_deck.update(series_deck_params.except(:playlists))
-      if ActiveRecord::Type::Boolean.new.cast(params[:enable_list_update])
-        playlist_series_ids = series_deck_params[:playlists] || []
+      if cast_boolean(params[:enable_list_update])
         @series_deck.rebuild_playlists_to(playlist_series_ids)
+      else
+        @series_deck.touch # nested_attributes だけ更新された場合のための処理
       end
-
-      @series_deck.touch # nested_attributes だけ更新された場合のための処理
     else
       render json: { messages: @series_deck.errors.full_messages }, status: :unprocessable_entity
     end
@@ -65,5 +64,9 @@ class SeriesDecksController < ApiBaseController
   def set_pagination
     @page = [params[:page].to_i, DEFAULT_PAGE].max
     @per = (params[:per] || DEFAULT_PER).to_i
+  end
+
+  def playlist_series_ids
+    series_deck_params[:playlists] || []
   end
 end

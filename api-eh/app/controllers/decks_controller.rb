@@ -36,11 +36,8 @@ class DecksController < ApiBaseController
   def update
     @deck = Deck.find_by(id: params[:id])
     if @deck.update(deck_params)
-      if ActiveRecord::Type::Boolean.new.cast(params[:enable_list_update])
-        playlist_ids = params.require(:deck).permit(playlists: [])[:playlists] || []
-        @deck.rebuild_playlists_to(playlist_ids)
-      end
-      @deck.touch # nested_attributesだけ更新された場合のための処理
+      # nested_attributes だけ更新された場合のための処理
+      cast_boolean(params[:enable_list_update]) ? @deck.rebuild_playlists_to(playlist_ids) : @deck.touch
     else
       render json: { messages: @deck.errors.full_messages }, status: :unprocessable_entity
     end
@@ -69,5 +66,9 @@ class DecksController < ApiBaseController
   def set_pagination
     @page = [params[:page].to_i, DEFAULT_PAGE].max
     @per = (params[:per] || DEFAULT_PER).to_i
+  end
+
+  def playlist_ids
+    params.require(:deck).permit(playlists: [])[:playlists] || []
   end
 end
