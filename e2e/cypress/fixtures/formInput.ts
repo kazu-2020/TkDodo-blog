@@ -37,6 +37,21 @@ export const recommendDeckInput = (overrides = {}): RecommendDeckInput => {
   return {
     name: `${faker.word.adjective()}_レコメンドデッキ`,
     interfix: faker.datatype.uuid(),
-    ...overrides
+    ...overrides,
   };
-}
+};
+
+export type SeriesDeckInput = {
+  name: string;
+  interfix: string;
+  description?: string;
+  apiState?: boolean;
+};
+
+export const seriesDeckInput = (overrides = {}): SeriesDeckInput => {
+  return {
+    name: `${faker.word.adjective()}_シリーズデッキ`,
+    interfix: faker.datatype.uuid(),
+    ...overrides,
+  };
+};
