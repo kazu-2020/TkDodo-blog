@@ -27,7 +27,6 @@ class SeriesDecksController < ApiBaseController
 
     begin
       @series_deck.save!
-
       @series_deck.rebuild_playlists_to(playlist_series_ids)
     rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
       render json: { messages: @series_deck.errors.full_messages }, status: :unprocessable_entity
