@@ -62,7 +62,7 @@ class DecksController < ApiBaseController
 
   def deck_params
     params.require(:deck).permit(:name, :description, :interfix, :admin_memo, :playlists, :api_state,
-                                 deck_same_as_attributes: %i[id name url _destroy])
+                                 playlists: [], deck_same_as_attributes: %i[id name url _destroy])
   end
 
   def set_pagination
@@ -71,6 +71,6 @@ class DecksController < ApiBaseController
   end
 
   def playlist_ids
-    params.require(:deck).permit(playlists: [])[:playlists] || []
+    params[:playlists] || []
   end
 end
