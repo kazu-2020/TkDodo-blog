@@ -36,8 +36,11 @@ class DecksController < ApiBaseController
   def update
     @deck = Deck.find_by(id: params[:id])
     if @deck.update(deck_params)
-      # nested_attributes だけ更新された場合のための処理
-      cast_boolean(params[:enable_list_update]) ? @deck.rebuild_playlists_to(playlist_ids) : @deck.touch
+      if cast_boolean(params[:enable_list_update])
+        @deck.rebuild_playlists_to(playlist_ids)
+      else
+        @deck.touch # nested_attributes だけ更新された場合のための処理
+      end
     else
       render json: { messages: @deck.errors.full_messages }, status: :unprocessable_entity
     end
