@@ -111,13 +111,12 @@ export const HorizontalEpisodeList = ({ episodes }: Props) => {
       {pages.map((page) => (
         <HStack wrap="wrap" alignItems="flex-start" spacing={0} mx={12}>
           {page?.map((item: EpisodeData) => (
-            <Box pr={1}>
+            <Box pr={1} key={item.id}>
               <EpisodeListItem
                 w="100px"
                 flexDirection="column"
                 alignItems="flex-start"
                 isSmall
-                key={item.id}
                 episodeItem={item}
                 mb={2}
               />
