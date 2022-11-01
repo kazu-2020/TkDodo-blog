@@ -25,7 +25,7 @@ const SeriesDeckListItems = ({
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <Stack>
+    <Stack data-testid="series-deck-list-items">
       {totalCount > 0 && (
         <Box pt={10} pb={3}>
           <Pagination

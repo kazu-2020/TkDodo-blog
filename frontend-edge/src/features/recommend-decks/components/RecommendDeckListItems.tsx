@@ -25,7 +25,7 @@ const RecommendDeckListItems = ({
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <Stack data-testid="recommend-list-items">
+    <Stack data-testid="recommend-deck-list-items">
       {totalCount > 0 && (
         <Box pt={10} pb={3}>
           <Pagination
