@@ -30,9 +30,8 @@ import "@testing-library/cypress/add-commands"
 import "cypress-real-events/support"
 import "cypress-file-upload"
 import {
-  playlist,
   recommendDeckInput,
-  RecommendDeckInput,
+  seriesDeckInput,
 } from "../fixtures/formInput"
 import { faker } from "@faker-js/faker"
 
@@ -95,10 +94,11 @@ Cypress.Commands.add("deleteAllPlaylists", () => {
   cy.contains("一覧").click({ force: true })
   cy.get('[data-testid="api-status-select"]').select("全て")
 
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(200) // これを入れないと安定しない
 
-  cy.get('body').then(($body) => {
-    if (!$body.text().includes('見つかりませんでした')) {
+  cy.get("body").then(($body) => {
+    if (!$body.text().includes("見つかりませんでした")) {
       cy.get('[data-testid="playlist-list-item"]').each((el) => {
         cy.wrap(el).click({ force: true })
         cy.get('[data-testid="playlist-drawer-delete-button"]').click({
@@ -108,6 +108,7 @@ Cypress.Commands.add("deleteAllPlaylists", () => {
           force: true,
         })
         cy.contains("削除しました")
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(200)
       })
     }
@@ -159,10 +160,11 @@ Cypress.Commands.add("deleteAllRecommendDeck", () => {
 
   cy.get('[data-testid="api-status-select"]').select("全て", { force: true })
 
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(200) // これを入れないと安定しない
 
-  cy.get('body').then(($body) => {
-    if (!$body.text().includes('見つかりませんでした')) {
+  cy.get("body").then(($body) => {
+    if (!$body.text().includes("見つかりませんでした")) {
       cy.get('[data-testid="recommend-deck-list-item"]').each((el) => {
         cy.wrap(el).click({ force: true })
         cy.get('[data-testid="recommend-deck-drawer-delete-button"]').click({
@@ -171,12 +173,60 @@ Cypress.Commands.add("deleteAllRecommendDeck", () => {
         cy.get('[data-testid="recommend-deck-alert-delete-button"]').click({
           force: true,
         })
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(200)
       })
     }
   })
 })
 
-Cypress.Commands.add("createSeriesDeck", () => {})
+Cypress.Commands.add("createSeriesDeck", (overrides = {}) => {
+  const seriesDeckInputData = seriesDeckInput(overrides)
 
-Cypress.Commands.add("deleteAllSeriesDeck", () => {})
+  cy.visit("/")
+  cy.contains("デッキ").click()
+  cy.contains("シリーズデッキ新規作成").click()
+  cy.contains("基本情報(Deck)").click()
+
+  cy.get('[data-testid="name"]').type(seriesDeckInputData.name)
+  cy.get('[data-testid="interfix"]').type(seriesDeckInputData.interfix)
+
+  if (seriesDeckInputData.description) {
+    cy.get('[data-testid="description"]').type(seriesDeckInputData.description)
+  }
+
+  if (seriesDeckInputData.apiState) {
+    cy.get('[data-testid="apiState"] input[type="checkbox"]').check({
+      force: true,
+    })
+  }
+
+  cy.contains("保存する").click({ force: true })
+  cy.contains("作成しました")
+})
+
+Cypress.Commands.add("deleteAllSeriesDeck", () => {
+  cy.visit("/")
+  cy.contains("シリーズデッキ一覧").click({ force: true })
+
+  cy.get('[data-testid="api-status-select"]').select("全て", { force: true })
+
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(200) // これを入れないと安定しない
+
+  cy.get("body").then(($body) => {
+    if (!$body.text().includes("見つかりませんでした")) {
+      cy.get('[data-testid="series-deck-list-item"]').each((el) => {
+        cy.wrap(el).click({ force: true })
+        cy.get('[data-testid="series-deck-drawer-delete-button"]').click({
+          force: true,
+        })
+        cy.get('[data-testid="series-deck-alert-delete-button"]').click({
+          force: true,
+        })
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(200)
+      })
+    }
+  })
+})
