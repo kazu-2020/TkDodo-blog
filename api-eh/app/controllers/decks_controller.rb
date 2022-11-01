@@ -23,7 +23,7 @@ class DecksController < ApiBaseController
   end
 
   def create
-    @deck = Deck.new(deck_params)
+    @deck = Deck.new(deck_params.except(:playlists))
     begin
       @deck.save!
       @deck.rebuild_playlists_to(playlist_ids)
@@ -34,7 +34,7 @@ class DecksController < ApiBaseController
 
   def update
     @deck = Deck.find_by(id: params[:id])
-    if @deck.update(deck_params)
+    if @deck.update(deck_params.except(:playlists))
       if cast_boolean(params[:enable_list_update])
         @deck.rebuild_playlists_to(playlist_ids)
       else
@@ -61,7 +61,7 @@ class DecksController < ApiBaseController
   private
 
   def deck_params
-    params.require(:deck).permit(:name, :description, :interfix, :admin_memo, :playlists, :api_state,
+    params.require(:deck).permit(:name, :description, :interfix, :admin_memo, :api_state,
                                  playlists: [], deck_same_as_attributes: %i[id name url _destroy])
   end
 
@@ -71,6 +71,6 @@ class DecksController < ApiBaseController
   end
 
   def playlist_ids
-    params[:playlists] || []
+    deck_params[:playlists] || []
   end
 end
