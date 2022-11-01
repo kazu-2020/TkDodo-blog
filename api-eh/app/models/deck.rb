@@ -29,7 +29,8 @@ class Deck < ApplicationRecord
   end
 
   def rebuild_playlists_to(new_playlists_ids)
-    current_playlists_ids = playlists.pluck(:id)
+    new_playlists_ids = new_playlists_ids.map(&:to_i).uniq # 文字列のIDが混ざって不具合を起こしていたのでその対応
+    current_playlists_ids = deck_playlists.pluck(:playlist_id)
 
     ActiveRecord::Base.transaction do
       new_playlist_ids = (current_playlists_ids | new_playlists_ids) - current_playlists_ids
