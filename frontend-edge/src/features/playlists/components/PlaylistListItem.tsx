@@ -25,6 +25,7 @@ export const PlaylistListItem = ({
 
   return (
     <Grid
+      data-testid="playlist-list-item"
       templateColumns="repeat(8, 1fr)"
       gap={2}
       h="48px"
