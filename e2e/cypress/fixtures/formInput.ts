@@ -1,7 +1,7 @@
-import { faker } from "@faker-js/faker"
-faker.locale = "ja"
+import { faker } from "@faker-js/faker";
+faker.locale = "ja";
 
-const now = Cypress.env("NOW")
+const now = Cypress.env("NOW");
 export const playlist = {
   name: `${now}_プレイリスト`,
   detailedNameRuby: "ぷれいりすと１",
@@ -18,4 +18,25 @@ export const playlist = {
   aliasId: `alias-${new Date(now).getTime()}`,
   markedHeader: "ヘッダー",
   markedFooter: "フッター",
+};
+
+type sameAs = {
+  name: string;
+  url: string;
+};
+
+export type RecommendDeckInput = {
+  name: string;
+  interfix: string;
+  description?: string;
+  apiState?: boolean;
+  sameAs?: sameAs[];
+};
+
+export const recommendDeckInput = (overrides = {}): RecommendDeckInput => {
+  return {
+    name: `${faker.word.adjective()}_レコメンドデッキ`,
+    interfix: faker.datatype.uuid(),
+    ...overrides
+  };
 }
