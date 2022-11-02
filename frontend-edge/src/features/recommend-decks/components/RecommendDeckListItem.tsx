@@ -19,6 +19,7 @@ const RecommendDeckListItem = ({
 
   return (
     <Grid
+      data-testid="recommend-deck-list-item"
       key={recommendDeck.stringId}
       h="48px"
       px={3}

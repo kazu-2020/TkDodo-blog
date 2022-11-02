@@ -29,6 +29,7 @@ const DeleteRecommendDeck = ({
   return (
     <>
       <Button
+        data-testid="recommend-deck-drawer-delete-button"
         colorScheme="red"
         variant="outline"
         onClick={onOpen}
@@ -59,6 +60,7 @@ const DeleteRecommendDeck = ({
                 キャンセル
               </Button>
               <Button
+                data-testid="recommend-deck-alert-delete-button"
                 colorScheme="red"
                 isLoading={deleteRecommendDeckMutation.isLoading}
                 loadingText="送信中"
