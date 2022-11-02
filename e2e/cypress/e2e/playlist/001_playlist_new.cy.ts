@@ -1,4 +1,4 @@
-import { playlist } from "../../fixtures/input"
+import { playlist } from "../../fixtures/formInput"
 
 describe("プレイリスト新規作成", () => {
   const now = Cypress.env("NOW")

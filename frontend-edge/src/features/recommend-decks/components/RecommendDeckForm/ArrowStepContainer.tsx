@@ -17,10 +17,10 @@ const hasChangedPlaylists = (
   dirtyFields: FieldNamesMarkedBoolean<FieldValues>
 ): boolean => !!dirtyFields.playlists
 
-const hasChangedDek = (
+const hasChangedDeck = (
   dirtyFields: FieldNamesMarkedBoolean<FieldValues>
 ): boolean => {
-  const { ...fields } = dirtyFields
+  const { playlists, ...fields } = dirtyFields
 
   return Object.keys(fields).length > 0
 }
@@ -38,7 +38,7 @@ export const ArrowStepContainer = () => {
     },
     {
       title: '基本情報(Deck)',
-      isSuccess: hasChangedDek(dirtyFields),
+      isSuccess: hasChangedDeck(dirtyFields),
       hasError: !isValid
     }
   ]

@@ -19,6 +19,7 @@ const SeriesDeckListItem = ({
 
   return (
     <Grid
+      data-testid="series-deck-list-item"
       key={seriesDeck.stringId}
       h="48px"
       px={3}

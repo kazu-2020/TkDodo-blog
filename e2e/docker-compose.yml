@@ -38,13 +38,13 @@ services:
       - db-data:/var/lib/mysql
   backend:
     <<: *base_rails
-    command: bash -c "rm -f ./tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
+    command: bash -c "rm -f ./tmp/pids/server.pid && bin/setup && bundle exec rails server -b 0.0.0.0"
     ports:
       - 8888:3000
     environment:
       - DB_HOST=db
       - DB_PORT=3306
-      - RAILS_ENV=${RAILS_ENV:-development}
+      - RAILS_ENV=${RAILS_ENV:-test}
       - REDIS_URL=redis://redis:6379
       - R6_API_ENDPOINT=http://r6:4010
       - R60_API_ENDPOINT=http://r6.0:4011
