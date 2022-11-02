@@ -6,7 +6,7 @@ FactoryBot.define do
     headline { 'ヘッドラインのテキストが入ります' }
     active_article { [true, false].sample }
     series_id { SecureRandom.alphanumeric(10) }
-    string_id { "ts-#{series_id}"}
+    string_id { "ts-#{series_id}" }
     type_of_list { 'series' }
     mode_of_item { 'tv' }
   end
