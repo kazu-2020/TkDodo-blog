@@ -26,37 +26,6 @@ describe Playlist, type: :model do
         end
       end
     end
-
-    context 'for author_type and author_name' do
-      let(:playlist) { build(:playlist, author_type: author_type, author_name: author_name) }
-
-      context 'When it passed valid author_type and name' do
-        let(:author_type) { 'Person' }
-        let(:author_name) { 'name' }
-
-        it 'returns valid true' do
-          expect(playlist).to be_valid
-        end
-      end
-
-      context 'When it passed valid author_type but does not pass the author_name' do
-        let(:author_type) { 'Person' }
-        let(:author_name) { nil }
-
-        it 'returns invalid' do
-          expect(playlist).to be_invalid
-        end
-      end
-
-      context 'When it does not passed author_type but passed the author_name' do
-        let(:author_type) { nil }
-        let(:author_name) { 'name' }
-
-        it 'returns invalid' do
-          expect(playlist).to be_invalid
-        end
-      end
-    end
   end
 
   describe '#before_create' do
