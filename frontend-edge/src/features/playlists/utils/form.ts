@@ -11,7 +11,13 @@ import {
   UpdatePlaylistParams
 } from '../types'
 
-import { PALETTE_BASE_COLORS } from './adjustColor'
+import {
+  adjustLinkDarkColor,
+  adjustLinkLightColor,
+  adjustPrimaryDarkColor,
+  adjustPrimaryLightColor,
+  PALETTE_BASE_COLORS
+} from './adjustColor'
 
 const arrayToOptions = (array: string[]): SelectOption[] =>
   array.map((item) => ({
@@ -34,12 +40,11 @@ export const playlistToDefaultValues = (
   formatGenreCode: playlist?.formatGenre,
   themeGenreCode: playlist?.themeGenre,
   selectedPalette:
-    playlist?.selectedPalette ||
-    PALETTE_BASE_COLORS[Math.floor(Math.random() * PALETTE_BASE_COLORS.length)],
-  primaryLightColor: playlist?.primaryLight || '#929292',
-  primaryDarkColor: playlist?.primaryDark || '#ffffff',
-  linkLightColor: playlist?.linkLight || '#747474',
-  linkDarkColor: playlist?.linkDark || '#ffffff',
+    playlist?.selectedPalette || PALETTE_BASE_COLORS[9],
+  primaryLightColor: playlist?.primaryLight || adjustPrimaryLightColor(PALETTE_BASE_COLORS[9]),
+  primaryDarkColor: playlist?.primaryDark || adjustPrimaryDarkColor(PALETTE_BASE_COLORS[9]),
+  linkLightColor: playlist?.linkLight || adjustLinkLightColor(PALETTE_BASE_COLORS[9]),
+  linkDarkColor: playlist?.linkDark || adjustLinkDarkColor(PALETTE_BASE_COLORS[9]),
   aliasId: playlist?.aliasId,
   sameAsAttributes: playlist?.sameAs,
   citationsAttributes: playlist?.citations,

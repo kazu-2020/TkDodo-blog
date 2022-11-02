@@ -1,6 +1,7 @@
+import { useUpdateEffect } from 'react-use'
 import { UseFormSetValue } from 'react-hook-form/dist/types/form'
 import { useFormContext, useWatch } from 'react-hook-form'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Box, Flex } from '@chakra-ui/react'
 
 import {
@@ -54,8 +55,7 @@ export const ColorPaletteForm = () => {
       'linkLightColor'
     ]
   })
-
-  useEffect(() => {
+  useUpdateEffect(() => {
     setAdjustColors(selectedPalette, setValue)
   }, [selectedPalette])
 
