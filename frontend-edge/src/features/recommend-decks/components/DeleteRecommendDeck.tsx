@@ -29,8 +29,9 @@ const DeleteRecommendDeck = ({
   return (
     <>
       <Button
+        color="gray"
+        colorScheme="gray"
         data-testid="recommend-deck-drawer-delete-button"
-        colorScheme="red"
         variant="outline"
         onClick={onOpen}
         leftIcon={<MdDelete />}

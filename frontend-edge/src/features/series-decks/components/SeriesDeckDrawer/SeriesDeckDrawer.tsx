@@ -3,10 +3,10 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Center,
   Drawer,
   DrawerBody,
   DrawerContent,
+  HStack,
   Spacer,
   Text
 } from '@chakra-ui/react'
@@ -36,44 +36,48 @@ export const SeriesDeckDrawer = ({
       <DrawerBody p={0}>
         <Info seriesDeck={seriesDeck} />
         <Spacer mt={5} />
-        <Center>
-          <ButtonGroup spacing="6">
-            <Link
-              px={0}
-              py={0}
-              to={`/series-decks/${seriesDeck.id}/config`}
-              _hover={{ textDecoration: 'none' }}
-            >
-              <Button
-                type="submit"
-                form="my-form"
-                colorScheme="gray"
-                leftIcon={<MdSettings />}
-              >
-                <Text>管理設定</Text>
-              </Button>
-            </Link>
-            <Link
-              px={0}
-              py={0}
-              to={`/series-decks/${seriesDeck.id}`}
-              _hover={{ textDecoration: 'none' }}
-            >
-              <Button
-                type="submit"
-                form="my-form"
-                colorScheme="orange"
-                leftIcon={<RiPencilFill />}
-              >
-                <Text>デッキ編集</Text>
-              </Button>
-            </Link>
-            <DeleteSeriesDeck
-              onDrawerClose={onClose}
-              seriesDeckId={seriesDeck.id}
-            />
+        <Box m={4}>
+          <ButtonGroup w="100%" spacing="6">
+            <HStack w="100%" justify="space-between">
+              <HStack spacing="6">
+                <Link
+                  px={0}
+                  py={0}
+                  to={`/series-decks/${seriesDeck.id}/config`}
+                  _hover={{ textDecoration: 'none' }}
+                >
+                  <Button
+                    type="submit"
+                    form="my-form"
+                    colorScheme="gray"
+                    leftIcon={<MdSettings />}
+                  >
+                    <Text>管理設定</Text>
+                  </Button>
+                </Link>
+                <Link
+                  px={0}
+                  py={0}
+                  to={`/series-decks/${seriesDeck.id}`}
+                  _hover={{ textDecoration: 'none' }}
+                >
+                  <Button
+                    type="submit"
+                    form="my-form"
+                    colorScheme="orange"
+                    leftIcon={<RiPencilFill />}
+                  >
+                    <Text>デッキ編集</Text>
+                  </Button>
+                </Link>
+              </HStack>
+              <DeleteSeriesDeck
+                onDrawerClose={onClose}
+                seriesDeckId={seriesDeck.id}
+              />
+            </HStack>
           </ButtonGroup>
-        </Center>
+        </Box>
         <Box w="100%">
           <PlaylistList seriesDeck={seriesDeck} />
         </Box>

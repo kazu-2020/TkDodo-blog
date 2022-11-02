@@ -29,8 +29,9 @@ const DeleteSeriesDeck = ({
   return (
     <>
       <Button
+        color="gray"
+        colorScheme="gray"
         data-testid="series-deck-drawer-delete-button"
-        colorScheme="red"
         variant="outline"
         onClick={onOpen}
         leftIcon={<MdDelete />}
