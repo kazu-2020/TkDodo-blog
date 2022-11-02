@@ -52,7 +52,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   %w[selected_palette primary_light_color primary_dark_color
      text_light_color text_dark_color link_light_color link_dark_color].each do |color_attribute|
     validates color_attribute.to_sym, format: { with: VALID_COLOR_REGEX },
-              if: proc { |pl| pl.send(color_attribute.to_sym).present? }
+                                      if: proc { |pl| pl.send(color_attribute.to_sym).present? }
   end
   validates_uniqueness_of :alias_id, case_sensitive: false, allow_nil: true
   validates :alias_id,
@@ -282,7 +282,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return if editor_data.blank?
 
     image_urls = editor_blocks_of('image')
-                   .map { |block| URI.parse(block['data']['file']['url']) }
+                 .map { |block| URI.parse(block['data']['file']['url']) }
     image_names = image_urls.map(&:path)
 
     image_names.each do |image_name|
