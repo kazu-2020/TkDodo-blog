@@ -24,10 +24,9 @@ class DecksController < ApiBaseController
   end
 
   def create
-    @deck = Deck.new(deck_params)
+    @deck = Deck.new(deck_params.except(:playlists))
     begin
       @deck.save!
-      playlist_ids = params.require(:deck).permit(playlists: [])[:playlists] || []
       @deck.rebuild_playlists_to(playlist_ids)
     rescue DlabApiClient::NotFound, ActiveRecord::RecordInvalid
       render json: { messages: @deck.errors.full_messages }, status: :unprocessable_entity
@@ -35,10 +34,13 @@ class DecksController < ApiBaseController
   end
 
   def update
-    @deck = Deck.friendly.find(params[:id])
-    if @deck.update(deck_params)
-      @deck.rebuild_playlists_to(fetch_playlist_ids) if params[:enable_list_update]
-      @deck.touch # nested_attributesだけ更新された場合のための処理
+    @deck = Deck.find_by(id: params[:id])
+    if @deck.update(deck_params.except(:playlists))
+      if cast_boolean(params[:enable_list_update])
+        @deck.rebuild_playlists_to(playlist_ids)
+      else
+        @deck.touch # nested_attributes だけ更新された場合のための処理
+      end
     else
       render json: { messages: @deck.errors.full_messages }, status: :unprocessable_entity
     end
@@ -60,8 +62,8 @@ class DecksController < ApiBaseController
   private
 
   def deck_params
-    params.require(:deck).permit(:name, :description, :interfix, :admin_memo, :playlists, :api_state,
-                                 deck_same_as_attributes: %i[id name url _destroy])
+    params.require(:deck).permit(:name, :description, :interfix, :admin_memo, :api_state,
+                                 playlists: [], deck_same_as_attributes: %i[id name url _destroy])
   end
 
   def set_pagination
@@ -69,7 +71,7 @@ class DecksController < ApiBaseController
     @per = (params[:per] || DEFAULT_PER).to_i
   end
 
-  def fetch_playlist_ids
-    params.require(:deck).permit(playlists: [])[:playlists] || []
+  def playlist_ids
+    deck_params[:playlists] || []
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-json.success 1
+json.success true
 json.tvSeries @result[:tvepisode]&.[](:result)&.[](0)&.[](:partOfSeries)
 json.tvEpisode @result[:tvepisode]&.[](:result)&.[](0)
 json.set_raw! :recipes, (@result[:recipe]&.[](:result) || []).to_json
