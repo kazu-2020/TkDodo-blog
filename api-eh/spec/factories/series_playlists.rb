@@ -5,5 +5,9 @@ FactoryBot.define do
     author_name { 'オウサム　ネーム' }
     headline { 'ヘッドラインのテキストが入ります' }
     active_article { [true, false].sample }
+    series_id { SecureRandom.alphanumeric(10) }
+    string_id { "ts-#{series_id}"}
+    type_of_list { 'series' }
+    mode_of_item { 'tv' }
   end
 end

@@ -10,4 +10,10 @@ FactoryBot.define do
     deck_uid { SecureRandom.uuid }
     api_state { %w[open close].sample }
   end
+
+  trait :with_series_playlists do
+    after(:create) do |series_deck, _|
+      create_list(:series_playlist, 3, series_decks: [series_deck])
+    end
+  end
 end
