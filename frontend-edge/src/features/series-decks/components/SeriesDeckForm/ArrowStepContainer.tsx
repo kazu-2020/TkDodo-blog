@@ -20,7 +20,7 @@ const hasChangedPlaylists = (
 const hasChangedDeck = (
   dirtyFields: FieldNamesMarkedBoolean<FieldValues>
 ): boolean => {
-  const { ...fields } = dirtyFields
+  const { playlists, ...fields } = dirtyFields
 
   return Object.keys(fields).length > 0
 }

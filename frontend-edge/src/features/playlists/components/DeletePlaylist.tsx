@@ -27,7 +27,8 @@ export const DeletePlaylist = ({ playlistId, onDrawerClose }: Props) => {
     <>
       <Button
         data-testid="playlist-drawer-delete-button"
-        colorScheme="red"
+        color="gray"
+        colorScheme="gray"
         variant="outline"
         onClick={onOpen}
         leftIcon={<MdDelete />}

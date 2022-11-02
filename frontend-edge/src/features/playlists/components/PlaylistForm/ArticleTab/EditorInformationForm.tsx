@@ -87,9 +87,7 @@ export const EditorInformationForm = () => {
                 required: '著者名を入力して下さい'
               })}
             />
-            <FormErrorMessage>
-              {errors.authorName && errors.authorName.message}
-            </FormErrorMessage>
+            <FormErrorMessage>{errors?.authorName?.message}</FormErrorMessage>
           </FormControl>
           <FormControl as="fieldset">
             <FormLabel as="legend">

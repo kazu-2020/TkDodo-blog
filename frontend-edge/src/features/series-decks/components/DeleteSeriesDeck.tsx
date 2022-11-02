@@ -29,7 +29,9 @@ const DeleteSeriesDeck = ({
   return (
     <>
       <Button
-        colorScheme="red"
+        color="gray"
+        colorScheme="gray"
+        data-testid="series-deck-drawer-delete-button"
         variant="outline"
         onClick={onOpen}
         leftIcon={<MdDelete />}
@@ -59,6 +61,7 @@ const DeleteSeriesDeck = ({
                 キャンセル
               </Button>
               <Button
+                data-testid="series-deck-alert-delete-button"
                 colorScheme="red"
                 isLoading={deleteSeriesDeckMutation.isLoading}
                 loadingText="送信中"
