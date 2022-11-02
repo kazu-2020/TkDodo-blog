@@ -26,37 +26,6 @@ describe Playlist, type: :model do
         end
       end
     end
-
-    context 'for author_type and author_name' do
-      let(:playlist) { build(:playlist, author_type: author_type, author_name: author_name) }
-
-      context 'When it passed valid author_type and name' do
-        let(:author_type) { 'Person' }
-        let(:author_name) { 'name' }
-
-        it 'returns valid true' do
-          expect(playlist).to be_valid
-        end
-      end
-
-      context 'When it passed valid author_type but does not pass the author_name' do
-        let(:author_type) { 'Person' }
-        let(:author_name) { nil }
-
-        it 'returns invalid' do
-          expect(playlist).to be_invalid
-        end
-      end
-
-      context 'When it does not passed author_type but passed the author_name' do
-        let(:author_type) { nil }
-        let(:author_name) { 'name' }
-
-        it 'returns invalid' do
-          expect(playlist).to be_invalid
-        end
-      end
-    end
   end
 
   describe '#before_create' do
@@ -74,13 +43,13 @@ describe Playlist, type: :model do
       context 'when colors does not set' do
         it 'assigned default colors' do
           playlist.save
-          expect(playlist.reload.selected_palette).to eq('#ffffff')
-          expect(playlist.reload.primary_light_color).to eq('#757575')
-          expect(playlist.reload.primary_dark_color).to eq('#999999')
+          expect(playlist.reload.selected_palette).to eq('#84919e')
+          expect(playlist.reload.primary_light_color).to eq('#84919e')
+          expect(playlist.reload.primary_dark_color).to eq('#84919e')
           expect(playlist.reload.text_light_color).to eq('#000000')
           expect(playlist.reload.text_dark_color).to eq('#ffffff')
-          expect(playlist.reload.link_light_color).to eq('#000000')
-          expect(playlist.reload.link_dark_color).to eq('#ffffff')
+          expect(playlist.reload.link_light_color).to eq('#6a757f')
+          expect(playlist.reload.link_dark_color).to eq('#84919e')
         end
       end
 
@@ -112,6 +81,42 @@ describe Playlist, type: :model do
           expect(playlist.reload.text_dark_color).to eq(text_dark_color)
           expect(playlist.reload.link_light_color).to eq(link_light_color)
           expect(playlist.reload.link_dark_color).to eq(link_dark_color)
+        end
+      end
+    end
+
+    describe '#set_default_editor_info' do
+      context 'when not set' do
+        it do
+          playlist.save
+          playlist.reload
+          expect(playlist.author_name).to eq('NHK')
+          expect(playlist.author_type).to eq('Organization')
+          expect(playlist.publisher_name).to eq('NHK')
+          expect(playlist.publisher_type).to eq('Organization')
+        end
+      end
+
+      context 'when already set' do
+        let(:playlist) do
+          build(:playlist,
+                author_name: author_name,
+                author_type: author_type,
+                publisher_name: publisher_name,
+                publisher_type: publisher_type)
+        end
+        let(:author_name) { 'author' }
+        let(:author_type) { 'Person' }
+        let(:publisher_name) { 'publisher' }
+        let(:publisher_type) { 'Person' }
+
+        it do
+          playlist.save
+          playlist.reload
+          expect(playlist.author_name).to eq(author_name)
+          expect(playlist.author_type).to eq(author_type)
+          expect(playlist.publisher_name).to eq(publisher_name)
+          expect(playlist.publisher_type).to eq(publisher_type)
         end
       end
     end

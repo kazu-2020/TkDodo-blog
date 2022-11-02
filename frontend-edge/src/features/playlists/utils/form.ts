@@ -60,7 +60,7 @@ export const playlistToDefaultValues = (
   publisherType: playlist?.article.publisherType || 'Organization',
   publisherName: playlist?.article.publisherName || 'NHK',
   episodes: playlist?.items || [],
-  activeTvepisode: playlist?.activeTvepisode,
+  activeTvepisode: playlist?.activeTvepisode || true,
   activeArticle: playlist?.activeArticle,
   activeFaqpage: playlist?.activeFaqpage,
   activeHowto: playlist?.activeHowto,

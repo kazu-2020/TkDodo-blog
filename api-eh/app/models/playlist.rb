@@ -64,11 +64,9 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :eyecatch_image_data, presence: true
   validates :hero_image_data, presence: true
 
-  validate :require_author_name_and_type
-  validate :require_publisher_and_type
-
   before_create :generate_string_uid
   before_create :set_default_color
+  before_create :set_default_editor_info
   after_create :link_article_images
   after_create :save_string_id
   before_save :generate_derivatives
@@ -237,13 +235,20 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def set_default_color # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-    self.selected_palette = '#ffffff' if selected_palette.nil?
-    self.primary_light_color = '#757575' if primary_light_color.nil?
-    self.primary_dark_color = '#999999' if primary_dark_color.nil?
+    self.selected_palette = '#84919e' if selected_palette.nil?
+    self.primary_light_color = '#84919e' if primary_light_color.nil?
+    self.primary_dark_color = '#84919e' if primary_dark_color.nil?
     self.text_light_color = '#000000' if text_light_color.nil?
     self.text_dark_color = '#ffffff' if text_dark_color.nil?
-    self.link_light_color = '#000000' if link_light_color.nil?
-    self.link_dark_color = '#ffffff' if link_dark_color.nil?
+    self.link_light_color = '#6a757f' if link_light_color.nil?
+    self.link_dark_color = '#84919e' if link_dark_color.nil?
+  end
+
+  def set_default_editor_info
+    self.author_type ||= 'Organization'
+    self.publisher_type ||= 'Organization'
+    self.author_name ||= 'NHK'
+    self.publisher_name ||= 'NHK'
   end
 
   def add_playlist_items!(episode_ids)
@@ -271,22 +276,6 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     logo_image_derivatives! if will_save_change_to_logo_image_data? && logo_image.present?
     eyecatch_image_derivatives! if will_save_change_to_eyecatch_image_data? && eyecatch_image.present?
     hero_image_derivatives! if will_save_change_to_hero_image_data? && hero_image.present?
-  end
-
-  def require_author_name_and_type
-    if author_type.present?
-      errors.add(:author_name, 'は必須です') unless author_name.present?
-    elsif author_name.present?
-      errors.add(:author_type, 'は必須です') unless author_type.present?
-    end
-  end
-
-  def require_publisher_and_type
-    if publisher_type.present?
-      errors.add(:publisher_name, 'は必須です') unless publisher_name.present?
-    elsif publisher_name.present?
-      errors.add(:publisher_type, 'は必須です') unless publisher_type.present?
-    end
   end
 
   def link_article_images
