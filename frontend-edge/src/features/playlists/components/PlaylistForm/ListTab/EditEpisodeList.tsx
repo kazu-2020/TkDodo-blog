@@ -75,7 +75,7 @@ export const EditEpisodeList = () => {
         {episodes?.length < 1 && (
           <Alert status="warning" colorScheme="gray">
             <AlertIcon />
-            プレイリストを追加してください
+            エピソードを追加してください
           </Alert>
         )}
         <SortableContext

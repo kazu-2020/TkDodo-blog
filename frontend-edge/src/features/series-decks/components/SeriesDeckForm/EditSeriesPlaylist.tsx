@@ -82,13 +82,12 @@ export const EditSeriesPlaylist = () => {
           </GridItem>
         </Grid>
 
-        {!seriesPlaylists ||
-          (seriesPlaylists.length < 1 && (
-            <Alert status="warning" colorScheme="gray">
-              <AlertIcon />
-              プレイリストを追加してください
-            </Alert>
-          ))}
+        {(!seriesPlaylists || seriesPlaylists.length < 1) && (
+          <Alert status="warning" colorScheme="gray">
+            <AlertIcon />
+            シリーズを追加してください
+          </Alert>
+        )}
         {seriesPlaylists && (
           <SortableContext
             items={seriesPlaylists.map((pl) => pl.seriesId)}
