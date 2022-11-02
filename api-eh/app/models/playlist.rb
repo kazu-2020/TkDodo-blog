@@ -52,7 +52,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   %w[selected_palette primary_light_color primary_dark_color
      text_light_color text_dark_color link_light_color link_dark_color].each do |color_attribute|
     validates color_attribute.to_sym, format: { with: VALID_COLOR_REGEX },
-                                      if: proc { |pl| pl.send(color_attribute.to_sym).present? }
+              if: proc { |pl| pl.send(color_attribute.to_sym).present? }
   end
   validates_uniqueness_of :alias_id, case_sensitive: false, allow_nil: true
   validates :alias_id,
@@ -64,11 +64,9 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :eyecatch_image_data, presence: true
   validates :hero_image_data, presence: true
 
-  validate :require_author_name_and_type
-  validate :require_publisher_and_type
-
   before_create :generate_string_uid
   before_create :set_default_color
+  before_create :set_default_editor_info
   after_create :link_article_images
   after_create :save_string_id
   before_save :generate_derivatives
@@ -237,13 +235,20 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def set_default_color # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-    self.selected_palette = '#ffffff' if selected_palette.nil?
-    self.primary_light_color = '#757575' if primary_light_color.nil?
-    self.primary_dark_color = '#999999' if primary_dark_color.nil?
+    self.selected_palette = '#84919e' if selected_palette.nil?
+    self.primary_light_color = '#84919e' if primary_light_color.nil?
+    self.primary_dark_color = '#84919e' if primary_dark_color.nil?
     self.text_light_color = '#000000' if text_light_color.nil?
     self.text_dark_color = '#ffffff' if text_dark_color.nil?
-    self.link_light_color = '#000000' if link_light_color.nil?
-    self.link_dark_color = '#ffffff' if link_dark_color.nil?
+    self.link_light_color = '#6a757f' if link_light_color.nil?
+    self.link_dark_color = '#84919e' if link_dark_color.nil?
+  end
+
+  def set_default_editor_info
+    self.author_type ||= 'Organization'
+    self.publisher_type ||= 'Organization'
+    self.author_name ||= 'NHK'
+    self.publisher_name ||= 'NHK'
   end
 
   def add_playlist_items!(episode_ids)
@@ -273,27 +278,11 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     hero_image_derivatives! if will_save_change_to_hero_image_data? && hero_image.present?
   end
 
-  def require_author_name_and_type
-    if author_type.present?
-      errors.add(:author_name, 'は必須です') unless author_name.present?
-    elsif author_name.present?
-      errors.add(:author_type, 'は必須です') unless author_type.present?
-    end
-  end
-
-  def require_publisher_and_type
-    if publisher_type.present?
-      errors.add(:publisher_name, 'は必須です') unless publisher_name.present?
-    elsif publisher_name.present?
-      errors.add(:publisher_type, 'は必須です') unless publisher_type.present?
-    end
-  end
-
   def link_article_images
     return if editor_data.blank?
 
     image_urls = editor_blocks_of('image')
-                 .map { |block| URI.parse(block['data']['file']['url']) }
+                   .map { |block| URI.parse(block['data']['file']['url']) }
     image_names = image_urls.map(&:path)
 
     image_names.each do |image_name|
