@@ -6,4 +6,9 @@ class ApiBaseController < ApplicationController
   def set_x_api_url_to_header
     response.headers['x-api-url'] = RequestStore.store[:api_request_urls]&.join(',') || ''
   end
+
+  # 真偽値のフラグが数値で渡ってくることがあるので、それをbooleanに変換して返します
+  def cast_boolean(value)
+    ActiveRecord::Type::Boolean.new.cast(value)
+  end
 end

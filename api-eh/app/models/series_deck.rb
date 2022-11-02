@@ -21,13 +21,13 @@ class SeriesDeck < ApplicationRecord
   }
 
   def rebuild_playlists_to(new_playlist_series_ids)
-    current_playlists = series_playlists.pluck(:series_id)
+    current_playlists_ids = series_playlists.pluck(:series_id)
 
     ActiveRecord::Base.transaction do
-      new_series_ids = (current_playlists | new_playlist_series_ids) - current_playlists
+      new_series_ids = (current_playlists_ids | new_playlist_series_ids) - current_playlists_ids
       add_playlists!(new_series_ids)
 
-      remove_series_ids = (current_playlists | new_playlist_series_ids) - new_playlist_series_ids
+      remove_series_ids = (current_playlists_ids | new_playlist_series_ids) - new_playlist_series_ids
       remove_playlists!(remove_series_ids)
 
       reorder_playlists(new_playlist_series_ids)
@@ -80,10 +80,10 @@ class SeriesDeck < ApplicationRecord
     end
   end
 
-  def reorder_playlists(new_series_id_order)
-    playlists = SeriesPlaylist.where(series_id: new_series_id_order)
+  def reorder_playlists(new_playlist_series_ids)
+    playlists = SeriesPlaylist.where(series_id: new_playlist_series_ids)
 
-    new_series_id_order.each_with_index do |series_id, i|
+    new_playlist_series_ids.each_with_index do |series_id, i|
       series_playlist = playlists.find_by(series_id: series_id)
       next if series_playlist.id == reload.series_playlists[i].id
 

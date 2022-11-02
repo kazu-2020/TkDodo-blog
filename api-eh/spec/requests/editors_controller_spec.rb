@@ -11,7 +11,7 @@ describe EditorsController, type: :request do
       it 'リクエストが成功すること' do
         get fetch_link_editor_path(url: valid_url)
         expect(response.status).to eq 200
-        expect(JSON.parse(response.body)['success']).to eq 1
+        expect(JSON.parse(response.body)['success']).to eq true
       end
     end
 
@@ -19,7 +19,7 @@ describe EditorsController, type: :request do
       it 'リクエストは成功するが、レスポンスにエラーが含まれる' do
         get fetch_link_editor_path(url: invalid_url)
         expect(response.status).to eq 200
-        expect(JSON.parse(response.body)['success']).to eq 0
+        expect(JSON.parse(response.body)['success']).to eq false
       end
     end
   end

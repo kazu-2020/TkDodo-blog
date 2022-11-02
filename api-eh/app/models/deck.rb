@@ -28,18 +28,18 @@ class Deck < ApplicationRecord
     playlists.sum(&:total_time)
   end
 
-  def rebuild_playlists_to(new_playlists)
-    current_playlists = playlists.pluck(:id)
-    new_playlists = new_playlists.map(&:to_i).uniq
+  def rebuild_playlists_to(new_playlists_ids)
+    new_playlists_ids = new_playlists_ids.map(&:to_i).uniq # 文字列のIDが混ざって不具合を起こしていたのでその対応
+    current_playlists_ids = deck_playlists.pluck(:playlist_id)
 
     ActiveRecord::Base.transaction do
-      new_playlist_ids = (current_playlists | new_playlists) - current_playlists
+      new_playlist_ids = (current_playlists_ids | new_playlists_ids) - current_playlists_ids
       add_playlists!(new_playlist_ids)
 
-      remove_playlist_ids = (current_playlists | new_playlists) - new_playlists
+      remove_playlist_ids = (current_playlists_ids | new_playlists_ids) - new_playlists_ids
       remove_playlists!(remove_playlist_ids)
 
-      reorder_playlists(new_playlists)
+      reorder_playlists(new_playlists_ids)
     end
 
     touch
@@ -80,8 +80,8 @@ class Deck < ApplicationRecord
     end
   end
 
-  def reorder_playlists(new_playlist_order)
-    new_playlist_order.each_with_index do |playlist_id, i|
+  def reorder_playlists(new_playlists_ids)
+    new_playlists_ids.each_with_index do |playlist_id, i|
       next if playlist_id == reload.playlists[i].id
 
       sort_target_deck_playlist = deck_playlists.find_by(deck_id: id, playlist_id: playlist_id)
