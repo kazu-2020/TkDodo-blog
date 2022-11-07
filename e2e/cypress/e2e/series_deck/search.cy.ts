@@ -5,10 +5,6 @@ describe("シリーズデッキの検索", () => {
     cy.createSeriesDeck({ name: "API非公開デッキ", apiState: false })
   })
 
-  after(() => {
-    cy.deleteAllSeriesDeck()
-  })
-
   it("シリーズデッキが検索できること", () => {
     cy.visit("/")
     cy.contains("デッキ").click()

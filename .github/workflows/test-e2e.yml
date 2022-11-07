@@ -13,6 +13,11 @@ jobs:
       run:
         working-directory: e2e
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        parallelism: [4]
+        containers: [0,1,2,3]
     services:
       redis:
         image: redis
@@ -28,7 +33,7 @@ jobs:
           REDIS_PORT: 6379
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2.2.2
+      - uses: pnpm/action-setup@v2
         with:
           version: 7
       - name: Install packages
@@ -75,6 +80,11 @@ jobs:
           wait-on: 'http://localhost:5173'
           browser: chrome
           working-directory: e2e
+          command: npx ts-node scripts/cypress-ci-run.ts
+        env:
+          TOTAL_RUNNERS: ${{ matrix.parallelism }}
+          THIS_RUNNER: ${{ matrix.containers }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v3
         with:
           name: test-results

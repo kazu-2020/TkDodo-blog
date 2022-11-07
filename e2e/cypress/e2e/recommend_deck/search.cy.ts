@@ -5,10 +5,6 @@ describe("レコメンドデッキの検索", () => {
     cy.createRecommendDeck({ name: "API非公開デッキ", apiState: false })
   })
 
-  after(() => {
-    cy.deleteAllRecommendDeck()
-  })
-
   it("レコメンドデッキが検索できること", () => {
     cy.visit("/")
     cy.contains("デッキ").click()

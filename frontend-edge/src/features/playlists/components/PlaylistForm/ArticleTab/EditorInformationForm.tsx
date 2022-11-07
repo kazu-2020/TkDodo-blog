@@ -39,8 +39,15 @@ const PersonOrganizationRadio = ({
           defaultValue="Organization"
         >
           <HStack spacing="24px">
-            <Radio value="Person">個人(Person)</Radio>
-            <Radio value="Organization">グループ(Organization)</Radio>
+            <Radio value="Person" data-testid={`radio-${inputName}-person`}>
+              個人(Person)
+            </Radio>
+            <Radio
+              value="Organization"
+              data-testid={`radio-${inputName}-organization`}
+            >
+              グループ(Organization)
+            </Radio>
           </HStack>
         </RadioGroup>
       )}
