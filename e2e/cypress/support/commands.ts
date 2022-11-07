@@ -235,7 +235,7 @@ Cypress.Commands.add("deleteAllPlaylists", () => {
   cy.wait(200) // これを入れないと安定しない
 
   cy.get("body").then(($body) => {
-    if (!$body.text().includes("見つかりませんでした")) {
+    if ($body.find('[data-testid="playlist-list-item"]').length) {
       cy.get('[data-testid="playlist-list-item"]').each((el) => {
         cy.wrap(el).click({ force: true })
         cy.get('[data-testid="playlist-drawer-delete-button"]').click({
@@ -308,7 +308,7 @@ Cypress.Commands.add("deleteAllRecommendDeck", () => {
   cy.wait(200) // これを入れないと安定しない
 
   cy.get("body").then(($body) => {
-    if (!$body.text().includes("見つかりませんでした")) {
+    if ($body.find('[data-testid="recommend-deck-list-item"]').length) {
       cy.get('[data-testid="recommend-deck-list-item"]').each((el) => {
         cy.wrap(el).click({ force: true })
         cy.get('[data-testid="recommend-deck-drawer-delete-button"]').click({
@@ -368,7 +368,7 @@ Cypress.Commands.add("deleteAllSeriesDeck", () => {
   cy.wait(200) // これを入れないと安定しない
 
   cy.get("body").then(($body) => {
-    if (!$body.text().includes("見つかりませんでした")) {
+    if ($body.find('[data-testid="series-deck-list-item"]').length) {
       cy.get('[data-testid="series-deck-list-item"]').each((el) => {
         cy.wrap(el).click({ force: true })
         cy.get('[data-testid="series-deck-drawer-delete-button"]').click({
