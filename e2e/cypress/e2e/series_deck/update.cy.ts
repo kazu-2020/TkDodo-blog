@@ -7,11 +7,6 @@ describe("シリーズデッキ更新", () => {
     cy.createSeriesDeck()
   })
 
-  after(() => {
-    cy.deleteAllPlaylists()
-    cy.deleteAllSeriesDeck()
-  })
-
   it("シリーズデッキを選択し、メタの更新をする", () => {
     cy.visit("/")
     cy.contains("デッキ").click()

@@ -3,10 +3,6 @@ describe("シリーズデッキ管理設定", () => {
     cy.createSeriesDeck()
   })
 
-  after(() => {
-    cy.deleteAllSeriesDeck()
-  })
-
   it("管理メモが更新できること", () => {
     cy.visit("/")
     cy.contains("デッキ").click()

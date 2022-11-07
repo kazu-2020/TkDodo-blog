@@ -3,10 +3,6 @@ describe("レコメンドデッキ管理設定", () => {
     cy.createRecommendDeck()
   })
 
-  after(() => {
-    cy.deleteAllRecommendDeck()
-  })
-
   it("管理メモが更新できること", () => {
     cy.visit("/")
     cy.contains("デッキ").click()
