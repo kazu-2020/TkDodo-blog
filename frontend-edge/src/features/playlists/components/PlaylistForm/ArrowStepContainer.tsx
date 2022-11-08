@@ -7,12 +7,14 @@ import {
 import React from 'react'
 import { Box, Hide, HStack, Show } from '@chakra-ui/react'
 
+import {
+  HorizontalPreview,
+  VerticalPreview
+} from '@/features/playlists/components/PlaylistForm/Preview'
 import { ArrowStepContextProvider, StepItem } from '@/components/ArrowStep'
 
-import { VerticalPreview } from './VerticalPreview'
 import { EditMetaTabContent } from './MetaTab/EditMetaTabContent'
 import { EditListTabContent } from './ListTab/EditListTabContent'
-import { HorizontalPreview } from './HorizontalPreview'
 import { FormHeader } from './FormHeader'
 import { EditArticleTabContent } from './ArticleTab/EditArticleTabContent'
 
