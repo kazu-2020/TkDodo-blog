@@ -48,7 +48,7 @@ jobs:
       - name: Setup frontend
         run: |
           cd ../frontend-edge
-          pnpm install
+          pnpm install --frozen-lockfile
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.0.2
@@ -62,7 +62,7 @@ jobs:
       - name: Setup backend
         run: |
           cd ../api-eh
-          bin/setup
+          bin/rails db:prepare
           E2E_MODE=1 bin/rails server -b 0.0.0.0 -p 8888 -d
       - name: Setup Sidekiq
         run: |
@@ -70,9 +70,9 @@ jobs:
           nohup bundle exec sidekiq -C config/sidekiq.yml > sidekiq.out 2> sidekiq.err < /dev/null &
       - name: Setup api
         run: |
-          npm i @mockoon/cli
-          npx mockoon-cli start --data ./mockoon/r6.json --port 4010
-          npx mockoon-cli start --data ./mockoon/r6.0.json --port 4011
+          pnpm i -g @mockoon/cli
+          mockoon-cli start --data ./mockoon/r6.json --port 4010
+          mockoon-cli start --data ./mockoon/r6.0.json --port 4011
       - name: cypress run
         uses: cypress-io/github-action@v4.2.0
         with:
