@@ -18,7 +18,8 @@ class DecksController < ApiBaseController
   end
 
   def show
-    @deck = Deck.find_by(id: params[:id])
+    @deck = Deck.friendly.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @deck
   end
 
@@ -33,7 +34,7 @@ class DecksController < ApiBaseController
   end
 
   def update
-    @deck = Deck.find_by(id: params[:id])
+    @deck = Deck.friendly.find(params[:id])
     if @deck.update(deck_params.except(:playlists))
       if cast_boolean(params[:enable_list_update])
         @deck.rebuild_playlists_to(playlist_ids)
@@ -46,7 +47,7 @@ class DecksController < ApiBaseController
   end
 
   def destroy
-    @deck = Deck.find(params[:id])
+    @deck = Deck.friendly.find(params[:id])
     @deck.destroy
     render json: { deleted: true }
   end

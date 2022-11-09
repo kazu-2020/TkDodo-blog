@@ -63,7 +63,7 @@ export const RecommendDeckForm = ({ recommendDeck = undefined }: Props) => {
           playlists: recommendIds,
           enableListUpdate: !!onlyDirtyValues.playlists
         },
-        recommendDeckId: recommendDeck.id
+        recommendDeckId: recommendDeck.deckUid
       })
     }
     reset(values)

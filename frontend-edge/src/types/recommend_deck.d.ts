@@ -8,6 +8,7 @@ export type RecommendDeck = {
   interfix: string
   sameAs: SameAs[]
   stringId: string
+  deckUid: string
   adminMemo?: string
   apiState: 'open' | 'close' | 'waiting'
   playListCount: number

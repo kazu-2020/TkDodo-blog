@@ -3,6 +3,7 @@ json.name deck.name
 json.description deck.description
 json.interfix deck.interfix
 json.stringId deck.deck_id
+json.deckUid deck.deck_uid
 json.playlistCount deck.playlists.count
 json.adminMemo deck.admin_memo
 json.apiState deck.api_state
