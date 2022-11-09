@@ -62,7 +62,7 @@ export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
           playlists: seriesIds,
           enableListUpdate: !!onlyDirtyValues.playlists
         },
-        seriesDeckId: seriesDeck.id
+        seriesDeckId: seriesDeck.deckUid
       })
     }
 
