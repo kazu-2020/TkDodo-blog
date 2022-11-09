@@ -1,4 +1,4 @@
-import EditorJS, { API, BlockAPI } from '@editorjs/editorjs'
+import EditorJS, { API } from '@editorjs/editorjs'
 
 export const notifyError = (editor: EditorJS, message: string) =>
   // @ts-ignore
@@ -16,7 +16,9 @@ export const isFirstBlockEmpty = (editor: EditorJS | null): boolean => {
   if (editor === null) return false
 
   const firstBlock = editor.blocks.getBlockByIndex(0)
-  return (firstBlock as BlockAPI).isEmpty
+  if(firstBlock == null) return false
+
+  return firstBlock.isEmpty
 }
 
 // Editorの先頭に空のブロックを追加する
