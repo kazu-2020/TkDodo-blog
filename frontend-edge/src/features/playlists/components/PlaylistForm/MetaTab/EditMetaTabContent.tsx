@@ -38,6 +38,7 @@ export const EditMetaTabContent = ({
   const {
     control,
     register,
+    trigger,
     formState: { errors }
   } = useFormContext<PlaylistFormInputs>()
 
@@ -119,9 +120,19 @@ export const EditMetaTabContent = ({
         <ColorPaletteForm />
       </Box>
 
-      <SameAsItems control={control} register={register} errors={errors} />
+      <SameAsItems
+        control={control}
+        register={register}
+        errors={errors}
+        trigger={trigger}
+      />
 
-      <CitationItems control={control} register={register} errors={errors} />
+      <CitationItems
+        control={control}
+        register={register}
+        errors={errors}
+        trigger={trigger}
+      />
 
       <PropertyInput
         name="aliasId"
