@@ -6,12 +6,10 @@ import {
   Divider,
   Flex,
   FormControl,
-  FormErrorMessage,
   FormLabel,
   Heading,
   HStack,
   Icon,
-  Input,
   Radio,
   RadioGroup,
   Stack,
@@ -19,6 +17,7 @@ import {
 } from '@chakra-ui/react'
 
 import { PlaylistFormInputs } from '@/features/playlists/types'
+import { PropertyInput } from '@/components/Form'
 
 const PersonOrganizationRadio = ({
   inputName
@@ -81,21 +80,17 @@ export const EditorInformationForm = () => {
             </FormLabel>
             <PersonOrganizationRadio inputName="authorType" />
           </FormControl>
-          <FormControl isRequired>
-            <FormLabel>
-              著者名
-              <Text as="span" color="gray">
-                - Author Name
-              </Text>
-            </FormLabel>
-            <Input
-              data-testid="authorName"
-              {...register('authorName', {
-                required: '著者名を入力して下さい'
-              })}
-            />
-            <FormErrorMessage>{errors?.authorName?.message}</FormErrorMessage>
-          </FormControl>
+          <PropertyInput
+            name="authorName"
+            label="著者名"
+            schemaName="Author Name"
+            error={errors?.authorName}
+            register={register(`authorName`, {
+              required: '著者名を入力してください'
+            })}
+            isRequired
+            m={3}
+          />
           <FormControl as="fieldset">
             <FormLabel as="legend">
               発行者
@@ -105,23 +100,17 @@ export const EditorInformationForm = () => {
             </FormLabel>
             <PersonOrganizationRadio inputName="publisherType" />
           </FormControl>
-          <FormControl isRequired>
-            <FormLabel>
-              発行者名
-              <Text as="span" color="gray">
-                - Publisher Name
-              </Text>
-            </FormLabel>
-            <Input
-              data-testid="publisherName"
-              {...register('publisherName', {
-                required: '発行者名を入力して下さい'
-              })}
-            />
-            <FormErrorMessage>
-              {errors.publisherName && errors.publisherName.message}
-            </FormErrorMessage>
-          </FormControl>
+          <PropertyInput
+            name="publisherName"
+            label="発行者名"
+            schemaName="Publisher Name"
+            error={errors?.publisherName}
+            register={register(`publisherName`, {
+              required: '発行者名を入力してください'
+            })}
+            isRequired
+            m={3}
+          />
         </Stack>
       </Box>
     </Box>
