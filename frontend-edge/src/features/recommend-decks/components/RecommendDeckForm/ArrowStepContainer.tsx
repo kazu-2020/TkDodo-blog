@@ -15,15 +15,23 @@ import { EditDeckTabContent } from './EditDeckTabContent'
 
 const hasChangedPlaylists = (
   dirtyFields: FieldNamesMarkedBoolean<FieldValues>
-): boolean => !!dirtyFields.playlists
+): boolean => dirtyFields.playlists === true
 
 const hasChangedDeck = (
   dirtyFields: FieldNamesMarkedBoolean<FieldValues>
-): boolean => {
-  const { playlists, ...fields } = dirtyFields
-
-  return Object.keys(fields).length > 0
-}
+): boolean =>
+  dirtyFields.name === true ||
+  dirtyFields.interfix === true ||
+  dirtyFields.description === true ||
+  dirtyFields.apiState === true ||
+  dirtyFields.deckSameAsAttributes?.some(
+    (sameAs: any) =>
+      Object.keys(sameAs).length === 0 ||
+      sameAs.name === true ||
+      sameAs.url === true ||
+      // eslint-disable-next-line no-underscore-dangle
+      sameAs._destroy === true
+  )
 
 export const ArrowStepContainer = () => {
   const {

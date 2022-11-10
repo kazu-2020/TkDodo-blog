@@ -5,6 +5,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
 import { EpisodeData } from '@/types/episode_data'
 import { EpisodeListItem } from '@/features/playlists/components'
+import { nanoid } from 'nanoid'
 
 const PAGE_ITEMS = 8
 
@@ -109,7 +110,13 @@ export const HorizontalEpisodeList = ({ episodes }: Props) => {
       showThumbs={false}
     >
       {pages.map((page) => (
-        <HStack wrap="wrap" alignItems="flex-start" spacing={0} mx={12}>
+        <HStack
+          key={nanoid()}
+          wrap="wrap"
+          alignItems="flex-start"
+          spacing={0}
+          mx={12}
+        >
           {page?.map((item: EpisodeData) => (
             <Box pr={1} key={item.id}>
               <EpisodeListItem

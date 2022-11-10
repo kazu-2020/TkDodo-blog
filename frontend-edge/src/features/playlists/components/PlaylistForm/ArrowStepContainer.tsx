@@ -24,36 +24,67 @@ const metaIndex = 2
 
 const hasChangedEpisodes = (
   dirtyFields: FieldNamesMarkedBoolean<FieldValues>
-): boolean => !!dirtyFields.episodes
+): boolean => dirtyFields.episodes === true
 
 const hasChangedArticle = (
   dirtyFields: FieldNamesMarkedBoolean<FieldValues>
 ): boolean =>
-  dirtyFields.editorData ||
-  dirtyFields.markedHeader ||
-  dirtyFields.markedFooter ||
-  dirtyFields.authorType ||
-  dirtyFields.authorName ||
-  dirtyFields.publisherType ||
-  dirtyFields.publisherName
+  dirtyFields.editorData === true ||
+  dirtyFields.markedHeader === true ||
+  dirtyFields.markedFooter === true ||
+  dirtyFields.authorType === true ||
+  dirtyFields.authorName === true ||
+  dirtyFields.publisherType === true ||
+  dirtyFields.publisherName === true
 
 const hasChangedSeries = (
   dirtyFields: FieldNamesMarkedBoolean<FieldValues>
-): boolean => {
-  const {
-    episodes,
-    editorData,
-    markedHeader,
-    markedFooter,
-    authorType,
-    authorName,
-    publisherType,
-    publisherName,
-    ...fields
-  } = dirtyFields
-
-  return Object.keys(fields).length > 0
-}
+): boolean =>
+  dirtyFields.name === true ||
+  dirtyFields.detailedNameRuby === true ||
+  dirtyFields.detailedCatch === true ||
+  dirtyFields.description === true ||
+  dirtyFields.keywords?.some(
+    (keyword: any) => keyword.label === true || keyword.value === true
+  ) ||
+  dirtyFields.hashtags?.some(
+    (hashtag: any) => hashtag.label === true || hashtag.value === true
+  ) ||
+  dirtyFields.formatGenreCode === true ||
+  dirtyFields.themeGenreCode === true ||
+  dirtyFields.selectedPalette === true ||
+  dirtyFields.primaryLightColor === true ||
+  dirtyFields.primaryDarkColor === true ||
+  dirtyFields.linkLightColor === true ||
+  dirtyFields.linkDarkColor === true ||
+  dirtyFields.aliasId === true ||
+  dirtyFields.sameAsAttributes?.some(
+    (sameAs: any) =>
+      Object.keys(sameAs).length === 0 ||
+      sameAs.name === true ||
+      sameAs.url === true ||
+      // eslint-disable-next-line no-underscore-dangle
+      sameAs._destroy === true
+  ) ||
+  dirtyFields.citationsAttributes?.some(
+    (citation: any) =>
+      Object.keys(citation).length === 0 ||
+      citation.name === true ||
+      citation.url === true ||
+      // eslint-disable-next-line no-underscore-dangle
+      citation._destroy === true
+  ) ||
+  dirtyFields.apiState === true ||
+  dirtyFields.logoImageSrc === true ||
+  dirtyFields.eyecatchImageSrc === true ||
+  dirtyFields.heroImageSrc === true ||
+  dirtyFields.activeTvepisode === true ||
+  dirtyFields.activeArticle === true ||
+  dirtyFields.activeFaqpage === true ||
+  dirtyFields.activeHowto === true ||
+  dirtyFields.activeEvent === true ||
+  dirtyFields.activeRecipe === true ||
+  dirtyFields.activeItemList === true
 
 const hasErrorArticle = (errors: FieldErrors): boolean =>
   !!(
