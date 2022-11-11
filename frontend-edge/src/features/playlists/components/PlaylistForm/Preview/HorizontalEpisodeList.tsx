@@ -1,11 +1,11 @@
 import { Carousel } from 'react-responsive-carousel'
 import React, { CSSProperties } from 'react'
+import { nanoid } from 'nanoid'
 import { Box, HStack, Text } from '@chakra-ui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
 import { EpisodeData } from '@/types/episode_data'
 import { EpisodeListItem } from '@/features/playlists/components'
-import { nanoid } from 'nanoid'
 
 const PAGE_ITEMS = 8
 
