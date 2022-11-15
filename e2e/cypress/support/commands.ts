@@ -317,6 +317,7 @@ Cypress.Commands.add("deleteAllRecommendDeck", () => {
         cy.get('[data-testid="recommend-deck-alert-delete-button"]').click({
           force: true,
         })
+        cy.contains("削除しました")
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(200)
       })
@@ -377,6 +378,7 @@ Cypress.Commands.add("deleteAllSeriesDeck", () => {
         cy.get('[data-testid="series-deck-alert-delete-button"]').click({
           force: true,
         })
+        cy.contains("削除しました")
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(200)
       })
