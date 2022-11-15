@@ -6,7 +6,7 @@ FactoryBot.define do
     detailed_name_ruby { 'オウサム ネーム' }
     description { '説明テキストが入ります' }
     headline { 'ヘッドラインのテキストが入ります' }
-    selected_palette { '#ffffff' }
+    selected_palette { '#84919e' }
     api_state { %i[open close waiting].sample }
     sequence(:alias_id) { |i| "ALIAS-ID#{i}" }
     publish_level { Playlist::PUBLISH_LEVELS.sample }

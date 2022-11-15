@@ -12,6 +12,7 @@ import {
   VStack
 } from '@chakra-ui/react'
 
+import { usePrompt } from '@/utils/form-guard'
 import { RecommendDeck } from '@/types/recommend_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
 import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
@@ -32,12 +33,14 @@ const RecommendDeckConfigForm = ({
     control,
     register,
     handleSubmit,
-    formState: { errors, dirtyFields, isSubmitting }
+    formState: { errors, dirtyFields, isSubmitting, isDirty }
   } = useForm<Inputs>({
     defaultValues: {
       adminMemo: recommendDeck?.adminMemo
     }
   })
+
+  usePrompt('編集中のデータがあります。ページを離れますか？', isDirty)
 
   const updateRecommendDeckMutation = useUpdateRecommendDeck()
 
@@ -49,7 +52,7 @@ const RecommendDeckConfigForm = ({
 
     await updateRecommendDeckMutation.mutateAsync({
       data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
-      recommendDeckId: recommendDeck.id
+      recommendDeckId: recommendDeck.deckUid
     })
   }
 

@@ -1,7 +1,8 @@
+import { useUpdateEffect } from 'react-use'
 import { MdPalette } from 'react-icons/all'
 import { useFormContext } from 'react-hook-form'
 import { HexColorInput, HexColorPicker } from 'react-colorful'
-import React, { Dispatch, useEffect, useState } from 'react'
+import React, { Dispatch, useState } from 'react'
 import {
   Box,
   Flex,
@@ -59,7 +60,7 @@ export const ColorPickerCard = ({
 
   const { setValue } = useFormContext<PlaylistFormInputs>()
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     setValue('selectedPalette', color, { shouldDirty: true })
   }, [color])
 

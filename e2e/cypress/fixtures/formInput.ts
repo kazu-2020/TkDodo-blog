@@ -2,27 +2,42 @@ import { faker } from "@faker-js/faker";
 faker.locale = "ja";
 
 const now = Cypress.env("NOW");
-export const playlist = {
-  name: `${now}_プレイリスト`,
-  detailedNameRuby: "ぷれいりすと１",
-  detailedCatch: "キャッチコピーはこちらに",
-  description: "説明",
-  keywords: "キーワード1{enter}キーワード2{enter}",
-  hashTags: "#ハッシュタグ1{enter}",
-  formatGenre: "報道",
-  themeGenre: "科学",
-  sameAsName: "same-as1",
-  sameAsUrl: "https://example.com/same-as",
-  citationName: "citation1",
-  citationUrl: "https://example.com/citation",
-  aliasId: `alias-${new Date(now).getTime()}`,
-  markedHeader: "ヘッダー",
-  markedFooter: "フッター",
+
+export type Citation = Record<"name" | "url", string>;
+export type SameAs = Record<"name" | "url", string>;
+
+export type PlaylistInput = {
+  name: string;
+  detailedNameRuby?: string;
+  detailedCatch?: string;
+  description?: string;
+  keywords?: string;
+  hashTags?: string;
+  formatGenre?: string;
+  themeGenre?: string;
+  sameAs?: SameAs[];
+  citation?: Citation[];
+  aliasId?: string;
+  apiState?: boolean;
+  activeItemList?: boolean;
+  activeTvepisode?: boolean;
+  activeFaqpage?: boolean;
+  activeHowto?: boolean;
+  activeEvent?: boolean;
+  activeRecipe?: boolean;
+  activeArticle?: boolean;
+  markedHeader?: string;
+  markedFooter?: string;
+  authorName?: string;
+  publisherName?: string;
+  beforeSave?: Function;
 };
 
-type sameAs = {
-  name: string;
-  url: string;
+export const playlistInput = (overrides = {}): PlaylistInput => {
+  return {
+    name: `${faker.word.adjective()}_プレイリスト`,
+    ...overrides,
+  };
 };
 
 export type RecommendDeckInput = {
@@ -30,7 +45,8 @@ export type RecommendDeckInput = {
   interfix: string;
   description?: string;
   apiState?: boolean;
-  sameAs?: sameAs[];
+  sameAs?: SameAs[];
+  beforeSave?: Function;
 };
 
 export const recommendDeckInput = (overrides = {}): RecommendDeckInput => {
@@ -46,6 +62,7 @@ export type SeriesDeckInput = {
   interfix: string;
   description?: string;
   apiState?: boolean;
+  beforeSave?: Function;
 };
 
 export const seriesDeckInput = (overrides = {}): SeriesDeckInput => {

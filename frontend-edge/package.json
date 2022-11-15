@@ -61,6 +61,7 @@
     "react-query": "^3.39.1",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "6",
+    "react-use": "^17.4.0",
     "snakecase-keys": "^5.4.2",
     "type-fest": "^2.14.0",
     "use-react-router-breadcrumbs": "^3.2.1",

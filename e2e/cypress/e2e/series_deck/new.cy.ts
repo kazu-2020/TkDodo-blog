@@ -3,10 +3,6 @@ describe("シリーズデッキ新規作成", () => {
     cy.deleteAllSeriesDeck()
   })
 
-  after(() => {
-    cy.deleteAllSeriesDeck()
-  })
-
   it("シリーズデッキを新規作成し、メタの編集をする", () => {
     cy.visit("/")
     cy.contains("デッキ").click()

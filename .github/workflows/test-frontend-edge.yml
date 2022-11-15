@@ -1,4 +1,4 @@
-name: Test for frontend
+name: Test for frontend edge
 
 on:
   push:

@@ -64,13 +64,14 @@ export const EditRecommendPlaylist = () => {
   return (
     <Box mb={10} data-testid="edit-recommend-playlist">
       <RecommendPlaylistListHeader />
-      {!recommendPlaylists ||
-        (recommendPlaylists?.length < 1 && (
-          <Alert status="warning" colorScheme="gray">
-            <AlertIcon />
-            編成可能なプレイリストからプレイリストを追加してください
-          </Alert>
-        ))}
+
+      {(!recommendPlaylists || recommendPlaylists?.length < 1) && (
+        <Alert status="warning" colorScheme="gray">
+          <AlertIcon />
+          プレイリストを追加してください
+        </Alert>
+      )}
+
       {recommendPlaylists && (
         <DndContext
           sensors={sensors}

@@ -18,7 +18,8 @@ class SeriesDecksController < ApiBaseController
   end
 
   def show
-    @series_deck = SeriesDeck.find_by(id: params[:id])
+    @series_deck = SeriesDeck.friendly.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
     render json: { message: 'デッキが見つかりませんでした' }, status: 404 and return unless @series_deck
   end
 
@@ -34,7 +35,7 @@ class SeriesDecksController < ApiBaseController
   end
 
   def update
-    @series_deck = SeriesDeck.find_by(id: params[:id])
+    @series_deck = SeriesDeck.friendly.find(params[:id])
     if @series_deck.update(series_deck_params.except(:playlists))
       if cast_boolean(params[:enable_list_update])
         @series_deck.rebuild_playlists_to(playlist_series_ids)
@@ -47,7 +48,7 @@ class SeriesDecksController < ApiBaseController
   end
 
   def destroy
-    @series_deck = SeriesDeck.find(params[:id])
+    @series_deck = SeriesDeck.friendly.find(params[:id])
     @series_deck.destroy
 
     render json: { deleted: true }

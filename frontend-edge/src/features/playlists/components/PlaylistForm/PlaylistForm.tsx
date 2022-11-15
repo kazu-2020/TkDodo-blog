@@ -2,6 +2,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import React from 'react'
 import { DevTool } from '@hookform/devtools'
 
+import { usePrompt } from '@/utils/form-guard'
 import { Playlist } from '@/types/playlist'
 
 import {
@@ -34,8 +35,10 @@ export const PlaylistForm = ({ playlist = undefined }: Props) => {
     control,
     handleSubmit,
     reset,
-    formState: { dirtyFields }
+    formState: { dirtyFields, isDirty }
   } = formMethods
+
+  usePrompt('編集中のデータがあります。ページを離れますか？', isDirty)
 
   const createPlaylistMutation = useCreatePlaylist()
   const updatePlaylistMutation = useUpdatePlaylist()

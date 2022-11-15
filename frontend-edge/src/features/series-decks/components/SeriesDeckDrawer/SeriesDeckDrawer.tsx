@@ -43,7 +43,7 @@ export const SeriesDeckDrawer = ({
                 <Link
                   px={0}
                   py={0}
-                  to={`/series-decks/${seriesDeck.id}/config`}
+                  to={`/series-decks/${seriesDeck.deckUid}/config`}
                   _hover={{ textDecoration: 'none' }}
                 >
                   <Button
@@ -58,7 +58,7 @@ export const SeriesDeckDrawer = ({
                 <Link
                   px={0}
                   py={0}
-                  to={`/series-decks/${seriesDeck.id}`}
+                  to={`/series-decks/${seriesDeck.deckUid}`}
                   _hover={{ textDecoration: 'none' }}
                 >
                   <Button
@@ -73,7 +73,7 @@ export const SeriesDeckDrawer = ({
               </HStack>
               <DeleteSeriesDeck
                 onDrawerClose={onClose}
-                seriesDeckId={seriesDeck.id}
+                seriesDeckId={seriesDeck.deckUid}
               />
             </HStack>
           </ButtonGroup>

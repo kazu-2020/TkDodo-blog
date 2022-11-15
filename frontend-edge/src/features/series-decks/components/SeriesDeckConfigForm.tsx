@@ -12,6 +12,7 @@ import {
   VStack
 } from '@chakra-ui/react'
 
+import { usePrompt } from '@/utils/form-guard'
 import { SeriesDeck } from '@/types/series_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
 import { SeriesDeckFormInputs } from '@/features/series-decks/types'
@@ -28,12 +29,14 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
     control,
     register,
     handleSubmit,
-    formState: { errors, dirtyFields, isSubmitting }
+    formState: { errors, dirtyFields, isSubmitting, isDirty }
   } = useForm<Inputs>({
     defaultValues: {
       adminMemo: seriesDeck?.adminMemo
     }
   })
+
+  usePrompt('編集中のデータがあります。ページを離れますか？', isDirty)
 
   const updateSeriesDeckMutation = useUpdateSeriesDeck()
 
@@ -45,7 +48,7 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
 
     await updateSeriesDeckMutation.mutateAsync({
       data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
-      seriesDeckId: seriesDeck.id
+      seriesDeckId: seriesDeck.deckUid
     })
   }
 

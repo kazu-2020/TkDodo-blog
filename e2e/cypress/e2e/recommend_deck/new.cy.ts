@@ -6,11 +6,6 @@ describe("レコメンドデッキ新規作成", () => {
     cy.createPlaylist()
   })
 
-  after(() => {
-    cy.deleteAllPlaylists()
-    cy.deleteAllRecommendDeck()
-  })
-
   it("レコメンドデッキを新規作成し、メタの編集をする", () => {
     cy.visit("/")
     cy.contains("デッキ").click()

@@ -2,6 +2,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import React from 'react'
 import { DevTool } from '@hookform/devtools'
 
+import { usePrompt } from '@/utils/form-guard'
 import { SeriesDeck } from '@/types/series_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
 
@@ -34,8 +35,10 @@ export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
     getValues,
     handleSubmit,
     reset,
-    formState: { dirtyFields }
+    formState: { dirtyFields, isDirty }
   } = formMethods
+
+  usePrompt('編集中のデータがあります。ページを離れますか？', isDirty)
 
   const createSeriesDeckMutation = useCreateSeriesDeck()
   const updateSeriesDeckMutation = useUpdateSeriesDeck()
@@ -62,7 +65,7 @@ export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
           playlists: seriesIds,
           enableListUpdate: !!onlyDirtyValues.playlists
         },
-        seriesDeckId: seriesDeck.id
+        seriesDeckId: seriesDeck.deckUid
       })
     }
 

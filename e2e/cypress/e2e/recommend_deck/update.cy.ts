@@ -7,11 +7,6 @@ describe("レコメンドデッキ更新", () => {
     cy.createRecommendDeck()
   })
 
-  after(() => {
-    cy.deleteAllPlaylists()
-    cy.deleteAllRecommendDeck()
-  })
-
   it("レコメンドデッキを選択し、メタの更新をする", () => {
     cy.visit("/")
     cy.contains("デッキ").click()
