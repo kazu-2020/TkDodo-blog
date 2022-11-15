@@ -1,4 +1,5 @@
 import { useMutation } from 'react-query'
+import { useToast } from '@chakra-ui/react'
 
 import { Deck as RecommendDeck } from '@/types/deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
@@ -16,8 +17,10 @@ type UseDeleteRecommendDeckOptions = {
 
 export const useDeleteRecommendDeck = ({
   config
-}: UseDeleteRecommendDeckOptions = {}) =>
-  useMutation({
+}: UseDeleteRecommendDeckOptions = {}) => {
+  const toast = useToast()
+  
+  return useMutation({
     onMutate: async (deletedRecommendDeck) => {
       await queryClient.cancelQueries('recommend-decks')
 
@@ -44,7 +47,14 @@ export const useDeleteRecommendDeck = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries('recommend-decks')
+      toast({
+        title: '削除しました。',
+        status: 'success',
+        isClosable: true,
+        position: 'top-right'
+      })
     },
     ...config,
     mutationFn: deleteRecommendDeck
   })
+}
