@@ -34,11 +34,12 @@ class Deck < ApplicationRecord
   def rebuild_playlists_to(new_playlists)
     new_playlists_ids = new_playlists.map(&:to_i).uniq # 文字列のIDが混ざって不具合を起こしていたのでその対応
 
-    ActiveRecord::Base.transaction do
-      remove_current_playlists!
-      add_new_playlists!(new_playlists_ids)
-      reorder_playlists_by(new_playlists_ids)
+    self.deck_playlists = new_playlists_ids.map do |playlist_id|
+      deck_playlists.find_by(deck_id: id, playlist_id: playlist_id) ||
+        deck_playlists.create!(deck_id: id, playlist_id: playlist_id)
     end
+
+    reorder_playlists_by(new_playlists_ids)
 
     touch
   end
@@ -63,21 +64,6 @@ class Deck < ApplicationRecord
        will_save_change_to_attribute?('mode_of_item') ||
        will_save_change_to_attribute?('interfix')
       set_initial_deck_id(with_save: false)
-    end
-  end
-
-  def remove_current_playlists!
-    current_playlists_ids = deck_playlists.pluck(:playlist_id)
-    return if current_playlists_ids.blank?
-
-    current_playlists_ids.each do |playlist_id|
-      deck_playlists.find_by(deck_id: id, playlist_id: playlist_id).destroy!
-    end
-  end
-
-  def add_new_playlists!(new_playlists_ids)
-    new_playlists_ids.each do |playlist_id|
-      deck_playlists.create!(deck_id: id, playlist_id: playlist_id)
     end
   end
 

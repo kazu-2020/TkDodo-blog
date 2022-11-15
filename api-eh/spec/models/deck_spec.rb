@@ -62,5 +62,13 @@ describe Deck, type: :model do
 
       expect(deck.reload.playlist_ids).to match_array(new_playlist_ids)
     end
+
+    it 'playlistが並び替えられていること' do
+      current_playlist_ids = deck.playlist_ids
+      new_playlist_ids = deck.playlist_ids.reverse
+      deck.rebuild_playlists_to(new_playlist_ids)
+
+      expect(deck.reload.playlist_ids).to match_array(current_playlist_ids.reverse)
+    end
   end
 end
