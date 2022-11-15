@@ -255,13 +255,22 @@ Cypress.Commands.add("deleteAllPlaylists", () => {
 /*
  * レコメンドデッキを作成する
  */
-Cypress.Commands.add("createRecommendDeck", (overrides = {}) => {
+Cypress.Commands.add("createRecommendDeck", (overrides = {}, addPlaylistCount = 0) => {
   const { apiState, beforeSave, description, interfix, name, sameAs } =
     recommendDeckInput(overrides)
 
   cy.visit("/")
   cy.contains("デッキ").click()
   cy.contains("レコメンドデッキ新規作成").click()
+
+  if (addPlaylistCount > 0) {
+    cy.contains("リスト(Playlist)").click()
+    cy.get('[data-testid="search-text-input"]').clear().type("{enter}")
+    for (let i = 0; i < addPlaylistCount; i++) {
+      cy.get('[aria-label="追加"]').first().click()
+    }
+  }
+
   cy.contains("基本情報(Deck)").click()
 
   cy.get('[data-testid="name"]').type(name)

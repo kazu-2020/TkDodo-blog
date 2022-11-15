@@ -6,7 +6,7 @@ declare global {
       paste(data: { [type: string]: string }): Chainable;
       createPlaylist: (overrides?, addEpisodeCount?) => void;
       deleteAllPlaylists: () => void;
-      createRecommendDeck: (overrides?) => void;
+      createRecommendDeck: (overrides?, addPlaylistCount?) => void;
       deleteAllRecommendDeck: () => void;
       createSeriesDeck: (overrides?) => void;
       deleteAllSeriesDeck: () => void;
