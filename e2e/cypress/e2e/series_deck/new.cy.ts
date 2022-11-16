@@ -26,12 +26,10 @@ describe("シリーズデッキ新規作成", () => {
     cy.get('[data-testid="apiState"] input[type="checkbox"]').check({
       force: true,
     })
-
     cy.contains("保存する").click({ force: true })
     cy.contains("作成しました", { timeout: 10000 })
 
     // 登録内容の確認
-    // 基本情報(deck)の確認
     cy.visit("/")
     cy.contains("デッキ").click()
     cy.contains("シリーズデッキ一覧").click()
@@ -39,6 +37,15 @@ describe("シリーズデッキ新規作成", () => {
       .first()
       .click({ force: true })
     cy.contains("デッキ編集").click({ force: true })
+
+    // リスト（playlist）の確認
+    cy.contains("リスト(Playlist)").click()
+    cy.get('[data-testid="edit-series-playlist__item"]').should(
+      "have.lengthOf",
+      2
+    )
+
+    // 基本情報(deck)の確認
     cy.contains("基本情報(Deck)").click()
 
     cy.get('[data-testid="name"]').should("have.value", deckName)

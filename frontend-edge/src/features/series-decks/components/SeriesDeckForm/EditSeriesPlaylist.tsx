@@ -1,4 +1,4 @@
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 import React from 'react'
 import {
   arrayMove,
@@ -17,14 +17,15 @@ import {
 } from '@dnd-kit/core'
 import { Alert, AlertIcon, Box, Grid, GridItem, Text } from '@chakra-ui/react'
 
+import { SeriesPlaylist } from '@/types/series_playlist'
 import { SeriesDeckFormInputs } from '@/features/series-decks/types'
 import { EditSeriesPlaylistListItem } from '@/features/series-decks/components/SeriesDeckForm/EditSeriesPlaylistListItem'
 
 import { SortableItem } from './SortableItem'
 
 export const EditSeriesPlaylist = () => {
-  const { getValues, setValue } = useFormContext<SeriesDeckFormInputs>()
-  const seriesPlaylists = getValues('playlists')
+  const { setValue } = useFormContext<SeriesDeckFormInputs>()
+  const seriesPlaylists = useWatch({ name: 'playlists' })
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -45,12 +46,12 @@ export const EditSeriesPlaylist = () => {
 
     if (active.id !== over?.id) {
       const oldIndex = seriesPlaylists.findIndex(
-        (pl) => pl.seriesId === active.id
+        (pl: SeriesPlaylist) => pl.seriesId === active.id
       )
       const newIndex = seriesPlaylists.findIndex(
-        (pl) => pl.seriesId === over?.id
+        (pl: SeriesPlaylist) => pl.seriesId === over?.id
       )
-      const newSeriesPlaylists = arrayMove(seriesPlaylists, oldIndex, newIndex)
+      const newSeriesPlaylists = arrayMove<SeriesPlaylist>(seriesPlaylists, oldIndex, newIndex)
       setValue('playlists', newSeriesPlaylists, { shouldDirty: true })
     }
   }
@@ -90,10 +91,10 @@ export const EditSeriesPlaylist = () => {
         )}
         {seriesPlaylists && (
           <SortableContext
-            items={seriesPlaylists.map((pl) => pl.seriesId)}
+            items={seriesPlaylists.map((pl: SeriesPlaylist) => pl.seriesId)}
             strategy={verticalListSortingStrategy}
           >
-            {seriesPlaylists.map((playlist) => (
+            {seriesPlaylists.map((playlist: SeriesPlaylist) => (
               <SortableItem id={playlist.seriesId} key={playlist.seriesId}>
                 <EditSeriesPlaylistListItem
                   key={playlist.seriesId}

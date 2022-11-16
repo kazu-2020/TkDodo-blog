@@ -40,6 +40,7 @@ export const EditSeriesPlaylistListItem = ({
 
   return (
     <Grid
+      data-testid="edit-series-playlist__item"
       templateColumns="repeat(10, 1fr)"
       gap={6}
       fontSize="sm"

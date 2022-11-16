@@ -28,7 +28,7 @@ export const EditRecommendPlaylistListItem = ({
   })
 
   return (
-    <Accordion allowToggle>
+    <Accordion allowToggle data-testid="edit-recommend-playlist__item">
       <AccordionItem
         border="none"
         borderBottom="1px"
