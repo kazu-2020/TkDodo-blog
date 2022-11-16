@@ -8,7 +8,7 @@ declare global {
       deleteAllPlaylists: () => void;
       createRecommendDeck: (overrides?, addPlaylistCount?) => void;
       deleteAllRecommendDeck: () => void;
-      createSeriesDeck: (overrides?) => void;
+      createSeriesDeck: (overrides?, addPlaylistCount?) => void;
       deleteAllSeriesDeck: () => void;
     }
   }

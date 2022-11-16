@@ -337,13 +337,22 @@ Cypress.Commands.add("deleteAllRecommendDeck", () => {
 /*
  * シリーズデッキを作成する
  */
-Cypress.Commands.add("createSeriesDeck", (overrides = {}) => {
+Cypress.Commands.add("createSeriesDeck", (overrides = {}, addPlaylistCount = 0) => {
   const { beforeSave, apiState, interfix, description, name } =
     seriesDeckInput(overrides)
 
   cy.visit("/")
   cy.contains("デッキ").click()
   cy.contains("シリーズデッキ新規作成").click()
+
+  if (addPlaylistCount > 0) {
+    cy.contains("リスト(Playlist)").click()
+    cy.get('[data-testid="search-text-input"]').clear().type("{enter}")
+    for (let i = 0; i < addPlaylistCount; i++) {
+      cy.get('[aria-label="追加"]').first().click()
+    }
+  }
+
   cy.contains("基本情報(Deck)").click()
 
   cy.get('[data-testid="name"]').type(name)
@@ -375,7 +384,7 @@ Cypress.Commands.add("deleteAllSeriesDeck", () => {
   cy.get('[data-testid="api-status-select"]').select("全て", { force: true })
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(200) // これを入れないと安定しない
+  cy.wait(500) // これを入れないと安定しない
 
   cy.get("body").then(($body) => {
     if ($body.find('[data-testid="series-deck-list-item"]').length) {
