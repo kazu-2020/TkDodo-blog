@@ -65,5 +65,4 @@ class Deck < ApplicationRecord
       set_initial_deck_id(with_save: false)
     end
   end
-
 end

@@ -32,7 +32,6 @@ class SeriesDeck < ApplicationRecord
     end
 
     touch
-
   end
 
   private
