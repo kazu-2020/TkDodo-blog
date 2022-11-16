@@ -34,7 +34,7 @@ class Deck < ApplicationRecord
   def rebuild_playlists_to(new_playlists)
     new_playlists_ids = new_playlists.map(&:to_i).uniq # 文字列のIDが混ざって不具合を起こす場合があったのでその対応
 
-    playlists.clear
+    deck_playlists.clear
 
     self.playlists = new_playlists_ids.map do |playlist_id|
       Playlist.find_by(id: playlist_id)
