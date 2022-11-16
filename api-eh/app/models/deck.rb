@@ -32,14 +32,14 @@ class Deck < ApplicationRecord
   end
 
   def rebuild_playlists_to(new_playlists)
-    new_playlists_ids = new_playlists.map(&:to_i).uniq # 文字列のIDが混ざって不具合を起こしていたのでその対応
+    new_playlists_ids = new_playlists.map(&:to_i).uniq # 文字列のIDが混ざって不具合を起こす場合があったのでその対応
+
+    playlists.clear
 
     self.deck_playlists = new_playlists_ids.map do |playlist_id|
       deck_playlists.find_by(deck_id: id, playlist_id: playlist_id) ||
         deck_playlists.create!(deck_id: id, playlist_id: playlist_id)
     end
-
-    reorder_playlists_by(new_playlists_ids)
 
     touch
   end
@@ -67,12 +67,4 @@ class Deck < ApplicationRecord
     end
   end
 
-  def reorder_playlists_by(new_playlists_ids)
-    new_playlists_ids.each_with_index do |playlist_id, i|
-      next if playlist_id == reload.playlists[i].id
-
-      sort_target_deck_playlist = deck_playlists.find_by(deck_id: id, playlist_id: playlist_id)
-      sort_target_deck_playlist.set_list_position(i + 1)
-    end
-  end
 end

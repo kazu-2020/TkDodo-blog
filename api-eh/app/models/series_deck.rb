@@ -24,14 +24,15 @@ class SeriesDeck < ApplicationRecord
   }
 
   def rebuild_playlists_to(new_playlist_series_ids)
+    series_playlists.clear
+
     self.series_playlists = new_playlist_series_ids.map do |series_id|
-      SeriesPlaylist.find_by(series_id: series_id) ||
-        SeriesPlaylist.create!(string_id: "ts-#{series_id}", series_id: series_id)
+      series_playlists.find_by(series_id: series_id) ||
+        series_playlists.create!(string_id: "ts-#{series_id}", series_id: series_id)
     end
 
-    reorder_playlists_by(new_playlist_series_ids)
-
     touch
+
   end
 
   private
@@ -56,19 +57,6 @@ class SeriesDeck < ApplicationRecord
        will_save_change_to_attribute?('mode_of_item') ||
        will_save_change_to_attribute?('interfix')
       set_initial_string_id(with_save: false)
-    end
-  end
-
-  def reorder_playlists_by(new_playlists_series_ids)
-    playlists = SeriesPlaylist.where(series_id: new_playlists_series_ids)
-
-    new_playlists_series_ids.each_with_index do |series_id, i|
-      series_playlist = playlists.find_by(series_id: series_id)
-      next if series_playlist.id == reload.series_playlists[i].id
-
-      sort_target_deck_playlist = series_deck_playlists.find_by(series_deck_id: id,
-                                                                series_playlist_id: series_playlist.id)
-      sort_target_deck_playlist.set_list_position(i + 1)
     end
   end
 end
