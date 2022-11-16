@@ -1,12 +1,20 @@
 # README
 
-## ローカル環境のセットアップ
+## Docker環境
+### 準備
 
+```
+$ docker compose build
+$ docker compose run rails bin/setup
+```
+
+## ローカル環境
+### 準備
 ```
 $ bundle exec bin/setup
 ```
 
-## サーバーの起動
+### サーバーの起動
 
 フロントエンドでポートが `8888` で使われているので、オプションが必要になります
 
@@ -14,7 +22,7 @@ $ bundle exec bin/setup
 $ bundle exec rails s -p 8888
 ```
 
-## テストの実行
+### テストの実行
 
 ```
 $ bundle exec rspec
