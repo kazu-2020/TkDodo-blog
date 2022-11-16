@@ -36,9 +36,8 @@ class Deck < ApplicationRecord
 
     playlists.clear
 
-    self.deck_playlists = new_playlists_ids.map do |playlist_id|
-      deck_playlists.find_by(deck_id: id, playlist_id: playlist_id) ||
-        deck_playlists.create!(deck_id: id, playlist_id: playlist_id)
+    self.playlists = new_playlists_ids.map do |playlist_id|
+      Playlist.find_by(id: playlist_id)
     end
 
     touch
