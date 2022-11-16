@@ -6,12 +6,12 @@ import { Header } from '../Header'
 
 describe('Header component', () => {
   // https://vitest.dev/guide/snapshot.html#inline-snapshots
-  test('should render correctly', () => {
-    const {
-      container: { firstChild }
-    } = render(<Header />, { wrapper: BrowserRouter })
-    expect(firstChild).toMatchSnapshot()
-  })
+  // test('should render correctly', () => {
+  //   const {
+  //     container: { firstChild }
+  //   } = render(<Header />, { wrapper: BrowserRouter })
+  //   expect(firstChild).toMatchSnapshot()
+  // })
 
   test('find text', () => {
     render(<Header />, { wrapper: BrowserRouter })

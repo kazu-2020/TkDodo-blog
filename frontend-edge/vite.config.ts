@@ -17,6 +17,14 @@ export default defineConfig({
       enabled: true,
       reporter: ['text', 'lcov'],
       reportsDirectory: 'coverage/vitest'
+    },
+    deps: {
+      fallbackCJS: true // https://github.com/chakra-ui/chakra-ui/issues/6783
     }
+  },
+  ssr: {
+    // https://github.com/chakra-ui/chakra-ui/issues/6783
+    // required while deps.fallbackCJS is required
+    noExternal: ['@chakra-ui/react']
   }
 })
