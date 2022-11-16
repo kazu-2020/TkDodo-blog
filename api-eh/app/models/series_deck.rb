@@ -27,8 +27,8 @@ class SeriesDeck < ApplicationRecord
     series_playlists.clear
 
     self.series_playlists = new_playlist_series_ids.map do |series_id|
-      series_playlists.find_by(series_id: series_id) ||
-        series_playlists.create!(string_id: "ts-#{series_id}", series_id: series_id)
+      SeriesPlaylist.find_by(series_id: series_id) ||
+        SeriesPlaylist.create!(string_id: "ts-#{series_id}", series_id: series_id)
     end
 
     touch
