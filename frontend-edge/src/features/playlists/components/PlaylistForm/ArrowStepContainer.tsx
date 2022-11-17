@@ -157,3 +157,260 @@ export const ArrowStepContainer = () => {
     </ArrowStepContextProvider>
   )
 }
+
+if (import.meta.vitest) {
+  const dummyDirtyFields = (params: any) => ({
+    name: false,
+    detailedNameRuby: false,
+    detailedCatch: false,
+    description: false,
+    keywords: [],
+    hashtags: [],
+    formatGenreCode: false,
+    themeGenreCode: false,
+    selectedPalette: false,
+    primaryLightColor: false,
+    primaryDarkColor: false,
+    linkLightColor: false,
+    linkDarkColor: false,
+    aliasId: false,
+    sameAsAttributes: [],
+    citationsAttributes: [],
+    apiState: false,
+    logoImageSrc: false,
+    eyecatchImageSrc: false,
+    heroImageSrc: false,
+    editorData: false,
+    markedHeader: false,
+    markedFooter: false,
+    authorType: false,
+    authorName: false,
+    publisherName: false,
+    publisherType: false,
+    episodes: false,
+    activeTvepisode: false,
+    activeArticle: false,
+    activeFaqpage: false,
+    activeHowto: false,
+    activeEvent: false,
+    activeRecipe: false,
+    activeItemList: false,
+    ...params
+  })
+  const { describe, it, expect } = import.meta.vitest
+  describe('hasChangedEpisodes', () => {
+    it('変更がある場合', () => {
+      const dirtyFields = dummyDirtyFields({ episodes: true })
+      expect(hasChangedEpisodes(dirtyFields)).toBe(true)
+    })
+
+    it('変更がない場合（ステータスあり）', () => {
+      const dirtyFields = dummyDirtyFields({})
+      expect(hasChangedEpisodes(dirtyFields)).toBe(false)
+    })
+
+    it('変更がない場合（ステータスなし）', () => {
+      const dirtyFields = {}
+      expect(hasChangedEpisodes(dirtyFields)).toBe(false)
+    })
+  })
+
+  describe('hasChangedArticle', () => {
+    it('変更がある場合', () => {
+      const dirtyFields = dummyDirtyFields({ editorData: true })
+      expect(hasChangedArticle(dirtyFields)).toBe(true)
+    })
+
+    it('変更がない場合（ステータスあり）', () => {
+      const dirtyFields = dummyDirtyFields({})
+      expect(hasChangedArticle(dirtyFields)).toBe(false)
+    })
+
+    it('変更がない場合（ステータスなし）', () => {
+      const dirtyFields = {}
+      expect(hasChangedArticle(dirtyFields)).toBe(false)
+    })
+  })
+
+  // eslint-disable-next-line max-statements,max-lines-per-function
+  describe('hasChangedSeries', () => {
+    it('変更がある場合', () => {
+      const dirtyFields = dummyDirtyFields({ name: true })
+      expect(hasChangedSeries(dirtyFields)).toBe(true)
+    })
+
+    it('変更がある場合（keyword）', () => {
+      const dirtyFields1 = dummyDirtyFields({
+        keywords: [{ label: true, value: false }]
+      })
+      expect(hasChangedSeries(dirtyFields1)).toBe(true)
+
+      const dirtyFields2 = dummyDirtyFields({
+        keywords: [
+          { label: false, value: false },
+          { label: true, value: false }
+        ]
+      })
+      expect(hasChangedSeries(dirtyFields2)).toBe(true)
+    })
+
+    it('変更がある場合（hashtag）', () => {
+      const dirtyFields1 = dummyDirtyFields({
+        hashtags: [{ label: true, value: false }]
+      })
+      expect(hasChangedSeries(dirtyFields1)).toBe(true)
+
+      const dirtyFields2 = dummyDirtyFields({
+        hashtags: [
+          { label: false, value: false },
+          { label: true, value: false }
+        ]
+      })
+      expect(hasChangedSeries(dirtyFields2)).toBe(true)
+    })
+
+    it('変更がある場合（sameAs）', () => {
+      const dirtyFields1 = dummyDirtyFields({
+        sameAsAttributes: [{ name: false, url: false, _destroy: true }]
+      })
+      expect(hasChangedSeries(dirtyFields1)).toBe(true)
+
+      const dirtyFields2 = dummyDirtyFields({
+        sameAsAttributes: [
+          { name: false, url: false, _destroy: false },
+          { name: false, url: false, _destroy: true }
+        ]
+      })
+      expect(hasChangedSeries(dirtyFields2)).toBe(true)
+
+      const dirtyFields3 = dummyDirtyFields({
+        sameAsAttributes: [
+          { name: false, url: false, _destroy: false },
+          { name: false, url: false, _destroy: false },
+          {} // 新規追加した場合は、空のオブジェクトが生成される
+        ]
+      })
+      expect(hasChangedSeries(dirtyFields3)).toBe(true)
+    })
+
+    it('変更がある場合（citations）', () => {
+      const dirtyFields1 = dummyDirtyFields({
+        citationsAttributes: [{ name: false, url: false, _destroy: true }]
+      })
+      expect(hasChangedSeries(dirtyFields1)).toBe(true)
+
+      const dirtyFields2 = dummyDirtyFields({
+        citationsAttributes: [
+          { name: false, url: false, _destroy: false },
+          { name: false, url: false, _destroy: true }
+        ]
+      })
+      expect(hasChangedSeries(dirtyFields2)).toBe(true)
+
+      const dirtyFields3 = dummyDirtyFields({
+        citationsAttributes: [
+          { name: false, url: false, _destroy: false },
+          { name: false, url: false, _destroy: false },
+          {} // 新規追加した場合は、空のオブジェクトが生成される
+        ]
+      })
+      expect(hasChangedSeries(dirtyFields3)).toBe(true)
+    })
+
+    it('変更がない場合（ステータスあり）', () => {
+      const dirtyFields = dummyDirtyFields({})
+      expect(hasChangedSeries(dirtyFields)).toBe(false)
+    })
+
+    it('変更がない場合（ステータスなし）', () => {
+      const dirtyFields = {}
+      expect(hasChangedSeries(dirtyFields)).toBe(false)
+    })
+
+    it('変更がない場合（keyword）', () => {
+      const dirtyFields1 = dummyDirtyFields({ keywords: [] })
+      expect(hasChangedSeries(dirtyFields1)).toBe(false)
+
+      const dirtyFields2 = dummyDirtyFields({
+        keywords: [
+          { label: false, value: false },
+          { label: false, value: false }
+        ]
+      })
+      expect(hasChangedSeries(dirtyFields2)).toBe(false)
+    })
+
+    it('変更がない場合（hashtag）', () => {
+      const dirtyFields1 = dummyDirtyFields({ hashtags: [] })
+      expect(hasChangedSeries(dirtyFields1)).toBe(false)
+
+      const dirtyFields2 = dummyDirtyFields({
+        hashtags: [
+          { label: false, value: false },
+          { label: false, value: false }
+        ]
+      })
+      expect(hasChangedSeries(dirtyFields2)).toBe(false)
+    })
+
+    it('変更がない場合（sameAs）', () => {
+      const dirtyFields1 = dummyDirtyFields({ sameAsAttributes: [] })
+      expect(hasChangedSeries(dirtyFields1)).toBe(false)
+
+      const dirtyFields2 = dummyDirtyFields({
+        sameAsAttributes: [
+          { name: false, url: false, _destroy: false },
+          { name: false, url: false, _destroy: false }
+        ]
+      })
+      expect(hasChangedSeries(dirtyFields2)).toBe(false)
+    })
+
+    it('変更がない場合（citations）', () => {
+      const dirtyFields1 = dummyDirtyFields({ citationsAttributes: [] })
+      expect(hasChangedSeries(dirtyFields1)).toBe(false)
+
+      const dirtyFields2 = dummyDirtyFields({
+        citationsAttributes: [
+          { name: false, url: false, _destroy: false },
+          { name: false, url: false, _destroy: false }
+        ]
+      })
+      expect(hasChangedSeries(dirtyFields2)).toBe(false)
+    })
+  })
+
+  describe('hasErrorArticle', () => {
+    it('エラーがある場合', () => {
+      const errors = { editorData: {} }
+      expect(hasErrorArticle(errors)).toBe(true)
+    })
+
+    it('他のタブにエラーがある場合', () => {
+      const errors = { name: {} }
+      expect(hasErrorArticle(errors)).toBe(false)
+    })
+
+    it('エラーがない場合', () => {
+      const errors = {}
+      expect(hasErrorArticle(errors)).toBe(false)
+    })
+  })
+
+  describe('hasErrorSeries', () => {
+    it('エラーがある場合', () => {
+      const errors = { name: {} }
+      expect(hasErrorSeries(errors)).toBe(true)
+    })
+
+    it('他のタブにエラーがある場合', () => {
+      const errors = { editorData: {} }
+      expect(hasErrorSeries(errors)).toBe(false)
+    })
+
+    it('エラーがない場合', () => {
+      const errors = {}
+      expect(hasErrorSeries(errors)).toBe(false)
+    })
+  })
+}
