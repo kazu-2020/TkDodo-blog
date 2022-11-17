@@ -46,7 +46,7 @@ export const PlaylistList = () => {
       {isLoading && <ListScreenSkeleton />}
       {!isLoading && totalCount === 0 && (
         <Box pt={20}>
-          <NoDataFound />
+          <NoDataFound target="プレイリスト" />
         </Box>
       )}
       {!isLoading && totalCount > 0 && (

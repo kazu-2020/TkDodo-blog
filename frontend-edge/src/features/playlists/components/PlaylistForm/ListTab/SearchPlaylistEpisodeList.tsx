@@ -61,7 +61,7 @@ export const SearchPlaylistEpisodeList = ({
 
         {!isNewFetching(episodeQuery) && episodeCount === 0 && (
           <Box>
-            <NoDataFound />
+            <NoDataFound target="エピソード" />
           </Box>
         )}
 

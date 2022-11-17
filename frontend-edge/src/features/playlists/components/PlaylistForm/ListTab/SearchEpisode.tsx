@@ -36,7 +36,7 @@ export const SearchEpisode = ({ query }: Props) => {
 
         {!isNewFetching(query) && totalCount === 0 && (
           <Box w="100%">
-            <NoDataFound />
+            <NoDataFound target="エピソード" />
           </Box>
         )}
 

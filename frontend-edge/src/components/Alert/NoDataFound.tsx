@@ -5,12 +5,14 @@ import {
   AlertTitle
 } from '@chakra-ui/react'
 
-export const NoDataFound = () => (
+type Props = {
+  target: string
+}
+
+export const NoDataFound = ({ target }: Props) => (
   <Alert status="warning">
     <AlertIcon />
-    <AlertTitle>条件に一致するデータは見つかりませんでした</AlertTitle>
-    <AlertDescription>
-      検索条件を見直して再度、検索してください。
-    </AlertDescription>
+    <AlertTitle>{target}が見つかりませんでした。</AlertTitle>
+    <AlertDescription>他のキーワードや条件でお探しください。</AlertDescription>
   </Alert>
 )

@@ -34,7 +34,7 @@ export const SearchPlaylistPlaylistList = ({
         <SeriesHeader />
         {!isNewFetching(query) && playlistCount === 0 && (
           <Box>
-            <NoDataFound />
+            <NoDataFound target="プレイリスト" />
           </Box>
         )}
 

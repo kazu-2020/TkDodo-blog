@@ -43,7 +43,7 @@ const SeriesDeckList = () => {
       {isLoading && <ListScreenSkeleton />}
       {!isLoading && totalCount === 0 && (
         <Box pt={20}>
-          <NoDataFound />
+          <NoDataFound target="シリーズデッキ" />
         </Box>
       )}
       {!isLoading && totalCount > 0 && (

@@ -33,7 +33,7 @@ export const SearchSeriesSeriesList = ({
         <SeriesHeader />
         {!isNewFetching(query) && seriesCount === 0 && (
           <Box>
-            <NoDataFound />
+            <NoDataFound target="シリーズ" />
           </Box>
         )}
 
