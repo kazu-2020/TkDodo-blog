@@ -38,7 +38,7 @@ class Deck < ApplicationRecord
 
     self.playlists = safe_new_playlist_ids.map do |playlist_id|
       Playlist.find_by(id: playlist_id)
-    end
+    end.compact
 
     touch
   end
