@@ -36,7 +36,10 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
     }
   })
 
-  usePrompt('編集中のデータがあります。ページを離れますか？', isDirty)
+  usePrompt(
+    '編集中のデータがあります。ページを離れますか？',
+    isDirty && !isSubmitting
+  )
 
   const updateSeriesDeckMutation = useUpdateSeriesDeck()
 
