@@ -1,7 +1,6 @@
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
 import React, { FC } from 'react'
-import { StyleProps } from '@chakra-ui/styled-system/dist/declarations/src/system.types'
-import { Textarea } from '@chakra-ui/react'
+import { StyleProps, Textarea } from '@chakra-ui/react'
 
 import FloatingLabelFormControl from './FloatingLabelFormControl'
 

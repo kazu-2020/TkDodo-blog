@@ -1,6 +1,5 @@
 import React from 'react'
-import { StyleProps } from '@chakra-ui/styled-system/dist/declarations/src/system.types'
-import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react'
+import { Box, Flex, HStack, Image, StyleProps, Text } from '@chakra-ui/react'
 
 import { hasVideo } from '@/utils/video'
 import { episodeThumbnailUrl } from '@/utils/image'

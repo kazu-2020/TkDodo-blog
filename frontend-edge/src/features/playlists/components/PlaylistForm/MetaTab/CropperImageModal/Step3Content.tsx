@@ -63,19 +63,8 @@ export const Step3Content = ({
       <Box py={4}>
         <Text>生成される画像を確認してください</Text>
       </Box>
-      <Center
-        backgroundImage={
-          "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC')"
-        }
-        backgroundColor="white"
-        backgroundRepeat="repeat"
-        height="410"
-      >
-        <Image
-          src={croppedImageData || ''}
-          maxHeight="400"
-          objectFit="contain"
-        />
+      <Center>
+        <Image src={croppedImageData || ''} height="400" objectFit="contain" />
       </Center>
       <Box alignSelf="center" my={4}>
         <Text mb={2}>この画像をもとに下記サイズの画像を生成します。</Text>

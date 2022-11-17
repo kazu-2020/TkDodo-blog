@@ -1,12 +1,11 @@
 import { useController, UseControllerProps } from 'react-hook-form'
 import React, { useState } from 'react'
 import { CreatableSelect, OptionBase, Props } from 'chakra-react-select'
-import { StyleProps } from '@chakra-ui/styled-system/dist/declarations/src/system.types'
 import {
   Box,
   FormControl,
   FormErrorMessage,
-  FormHelperText
+  FormHelperText, StyleProps
 } from '@chakra-ui/react'
 
 import { PropertyLabel } from './PropertyLabel'
