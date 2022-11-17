@@ -31,12 +31,12 @@ class Deck < ApplicationRecord
     playlists.sum(&:total_time)
   end
 
-  def rebuild_playlists_to(new_playlists)
-    new_playlists_ids = new_playlists.map(&:to_i).uniq # 文字列のIDが混ざって不具合を起こす場合があったのでその対応
+  def rebuild_playlists_to(new_playlist_ids)
+    safe_new_playlist_ids = new_playlist_ids.map(&:to_i).uniq # 文字列のIDが混ざって不具合を起こす場合があったのでその対応
 
     deck_playlists.clear
 
-    self.playlists = new_playlists_ids.map do |playlist_id|
+    self.playlists = safe_new_playlist_ids.map do |playlist_id|
       Playlist.find_by(id: playlist_id)
     end
 
