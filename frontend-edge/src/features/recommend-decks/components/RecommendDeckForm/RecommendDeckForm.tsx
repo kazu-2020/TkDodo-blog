@@ -36,10 +36,13 @@ export const RecommendDeckForm = ({ recommendDeck = undefined }: Props) => {
     getValues,
     handleSubmit,
     reset,
-    formState: { dirtyFields, isDirty }
+    formState: { dirtyFields, isDirty, isSubmitting }
   } = formMethods
 
-  usePrompt('編集中のデータがあります。ページを離れますか？', isDirty)
+  usePrompt(
+    '編集中のデータがあります。ページを離れますか？',
+    isDirty && !isSubmitting
+  )
 
   const createRecommendDeckMutation = useCreateRecommendDeck()
   const updateRecommendDeckMutation = useUpdateRecommendDeck()

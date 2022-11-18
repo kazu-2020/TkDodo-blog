@@ -35,10 +35,13 @@ export const PlaylistForm = ({ playlist = undefined }: Props) => {
     control,
     handleSubmit,
     reset,
-    formState: { dirtyFields, isDirty }
+    formState: { dirtyFields, isDirty, isSubmitting }
   } = formMethods
 
-  usePrompt('編集中のデータがあります。ページを離れますか？', isDirty)
+  usePrompt(
+    '編集中のデータがあります。ページを離れますか？',
+    isDirty && !isSubmitting
+  )
 
   const createPlaylistMutation = useCreatePlaylist()
   const updatePlaylistMutation = useUpdatePlaylist()

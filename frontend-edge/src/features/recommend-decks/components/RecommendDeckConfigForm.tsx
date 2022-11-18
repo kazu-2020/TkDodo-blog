@@ -40,7 +40,10 @@ const RecommendDeckConfigForm = ({
     }
   })
 
-  usePrompt('編集中のデータがあります。ページを離れますか？', isDirty)
+  usePrompt(
+    '編集中のデータがあります。ページを離れますか？',
+    isDirty && !isSubmitting
+  )
 
   const updateRecommendDeckMutation = useUpdateRecommendDeck()
 
