@@ -1,4 +1,4 @@
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 import React from 'react'
 import {
   arrayMove,
@@ -17,14 +17,15 @@ import {
 } from '@dnd-kit/core'
 import { Alert, AlertIcon, Box } from '@chakra-ui/react'
 
+import { RecommendPlaylist } from '@/types/recommend_playlist'
 import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
 import { SortableItem } from '@/features/recommend-decks/components/RecommendDeckForm/SortableItem'
 import { RecommendPlaylistListHeader } from '@/features/recommend-decks/components/RecommendDeckForm/RecommendPlaylistListHeader'
 import { EditRecommendPlaylistListItem } from '@/features/recommend-decks/components/RecommendDeckForm/EditRecommendPlaylistListItem'
 
 export const EditRecommendPlaylist = () => {
-  const { getValues, setValue } = useFormContext<RecommendDeckFormInputs>()
-  const recommendPlaylists = getValues('playlists')
+  const { setValue } = useFormContext<RecommendDeckFormInputs>()
+  const recommendPlaylists = useWatch({ name: 'playlists' })
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -46,12 +47,12 @@ export const EditRecommendPlaylist = () => {
 
     if (active.id !== over?.id) {
       const oldIndex = recommendPlaylists.findIndex(
-        (pl) => pl.playlistUId === active.id
+        (pl: RecommendPlaylist) => pl.playlistUId === active.id
       )
       const newIndex = recommendPlaylists.findIndex(
-        (pl) => pl.playlistUId === over?.id
+        (pl: RecommendPlaylist) => pl.playlistUId === over?.id
       )
-      const newSeriesPlaylists = arrayMove(
+      const newSeriesPlaylists = arrayMove<RecommendPlaylist>(
         recommendPlaylists,
         oldIndex,
         newIndex
@@ -79,10 +80,10 @@ export const EditRecommendPlaylist = () => {
           onDragEnd={handleDragEnd}
         >
           <SortableContext
-            items={recommendPlaylists.map((pl) => pl.playlistUId)}
+            items={recommendPlaylists.map((pl: RecommendPlaylist) => pl.playlistUId)}
             strategy={verticalListSortingStrategy}
           >
-            {recommendPlaylists.map((playlist) => (
+            {recommendPlaylists.map((playlist: RecommendPlaylist) => (
               <SortableItem
                 id={playlist.playlistUId}
                 key={playlist.playlistUId}

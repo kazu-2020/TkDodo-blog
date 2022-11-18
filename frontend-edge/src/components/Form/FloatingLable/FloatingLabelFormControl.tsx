@@ -1,7 +1,6 @@
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
 import React, { FC, ReactNode } from 'react'
-import { StyleProps } from '@chakra-ui/styled-system/dist/declarations/src/system.types'
-import { FormControl, FormErrorMessage, FormLabel, Tag } from '@chakra-ui/react'
+import { FormControl, FormErrorMessage, FormLabel, StyleProps, Tag } from '@chakra-ui/react'
 
 const activeLabelStyles = {
   transform: 'scale(0.75) translateY(-24px)',

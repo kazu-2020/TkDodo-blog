@@ -1,5 +1,4 @@
-import { StyleProps } from '@chakra-ui/styled-system/dist/declarations/src/system.types'
-import { Badge } from '@chakra-ui/react'
+import { Badge, StyleProps } from '@chakra-ui/react'
 
 export const PlayableStatusBadge = ({
   isPlayable

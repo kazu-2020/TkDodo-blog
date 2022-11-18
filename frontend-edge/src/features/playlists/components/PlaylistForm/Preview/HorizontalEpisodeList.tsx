@@ -1,5 +1,6 @@
 import { Carousel } from 'react-responsive-carousel'
 import React, { CSSProperties } from 'react'
+import { nanoid } from 'nanoid'
 import { Box, HStack, Text } from '@chakra-ui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
@@ -109,7 +110,13 @@ export const HorizontalEpisodeList = ({ episodes }: Props) => {
       showThumbs={false}
     >
       {pages.map((page) => (
-        <HStack wrap="wrap" alignItems="flex-start" spacing={0} mx={12}>
+        <HStack
+          key={nanoid()}
+          wrap="wrap"
+          alignItems="flex-start"
+          spacing={0}
+          mx={12}
+        >
           {page?.map((item: EpisodeData) => (
             <Box pr={1} key={item.id}>
               <EpisodeListItem

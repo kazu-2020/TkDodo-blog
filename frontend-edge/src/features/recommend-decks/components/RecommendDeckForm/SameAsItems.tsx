@@ -1,7 +1,11 @@
-import { Control, UseFormRegister } from 'react-hook-form/dist/types/form'
+import {
+  Control,
+  UseFormRegister,
+  UseFormTrigger
+} from 'react-hook-form/dist/types/form'
 import { FieldErrors } from 'react-hook-form/dist/types/errors'
 import { useFieldArray } from 'react-hook-form'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Button, VStack } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 
@@ -14,9 +18,10 @@ type Props = {
   control: Control<RecommendDeckFormInputs>
   register: UseFormRegister<RecommendDeckFormInputs>
   errors: FieldErrors<RecommendDeckFormInputs>
+  trigger: UseFormTrigger<RecommendDeckFormInputs>
 }
 
-export const SameAsItems = ({ control, register, errors }: Props) => {
+export const SameAsItems = ({ control, register, errors, trigger }: Props) => {
   const { fields, append, update, remove } = useFieldArray({
     control,
     // NOTE: keyNameを指定せず、keyにidをそのまま利用するとidにランダムな文字列が設定され更新や削除ができない
@@ -24,6 +29,10 @@ export const SameAsItems = ({ control, register, errors }: Props) => {
     keyName: 'keyId',
     name: 'deckSameAsAttributes'
   })
+
+  useEffect(() => {
+    trigger('deckSameAsAttributes')
+  }, [fields])
 
   return (
     <Box>

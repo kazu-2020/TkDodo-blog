@@ -4,7 +4,7 @@ describe("レコメンドデッキ更新", () => {
     cy.deleteAllRecommendDeck()
     cy.createPlaylist()
     cy.createPlaylist()
-    cy.createRecommendDeck()
+    cy.createRecommendDeck({}, 2)
   })
 
   it("レコメンドデッキを選択し、メタの更新をする", () => {
@@ -20,8 +20,10 @@ describe("レコメンドデッキ更新", () => {
 
     // リスト（playlist）の編集
     cy.get('[data-testid="search-text-input"]').clear().type("{enter}")
-    cy.get('[aria-label="追加"]').first().click()
-    cy.get('[aria-label="追加"]').first().click()
+    // 2件すべて削除
+    cy.get('[aria-label="削除"]').first().click()
+    cy.get('[aria-label="削除"]').first().click()
+    cy.get('[aria-label="削除"]').should("have.lengthOf", 0)
 
     // 基本情報（deck）の編集
     cy.contains("基本情報(Deck)").click()
@@ -56,7 +58,7 @@ describe("レコメンドデッキ更新", () => {
     cy.contains("デッキ編集").click()
 
     // リスト（Playlist）の確認
-    cy.get('[aria-label="削除"]').should("have.lengthOf", 2)
+    cy.get('[aria-label="削除"]').should("have.lengthOf", 0)
 
     // 基本情報(deck)の確認
     cy.contains("基本情報(Deck)").click()

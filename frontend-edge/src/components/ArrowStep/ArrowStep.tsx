@@ -1,6 +1,5 @@
 import { useContext } from 'react'
-import { StyleProps } from '@chakra-ui/styled-system/dist/declarations/src/system.types'
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex, StyleProps } from '@chakra-ui/react'
 
 import { ArrowStepItem } from './ArrowStepItem'
 import { ArrowStepContext } from './ArrowStepContext'
