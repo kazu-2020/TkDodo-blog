@@ -6,7 +6,7 @@ class SeriesPlaylist < ApplicationRecord
 
   validates :series_id, uniqueness: { case_sensitive: true }, presence: true, if: :series_id?
   validates :string_id, uniqueness: { case_sensitive: true }, presence: true
-  validate :series_id_digits_must_be_10
+  validate :series_id_digits_must_be10
   validate :series_id_should_be_only_alphanumeric
 
   def active?
@@ -75,7 +75,7 @@ class SeriesPlaylist < ApplicationRecord
       end
   end
 
-  def series_id_digits_must_be_10
+  def series_id_digits_must_be10
     return if series_id.blank?
     return if series_id.to_s.size == 10
 
@@ -84,7 +84,7 @@ class SeriesPlaylist < ApplicationRecord
 
   def series_id_should_be_only_alphanumeric
     return if series_id.blank?
-    return if series_id.to_s.match?(%r{\A[A-Z0-9]+\z})
+    return if series_id.to_s.match?(/\A[A-Z0-9]+\z/)
 
     errors.add(:series_id, 'シリーズIDは半角大文字英字と半角数字で入力してください')
   end
