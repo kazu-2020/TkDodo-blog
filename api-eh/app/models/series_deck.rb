@@ -24,16 +24,11 @@ class SeriesDeck < ApplicationRecord
   }
 
   def rebuild_playlists_to(new_playlist_series_ids)
-    current_playlists_ids = series_playlists.pluck(:series_id)
+    series_playlists.clear
 
-    ActiveRecord::Base.transaction do
-      new_series_ids = (current_playlists_ids | new_playlist_series_ids) - current_playlists_ids
-      add_playlists!(new_series_ids)
-
-      remove_series_ids = (current_playlists_ids | new_playlist_series_ids) - new_playlist_series_ids
-      remove_playlists!(remove_series_ids)
-
-      reorder_playlists(new_playlist_series_ids)
+    self.series_playlists = new_playlist_series_ids.map do |series_id|
+      SeriesPlaylist.find_by(series_id: series_id) ||
+        SeriesPlaylist.create!(string_id: "ts-#{series_id}", series_id: series_id)
     end
 
     touch
@@ -61,38 +56,6 @@ class SeriesDeck < ApplicationRecord
        will_save_change_to_attribute?('mode_of_item') ||
        will_save_change_to_attribute?('interfix')
       set_initial_string_id(with_save: false)
-    end
-  end
-
-  def add_playlists!(series_ids)
-    series_ids.each do |series_id|
-      series_playlist =
-        if SeriesPlaylist.find_by(series_id: series_id).nil?
-          SeriesPlaylist.create!(string_id: "ts-#{series_id}", series_id: series_id)
-        else
-          SeriesPlaylist.find_by(series_id: series_id)
-        end
-      series_deck_playlists.create!(series_deck_id: id, series_playlist_id: series_playlist.id)
-    end
-  end
-
-  def remove_playlists!(series_ids)
-    series_ids.each do |series_id|
-      series_playlist = SeriesPlaylist.find_by(series_id: series_id)
-      series_deck_playlists.find_by(series_deck_id: id, series_playlist_id: series_playlist.id).destroy!
-    end
-  end
-
-  def reorder_playlists(new_playlist_series_ids)
-    playlists = SeriesPlaylist.where(series_id: new_playlist_series_ids)
-
-    new_playlist_series_ids.each_with_index do |series_id, i|
-      series_playlist = playlists.find_by(series_id: series_id)
-      next if series_playlist.id == reload.series_playlists[i].id
-
-      sort_target_deck_playlist = series_deck_playlists.find_by(series_deck_id: id,
-                                                                series_playlist_id: series_playlist.id)
-      sort_target_deck_playlist.set_list_position(i + 1)
     end
   end
 end

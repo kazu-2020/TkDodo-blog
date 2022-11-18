@@ -62,5 +62,24 @@ describe Deck, type: :model do
 
       expect(deck.reload.playlist_ids).to match_array(new_playlist_ids)
     end
+
+    it 'playlistが並び替えられていること' do
+      current_playlist_ids = deck.playlist_ids
+      new_playlist_ids = deck.playlist_ids.reverse
+      deck.rebuild_playlists_to(new_playlist_ids)
+
+      expect(deck.reload.playlist_ids).to match_array(current_playlist_ids.reverse)
+    end
+
+    context '存在しないplaylist_idが含まれていた場合' do
+      it '存在しないplaylistは含まず、playlistの紐付けが正しく行われること' do
+        new_playlist_ids = deck.playlist_ids + create_list(:playlist, 2).pluck(:id)
+        new_playlist_ids.push('999_999_999')
+        deck.rebuild_playlists_to(new_playlist_ids)
+        new_playlist_ids.pop
+
+        expect(deck.reload.playlist_ids).to match_array(new_playlist_ids)
+      end
+    end
   end
 end
