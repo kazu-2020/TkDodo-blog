@@ -7,21 +7,8 @@ import { RecommendDeck } from '@/types/recommend_deck'
 import { Playlist } from '@/types/playlist'
 import { Person } from '@/types/person'
 import { Organization } from '@/types/organization'
+import { EpisodeData, Genre } from '@/types/episode_data'
 import { Article } from '@/types/article'
-import {
-  BroadcastEvent,
-  EpisodeData,
-  EventData,
-  FormatType,
-  Genre,
-  IdentifierGroup,
-  PartOfSeries,
-  PublishedOn,
-  ThemeType
-} from '@/types/episode_data'
-import { ImageHash } from '@/types/image_hash'
-import { VideoObject } from '@/types/video_object'
-import { Role } from '@/types/role'
 
 type Overrides = Record<string, any>
 
