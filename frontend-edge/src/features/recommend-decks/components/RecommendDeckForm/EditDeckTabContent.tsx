@@ -15,6 +15,7 @@ export const EditDeckTabContent = ({
   const {
     register,
     control,
+    trigger,
     formState: { errors }
   } = useFormContext<RecommendDeckFormInputs>()
 
@@ -68,7 +69,12 @@ export const EditDeckTabContent = ({
           公開する
         </Checkbox>
       </FormControl>
-      <SameAsItems control={control} register={register} errors={errors} />
+      <SameAsItems
+        control={control}
+        register={register}
+        errors={errors}
+        trigger={trigger}
+      />
     </ArrowStepContent>
   )
 }
