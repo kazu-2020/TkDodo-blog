@@ -4,10 +4,9 @@ class SeriesPlaylist < ApplicationRecord
   has_many :series_deck_playlists, -> { order(position: :asc) }
   has_many :series_decks, through: :series_deck_playlists
 
-  validates :series_id, uniqueness: { case_sensitive: true }, presence: true, if: :series_id?
+  validates :series_id, uniqueness: { case_sensitive: true }, presence: true,
+                        format: { with: /\A[A-Z0-9]+\z/ }, length: { is: 10 }, if: :series_id?
   validates :string_id, uniqueness: { case_sensitive: true }, presence: true
-  validate :series_id_digits_must_be10
-  validate :series_id_should_be_only_alphanumeric
 
   def active?
     series_api_response.present?
@@ -73,19 +72,5 @@ class SeriesPlaylist < ApplicationRecord
       rescue DlabApiClient::NotFound
         {}
       end
-  end
-
-  def series_id_digits_must_be10
-    return if series_id.blank?
-    return if series_id.to_s.size == 10
-
-    errors.add(:series_id, 'シリーズIDは10桁で入力してください')
-  end
-
-  def series_id_should_be_only_alphanumeric
-    return if series_id.blank?
-    return if series_id.to_s.match?(/\A[A-Z0-9]+\z/)
-
-    errors.add(:series_id, 'シリーズIDは半角大文字英字と半角数字で入力してください')
   end
 end
