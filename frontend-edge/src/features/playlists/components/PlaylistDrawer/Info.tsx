@@ -113,3 +113,28 @@ export const Info = ({ playlist }: Props) => {
     </Box>
   )
 }
+
+if (import.meta.vitest) {
+  const { playlistGenerator } = await import('@/test/data-generators')
+  const { describe, it, expect } = import.meta.vitest
+  describe('ellipsizeUid', () => {
+    it('未定義の場合', () => {
+      const playlist = playlistGenerator({ playlistUId: undefined })
+      expect(ellipsizeUid(playlist)).toEqual('')
+    })
+    it('空の場合', () => {
+      const playlist = playlistGenerator({ playlistUId: '' })
+      expect(ellipsizeUid(playlist)).toEqual('')
+    })
+    it('8文字の場合', () => {
+      const playlistUid = 'A'.repeat(8)
+      const playlist = playlistGenerator({ playlistUId: playlistUid })
+      expect(ellipsizeUid(playlist)).toEqual(playlistUid)
+    })
+    it('9文字の場合', () => {
+      const playlistUid = 'A'.repeat(8)
+      const playlist = playlistGenerator({ playlistUId: `${playlistUid}B` })
+      expect(ellipsizeUid(playlist)).toEqual(`${playlistUid}...`)
+    })
+  })
+}
