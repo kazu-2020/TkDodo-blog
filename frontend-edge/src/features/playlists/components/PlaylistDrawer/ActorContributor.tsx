@@ -118,3 +118,42 @@ export const ActorContributor = ({ playlist }: Props) => {
     </Box>
   )
 }
+
+if (import.meta.vitest) {
+  const { rolePersonGenerator, roleOrganizationGenerator } = await import(
+    '@/test/data-generators'
+  )
+
+  const { describe, it, expect } = import.meta.vitest
+  describe('roleName', () => {
+    it('個人のロール名が存在するとき', () => {
+      const person = rolePersonGenerator({ roleName: 'author' })
+      expect(roleName({ person })).toEqual('著者')
+    })
+
+    it('組織のロール名が存在するとき', () => {
+      const organization = roleOrganizationGenerator({
+        roleName: 'copyrightHolder'
+      })
+      expect(roleName({ organization })).toEqual('著作権者')
+    })
+
+    it('個人・組織のロール名が存在するとき', () => {
+      const person = rolePersonGenerator({ roleName: 'author' })
+      const organization = roleOrganizationGenerator({
+        roleName: 'copyrightHolder'
+      })
+      expect(roleName({ person, organization })).toEqual('著者')
+    })
+
+    it('存在しないロール名のとき', () => {
+      const person = rolePersonGenerator({ roleName: 'undefined_role_name' })
+      expect(roleName({ person })).toEqual('undefined_role_name')
+    })
+
+    it('ロール名が空のとき', () => {
+      const person = rolePersonGenerator({ roleName: '' })
+      expect(roleName({ person })).toEqual('')
+    })
+  })
+}
