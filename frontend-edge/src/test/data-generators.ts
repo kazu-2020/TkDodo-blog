@@ -8,6 +8,20 @@ import { Playlist } from '@/types/playlist'
 import { Person } from '@/types/person'
 import { Organization } from '@/types/organization'
 import { Article } from '@/types/article'
+import {
+  BroadcastEvent,
+  EpisodeData,
+  EventData,
+  FormatType,
+  Genre,
+  IdentifierGroup,
+  PartOfSeries,
+  PublishedOn,
+  ThemeType
+} from '@/types/episode_data'
+import { ImageHash } from '@/types/image_hash'
+import { VideoObject } from '@/types/video_object'
+import { Role } from '@/types/role'
 
 type Overrides = Record<string, any>
 
@@ -196,5 +210,44 @@ export const roleOrganizationGenerator = (
     'musicBy',
     'actor'
   ]),
+  ...overrides
+})
+
+export const episodeDataGenerator = (overrides?: Overrides): EpisodeData => ({
+  id: `${faker.datatype.number()}`,
+  name: faker.word.adjective(),
+  description: faker.lorem.paragraph(),
+  url: faker.internet.url(),
+  eyecatch: {},
+  keyvisuals: [],
+  identifierGroup: {
+    shortenedDisplayName: faker.word.adjective(),
+    formatGenre: [],
+    themeGenre: [],
+    formatGenreTag: [],
+    themeGenreTag: [],
+    genres: []
+  },
+  partOfSeries: {
+    name: faker.word.adjective(),
+    eyecatch: {},
+    logo: {},
+    identifierGroup: {
+      shortenedDisplayName: faker.word.adjective()
+    }
+  },
+  releasedEvent: undefined,
+  detailedRecentEvent: undefined,
+  videos: [],
+  broadcastEvent: [],
+  actors: [],
+  contributors: [],
+  ...overrides
+})
+
+export const genreGenerator = (overrides?: Overrides): Genre => ({
+  id: faker.datatype.number(),
+  name1: faker.word.adjective(),
+  name2: faker.word.adjective(),
   ...overrides
 })
