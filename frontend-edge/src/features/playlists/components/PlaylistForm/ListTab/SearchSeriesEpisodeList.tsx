@@ -60,7 +60,7 @@ export const SearchSeriesEpisodeList = ({
         <EpisodeHeader />
 
         {!isNewFetching(episodeQuery) && episodeCount === 0 && (
-          <Box>
+          <Box w="100%">
             <NoDataFound target="エピソード" />
           </Box>
         )}
