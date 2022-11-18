@@ -1,16 +1,16 @@
 import { OutputData } from '@editorjs/editorjs'
 
 import { EpisodeData } from './episode_data'
-
+// TODO: このクラス消す
 export type Article = {
-  header?: string
-  body?: OutputData
-  footer?: string
-  plainBody?: string
+  markedHeader?: string
+  editorData?: OutputData
+  markedFooter?: string
+  articleBody?: string
   markedBody?: string
   authorType?: string
   authorName?: string
   publisherType?: string
   publisherName?: string
-  containsEpisodes?: Array<EpisodeData>
+  articleContainsEpisodes?: Array<EpisodeData>
 }
