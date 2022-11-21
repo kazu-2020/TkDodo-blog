@@ -34,18 +34,6 @@ const models = {
     eventCount: Number,
     faqPageCount: Number
   },
-  article: {
-    header: primaryKey(String),
-    // body?: OutputData
-    footer: String,
-    plainBody: String,
-    markedBody: String,
-    authorType: String,
-    authorName: String,
-    publisherType: String,
-    publisherName: String
-    // containsEpisodes?: Array<EpisodeData>}
-  },
   playlist: {
     id: primaryKey(String),
     playlistUId: String,
@@ -100,7 +88,16 @@ const models = {
     aliasId: String,
     actor: Array,
     contributor: Array,
-    article: oneOf('article'),
+    markedHeader: primaryKey(String),
+    // body?: OutputData,
+    markedFooter: String,
+    articleBody: String,
+    markedBody: String,
+    authorType: String,
+    authorName: String,
+    publisherType: String,
+    publisherName: String,
+    // containsEpisodes?: Array<EpisodeData>},
     layoutPattern: String,
     publishLevel: String,
     dateCreated: String,
