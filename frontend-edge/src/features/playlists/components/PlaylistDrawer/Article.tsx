@@ -9,10 +9,10 @@ type Props = {
 }
 
 const ellipsizePlainBody = (article: PlaylistArticle | undefined) =>
-  article?.plainBody?.slice(0, 50) || ''
+  article?.articleBody?.slice(0, 50) || ''
 
 export const Article = ({ playlist }: Props) => {
-  const plainBody = ellipsizePlainBody(playlist.article)
+  const plainBody = ellipsizePlainBody(playlist)
   if (plainBody) {
     return (
       <Box borderTop="1px" borderColor="gray.200" px={7} py={5}>
