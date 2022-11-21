@@ -1,5 +1,5 @@
 import { ModelAPI } from '@mswjs/data/lib/glossary'
-import { factory, oneOf, primaryKey } from '@mswjs/data'
+import { factory, primaryKey } from '@mswjs/data'
 
 const models = {
   seriesDeck: {
