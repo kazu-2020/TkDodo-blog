@@ -88,7 +88,7 @@ const models = {
     aliasId: String,
     actor: Array,
     contributor: Array,
-    markedHeader: primaryKey(String),
+    markedHeader: String,
     // body?: OutputData,
     markedFooter: String,
     articleBody: String,
