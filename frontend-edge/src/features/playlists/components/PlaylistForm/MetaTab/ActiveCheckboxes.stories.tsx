@@ -5,7 +5,6 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 
 import { Playlist } from '@/types/playlist'
 import { handlers } from '@/test/server/handlers'
-import { db } from '@/test/server/db'
 import { playlistGenerator } from "@/test/data-generators"
 import { queryClient } from '@/lib/react-query'
 import { playlistToDefaultValues } from '@/features/playlists/utils/form'
