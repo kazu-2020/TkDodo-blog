@@ -65,7 +65,7 @@ export const RecommendPlaylistListItem = ({
       <GridItem colSpan={4} h={8}>
         <Center h="100%">
           <Text fontSize="xl" fontWeight="normal">
-            {playlist.article.markedBody ? '○' : '×'}
+            {playlist.markedBody ? '○' : '×'}
           </Text>
         </Center>
       </GridItem>
