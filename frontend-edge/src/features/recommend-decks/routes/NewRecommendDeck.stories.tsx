@@ -11,7 +11,7 @@ import { Box } from '@chakra-ui/react'
 
 import { handlers } from '@/test/server/handlers'
 import { db } from '@/test/server/db'
-import { articleGenerator, playlistGenerator } from '@/test/data-generators'
+import { playlistGenerator } from "@/test/data-generators"
 import { queryClient } from '@/lib/react-query'
 
 import NewRecommendDeck from './NewRecommendDeck'
@@ -23,10 +23,7 @@ export default {
 const playlists = db.playlist.getAll()
 if (playlists.length < 1) {
   ;[...Array(20)].map(async () => {
-    const article = db.article.create(articleGenerator())
-    // ArticleがユニークなIDを型としてもっていないため、headerを仮想ID列として使用。そのため型の不正を指摘されるので ignoreを設定
-    // @ts-ignore
-    db.playlist.create(playlistGenerator({ article }))
+    db.playlist.create(playlistGenerator())
   })
 }
 

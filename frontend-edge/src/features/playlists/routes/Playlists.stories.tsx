@@ -3,7 +3,7 @@ import { ComponentMeta } from '@storybook/react'
 
 import { handlers } from '@/test/server/handlers'
 import { db, resetDb } from '@/test/server/db'
-import { articleGenerator, playlistGenerator } from '@/test/data-generators'
+import {playlistGenerator} from "@/test/data-generators"
 import { queryClient } from '@/lib/react-query'
 
 import Playlists from './Playlists'
@@ -15,11 +15,10 @@ export default {
 resetDb()
 const playlists = db.playlist.getAll()
 if (playlists.length < 1) {
-  ;[...Array(20)].map(async () => {
-    const article = db.article.create(articleGenerator())
-    // @ts-ignore
-    return db.playlist.create(playlistGenerator({ article }))
-  })
+  ;[...Array(20)].map(async () =>
+     // @ts-ignore
+     db.playlist.create(playlistGenerator())
+  )
 }
 
 export const Default = {
