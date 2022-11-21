@@ -43,7 +43,7 @@ const RecommendDeckList = () => {
       {isLoading && <ListScreenSkeleton />}
       {!isLoading && totalCount === 0 && (
         <Box pt={20}>
-          <NoDataFound />
+          <NoDataFound target="レコメンドデッキ" />
         </Box>
       )}
       {!isLoading && totalCount > 0 && (

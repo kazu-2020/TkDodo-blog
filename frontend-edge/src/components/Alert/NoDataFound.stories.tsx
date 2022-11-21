@@ -6,4 +6,9 @@ export default {
   component: NoDataFound
 } as ComponentMeta<typeof NoDataFound>
 
-export const Default: ComponentStoryObj<typeof NoDataFound> = {}
+export const Default: ComponentStoryObj<typeof NoDataFound> = {
+  render: (args) => <NoDataFound {...args} />,
+  args: {
+    target: 'エピソード'
+  }
+}
