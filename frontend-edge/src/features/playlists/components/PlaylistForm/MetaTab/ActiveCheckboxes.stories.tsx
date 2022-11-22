@@ -5,8 +5,7 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 
 import { Playlist } from '@/types/playlist'
 import { handlers } from '@/test/server/handlers'
-import { db } from '@/test/server/db'
-import { articleGenerator, playlistGenerator } from '@/test/data-generators'
+import { playlistGenerator } from '@/test/data-generators'
 import { queryClient } from '@/lib/react-query'
 import { playlistToDefaultValues } from '@/features/playlists/utils/form'
 import { PlaylistFormInputs } from '@/features/playlists/types'
@@ -17,8 +16,7 @@ export default {
   component: ActiveCheckboxes
 } as ComponentMeta<typeof ActiveCheckboxes>
 
-const article = db.article.create(articleGenerator())
-const fakePlaylist = playlistGenerator({ article })
+const fakePlaylist = playlistGenerator()
 
 const usePlaylistForm = (playlist: Playlist | undefined) => {
   const defaultValues = playlistToDefaultValues(playlist)

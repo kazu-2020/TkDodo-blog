@@ -1,3 +1,5 @@
+import { OutputData } from '@editorjs/editorjs'
+
 import { AvailableEpisodes } from '@/types/series_data'
 
 import { SameAs } from './same_as'
@@ -5,7 +7,6 @@ import { Role } from './role'
 import { ImageHash } from './image_hash'
 import { EpisodeData, PartOfSeries } from './episode_data'
 import { Citation } from './citation'
-import { Article } from './article'
 
 export type Playlist = {
   id?: string
@@ -62,7 +63,16 @@ export type Playlist = {
   aliasId: string
   actor: Array<Role>
   contributor: Array<Role>
-  article: Article
+  markedHeader?: string
+  editorData?: OutputData
+  markedFooter?: string
+  articleBody?: string
+  markedBody?: string
+  authorType?: string
+  authorName?: string
+  publisherType?: string
+  publisherName?: string
+  articleContainsEpisodes?: Array<EpisodeData>
   layoutPattern: string
   publishLevel: string
   dateCreated: string
