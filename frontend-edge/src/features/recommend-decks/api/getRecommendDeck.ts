@@ -14,7 +14,7 @@ export const getRecommendDeck = async (
       with_episode_count: 1
     }
   })
-  return res.data.deck
+  return res.data
 }
 
 export const useRecommendDeck = (recommendDeckId: string | undefined) =>

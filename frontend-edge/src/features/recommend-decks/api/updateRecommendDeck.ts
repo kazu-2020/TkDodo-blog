@@ -53,10 +53,10 @@ export const updateRecommendDeck = async ({
   )
 
   return {
-    ...res.data.deck,
+    ...res.data,
     // FIXME: レスポンスのidが数値になっていて、queryKeyに影響が出てしまうのでのでキャストしてる
     // ex. ['recommend-deck', 33] ['recommend-deck', "33"] は別のキャッシュとして扱われる
-    id: `${res.data.deck.id}`
+    id: `${res.data.id}`
   }
 }
 
