@@ -34,7 +34,7 @@ export const PlaylistListItem = ({
       bg="white"
       borderRadius="md"
       borderLeftWidth="3px"
-      borderLeftColor={playlist.primaryLight}
+      borderLeftColor={playlist.primaryLightColor}
       boxShadow="sm"
       cursor="pointer"
       onClick={() => onClick(playlist)}
