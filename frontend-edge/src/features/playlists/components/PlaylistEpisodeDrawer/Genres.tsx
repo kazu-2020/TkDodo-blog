@@ -92,3 +92,58 @@ export const Genres = ({ episode }: Props) => (
     </Box>
   </Box>
 )
+
+if (import.meta.vitest) {
+  const { episodeDataGenerator, genreGenerator } = await import(
+    '@/test/data-generators'
+  )
+
+  const { describe, it, expect } = import.meta.vitest
+  describe('broadcastGenres', () => {
+    const genre1 = genreGenerator()
+    const genre2 = genreGenerator()
+
+    it('ジャンル名の変換', () => {
+      const episode = episodeDataGenerator({
+        broadcastEvent: [{ identifierGroup: { genres: [genre1, genre2] } }]
+      })
+      const genres = broadcastGenres(episode)
+      expect(genres).toHaveLength(2)
+      expect(genres[0].id).toEqual(genre1.id)
+      expect(genres[0].name).toEqual(`${genre1.name1}/${genre1.name2}`)
+      expect(genres[1].id).toEqual(genre2.id)
+      expect(genres[1].name).toEqual(`${genre2.name1}/${genre2.name2}`)
+    })
+
+    it('先頭のブロードキャストのジャンルが有効なこと', () => {
+      const episode = episodeDataGenerator({
+        broadcastEvent: [
+          { identifierGroup: { genres: [genre1] } },
+          { identifierGroup: { genres: [genre2] } }
+        ]
+      })
+      const genres = broadcastGenres(episode)
+      expect(genres).toHaveLength(1)
+      expect(genres[0].id).toEqual(genre1.id)
+      expect(genres[0].name).toEqual(`${genre1.name1}/${genre1.name2}`)
+    })
+
+    it('ジャンルが空のとき', () => {
+      const episode = episodeDataGenerator({
+        broadcastEvent: [{ identifierGroup: { genres: [] } }]
+      })
+      const genres = broadcastGenres(episode)
+
+      expect(genres).toHaveLength(0)
+    })
+
+    it('ジャンルが未定義のとき', () => {
+      const episode = episodeDataGenerator({
+        broadcastEvent: [{ identifierGroup: { genres: undefined } }]
+      })
+      const genres = broadcastGenres(episode)
+
+      expect(genres).toHaveLength(0)
+    })
+  })
+}
