@@ -1,9 +1,8 @@
-import {OutputData} from "@editorjs/editorjs"
+import { OutputData } from '@editorjs/editorjs'
 
-import {EpisodeData} from "@/types/episode_data"
+import { EpisodeData } from '@/types/episode_data'
 
 import { ImageHash } from './image_hash'
-
 
 export type RecommendPlaylist = {
   primaryId: number

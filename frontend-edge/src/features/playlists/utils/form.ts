@@ -39,12 +39,15 @@ export const playlistToDefaultValues = (
   hashtags: playlist?.hashtag ? arrayToOptions(playlist.hashtag) : [],
   formatGenreCode: playlist?.formatGenre,
   themeGenreCode: playlist?.themeGenre,
-  selectedPalette:
-    playlist?.selectedPalette || PALETTE_BASE_COLORS[9],
-  primaryLightColor: playlist?.primaryLight || adjustPrimaryLightColor(PALETTE_BASE_COLORS[9]),
-  primaryDarkColor: playlist?.primaryDark || adjustPrimaryDarkColor(PALETTE_BASE_COLORS[9]),
-  linkLightColor: playlist?.linkLight || adjustLinkLightColor(PALETTE_BASE_COLORS[9]),
-  linkDarkColor: playlist?.linkDark || adjustLinkDarkColor(PALETTE_BASE_COLORS[9]),
+  selectedPalette: playlist?.selectedPalette || PALETTE_BASE_COLORS[9],
+  primaryLightColor:
+    playlist?.primaryLight || adjustPrimaryLightColor(PALETTE_BASE_COLORS[9]),
+  primaryDarkColor:
+    playlist?.primaryDark || adjustPrimaryDarkColor(PALETTE_BASE_COLORS[9]),
+  linkLightColor:
+    playlist?.linkLight || adjustLinkLightColor(PALETTE_BASE_COLORS[9]),
+  linkDarkColor:
+    playlist?.linkDark || adjustLinkDarkColor(PALETTE_BASE_COLORS[9]),
   aliasId: playlist?.aliasId,
   sameAsAttributes: playlist?.sameAs,
   citationsAttributes: playlist?.citations,

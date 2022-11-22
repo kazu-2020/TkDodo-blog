@@ -3,7 +3,7 @@ import { ComponentMeta } from '@storybook/react'
 
 import { handlers } from '@/test/server/handlers'
 import { db, resetDb } from '@/test/server/db'
-import {playlistGenerator} from "@/test/data-generators"
+import { playlistGenerator } from '@/test/data-generators'
 import { queryClient } from '@/lib/react-query'
 
 import Playlists from './Playlists'
@@ -16,8 +16,8 @@ resetDb()
 const playlists = db.playlist.getAll()
 if (playlists.length < 1) {
   ;[...Array(20)].map(async () =>
-     // @ts-ignore
-     db.playlist.create(playlistGenerator())
+    // @ts-ignore
+    db.playlist.create(playlistGenerator())
   )
 }
 

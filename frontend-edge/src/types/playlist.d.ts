@@ -1,4 +1,4 @@
-import {OutputData} from "@editorjs/editorjs"
+import { OutputData } from '@editorjs/editorjs'
 
 import { AvailableEpisodes } from '@/types/series_data'
 

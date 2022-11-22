@@ -2,14 +2,14 @@ import React from 'react'
 import { Box, Text } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
-import {playlistGenerator} from "@/test/data-generators"
+import { playlistGenerator } from '@/test/data-generators'
 
 type Props = {
   playlist: Playlist
 }
 
 const ellipsizePlainBody = (playlist: Playlist | undefined) =>
-    playlist?.articleBody?.slice(0, 50) || ''
+  playlist?.articleBody?.slice(0, 50) || ''
 
 export const Article = ({ playlist }: Props) => {
   const plainBody = ellipsizePlainBody(playlist)
@@ -26,7 +26,6 @@ export const Article = ({ playlist }: Props) => {
 }
 
 if (import.meta.vitest) {
-
   const { describe, it, expect } = import.meta.vitest
   describe('ellipsizePlainBody', () => {
     it('50文字の場合', () => {
