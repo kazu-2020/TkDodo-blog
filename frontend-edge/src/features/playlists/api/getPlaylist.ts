@@ -11,7 +11,7 @@ export const getPlaylist = async (
   }
 
   const res = await axios.get(`playlists/${playlistUId}`)
-  return res.data.playlist
+  return res.data
 }
 
 export const usePlaylist = (playlistUId: string | undefined) =>
