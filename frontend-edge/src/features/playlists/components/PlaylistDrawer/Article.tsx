@@ -12,12 +12,12 @@ const ellipsizePlainBody = (playlist: Playlist | undefined) =>
   playlist?.articleBody?.slice(0, 50) || ''
 
 export const Article = ({ playlist }: Props) => {
-  const plainBody = ellipsizePlainBody(playlist)
-  if (plainBody) {
+  const articleBody = ellipsizePlainBody(playlist)
+  if (articleBody) {
     return (
       <Box borderTop="1px" borderColor="gray.200" px={7} py={5}>
         <Text pb={4} fontSize="sm">
-          {plainBody}
+          {articleBody}
         </Text>
       </Box>
     )
@@ -29,15 +29,15 @@ if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest
   describe('ellipsizePlainBody', () => {
     it('50文字の場合', () => {
-      const plainBody = 'A'.repeat(50)
-      const article = playlistGenerator({ articleBody: plainBody })
-      expect(ellipsizePlainBody(article)).toEqual(plainBody)
+      const articleBody = 'A'.repeat(50)
+      const article = playlistGenerator({ articleBody })
+      expect(ellipsizePlainBody(article)).toEqual(articleBody)
     })
 
     it('51文字の場合', () => {
-      const plainBody = 'A'.repeat(50)
-      const article = playlistGenerator({ articleBody: `${plainBody}B` })
-      expect(ellipsizePlainBody(article)).toEqual(plainBody)
+      const articleBody = 'A'.repeat(50)
+      const article = playlistGenerator({ articleBody: `${articleBody}B` })
+      expect(ellipsizePlainBody(article)).toEqual(articleBody)
     })
 
     it('Articleが未定義の場合', () => {
