@@ -146,7 +146,7 @@ describe DecksController, type: :request do
 
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
-        expect(json.dig('deck', 'playlists')[0]['playableItemsCount']).to eq 2
+        expect(json['playlists'][0]['playableItemsCount']).to eq 2
       end
     end
 
@@ -156,7 +156,7 @@ describe DecksController, type: :request do
 
       it '視聴可能なエピソード数が取得できないこと' do
         json = JSON.parse(response.body)
-        expect(json.dig('deck', 'playlists')[0]['playableItemsCount']).to be_nil
+        expect(json['playlists'][0]['playableItemsCount']).to be_nil
       end
     end
   end
