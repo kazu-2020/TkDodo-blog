@@ -244,7 +244,6 @@ export const seriesDataGenerator = (overrides?: Overrides): SeriesData => ({
   partOfSeries: undefined,
   availableEpisodes: undefined,
   videos: [],
-  style: {},
   episodes: {
     count: faker.datatype.number(),
     result: [],
