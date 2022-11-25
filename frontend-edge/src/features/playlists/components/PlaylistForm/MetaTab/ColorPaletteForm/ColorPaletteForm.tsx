@@ -33,7 +33,7 @@ const setAdjustColors = (colorHex: string, setValue: UseFormSetValue<any>) => {
 }
 
 const isSelectedFreePalette = (colorHex: string) =>
-  !PALETTE_BASE_COLORS.includes(colorHex)
+  !PALETTE_BASE_COLORS.includes(colorHex.toLowerCase())
 
 const colorPickerInitialColor = (selectedPalette: string) =>
   isSelectedFreePalette(selectedPalette) ? selectedPalette : '#000000'
@@ -87,4 +87,29 @@ export const ColorPaletteForm = () => {
       </Flex>
     </Box>
   )
+}
+
+if (import.meta.vitest) {
+  const { describe, it, expect } = import.meta.vitest
+  describe('isSelectedFreePalette', () => {
+    it('ベースカラーに含まれている場合（小文字）', () => {
+      expect(isSelectedFreePalette('#faf100')).toBeFalsy()
+    })
+
+    it('ベースカラーに含まれている場合（大文字）', () => {
+      expect(isSelectedFreePalette('#FAF100')).toBeFalsy()
+    })
+
+    it('ベースカラーに含まれていない場合', () => {
+      expect(isSelectedFreePalette('#000000')).toBeTruthy()
+    })
+  })
+  describe('colorPickerInitialColor', () => {
+    it('ベースカラーに含まれている場合', () => {
+      expect(colorPickerInitialColor('#faf100')).toEqual('#000000')
+    })
+    it('ベースカラーに含まれていない場合', () => {
+      expect(colorPickerInitialColor('#AAAAAA')).toEqual('#AAAAAA')
+    })
+  })
 }
