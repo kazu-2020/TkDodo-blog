@@ -102,33 +102,6 @@ export const DroppableImageInput = () => {
   )
 }
 
-/**
- const isAllowedFileType = (file: File): boolean =>
- file.type === 'image/jpg' ||
- file.type === 'image/jpeg' ||
- file.type === 'image/png'
-
- const isAllowedFileSize = (file: File): boolean => {
-  const limitSize = 10 * 1024 ** 2 // 10MB
-  return file.size < limitSize
-}
-
- const validate = (file: File): boolean => {
-  if (!isAllowedFileType(file)) {
-    // eslint-disable-next-line no-alert
-    alert('対応形式のファイルを選択してください')
-    return false
-  }
-  if (!isAllowedFileSize(file)) {
-    // eslint-disable-next-line no-alert
-    alert('ファイルが大きすぎます（上限10MB）')
-    return false
-  }
-  return true
-}
-
- */
-
 if (import.meta.vitest) {
   const dummyFile = (type: string): File =>
     new File(['dummy'], 'dummy', { type })
