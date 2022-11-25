@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-json.playlistUId playlist.string_uid
+json.playlistUid playlist.string_uid
 json.stringId playlist.string_id
 json.primaryId playlist.id
 json.name playlist.name
