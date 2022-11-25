@@ -10,18 +10,18 @@ json.description playlist.description
 json.headline playlist.headline
 json.keywords playlist.keywords
 json.detailedCatch playlist.detailed_catch
-json.hashtag playlist.hashtags
-json.formatGenre playlist.format_genre_code
+json.hashtags playlist.hashtags
+json.formatGenreCode playlist.format_genre_code
 json.formatGenreName playlist.format_genre_name
-json.themeGenre playlist.theme_genre_code
+json.themeGenreCode playlist.theme_genre_code
 json.themeGenreName playlist.theme_genre_name
 json.selectedPalette playlist.selected_palette
-json.primaryLight playlist.primary_light_color
-json.primaryDark playlist.primary_dark_color
-json.textLight playlist.text_light_color
-json.textDark playlist.text_dark_color
-json.linkLight playlist.link_light_color
-json.linkDark playlist.link_dark_color
+json.primaryLightColor playlist.primary_light_color
+json.primaryDarkColor playlist.primary_dark_color
+json.textLightColor playlist.text_light_color
+json.textDarkColor playlist.text_dark_color
+json.linkLightColor playlist.link_light_color
+json.linkDarkColor playlist.link_dark_color
 if playlist.same_as.present?
   json.sameAs do
     json.array! playlist.same_as do |same_as|

@@ -36,18 +36,20 @@ export const playlistToDefaultValues = (
   detailedCatch: playlist?.detailedCatch,
   description: playlist?.description,
   keywords: playlist?.keywords ? arrayToOptions(playlist.keywords) : [],
-  hashtags: playlist?.hashtag ? arrayToOptions(playlist.hashtag) : [],
-  formatGenreCode: playlist?.formatGenre,
-  themeGenreCode: playlist?.themeGenre,
+  hashtags: playlist?.hashtags ? arrayToOptions(playlist.hashtags) : [],
+  formatGenreCode: playlist?.formatGenreCode,
+  themeGenreCode: playlist?.themeGenreCode,
   selectedPalette: playlist?.selectedPalette || PALETTE_BASE_COLORS[9],
   primaryLightColor:
-    playlist?.primaryLight || adjustPrimaryLightColor(PALETTE_BASE_COLORS[9]),
+    playlist?.primaryLightColor ||
+    adjustPrimaryLightColor(PALETTE_BASE_COLORS[9]),
   primaryDarkColor:
-    playlist?.primaryDark || adjustPrimaryDarkColor(PALETTE_BASE_COLORS[9]),
+    playlist?.primaryDarkColor ||
+    adjustPrimaryDarkColor(PALETTE_BASE_COLORS[9]),
   linkLightColor:
-    playlist?.linkLight || adjustLinkLightColor(PALETTE_BASE_COLORS[9]),
+    playlist?.linkLightColor || adjustLinkLightColor(PALETTE_BASE_COLORS[9]),
   linkDarkColor:
-    playlist?.linkDark || adjustLinkDarkColor(PALETTE_BASE_COLORS[9]),
+    playlist?.linkDarkColor || adjustLinkDarkColor(PALETTE_BASE_COLORS[9]),
   aliasId: playlist?.aliasId,
   sameAsAttributes: playlist?.sameAs,
   citationsAttributes: playlist?.citations,

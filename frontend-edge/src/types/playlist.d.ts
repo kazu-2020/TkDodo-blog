@@ -18,18 +18,18 @@ export type Playlist = {
   description: string
   keywords: string[]
   detailedCatch: string
-  hashtag: string[]
-  formatGenre: string
+  hashtags: string[]
+  formatGenreCode: string
   formatGenreName?: string
-  themeGenre: string
+  themeGenreCode: string
   themeGenreName?: string
   selectedPalette: string
-  primaryLight: string
-  primaryDark: string
-  textLight: string
-  textDark: string
-  linkLight: string
-  linkDark: string
+  primaryLightColor: string
+  primaryDarkColor: string
+  textLightColor: string
+  textDarkColor: string
+  linkLightColor: string
+  linkDarkColor: string
   apiState: string
   reservePublishTimeAt: string
   reserveFinishTimeAt: string
