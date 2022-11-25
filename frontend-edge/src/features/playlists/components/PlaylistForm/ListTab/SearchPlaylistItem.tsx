@@ -11,13 +11,16 @@ type Props = {
 }
 
 const logoUrl = (playlist: Playlist) => {
-  if (playlist.logo !== undefined) {
+  if (playlist.logo?.medium?.url !== undefined) {
     return playlist.logo?.medium?.url
   }
-  if (playlist.keyvisuals !== undefined) {
+  if (
+    playlist.keyvisuals !== undefined &&
+    playlist.keyvisuals[0]?.small?.url !== undefined
+  ) {
     return playlist.keyvisuals[0]?.small?.url
   }
-  if (playlist.partOfSeries?.logo !== undefined) {
+  if (playlist.partOfSeries?.logo?.medium?.url !== undefined) {
     return playlist.partOfSeries?.logo?.medium?.url
   }
 
@@ -65,3 +68,74 @@ export const SearchPlaylistItem = ({ item, onClick }: Props) => (
     </GridItem>
   </Grid>
 )
+
+if (import.meta.vitest) {
+  const { playlistGenerator } = await import('@/test/data-generators')
+
+  const { describe, it, expect } = import.meta.vitest
+  describe('logoUrl', () => {
+    it('logoが設定されている場合', () => {
+      const playlist = playlistGenerator({
+        logo: { medium: { url: 'logo.jpg', width: 1, height: 1 } }
+      })
+      expect(logoUrl(playlist)).toEqual('logo.jpg')
+    })
+
+    it('keyvisualsが設定されている場合', () => {
+      const playlist = playlistGenerator({
+        keyvisuals: [
+          { small: { url: 'keylogo1.jpg', width: 1, height: 1 } },
+          { small: { url: 'keylogo2.jpg', width: 1, height: 1 } }
+        ]
+      })
+      expect(logoUrl(playlist)).toEqual('keylogo1.jpg')
+    })
+
+    it('partOfSeries.logoが設定されている場合', () => {
+      const playlist = playlistGenerator({
+        partOfSeries: {
+          name: 'test',
+          logo: { medium: { url: 'partlogo.jpg', width: 1, height: 1 } }
+        }
+      })
+      expect(logoUrl(playlist)).toEqual('partlogo.jpg')
+    })
+
+    it('すべて設定されていない場合', () => {
+      const playlist = playlistGenerator()
+      expect(logoUrl(playlist)).toEqual('https://placehold.jp/40x40.png')
+    })
+
+    it('すべて設定されている場合', () => {
+      const playlist = playlistGenerator({
+        logo: { medium: { url: 'logo.jpg', width: 1, height: 1 } },
+        keyvisuals: [
+          { small: { url: 'keylogo1.jpg', width: 1, height: 1 } },
+          { small: { url: 'keylogo2.jpg', width: 1, height: 1 } }
+        ],
+        partOfSeries: {
+          name: 'test',
+          logo: { medium: { url: 'partlogo.jpg', width: 1, height: 1 } }
+        }
+      })
+      expect(logoUrl(playlist)).toEqual('logo.jpg')
+    })
+  })
+
+  describe('isViewable', () => {
+    it('availableEpisodesが未定義の場合', () => {
+      const playlist = playlistGenerator({ availableEpisodes: undefined })
+      expect(isViewable(playlist)).toBeFalsy()
+    })
+
+    it('availableEpisodesが0件の場合', () => {
+      const playlist = playlistGenerator({ availableEpisodes: { count: 0 } })
+      expect(isViewable(playlist)).toBeFalsy()
+    })
+
+    it('availableEpisodesが1件の場合', () => {
+      const playlist = playlistGenerator({ availableEpisodes: { count: 1 } })
+      expect(isViewable(playlist)).toBeTruthy()
+    })
+  })
+}

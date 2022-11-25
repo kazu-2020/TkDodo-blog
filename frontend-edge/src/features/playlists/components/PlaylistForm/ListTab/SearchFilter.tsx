@@ -25,20 +25,24 @@ export type FilterParams = {
   filterService?: boolean
 }
 
+const getOrderLabel = (selectedOrderBy: string, selectedOrder: string) => {
+  if (selectedOrderBy === 'score' && selectedOrder === 'desc') {
+    return '関連スコア順'
+  }
+  if (selectedOrderBy === 'dateModified' && selectedOrder === 'desc') {
+    return '新しい順'
+  }
+  if (selectedOrderBy === 'dateModified' && selectedOrder === 'asc') {
+    return '古い順'
+  }
+  return '並び順'
+}
+
 export const SearchFilter = ({ onChange, tabIndex }: Props) => {
   const [orderLabel, setOrderLabel] = useState('並び順')
 
   const onChangeOrder = (selectedOrderBy: string, selectedOrder: string) => {
-    if (selectedOrderBy === 'score' && selectedOrder === 'desc') {
-      setOrderLabel('関連スコア順')
-    }
-    if (selectedOrderBy === 'dateModified' && selectedOrder === 'desc') {
-      setOrderLabel('新しい順')
-    }
-    if (selectedOrderBy === 'dateModified' && selectedOrder === 'asc') {
-      setOrderLabel('古い順')
-    }
-
+    setOrderLabel(getOrderLabel(selectedOrderBy, selectedOrder))
     onChange({ orderBy: selectedOrderBy, order: selectedOrder })
   }
 
@@ -110,4 +114,26 @@ export const SearchFilter = ({ onChange, tabIndex }: Props) => {
       </HStack>
     </HStack>
   )
+}
+
+if (import.meta.vitest) {
+  const { describe, it, expect } = import.meta.vitest
+
+  describe('getOrderLabel', () => {
+    it('「関連スコア順」が取得できること', () => {
+      expect(getOrderLabel('score', 'desc')).toEqual('関連スコア順')
+    })
+
+    it('「新しい順」が取得できること', () => {
+      expect(getOrderLabel('dateModified', 'desc')).toEqual('新しい順')
+    })
+
+    it('「古い順」が取得できること', () => {
+      expect(getOrderLabel('dateModified', 'asc')).toEqual('古い順')
+    })
+
+    it('「並び順」が取得できること', () => {
+      expect(getOrderLabel('xxxxx', 'xxxxx')).toEqual('並び順')
+    })
+  })
 }

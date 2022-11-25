@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker/locale/ja'
 
 import { SeriesPlaylist } from '@/types/series_playlist'
 import { SeriesDeck } from '@/types/series_deck'
+import { SeriesData } from '@/types/series_data'
 import { RecommendDeck } from '@/types/recommend_deck'
 import { Playlist } from '@/types/playlist'
 import { Person } from '@/types/person'
@@ -230,5 +231,25 @@ export const genreGenerator = (overrides?: Overrides): Genre => ({
   id: faker.datatype.number(),
   name1: faker.word.adjective(),
   name2: faker.word.adjective(),
+  ...overrides
+})
+
+export const seriesDataGenerator = (overrides?: Overrides): SeriesData => ({
+  id: `${faker.datatype.number()}`,
+  name: faker.word.adjective(),
+  logo: undefined,
+  eyecatch: undefined,
+  hero: undefined,
+  keyvisuals: undefined,
+  partOfSeries: undefined,
+  availableEpisodes: undefined,
+  videos: [],
+  style: {},
+  episodes: {
+    count: faker.datatype.number(),
+    result: [],
+    nextUrl: faker.internet.url(),
+    resultUrl: faker.internet.url()
+  },
   ...overrides
 })

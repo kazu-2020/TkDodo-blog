@@ -138,3 +138,25 @@ export const SearchEpisodeItem = ({ item, onClick }: Props) => {
     </Grid>
   )
 }
+
+if (import.meta.vitest) {
+  const { episodeDataGenerator } = await import('@/test/data-generators')
+
+  const { describe, it, expect } = import.meta.vitest
+  // UseFormGetValues, UseFormSetValue の対応が困難なためスキップ
+  // describe('addEpisode', () => {})
+
+  describe('hasEpisode', () => {
+    const episode1 = episodeDataGenerator({ id: 1 })
+    const episode2 = episodeDataGenerator({ id: 2 })
+    it('エピソードが存在しない場合', () => {
+      const episode = episodeDataGenerator({ id: 1 })
+      expect(hasEpisode([episode1, episode2], episode)).toBeTruthy()
+    })
+
+    it('エピソードが存在する場合', () => {
+      const episode = episodeDataGenerator({ id: 3 })
+      expect(hasEpisode([episode1, episode2], episode)).toBeFalsy()
+    })
+  })
+}
