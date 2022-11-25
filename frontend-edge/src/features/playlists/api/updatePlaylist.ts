@@ -27,8 +27,8 @@ export const updatePlaylist = async ({
   )
 
   return {
-    ...res.data.playlist,
-    playlistUId: res.data.playlist.playlistUId
+    ...res.data,
+    playlistUId: res.data.playlistUId
   }
 }
 

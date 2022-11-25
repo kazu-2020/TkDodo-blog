@@ -131,18 +131,17 @@ describe SeriesDecksController, type: :request do
     it 'デッキの詳細情報が取得できること' do
       expect(response.status).to eq 200
       json = JSON.parse(response.body)
-      expect(json['deck']['id']).to eq series_deck.id
-      expect(json['deck']['name']).to eq series_deck.name
-      expect(json['deck']['description']).to eq series_deck.description
-      expect(json['deck']['interfix']).to eq series_deck.interfix
-      expect(json['deck']['adminMemo']).to eq series_deck.admin_memo
+      expect(json['id']).to eq series_deck.id
+      expect(json['name']).to eq series_deck.name
+      expect(json['description']).to eq series_deck.description
+      expect(json['interfix']).to eq series_deck.interfix
+      expect(json['adminMemo']).to eq series_deck.admin_memo
     end
 
     it 'サブタイプが取得されること' do
       json = JSON.parse(response.body)
-      expect(json.dig('deck',
-                      'playlists')[0].keys).to include('tvepisodeCount', 'howtoCount', 'faqpageCount', 'eventCount',
-                                                       'recipeCount')
+      expect(json['playlists'][0].keys).to include('tvepisodeCount', 'howtoCount', 'faqpageCount', 'eventCount',
+                                                   'recipeCount')
     end
   end
 
@@ -154,8 +153,8 @@ describe SeriesDecksController, type: :request do
         end.to change(SeriesDeck, :count).by(1)
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
-        expect(json['deck']['name']).to eq 'テストデッキ'
-        expect(json['deck']['interfix']).to eq 'test'
+        expect(json['name']).to eq 'テストデッキ'
+        expect(json['interfix']).to eq 'test'
       end
     end
 
@@ -179,7 +178,7 @@ describe SeriesDecksController, type: :request do
         patch series_deck_path(series_deck.id), params: { series_deck: { name: '更新デッキ' } }
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
-        expect(json['deck']['name']).to eq '更新デッキ'
+        expect(json['name']).to eq '更新デッキ'
       end
     end
 

@@ -10,6 +10,4 @@ json.pagination do
   json.currentPage @series_decks.current_page
   json.nextPage @series_decks.next_page
   json.previousPage @series_decks.prev_page
-  json.isFirstPage @series_decks.first_page?
-  json.isLastPage @series_decks.last_page?
 end
