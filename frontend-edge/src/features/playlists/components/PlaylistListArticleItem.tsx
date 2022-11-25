@@ -16,7 +16,7 @@ export const PlaylistListArticleItem = ({
     playlist.logo?.medium?.url ?? '/public/dummy/default1/default1-logo.png'
 
   const articleOutline = (): string => {
-    const text = playlist.article.plainBody?.replace(/\n\n/g, '<br/>')
+    const text = playlist.articleBody?.replace(/\n\n/g, '<br/>')
     return text && text.length > 0 ? text : '記事はまだありません'
   }
 

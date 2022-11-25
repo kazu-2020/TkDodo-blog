@@ -66,13 +66,11 @@ end
 json.layoutPattern playlist.layout_pattern
 json.datePublished playlist.published_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
 
-json.article do
-  json.header playlist.marked_header
-  json.body playlist.editor_data
-  json.markedBody playlist.marked_body
-  json.plainBody playlist.article_body
-  json.footer playlist.marked_footer
-end
+json.markedHeader playlist.marked_header
+json.editorData playlist.editor_data
+json.markedBody playlist.marked_body
+json.articleBody playlist.article_body
+json.markedFooter playlist.marked_footer
 
 json.dateCreated playlist.created_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')
 json.dateModified playlist.updated_at&.in_time_zone('Asia/Tokyo')&.strftime('%Y-%m-%dT%H:%M:%S+09:00')

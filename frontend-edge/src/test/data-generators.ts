@@ -9,7 +9,6 @@ import { Playlist } from '@/types/playlist'
 import { Person } from '@/types/person'
 import { Organization } from '@/types/organization'
 import { EpisodeData, Genre } from '@/types/episode_data'
-import { Article } from '@/types/article'
 
 type Overrides = Record<string, any>
 
@@ -119,20 +118,9 @@ export const playlistGenerator = (overrides?: Overrides): Playlist => ({
   aliasId: faker.word.adjective(),
   actor: [],
   contributor: [],
-  article: {},
-  videos: [],
-  layoutPattern: faker.word.adjective(),
-  publishLevel: faker.word.adjective(),
-  dateCreated: faker.date.past().toDateString(),
-  dateModified: faker.date.past().toDateString(),
-  tvepisodeCount: faker.datatype.number(),
-  ...overrides
-})
-
-export const articleGenerator = (overrides?: Overrides): Article => ({
-  header: faker.word.adjective(),
-  footer: faker.word.adjective(),
-  plainBody: faker.lorem.paragraph(),
+  markedHeader: faker.word.adjective(),
+  markedFooter: faker.word.adjective(),
+  articleBody: faker.lorem.paragraph(),
   markedBody: faker.helpers.maybe(() => faker.lorem.paragraph(), {
     probability: 0.5
   }),
@@ -140,6 +128,12 @@ export const articleGenerator = (overrides?: Overrides): Article => ({
   authorName: faker.word.adjective(),
   publisherType: faker.helpers.arrayElement(['Person', 'Organization']),
   publisherName: faker.word.adjective(),
+  videos: [],
+  layoutPattern: faker.word.adjective(),
+  publishLevel: faker.word.adjective(),
+  dateCreated: faker.date.past().toDateString(),
+  dateModified: faker.date.past().toDateString(),
+  tvepisodeCount: faker.datatype.number(),
   ...overrides
 })
 

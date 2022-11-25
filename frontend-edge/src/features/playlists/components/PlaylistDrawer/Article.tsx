@@ -2,22 +2,22 @@ import React from 'react'
 import { Box, Text } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
-import { Article as PlaylistArticle } from '@/types/article'
+import { playlistGenerator } from '@/test/data-generators'
 
 type Props = {
   playlist: Playlist
 }
 
-const ellipsizePlainBody = (article: PlaylistArticle | undefined) =>
-  article?.plainBody?.slice(0, 50) || ''
+const ellipsizePlainBody = (playlist: Playlist | undefined) =>
+  playlist?.articleBody?.slice(0, 50) || ''
 
 export const Article = ({ playlist }: Props) => {
-  const plainBody = ellipsizePlainBody(playlist.article)
-  if (plainBody) {
+  const articleBody = ellipsizePlainBody(playlist)
+  if (articleBody) {
     return (
       <Box borderTop="1px" borderColor="gray.200" px={7} py={5}>
         <Text pb={4} fontSize="sm">
-          {plainBody}
+          {articleBody}
         </Text>
       </Box>
     )
@@ -26,20 +26,18 @@ export const Article = ({ playlist }: Props) => {
 }
 
 if (import.meta.vitest) {
-  const { articleGenerator } = await import('@/test/data-generators')
-
   const { describe, it, expect } = import.meta.vitest
   describe('ellipsizePlainBody', () => {
     it('50文字の場合', () => {
-      const plainBody = 'A'.repeat(50)
-      const article = articleGenerator({ plainBody })
-      expect(ellipsizePlainBody(article)).toEqual(plainBody)
+      const articleBody = 'A'.repeat(50)
+      const article = playlistGenerator({ articleBody })
+      expect(ellipsizePlainBody(article)).toEqual(articleBody)
     })
 
     it('51文字の場合', () => {
-      const plainBody = 'A'.repeat(50)
-      const article = articleGenerator({ plainBody: `${plainBody}B` })
-      expect(ellipsizePlainBody(article)).toEqual(plainBody)
+      const articleBody = 'A'.repeat(50)
+      const article = playlistGenerator({ articleBody: `${articleBody}B` })
+      expect(ellipsizePlainBody(article)).toEqual(articleBody)
     })
 
     it('Articleが未定義の場合', () => {
@@ -47,12 +45,12 @@ if (import.meta.vitest) {
     })
 
     it('plainBodyが空の場合', () => {
-      const article = articleGenerator({ plainBody: '' })
+      const article = playlistGenerator({ articleBody: '' })
       expect(ellipsizePlainBody(article)).toEqual('')
     })
 
     it('plainBodyが未定義の場合', () => {
-      const article = articleGenerator({ plainBody: undefined })
+      const article = playlistGenerator({ articleBody: undefined })
       expect(ellipsizePlainBody(article)).toEqual('')
     })
   })

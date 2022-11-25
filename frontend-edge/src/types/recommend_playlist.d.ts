@@ -1,4 +1,6 @@
-import { Article } from '@/types/article'
+import { OutputData } from '@editorjs/editorjs'
+
+import { EpisodeData } from '@/types/episode_data'
 
 import { ImageHash } from './image_hash'
 
@@ -15,6 +17,15 @@ export type RecommendPlaylist = {
   howToCount?: number
   eventCount?: number
   faqPageCount?: number
-  article: Article
+  markedHeader?: string
+  editorData?: OutputData
+  markedFooter?: string
+  articleBody?: string
+  markedBody?: string
+  authorType?: string
+  authorName?: string
+  publisherType?: string
+  publisherName?: string
+  articleContainsEpisodes?: Array<EpisodeData>
   playableItemsCount?: number
 }

@@ -77,7 +77,7 @@ export const EditRecommendPlaylistListItemDetail = ({
       <GridItem colSpan={4} h={8}>
         <Center>
           <Text fontSize="xl" fontWeight="normal">
-            {playlist.article.markedBody ? '○' : '×'}
+            {playlist.markedBody ? '○' : '×'}
           </Text>
         </Center>
       </GridItem>

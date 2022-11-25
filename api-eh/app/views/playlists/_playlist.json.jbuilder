@@ -62,17 +62,15 @@ json.activeHowto playlist.active_howto
 json.activeEvent playlist.active_event
 json.activeRecipe playlist.active_recipe
 
-json.article do
-  json.header playlist.marked_header
-  json.body playlist.editor_data
-  json.plainBody playlist.article_body
-  json.footer playlist.marked_footer
-  json.containsEpisodes playlist.article_contains_episodes
-  json.authorType playlist.author_type
-  json.authorName playlist.author_name
-  json.publisherType playlist.publisher_type
-  json.publisherName playlist.publisher_name
-end
+json.markedHeader playlist.marked_header
+json.editorData playlist.editor_data
+json.articleBody playlist.article_body
+json.markedFooter playlist.marked_footer
+json.articleContainsEpisodes playlist.article_contains_episodes
+json.authorType playlist.author_type
+json.authorName playlist.author_name
+json.publisherType playlist.publisher_type
+json.publisherName playlist.publisher_name
 
 json.aliasId playlist.alias_id
 
