@@ -4,7 +4,6 @@ import { ChevronRightIcon } from '@chakra-ui/icons'
 
 import { Playlist } from '@/types/playlist'
 import { PlayableStatusBadge } from '@/components/PlayableStatusBadge'
-import { PartOfSeries } from '@/types/episode_data'
 
 type Props = {
   item: Playlist

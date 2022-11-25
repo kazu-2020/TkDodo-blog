@@ -1,4 +1,3 @@
-import { UseInfiniteQueryResult } from 'react-query'
 import React from 'react'
 import { Box, HStack, Text, VStack } from '@chakra-ui/react'
 import { ChevronLeftIcon } from '@chakra-ui/icons'
@@ -8,10 +7,7 @@ import { EpisodeData } from '@/types/episode_data'
 import { SearchResultLoadMoreButton } from '@/features/playlists/components/PlaylistForm/ListTab/SearchResultLoadMoreButton'
 import { SearchEpisodeItems } from '@/features/playlists/components/PlaylistForm/ListTab/SearchEpisodeItems'
 import { EpisodeHeader } from '@/features/playlists/components/PlaylistForm/ListTab/EpisodeHeader'
-import {
-  Response,
-  useSearchEpisode
-} from '@/features/playlists/api/getSearchEpisode'
+import { useSearchEpisode } from '@/features/playlists/api/getSearchEpisode'
 import { ListScreenSkeleton } from '@/components/ListScreenSkeleton'
 import { NoDataFound } from '@/components/Alert'
 
