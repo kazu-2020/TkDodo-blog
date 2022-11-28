@@ -41,8 +41,8 @@ export const VerticalPreview = () => {
     ]
   })
 
-  const { playlistUId } = useParams()
-  const { data: playlist } = usePlaylist(playlistUId)
+  const { playlistUid } = useParams()
+  const { data: playlist } = usePlaylist(playlistUid)
 
   return (
     <Box w="360px" bg="white" minH="400px" p={2}>
@@ -72,7 +72,7 @@ export const VerticalPreview = () => {
         </HStack>
         <VStack my={2} align="flex-start">
           <IDCopyBadge id={playlist?.stringId} />
-          <IDCopyBadge id={playlistUId} />
+          <IDCopyBadge id={playlistUid} />
           <ApiStateBadge apiState={apiState ? 'open' : 'close'} />
           {playlist?.layoutPattern && (
             <Badge

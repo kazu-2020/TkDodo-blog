@@ -40,7 +40,7 @@ export const useRecommendDeckFormStore = create<RecommendDeckFormStore>(
       set((state) => ({
         hasChangedRecommendPlaylists: true,
         recommendPlaylists: state.recommendPlaylists.filter(
-          (recommendPlaylist) => recommendPlaylist.playlistUId !== recommendId
+          (recommendPlaylist) => recommendPlaylist.playlistUid !== recommendId
         )
       }))
   })

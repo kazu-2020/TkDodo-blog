@@ -7,7 +7,7 @@ import { ImageHash } from './image_hash'
 export type RecommendPlaylist = {
   primaryId: number
   id?: string
-  playlistUId: string
+  playlistUid: string
   stringId: string
   seriesId: string
   name: string

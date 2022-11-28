@@ -33,8 +33,8 @@ export const HorizontalPreview = () => {
       ]
     })
 
-  const { playlistUId } = useParams()
-  const { data: playlist } = usePlaylist(playlistUId)
+  const { playlistUid } = useParams()
+  const { data: playlist } = usePlaylist(playlistUid)
 
   const articleText = PlainTextParser.parse(editorData)
 
@@ -56,7 +56,7 @@ export const HorizontalPreview = () => {
           <VStack w="150px" alignItems="flex-start">
             <ApiStateBadge apiState={apiState ? 'open' : 'close'} />
             <IDCopyBadge id={playlist?.stringId} />
-            <IDCopyBadge id={playlistUId} />
+            <IDCopyBadge id={playlistUid} />
             {playlist?.layoutPattern && (
               <Badge
                 ml="1"

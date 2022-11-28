@@ -47,10 +47,10 @@ export const EditRecommendPlaylist = () => {
 
     if (active.id !== over?.id) {
       const oldIndex = recommendPlaylists.findIndex(
-        (pl: RecommendPlaylist) => pl.playlistUId === active.id
+        (pl: RecommendPlaylist) => pl.playlistUid === active.id
       )
       const newIndex = recommendPlaylists.findIndex(
-        (pl: RecommendPlaylist) => pl.playlistUId === over?.id
+        (pl: RecommendPlaylist) => pl.playlistUid === over?.id
       )
       const newSeriesPlaylists = arrayMove<RecommendPlaylist>(
         recommendPlaylists,
@@ -80,13 +80,15 @@ export const EditRecommendPlaylist = () => {
           onDragEnd={handleDragEnd}
         >
           <SortableContext
-            items={recommendPlaylists.map((pl: RecommendPlaylist) => pl.playlistUId)}
+            items={recommendPlaylists.map(
+              (pl: RecommendPlaylist) => pl.playlistUid
+            )}
             strategy={verticalListSortingStrategy}
           >
             {recommendPlaylists.map((playlist: RecommendPlaylist) => (
               <SortableItem
-                id={playlist.playlistUId}
-                key={playlist.playlistUId}
+                id={playlist.playlistUid}
+                key={playlist.playlistUid}
               >
                 <EditRecommendPlaylistListItem playlist={playlist} />
               </SortableItem>

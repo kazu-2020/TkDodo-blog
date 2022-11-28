@@ -14,21 +14,21 @@ type BundleItems = {
 type QueryFnType = typeof getBundleItems
 
 export const getBundleItems = async (
-  playlistUId: string | undefined
+  playlistUid: string | undefined
 ): Promise<BundleItems> => {
-  if (typeof playlistUId === undefined) {
+  if (typeof playlistUid === undefined) {
     return Promise.reject(new Error('Invalid id'))
   }
-  const res = await axios.get(`playlists/${playlistUId}/bundle_items`)
+  const res = await axios.get(`playlists/${playlistUid}/bundle_items`)
   return res.data
 }
 
-export const useBundleItems = (playlistUId: string | undefined) =>
+export const useBundleItems = (playlistUid: string | undefined) =>
   useQuery<ExtractFnReturnType<QueryFnType>>(
-    ['bundle-items', playlistUId],
-    () => getBundleItems(playlistUId),
+    ['bundle-items', playlistUid],
+    () => getBundleItems(playlistUid),
     {
-      enabled: Boolean(playlistUId),
+      enabled: Boolean(playlistUid),
       useErrorBoundary: false
     }
   )

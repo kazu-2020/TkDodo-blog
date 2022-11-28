@@ -38,7 +38,7 @@ const NoPlaylist = () => (
 
 export const RelatedPlaylists = ({ episode }: Props) => {
   const { isLoading, data } = useEpisodePlaylist(episode.id)
-  const { playlistUId } = useParams()
+  const { playlistUid } = useParams()
   return (
     <VStack alignItems="flex-start" pt={4}>
       <Text
@@ -55,10 +55,10 @@ export const RelatedPlaylists = ({ episode }: Props) => {
       {!isLoading && (
         <HStack flexWrap="wrap" alignItems="flex-start" spacing={0} w="100%">
           {data?.map((playlist: Playlist) => (
-            <Box key={playlist.playlistUId} maxWidth="33%" mr={4}>
+            <Box key={playlist.playlistUid} maxWidth="33%" mr={4}>
               <Link
                 w="140px"
-                href={`/playlists/${playlist.playlistUId}`}
+                href={`/playlists/${playlist.playlistUid}`}
                 _hover={{ textDecoration: 'none' }}
                 fontWeight="bold"
                 noOfLines={1}
@@ -67,7 +67,7 @@ export const RelatedPlaylists = ({ episode }: Props) => {
               </Link>
               <Box pos="relative">
                 <Center>
-                  <Link href={`/playlists/${playlist.playlistUId}`}>
+                  <Link href={`/playlists/${playlist.playlistUid}`}>
                     <Image
                       src={playlistLogoImage(playlist)}
                       w="140px"
@@ -77,7 +77,7 @@ export const RelatedPlaylists = ({ episode }: Props) => {
                     />
                   </Link>
                 </Center>
-                {playlist.playlistUId === playlistUId && (
+                {playlist.playlistUid === playlistUid && (
                   <Text
                     pos="absolute"
                     top="8px"

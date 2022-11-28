@@ -21,11 +21,11 @@ import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
 const removeRecommendPlaylist = (
   getValues: UseFormGetValues<RecommendDeckFormInputs>,
   setValue: UseFormSetValue<any>,
-  playlistUId: string
+  playlistUid: string
 ) => {
   const playlists =
     getValues('playlists')?.filter(
-      (playlist) => playlist.playlistUId !== playlistUId
+      (playlist) => playlist.playlistUid !== playlistUid
     ) || []
   setValue('playlists', playlists, { shouldDirty: true })
 }
@@ -62,7 +62,7 @@ export const EditRecommendPlaylistListItemDetail = ({
           color="black"
           borderRadius="sm"
           onClick={() => {
-            removeRecommendPlaylist(getValues, setValue, playlist.playlistUId)
+            removeRecommendPlaylist(getValues, setValue, playlist.playlistUid)
           }}
         >
           <Icon as={HiOutlineMinus} />

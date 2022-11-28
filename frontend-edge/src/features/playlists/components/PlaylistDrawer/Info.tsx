@@ -19,7 +19,7 @@ type Props = {
 }
 
 const ellipsizeUid = (playlist: Playlist): string => {
-  const uid = playlist.playlistUId || ''
+  const uid = playlist.playlistUid || ''
   return uid.length > 8 ? `${uid.slice(0, 8)}...` : uid
 }
 
@@ -119,21 +119,21 @@ if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest
   describe('ellipsizeUid', () => {
     it('未定義の場合', () => {
-      const playlist = playlistGenerator({ playlistUId: undefined })
+      const playlist = playlistGenerator({ playlistUid: undefined })
       expect(ellipsizeUid(playlist)).toEqual('')
     })
     it('空の場合', () => {
-      const playlist = playlistGenerator({ playlistUId: '' })
+      const playlist = playlistGenerator({ playlistUid: '' })
       expect(ellipsizeUid(playlist)).toEqual('')
     })
     it('8文字の場合', () => {
       const playlistUid = 'A'.repeat(8)
-      const playlist = playlistGenerator({ playlistUId: playlistUid })
+      const playlist = playlistGenerator({ playlistUid: playlistUid })
       expect(ellipsizeUid(playlist)).toEqual(playlistUid)
     })
     it('9文字の場合', () => {
       const playlistUid = 'A'.repeat(8)
-      const playlist = playlistGenerator({ playlistUId: `${playlistUid}B` })
+      const playlist = playlistGenerator({ playlistUid: `${playlistUid}B` })
       expect(ellipsizeUid(playlist)).toEqual(`${playlistUid}...`)
     })
   })

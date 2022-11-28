@@ -22,7 +22,7 @@ export const EditRecommendPlaylistListItem = ({
   playlist: RecommendPlaylist
 }) => {
   const { data, isLoading, refetch } = usePlaylistItems({
-    playlistUid: playlist.playlistUId,
+    playlistUid: playlist.playlistUid,
     limit: 10,
     enabled: false
   })

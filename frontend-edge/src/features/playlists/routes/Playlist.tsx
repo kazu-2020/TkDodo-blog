@@ -24,8 +24,8 @@ const FormScreenSkeleton = () => (
 const Playlist = () => {
   const breadcrumbDispatch = useContext(BreadcrumbContext).dispatch
 
-  const { playlistUId } = useParams()
-  const { data, isLoading } = usePlaylist(playlistUId)
+  const { playlistUid } = useParams()
+  const { data, isLoading } = usePlaylist(playlistUid)
 
   useEffect(() => {
     window.scrollTo(0, 0)

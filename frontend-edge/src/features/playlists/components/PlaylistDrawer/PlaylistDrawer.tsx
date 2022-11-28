@@ -45,7 +45,7 @@ export const PlaylistDrawer = ({
               <Link
                 px={0}
                 py={0}
-                to={`/playlists/${playlist.playlistUId}`}
+                to={`/playlists/${playlist.playlistUid}`}
                 _hover={{ textDecoration: 'none' }}
               >
                 <Button
@@ -60,7 +60,7 @@ export const PlaylistDrawer = ({
               </Link>
               <DeletePlaylist
                 onDrawerClose={onClose}
-                playlistId={playlist.playlistUId}
+                playlistId={playlist.playlistUid}
               />
             </HStack>
           </ButtonGroup>
