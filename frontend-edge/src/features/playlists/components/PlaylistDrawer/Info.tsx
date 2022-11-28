@@ -128,7 +128,7 @@ if (import.meta.vitest) {
     })
     it('8文字の場合', () => {
       const playlistUid = 'A'.repeat(8)
-      const playlist = playlistGenerator({ playlistUid: playlistUid })
+      const playlist = playlistGenerator({ playlistUid })
       expect(ellipsizeUid(playlist)).toEqual(playlistUid)
     })
     it('9文字の場合', () => {
