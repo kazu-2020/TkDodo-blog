@@ -64,7 +64,7 @@ export const seriesPlaylistGenerator = (
 
 export const playlistGenerator = (overrides?: Overrides): Playlist => ({
   id: `${faker.datatype.number()}`,
-  playlistUId: faker.datatype.uuid(),
+  playlistUid: faker.datatype.uuid(),
   stringId: faker.datatype.uuid(),
   primaryId: faker.datatype.number(),
   name: faker.word.adjective(),
