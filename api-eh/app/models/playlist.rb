@@ -69,7 +69,6 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   before_create :set_default_editor_info
   after_create :link_article_images
   after_create :save_string_id
-  before_save :generate_derivatives
   before_save :set_available_article
   before_save :trim_name
   before_save :clear_children_record_changes
@@ -270,12 +269,6 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
       sort_target_episode = playlist_items.kept.find_by(episode_id: episode)
       sort_target_episode.set_list_position(i + 1)
     end
-  end
-
-  def generate_derivatives
-    logo_image_derivatives! if will_save_change_to_logo_image_data? && logo_image.present?
-    eyecatch_image_derivatives! if will_save_change_to_eyecatch_image_data? && eyecatch_image.present?
-    hero_image_derivatives! if will_save_change_to_hero_image_data? && hero_image.present?
   end
 
   def link_article_images

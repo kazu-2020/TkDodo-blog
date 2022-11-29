@@ -68,16 +68,14 @@ module KeepFilesWithDeleteOption
 end
 Shrine.plugin KeepFilesWithDeleteOption
 
-# FIXME: frontで保存後に画像が反映されように見えるので一旦非同期処理をやめる
-#        Playlist#generate_derivativesで複数画像を生成している
 # background job
-# Shrine.plugin :backgrounding
-# Shrine::Attacher.promote_block do
-#   PromoteImageJob.perform_async(self.class.name, record.class.name, record.id, name, file_data)
-# end
-# Shrine::Attacher.destroy_block do
-#   DestroyImageJob.perform_async(self.class.name, data)
-# end
+Shrine.plugin :backgrounding
+Shrine::Attacher.promote_block do
+  PromoteImageJob.perform_async(self.class.name, record.class.name, record.id, name, file_data)
+end
+Shrine::Attacher.destroy_block do
+  DestroyImageJob.perform_async(self.class.name, data)
+end
 
 # https://shrinerb.com/docs/plugins/mirroring
 # FIXME: 公開/非公開制御を実装するまで常に公開バケットにアップロードする
