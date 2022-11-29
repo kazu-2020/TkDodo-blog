@@ -1,0 +1,37 @@
+name: Make weekly agenda
+on:
+  schedule:
+    - cron: '0 4 * * 3' # 水曜日の13時（JST）に実行する
+
+env:
+  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} # 他repositoryも見に行くため、GitHubのアクセストークンを設定
+
+jobs:
+  make:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run script
+        id: set-result
+        run: ./.github/scripts/make_agenda.sh > result.md
+        shell: bash
+      - name: Read 
+        id: read-result
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./result.md
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y/%m/%d')" >> $GITHUB_OUTPUT
+      - name: Make Agenda
+        uses: imjohnbo/issue-bot@v3
+        with:
+          title: 【木曜定例】agenda-editorialhands ${{ steps.date.outputs.date }}
+          labels: "agenda-editorialhands"
+          pinned: false
+          close-previous: true
+          body: |-
+            ${{ steps.read-result.outputs.content }}
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
