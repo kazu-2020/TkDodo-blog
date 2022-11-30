@@ -1,6 +1,6 @@
 #!/bin/bash
 
-d=`date -v-7d +'%Y%m%d' `
+d=`date --date '7 days ago' +'%Y%m%d' `
 
 function printMemberIssue () {
   touch "./1.txt"
