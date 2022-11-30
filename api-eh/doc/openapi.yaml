@@ -160,7 +160,7 @@ paths:
                         items:
                           type: object
                           properties:
-                            playlistUId:
+                            playlistUid:
                               type: string
                             stringId:
                               type: string
@@ -283,7 +283,7 @@ paths:
                   adminMemo: 
                   apiState: close
                   playlists:
-                  - playlistUId: dfcdc7ad-1d29-4588-a5bc-48cdb1e96d4b
+                  - playlistUid: dfcdc7ad-1d29-4588-a5bc-48cdb1e96d4b
                     stringId: recommend-tep-0000000009
                     primaryId: 9
                     name: Awesome Name
@@ -398,7 +398,7 @@ paths:
                         items:
                           type: object
                           properties:
-                            playlistUId:
+                            playlistUid:
                               type: string
                             stringId:
                               type: string
@@ -523,7 +523,7 @@ paths:
                   adminMemo: test memo
                   apiState: open
                   playlists:
-                  - playlistUId: 94af7361-33a6-4e14-aff3-7e741d906673
+                  - playlistUid: 94af7361-33a6-4e14-aff3-7e741d906673
                     stringId: recommend-tep-0000000007
                     primaryId: 7
                     name: Awesome Name
@@ -571,7 +571,7 @@ paths:
                       footer: 
                     dateCreated: '2022-10-13T11:45:12+09:00'
                     dateModified: '2022-10-13T11:45:12+09:00'
-                  - playlistUId: 4d65cd37-df4e-4982-b089-0b647503fff0
+                  - playlistUid: 4d65cd37-df4e-4982-b089-0b647503fff0
                     stringId: recommend-tep-0000000008
                     primaryId: 8
                     name: Awesome Name
@@ -728,7 +728,7 @@ paths:
                         items:
                           type: object
                           properties:
-                            playlistUId:
+                            playlistUid:
                               type: string
                             stringId:
                               type: string
@@ -851,7 +851,7 @@ paths:
                   adminMemo: test memo
                   apiState: open
                   playlists:
-                  - playlistUId: 79b92796-4754-4ec4-8091-b52d99ef14b1
+                  - playlistUid: 79b92796-4754-4ec4-8091-b52d99ef14b1
                     stringId: recommend-tep-0000000015
                     primaryId: 15
                     name: Awesome Name
@@ -899,7 +899,7 @@ paths:
                       footer: 
                     dateCreated: '2022-10-13T11:45:22+09:00'
                     dateModified: '2022-10-13T11:45:22+09:00'
-                  - playlistUId: 1588af94-f7e0-4b2b-a0b0-7faacad21159
+                  - playlistUid: 1588af94-f7e0-4b2b-a0b0-7faacad21159
                     stringId: recommend-tep-0000000016
                     primaryId: 16
                     name: Awesome Name
@@ -2060,7 +2060,7 @@ paths:
                                     type: string
                                   name:
                                     type: string
-                            playlistUId:
+                            playlistUid:
                               type: string
                             playlistId:
                               type: string
@@ -10084,7 +10084,7 @@ paths:
                     items:
                       type: object
                       properties:
-                        playlistUId:
+                        playlistUid:
                           type: string
                         stringId:
                           type: string
@@ -10210,7 +10210,7 @@ paths:
                         type: boolean
               example:
                 playlists:
-                - playlistUId: 3ab286a6-f364-4bf3-8e6c-176954835716
+                - playlistUid: 3ab286a6-f364-4bf3-8e6c-176954835716
                   stringId: recommend-tep-0000000055
                   primaryId: 55
                   name: Awesome Name
@@ -10307,7 +10307,7 @@ paths:
                   playlist:
                     type: object
                     properties:
-                      playlistUId:
+                      playlistUid:
                         type: string
                       stringId:
                         type: string
@@ -10536,7 +10536,7 @@ paths:
                         type: string
               example:
                 playlist:
-                  playlistUId: 521a02dc-7d1e-43a6-933b-19056304c192
+                  playlistUid: 521a02dc-7d1e-43a6-933b-19056304c192
                   stringId: recommend-tep-0000000061
                   primaryId: 61
                   name: cool name
@@ -10658,7 +10658,7 @@ paths:
                   playlist:
                     type: object
                     properties:
-                      playlistUId:
+                      playlistUid:
                         type: string
                       stringId:
                         type: string
@@ -10865,7 +10865,7 @@ paths:
                         type: string
               example:
                 playlist:
-                  playlistUId: 2d6c15f1-9abf-46f6-8b8c-f904eeb44f56
+                  playlistUid: 2d6c15f1-9abf-46f6-8b8c-f904eeb44f56
                   stringId: recommend-tep-0000000055
                   primaryId: 55
                   name: Awesome Name
@@ -11045,7 +11045,7 @@ paths:
                   playlist:
                     type: object
                     properties:
-                      playlistUId:
+                      playlistUid:
                         type: string
                       stringId:
                         type: string
@@ -11262,7 +11262,7 @@ paths:
                         type: string
               example:
                 playlist:
-                  playlistUId: 3edeadc7-0ee9-4e18-a0c9-8d2493c169d8
+                  playlistUid: 3edeadc7-0ee9-4e18-a0c9-8d2493c169d8
                   stringId: recommend-tep-0000000074
                   primaryId: 74
                   name: Awesome Name
