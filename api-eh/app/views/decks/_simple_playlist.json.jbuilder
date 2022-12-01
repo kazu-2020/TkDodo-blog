@@ -40,6 +40,7 @@ if playlist.logo_image_url
     end
   end
 end
+# if文によって見通しが悪くなるのを防ぐかつ他の箇所の記述と統一するためrubocopをdisableにしています
 if playlist.eyecatch_image_url
   json.eyecatch do
     json.medium do
