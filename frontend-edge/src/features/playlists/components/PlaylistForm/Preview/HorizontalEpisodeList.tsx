@@ -78,14 +78,17 @@ const renderArrowNext = (
   )
 }
 
-export const HorizontalEpisodeList = ({ episodes }: Props) => {
-  const pages = episodes.reduce(
+const episodeArrayToPage = (episodes: EpisodeData[]) =>
+  episodes.reduce(
     (acc: EpisodeData[][], _, index: number) =>
       index % PAGE_ITEMS
         ? acc
         : [...acc, ...[episodes.slice(index, index + PAGE_ITEMS)]],
     []
   )
+
+export const HorizontalEpisodeList = ({ episodes }: Props) => {
+  const pages = episodeArrayToPage(episodes)
 
   if (episodes.length < 1) {
     return (
@@ -133,4 +136,84 @@ export const HorizontalEpisodeList = ({ episodes }: Props) => {
       ))}
     </Carousel>
   )
+}
+
+if (import.meta.vitest) {
+  const { episodeDataGenerator } = await import('@/test/data-generators')
+
+  const { describe, it, expect } = import.meta.vitest
+  describe('renderArrowPrev', () => {
+    it('表示する場合', () => {
+      expect(renderArrowPrev(true, () => {}, true, 'dummy')).not.toBeNull()
+    })
+
+    it('表示しない場合', () => {
+      expect(renderArrowPrev(false, () => {}, true, 'dummy')).toBeNull()
+    })
+  })
+
+  describe('renderArrowNext', () => {
+    it('表示する場合', () => {
+      expect(renderArrowNext(true, () => {}, true, 'dummy')).not.toBeNull()
+    })
+
+    it('表示しない場合', () => {
+      expect(renderArrowNext(false, () => {}, true, 'dummy')).toBeNull()
+    })
+  })
+
+  describe('episodeArrayToPage', () => {
+    // eslint-disable-next-line max-statements
+    it('8件の場合', () => {
+      const episodes = [
+        episodeDataGenerator({ id: 1 }),
+        episodeDataGenerator({ id: 2 }),
+        episodeDataGenerator({ id: 3 }),
+        episodeDataGenerator({ id: 4 }),
+        episodeDataGenerator({ id: 5 }),
+        episodeDataGenerator({ id: 6 }),
+        episodeDataGenerator({ id: 7 }),
+        episodeDataGenerator({ id: 8 })
+      ]
+      const page = episodeArrayToPage(episodes)
+      expect(page).toHaveLength(1)
+
+      expect(page[0][0].id).toEqual(1)
+      expect(page[0][1].id).toEqual(2)
+      expect(page[0][2].id).toEqual(3)
+      expect(page[0][3].id).toEqual(4)
+      expect(page[0][4].id).toEqual(5)
+      expect(page[0][5].id).toEqual(6)
+      expect(page[0][6].id).toEqual(7)
+      expect(page[0][7].id).toEqual(8)
+    })
+
+    // eslint-disable-next-line max-statements
+    it('9件の場合', () => {
+      const episodes = [
+        episodeDataGenerator({ id: 1 }),
+        episodeDataGenerator({ id: 2 }),
+        episodeDataGenerator({ id: 3 }),
+        episodeDataGenerator({ id: 4 }),
+        episodeDataGenerator({ id: 5 }),
+        episodeDataGenerator({ id: 6 }),
+        episodeDataGenerator({ id: 7 }),
+        episodeDataGenerator({ id: 8 }),
+        episodeDataGenerator({ id: 9 })
+      ]
+      const page = episodeArrayToPage(episodes)
+      expect(page).toHaveLength(2)
+
+      expect(page[0][0].id).toEqual(1)
+      expect(page[0][1].id).toEqual(2)
+      expect(page[0][2].id).toEqual(3)
+      expect(page[0][3].id).toEqual(4)
+      expect(page[0][4].id).toEqual(5)
+      expect(page[0][5].id).toEqual(6)
+      expect(page[0][6].id).toEqual(7)
+      expect(page[0][7].id).toEqual(8)
+
+      expect(page[1][0].id).toEqual(9)
+    })
+  })
 }

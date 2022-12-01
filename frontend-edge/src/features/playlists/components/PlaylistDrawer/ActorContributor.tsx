@@ -31,6 +31,14 @@ const roleName = (role: Role) => {
   return roleTypes[roleType] || roleType
 }
 
+const personOrganizationName = (role: Role) =>
+  role.person?.name || role.organization?.name || ''
+
+const personOrganizationImageUrl = (role: Role) =>
+  role.person?.image?.small?.url || role.organization?.image?.small?.url || ''
+
+const occupationName = (role: Role) => role.person?.occupationName || ''
+
 const NoActorContributor = () => (
   <Box borderTop="1px" borderColor="gray.200" px={7} py={5}>
     <Text>出演者/スタッフ</Text>
@@ -81,12 +89,8 @@ export const ActorContributor = ({ playlist }: Props) => {
       <Spacer mt={5} />
       <VStack align="flex-start" spacing={4}>
         {items.map((item: Role) => {
-          const imageUrl =
-            item.person?.image?.small?.url ||
-            item.organization?.image?.small?.url ||
-            ''
-          const name = item.person?.name || item.organization?.name || ''
-          const occupation = item.person?.occupationName || ''
+          const imageUrl = personOrganizationImageUrl(item)
+          const name = personOrganizationName(item)
           return (
             <HStack key={name}>
               <Box w="60px" h="60px" borderRadius="30px" bgColor="#546e7a">
@@ -109,7 +113,7 @@ export const ActorContributor = ({ playlist }: Props) => {
                   {roleName(item)}
                 </Text>
                 <Text fontSize="sm">{name}</Text>
-                <Text fontSize="sm">{occupation}</Text>
+                <Text fontSize="sm">{occupationName(item)}</Text>
               </VStack>
             </HStack>
           )
@@ -154,6 +158,101 @@ if (import.meta.vitest) {
     it('ロール名が空のとき', () => {
       const person = rolePersonGenerator({ roleName: '' })
       expect(roleName({ person })).toEqual('')
+    })
+  })
+
+  describe('personOrganizationName', () => {
+    it('個人の名前が存在するとき', () => {
+      const person = rolePersonGenerator({ name: 'test person name' })
+      expect(personOrganizationName({ person })).toEqual('test person name')
+    })
+
+    it('組織の名前が存在するとき', () => {
+      const organization = roleOrganizationGenerator({
+        name: 'test organization name'
+      })
+      expect(personOrganizationName({ organization })).toEqual(
+        'test organization name'
+      )
+    })
+
+    it('個人・組織の名前が存在するとき', () => {
+      const person = rolePersonGenerator({ name: 'test person name' })
+      const organization = roleOrganizationGenerator({
+        name: 'test organization name'
+      })
+      expect(personOrganizationName({ person, organization })).toEqual(
+        'test person name'
+      )
+    })
+
+    it('名前が空のとき', () => {
+      const person = rolePersonGenerator({ name: '' })
+      expect(personOrganizationName({ person })).toEqual('')
+    })
+
+    it('名前が未定義のとき', () => {
+      const person = rolePersonGenerator({ name: undefined })
+      expect(personOrganizationName({ person })).toEqual('')
+    })
+
+    it('ロールが未定義のとき', () => {
+      expect(personOrganizationName({ person: undefined })).toEqual('')
+    })
+  })
+
+  describe('personOrganizationImageUrl', () => {
+    const imageRole1 = {
+      main: { url: 'main1.jpg', width: 1, height: 1 },
+      medium: { url: 'medium1.jpg', width: 1, height: 1 },
+      small: { url: 'small1.jpg', width: 1, height: 1 }
+    }
+
+    const imageRole2 = {
+      main: { url: 'main2.jpg', width: 1, height: 1 },
+      medium: { url: 'medium2.jpg', width: 1, height: 1 },
+      small: { url: 'small2.jpg', width: 1, height: 1 }
+    }
+
+    it('個人の画像が存在するとき', () => {
+      const person = rolePersonGenerator({ image: imageRole1 })
+      expect(personOrganizationImageUrl({ person })).toEqual('small1.jpg')
+    })
+
+    it('組織の画像が存在するとき', () => {
+      const organization = roleOrganizationGenerator({ image: imageRole2 })
+      expect(personOrganizationImageUrl({ organization })).toEqual('small2.jpg')
+    })
+
+    it('個人・組織の画像が存在するとき', () => {
+      const person = rolePersonGenerator({ image: imageRole1 })
+      const organization = roleOrganizationGenerator({
+        image: imageRole2
+      })
+      expect(personOrganizationImageUrl({ person, organization })).toEqual(
+        'small1.jpg'
+      )
+    })
+
+    it('画像が未定義のとき', () => {
+      const person = rolePersonGenerator({ image: undefined })
+      expect(personOrganizationImageUrl({ person })).toEqual('')
+    })
+
+    it('ロールが未定義のとき', () => {
+      expect(personOrganizationImageUrl({ person: undefined })).toEqual('')
+    })
+  })
+
+  describe('occupationName', () => {
+    it('未定義のとき', () => {
+      const person = rolePersonGenerator({ occupationName: undefined })
+      expect(occupationName({ person })).toEqual('')
+    })
+
+    it('定義されているとき', () => {
+      const person = rolePersonGenerator({ occupationName: 'dummy occupation' })
+      expect(occupationName({ person })).toEqual('dummy occupation')
     })
   })
 }
