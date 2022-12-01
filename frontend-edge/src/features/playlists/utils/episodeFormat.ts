@@ -27,3 +27,44 @@ export const resentEventStartDate = (episode: EpisodeData) => {
 
   return formatDateWithWeekday(startDate)
 }
+
+if (import.meta.vitest) {
+  const { episodeDataGenerator } = await import('@/test/data-generators')
+
+  const { describe, it, expect } = import.meta.vitest
+  describe('totalTime', () => {
+    it('日時の差がある場合', () => {
+      const episode = episodeDataGenerator({
+        detailedRecentEvent: {
+          startDate: '2022-01-01 00:00:00',
+          endDate: '2022-01-01 12:34:56',
+          publishedOn: {}
+        }
+      })
+      expect(totalTime(episode)).toEqual('12:34:56')
+    })
+
+    it('detailedRecentEventが未定義の場合', () => {
+      const episode = episodeDataGenerator({ detailedRecentEvent: undefined })
+      expect(totalTime(episode)).toEqual('--:--:--')
+    })
+  })
+
+  describe('resentEventStartDate', () => {
+    it('定義されているの場合', () => {
+      const episdoe = episodeDataGenerator({
+        detailedRecentEvent: {
+          startDate: '2022-01-02 12:34:56',
+          endDate: '2022-01-03 00:00:00',
+          publishedOn: {}
+        }
+      })
+      expect(resentEventStartDate(episdoe)).toEqual('2022年01月02日(日)')
+    })
+
+    it('未定義の場合', () => {
+      const episode = episodeDataGenerator({ detailedRecentEvent: undefined })
+      expect(resentEventStartDate(episode)).toEqual('')
+    })
+  })
+}

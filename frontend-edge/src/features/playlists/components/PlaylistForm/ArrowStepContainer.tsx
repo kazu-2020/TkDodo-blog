@@ -159,53 +159,17 @@ export const ArrowStepContainer = () => {
 }
 
 if (import.meta.vitest) {
-  const dummyDirtyFields = (params: any) => ({
-    name: false,
-    detailedNameRuby: false,
-    detailedCatch: false,
-    description: false,
-    keywords: [],
-    hashtags: [],
-    formatGenreCode: false,
-    themeGenreCode: false,
-    selectedPalette: false,
-    primaryLightColor: false,
-    primaryDarkColor: false,
-    linkLightColor: false,
-    linkDarkColor: false,
-    aliasId: false,
-    sameAsAttributes: [],
-    citationsAttributes: [],
-    apiState: false,
-    logoImageSrc: false,
-    eyecatchImageSrc: false,
-    heroImageSrc: false,
-    editorData: false,
-    markedHeader: false,
-    markedFooter: false,
-    authorType: false,
-    authorName: false,
-    publisherName: false,
-    publisherType: false,
-    episodes: false,
-    activeTvepisode: false,
-    activeArticle: false,
-    activeFaqpage: false,
-    activeHowto: false,
-    activeEvent: false,
-    activeRecipe: false,
-    activeItemList: false,
-    ...params
-  })
+  const { generatePlaylistDirtyFields } = await import('@/test/data-generators')
+
   const { describe, it, expect } = import.meta.vitest
   describe('hasChangedEpisodes', () => {
     it('変更がある場合', () => {
-      const dirtyFields = dummyDirtyFields({ episodes: true })
+      const dirtyFields = generatePlaylistDirtyFields({ episodes: true })
       expect(hasChangedEpisodes(dirtyFields)).toBe(true)
     })
 
     it('変更がない場合（ステータスあり）', () => {
-      const dirtyFields = dummyDirtyFields({})
+      const dirtyFields = generatePlaylistDirtyFields({})
       expect(hasChangedEpisodes(dirtyFields)).toBe(false)
     })
 
@@ -217,12 +181,12 @@ if (import.meta.vitest) {
 
   describe('hasChangedArticle', () => {
     it('変更がある場合', () => {
-      const dirtyFields = dummyDirtyFields({ editorData: true })
+      const dirtyFields = generatePlaylistDirtyFields({ editorData: true })
       expect(hasChangedArticle(dirtyFields)).toBe(true)
     })
 
     it('変更がない場合（ステータスあり）', () => {
-      const dirtyFields = dummyDirtyFields({})
+      const dirtyFields = generatePlaylistDirtyFields({})
       expect(hasChangedArticle(dirtyFields)).toBe(false)
     })
 
@@ -235,17 +199,17 @@ if (import.meta.vitest) {
   // eslint-disable-next-line max-statements,max-lines-per-function
   describe('hasChangedSeries', () => {
     it('変更がある場合', () => {
-      const dirtyFields = dummyDirtyFields({ name: true })
+      const dirtyFields = generatePlaylistDirtyFields({ name: true })
       expect(hasChangedSeries(dirtyFields)).toBe(true)
     })
 
     it('変更がある場合（keyword）', () => {
-      const dirtyFields1 = dummyDirtyFields({
+      const dirtyFields1 = generatePlaylistDirtyFields({
         keywords: [{ label: true, value: false }]
       })
       expect(hasChangedSeries(dirtyFields1)).toBe(true)
 
-      const dirtyFields2 = dummyDirtyFields({
+      const dirtyFields2 = generatePlaylistDirtyFields({
         keywords: [
           { label: false, value: false },
           { label: true, value: false }
@@ -255,12 +219,12 @@ if (import.meta.vitest) {
     })
 
     it('変更がある場合（hashtag）', () => {
-      const dirtyFields1 = dummyDirtyFields({
+      const dirtyFields1 = generatePlaylistDirtyFields({
         hashtags: [{ label: true, value: false }]
       })
       expect(hasChangedSeries(dirtyFields1)).toBe(true)
 
-      const dirtyFields2 = dummyDirtyFields({
+      const dirtyFields2 = generatePlaylistDirtyFields({
         hashtags: [
           { label: false, value: false },
           { label: true, value: false }
@@ -270,12 +234,12 @@ if (import.meta.vitest) {
     })
 
     it('変更がある場合（sameAs）', () => {
-      const dirtyFields1 = dummyDirtyFields({
+      const dirtyFields1 = generatePlaylistDirtyFields({
         sameAsAttributes: [{ name: false, url: false, _destroy: true }]
       })
       expect(hasChangedSeries(dirtyFields1)).toBe(true)
 
-      const dirtyFields2 = dummyDirtyFields({
+      const dirtyFields2 = generatePlaylistDirtyFields({
         sameAsAttributes: [
           { name: false, url: false, _destroy: false },
           { name: false, url: false, _destroy: true }
@@ -283,7 +247,7 @@ if (import.meta.vitest) {
       })
       expect(hasChangedSeries(dirtyFields2)).toBe(true)
 
-      const dirtyFields3 = dummyDirtyFields({
+      const dirtyFields3 = generatePlaylistDirtyFields({
         sameAsAttributes: [
           { name: false, url: false, _destroy: false },
           { name: false, url: false, _destroy: false },
@@ -294,12 +258,12 @@ if (import.meta.vitest) {
     })
 
     it('変更がある場合（citations）', () => {
-      const dirtyFields1 = dummyDirtyFields({
+      const dirtyFields1 = generatePlaylistDirtyFields({
         citationsAttributes: [{ name: false, url: false, _destroy: true }]
       })
       expect(hasChangedSeries(dirtyFields1)).toBe(true)
 
-      const dirtyFields2 = dummyDirtyFields({
+      const dirtyFields2 = generatePlaylistDirtyFields({
         citationsAttributes: [
           { name: false, url: false, _destroy: false },
           { name: false, url: false, _destroy: true }
@@ -307,7 +271,7 @@ if (import.meta.vitest) {
       })
       expect(hasChangedSeries(dirtyFields2)).toBe(true)
 
-      const dirtyFields3 = dummyDirtyFields({
+      const dirtyFields3 = generatePlaylistDirtyFields({
         citationsAttributes: [
           { name: false, url: false, _destroy: false },
           { name: false, url: false, _destroy: false },
@@ -318,7 +282,7 @@ if (import.meta.vitest) {
     })
 
     it('変更がない場合（ステータスあり）', () => {
-      const dirtyFields = dummyDirtyFields({})
+      const dirtyFields = generatePlaylistDirtyFields({})
       expect(hasChangedSeries(dirtyFields)).toBe(false)
     })
 
@@ -328,10 +292,10 @@ if (import.meta.vitest) {
     })
 
     it('変更がない場合（keyword）', () => {
-      const dirtyFields1 = dummyDirtyFields({ keywords: [] })
+      const dirtyFields1 = generatePlaylistDirtyFields({ keywords: [] })
       expect(hasChangedSeries(dirtyFields1)).toBe(false)
 
-      const dirtyFields2 = dummyDirtyFields({
+      const dirtyFields2 = generatePlaylistDirtyFields({
         keywords: [
           { label: false, value: false },
           { label: false, value: false }
@@ -341,10 +305,10 @@ if (import.meta.vitest) {
     })
 
     it('変更がない場合（hashtag）', () => {
-      const dirtyFields1 = dummyDirtyFields({ hashtags: [] })
+      const dirtyFields1 = generatePlaylistDirtyFields({ hashtags: [] })
       expect(hasChangedSeries(dirtyFields1)).toBe(false)
 
-      const dirtyFields2 = dummyDirtyFields({
+      const dirtyFields2 = generatePlaylistDirtyFields({
         hashtags: [
           { label: false, value: false },
           { label: false, value: false }
@@ -354,10 +318,10 @@ if (import.meta.vitest) {
     })
 
     it('変更がない場合（sameAs）', () => {
-      const dirtyFields1 = dummyDirtyFields({ sameAsAttributes: [] })
+      const dirtyFields1 = generatePlaylistDirtyFields({ sameAsAttributes: [] })
       expect(hasChangedSeries(dirtyFields1)).toBe(false)
 
-      const dirtyFields2 = dummyDirtyFields({
+      const dirtyFields2 = generatePlaylistDirtyFields({
         sameAsAttributes: [
           { name: false, url: false, _destroy: false },
           { name: false, url: false, _destroy: false }
@@ -367,10 +331,12 @@ if (import.meta.vitest) {
     })
 
     it('変更がない場合（citations）', () => {
-      const dirtyFields1 = dummyDirtyFields({ citationsAttributes: [] })
+      const dirtyFields1 = generatePlaylistDirtyFields({
+        citationsAttributes: []
+      })
       expect(hasChangedSeries(dirtyFields1)).toBe(false)
 
-      const dirtyFields2 = dummyDirtyFields({
+      const dirtyFields2 = generatePlaylistDirtyFields({
         citationsAttributes: [
           { name: false, url: false, _destroy: false },
           { name: false, url: false, _destroy: false }

@@ -137,6 +137,45 @@ export const playlistGenerator = (overrides?: Overrides): Playlist => ({
   ...overrides
 })
 
+export const generatePlaylistDirtyFields = (overrides?: Overrides): any => ({
+  name: false,
+  detailedNameRuby: false,
+  detailedCatch: false,
+  description: false,
+  keywords: [],
+  hashtags: [],
+  formatGenreCode: false,
+  themeGenreCode: false,
+  selectedPalette: false,
+  primaryLightColor: false,
+  primaryDarkColor: false,
+  linkLightColor: false,
+  linkDarkColor: false,
+  aliasId: false,
+  sameAsAttributes: [],
+  citationsAttributes: [],
+  apiState: false,
+  logoImageSrc: false,
+  eyecatchImageSrc: false,
+  heroImageSrc: false,
+  editorData: false,
+  markedHeader: false,
+  markedFooter: false,
+  authorType: false,
+  authorName: false,
+  publisherName: false,
+  publisherType: false,
+  episodes: false,
+  activeTvepisode: false,
+  activeArticle: false,
+  activeFaqpage: false,
+  activeHowto: false,
+  activeEvent: false,
+  activeRecipe: false,
+  activeItemList: false,
+  ...overrides
+})
+
 export const rolePersonGenerator = (overrides?: Overrides): Person => ({
   additionalName: faker.word.adjective(),
   characterName: faker.word.adjective(),

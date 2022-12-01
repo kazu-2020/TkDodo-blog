@@ -88,3 +88,32 @@ export const EpisodeListItem = ({
     </Flex>
   )
 }
+
+if (import.meta.vitest) {
+  const { episodeDataGenerator } = await import('@/test/data-generators')
+
+  const { describe, it, expect } = import.meta.vitest
+  describe('startDate', () => {
+    // episodeItem.detailedRecentEvent?.startDate
+    it('日付が未定義の場合', () => {
+      const episode = episodeDataGenerator({
+        detailedRecentEvent: { startDate: undefined }
+      })
+      expect(startDate(episode)).toEqual('-')
+    })
+
+    it('日付が空の場合', () => {
+      const episode = episodeDataGenerator({
+        detailedRecentEvent: { startDate: '' }
+      })
+      expect(startDate(episode)).toEqual('-')
+    })
+
+    it('日付が定義されている場合', () => {
+      const episode = episodeDataGenerator({
+        detailedRecentEvent: { startDate: '2022-01-02 23:12:11' }
+      })
+      expect(startDate(episode)).toEqual('2022年01月02日(日) 23:12')
+    })
+  })
+}
