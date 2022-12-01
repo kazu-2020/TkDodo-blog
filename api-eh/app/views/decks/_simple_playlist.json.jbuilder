@@ -34,7 +34,7 @@ end
 if playlist.logo_image_url
   json.logo do
     json.medium do
-      json.url playlist.logo_image.storage_key == :store ? playlist.logo_image_url : Constants::TMP_LOGO_IMG_UPLOADING
+      json.url playlist.logo_image.storage_key == :store ? playlist.logo_image_url : Playlist::TMP_LOGO_IMG_UPLOADING
       json.width playlist.logo_image.width
       json.height playlist.logo_image.height
     end
@@ -43,7 +43,7 @@ end
 if playlist.eyecatch_image_url
   json.eyecatch do
     json.medium do
-      json.url playlist.eyecatch_image.storage_key == :store ? playlist.eyecatch_image_url : Constants::TMP_EYECATCH_IMG_UPLOADING  # rubocop:disable Metrics/LineLength
+      json.url playlist.eyecatch_image.storage_key == :store ? playlist.eyecatch_image_url : Playlist::TMP_EYECATCH_IMG_UPLOADING  # rubocop:disable Metrics/LineLength
       json.width playlist.eyecatch_image.width
       json.height playlist.eyecatch_image.height
     end
@@ -52,7 +52,7 @@ end
 if playlist.hero_image_url
   json.hero do
     json.medium do
-      json.url playlist.hero_image.storage_key == :store ? playlist.hero_image_url : Constants::TMP_HERO_IMG_UPLOADING
+      json.url playlist.hero_image.storage_key == :store ? playlist.hero_image_url : Playlist::TMP_HERO_IMG_UPLOADING
       json.width playlist.hero_image.width
       json.height playlist.hero_image.height
     end
