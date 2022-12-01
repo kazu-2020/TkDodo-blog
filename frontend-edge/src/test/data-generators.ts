@@ -9,6 +9,8 @@ import { Playlist } from '@/types/playlist'
 import { Person } from '@/types/person'
 import { Organization } from '@/types/organization'
 import { EpisodeData, Genre } from '@/types/episode_data'
+import { FieldNamesMarkedBoolean } from 'react-hook-form'
+import { PlaylistFormInputs } from '@/features/playlists/types'
 
 type Overrides = Record<string, any>
 
@@ -134,6 +136,45 @@ export const playlistGenerator = (overrides?: Overrides): Playlist => ({
   dateCreated: faker.date.past().toDateString(),
   dateModified: faker.date.past().toDateString(),
   tvepisodeCount: faker.datatype.number(),
+  ...overrides
+})
+
+export const generatePlaylistDirtyFields = (overrides?: Overrides): any => ({
+  name: false,
+  detailedNameRuby: false,
+  detailedCatch: false,
+  description: false,
+  keywords: [],
+  hashtags: [],
+  formatGenreCode: false,
+  themeGenreCode: false,
+  selectedPalette: false,
+  primaryLightColor: false,
+  primaryDarkColor: false,
+  linkLightColor: false,
+  linkDarkColor: false,
+  aliasId: false,
+  sameAsAttributes: [],
+  citationsAttributes: [],
+  apiState: false,
+  logoImageSrc: false,
+  eyecatchImageSrc: false,
+  heroImageSrc: false,
+  editorData: false,
+  markedHeader: false,
+  markedFooter: false,
+  authorType: false,
+  authorName: false,
+  publisherName: false,
+  publisherType: false,
+  episodes: false,
+  activeTvepisode: false,
+  activeArticle: false,
+  activeFaqpage: false,
+  activeHowto: false,
+  activeEvent: false,
+  activeRecipe: false,
+  activeItemList: false,
   ...overrides
 })
 
