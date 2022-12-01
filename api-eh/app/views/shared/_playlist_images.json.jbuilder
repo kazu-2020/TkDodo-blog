@@ -17,8 +17,8 @@ if playlist.logo_image_url
     elsif playlist.logo_image(:medium).blank? && playlist.logo_image.storage_key == :cache
       json.medium do
         json.url Constants::TMP_LOGO_IMG_UPLOADING
-        json.width 640
-        json.height 640
+        json.width 1080
+        json.height 1080
       end
     end
 
@@ -107,7 +107,7 @@ if playlist.hero_image_url
     elsif playlist.hero_image(:medium).blank? && playlist.hero_image.storage_key == :cache
       json.medium do
         json.url Constants::TMP_HERO_IMG_UPLOADING
-        json.width 640
+        json.width 1920
         json.height 640
       end
     end
