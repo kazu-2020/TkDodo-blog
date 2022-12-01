@@ -171,6 +171,7 @@ if (import.meta.vitest) {
     })
   })
 
+  // eslint-disable-next-line max-lines-per-function,max-statements
   describe('playlistToDefaultValues', () => {
     // eslint-disable-next-line max-statements
     it('未定義の場合', () => {
