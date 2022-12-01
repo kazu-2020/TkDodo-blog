@@ -16,7 +16,7 @@ if playlist.logo_image_url
       end
     elsif playlist.logo_image(:medium).blank? && playlist.logo_image.storage_key == :cache
       json.medium do
-        json.url TMP_LOGO_IMG_UPLOADING
+        json.url Constants::TMP_LOGO_IMG_UPLOADING
         json.width 640
         json.height 640
       end
@@ -65,7 +65,7 @@ if playlist.eyecatch_image_url
       end
     elsif playlist.eyecatch_image(:medium).blank? && playlist.eyecatch_image.storage_key == :cache
       json.medium do
-        json.url TMP_EYECATCH_IMG_UPLOADING
+        json.url Constants::TMP_EYECATCH_IMG_UPLOADING
         json.width 640
         json.height 640
       end
@@ -106,7 +106,7 @@ if playlist.hero_image_url
       end
     elsif playlist.hero_image(:medium).blank? && playlist.hero_image.storage_key == :cache
       json.medium do
-        json.url TMP_HERO_IMG_UPLOADING
+        json.url Constants::TMP_HERO_IMG_UPLOADING
         json.width 640
         json.height 640
       end
