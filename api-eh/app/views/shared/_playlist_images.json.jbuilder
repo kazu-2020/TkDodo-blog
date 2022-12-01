@@ -8,11 +8,17 @@ if playlist.logo_image_url
       json.height playlist.logo_image.height
     end
 
-    if playlist.logo_image(:medium).present?
+    if playlist.logo_image(:medium).present? && playlist.logo_image.storage_key == :store
       json.medium do
         json.url playlist.logo_image(:medium).url
         json.width playlist.logo_image(:medium).width
         json.height playlist.logo_image(:medium).height
+      end
+    elsif playlist.logo_image(:medium).blank? && playlist.logo_image.storage_key == :cache
+      json.medium do
+        json.url TMP_LOGO_IMG_UPLOADING
+        json.width 640
+        json.height 640
       end
     end
 
@@ -51,11 +57,17 @@ if playlist.eyecatch_image_url
       end
     end
 
-    if playlist.eyecatch_image(:medium).present?
+    if playlist.eyecatch_image(:medium).present? && playlist.eyecatch_image.storage_key == :store
       json.medium do
         json.url playlist.eyecatch_image(:medium).url
         json.width playlist.eyecatch_image(:medium).width
         json.height playlist.eyecatch_image(:medium).height
+      end
+    elsif playlist.eyecatch_image(:medium).blank? && playlist.eyecatch_image.storage_key == :cache
+      json.medium do
+        json.url TMP_EYECATCH_IMG_UPLOADING
+        json.width 640
+        json.height 640
       end
     end
 
@@ -86,11 +98,17 @@ if playlist.hero_image_url
       json.height playlist.hero_image.height
     end
 
-    if playlist.hero_image(:medium).present?
+    if playlist.hero_image(:medium).present? && playlist.hero_image.storage_key == :store
       json.medium do
-        json.url playlist.hero_image_url
+        json.url playlist.hero_image(:medium).url
         json.width playlist.hero_image.width
         json.height playlist.hero_image.height
+      end
+    elsif playlist.hero_image(:medium).blank? && playlist.hero_image.storage_key == :cache
+      json.medium do
+        json.url TMP_HERO_IMG_UPLOADING
+        json.width 640
+        json.height 640
       end
     end
   end
