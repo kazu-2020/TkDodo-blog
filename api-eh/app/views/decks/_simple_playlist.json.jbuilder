@@ -34,7 +34,7 @@ end
 if playlist.logo_image_url
   json.logo do
     json.medium do
-      json.url json.url image_url(playlist.logo_image_attacher)
+      json.url image_url(playlist.logo_image_attacher)
       json.width playlist.logo_image.width
       json.height playlist.logo_image.height
     end
