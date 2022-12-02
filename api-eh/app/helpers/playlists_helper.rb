@@ -34,4 +34,24 @@ module PlaylistsHelper
     person_array.uniq { |person| person[:person][:name] } + organization_array.uniq { |org| org[:organization][:name] }
   end
   # rubocop:enable Metrics/AbcSize
+
+  # storage: cacheの時は画像生成中を表す画像パスを返す
+  #         storeの時は生成済みの画像パスを返す
+  # @param [Object] image
+  # @param [String] image_type:'LOGO', 'EYECATCH', 'HERO'
+  # @param [Boolean] is_stored
+  def image_url(image:, image_type:, is_stored:)
+    if is_stored
+      image.url
+    else
+      case image_type
+      when 'LOGO'
+        Playlist::TMP_LOGO_IMG_UPLOADING
+      when 'EYECATCH'
+        Playlist::TMP_EYECATCH_IMG_UPLOADING
+      when 'HERO'
+        Playlist::TMP_HERO_IMG_UPLOADING
+      end
+    end
+  end
 end

@@ -34,17 +34,18 @@ end
 if playlist.logo_image_url
   json.logo do
     json.medium do
-      json.url playlist.logo_image.storage_key == :store ? playlist.logo_image_url : Playlist::TMP_LOGO_IMG_UPLOADING
+      json.url json.url image_url(image: playlist.logo_image, image_type: 'LOGO',
+                                  is_stored: playlist.logo_image_attacher.stored?)
       json.width playlist.logo_image.width
       json.height playlist.logo_image.height
     end
   end
 end
-# if文によって見通しが悪くなるのを防ぐかつ他の箇所の記述と統一するためrubocopをdisableにしています
 if playlist.eyecatch_image_url
   json.eyecatch do
     json.medium do
-      json.url playlist.eyecatch_image.storage_key == :store ? playlist.eyecatch_image_url : Playlist::TMP_EYECATCH_IMG_UPLOADING  # rubocop:disable Metrics/LineLength
+      json.url image_url(image: playlist.eyecatch_image, image_type: 'EYECATCH',
+                         is_stored: playlist.eyecatch_image_attacher.stored?)
       json.width playlist.eyecatch_image.width
       json.height playlist.eyecatch_image.height
     end
@@ -53,7 +54,8 @@ end
 if playlist.hero_image_url
   json.hero do
     json.medium do
-      json.url playlist.hero_image.storage_key == :store ? playlist.hero_image_url : Playlist::TMP_HERO_IMG_UPLOADING
+      json.url image_url(image: playlist.hero_image, image_type: 'HERO',
+                         is_stored: playlist.hero_image_attacher.stored?)
       json.width playlist.hero_image.width
       json.height playlist.hero_image.height
     end
