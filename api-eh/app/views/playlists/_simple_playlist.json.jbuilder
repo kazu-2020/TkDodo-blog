@@ -34,8 +34,7 @@ end
 if playlist.logo_image_url
   json.logo do
     json.medium do
-      json.url image_url(image: playlist.logo_image, image_type: 'LOGO',
-                         is_stored: playlist.logo_image_attacher.stored?)
+      json.url image_url(playlist.logo_image_attacher)
       json.width playlist.logo_image.width
       json.height playlist.logo_image.height
     end
@@ -44,8 +43,7 @@ end
 if playlist.eyecatch_image_url
   json.eyecatch do
     json.medium do
-      json.url image_url(image: playlist.eyecatch_image, image_type: 'EYECATCH',
-                         is_stored: playlist.eyecatch_image_attacher.stored?)
+      json.url image_url(playlist.eyecatch_image_attacher)
       json.width playlist.eyecatch_image.width
       json.height playlist.eyecatch_image.height
     end
@@ -54,8 +52,7 @@ end
 if playlist.hero_image_url
   json.hero do
     json.medium do
-      json.url image_url(image: playlist.hero_image, image_type: 'HERO',
-                         is_stored: playlist.hero_image_attacher.stored?)
+      json.url image_url(playlist.hero_image_attacher)
       json.width playlist.hero_image.width
       json.height playlist.hero_image.height
     end

@@ -42,20 +42,18 @@ module PlaylistsHelper
   # rubocop:enable Metrics/AbcSize
 
   # storage: cacheの時は画像生成中を表す画像パスを返す
-  #         storeの時は生成済みの画像パスを返す
-  # @param [Object] image
-  # @param [String] image_type:'LOGO', 'EYECATCH', 'HERO'
-  # @param [Boolean] is_stored
-  def image_url(image:, image_type:, is_stored:)
-    if is_stored
-      image.url
+  #          storeの時は生成済みの画像パスを返す
+  # @param [Attacher] image_attacher
+  def image_url(image_attacher)
+    if image_attacher.stored?
+      image_attacher.url
     else
-      case image_type
-      when 'LOGO'
+      case image_attacher.name
+      when :logo_image
         TMP_LOGO_IMG_UPLOADING_PATH
-      when 'EYECATCH'
+      when :eyecatch_image
         TMP_EYECATCH_IMG_UPLOADING_PATH
-      when 'HERO'
+      when :hero_image
         TMP_HERO_IMG_UPLOADING_PATH
       end
     end
