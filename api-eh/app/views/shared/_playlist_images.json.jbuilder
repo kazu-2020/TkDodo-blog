@@ -8,15 +8,15 @@ if playlist.logo_image_url
       json.height playlist.logo_image.height
     end
 
-    if playlist.logo_image(:medium).present? && playlist.logo_image.storage_key == :store
+    if playlist.logo_image(:medium).present? && playlist.logo_image_attacher.stored?
       json.medium do
         json.url playlist.logo_image(:medium).url
         json.width playlist.logo_image(:medium).width
         json.height playlist.logo_image(:medium).height
       end
-    elsif playlist.logo_image(:medium).blank? && playlist.logo_image.storage_key == :cache
+    elsif playlist.logo_image(:medium).blank? && playlist.logo_image_attacher.cached?
       json.medium do
-        json.url Playlist::TMP_LOGO_IMG_UPLOADING
+        json.url PlaylistsHelper::TMP_LOGO_IMG_UPLOADING_PATH
         json.width 1080
         json.height 1080
       end
@@ -57,15 +57,15 @@ if playlist.eyecatch_image_url
       end
     end
 
-    if playlist.eyecatch_image(:medium).present? && playlist.eyecatch_image.storage_key == :store
+    if playlist.eyecatch_image(:medium).present? && playlist.eyecatch_image_attacher.stored?
       json.medium do
         json.url playlist.eyecatch_image(:medium).url
         json.width playlist.eyecatch_image(:medium).width
         json.height playlist.eyecatch_image(:medium).height
       end
-    elsif playlist.eyecatch_image(:medium).blank? && playlist.eyecatch_image.storage_key == :cache
+    elsif playlist.eyecatch_image(:medium).blank? && playlist.eyecatch_image_attacher.cached?
       json.medium do
-        json.url Playlist::TMP_EYECATCH_IMG_UPLOADING
+        json.url PlaylistsHelper::TMP_EYECATCH_IMG_UPLOADING_PATH
         json.width 640
         json.height 640
       end
@@ -98,15 +98,15 @@ if playlist.hero_image_url
       json.height playlist.hero_image.height
     end
 
-    if playlist.hero_image(:medium).present? && playlist.hero_image.storage_key == :store
+    if playlist.hero_image(:medium).present? && playlist.hero_image_attacher.stored?
       json.medium do
         json.url playlist.hero_image(:medium).url
         json.width playlist.hero_image.width
         json.height playlist.hero_image.height
       end
-    elsif playlist.hero_image(:medium).blank? && playlist.hero_image.storage_key == :cache
+    elsif playlist.hero_image(:medium).blank? && playlist.hero_image_attacher.cached?
       json.medium do
-        json.url Playlist::TMP_HERO_IMG_UPLOADING
+        json.url PlaylistsHelper::TMP_HERO_IMG_UPLOADING_PATH
         json.width 1920
         json.height 640
       end
