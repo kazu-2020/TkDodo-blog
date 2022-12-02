@@ -19,12 +19,6 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   PUBLISHER_TYPES = AUTHOR_TYPES
   PUBLISH_LEVELS = %i[notyet ready limited gone full].freeze
 
-  # 非同期処理中に表示する画像のパス
-  # frontend-edgeに配置しています
-  TMP_LOGO_IMG_UPLOADING = '/public/loading/loading-logo.png'
-  TMP_EYECATCH_IMG_UPLOADING = '/public/loading/loading-eyecatch.png'
-  TMP_HERO_IMG_UPLOADING = '/public/loading/loading-hero.png'
-
   enum publish_level: PUBLISH_LEVELS.each_with_object({}) { |s, h| h[s] = s.to_s }
 
   has_many :playlist_items,

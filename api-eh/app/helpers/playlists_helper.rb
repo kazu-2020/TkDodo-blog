@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 module PlaylistsHelper
+  # 非同期処理中に表示する画像のパス
+  # frontend-edgeに配置しています
+  TMP_LOGO_IMG_UPLOADING_PATH = '/public/loading/loading-logo.png'
+  TMP_EYECATCH_IMG_UPLOADING_PATH = '/public/loading/loading-eyecatch.png'
+  TMP_HERO_IMG_UPLOADING_PATH = '/public/loading/loading-hero.png'
+
   def build_act_list(playlist)
     act_list = []
     playlist[:items].each do |episode|
@@ -46,11 +52,11 @@ module PlaylistsHelper
     else
       case image_type
       when 'LOGO'
-        Playlist::TMP_LOGO_IMG_UPLOADING
+        TMP_LOGO_IMG_UPLOADING_PATH
       when 'EYECATCH'
-        Playlist::TMP_EYECATCH_IMG_UPLOADING
+        TMP_EYECATCH_IMG_UPLOADING_PATH
       when 'HERO'
-        Playlist::TMP_HERO_IMG_UPLOADING
+        TMP_HERO_IMG_UPLOADING_PATH
       end
     end
   end
