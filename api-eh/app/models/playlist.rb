@@ -21,9 +21,9 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   # 非同期処理中に表示する画像のパス
   # frontend-edgeに配置しています
-  TMP_LOGO_IMG_UPLOADING = '/public/loading/loading-logo.png'.freeze
-  TMP_EYECATCH_IMG_UPLOADING = '/public/loading/loading-eyecatch.png'.freeze
-  TMP_HERO_IMG_UPLOADING = '/public/loading/loading-hero.png'.freeze
+  TMP_LOGO_IMG_UPLOADING = '/public/loading/loading-logo.png'
+  TMP_EYECATCH_IMG_UPLOADING = '/public/loading/loading-eyecatch.png'
+  TMP_HERO_IMG_UPLOADING = '/public/loading/loading-hero.png'
 
   enum publish_level: PUBLISH_LEVELS.each_with_object({}) { |s, h| h[s] = s.to_s }
 
