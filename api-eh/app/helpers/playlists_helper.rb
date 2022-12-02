@@ -39,23 +39,22 @@ module PlaylistsHelper
 
     person_array.uniq { |person| person[:person][:name] } + organization_array.uniq { |org| org[:organization][:name] }
   end
+
   # rubocop:enable Metrics/AbcSize
 
   # storage: cacheの時は画像生成中を表す画像パスを返す
   #          storeの時は生成済みの画像パスを返す
   # @param [Attacher] image_attacher
   def image_url(image_attacher)
-    if image_attacher.stored?
-      image_attacher.url
-    else
-      case image_attacher.name
-      when :logo_image
-        TMP_LOGO_IMG_UPLOADING_PATH
-      when :eyecatch_image
-        TMP_EYECATCH_IMG_UPLOADING_PATH
-      when :hero_image
-        TMP_HERO_IMG_UPLOADING_PATH
-      end
+    return image_attacher.url if image_attacher.stored?
+
+    case image_attacher.name
+    when :logo_image
+      TMP_LOGO_IMG_UPLOADING_PATH
+    when :eyecatch_image
+      TMP_EYECATCH_IMG_UPLOADING_PATH
+    when :hero_image
+      TMP_HERO_IMG_UPLOADING_PATH
     end
   end
 end
