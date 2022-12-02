@@ -4,26 +4,26 @@ import { ActorAndContributor } from '@/types/actor_and_contributor'
 import axios from '@/lib/axios'
 
 export const getPlaylistActorsAndContributors = async (
-  playlistUId: string | undefined
+  playlistUid: string | undefined
 ): Promise<ActorAndContributor> => {
-  if (typeof playlistUId === undefined) {
+  if (typeof playlistUid === undefined) {
     return Promise.reject(new Error('Invalid id'))
   }
 
   const res = await axios.get(
-    `playlists/${playlistUId}/actors_and_contributors`
+    `playlists/${playlistUid}/actors_and_contributors`
   )
   return res.data
 }
 
 export const usePlaylistActorsAndContributors = (
-  playlistUId: string | undefined
+  playlistUid: string | undefined
 ) =>
   useQuery(
-    ['actors-and-contributors', playlistUId],
-    () => getPlaylistActorsAndContributors(playlistUId),
+    ['actors-and-contributors', playlistUid],
+    () => getPlaylistActorsAndContributors(playlistUid),
     {
-      enabled: Boolean(playlistUId),
+      enabled: Boolean(playlistUid),
       useErrorBoundary: false
     }
   )

@@ -10,7 +10,7 @@ import { Citation } from './citation'
 
 export type Playlist = {
   id?: string
-  playlistUId: string // FIXME: playlistUid
+  playlistUid: string
   stringId: string
   primaryId: number
   name: string

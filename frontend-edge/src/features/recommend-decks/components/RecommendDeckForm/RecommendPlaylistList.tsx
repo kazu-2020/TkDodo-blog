@@ -41,7 +41,7 @@ const hasRecommendPlaylist = (
   playlist: RecommendPlaylist
 ) => {
   const playlists = getValues('playlists') || []
-  return playlists.some((pl) => pl.playlistUId === playlist.playlistUId)
+  return playlists.some((pl) => pl.playlistUid === playlist.playlistUid)
 }
 
 export const RecommendPlaylistList = () => {
@@ -100,7 +100,7 @@ export const RecommendPlaylistList = () => {
             {data?.pages.map(({ playlists }) =>
               playlists?.map((playlist: RecommendPlaylist) => (
                 <RecommendPlaylistListItem
-                  key={playlist.playlistUId}
+                  key={playlist.playlistUid}
                   hasRecommendPlaylist={hasRecommendPlaylist(
                     getValues,
                     playlist

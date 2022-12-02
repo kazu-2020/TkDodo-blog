@@ -23,7 +23,7 @@ const NoEpisode = () => (
 
 export const EpisodeList = ({ playlist }: Props) => {
   const { data, isLoading, isError, isSuccess } = usePlaylistItems(
-    playlist.playlistUId
+    playlist.playlistUid
   )
 
   if (playlist.itemNum <= 0) {

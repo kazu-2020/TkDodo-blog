@@ -53,7 +53,7 @@ const NoActorContributor = () => (
 
 export const ActorContributor = ({ playlist }: Props) => {
   const { data, isLoading } = usePlaylistActorsAndContributors(
-    playlist.playlistUId
+    playlist.playlistUid
   )
 
   if (playlist.itemNum <= 0) {

@@ -44,8 +44,8 @@ export const Default: ComponentStoryObj<typeof ActiveCheckboxes> = {
       handlers
     },
     reactRouter: {
-      routePath: '/playlists/:playlistUId',
-      routeParams: { playlistUId: fakePlaylist.playlistUId }
+      routePath: '/playlists/:playlistUid',
+      routeParams: { playlistUid: fakePlaylist.playlistUid }
     }
   }
 }

@@ -4,22 +4,22 @@ import { EpisodeData } from '@/types/episode_data'
 import axios from '@/lib/axios'
 
 export const getPlaylistItems = async (
-  playlistUId: string | undefined
+  playlistUid: string | undefined
 ): Promise<EpisodeData[]> => {
-  if (typeof playlistUId === undefined) {
+  if (typeof playlistUid === undefined) {
     return Promise.reject(new Error('Invalid id'))
   }
 
-  const res = await axios.get(`playlists/${playlistUId}/playlist_items`)
+  const res = await axios.get(`playlists/${playlistUid}/playlist_items`)
   return res.data.items
 }
 
-export const usePlaylistItems = (playlistUId: string | undefined) =>
+export const usePlaylistItems = (playlistUid: string | undefined) =>
   useQuery(
-    ['playlist-items', playlistUId],
-    () => getPlaylistItems(playlistUId),
+    ['playlist-items', playlistUid],
+    () => getPlaylistItems(playlistUid),
     {
-      enabled: Boolean(playlistUId),
+      enabled: Boolean(playlistUid),
       useErrorBoundary: false
     }
   )

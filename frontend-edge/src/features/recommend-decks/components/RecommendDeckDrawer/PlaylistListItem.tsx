@@ -13,7 +13,7 @@ type Props = {
 
 export const PlaylistListItem = ({ recommendDeck, playlistItem }: Props) => {
   const { data, isLoading, isError, isSuccess } = usePlaylistItems({
-    playlistUid: playlistItem.playlistUId,
+    playlistUid: playlistItem.playlistUid,
     limit: 10
   })
 

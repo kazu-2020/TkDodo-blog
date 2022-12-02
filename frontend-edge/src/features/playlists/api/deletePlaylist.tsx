@@ -31,7 +31,7 @@ export const useDeletePlaylist = ({
       queryClient.setQueryData(
         'playlist',
         previousPlaylists?.filter(
-          (playlist) => playlist.playlistUId !== deletedPlaylist.playlistId
+          (playlist) => playlist.playlistUid !== deletedPlaylist.playlistId
         )
       )
 

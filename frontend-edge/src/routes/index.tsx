@@ -30,7 +30,7 @@ const AppRoutes = () => (
       <Route index element={<Home />} />
       <Route path="playlists" element={<Outlet />}>
         <Route index element={<Playlists />} />
-        <Route path=":playlistUId" element={<Playlist />} />
+        <Route path=":playlistUid" element={<Playlist />} />
         <Route path="new" element={<NewPlaylist />} />
       </Route>
       <Route path="recommend-decks" element={<Outlet />}>

@@ -4,11 +4,11 @@ import EditorJS from '@editorjs/editorjs'
 import { notifyError, destroyCurrentBlock } from '@/lib/editorjs/functions'
 import { API_BASE_URL } from '@/config'
 
-export const getImageByUrlEndpoint = (playlistUId: string | undefined) =>
-  `${API_BASE_URL}/playlists/${playlistUId}/upload_article_image_by_url`
+export const getImageByUrlEndpoint = (playlistUid: string | undefined) =>
+  `${API_BASE_URL}/playlists/${playlistUid}/upload_article_image_by_url`
 
-export const getImageByFileEndpoint = (playlistUId: string | undefined) =>
-  `${API_BASE_URL}/playlists/${playlistUId}/upload_article_image_by_file`
+export const getImageByFileEndpoint = (playlistUid: string | undefined) =>
+  `${API_BASE_URL}/playlists/${playlistUid}/upload_article_image_by_file`
 
 const validateFileSize = (file: File) => {
   const limitSize = 10 * 1024 ** 2 // 10MB

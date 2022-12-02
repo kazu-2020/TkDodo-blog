@@ -47,7 +47,7 @@ export const PlaylistListItems = ({
       {!isArticle &&
         items?.map((playlist: Playlist) => (
           <PlaylistListItem
-            key={playlist.playlistUId}
+            key={playlist.playlistUid}
             playlist={playlist}
             onClick={(value) => handleClick(value)}
           />
@@ -55,7 +55,7 @@ export const PlaylistListItems = ({
       {isArticle &&
         items?.map((playlist: Playlist) => (
           <PlaylistListArticleItem
-            key={playlist.playlistUId}
+            key={playlist.playlistUid}
             playlist={playlist}
             onClick={(value) => handleClick(value)}
           />

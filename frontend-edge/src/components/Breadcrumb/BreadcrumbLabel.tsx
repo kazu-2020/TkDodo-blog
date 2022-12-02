@@ -17,7 +17,7 @@ export const BreadcrumbLabel = [
       { index: true, breadcrumb: 'ホーム' },
       { path: 'playlists', breadcrumb: 'プレイリスト一覧' },
       { path: 'playlists/new', breadcrumb: 'プレイリスト新規作成' },
-      { path: 'playlists/:playlistUId', breadcrumb: EditTitle },
+      { path: 'playlists/:playlistUid', breadcrumb: EditTitle },
       { path: 'recommend-decks', breadcrumb: 'レコメンドデッキ一覧' },
       { path: 'recommend-decks/new', breadcrumb: 'レコメンドデッキ新規作成' },
       { path: 'recommend-decks/:recommendDeckId', breadcrumb: EditTitle },

@@ -36,7 +36,7 @@ const models = {
   },
   playlist: {
     id: primaryKey(String),
-    playlistUId: String,
+    playlistUid: String,
     stringId: String,
     primaryId: Number,
     name: String,

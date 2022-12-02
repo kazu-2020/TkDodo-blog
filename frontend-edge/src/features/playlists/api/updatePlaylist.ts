@@ -9,7 +9,7 @@ import { UpdatePlaylistParams } from '@/features/playlists/types'
 
 export type UpdatePlaylistDTO = {
   data: UpdatePlaylistParams
-  playlistUId: string
+  playlistUid: string
 }
 
 const requestParams = (data: UpdatePlaylistParams) => ({
@@ -19,16 +19,16 @@ const requestParams = (data: UpdatePlaylistParams) => ({
 
 export const updatePlaylist = async ({
   data,
-  playlistUId
+  playlistUid
 }: UpdatePlaylistDTO): Promise<Playlist> => {
   const res = await axios.patch(
-    `/playlists/${playlistUId}`,
+    `/playlists/${playlistUid}`,
     requestParams(data)
   )
 
   return {
     ...res.data,
-    playlistUId: res.data.playlistUId
+    playlistUid: res.data.playlistUid
   }
 }
 
@@ -45,18 +45,18 @@ export const useUpdatePlaylist = ({
     onMutate: async (updatingPlaylist) => {
       await queryClient.cancelQueries([
         'playlist',
-        updatingPlaylist?.playlistUId
+        updatingPlaylist?.playlistUid
       ])
 
       const previousPlaylist = queryClient.getQueryData<Playlist>([
         'playlist',
-        updatingPlaylist?.playlistUId
+        updatingPlaylist?.playlistUid
       ])
 
-      queryClient.setQueryData(['playlist', updatingPlaylist?.playlistUId], {
+      queryClient.setQueryData(['playlist', updatingPlaylist?.playlistUid], {
         ...previousPlaylist,
         ...updatingPlaylist.data,
-        playlistUId: updatingPlaylist?.playlistUId
+        playlistUid: updatingPlaylist?.playlistUid
       })
 
       return { previousPlaylist }
@@ -64,7 +64,7 @@ export const useUpdatePlaylist = ({
     onError: (_, __, context: any) => {
       if (context?.previousPlaylist) {
         queryClient.setQueryData(
-          ['playlist', context.previousPlaylist.playlistUId],
+          ['playlist', context.previousPlaylist.playlistUid],
           context.previousPlaylist
         )
       }
@@ -76,7 +76,7 @@ export const useUpdatePlaylist = ({
       })
     },
     onSuccess: (data) => {
-      queryClient.refetchQueries(['playlist', data.playlistUId])
+      queryClient.refetchQueries(['playlist', data.playlistUid])
       toast({
         title: '保存しました。',
         status: 'success',

@@ -117,8 +117,8 @@ export const ActiveCheckboxes = () => {
     })
   }, [allChecked, isIndeterminate, setValue])
 
-  const { playlistUId } = useParams()
-  const { data, isLoading } = useBundleItems(playlistUId)
+  const { playlistUid } = useParams()
+  const { data, isLoading } = useBundleItems(playlistUid)
 
   if (isLoading) {
     return <Skeletons />

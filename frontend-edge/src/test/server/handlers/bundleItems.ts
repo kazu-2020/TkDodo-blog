@@ -7,7 +7,7 @@ import { delayedResponse } from '../utils'
 
 export const bundleItemsHandlers = [
   rest.get(
-    `${API_BASE_URL}/playlists/:playlistUId/bundle_items`,
+    `${API_BASE_URL}/playlists/:playlistUid/bundle_items`,
     (req, res, ctx) => {
       try {
         return delayedResponse(
