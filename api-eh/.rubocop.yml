@@ -13,7 +13,7 @@ AllCops:
     - vendor/**/*
     - infra/**/*
     - lambda/**/vendor/**/*
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.0
 
 Naming/AccessorMethodName:
   Enabled: false # set_ get_ メソッド名を許可
