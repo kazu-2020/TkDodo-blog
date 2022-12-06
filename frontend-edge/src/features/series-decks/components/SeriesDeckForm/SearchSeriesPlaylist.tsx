@@ -131,3 +131,20 @@ export const SearchSeriesPlaylist = () => {
     </Box>
   )
 }
+
+if (import.meta.vitest) {
+  const { describe, it, expect } = import.meta.vitest
+  describe('createQueryParams', () => {
+    it('指定したパラメータが設定されていること', () => {
+      const params = createQueryParams({
+        query: 'test',
+        queryKey: 'key',
+        isSearched: true
+      })
+      expect(params.query).toEqual('test')
+      expect(params.queryKey).toEqual('key')
+      expect(params.size).toEqual(PER_PAGE)
+      expect(params.isSearched).toEqual(true)
+    })
+  })
+}

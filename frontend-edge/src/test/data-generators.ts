@@ -303,3 +303,12 @@ export const generateRecommendDeckDirtyFields = (
   playlists: false,
   ...overrides
 })
+
+export const generateSeriesDeckDirtyFields = (overrides?: Overrides): any => ({
+  name: false,
+  interfix: false,
+  description: false,
+  apiState: false,
+  playlists: false,
+  ...overrides
+})

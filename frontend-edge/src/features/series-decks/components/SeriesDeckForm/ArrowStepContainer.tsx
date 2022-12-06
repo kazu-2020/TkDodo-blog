@@ -61,3 +61,44 @@ export const ArrowStepContainer = () => {
     </ArrowStepContextProvider>
   )
 }
+
+if (import.meta.vitest) {
+  const { generateSeriesDeckDirtyFields } = await import(
+    '@/test/data-generators'
+  )
+
+  const { describe, it, expect } = import.meta.vitest
+  describe('hasChangedPlaylists', () => {
+    it('変更がある場合', () => {
+      const dirtyFields = generateSeriesDeckDirtyFields({ playlists: true })
+      expect(hasChangedPlaylists(dirtyFields)).toBe(true)
+    })
+
+    it('変更がない場合（ステータスあり）', () => {
+      const dirtyFields = generateSeriesDeckDirtyFields({})
+      expect(hasChangedPlaylists(dirtyFields)).toBe(false)
+    })
+
+    it('変更がない場合（ステータスなし）', () => {
+      const dirtyFields = {}
+      expect(hasChangedPlaylists(dirtyFields)).toBe(false)
+    })
+  })
+
+  describe('hasChangedDeck', () => {
+    it('変更がある場合', () => {
+      const dirtyFields = generateSeriesDeckDirtyFields({ name: true })
+      expect(hasChangedDeck(dirtyFields)).toBe(true)
+    })
+
+    it('変更がない場合（ステータスあり）', () => {
+      const dirtyFields = generateSeriesDeckDirtyFields({})
+      expect(hasChangedDeck(dirtyFields)).toBe(false)
+    })
+
+    it('変更がない場合（ステータスなし）', () => {
+      const dirtyFields = {}
+      expect(hasChangedDeck(dirtyFields)).toBe(false)
+    })
+  })
+}
