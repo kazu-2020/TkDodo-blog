@@ -9,6 +9,11 @@ import { Playlist } from '@/types/playlist'
 import { Person } from '@/types/person'
 import { Organization } from '@/types/organization'
 import { EpisodeData, Genre } from '@/types/episode_data'
+import {
+  DetailedContent,
+  DetailedContentStatus,
+  VideoObjectIdentifierGroup
+} from '@/types/video_object'
 
 type Overrides = Record<string, any>
 
@@ -310,5 +315,29 @@ export const generateSeriesDeckDirtyFields = (overrides?: Overrides): any => ({
   description: false,
   apiState: false,
   playlists: false,
+  ...overrides
+})
+
+export const videoGenerator = (overrides?: Overrides): any => ({
+  name: faker.word.adjective(),
+  description: faker.lorem.paragraph(),
+  caption: faker.word.adjective(),
+  url: faker.internet.url(),
+  embedUrl: faker.internet.url(),
+  identifierGroup: {
+    environmentId: faker.word.adjective(),
+    broadcastEventId: undefined,
+    streamType: faker.word.adjective()
+  },
+  detailedContentStatus: {
+    environmentId: faker.word.adjective(),
+    streamType: faker.word.adjective(),
+    contentStatus: faker.word.adjective()
+  },
+  detailedContent: undefined,
+  sprite: undefined,
+  expires: undefined,
+  thumbnailUrl: undefined,
+  broadcastEvent: undefined,
   ...overrides
 })
