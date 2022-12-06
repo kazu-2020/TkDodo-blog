@@ -12,6 +12,6 @@ class SlackController < ApplicationController
   private
 
   def slack
-    @slack ||= Slack::Incoming::Webhooks.new ENV['SLACK_WEBHOOK_URL']
+    @slack ||= Slack::Incoming::Webhooks.new ENV.fetch('SLACK_WEBHOOK_URL', nil)
   end
 end

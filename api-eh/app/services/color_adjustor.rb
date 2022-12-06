@@ -36,7 +36,7 @@ class ColorAdjustor
     # 背景色が明度（輝度）0.5以上の場合（Light Modeの場合）
     if background_color.dup.paint.light?
       # コントラスト比の計算から調整すべき色のLuminanceを求める
-      target_luminance = (background_color_luminance + 0.05) / contrast_ratio - 0.05
+      target_luminance = ((background_color_luminance + 0.05) / contrast_ratio) - 0.05
 
       # 調整すべき色のLuminanceよりもベース色のLuminanceが明るい場合（背景色に比べ色が明るすぎる場合）
       if base_color_luminance > target_luminance
@@ -47,7 +47,7 @@ class ColorAdjustor
     # 背景色が明度（輝度）0.5以下の場合（Dark Modeの場合）
     else
       # コントラスト比の計算から調整すべき色のLuminanceを求める
-      target_luminance = (background_color_luminance + 0.05) * contrast_ratio - 0.05
+      target_luminance = ((background_color_luminance + 0.05) * contrast_ratio) - 0.05
 
       # 調整すべき色のLuminanceよりもベース色のLuminanceが暗い場合（背景色に比べ色が暗すぎる場合）
       if base_color_luminance < target_luminance
@@ -62,7 +62,7 @@ class ColorAdjustor
   # 参考: https://github.com/gka/chroma.js/blob/5a562f043f7b5ccfbc35db2f55ba0f1e497de63e/src/ops/luminance.js#L40
   def luminance(color)
     r, g, b = color.to_rgb.scan(/\d+/).map(&:to_i)
-    0.2126 * luminance_x(r) + 0.7152 * luminance_x(g) + 0.0722 * luminance_x(b)
+    (0.2126 * luminance_x(r)) + (0.7152 * luminance_x(g)) + (0.0722 * luminance_x(b))
   end
 
   # 輝度を出すための rgb 個々の変数に係数処理をする

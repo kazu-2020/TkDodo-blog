@@ -8,7 +8,7 @@ describe Deck, type: :model do
       it 'deck_uidにuuid、mode_of_itemに「tv」、item_of_typeに「TVEpisode」が設定されること' do
         deck_undefined = build(:deck, deck_uid: nil)
         deck_undefined.save
-        expect(deck_undefined.deck_uid).not_to eq nil
+        expect(deck_undefined.deck_uid).not_to be_nil
         expect(deck_undefined.mode_of_item).to eq 'tv'
         expect(deck_undefined.type_of_item).to eq 'TVEpisode'
       end

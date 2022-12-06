@@ -34,6 +34,6 @@ class SnsNotify::Publish
   end
 
   def topic_arn
-    ENV['SNS_TOPIC_UPDATE_ARN']
+    ENV.fetch('SNS_TOPIC_UPDATE_ARN', nil)
   end
 end

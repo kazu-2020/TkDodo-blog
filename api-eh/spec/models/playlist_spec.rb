@@ -182,7 +182,7 @@ describe Playlist, type: :model do
     let(:playlist) { create(:playlist, :with_keywords) }
 
     it 'gets two keywords as array' do
-      expect(playlist.keywords.is_a?(Array)).to eq true
+      expect(playlist.keywords.is_a?(Array)).to be true
       expect(playlist.keywords.size).to eq 2
     end
   end
@@ -202,7 +202,7 @@ describe Playlist, type: :model do
     let(:playlist) { create(:playlist, :with_hashtags) }
 
     it 'gets two hashtags as array' do
-      expect(playlist.hashtags.is_a?(Array)).to eq true
+      expect(playlist.hashtags.is_a?(Array)).to be true
       expect(playlist.hashtags.size).to eq 2
     end
   end

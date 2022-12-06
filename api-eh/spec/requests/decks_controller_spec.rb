@@ -265,8 +265,8 @@ describe DecksController, type: :request do
 
       it 'データが更新されないこと' do
         expect(response.status).to eq 422
-        expect(deck.reload.name).not_to eq nil
-        expect(deck.reload.interfix).not_to eq nil
+        expect(deck.reload.name).not_to be_nil
+        expect(deck.reload.interfix).not_to be_nil
       end
     end
   end
@@ -280,7 +280,7 @@ describe DecksController, type: :request do
       expect(Deck.count).to eq 0
       expect(response.status).to eq 200
       json = JSON.parse(response.body)
-      expect(json['deleted']).to eq true
+      expect(json['deleted']).to be true
     end
   end
 end

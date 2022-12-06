@@ -162,7 +162,7 @@ describe SeriesDecksController, type: :request do
       it 'デッキが作成できないこと' do
         expect do
           post series_decks_path, params: { series_deck: { name: '', interfix: '' } }
-        end.to change(SeriesDeck, :count).by(0)
+        end.not_to change(SeriesDeck, :count)
         expect(response.status).to eq 422
         json = JSON.parse(response.body)
         expect(json['messages']).to eq %w[Nameを入力してください Interfixを入力してください]

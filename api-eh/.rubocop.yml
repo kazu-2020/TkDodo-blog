@@ -14,6 +14,7 @@ AllCops:
     - infra/**/*
     - lambda/**/vendor/**/*
   TargetRubyVersion: 3.0
+  NewCops: enable
 
 Naming/AccessorMethodName:
   Enabled: false # set_ get_ メソッド名を許可

@@ -138,8 +138,8 @@ describe PlaylistsController, type: :request do
 
   describe 'POST #create' do
     let(:image_data_encoded_to_base64) {
-      "data:image/png;base64,#{Base64.strict_encode64(File.open(Rails.root.join('spec', 'fixtures', 'images',
-                                                                                'min_test.png').to_s).read)}"
+      "data:image/png;base64,#{Base64.strict_encode64(File.read(Rails.root.join('spec', 'fixtures', 'images',
+                                                                                'min_test.png').to_s))}"
     }
     let(:logo_image) { image_data_encoded_to_base64 }
     let(:eyecatch_image) { image_data_encoded_to_base64 }
