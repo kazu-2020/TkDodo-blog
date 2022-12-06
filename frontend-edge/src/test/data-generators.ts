@@ -291,3 +291,15 @@ export const seriesDataGenerator = (overrides?: Overrides): SeriesData => ({
   },
   ...overrides
 })
+
+export const generateRecommendDeckDirtyFields = (
+  overrides?: Overrides
+): any => ({
+  name: false,
+  interfix: false,
+  description: false,
+  apiState: false,
+  deckSameAsAttributes: [],
+  playlists: false,
+  ...overrides
+})

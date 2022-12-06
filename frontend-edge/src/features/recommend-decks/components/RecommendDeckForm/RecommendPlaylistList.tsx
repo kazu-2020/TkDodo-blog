@@ -125,3 +125,15 @@ export const RecommendPlaylistList = () => {
     </Box>
   )
 }
+
+if (import.meta.vitest) {
+  const { describe, it, expect } = import.meta.vitest
+  describe('createQueryParams', () => {
+    it('指定したパラメータが設定されていること', () => {
+      const params = createQueryParams({ query: 'test' })
+      expect(params.query).toEqual('test')
+      expect(params.per).toEqual(PER_PAGE)
+      expect(params.withEpisodeCount).toEqual(1)
+    })
+  })
+}
