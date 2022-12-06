@@ -63,7 +63,7 @@ module Editor
                   else
                     convert_image_url(content_url, og_image.to_s)
                   end
-      self.image = OpenStruct.new(url: image_url)
+      self.image = OpenStruct.new(url: image_url) # rubocop:disable Style/OpenStructUse
     end
 
     def convert_image_url(content_url, image_url)

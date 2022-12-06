@@ -63,7 +63,7 @@ class RichlinkController < ApplicationController
 
   # @param [String] title
   def default_image_url_by(title:)
-    default_image_number = title.length % 10 + 1
+    default_image_number = (title.length % 10) + 1
     "https://dev-eh.nr.nhk.jp/dummy/default#{default_image_number}/default#{default_image_number}-eyecatch.png"
   end
 end

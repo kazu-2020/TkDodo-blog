@@ -14,7 +14,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include EyecatchUploader::Attachment(:eyecatch_image)
   include HeroUploader::Attachment(:hero_image)
 
-  VALID_COLOR_REGEX = /\A#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\z/.freeze
+  VALID_COLOR_REGEX = /\A#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\z/
   AUTHOR_TYPES = %i[Person Organization].freeze
   PUBLISHER_TYPES = AUTHOR_TYPES
   PUBLISH_LEVELS = %i[notyet ready limited gone full].freeze

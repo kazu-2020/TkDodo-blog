@@ -11,20 +11,20 @@ describe EditorDataToPlainText, type: :model do
         'time' => 1_599_617_474_944,
         'blocks' => [
           { 'data' => {
-            'text' => '見出し<b>太字</b><br>改行<i>イタリック</i><b><i>太字イタリック</i></b>', 'level' => 2
-          },
+              'text' => '見出し<b>太字</b><br>改行<i>イタリック</i><b><i>太字イタリック</i></b>', 'level' => 2
+            },
             'type' => 'header' },
           { 'data' => {
-            'text' => 'テキスト<b>太字</b><br>改行<i>イタリック</i><b><i>太字イタリック</i></b>'
-          },
+              'text' => 'テキスト<b>太字</b><br>改行<i>イタリック</i><b><i>太字イタリック</i></b>'
+            },
             'type' => 'paragraph' },
           { 'data' => {
-            'text' => 'テキスト<b>太字<br></b><br>改行<i>イタリック<br></i><b><i>太字イタリック<br></i><br></b>'
-          },
+              'text' => 'テキスト<b>太字<br></b><br>改行<i>イタリック<br></i><b><i>太字イタリック<br></i><br></b>'
+            },
             'type' => 'paragraph' },
           { 'data' => {
-            'text' => '&nbsp;&nbsp;　'
-          },
+              'text' => '&nbsp;&nbsp;　'
+            },
             'type' => 'paragraph' },
           {
             'data' => {

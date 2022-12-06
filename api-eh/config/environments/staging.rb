@@ -58,7 +58,7 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'],
+  config.cache_store = :redis_cache_store, { url: ENV.fetch('REDIS_URL', nil),
                                              connect_timeout: 30, # Defaults to 20 seconds
                                              read_timeout: 0.2, # Defaults to 1 second
                                              write_timeout: 0.2, # Defaults to 1 second
@@ -137,7 +137,7 @@ Rails.application.configure do
   # https://github.com/smartinez87/exception_notification
   config.middleware.use ExceptionNotification::Rack,
                         slack: {
-                          webhook_url: ENV['SLACK_WEBHOOK_EXCEPTIONS_URL'],
+                          webhook_url: ENV.fetch('SLACK_WEBHOOK_EXCEPTIONS_URL', nil),
                           additional_parameters: {
                             mrkdwn: true
                           },
