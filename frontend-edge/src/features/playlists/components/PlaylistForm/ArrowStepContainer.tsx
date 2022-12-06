@@ -46,10 +46,10 @@ const hasChangedSeries = (
   dirtyFields.description === true ||
   dirtyFields.keywords?.some(
     (keyword: any) => keyword.label === true || keyword.value === true
-  ) ||
+  ) === true ||
   dirtyFields.hashtags?.some(
     (hashtag: any) => hashtag.label === true || hashtag.value === true
-  ) ||
+  ) === true ||
   dirtyFields.formatGenreCode === true ||
   dirtyFields.themeGenreCode === true ||
   dirtyFields.selectedPalette === true ||
@@ -65,7 +65,7 @@ const hasChangedSeries = (
       sameAs.url === true ||
       // eslint-disable-next-line no-underscore-dangle
       sameAs._destroy === true
-  ) ||
+  ) === true ||
   dirtyFields.citationsAttributes?.some(
     (citation: any) =>
       Object.keys(citation).length === 0 ||
@@ -73,7 +73,7 @@ const hasChangedSeries = (
       citation.url === true ||
       // eslint-disable-next-line no-underscore-dangle
       citation._destroy === true
-  ) ||
+  ) === true ||
   dirtyFields.apiState === true ||
   dirtyFields.logoImageSrc === true ||
   dirtyFields.eyecatchImageSrc === true ||

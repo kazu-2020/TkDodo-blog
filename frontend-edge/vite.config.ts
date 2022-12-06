@@ -18,14 +18,14 @@ export default defineConfig({
     setupFiles: './src/vitest.setup.ts',
     clearMocks: true,
     coverage: {
-      enabled: true,
+      enabled: false,
       reporter: ['text', 'lcov'],
       reportsDirectory: 'coverage/vitest'
     },
     deps: {
       fallbackCJS: true // https://github.com/chakra-ui/chakra-ui/issues/6783
     },
-    includeSource: ['./src/**/*.{ts,tsx}']
+    includeSource: ['./src/**/*.{ts,tsx,js}']
   },
   ssr: {
     // https://github.com/chakra-ui/chakra-ui/issues/6783

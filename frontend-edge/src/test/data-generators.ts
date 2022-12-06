@@ -291,3 +291,48 @@ export const seriesDataGenerator = (overrides?: Overrides): SeriesData => ({
   },
   ...overrides
 })
+
+export const generateRecommendDeckDirtyFields = (
+  overrides?: Overrides
+): any => ({
+  name: false,
+  interfix: false,
+  description: false,
+  apiState: false,
+  deckSameAsAttributes: [],
+  playlists: false,
+  ...overrides
+})
+
+export const generateSeriesDeckDirtyFields = (overrides?: Overrides): any => ({
+  name: false,
+  interfix: false,
+  description: false,
+  apiState: false,
+  playlists: false,
+  ...overrides
+})
+
+export const videoGenerator = (overrides?: Overrides): any => ({
+  name: faker.word.adjective(),
+  description: faker.lorem.paragraph(),
+  caption: faker.word.adjective(),
+  url: faker.internet.url(),
+  embedUrl: faker.internet.url(),
+  identifierGroup: {
+    environmentId: faker.word.adjective(),
+    broadcastEventId: undefined,
+    streamType: faker.word.adjective()
+  },
+  detailedContentStatus: {
+    environmentId: faker.word.adjective(),
+    streamType: faker.word.adjective(),
+    contentStatus: faker.word.adjective()
+  },
+  detailedContent: undefined,
+  sprite: undefined,
+  expires: undefined,
+  thumbnailUrl: undefined,
+  broadcastEvent: undefined,
+  ...overrides
+})
