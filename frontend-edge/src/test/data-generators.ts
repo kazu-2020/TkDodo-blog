@@ -9,11 +9,6 @@ import { Playlist } from '@/types/playlist'
 import { Person } from '@/types/person'
 import { Organization } from '@/types/organization'
 import { EpisodeData, Genre } from '@/types/episode_data'
-import {
-  DetailedContent,
-  DetailedContentStatus,
-  VideoObjectIdentifierGroup
-} from '@/types/video_object'
 
 type Overrides = Record<string, any>
 
