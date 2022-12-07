@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_22_083555) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_05_053614) do
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", comment: "プレイリストID"
     t.text "image_data"
@@ -258,6 +258,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_22_083555) do
     t.datetime "updated_at", null: false
     t.index ["person_organization_local_id"], name: "index_supervisors_on_person_organization_local_id"
     t.index ["playlist_id"], name: "index_supervisors_on_playlist_id"
+  end
+
+  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+    t.string "okta_uid", null: false
+    t.string "email", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "viaf_jsons", charset: "utf8mb4", force: :cascade do |t|
