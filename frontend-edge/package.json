@@ -39,6 +39,8 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@hookform/devtools": "^4.2.3",
+    "@okta/okta-auth-js": "^7.1.1",
+    "@okta/okta-react": "^6.7.0",
     "@storybook/react": "^6.5.13",
     "@vitejs/plugin-react": "^2.0.1",
     "axios": "^0.27.2",
