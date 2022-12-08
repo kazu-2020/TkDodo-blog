@@ -521,6 +521,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_list
   asset_sync
+  aws-sdk-s3
   aws-sdk-sns
   bootsnap
   chroma
@@ -576,4 +577,4 @@ RUBY VERSION
    ruby 3.0.2p107
 
 BUNDLED WITH
-   2.3.24
+   2.3.26

@@ -11,6 +11,7 @@ RSpec.describe PromoteImageJob, type: :model do
     # 画像付きレコードを保存するとPromoteImageJobが実行される
     let(:playlist) do
       create(:playlist,
+             api_state: api_state,
              logo_image: File.open(test_image_file_path),
              eyecatch_image: File.open(test_image_file_path),
              hero_image: File.open(test_image_file_path))
@@ -25,10 +26,24 @@ RSpec.describe PromoteImageJob, type: :model do
       playlist.reload
     end
 
-    it 'public_storeに画像が存在すること' do
-      expect(exists_public_store?(playlist.logo_image_attacher)).to be_truthy
-      expect(exists_public_store?(playlist.eyecatch_image_attacher)).to be_truthy
-      expect(exists_public_store?(playlist.hero_image_attacher)).to be_truthy
+    context 'APIが公開状態の場合' do
+      let(:api_state) { :open }
+
+      it 'public_storeに画像が存在すること' do
+        expect(exists_public_store?(playlist.logo_image_attacher)).to be_truthy
+        expect(exists_public_store?(playlist.eyecatch_image_attacher)).to be_truthy
+        expect(exists_public_store?(playlist.hero_image_attacher)).to be_truthy
+      end
+    end
+
+    context 'APIが非公開状態の場合' do
+      let(:api_state) { :close }
+
+      it 'public_storeに画像が存在しないこと' do
+        expect(exists_public_store?(playlist.logo_image_attacher)).to be_falsey
+        expect(exists_public_store?(playlist.eyecatch_image_attacher)).to be_falsey
+        expect(exists_public_store?(playlist.hero_image_attacher)).to be_falsey
+      end
     end
   end
 end

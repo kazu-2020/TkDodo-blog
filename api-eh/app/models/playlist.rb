@@ -223,6 +223,18 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     result
   end
 
+  def published?
+    api_state_open?
+  end
+
+  def refresh_image_storage(background: true)
+    method = published? ? :upload : :delete
+    [logo_image_attacher, eyecatch_image_attacher, hero_image_attacher].each do |attacher|
+      MirroringImage.send(method, attacher: attacher, background: background)
+    end
+    logger.debug "Call Playlist(#{string_id}) refresh_image_storage"
+  end
+
   private
 
   def trim_name
