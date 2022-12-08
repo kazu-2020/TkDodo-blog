@@ -295,6 +295,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     image_names.each do |image_name|
       article_image = ArticleImage.find_by(image_id: image_name)
       article_image.playlist_id = id
+      article_image.refresh_image_storage(attacher: article_image.image_attacher)
       article_image.save
     end
   end

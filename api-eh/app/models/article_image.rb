@@ -13,4 +13,15 @@ class ArticleImage < ApplicationRecord
 
   # この属性を true にすると、shrine の画像も同時に消せる
   attribute :remove_shrine_image, :boolean, default: false
+
+  def published?
+    playlist.api_state_open?
+  end
+
+  def refresh_image_storage(attacher:, background: true)
+    method = published? ? :upload : :delete
+
+    MirroringImage.send(method, attacher: attacher, background: background)
+    logger.debug "Call ArticleImage(#{id}) refresh_image_storage"
+  end
 end
