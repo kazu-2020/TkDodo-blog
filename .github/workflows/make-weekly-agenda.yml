@@ -23,7 +23,7 @@ jobs:
           path: ./result.md
       - name: Get current date
         id: date
-        run: echo "date=$(date +'%Y/%m/%d')" >> $GITHUB_OUTPUT
+        run: echo "date=$(date +'%Y/%m/%d' -d tomorrow)" >> $GITHUB_OUTPUT
       - name: Make Agenda
         uses: imjohnbo/issue-bot@v3
         with:
