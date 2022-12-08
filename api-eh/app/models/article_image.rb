@@ -3,6 +3,8 @@
 class ArticleImage < ApplicationRecord
   include ArticleImageUploader::Attachment(:image)
 
+  after_commit UpdatePublishStateCallbacks.new, on: :update
+
   belongs_to :playlist, optional: true
 
   before_save do
@@ -15,7 +17,7 @@ class ArticleImage < ApplicationRecord
   attribute :remove_shrine_image, :boolean, default: false
 
   def published?
-    playlist.api_state_open?
+    playlist&.api_state_open?
   end
 
   def refresh_image_storage(attacher:, background: true)

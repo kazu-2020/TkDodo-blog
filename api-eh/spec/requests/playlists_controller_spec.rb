@@ -308,6 +308,7 @@ describe PlaylistsController, type: :request do
     describe 'API公開ステータスが更新された場合' do
       context 'open → close' do
         let(:playlist) { create(:playlist, api_state: 'open') }
+        let(:article_image) { create(:article_image, :with_image, playlist_id: playlist.id) }
         let(:params) { { playlist: { api_state: 'close' } } }
 
         it 'public_storeから画像が削除されること' do
@@ -316,11 +317,13 @@ describe PlaylistsController, type: :request do
           expect(exists_public_store?(playlist.logo_image_attacher)).to be_falsey
           expect(exists_public_store?(playlist.eyecatch_image_attacher)).to be_falsey
           expect(exists_public_store?(playlist.hero_image_attacher)).to be_falsey
+          expect(exists_public_store?(article_image.image_attacher)).to be_falsey
         end
       end
 
       context 'close →　open' do
         let(:playlist) { create(:playlist, api_state: 'close') }
+        let(:article_image) { create(:article_image, :with_image, playlist_id: playlist.id) }
         let(:params) { { playlist: { api_state: 'open' } } }
 
         it 'public_storeに画像がアップロードされること' do
@@ -329,6 +332,7 @@ describe PlaylistsController, type: :request do
           expect(exists_public_store?(playlist.logo_image_attacher)).to be_truthy
           expect(exists_public_store?(playlist.eyecatch_image_attacher)).to be_truthy
           expect(exists_public_store?(playlist.hero_image_attacher)).to be_truthy
+          expect(exists_public_store?(article_image.image_attacher)).to be_truthy
         end
       end
     end
