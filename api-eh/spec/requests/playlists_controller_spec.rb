@@ -257,6 +257,34 @@ describe PlaylistsController, type: :request do
       end
     end
 
+    describe 'API公開ステータスが更新された場合' do
+      context 'open → close' do
+        let(:playlist) { create(:playlist, api_state: 'open') }
+        let(:params) { { playlist: { api_state: 'close' } } }
+
+        it 'public_storeから画像が削除されること' do
+          patch playlist_path(playlist), params: params
+
+          expect(exists_public_store?(playlist.logo_image_attacher)).to be_falsey
+          expect(exists_public_store?(playlist.eyecatch_image_attacher)).to be_falsey
+          expect(exists_public_store?(playlist.hero_image_attacher)).to be_falsey
+        end
+      end
+
+      context 'close →　open' do
+        let(:playlist) { create(:playlist, api_state: 'close') }
+        let(:params) { { playlist: { api_state: 'open' } } }
+
+        it 'public_storeに画像がアップロードされること' do
+          patch playlist_path(playlist), params: params
+
+          expect(exists_public_store?(playlist.logo_image_attacher)).to be_truthy
+          expect(exists_public_store?(playlist.eyecatch_image_attacher)).to be_truthy
+          expect(exists_public_store?(playlist.hero_image_attacher)).to be_truthy
+        end
+      end
+    end
+
     describe '更新通知' do
       describe '更新通知が呼び出されること' do
         before do
