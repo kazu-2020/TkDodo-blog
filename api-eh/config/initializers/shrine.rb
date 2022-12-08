@@ -66,7 +66,7 @@ module KeepFilesWithDeleteOption
     end
   end
 end
-Shrine.plugin KeepFilesWithDeleteOption
+# Shrine.plugin KeepFilesWithDeleteOption # 更新履歴の実装の際に画像を削除しないようにするために必要
 
 # background job
 Shrine.plugin :backgrounding

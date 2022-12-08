@@ -64,5 +64,14 @@ describe 'MirroringImage' do
       expect(File).not_to exist(Rails.root.join('public', 'uploads', 'test', 'private') + attacher.file.id)
       expect(File).not_to exist(Rails.root.join('public', 'uploads', 'test', 'public') + attacher.file.id)
     end
+
+    it 'playlistが削除されても画像が消えること' do
+      attacher = ImageUploader::Attacher.from_model(playlist.reload, :logo_image)
+
+      playlist.destroy!
+
+      expect(File.exist?(Rails.root.join('public', 'uploads', 'test', 'private') + attacher.file.id)).to be_falsey
+      expect(File.exist?(Rails.root.join('public', 'uploads', 'test', 'public') + attacher.file.id)).to be_falsey
+    end
   end
 end

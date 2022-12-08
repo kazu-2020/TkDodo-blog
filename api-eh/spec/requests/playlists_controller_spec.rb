@@ -445,12 +445,27 @@ describe PlaylistsController, type: :request do
   end
 
   describe 'DELETE #delete' do
-    let!(:playlist) { create(:playlist) }
+    let!(:playlist) { create(:playlist, api_state: 'open') }
+    let!(:article_image) { create(:article_image, :with_image, playlist_id: playlist.id) }
 
     it 'delete playlist' do
       expect do
         delete playlist_path(playlist)
       end.to change(Playlist, :count).from(1).to(0)
+    end
+
+    it '画像も削除されること' do
+      delete playlist_path(playlist)
+
+      expect(exists_public_store?(playlist.logo_image_attacher)).to be_falsey
+      expect(exists_public_store?(playlist.eyecatch_image_attacher)).to be_falsey
+      expect(exists_public_store?(playlist.hero_image_attacher)).to be_falsey
+      expect(exists_public_store?(article_image.image_attacher)).to be_falsey
+
+      expect(exists_private_store?(playlist.logo_image_attacher)).to be_falsey
+      expect(exists_private_store?(playlist.eyecatch_image_attacher)).to be_falsey
+      expect(exists_private_store?(playlist.hero_image_attacher)).to be_falsey
+      expect(exists_private_store?(article_image.image_attacher)).to be_falsey
     end
   end
 
