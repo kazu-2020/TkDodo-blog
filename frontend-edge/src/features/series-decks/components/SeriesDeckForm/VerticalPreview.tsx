@@ -6,6 +6,7 @@ import { nanoid } from 'nanoid'
 import { Box, Heading, HStack, Image, Text } from '@chakra-ui/react'
 import { Icon } from '@chakra-ui/icons'
 
+import { playlistLogoUrl } from '@/utils/image'
 import { SeriesPlaylist } from '@/types/series_playlist'
 import Link from '@/components/Link'
 
@@ -44,10 +45,7 @@ export const VerticalPreview = () => {
       {playlists?.map((playlist: SeriesPlaylist) => (
         <HStack mb={2} key={nanoid()}>
           <Image
-            src={
-              playlist.logo?.medium?.url ??
-              '/public/dummy/default1/default1-logo.png'
-            }
+            src={playlistLogoUrl(playlist)}
             alt="EditorialHands"
             h="32px"
             boxShadow="md"

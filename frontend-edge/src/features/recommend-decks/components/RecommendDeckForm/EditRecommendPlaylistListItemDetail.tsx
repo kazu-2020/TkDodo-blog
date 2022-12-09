@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { Icon } from '@chakra-ui/icons'
 
+import { playlistLogoUrl } from '@/utils/image'
 import { RecommendPlaylist } from '@/types/recommend_playlist'
 import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
 
@@ -38,9 +39,6 @@ export const EditRecommendPlaylistListItemDetail = ({
   onToggleAccordion: () => void
 }) => {
   const { getValues, setValue } = useFormContext<RecommendDeckFormInputs>()
-
-  const logoImage =
-    playlist.logo?.medium?.url ?? '/public/dummy/default1/default1-logo.png'
 
   return (
     <Grid
@@ -70,7 +68,7 @@ export const EditRecommendPlaylistListItemDetail = ({
       </GridItem>
       <GridItem colSpan={6} h={8}>
         <HStack>
-          <Image src={logoImage} alt={playlist.name} h="30px" />
+          <Image src={playlistLogoUrl(playlist)} alt={playlist.name} h="30px" />
           <Text noOfLines={1}>{playlist.name}</Text>
         </HStack>
       </GridItem>

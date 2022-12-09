@@ -11,6 +11,7 @@ import {
   VStack
 } from '@chakra-ui/react'
 
+import { playlistLogoUrl } from '@/utils/image'
 import { Playlist } from '@/types/playlist'
 import { EpisodeData, FormatType, ThemeType } from '@/types/episode_data'
 import { GenreItems } from '@/features/playlists/components/PlaylistEpisodeDrawer/GenreItems'
@@ -24,8 +25,6 @@ const playlistFormatGenres = (name?: string): FormatType[] =>
   name ? [{ id: 0, name }] : []
 const playlistThemeGenres = (name?: string): ThemeType[] =>
   name ? [{ id: 0, name }] : []
-const playlistLogoImage = (playlist: Playlist): string =>
-  playlist.logo.medium?.url || 'https://placehold.jp/140x140.png'
 
 const NoPlaylist = () => (
   <Box px={0} py={0}>
@@ -69,7 +68,7 @@ export const RelatedPlaylists = ({ episode }: Props) => {
                 <Center>
                   <Link href={`/playlists/${playlist.playlistUid}`}>
                     <Image
-                      src={playlistLogoImage(playlist)}
+                      src={playlistLogoUrl(playlist)}
                       w="140px"
                       h="140px"
                       borderRadius="5px"
@@ -156,22 +155,6 @@ if (import.meta.vitest) {
     it('名前が定義されていない場合', () => {
       const genres = playlistThemeGenres(undefined)
       expect(genres).toHaveLength(0)
-    })
-  })
-  describe('playlistLogoImage', () => {
-    it('ロゴ画像が定義されている場合', () => {
-      const playlist = playlistGenerator({
-        logo: { medium: { url: 'test', witdh: 1, height: 1 } }
-      })
-      expect(playlistLogoImage(playlist)).toEqual('test')
-    })
-    it('ロゴ画像が定義されていない場合', () => {
-      const playlist = playlistGenerator({
-        logo: { medium: { url: undefined, witdh: 1, height: 1 } }
-      })
-      expect(playlistLogoImage(playlist)).toEqual(
-        'https://placehold.jp/140x140.png'
-      )
     })
   })
 }
