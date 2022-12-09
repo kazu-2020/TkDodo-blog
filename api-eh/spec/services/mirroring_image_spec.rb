@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe 'MirroringImage' do
+  include StoredImageHelpers
+
   before do
     poc_client = instance_double(PocApiClient)
     allow(PocApiClient).to receive(:new).and_return(poc_client)
@@ -12,8 +14,7 @@ describe 'MirroringImage' do
   it '自動的にpublic_storeにアップロードされていないこと' do
     attacher = ImageUploader::Attacher.from_model(playlist.reload, :logo_image)
 
-    expect(File).to exist(Rails.root.join('public', 'uploads', 'test', 'private') + attacher.file.id)
-    expect(File).not_to exist(Rails.root.join('public', 'uploads', 'test', 'public') + attacher.file.id)
+    expect(exists_public_store?(attacher)).to be_falsey
   end
 
   describe '#upload' do
@@ -32,8 +33,7 @@ describe 'MirroringImage' do
       attacher = ImageUploader::Attacher.from_model(playlist.reload, :logo_image)
       MirroringImage.upload(attacher: attacher)
 
-      expect(File).to exist(Rails.root.join('public', 'uploads', 'test', 'private') + attacher.file.id)
-      expect(File).to exist(Rails.root.join('public', 'uploads', 'test', 'public') + attacher.file.id)
+      expect(exists_public_store?(attacher)).to be_truthy
     end
 
     it 'S3バケットにオブジェクトが存在していなければ public store に画像がアップロードされず終了すること' do
@@ -42,7 +42,7 @@ describe 'MirroringImage' do
       attacher = ImageUploader::Attacher.from_model(playlist.reload, :logo_image)
       MirroringImage.upload(attacher: attacher)
 
-      expect(File).not_to exist(Rails.root.join('public', 'uploads', 'test', 'public') + attacher.file.id)
+      expect(exists_public_store?(attacher)).to be_falsey
     end
   end
 
@@ -52,26 +52,7 @@ describe 'MirroringImage' do
 
       MirroringImage.delete(attacher: attacher)
 
-      expect(File).to exist(Rails.root.join('public', 'uploads', 'test', 'private') + attacher.file.id)
-      expect(File).not_to exist(Rails.root.join('public', 'uploads', 'test', 'public') + attacher.file.id)
-    end
-
-    it 'playlistが削除されても画像が消えること' do
-      attacher = ImageUploader::Attacher.from_model(playlist.reload, :logo_image)
-
-      playlist.destroy!
-
-      expect(File).not_to exist(Rails.root.join('public', 'uploads', 'test', 'private') + attacher.file.id)
-      expect(File).not_to exist(Rails.root.join('public', 'uploads', 'test', 'public') + attacher.file.id)
-    end
-
-    it 'playlistが削除されても画像が消えること' do
-      attacher = ImageUploader::Attacher.from_model(playlist.reload, :logo_image)
-
-      playlist.destroy!
-
-      expect(File.exist?(Rails.root.join('public', 'uploads', 'test', 'private') + attacher.file.id)).to be_falsey
-      expect(File.exist?(Rails.root.join('public', 'uploads', 'test', 'public') + attacher.file.id)).to be_falsey
+      expect(exists_public_store?(attacher)).to be_falsey
     end
   end
 end

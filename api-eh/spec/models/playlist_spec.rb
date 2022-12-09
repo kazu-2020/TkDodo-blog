@@ -294,7 +294,13 @@ describe Playlist, type: :model do
   end
 
   describe '#refresh_image_storage' do
-    let(:playlist) { create(:playlist, api_state: api_state) }
+    let(:test_image_file_path) { Rails.root.join('spec', 'fixtures', 'images', 'test.jpg') }
+    let(:playlist) do
+      create(:playlist, api_state: api_state,
+                        logo_image: File.open(test_image_file_path),
+                        eyecatch_image: File.open(test_image_file_path),
+                        hero_image: File.open(test_image_file_path))
+    end
 
     # NOTE: reloadを入れないと画像のstorageがstoreにならない
     before { playlist.reload }

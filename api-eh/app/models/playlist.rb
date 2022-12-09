@@ -291,7 +291,11 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     image_urls = editor_blocks_of('image')
                  .map { |block| URI.parse(block['data']['file']['url']) }
     image_names = image_urls.map(&:path)
+    save_article_image(image_names)
+  end
 
+  # Metrics/AbcSize対策のため、メソッドを分割
+  def save_article_image(image_names)
     image_names.each do |image_name|
       article_image = ArticleImage.find_by(image_id: image_name)
       article_image.playlist_id = id
