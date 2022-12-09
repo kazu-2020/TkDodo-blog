@@ -5,6 +5,12 @@ require 'rails_helper'
 describe 'UpdatePublishStateCallbacks' do
   let(:playlist) { create(:playlist, api_state: api_state) }
 
+  before do
+    poc_client = instance_double(PocApiClient)
+    allow(PocApiClient).to receive(:new).and_return(poc_client)
+    allow(poc_client).to receive(:playlist_ll_bundle).and_return({})
+  end
+
   context 'Playlist' do
     context 'api_stateが更新されない場合' do
       let(:api_state) { :close }
