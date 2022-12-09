@@ -294,7 +294,6 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     save_article_image(image_names)
   end
 
-  # Metrics/AbcSize対策のため、メソッドを分割
   def save_article_image(image_names)
     image_names.each do |image_name|
       article_image = ArticleImage.find_by(image_id: image_name)
