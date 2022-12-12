@@ -11,12 +11,17 @@
 各ブランチへのマージをトリガーにCodePipelineでデプロイ処理が実行されます。
 stg環境へのリリースは、git-pr-releaseを実行するための [action](https://github.com/d7lab/aw-editorialhands/actions/workflows/stg-release.yml) を用意しています。 
 
+### 旧フロントエンド （削除予定）
+
+Nuxt2で構成されたシングルページアプリケーション
+
+[README](https://github.com/d7lab/aw-editorialhands/blob/develop/frontend/README.md)
+
 ### フロントエンド
 
-Nuxt.js で構成されたアプリケーション。
-CloudFront + S3 を用いて配信しています。
+Reactで構成されたシングルページアプリケーション
 
-[README](https://github.com/d7lab/aw-editorialhands-ui/blob/develop/frontend/README.md)
+[README](https://github.com/d7lab/aw-editorialhands/blob/develop/frontend-edge/README.md)
 
 ### バックエンド
 
