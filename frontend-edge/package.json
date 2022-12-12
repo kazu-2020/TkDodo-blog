@@ -22,7 +22,6 @@
     "webstorm-integration": "vitest --watch --reporter=dot --reporter=json --outputFile=.vitest-result.json"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^1.11.0",
     "@chakra-ui/icons": "^2.0.11",
     "@chakra-ui/react": "^2.2.9",
     "@codexteam/ajax": "^4.2.0",

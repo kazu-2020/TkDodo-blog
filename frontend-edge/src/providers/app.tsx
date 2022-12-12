@@ -3,12 +3,11 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { QueryClientProvider } from 'react-query'
 import { ErrorBoundary } from 'react-error-boundary'
 import * as React from 'react'
-import { CircularProgress } from '@chakra-ui/react'
+import { ChakraProvider, Spinner } from '@chakra-ui/react'
 
 import { ErrorFallback } from '@/providers/ErrorFallback'
+import theme from '@/lib/theme'
 import { queryClient } from '@/lib/react-query'
-import { Auth0ProviderWithRedirectCallback } from '@/lib/auth0/Auth0ProviderWithRedirectCallback'
-import { AUTH0_CLIENT_ID, AUTH0_DOMAIN } from '@/config'
 
 type AppProviderProps = {
   children: React.ReactNode
@@ -18,22 +17,16 @@ const AppProvider = ({ children }: AppProviderProps) => (
   <React.Suspense
     fallback={
       <div className="flex items-center justify-center w-screen h-screen">
-        <CircularProgress size="xl" />
+        <Spinner size="xl" />
       </div>
     }
   >
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <QueryClientProvider client={queryClient}>
-        {import.meta.env.MODE === 'development' && <ReactQueryDevtools />}
-        <BrowserRouter>
-          <Auth0ProviderWithRedirectCallback
-            domain={AUTH0_DOMAIN}
-            clientId={AUTH0_CLIENT_ID}
-            redirectUri={window.location.origin}
-          >
-            {children}
-          </Auth0ProviderWithRedirectCallback>
-        </BrowserRouter>
+        <ChakraProvider theme={theme}>
+          {import.meta.env.MODE === 'development' && <ReactQueryDevtools />}
+          <BrowserRouter>{children}</BrowserRouter>
+        </ChakraProvider>
       </QueryClientProvider>
     </ErrorBoundary>
   </React.Suspense>
