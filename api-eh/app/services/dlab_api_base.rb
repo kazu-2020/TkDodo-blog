@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class DlabApiBase
-  DEFAULT_HEADERS = { 'User-Agent' => 'editorialhands' }.freeze
-
   class BadRequest < StandardError; end
 
   class Forbidden < StandardError; end
@@ -43,7 +41,7 @@ class DlabApiBase
   end
 
   def client
-    @client ||= Faraday.new(url: api_endpoint, headers: DEFAULT_HEADERS) do |faraday|
+    @client ||= Faraday.new(url: api_endpoint, headers: { 'User-Agent' => 'editorialhands' }) do |faraday|
       faraday.request :url_encoded
       logger = Logger.new($stdout)
       logger.level = Logger::ERROR if Rails.env.test?
