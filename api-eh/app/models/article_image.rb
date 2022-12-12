@@ -20,10 +20,10 @@ class ArticleImage < ApplicationRecord
     playlist&.api_state_open?
   end
 
-  def refresh_image_storage(attacher:, background: true)
+  def refresh_image_storage(background: true)
     method = published? ? :upload : :delete
 
-    MirroringImage.send(method, attacher: attacher, background: background)
+    MirroringImage.send(method, attacher: image_attacher, background: background)
     logger.debug "Call ArticleImage(#{id}) refresh_image_storage"
   end
 end
