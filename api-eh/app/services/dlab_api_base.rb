@@ -41,7 +41,8 @@ class DlabApiBase
   end
 
   def client
-    @client ||= Faraday.new(url: api_endpoint, headers: { 'User-Agent' => 'editorialhands' }) do |faraday|
+    @client ||= Faraday.new(url: api_endpoint) do |faraday|
+      faraday.headers['User-Agent'] = 'editorialhands'
       faraday.request :url_encoded
       logger = Logger.new($stdout)
       logger.level = Logger::ERROR if Rails.env.test?
