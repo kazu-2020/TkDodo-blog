@@ -2,7 +2,6 @@
 
 class DlabR65ApiClient < DlabApiBase
   API_ENDPOINT = 'https://api.dlab.nhk.or.jp'
-  DEFAULT_HEADERS = { 'User-Agent' => 'editorialhands' }.freeze
   VERSION = 'd6.5'
 
   attr_reader :api_endpoint

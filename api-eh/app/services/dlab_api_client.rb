@@ -13,7 +13,6 @@ class DlabApiClient < DlabApiBase
     end
   VERSION = 'r6'
   INTERNAL_PARAMS = { extendedEntities: true, ignoreRange: true }.freeze
-  DEFAULT_HEADERS = { 'User-Agent' => 'editorialhands' }.freeze
 
   attr_reader :api_endpoint, :version
 
