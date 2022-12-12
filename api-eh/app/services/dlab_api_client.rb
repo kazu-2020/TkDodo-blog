@@ -17,10 +17,10 @@ class DlabApiClient < DlabApiBase
 
   attr_reader :api_endpoint, :default_headers, :version
 
-  def initialize(api_endpoint: nil, default_headers: nil, version: nil)
+  def initialize(api_endpoint: nil, version: nil)
     super()
     @api_endpoint = ENV['R6_API_ENDPOINT'] || api_endpoint || API_ENDPOINT
-    @default_headers = default_headers || DEFAULT_HEADERS
+    @default_headers = DEFAULT_HEADERS
     @version = version || VERSION
   end
 

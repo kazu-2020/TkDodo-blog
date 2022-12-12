@@ -7,10 +7,10 @@ class DlabR65ApiClient < DlabApiBase
 
   attr_reader :api_endpoint, :default_headers
 
-  def initialize(api_endpoint: nil, default_headers: nil)
+  def initialize(api_endpoint: nil)
     super()
     @api_endpoint = api_endpoint || API_ENDPOINT
-    @default_headers = default_headers || DEFAULT_HEADERS
+    @default_headers = DEFAULT_HEADERS
   end
 
   def episode_playlist(episode_id)

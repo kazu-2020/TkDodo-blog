@@ -26,7 +26,7 @@ class PocApiClient < DlabApiBase
   def initialize(api_endpoint: nil, version: nil)
     super()
     @api_endpoint = ENV['R60_API_ENDPOINT'] || api_endpoint || API_ENDPOINT
-    @default_headers = default_headers || DEFAULT_HEADERS
+    @default_headers = DEFAULT_HEADERS
     @version = version || VERSION
   end
 
