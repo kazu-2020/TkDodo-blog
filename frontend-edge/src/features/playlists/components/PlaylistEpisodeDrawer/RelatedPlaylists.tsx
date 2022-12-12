@@ -128,8 +128,6 @@ export const RelatedPlaylists = ({ episode }: Props) => {
 }
 
 if (import.meta.vitest) {
-  const { playlistGenerator } = await import('@/test/data-generators')
-
   const { describe, it, expect } = import.meta.vitest
   describe('playlistFormatGenres', () => {
     it('名前が定義されている場合', () => {
