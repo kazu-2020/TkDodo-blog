@@ -15,12 +15,11 @@ class DlabApiClient < DlabApiBase
   INTERNAL_PARAMS = { extendedEntities: true, ignoreRange: true }.freeze
   DEFAULT_HEADERS = { 'User-Agent' => 'editorialhands' }.freeze
 
-  attr_reader :api_endpoint, :default_headers, :version
+  attr_reader :api_endpoint, :version
 
   def initialize(api_endpoint: nil, version: nil)
     super()
     @api_endpoint = ENV['R6_API_ENDPOINT'] || api_endpoint || API_ENDPOINT
-    @default_headers = DEFAULT_HEADERS
     @version = version || VERSION
   end
 
