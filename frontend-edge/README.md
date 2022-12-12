@@ -34,6 +34,8 @@ http://localhost:5173/
 - [Chakra](https://chakra-ui.com/)
 - [vitest](https://vitest.dev/)
 - [Storybook](https://storybook.js.org/)
+- [React Hook Form](https://github.com/react-hook-form/react-hook-form)
+- [zustand](https://github.com/pmndrs/zustand)
 
 ### ディレクトリ構成
 アプリケーションのコードは `src` ディレクトリ下に格納します。
