@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe Playlist, type: :model do
+  include StoredImageHelpers
+
   before do
     poc_client = instance_double(PocApiClient)
     allow(PocApiClient).to receive(:new).and_return(poc_client)
@@ -287,6 +289,53 @@ describe Playlist, type: :model do
         it 'falseになること' do
           expect(playlist.available_article).to be_falsey
         end
+      end
+    end
+  end
+
+  describe '#refresh_image_storage' do
+    let(:test_image_file_path) { Rails.root.join('spec', 'fixtures', 'images', 'test.jpg') }
+    let(:playlist) do
+      create(:playlist, api_state: api_state,
+                        logo_image: File.open(test_image_file_path),
+                        eyecatch_image: File.open(test_image_file_path),
+                        hero_image: File.open(test_image_file_path))
+    end
+
+    # NOTE: reloadを入れないと画像のstorageがstoreにならない
+    before { playlist.reload }
+
+    context '公開状態の場合' do
+      let(:api_state) { :open }
+
+      it do
+        expect(playlist).to be_published
+        playlist.refresh_image_storage
+      end
+
+      it 'public_storeに画像が存在すること' do
+        playlist.reload
+
+        expect(exists_public_store?(playlist.logo_image_attacher)).to be_truthy
+        expect(exists_public_store?(playlist.eyecatch_image_attacher)).to be_truthy
+        expect(exists_public_store?(playlist.hero_image_attacher)).to be_truthy
+      end
+    end
+
+    context '非公開状態の場合' do
+      let(:api_state) { :close }
+
+      it do
+        expect(playlist).not_to be_published
+        playlist.refresh_image_storage
+      end
+
+      it 'public_storeに画像が存在しないこと' do
+        playlist.reload
+
+        expect(exists_public_store?(playlist.logo_image_attacher)).to be_falsey
+        expect(exists_public_store?(playlist.eyecatch_image_attacher)).to be_falsey
+        expect(exists_public_store?(playlist.hero_image_attacher)).to be_falsey
       end
     end
   end

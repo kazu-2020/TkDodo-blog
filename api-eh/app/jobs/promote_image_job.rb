@@ -11,7 +11,19 @@ class PromoteImageJob < SidekiqBaseJob
     attacher = attacher_class.retrieve(model: record, name: name, file: file_data)
     attacher.create_derivatives # call derivatives processor
     attacher.atomic_promote
+    upload_to_public_bucket(record, attacher)
   rescue Shrine::AttachmentChanged, ActiveRecord::RecordNotFound
     # attachment has changed or record has been deleted, nothing to do
+  end
+
+  private
+
+  # @param [ActiveRecord::Base] record
+  # @param [Shrine::Attacher] attacher
+  # record: playlist
+  def upload_to_public_bucket(record, attacher)
+    return unless record.respond_to?(:refresh_image_storage)
+
+    MirroringImage.upload(attacher: attacher, background: false) if record.published?
   end
 end

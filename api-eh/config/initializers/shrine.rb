@@ -47,14 +47,14 @@ else
 end
 
 Shrine.storages = {
-  cache: private_cache, # temporary
-  store: private_store, # permanent
-  public_store: public_store # 公開バケット
+  cache: private_cache,       # temporary
+  store: private_store,       # permanent
+  public_store: public_store  # 公開バケット
 }
 
-Shrine.plugin :activerecord           # loads Active Record integration
+Shrine.plugin :activerecord # loads Active Record integration
 Shrine.plugin :cached_attachment_data # enables retaining cached file across form redisplays
-Shrine.plugin :derivatives            # allows storing processed files ("derivatives") alongside the main attached file
+Shrine.plugin :derivatives # allows storing processed files ("derivatives") alongside the main attached file
 Shrine.plugin :determine_mime_type, analyzer: :marcel # mime typeを判定してくれるプラグイン
 Shrine.plugin :remote_url, max_size: 20 * 1024 * 1024
 Shrine.plugin :restore_cached_data # extracts metadata for assigned cached files
@@ -66,7 +66,7 @@ module KeepFilesWithDeleteOption
     end
   end
 end
-Shrine.plugin KeepFilesWithDeleteOption
+# Shrine.plugin KeepFilesWithDeleteOption # 更新履歴の実装の際に画像を削除しないようにするために必要
 
 # background job
 Shrine.plugin :backgrounding
@@ -78,11 +78,9 @@ Shrine::Attacher.destroy_block do
 end
 
 # https://shrinerb.com/docs/plugins/mirroring
-# FIXME: 公開/非公開制御を実装するまで常に公開バケットにアップロードする
-# Shrine.plugin :mirroring, mirror: { store: :public_store }, upload: false
-Shrine.plugin :mirroring, mirror: { store: :public_store }
+Shrine.plugin :mirroring, mirror: { store: :public_store }, upload: false
 Shrine.mirror_upload_block do |file, **_options|
-  MirrorUploadImageJob.perform_async(file.shrine_class.name, file.data)
+  MirrorUploadImageJob.perform_async(file.shrine_class.name, file.data, file.id)
 end
 
 Shrine.mirror_delete_block do |file|

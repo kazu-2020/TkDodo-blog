@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe PlaylistsController, type: :request do
+  include StoredImageHelpers
+
   before do
     json =
       File.open(Rails.root.join('spec/fixtures/payloads/r6.0_ll_bundle_pl_recommend-tep-0000000052.json')) do |file|
@@ -175,6 +177,52 @@ describe PlaylistsController, type: :request do
         expect(response.status).to eq 200
       end
     end
+
+    context 'api_stateがopenの場合' do
+      let(:article_image) { create(:article_image, :with_image) }
+      let(:editor_data) do
+        { time: 1_645_163_766_121,
+          blocks: [{ type: 'image', data: { file: { url: article_image.image_id } } }],
+          version: '2.19.1' }.to_json
+      end
+      let(:params) {
+        { playlist: { name: 'cool name', api_state: 'open', editor_data: editor_data,
+                      logo_image: logo_image, eyecatch_image: eyecatch_image, hero_image: hero_image } }
+      }
+
+      it 'public_storeに画像が保存されること' do
+        post '/playlists', params: params
+
+        expect(exists_public_store?(Playlist.last.logo_image_attacher)).to be_truthy
+        expect(exists_public_store?(Playlist.last.eyecatch_image_attacher)).to be_truthy
+        expect(exists_public_store?(Playlist.last.hero_image_attacher)).to be_truthy
+        expect(exists_public_store?(ArticleImage.last.image_attacher)).to be_truthy
+      end
+    end
+
+    context 'api_stateがcloseの場合' do
+      define_negated_matcher :not_change, :change
+
+      let(:article_image) { create(:article_image, :with_image) }
+      let(:editor_data) do
+        { time: 1_645_163_766_121,
+          blocks: [{ type: 'image', data: { file: { url: article_image.image_id } } }],
+          version: '2.19.1' }.to_json
+      end
+      let(:params) {
+        { playlist: { name: 'cool name', api_state: 'close', editor_data: editor_data,
+                      logo_image: logo_image, eyecatch_image: eyecatch_image, hero_image: hero_image } }
+      }
+
+      it 'public_storeに画像が保存されないこと' do
+        post '/playlists', params: params
+
+        expect(exists_public_store?(Playlist.last.logo_image_attacher)).to be_falsey
+        expect(exists_public_store?(Playlist.last.eyecatch_image_attacher)).to be_falsey
+        expect(exists_public_store?(Playlist.last.hero_image_attacher)).to be_falsey
+        expect(exists_public_store?(ArticleImage.last.image_attacher)).to be_falsey
+      end
+    end
   end
 
   describe 'GET #show' do
@@ -254,6 +302,38 @@ describe PlaylistsController, type: :request do
 
         expect(response.status).to eq(200)
         expect(playlist.reload.name).to eq(name)
+      end
+    end
+
+    describe 'API公開ステータスが更新された場合' do
+      context 'open → close' do
+        let(:playlist) { create(:playlist, api_state: 'open') }
+        let(:article_image) { create(:article_image, :with_image, playlist_id: playlist.id) }
+        let(:params) { { playlist: { api_state: 'close' } } }
+
+        it 'public_storeから画像が削除されること' do
+          patch playlist_path(playlist), params: params
+
+          expect(exists_public_store?(playlist.logo_image_attacher)).to be_falsey
+          expect(exists_public_store?(playlist.eyecatch_image_attacher)).to be_falsey
+          expect(exists_public_store?(playlist.hero_image_attacher)).to be_falsey
+          expect(exists_public_store?(article_image.image_attacher)).to be_falsey
+        end
+      end
+
+      context 'close →　open' do
+        let(:playlist) { create(:playlist, api_state: 'close') }
+        let(:article_image) { create(:article_image, :with_image, playlist_id: playlist.id) }
+        let(:params) { { playlist: { api_state: 'open' } } }
+
+        it 'public_storeに画像がアップロードされること' do
+          patch playlist_path(playlist), params: params
+
+          expect(exists_public_store?(playlist.logo_image_attacher)).to be_truthy
+          expect(exists_public_store?(playlist.eyecatch_image_attacher)).to be_truthy
+          expect(exists_public_store?(playlist.hero_image_attacher)).to be_truthy
+          expect(exists_public_store?(article_image.image_attacher)).to be_truthy
+        end
       end
     end
 
@@ -365,12 +445,27 @@ describe PlaylistsController, type: :request do
   end
 
   describe 'DELETE #delete' do
-    let!(:playlist) { create(:playlist) }
+    let!(:playlist) { create(:playlist, api_state: 'open') }
+    let!(:article_image) { create(:article_image, :with_image, playlist_id: playlist.id) }
 
     it 'delete playlist' do
       expect do
         delete playlist_path(playlist)
       end.to change(Playlist, :count).from(1).to(0)
+    end
+
+    it '画像も削除されること' do
+      delete playlist_path(playlist)
+
+      expect(exists_public_store?(playlist.logo_image_attacher)).to be_falsey
+      expect(exists_public_store?(playlist.eyecatch_image_attacher)).to be_falsey
+      expect(exists_public_store?(playlist.hero_image_attacher)).to be_falsey
+      expect(exists_public_store?(article_image.image_attacher)).to be_falsey
+
+      expect(exists_private_store?(playlist.logo_image_attacher)).to be_falsey
+      expect(exists_private_store?(playlist.eyecatch_image_attacher)).to be_falsey
+      expect(exists_private_store?(playlist.hero_image_attacher)).to be_falsey
+      expect(exists_private_store?(article_image.image_attacher)).to be_falsey
     end
   end
 
@@ -385,6 +480,18 @@ describe PlaylistsController, type: :request do
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1
     end
+
+    it 'public_storeにアップロードされないこと' do
+      post "/playlists/#{playlist.string_uid}/upload_article_image_by_url", params: params
+
+      expect(exists_public_store?(ArticleImage.last.image_attacher)).to be_falsey
+    end
+
+    it 'private_storeにアップロードされること' do
+      post "/playlists/#{playlist.string_uid}/upload_article_image_by_url", params: params
+
+      expect(exists_private_store?(ArticleImage.last.image_attacher)).to be_truthy
+    end
   end
 
   describe 'POST #upload_article_image_by_file' do
@@ -393,15 +500,30 @@ describe PlaylistsController, type: :request do
       fixture_file_upload(Rails.root.join('spec/fixtures/images/square.png'), 'image/png')
     end
 
-    before do
-      allow_any_instance_of(described_class).to receive(:image_param).and_return(image)
-    end
+    before { allow_any_instance_of(described_class).to receive(:image_param).and_return(image) }
 
     it 'リクエストが成功する' do
       post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
+
       expect(response.status).to eq 200
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1
+    end
+
+    it 'public_storeにアップロードされないこと' do
+      dir_path = Rails.root.join('public', 'uploads', 'test', 'public', 'playlist', 'article_images')
+
+      expect do
+        post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
+      end.not_to change { Dir.glob("#{dir_path}/*").count }
+    end
+
+    it 'private_storeにアップロードされること' do
+      dir_path = Rails.root.join('public', 'uploads', 'test', 'private', 'playlist', 'article_images')
+
+      expect do
+        post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
+      end.to change { Dir.glob("#{dir_path}/*").count }.by(1)
     end
   end
 

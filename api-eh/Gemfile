@@ -15,6 +15,7 @@ gem 'bootsnap', require: false
 
 gem 'acts_as_list'
 gem 'asset_sync'
+gem 'aws-sdk-s3'
 gem 'aws-sdk-sns'
 gem 'chroma'
 gem 'colormath'

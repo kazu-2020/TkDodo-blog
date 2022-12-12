@@ -21,6 +21,8 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   enum publish_level: PUBLISH_LEVELS.each_with_object({}) { |s, h| h[s] = s.to_s }
 
+  after_commit UpdatePublishStateCallbacks.new, on: :update
+
   has_many :playlist_items,
            -> { order(position: :asc) },
            dependent: :destroy
@@ -223,6 +225,18 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     result
   end
 
+  def published?
+    api_state_open?
+  end
+
+  def refresh_image_storage(background: true)
+    method = published? ? :upload : :delete
+    [logo_image_attacher, eyecatch_image_attacher, hero_image_attacher].each do |attacher|
+      MirroringImage.send(method, attacher: attacher, background: background)
+    end
+    logger.debug "Call Playlist(#{string_id}) refresh_image_storage"
+  end
+
   private
 
   def trim_name
@@ -277,10 +291,14 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     image_urls = editor_blocks_of('image')
                  .map { |block| URI.parse(block['data']['file']['url']) }
     image_names = image_urls.map(&:path)
+    save_article_image(image_names)
+  end
 
+  def save_article_image(image_names)
     image_names.each do |image_name|
       article_image = ArticleImage.find_by(image_id: image_name)
       article_image.playlist_id = id
+      article_image.refresh_image_storage
       article_image.save
     end
   end
