@@ -6,12 +6,18 @@ describe 'ArticleImage' do
   include StoredImageHelpers
 
   describe '#refresh_image_storage' do
+    before do
+      poc_client = instance_double(PocApiClient)
+      allow(PocApiClient).to receive(:new).and_return(poc_client)
+      allow(poc_client).to receive(:playlist_ll_bundle).and_return({})
+
+      # NOTE: reloadを入れないと画像のstorageがstoreにならない
+      article_image.reload
+    end
+
     let(:test_image_file_path) { Rails.root.join('spec', 'fixtures', 'images', 'test.jpg') }
     let(:playlist) { create(:playlist, api_state: api_state) }
     let(:article_image) { create(:article_image, playlist: playlist, image: File.open(test_image_file_path)) }
-
-    # NOTE: reloadを入れないと画像のstorageがstoreにならない
-    before { article_image.reload }
 
     context '公開状態の場合' do
       let(:api_state) { :open }
