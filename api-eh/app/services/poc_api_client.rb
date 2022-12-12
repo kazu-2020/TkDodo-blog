@@ -19,12 +19,14 @@ class PocApiClient < DlabApiBase
   DEFAULT_ENVIRONMENT = 'okushibu3'
   DEFAULT_TYPE_OF_LIST = 'recommend'
   DEFAULT_MODE_OF_ITEM = 'tv'
+  DEFAULT_HEADERS = { 'User-Agent' => 'editorialhands' }.freeze
 
-  attr_reader :api_endpoint, :version
+  attr_reader :api_endpoint, :default_headers, :version
 
   def initialize(api_endpoint: nil, version: nil)
     super()
     @api_endpoint = ENV['R60_API_ENDPOINT'] || api_endpoint || API_ENDPOINT
+    @default_headers = default_headers || DEFAULT_HEADERS
     @version = version || VERSION
   end
 

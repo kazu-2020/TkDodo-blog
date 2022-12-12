@@ -40,8 +40,12 @@ class DlabApiBase
     raise NotImplementedError, "You must implement #{self.class}##{__method__}"
   end
 
+  def default_headers
+    raise NotImplementedError, "You must implement #{self.class}##{__method__}"
+  end
+
   def client
-    @client ||= Faraday.new(url: api_endpoint) do |faraday|
+    @client ||= Faraday.new(url: api_endpoint, headers: default_headers) do |faraday|
       faraday.request :url_encoded
       logger = Logger.new($stdout)
       logger.level = Logger::ERROR if Rails.env.test?
