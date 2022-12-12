@@ -15,7 +15,7 @@ describe 'DlabApiBase' do
 
   describe 'r6.0リクエストの場合' do
     it 'リクエストヘッダにUserAgentが設定されいてること' do
-      client = DlabApiClient.new
+      client = PocApiClient.new
       client.send(:client)
 
       VCR.use_cassette('/services/dlab_api_base/r6.0_request') do
