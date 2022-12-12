@@ -2,13 +2,15 @@
 
 class DlabR65ApiClient < DlabApiBase
   API_ENDPOINT = 'https://api.dlab.nhk.or.jp'
+  DEFAULT_HEADERS = { 'User-Agent' => 'editorialhands' }.freeze
   VERSION = 'd6.5'
 
-  attr_reader :api_endpoint
+  attr_reader :api_endpoint, :default_headers
 
-  def initialize(api_endpoint: nil)
+  def initialize(api_endpoint: nil, default_headers: nil)
     super()
     @api_endpoint = api_endpoint || API_ENDPOINT
+    @default_headers = default_headers || DEFAULT_HEADERS
   end
 
   def episode_playlist(episode_id)
