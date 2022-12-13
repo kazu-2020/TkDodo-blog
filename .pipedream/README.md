@@ -103,5 +103,15 @@ mfa_serial=arn:aws:iam::363730604491:mfa/ryusuke_sekiguchi
 source_profile=sikmi-nhk
 ```
 
-## その他
-- GitHubと接続するためのアクセストークンは、AWSのSSMパラメータストアの `/editorialhands/codepipeline/github/token` に設定している。
+## トークンの変更方法
+GitHubと接続するためのアクセストークンを、AWSのSSMパラメータストアの `/editorialhands/codepipeline/github/token` に設定しています。
+このパラメータ名は pipeline.rb のgithub > auth_tokenで変更可能です。
+
+※トークンを変更した後はpipedreamのデプロイが必要です。
+
+### トークンの取得方法
+https://github.com/settings/tokens から `admin:repo_hook` スコープが有効なトークンを取得してください。
+
+### パラメータストアのリンク
+- [dev](https://ap-northeast-1.console.aws.amazon.com/systems-manager/parameters/editorialhands/codepipeline/github/token/description?region=ap-northeast-1&tab=Table#list_parameter_filters=Name:Contains:codepipe)
+- [stg, prd](https://ap-northeast-1.console.aws.amazon.com/systems-manager/parameters/editorialhands/codepipeline/github/token/description?region=ap-northeast-1&tab=Table#list_parameter_filters=Name:Contains:codepipe)
