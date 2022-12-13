@@ -306,10 +306,26 @@ describe PlaylistsController, type: :request do
     end
 
     describe 'API公開ステータスが更新された場合' do
+      let(:image_data_encoded_to_base64) do
+        "data:image/png;base64,#{Base64.strict_encode64(File.read(Rails.root.join('spec', 'fixtures', 'images',
+                                                                                  'min_test.png').to_s))}"
+      end
+      let(:logo_image) { image_data_encoded_to_base64 }
+      let(:eyecatch_image) { image_data_encoded_to_base64 }
+      let(:hero_image) { image_data_encoded_to_base64 }
+      let(:article_image) { create(:article_image, :with_image, playlist_id: playlist.id) }
+      let(:editor_data) do
+        { time: 1_645_163_766_121,
+          blocks: [{ type: 'image', data: { file: { url: article_image.image_id } } }],
+          version: '2.19.1' }.to_json
+      end
+
       context 'open → close' do
         let(:playlist) { create(:playlist, api_state: 'open') }
-        let(:article_image) { create(:article_image, :with_image, playlist_id: playlist.id) }
-        let(:params) { { playlist: { api_state: 'close' } } }
+        let(:params) do
+          { playlist: { name: 'cool name', editor_data: editor_data, api_state: 'close',
+                        logo_image: logo_image, eyecatch_image: eyecatch_image, hero_image: hero_image } }
+        end
 
         it 'public_storeから画像が削除されること' do
           patch playlist_path(playlist), params: params
@@ -323,8 +339,9 @@ describe PlaylistsController, type: :request do
 
       context 'close →　open' do
         let(:playlist) { create(:playlist, api_state: 'close') }
-        let(:article_image) { create(:article_image, :with_image, playlist_id: playlist.id) }
-        let(:params) { { playlist: { api_state: 'open' } } }
+        let(:params) do
+          { playlist: { name: 'cool name', editor_data: editor_data, api_state: 'open' } }
+        end
 
         it 'public_storeに画像がアップロードされること' do
           patch playlist_path(playlist), params: params
