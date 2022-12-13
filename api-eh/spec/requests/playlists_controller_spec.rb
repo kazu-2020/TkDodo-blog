@@ -528,19 +528,15 @@ describe PlaylistsController, type: :request do
     end
 
     it 'public_storeにアップロードされないこと' do
-      dir_path = Rails.root.join('public', 'uploads', 'test', 'public', 'playlist', 'article_images')
+      post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
 
-      expect do
-        post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
-      end.not_to change { Dir.glob("#{dir_path}/*").count }
+      expect(exists_public_store?(ArticleImage.last.image_attacher)).to be_falsey
     end
 
     it 'private_storeにアップロードされること' do
-      dir_path = Rails.root.join('public', 'uploads', 'test', 'private', 'playlist', 'article_images')
+      post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
 
-      expect do
-        post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
-      end.to change { Dir.glob("#{dir_path}/*").count }.by(1)
+      expect(exists_private_store?(ArticleImage.last.image_attacher)).to be_truthy
     end
   end
 
