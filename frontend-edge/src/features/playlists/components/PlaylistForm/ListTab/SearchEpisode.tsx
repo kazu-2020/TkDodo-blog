@@ -1,5 +1,5 @@
-import { UseInfiniteQueryResult } from 'react-query'
 import React, { useState } from 'react'
+import { UseInfiniteQueryResult } from '@tanstack/react-query'
 import { Box, useDisclosure, VStack } from '@chakra-ui/react'
 
 import { isNewFetching } from '@/utils/queryResult'

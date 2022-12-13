@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from 'react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
 import { EpisodeData } from '@/types/episode_data'
 import axios from '@/lib/axios'

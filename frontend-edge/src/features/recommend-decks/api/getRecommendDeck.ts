@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 import { RecommendDeck } from '@/types/recommend_deck'
 import axios from '@/lib/axios'
