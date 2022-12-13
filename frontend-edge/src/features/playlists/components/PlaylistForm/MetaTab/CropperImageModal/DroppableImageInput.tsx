@@ -66,6 +66,7 @@ export const DroppableImageInput = () => {
         console.log(err.message)
       }
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })

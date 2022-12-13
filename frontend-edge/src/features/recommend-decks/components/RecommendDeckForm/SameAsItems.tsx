@@ -32,6 +32,7 @@ export const SameAsItems = ({ control, register, errors, trigger }: Props) => {
 
   useEffect(() => {
     trigger('deckSameAsAttributes')
+    // eslint-disable-next-line
   }, [fields])
 
   return (
