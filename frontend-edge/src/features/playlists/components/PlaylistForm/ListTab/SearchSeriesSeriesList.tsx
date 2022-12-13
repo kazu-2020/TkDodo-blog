@@ -1,6 +1,7 @@
 import { UseInfiniteQueryResult } from 'react-query'
 import { Box, VStack } from '@chakra-ui/react'
 
+import { isNewFetching } from '@/utils/queryResult'
 import { SeriesData } from '@/types/series_data'
 import { SeriesHeader } from '@/features/playlists/components/PlaylistForm/ListTab/SerieseHeader'
 import { SearchSeriesItems } from '@/features/playlists/components/PlaylistForm/ListTab/SearchSeriesItems'
@@ -15,15 +16,6 @@ type Props = {
   isOpenEpisodes: boolean
   query: UseInfiniteQueryResult<Response, Error>
 }
-
-type QueryFetching = {
-  isLoading: boolean
-  isFetching: boolean
-  isFetchingNextPage: boolean
-}
-
-const isNewFetching = (query: QueryFetching) =>
-  query.isLoading || (query.isFetching && !query.isFetchingNextPage)
 
 export const SearchSeriesSeriesList = ({
   query,
@@ -71,45 +63,4 @@ export const SearchSeriesSeriesList = ({
       </VStack>
     </Box>
   )
-}
-
-if (import.meta.vitest) {
-  const { describe, it, expect } = import.meta.vitest
-  describe('isNewFetching', () => {
-    it('ローディングしていないとき', () => {
-      const query = {
-        isLoading: false,
-        isFetching: false,
-        isFetchingNextPage: false
-      }
-      expect(isNewFetching(query)).toBeFalsy()
-    })
-
-    it('最初のページをローディングしているとき', () => {
-      const query = {
-        isLoading: true,
-        isFetching: true,
-        isFetchingNextPage: false
-      }
-      expect(isNewFetching(query)).toBeTruthy()
-    })
-
-    it('最初のページをローディングしているとき（キャッシュから）', () => {
-      const query = {
-        isLoading: false,
-        isFetching: true,
-        isFetchingNextPage: false
-      }
-      expect(isNewFetching(query)).toBeTruthy()
-    })
-
-    it('次のページをローディングしているとき', () => {
-      const query = {
-        isLoading: false,
-        isFetching: true,
-        isFetchingNextPage: true
-      }
-      expect(isNewFetching(query)).toBeFalsy()
-    })
-  })
 }
