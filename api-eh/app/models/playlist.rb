@@ -21,7 +21,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   enum publish_level: PUBLISH_LEVELS.each_with_object({}) { |s, h| h[s] = s.to_s }
 
-  after_commit UpdatePublishStateCallbacks.new, on: :update
+  after_commit UpdatePublishStateCallbacks.new, :link_article_images, on: :update
 
   has_many :playlist_items,
            -> { order(position: :asc) },
