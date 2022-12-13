@@ -3,8 +3,6 @@
 class ArticleImage < ApplicationRecord
   include ArticleImageUploader::Attachment(:image)
 
-  after_commit UpdatePublishStateCallbacks.new, on: :update
-
   belongs_to :playlist, optional: true
 
   before_save do
