@@ -11,6 +11,8 @@ import {
 } from '@chakra-ui/react'
 import { Icon } from '@chakra-ui/icons'
 
+import { playlistLogoUrl } from '@/utils/image'
+
 export const SearchResultRow = ({
   onClick,
   playlist,
@@ -50,10 +52,7 @@ export const SearchResultRow = ({
     <GridItem colSpan={9} h="8">
       <HStack>
         <Image
-          src={
-            playlist.logo?.medium?.url ??
-            '/public/dummy/default1/default1-logo.png'
-          }
+          src={playlistLogoUrl(playlist)}
           alt="EditorialHands"
           h="32px"
           boxShadow="md"

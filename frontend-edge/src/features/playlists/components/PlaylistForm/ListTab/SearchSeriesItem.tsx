@@ -10,29 +10,13 @@ import {
 } from '@chakra-ui/react'
 import { ChevronRightIcon } from '@chakra-ui/icons'
 
+import { expansionLogoUrl } from '@/utils/image'
 import { SeriesData } from '@/types/series_data'
 import { PlayableStatusBadge } from '@/components/PlayableStatusBadge'
 
 type Props = {
   onClick: () => void
   item: SeriesData
-}
-
-const logoUrl = (series: SeriesData) => {
-  if (series.logo?.medium?.url !== undefined) {
-    return series.logo?.medium?.url
-  }
-  if (
-    series.keyvisuals !== undefined &&
-    series.keyvisuals[0]?.small?.url !== undefined
-  ) {
-    return series.keyvisuals[0]?.small?.url
-  }
-  if (series.partOfSeries?.logo?.medium?.url !== undefined) {
-    return series.partOfSeries?.logo?.medium?.url
-  }
-
-  return 'https://placehold.jp/40x40.png'
 }
 
 const isViewable = (series: SeriesData): boolean => {
@@ -61,7 +45,7 @@ export const SearchSeriesItem = ({ item, onClick }: Props) => (
             w="32px"
             h="32px"
             borderRadius="4px"
-            src={logoUrl(item)}
+            src={expansionLogoUrl(item)}
             alt={item.name}
           />
         </Box>
@@ -85,55 +69,6 @@ if (import.meta.vitest) {
   const { seriesDataGenerator } = await import('@/test/data-generators')
 
   const { describe, it, expect } = import.meta.vitest
-  describe('logoUrl', () => {
-    it('logoが設定されている場合', () => {
-      const seriesData = seriesDataGenerator({
-        logo: { medium: { url: 'logo.jpg', width: 1, height: 1 } }
-      })
-      expect(logoUrl(seriesData)).toEqual('logo.jpg')
-    })
-
-    it('keyvisualsが設定されている場合', () => {
-      const seriesData = seriesDataGenerator({
-        keyvisuals: [
-          { small: { url: 'keylogo1.jpg', width: 1, height: 1 } },
-          { small: { url: 'keylogo2.jpg', width: 1, height: 1 } }
-        ]
-      })
-      expect(logoUrl(seriesData)).toEqual('keylogo1.jpg')
-    })
-
-    it('partOfSeries.logoが設定されている場合', () => {
-      const seriesData = seriesDataGenerator({
-        partOfSeries: {
-          name: 'test',
-          logo: { medium: { url: 'partlogo.jpg', width: 1, height: 1 } }
-        }
-      })
-      expect(logoUrl(seriesData)).toEqual('partlogo.jpg')
-    })
-
-    it('すべて設定されていない場合', () => {
-      const seriesData = seriesDataGenerator()
-      expect(logoUrl(seriesData)).toEqual('https://placehold.jp/40x40.png')
-    })
-
-    it('すべて設定されている場合', () => {
-      const seriesData = seriesDataGenerator({
-        logo: { medium: { url: 'logo.jpg', width: 1, height: 1 } },
-        keyvisuals: [
-          { small: { url: 'keylogo1.jpg', width: 1, height: 1 } },
-          { small: { url: 'keylogo2.jpg', width: 1, height: 1 } }
-        ],
-        partOfSeries: {
-          name: 'test',
-          logo: { medium: { url: 'partlogo.jpg', width: 1, height: 1 } }
-        }
-      })
-      expect(logoUrl(seriesData)).toEqual('logo.jpg')
-    })
-  })
-
   describe('isViewable', () => {
     it('availableEpisodesが未定義の場合', () => {
       const seriesData = seriesDataGenerator({ availableEpisodes: undefined })
