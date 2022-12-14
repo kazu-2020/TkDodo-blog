@@ -65,6 +65,7 @@ export const SearchForm = () => {
         searchPlaylistQuery.refetch()
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter])
 
   const onAction = (query: string) => {

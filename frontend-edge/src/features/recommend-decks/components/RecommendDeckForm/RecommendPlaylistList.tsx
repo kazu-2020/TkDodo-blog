@@ -63,6 +63,7 @@ export const RecommendPlaylistList = () => {
 
   useEffect(() => {
     refetch()
+    // eslint-disable-next-line
   }, [filter])
 
   const onAction = (q: string) => {
