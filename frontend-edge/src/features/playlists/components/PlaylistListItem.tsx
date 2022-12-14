@@ -9,12 +9,10 @@ import {
   Text
 } from '@chakra-ui/react'
 
+import { playlistLogoUrl } from '@/utils/image'
 import { formatDatetime } from '@/utils/format'
 import { Playlist } from '@/types/playlist'
 import ApiStateBadge from '@/components/ApiStateBadge'
-
-const logoImage = (playlist: Playlist) =>
-  playlist.logo?.medium?.url ?? '/public/dummy/default1/default1-logo.png'
 
 export const PlaylistListItem = ({
   playlist,
@@ -42,7 +40,7 @@ export const PlaylistListItem = ({
       <Center h="100%" justifyContent="flex-start">
         <HStack textAlign="left">
           <Image
-            src={logoImage(playlist)}
+            src={playlistLogoUrl(playlist)}
             alt="EditorialHands"
             h="32px"
             boxShadow="xl"
@@ -72,27 +70,3 @@ export const PlaylistListItem = ({
     </GridItem>
   </Grid>
 )
-
-if (import.meta.vitest) {
-  const { playlistGenerator } = await import('@/test/data-generators')
-
-  const { describe, it, expect } = import.meta.vitest
-
-  describe('logoImage', () => {
-    it('ロゴ画像が定義されてる場合', () => {
-      const playlist = playlistGenerator({
-        logo: { medium: { url: 'dummy.jpg', width: 1, height: 1 } }
-      })
-      expect(logoImage(playlist)).toEqual('dummy.jpg')
-    })
-
-    it('ロゴ画像が定義されていない場合', () => {
-      const playlist = playlistGenerator({
-        logo: { medium: { url: undefined, width: 1, height: 1 } }
-      })
-      expect(logoImage(playlist)).toEqual(
-        '/public/dummy/default1/default1-logo.png'
-      )
-    })
-  })
-}

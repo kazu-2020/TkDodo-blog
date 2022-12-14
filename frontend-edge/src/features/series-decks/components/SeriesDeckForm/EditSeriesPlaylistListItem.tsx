@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { Icon } from '@chakra-ui/icons'
 
+import { playlistLogoUrl } from '@/utils/image'
 import { SeriesPlaylist } from '@/types/series_playlist'
 import { SeriesDeckFormInputs } from '@/features/series-decks/types'
 
@@ -69,10 +70,7 @@ export const EditSeriesPlaylistListItem = ({
       <GridItem colSpan={5} h="8">
         <HStack>
           <Image
-            src={
-              playlist.logo?.medium?.url ??
-              '/public/dummy/default1/default1-logo.png' // FIXME: series画像にフォールバック
-            }
+            src={playlistLogoUrl(playlist)} // FIXME: series画像にフォールバック
             alt={playlist.name}
             h="32px"
             boxShadow="md"
