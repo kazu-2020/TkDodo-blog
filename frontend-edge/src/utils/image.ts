@@ -30,7 +30,7 @@ export const episodeThumbnailUrl = (
 
 export const playlistLogoUrl = (
   playlist: Playlist | SeriesPlaylist,
-  defaultImageUrl = '/public/dummy/default1/default1-logo.png'
+  defaultImageUrl = '/dummy/default1/default1-logo.png'
 ) => playlist.logo?.medium?.url ?? defaultImageUrl
 
 export const expansionLogoUrl = (item: Playlist | SeriesData) => {
@@ -111,7 +111,7 @@ if (import.meta.vitest) {
         logo: { medium: { url: 'dummy.jpg', width: 1, height: 1 } }
       })
       expect(
-        playlistLogoUrl(playlist, '/public/dummy/default1/default1-logo.png')
+        playlistLogoUrl(playlist, '/dummy/default1/default1-logo.png')
       ).toEqual('dummy.jpg')
     })
 
@@ -120,8 +120,8 @@ if (import.meta.vitest) {
         logo: { medium: { url: undefined, width: 1, height: 1 } }
       })
       expect(
-        playlistLogoUrl(playlist, '/public/dummy/default1/default1-logo.png')
-      ).toEqual('/public/dummy/default1/default1-logo.png')
+        playlistLogoUrl(playlist, '/dummy/default1/default1-logo.png')
+      ).toEqual('/dummy/default1/default1-logo.png')
     })
 
     it('ロゴ画像が定義されていない場合にデフォルトを指定したとき', () => {
@@ -129,8 +129,8 @@ if (import.meta.vitest) {
         logo: { medium: { url: undefined, width: 1, height: 1 } }
       })
       expect(
-        playlistLogoUrl(playlist, '/public/dummy/default1/default2-logo.png')
-      ).toEqual('/public/dummy/default1/default2-logo.png')
+        playlistLogoUrl(playlist, '/dummy/default1/default2-logo.png')
+      ).toEqual('/dummy/default1/default2-logo.png')
     })
   })
 
