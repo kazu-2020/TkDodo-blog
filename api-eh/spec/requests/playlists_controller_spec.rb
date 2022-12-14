@@ -496,18 +496,9 @@ describe PlaylistsController, type: :request do
       expect(response.status).to eq 200
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1
-    end
-
-    it 'public_storeにアップロードされないこと' do
-      post "/playlists/#{playlist.string_uid}/upload_article_image_by_url", params: params
-
-      expect(exists_public_store?(ArticleImage.last.image_attacher)).to be_falsey
-    end
-
-    it 'private_storeにアップロードされること' do
-      post "/playlists/#{playlist.string_uid}/upload_article_image_by_url", params: params
-
+      # private_storeのみアップロードされる
       expect(exists_private_store?(ArticleImage.last.image_attacher)).to be_truthy
+      expect(exists_public_store?(ArticleImage.last.image_attacher)).to be_falsey
     end
   end
 
@@ -525,18 +516,9 @@ describe PlaylistsController, type: :request do
       expect(response.status).to eq 200
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1
-    end
-
-    it 'public_storeにアップロードされないこと' do
-      post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
-
-      expect(exists_public_store?(ArticleImage.last.image_attacher)).to be_falsey
-    end
-
-    it 'private_storeにアップロードされること' do
-      post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
-
+      # private_storeのみアップロードされる
       expect(exists_private_store?(ArticleImage.last.image_attacher)).to be_truthy
+      expect(exists_public_store?(ArticleImage.last.image_attacher)).to be_falsey
     end
   end
 
