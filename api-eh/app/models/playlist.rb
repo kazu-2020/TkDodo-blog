@@ -234,6 +234,7 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
     [logo_image_attacher, eyecatch_image_attacher, hero_image_attacher].each do |attacher|
       MirroringImage.send(method, attacher: attacher, background: background)
     end
+    refresh_children_image_storage
     logger.debug "Call Playlist(#{string_id}) refresh_image_storage"
   end
 
@@ -340,5 +341,9 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def saved_change_to_hashtags?
     @saved_change_to_hashtags ||= false
+  end
+
+  def refresh_children_image_storage
+    article_images&.each { |ai| ai.refresh_image_storage(background: false) }
   end
 end
