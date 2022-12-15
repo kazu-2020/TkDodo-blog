@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { ExtractFnReturnType } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
 type BundleItems = {
@@ -10,8 +9,6 @@ type BundleItems = {
   recipeCount: number
   tvepisodeCount: number
 }
-
-type QueryFnType = typeof getBundleItems
 
 export const getBundleItems = async (
   playlistUid: string | undefined
@@ -24,11 +21,6 @@ export const getBundleItems = async (
 }
 
 export const useBundleItems = (playlistUid: string | undefined) =>
-  useQuery<ExtractFnReturnType<QueryFnType>>(
-    ['bundle-items', playlistUid],
-    () => getBundleItems(playlistUid),
-    {
-      enabled: Boolean(playlistUid),
-      useErrorBoundary: false
-    }
-  )
+  useQuery(['bundle-items', playlistUid], () => getBundleItems(playlistUid), {
+    useErrorBoundary: false
+  })
