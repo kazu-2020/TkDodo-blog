@@ -306,10 +306,26 @@ describe PlaylistsController, type: :request do
     end
 
     describe 'API公開ステータスが更新された場合' do
+      let(:image_data_encoded_to_base64) do
+        "data:image/png;base64,#{Base64.strict_encode64(File.read(Rails.root.join('spec', 'fixtures', 'images',
+                                                                                  'min_test.png').to_s))}"
+      end
+      let(:logo_image) { image_data_encoded_to_base64 }
+      let(:eyecatch_image) { image_data_encoded_to_base64 }
+      let(:hero_image) { image_data_encoded_to_base64 }
+      let(:article_image) { create(:article_image, :with_image, playlist_id: playlist.id) }
+      let(:editor_data) do
+        { time: 1_645_163_766_121,
+          blocks: [{ type: 'image', data: { file: { url: article_image.image_id } } }],
+          version: '2.19.1' }.to_json
+      end
+
       context 'open → close' do
         let(:playlist) { create(:playlist, api_state: 'open') }
-        let(:article_image) { create(:article_image, :with_image, playlist_id: playlist.id) }
-        let(:params) { { playlist: { api_state: 'close' } } }
+        let(:params) do
+          { playlist: { name: 'cool name', editor_data: editor_data, api_state: 'close',
+                        logo_image: logo_image, eyecatch_image: eyecatch_image, hero_image: hero_image } }
+        end
 
         it 'public_storeから画像が削除されること' do
           patch playlist_path(playlist), params: params
@@ -323,8 +339,9 @@ describe PlaylistsController, type: :request do
 
       context 'close →　open' do
         let(:playlist) { create(:playlist, api_state: 'close') }
-        let(:article_image) { create(:article_image, :with_image, playlist_id: playlist.id) }
-        let(:params) { { playlist: { api_state: 'open' } } }
+        let(:params) do
+          { playlist: { name: 'cool name', editor_data: editor_data, api_state: 'open' } }
+        end
 
         it 'public_storeに画像がアップロードされること' do
           patch playlist_path(playlist), params: params
@@ -479,18 +496,9 @@ describe PlaylistsController, type: :request do
       expect(response.status).to eq 200
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1
-    end
-
-    it 'public_storeにアップロードされないこと' do
-      post "/playlists/#{playlist.string_uid}/upload_article_image_by_url", params: params
-
-      expect(exists_public_store?(ArticleImage.last.image_attacher)).to be_falsey
-    end
-
-    it 'private_storeにアップロードされること' do
-      post "/playlists/#{playlist.string_uid}/upload_article_image_by_url", params: params
-
+      # private_storeのみアップロードされる
       expect(exists_private_store?(ArticleImage.last.image_attacher)).to be_truthy
+      expect(exists_public_store?(ArticleImage.last.image_attacher)).to be_falsey
     end
   end
 
@@ -508,22 +516,9 @@ describe PlaylistsController, type: :request do
       expect(response.status).to eq 200
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1
-    end
-
-    it 'public_storeにアップロードされないこと' do
-      dir_path = Rails.root.join('public', 'uploads', 'test', 'public', 'playlist', 'article_images')
-
-      expect do
-        post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
-      end.not_to change { Dir.glob("#{dir_path}/*").count }
-    end
-
-    it 'private_storeにアップロードされること' do
-      dir_path = Rails.root.join('public', 'uploads', 'test', 'private', 'playlist', 'article_images')
-
-      expect do
-        post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
-      end.to change { Dir.glob("#{dir_path}/*").count }.by(1)
+      # private_storeのみアップロードされる
+      expect(exists_private_store?(ArticleImage.last.image_attacher)).to be_truthy
+      expect(exists_public_store?(ArticleImage.last.image_attacher)).to be_falsey
     end
   end
 

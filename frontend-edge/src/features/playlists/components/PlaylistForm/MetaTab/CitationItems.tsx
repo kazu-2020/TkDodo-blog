@@ -37,6 +37,7 @@ export const CitationItems = ({
 
   useEffect(() => {
     trigger('citationsAttributes')
+    // eslint-disable-next-line
   }, [fields])
 
   return (

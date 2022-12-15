@@ -70,6 +70,7 @@ export const SearchSeriesPlaylist = () => {
 
   useEffect(() => {
     refetch()
+    // eslint-disable-next-line
   }, [filter])
 
   return (
