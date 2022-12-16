@@ -70,7 +70,7 @@ develop2:
 ### CodePipeline をデプロイする
 
 ```
-$ PIPE_ENV=develop2 PIPELINE_TARGET_BRANCH=develop2 aws-vault exec tomigaya-dev -- bundle exec pipe deploy
+$ PIPE_ENV=develop2 PIPELINE_TARGET_BRANCH=develop2 aws-vault exec nhk-tomigaya-dev -- bundle exec pipe deploy
 ```
 
 これで新しい環境用の CodePipeline が用意完了となります。
@@ -87,17 +87,17 @@ MFA を用いて AWS CLI を実行する場合には、以下のような設定�
 region=ap-northeast-1
 output=json
 
-[profile tomigaya-dev]
+[profile nhk-tomigaya-dev]
 role_arn=arn:aws:iam::359601428599:role/tomigaya-dev-sikmi-role
 mfa_serial=arn:aws:iam::363730604491:mfa/ryusuke_sekiguchi
 source_profile=sikmi-nhk
 
-[profile tomigaya-stg]
+[profile nhk-tomigaya-stg]
 role_arn=arn:aws:iam::312328096018:role/tomigaya-stg-sikmi-role
 mfa_serial=arn:aws:iam::363730604491:mfa/ryusuke_sekiguchi
 source_profile=sikmi-nhk
 
-[profile tomigaya-prd]
+[profile nhk-tomigaya-prd]
 role_arn=arn:aws:iam::312328096018:role/tomigaya-prd-sikmi-role
 mfa_serial=arn:aws:iam::363730604491:mfa/ryusuke_sekiguchi
 source_profile=sikmi-nhk
