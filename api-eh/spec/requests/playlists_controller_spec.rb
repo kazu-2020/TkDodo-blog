@@ -487,15 +487,15 @@ describe PlaylistsController, type: :request do
   end
 
   describe 'POST #upload_article_image_by_url' do
-    let(:playlist) { create(:playlist) }
     let(:params) { { url: 'https://placehold.jp/150x150.png' } }
 
     it 'リクエストが成功する' do
-      post "/playlists/#{playlist.string_uid}/upload_article_image_by_url", params: params
+      post '/playlists/undefined/upload_article_image_by_url', params: params
 
       expect(response.status).to eq 200
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1
+
       # private_storeのみアップロードされる
       expect(exists_private_store?(ArticleImage.last.image_attacher)).to be_truthy
       expect(exists_public_store?(ArticleImage.last.image_attacher)).to be_falsey
@@ -503,7 +503,6 @@ describe PlaylistsController, type: :request do
   end
 
   describe 'POST #upload_article_image_by_file' do
-    let(:playlist) { create(:playlist) }
     let(:image) do
       fixture_file_upload(Rails.root.join('spec/fixtures/images/square.png'), 'image/png')
     end
@@ -511,7 +510,7 @@ describe PlaylistsController, type: :request do
     before { allow_any_instance_of(described_class).to receive(:image_param).and_return(image) }
 
     it 'リクエストが成功する' do
-      post "/playlists/#{playlist.string_uid}/upload_article_image_by_file"
+      post '/playlists/undefined/upload_article_image_by_file'
 
       expect(response.status).to eq 200
       expect(ArticleImage.count).to eq(1)
