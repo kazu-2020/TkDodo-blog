@@ -93,7 +93,7 @@ GEM
       rainbow
       thor
       zeitwerk
-    aws-partitions (1.676.0)
+    aws-partitions (1.678.0)
     aws-sdk-cloudformation (1.69.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
@@ -118,8 +118,8 @@ GEM
       aws-sdk-core (~> 3, >= 3.165.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.4)
-    aws-sdk-sns (1.53.0)
-      aws-sdk-core (~> 3, >= 3.127.0)
+    aws-sdk-sns (1.57.0)
+      aws-sdk-core (~> 3, >= 3.165.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-ssm (1.137.0)
       aws-sdk-core (~> 3, >= 3.127.0)
