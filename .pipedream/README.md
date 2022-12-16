@@ -110,7 +110,7 @@ GitHubと接続するためのアクセストークンを、AWSのSSMパラメ�
 ※トークンを変更した後はpipedreamのデプロイが必要です。
 
 ### トークンの取得方法
-https://github.com/settings/tokens から `admin:repo_hook` スコープが有効なトークンを取得してください。
+https://github.com/settings/tokens から `admin:repo_hook` ,`repo`スコープが有効なトークンを取得してください。
 
 ### パラメータストアのリンク
 - [dev](https://ap-northeast-1.console.aws.amazon.com/systems-manager/parameters/editorialhands/codepipeline/github/token/description?region=ap-northeast-1&tab=Table#list_parameter_filters=Name:Contains:codepipe)
