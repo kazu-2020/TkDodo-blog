@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe EmbedController, type: :request do
+describe EmbedController do
   describe 'Series' do
     let(:series_id) { 'R71NJ4MV53' }
 
@@ -12,7 +12,7 @@ describe EmbedController, type: :request do
       it 'returns success response' do
         VCR.use_cassette('dlab_api_series') do
           get "/embed/ts/#{series_id}", params: { layout_pattern: layout_pattern }
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
       end
     end
@@ -23,7 +23,7 @@ describe EmbedController, type: :request do
       it 'returns success response' do
         VCR.use_cassette('dlab_api_episode_from_series') do
           get "/embed/ts/#{series_id}", params: { layout_pattern: layout_pattern }
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
       end
     end
@@ -34,7 +34,7 @@ describe EmbedController, type: :request do
       it 'returns success response' do
         VCR.use_cassette('embed_spec_ts_item_list') do
           get "/embed/ts/#{series_id}", params: { layout_pattern: layout_pattern }
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
       end
     end
@@ -45,7 +45,7 @@ describe EmbedController, type: :request do
       it 'returns success response' do
         VCR.use_cassette('dlab_api_episode_from_series') do
           get "/embed/ts/#{series_id}", params: { layout_pattern: layout_pattern }
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
       end
     end
@@ -66,7 +66,7 @@ describe EmbedController, type: :request do
 
       it 'returns success response' do
         get "/embed/pl/recommend-tep-#{playlist_id}", params: { layout_pattern: layout_pattern }
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
       end
     end
 
@@ -80,7 +80,7 @@ describe EmbedController, type: :request do
       it 'returns success response' do
         VCR.use_cassette('embed_spec_pl_featured_item') do
           get "/embed/pl/recommend-tep-#{playlist_id}", params: { layout_pattern: layout_pattern }
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
       end
     end
@@ -95,7 +95,7 @@ describe EmbedController, type: :request do
       it 'returns success response' do
         VCR.use_cassette('embed_spec_pl_featured_item') do
           get "/embed/pl/recommend-tep-#{playlist_id}", params: { layout_pattern: layout_pattern }
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
       end
     end
@@ -110,7 +110,7 @@ describe EmbedController, type: :request do
       it 'returns success response' do
         VCR.use_cassette('embed_spec_pl_featured_item') do
           get "/embed/pl/recommend-tep-#{playlist_id}", params: { layout_pattern: layout_pattern }
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
       end
     end
@@ -125,7 +125,7 @@ describe EmbedController, type: :request do
       it 'returns success response' do
         VCR.use_cassette('dlab_api_series') do
           get "/embed/pl/ts-#{series_id}", params: { layout_pattern: layout_pattern }
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
       end
     end
@@ -136,7 +136,7 @@ describe EmbedController, type: :request do
       it 'returns success response' do
         VCR.use_cassette('dlab_api_episode_from_series') do
           get "/embed/pl/ts-#{series_id}", params: { layout_pattern: layout_pattern }
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
       end
     end
@@ -147,7 +147,7 @@ describe EmbedController, type: :request do
       it 'returns success response' do
         VCR.use_cassette('embed_spec_d65_item_list') do
           get "/embed/pl/ts-#{series_id}", params: { layout_pattern: layout_pattern }
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
       end
     end
@@ -159,7 +159,7 @@ describe EmbedController, type: :request do
       episode_id = 'B7ZJX92J2N'
       VCR.use_cassette('embed_spec_episode') do
         get "/embed/ts/#{series_id}/episode/te/#{episode_id}"
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
       end
     end
   end
@@ -170,7 +170,7 @@ describe EmbedController, type: :request do
       howto_id = '49'
       VCR.use_cassette('embed_spec_howto') do
         get "/embed/te/#{episode_id}/howto/#{howto_id}"
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
       end
     end
   end
@@ -181,7 +181,7 @@ describe EmbedController, type: :request do
       event_id = '94'
       VCR.use_cassette('embed_spec_event') do
         get "/embed/te/#{episode_id}/event/#{event_id}"
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
       end
     end
   end
@@ -192,7 +192,7 @@ describe EmbedController, type: :request do
       faqpage_id = '54'
       VCR.use_cassette('embed_spec_faqpage') do
         get "/embed/te/#{episode_id}/faqpage/#{faqpage_id}"
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
       end
     end
   end

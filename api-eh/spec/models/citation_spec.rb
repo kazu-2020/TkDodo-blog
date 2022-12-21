@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Citation, type: :model do
+describe Citation do
   context 'validations' do
     describe '#url' do
       let(:playlist) { build(:playlist) }

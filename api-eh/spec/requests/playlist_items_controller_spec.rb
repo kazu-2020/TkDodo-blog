@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe PlaylistItemsController, type: :request do
+describe PlaylistItemsController do
   before do
     l_bundle_json = File.open(Rails.root.join('spec/fixtures/payloads/l_bundle_te_PG3Z16Q145.json')) do |file|
       json_string = file.read
@@ -37,7 +37,7 @@ describe PlaylistItemsController, type: :request do
     it 'returns success response' do
       get "/playlists/#{playlist.string_uid}/playlist_items"
 
-      expect(response.status).to eq 200
+      expect(response).to have_http_status :ok
     end
   end
 
@@ -50,7 +50,7 @@ describe PlaylistItemsController, type: :request do
     it 'returns success response' do
       post "/playlists/#{playlist.string_uid}/playlist_items/bulk_update", params: params
 
-      expect(response.status).to eq 200
+      expect(response).to have_http_status :ok
       expect(playlist.playlist_items.count).to eq 1
     end
   end

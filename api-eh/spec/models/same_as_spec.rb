@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe SameAs, type: :model do
+describe SameAs do
   context 'validations' do
     describe '#url' do
       let(:playlist) { build(:playlist) }

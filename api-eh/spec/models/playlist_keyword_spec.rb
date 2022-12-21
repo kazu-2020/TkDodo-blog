@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe PlaylistKeyword, type: :model do
+describe PlaylistKeyword do
   context 'validations' do
     describe '#name' do
       before do
