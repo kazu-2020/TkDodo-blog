@@ -31,7 +31,7 @@ gem 'image_processing'
 gem 'jwt'
 gem 'kaminari'
 gem 'multi_json'
-gem 'redis'
+gem 'redis', '~> 4.0' # NOTE: sidekiqを7に上げるまで固定
 gem 'request_store'
 gem 'shrine'
 gem 'sidekiq'
