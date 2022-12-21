@@ -9,7 +9,7 @@ describe 'MirroringImage' do
     allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
   end
 
-  let(:playlist) { create :playlist }
+  let(:playlist) { create(:playlist) }
 
   it '自動的にpublic_storeにアップロードされていないこと' do
     attacher = ImageUploader::Attacher.from_model(playlist.reload, :logo_image)

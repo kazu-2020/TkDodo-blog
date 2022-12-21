@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Playlist, type: :model do
+describe Playlist do
   include StoredImageHelpers
 
   before do

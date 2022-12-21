@@ -19,6 +19,9 @@ AllCops:
 Naming/AccessorMethodName:
   Enabled: false # set_ get_ メソッド名を許可
 
+RSpec/NoExpectationExample:
+  Enabled: false # it に expect がなくても許可
+
 Style/AccessorGrouping:
   Enabled: true
 

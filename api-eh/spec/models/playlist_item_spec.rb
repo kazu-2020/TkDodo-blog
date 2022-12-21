@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe PlaylistItem, type: :model do
+describe PlaylistItem do
   context 'validations' do
     let(:playlist_item) { build(:playlist_item) }
 

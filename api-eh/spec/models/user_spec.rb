@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User do
   describe '#from_token_payload' do
     let(:email) { 'hoge@example.com' }
     let(:payload) { { 'sub' => email, 'uid' => SecureRandom.uuid } }

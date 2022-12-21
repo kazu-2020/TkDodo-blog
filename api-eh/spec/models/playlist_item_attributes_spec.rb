@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe PlaylistItemAttributes, type: :model do
+describe PlaylistItemAttributes do
   before do
     json =
       File.open(Rails.root.join('spec/fixtures/payloads/r6.0_ll_bundle_pl_recommend-tep-0000000052.json')) do |file|

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe PlaylistHashtag, type: :model do
+describe PlaylistHashtag do
   context 'validations' do
     describe '#name' do
       before do
