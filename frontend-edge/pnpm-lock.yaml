@@ -2,6 +2,8 @@ lockfileVersion: 5.4
 
 specifiers:
   '@babel/core': ^7.18.13
+  '@casl/ability': ^6.3.3
+  '@casl/react': ^3.1.0
   '@chakra-ui/icons': ^2.0.11
   '@chakra-ui/react': ^2.2.9
   '@codexteam/ajax': ^4.2.0
@@ -96,6 +98,8 @@ specifiers:
   zustand: ^4.0.0
 
 dependencies:
+  '@casl/ability': 6.3.3
+  '@casl/react': 3.1.0_njj54owfq3na6bd4rvqbzsj5l4
   '@chakra-ui/icons': 2.0.11_react@18.2.0
   '@chakra-ui/react': 2.3.7_yvncdo3d5qtdscri4tmlw7gc24
   '@codexteam/ajax': 4.2.0
@@ -2865,6 +2869,22 @@ packages:
   /@bcoe/v8-coverage/0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
+  /@casl/ability/6.3.3:
+    resolution: {integrity: sha512-UzbqsE9etu6QzZrRmqIyVun2kztAzJ46Tz7lC/2P2buCE6B6Ll7Vptz7JTQtGwapLbeKo2jS7dL966TVOQ7x4g==}
+    dependencies:
+      '@ucast/mongo2js': 1.3.3
+    dev: false
+
+  /@casl/react/3.1.0_njj54owfq3na6bd4rvqbzsj5l4:
+    resolution: {integrity: sha512-p4Xmex1Slxz/G0cBtZik+xyOkeOynBUe0UrMFTai6aYkYOb4NyUy3w+9rtnedjcuKijiow2HKJQjnSurLxdc/g==}
+    peerDependencies:
+      '@casl/ability': ^3.0.0 || ^4.0.0 || ^5.1.0 || ^6.0.0
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@casl/ability': 6.3.3
+      react: 18.2.0
+    dev: false
+
   /@chakra-ui/accordion/2.1.2_utqtcplynwy3xe3nr5s5ofdvam:
     resolution: {integrity: sha512-Jf7A6I0eIGk34zO5TiTW8orJOFQb5A/D1ekNYbaukNccoUPKJg/xdQ/b00oIR6LT93nJxggkoP/vszfmmTHuFg==}
     peerDependencies:
@@ -4928,7 +4948,7 @@ packages:
       strict-event-emitter: 0.2.8
       uuid: 8.3.2
     optionalDependencies:
-      msw: 0.49.1_typescript@4.7.4
+      msw: 0.49.2_typescript@4.7.4
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -7381,6 +7401,30 @@ packages:
       '@typescript-eslint/types': 5.30.0
       eslint-visitor-keys: 3.3.0
     dev: true
+
+  /@ucast/core/1.10.1:
+    resolution: {integrity: sha512-sXKbvQiagjFh2JCpaHUa64P4UdJbOxYeC5xiZFn8y6iYdb0WkismduE+RmiJrIjw/eLDYmIEXiQeIYYowmkcAw==}
+    dev: false
+
+  /@ucast/js/3.0.2:
+    resolution: {integrity: sha512-zxNkdIPVvqJjHI7D/iK8Aai1+59yqU+N7bpHFodVmiTN7ukeNiGGpNmmSjQgsUw7eNcEBnPrZHNzp5UBxwmaPw==}
+    dependencies:
+      '@ucast/core': 1.10.1
+    dev: false
+
+  /@ucast/mongo/2.4.2:
+    resolution: {integrity: sha512-/zH1TdBJlYGKKD+Wh0oyD+aBvDSWrwHcD8b4tUL9UgHLhzHtkEnMVFuxbw3SRIRsAa01wmy06+LWt+WoZdj1Bw==}
+    dependencies:
+      '@ucast/core': 1.10.1
+    dev: false
+
+  /@ucast/mongo2js/1.3.3:
+    resolution: {integrity: sha512-sBPtMUYg+hRnYeVYKL+ATm8FaRPdlU9PijMhGYKgsPGjV9J4Ks41ytIjGayvKUnBOEhiCaKUUnY4qPeifdqATw==}
+    dependencies:
+      '@ucast/core': 1.10.1
+      '@ucast/js': 3.0.2
+      '@ucast/mongo': 2.4.2
+    dev: false
 
   /@videojs/http-streaming/2.14.3_video.js@7.20.3:
     resolution: {integrity: sha512-2tFwxCaNbcEZzQugWf8EERwNMyNtspfHnvxRGRABQs09W/5SqmkWFuGWfUAm4wQKlXGfdPyAJ1338ASl459xAA==}
@@ -14865,8 +14909,8 @@ packages:
       - react-dom
     dev: true
 
-  /msw/0.49.1_typescript@4.7.4:
-    resolution: {integrity: sha512-JpIIq4P65ofj0HVmDMkJuRwgP9s5kcdutpZ15evMTb2k91/USB7IKWRLV9J1Mzc3OqTdwNj4RwtOWJ5y/FulQQ==}
+  /msw/0.49.2_typescript@4.7.4:
+    resolution: {integrity: sha512-70/E10f+POE2UmMw16v8PnKatpZplpkUwVRLBqiIdimpgaC3le7y2yOq9JmOrL15jpwWM5wAcPTOj0f550LI3g==}
     engines: {node: '>=14'}
     hasBin: true
     requiresBuild: true
