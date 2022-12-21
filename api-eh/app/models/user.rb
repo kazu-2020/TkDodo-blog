@@ -4,6 +4,8 @@ class User < ApplicationRecord
   include ScimUserResourcable
   include Scimitar::Resources::Mixin
 
+  rolify
+
   # @param [Object] payload decodeしたjwtのpayload
   # @return [User]
   def self.from_token_payload(payload)
