@@ -1,5 +1,5 @@
 import snakecaseKeys from 'snakecase-keys'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useToast } from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'

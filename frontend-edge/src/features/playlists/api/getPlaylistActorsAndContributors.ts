@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 import { ActorAndContributor } from '@/types/actor_and_contributor'
 import axios from '@/lib/axios'

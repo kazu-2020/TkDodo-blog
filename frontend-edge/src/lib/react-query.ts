@@ -1,10 +1,10 @@
+import { AxiosError } from 'axios'
 import {
   QueryClient,
   UseQueryOptions,
   UseMutationOptions,
   DefaultOptions
-} from 'react-query'
-import { AxiosError } from 'axios'
+} from '@tanstack/react-query'
 
 const queryConfig: DefaultOptions = {
   queries: {

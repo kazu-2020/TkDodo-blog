@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from 'react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
 import { RecommendPlaylist } from '@/types/recommend_playlist'
 import axios from '@/lib/axios'

@@ -1,8 +1,8 @@
 import { BrowserRouter } from 'react-router-dom'
-import { ReactQueryDevtools } from 'react-query/devtools'
-import { QueryClientProvider } from 'react-query'
 import { ErrorBoundary } from 'react-error-boundary'
 import * as React from 'react'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { CircularProgress } from '@chakra-ui/react'
 
 import { ErrorFallback } from '@/providers/ErrorFallback'

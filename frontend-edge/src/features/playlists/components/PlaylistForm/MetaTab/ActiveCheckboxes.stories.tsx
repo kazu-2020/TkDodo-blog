@@ -1,6 +1,6 @@
-import { QueryClientProvider } from 'react-query'
 import { FormProvider, useForm } from 'react-hook-form'
 import React from 'react'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 
 import { Playlist } from '@/types/playlist'

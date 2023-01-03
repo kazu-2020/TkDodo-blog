@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useToast } from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'
@@ -24,13 +24,14 @@ export const useDeleteSeriesDeck = ({
 
   return useMutation({
     onMutate: async (deletedSeriesDeck) => {
-      await queryClient.cancelQueries('series-decks')
+      await queryClient.cancelQueries(['series-decks'])
 
-      const previousSeriesDecks =
-        queryClient.getQueryData<SeriesDeck[]>('series-decks')
+      const previousSeriesDecks = queryClient.getQueryData<SeriesDeck[]>([
+        'series-decks'
+      ])
 
       queryClient.setQueryData(
-        'series-decks',
+        ['series-decks'],
         previousSeriesDecks?.filter(
           (seriesDeck) => seriesDeck.id !== deletedSeriesDeck.seriesDeckId
         )
@@ -40,7 +41,7 @@ export const useDeleteSeriesDeck = ({
     },
     onError: (_, __, context: any) => {
       if (context?.previousSeriesDecks) {
-        queryClient.setQueryData('series-decks', context.previousSeriesDecks)
+        queryClient.setQueryData(['series-decks'], context.previousSeriesDecks)
       }
       toast({
         title: '削除に失敗しました。',
@@ -50,7 +51,7 @@ export const useDeleteSeriesDeck = ({
       })
     },
     onSuccess: () => {
-      queryClient.invalidateQueries('series-decks')
+      queryClient.invalidateQueries(['series-decks'])
       toast({
         title: '削除しました。',
         status: 'success',

@@ -1,6 +1,6 @@
 import snakecaseKeys from 'snakecase-keys'
 import { useNavigate } from 'react-router-dom'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useToast } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
@@ -34,21 +34,22 @@ export const useCreatePlaylist = ({
 
   return useMutation({
     onMutate: async (newPlaylist) => {
-      await queryClient.cancelQueries('playlists')
+      await queryClient.cancelQueries(['playlists'])
 
-      const previousPlaylists =
-        queryClient.getQueryData<Playlist[]>('playlists')
-
-      queryClient.setQueryData('playlists', [
-        ...(previousPlaylists || []),
-        newPlaylist.data
+      const previousPlaylists = queryClient.getQueryData<Playlist[]>([
+        'playlists'
       ])
+
+      queryClient.setQueryData(
+        ['playlists'],
+        [...(previousPlaylists || []), newPlaylist.data]
+      )
 
       return { previousPlaylists }
     },
     onError: (_, __, context: any) => {
       if (context?.previousPlaylists) {
-        queryClient.setQueryData('playlists', context.previousPlaylists)
+        queryClient.setQueryData(['playlists'], context.previousPlaylists)
       }
       toast({
         title: '新規作成に失敗しました。',
@@ -58,7 +59,7 @@ export const useCreatePlaylist = ({
       })
     },
     onSuccess: () => {
-      queryClient.invalidateQueries('playlists')
+      queryClient.invalidateQueries(['playlists'])
       navigate(`/playlists`)
       toast({
         title: '作成しました。',
