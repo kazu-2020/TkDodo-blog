@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SeriesPlaylist, type: :model do
+describe SeriesPlaylist do
   let(:series_playlist) { create(:series_playlist, string_id: 'ts-R7Y6NGLJ6G', series_id: 'R7Y6NGLJ6G') }
 
   describe '#name' do

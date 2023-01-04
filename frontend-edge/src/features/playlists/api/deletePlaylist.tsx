@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useToast } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
@@ -24,12 +24,14 @@ export const useDeletePlaylist = ({
 
   return useMutation({
     onMutate: async (deletedPlaylist) => {
-      await queryClient.cancelQueries('playlist')
+      await queryClient.cancelQueries(['playlist'])
 
-      const previousPlaylists = queryClient.getQueryData<Playlist[]>('playlist')
+      const previousPlaylists = queryClient.getQueryData<Playlist[]>([
+        'playlist'
+      ])
 
       queryClient.setQueryData(
-        'playlist',
+        ['playlist'],
         previousPlaylists?.filter(
           (playlist) => playlist.playlistUid !== deletedPlaylist.playlistId
         )
@@ -39,7 +41,7 @@ export const useDeletePlaylist = ({
     },
     onError: (_, __, context: any) => {
       if (context?.previousPlaylists) {
-        queryClient.setQueryData('playlist', context.previousPlaylists)
+        queryClient.setQueryData(['playlist'], context.previousPlaylists)
       }
       toast({
         title: '削除に失敗しました。',
@@ -49,7 +51,7 @@ export const useDeletePlaylist = ({
       })
     },
     onSuccess: () => {
-      queryClient.invalidateQueries('playlist')
+      queryClient.invalidateQueries(['playlist'])
       toast({
         title: '削除しました。',
         status: 'success',

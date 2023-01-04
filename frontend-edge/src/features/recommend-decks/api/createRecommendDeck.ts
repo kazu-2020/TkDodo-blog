@@ -1,6 +1,6 @@
 import snakecaseKeys from 'snakecase-keys'
 import { useNavigate } from 'react-router-dom'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useToast } from '@chakra-ui/react'
 
 import { SameAs } from '@/types/same_as'
@@ -52,28 +52,29 @@ export const useCreateRecommendDeck = ({
 
   return useMutation({
     onMutate: async (newRecommendDeck) => {
-      await queryClient.cancelQueries('recommend-decks')
+      await queryClient.cancelQueries(['recommend-decks'])
 
-      const previousRecommendDecks =
-        queryClient.getQueryData<RecommendDeck[]>('recommend-decks')
-
-      queryClient.setQueryData('recommend-decks', [
-        ...(previousRecommendDecks || []),
-        newRecommendDeck.data
+      const previousRecommendDecks = queryClient.getQueryData<RecommendDeck[]>([
+        'recommend-decks'
       ])
+
+      queryClient.setQueryData(
+        ['recommend-decks'],
+        [...(previousRecommendDecks || []), newRecommendDeck.data]
+      )
 
       return { previousRecommendDecks }
     },
     onError: (_, __, context: any) => {
       if (context?.previousRecommendDecks) {
         queryClient.setQueryData(
-          'recommend-decks',
+          ['recommend-decks'],
           context.previousRecommendDecks
         )
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries('recommend-decks')
+      queryClient.invalidateQueries(['recommend-decks'])
       navigate('/recommend-decks')
       toast({
         title: '作成しました。',

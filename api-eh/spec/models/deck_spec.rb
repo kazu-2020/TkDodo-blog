@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Deck, type: :model do
+describe Deck do
   describe 'before_validation' do
     context 'デフォルト値が定義されていない場合' do
       it 'deck_uidにuuid、mode_of_itemに「tv」、item_of_typeに「TVEpisode」が設定されること' do
@@ -33,7 +33,7 @@ describe Deck, type: :model do
   end
 
   describe 'after_create' do
-    let!(:deck) { build :deck }
+    let!(:deck) { build(:deck) }
 
     it 'deck_idが意図したフォーマットで取得されること' do
       expect do

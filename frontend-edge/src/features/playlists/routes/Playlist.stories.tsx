@@ -1,4 +1,4 @@
-import { QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { Box } from '@chakra-ui/react'
 

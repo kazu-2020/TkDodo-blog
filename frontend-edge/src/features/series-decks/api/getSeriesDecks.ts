@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 import { SeriesDeck } from '@/types/series_deck'
 import { Pagination } from '@/types/pagination'

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe SeriesPlaylist, type: :request do
+describe SeriesPlaylist do
   # 2022/04/25時点でエピソードが存在するseries_idで生成
   let!(:has_episodes) { create(:series_playlist, string_id: 'ts-11P91YWWL4', series_id: '11P91YWWL4') }
 
@@ -11,7 +11,7 @@ describe SeriesPlaylist, type: :request do
       VCR.use_cassette('requests/series_playlists/episodes') do
         get "/series_playlists/#{has_episodes.id}/episodes"
 
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         json = JSON.parse(response.body)
         expect(json['episodes'][0]['identifierGroup']['tvSeriesId']).to eq has_episodes.series_id
       end
@@ -25,7 +25,7 @@ describe SeriesPlaylist, type: :request do
       it 'TVエピソードが取得できること' do
         VCR.use_cassette('requests/series_playlists/search_return_results') do
           get search_series_playlists_path, params: search_params
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
           json = JSON.parse(response.body)
           expect(json['count']).not_to eq 0 # 件数が変動する可能性があるため、0件でないことをチェック
         end
@@ -39,7 +39,7 @@ describe SeriesPlaylist, type: :request do
         VCR.use_cassette('requests/series_playlists/search_return_no_results') do
           get search_series_playlists_path, params: search_params
 
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
           json = JSON.parse(response.body)
           expect(json['count']).to eq 0
         end
