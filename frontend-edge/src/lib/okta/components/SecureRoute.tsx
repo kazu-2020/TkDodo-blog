@@ -21,6 +21,7 @@ export const RequiredAuth = () => {
       oktaAuth.setOriginalUri(originalUri)
       oktaAuth.signInWithRedirect()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [oktaAuth, !!authState, authState?.isAuthenticated])
 
   if (!authState || !authState?.isAuthenticated) {

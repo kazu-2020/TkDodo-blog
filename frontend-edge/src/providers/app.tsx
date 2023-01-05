@@ -1,9 +1,9 @@
 import { BrowserRouter } from 'react-router-dom'
 import { ErrorBoundary } from 'react-error-boundary'
 import * as React from 'react'
-import { ChakraProvider, Spinner } from '@chakra-ui/react'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClientProvider } from '@tanstack/react-query'
+import { ChakraProvider, Spinner } from '@chakra-ui/react'
 
 import { ErrorFallback } from '@/providers/ErrorFallback'
 import theme from '@/lib/theme'
