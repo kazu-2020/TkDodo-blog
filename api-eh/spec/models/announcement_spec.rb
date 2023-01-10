@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Announcement do
   describe '#valid?' do
-    subject { Announcement.new(params) }
-    let(:params) {{ contents: contents }}
+    subject { described_class.new(params) }
+
+    let(:params) { { contents: contents } }
 
     context 'contentsがnilの場合' do
       let(:contents) { nil }
