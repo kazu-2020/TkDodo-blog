@@ -81,6 +81,44 @@ RSpec.describe 'Announcements' do
     end
   end
 
+  describe 'PATCH #update' do
+    let!(:announcement) { create(:announcement) }
+
+    context 'parameterが正常な場合' do
+      before do
+        patch "/announcements/#{announcement.id}", params: { announcement: { status: 'improved', contents: '更新' } }
+      end
+
+      it 'お知らせが更新されるはず' do
+        expect(announcement.reload.contents).to eq('更新')
+      end
+
+      it '更新されたお知らせを返すはず' do
+        json = JSON.parse(response.body)
+
+        expect(json).to match({
+                                'id' => announcement.id,
+                                'status' => 'improved',
+                                'contents' => '更新',
+                                'createdAt' => a_kind_of(String)
+                              })
+      end
+    end
+
+    context 'parameterが異常な場合' do
+      before do
+        patch "/announcements/#{announcement.id}", params: { announcement: { contents: '' } }
+      end
+
+      it 'お知らせが更新されないはず' do
+        expect(announcement.reload.contents).not_to eq('更新')
+      end
+
+      it '422エラーを返すはず' do
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
   # describe "GET /update" do
   #   it "returns http success" do
   #     get "/announcements/update"
