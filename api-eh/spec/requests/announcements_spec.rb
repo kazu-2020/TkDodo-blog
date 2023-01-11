@@ -44,12 +44,42 @@ RSpec.describe 'Announcements' do
     end
   end
 
-  # describe "GET /create" do
-  #   it "returns http success" do
-  #     get "/announcements/create"
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
+  describe 'POST /announcements' do
+    context 'parameterが正常な場合' do
+      it 'お知らせが追加されるはず' do
+        expect do
+          post '/announcements', params: { announcement: { status: 'improved', contents: 'テストです' } }
+        end.to change(Announcement, :count).by(1)
+      end
+
+      it '作成されたお知らせを返すはず' do
+        post '/announcements', params: { announcement: { status: 'improved', contents: 'テストです' } }
+        json = JSON.parse(response.body)
+
+        expect(json).to match({
+                                'id' => a_kind_of(Integer),
+                                'status' => 'improved',
+                                'contents' => 'テストです',
+                                'createdAt' => a_kind_of(String)
+                              })
+      end
+    end
+
+    context 'parameterが異常な場合' do
+      let(:request) { post '/announcements', params: { announcement: { contents: nil } } }
+
+      it 'お知らせが追加されないはず' do
+        expect do
+          request
+        end.not_to change(Announcement, :count)
+      end
+
+      it '422エラーを返すはず' do
+        request
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
 
   # describe "GET /update" do
   #   it "returns http success" do
