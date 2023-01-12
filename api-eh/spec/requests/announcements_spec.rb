@@ -119,17 +119,23 @@ RSpec.describe 'Announcements' do
       end
     end
   end
-  # describe "GET /update" do
-  #   it "returns http success" do
-  #     get "/announcements/update"
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
 
-  # describe "GET /destroy" do
-  #   it "returns http success" do
-  #     get "/announcements/destroy"
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
+  describe "DELETE #destroy" do
+    let!(:announcement) { create(:announcement) }
+
+    context 'parameterが正常な場合' do
+      let(:request) { delete "/announcements/#{announcement.id}" }
+
+      it 'お知らせが削除されるはず' do
+        expect do
+          request
+        end.to change(Announcement, :count).by(-1)
+      end
+
+      it '204を返すはず' do
+        request
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+  end
 end

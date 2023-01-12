@@ -17,7 +17,12 @@ class AnnouncementsController < ApiBaseController
     render json: { messages: @announcement.errors.full_messages }, status: :unprocessable_entity
   end
 
-  def destroy; end
+  def destroy
+    announcement = Announcement.find(params[:id])
+    announcement.destroy!
+
+    head :no_content
+  end
 
   private
 
