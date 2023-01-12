@@ -6,7 +6,6 @@ import { ArrowStepContext } from './ArrowStepContext'
 
 export type StepItem = {
   title: string
-  isSuccess?: boolean
   hasError?: boolean
 }
 
@@ -28,7 +27,6 @@ export const ArrowStep = ({ items = [], ...props }: Props & StyleProps) => {
         <Box flex="1" key={item.title} role="tab" aria-label={item.title}>
           <ArrowStepItem
             title={item.title}
-            isSuccess={item.isSuccess}
             hasError={item.hasError}
             isCurrent={index === currentIndex}
             onClick={() => onClickStep(index)}
