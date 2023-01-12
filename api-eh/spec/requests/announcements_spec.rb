@@ -19,23 +19,29 @@ RSpec.describe 'Announcements' do
     end
 
     context 'お知らせが1件以上の場合' do
-      let!(:announcements) { create_list(:announcement, 2) }
+      let!(:latest_announcement) { create(:announcement, created_at: Time.current + 1.day) }
       let(:result) {
-        announcements.map do |announcement|
-          {
-            id: announcement.id,
-            status: announcement.status,
-            contents: announcement.contents,
-            dateCreated: announcement.created_at.in_time_zone('Asia/Tokyo').strftime('%Y-%m-%dT%H:%M:%S+09:00')
-          }
-        end
+        {
+          id: latest_announcement.id,
+          status: latest_announcement.status,
+          contents: latest_announcement.contents,
+          dateCreated: latest_announcement.created_at.in_time_zone('Asia/Tokyo').strftime('%Y-%m-%dT%H:%M:%S+09:00')
+        }
       }
 
-      before { request }
+      before do
+        create_list(:announcement, 20)
+        request
+      end
 
-      it '全お知らせを返すこと' do
+      it '作成日の降順で返すこと' do
         json = JSON.parse(response.body)
-        expect(json['announcements']).to eq(result.as_json)
+        expect(json['announcements'].first).to eq(result.as_json)
+      end
+
+      it '最新20件を返すこと' do
+        json = JSON.parse(response.body)
+        expect(json['announcements'].count).to eq(20)
       end
     end
   end

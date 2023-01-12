@@ -1,6 +1,8 @@
 class AnnouncementsController < ApiBaseController
+  DEFAULT_PER = 20
+
   def index
-    @announcements = Announcement.all
+    @announcements = Announcement.order(created_at: :desc).limit(DEFAULT_PER)
   end
 
   def create
