@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Announcements' do
-  describe 'GET /announcements' do
+  describe 'GET #index' do
     before { get '/announcements' }
 
     it 'announcements keyがあるはず' do
@@ -44,16 +44,18 @@ RSpec.describe 'Announcements' do
     end
   end
 
-  describe 'POST /announcements' do
+  describe 'POST #create' do
     context 'parameterが正常な場合' do
+      let(:request) { post '/announcements', params: { announcement: { status: 'improved', contents: 'テストです' } } }
+
       it 'お知らせが追加されるはず' do
         expect do
-          post '/announcements', params: { announcement: { status: 'improved', contents: 'テストです' } }
+          request
         end.to change(Announcement, :count).by(1)
       end
 
       it '作成されたお知らせを返すはず' do
-        post '/announcements', params: { announcement: { status: 'improved', contents: 'テストです' } }
+        request
         json = JSON.parse(response.body)
 
         expect(json).to match({
@@ -120,7 +122,7 @@ RSpec.describe 'Announcements' do
     end
   end
 
-  describe "DELETE #destroy" do
+  describe 'DELETE #destroy' do
     let!(:announcement) { create(:announcement) }
 
     context 'parameterが正常な場合' do
