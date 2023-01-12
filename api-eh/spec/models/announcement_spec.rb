@@ -18,4 +18,16 @@ RSpec.describe Announcement do
       it { is_expected.to be_invalid }
     end
   end
+
+  describe 'enum' do
+    it 'self#statuses' do
+      expect(described_class.statuses).to eq({
+                                               'general' => 0,
+                                               'improved' => 1,
+                                               'maintenance' => 2,
+                                               'attentive' => 3,
+                                               'emergency' => 4
+                                             })
+    end
+  end
 end
