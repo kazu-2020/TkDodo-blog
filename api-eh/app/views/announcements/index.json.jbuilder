@@ -1,3 +1,3 @@
 json.announcements do
-  json.array! @announcements, :id, :status, :contents, :created_at
+  json.array! @announcements, partial: 'announcements/announcement', as: :announcement
 end

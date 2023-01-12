@@ -28,7 +28,7 @@ RSpec.describe 'Announcements' do
             id: announcement.id,
             status: announcement.status,
             contents: announcement.contents,
-            createdAt: announcement.created_at
+            dateCreated: announcement.created_at.in_time_zone('Asia/Tokyo').strftime('%Y-%m-%dT%H:%M:%S+09:00')
           }
         end
       }
@@ -62,7 +62,7 @@ RSpec.describe 'Announcements' do
                                 'id' => a_kind_of(Integer),
                                 'status' => 'improved',
                                 'contents' => 'テストです',
-                                'createdAt' => a_kind_of(String)
+                                'dateCreated' => a_kind_of(String)
                               })
       end
     end
@@ -102,7 +102,7 @@ RSpec.describe 'Announcements' do
                                 'id' => announcement.id,
                                 'status' => 'improved',
                                 'contents' => '更新',
-                                'createdAt' => a_kind_of(String)
+                                'dateCreated' => a_kind_of(String)
                               })
       end
     end
