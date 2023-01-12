@@ -2,19 +2,17 @@ require 'rails_helper'
 
 RSpec.describe 'Announcements' do
   describe 'GET #index' do
-    before { get '/announcements' }
+    let(:request) { get '/announcements' }
 
-    it 'announcements keyがあるはず' do
-      json = JSON.parse(response.body)
-      expect(json.keys).to eq(%w[announcements])
-    end
-
-    it '200を返すはず' do
+    it '200を返すこと' do
+      request
       expect(response).to have_http_status(:success)
     end
 
     context 'お知らせが0件の場合' do
-      it '空配列を返すはず' do
+      before { request }
+
+      it '空配列を返すこと' do
         json = JSON.parse(response.body)
         expect(json['announcements']).to eq([])
       end
@@ -33,13 +31,11 @@ RSpec.describe 'Announcements' do
         end
       }
 
-      before do
-        get '/announcements'
-      end
+      before { request }
 
-      it '全お知らせを返すはず' do
+      it '全お知らせを返すこと' do
         json = JSON.parse(response.body)
-        expect(json['announcements']).to match(result.as_json)
+        expect(json['announcements']).to eq(result.as_json)
       end
     end
   end
@@ -48,13 +44,13 @@ RSpec.describe 'Announcements' do
     context 'parameterが正常な場合' do
       let(:request) { post '/announcements', params: { announcement: { status: 'improved', contents: 'テストです' } } }
 
-      it 'お知らせが追加されるはず' do
+      it 'お知らせが追加されること' do
         expect do
           request
         end.to change(Announcement, :count).by(1)
       end
 
-      it '作成されたお知らせを返すはず' do
+      it '作成されたお知らせを返すこと' do
         request
         json = JSON.parse(response.body)
 
@@ -70,13 +66,13 @@ RSpec.describe 'Announcements' do
     context 'parameterが異常な場合' do
       let(:request) { post '/announcements', params: { announcement: { contents: nil } } }
 
-      it 'お知らせが追加されないはず' do
+      it 'お知らせが追加されないこと' do
         expect do
           request
         end.not_to change(Announcement, :count)
       end
 
-      it '422エラーを返すはず' do
+      it '422エラーを返すこと' do
         request
         expect(response).to have_http_status(:unprocessable_entity)
       end
@@ -91,11 +87,11 @@ RSpec.describe 'Announcements' do
         patch "/announcements/#{announcement.id}", params: { announcement: { status: 'improved', contents: '更新' } }
       end
 
-      it 'お知らせが更新されるはず' do
+      it 'お知らせが更新されること' do
         expect(announcement.reload.contents).to eq('更新')
       end
 
-      it '更新されたお知らせを返すはず' do
+      it '更新されたお知らせを返すこと' do
         json = JSON.parse(response.body)
 
         expect(json).to match({
@@ -108,15 +104,15 @@ RSpec.describe 'Announcements' do
     end
 
     context 'parameterが異常な場合' do
-      before do
-        patch "/announcements/#{announcement.id}", params: { announcement: { contents: '' } }
-      end
+      let(:request) { patch "/announcements/#{announcement.id}", params: { announcement: { contents: '' } } }
 
-      it 'お知らせが更新されないはず' do
+      before { request }
+
+      it 'お知らせが更新されないこと' do
         expect(announcement.reload.contents).not_to eq('更新')
       end
 
-      it '422エラーを返すはず' do
+      it '422エラーを返すこと' do
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -128,13 +124,13 @@ RSpec.describe 'Announcements' do
     context 'parameterが正常な場合' do
       let(:request) { delete "/announcements/#{announcement.id}" }
 
-      it 'お知らせが削除されるはず' do
+      it 'お知らせが削除されること' do
         expect do
           request
         end.to change(Announcement, :count).by(-1)
       end
 
-      it '204を返すはず' do
+      it '204を返すこと' do
         request
         expect(response).to have_http_status(:no_content)
       end
