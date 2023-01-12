@@ -129,6 +129,7 @@ RSpec.describe 'Announcements' do
 
     context 'parameterが正常な場合' do
       let(:request) { delete "/announcements/#{announcement.id}" }
+      let(:result) { { 'deleted' => true } }
 
       it 'お知らせが削除されること' do
         expect do
@@ -136,9 +137,15 @@ RSpec.describe 'Announcements' do
         end.to change(Announcement, :count).by(-1)
       end
 
-      it '204を返すこと' do
+      it '200を返すこと' do
         request
-        expect(response).to have_http_status(:no_content)
+        expect(response).to have_http_status(:ok)
+      end
+
+      it '期待するjsonを返すこと' do
+        request
+        json = JSON.parse(response.body)
+        expect(json).to eq(result)
       end
     end
   end

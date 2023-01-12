@@ -23,7 +23,7 @@ class AnnouncementsController < ApiBaseController
     announcement = Announcement.find(params[:id])
     announcement.destroy!
 
-    head :no_content
+    render json: { deleted: true }
   end
 
   private
