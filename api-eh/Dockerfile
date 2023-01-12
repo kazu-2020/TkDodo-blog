@@ -1,4 +1,4 @@
-FROM ruby:3.0.2-slim-buster
+FROM ruby:3.0.5-slim-buster
 
 ENV LANG ja_JP.UTF-8
 
