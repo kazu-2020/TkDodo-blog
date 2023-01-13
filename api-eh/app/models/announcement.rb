@@ -6,4 +6,6 @@ class Announcement < ApplicationRecord
     attentive: 3,
     emergency: 4
   }
+
+  validates :contents, presence: true
 end

@@ -13,7 +13,7 @@
 ActiveRecord::Schema[7.0].define(version: 2023_01_10_024418) do
   create_table "announcements", charset: "utf8mb4", force: :cascade do |t|
     t.integer "status", default: 0, null: false
-    t.string "contents", null: false
+    t.text "contents", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
