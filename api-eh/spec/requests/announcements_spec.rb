@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'Announcements' do
+  before do
+    user = create(:user, :super_admin)
+    allow_any_instance_of(Secured).to receive(:authenticate_request!).and_return(user)
+    allow_any_instance_of(ApiBaseController).to receive(:current_user).and_return(user)
+  end
+
   describe 'GET #index' do
     let(:request) { get '/announcements' }
 
