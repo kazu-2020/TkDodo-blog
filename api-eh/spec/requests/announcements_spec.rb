@@ -9,6 +9,12 @@ RSpec.describe 'Announcements' do
       expect(response).to have_http_status(:success)
     end
 
+    it 'pagination情報を返すこと' do
+      request
+      json = JSON.parse(response.body)
+      expect(json).to include('pagination')
+    end
+
     context 'お知らせが0件の場合' do
       before { request }
 
@@ -30,7 +36,7 @@ RSpec.describe 'Announcements' do
       }
 
       before do
-        create_list(:announcement, 20)
+        create_list(:announcement, 50)
         request
       end
 
@@ -39,9 +45,9 @@ RSpec.describe 'Announcements' do
         expect(json['announcements'].first).to eq(result.as_json)
       end
 
-      it '最新20件を返すこと' do
+      it 'デフォルトでは50件を返すこと' do
         json = JSON.parse(response.body)
-        expect(json['announcements'].count).to eq(20)
+        expect(json['announcements'].count).to eq(50)
       end
     end
   end

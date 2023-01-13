@@ -2,12 +2,8 @@
 
 class PlaylistsController < ApiBaseController
   before_action :set_playlist, only: %i[update destroy actors_and_contributors]
-  before_action :set_pagination, only: [:index]
 
-  DEFAULT_PAGE = 1
-  DEFAULT_PER = 50
-
-  def index # rubocop:disable Metrics/AbcSize
+  def index # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     query = if params[:deck_id].present?
               Playlist.by_deck_id(params[:deck_id])
             elsif params[:area].present?
@@ -22,7 +18,8 @@ class PlaylistsController < ApiBaseController
       query = query.api_state_close
     end
     query = query.name_like(params[:query]) if params[:query]
-    @playlists = query.recent.page(@page).per(@per)
+    page, per = set_pagination
+    @playlists = query.recent.page(page).per(per)
   end
 
   def show
@@ -128,11 +125,6 @@ class PlaylistsController < ApiBaseController
                   :with_episode_count, :active_item_list, :layout_pattern, :publish_level,
                   same_as_attributes: %i[id name url _destroy], citations_attributes: %i[id name url _destroy],
                   playlist_items_attributes: %i[episode_id], keywords: [], hashtags: [])
-  end
-
-  def set_pagination
-    @page = [params[:page].to_i, DEFAULT_PAGE].max
-    @per = (params[:per] || DEFAULT_PER).to_i
   end
 
   # FIXME: 変更予定 後ほどふさわしい場所に定義します

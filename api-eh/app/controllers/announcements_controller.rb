@@ -1,8 +1,7 @@
 class AnnouncementsController < ApiBaseController
-  DEFAULT_PER = 20
-
   def index
-    @announcements = Announcement.order(created_at: :desc).limit(DEFAULT_PER)
+    page, per = set_pagination
+    @announcements = Announcement.order(created_at: :desc).page(page).per(per)
   end
 
   def create
