@@ -28,5 +28,4 @@ class User < ApplicationRecord
       okta_uid: payload['uid']
     )
   end
-
 end
