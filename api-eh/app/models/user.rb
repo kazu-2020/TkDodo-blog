@@ -12,6 +12,8 @@ class User < ApplicationRecord
 
   after_create :assign_default_role
 
+  # @param [Object] payload decodeしたjwtのpayload
+  # @return [User]
   def self.from_token_payload(payload)
     # Payloadのsubにはemailが, uidにoktaのuser_idが入ってくる
     find_by(email: payload['sub']) || create_by_token_payload!(payload)
