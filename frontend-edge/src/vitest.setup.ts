@@ -4,6 +4,8 @@ import 'jest-extended'
 import { server } from '@/test/server/server'
 import { resetDb } from '@/test/server/db'
 import { queryClient } from '@/lib/react-query'
+import { setGlobalConfig } from '@storybook/testing-react'
+import * as globalStorybookConfig from '../.storybook/preview'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 afterAll(() => server.close())
@@ -14,3 +16,5 @@ afterEach(async () => {
   queryClient.clear()
   resetDb()
 })
+
+setGlobalConfig(globalStorybookConfig)
