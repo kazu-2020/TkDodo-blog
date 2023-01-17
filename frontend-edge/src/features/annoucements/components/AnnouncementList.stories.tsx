@@ -1,7 +1,8 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 
-import { AnnouncementList } from './AnnouncementList'
 import { Pagination } from '@/components/Pagination'
+
+import { AnnouncementList } from './AnnouncementList' // eslint-disable-line import/no-cycle
 
 export default {
   component: AnnouncementList

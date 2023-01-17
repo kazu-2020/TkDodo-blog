@@ -1,10 +1,12 @@
-import Link from '@/components/Link'
-import { Annoucement } from '@/types/announcement'
-import { Box, Button, Center, Flex, Heading, Spacer } from '@chakra-ui/react'
-import { AnnouncementListItem } from './AnnouncementListItem'
 import { ReactNode } from 'react'
 import { render, screen } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
+import { Box, Button, Center, Flex, Heading, Spacer } from '@chakra-ui/react'
+
+import { Annoucement } from '@/types/announcement'
+import Link from '@/components/Link'
+
+import { AnnouncementListItem } from './AnnouncementListItem'
 
 type AnnouncementListProps = {
   annoucments: Annoucement[]
@@ -18,63 +20,62 @@ export const AnnouncementList = ({
   isSawMore,
   isEditable,
   pagination
-}: AnnouncementListProps) => {
-  return (
-    <Center flexDirection="column">
-      <Box
-        p={6}
-        background="white"
-        boxShadow="xs"
-        border="1px solid #E2E8F0"
-        borderRadius="sm"
-        w="fit-content"
-      >
-        <Flex columnGap={4} align="center" mb={6}>
-          <Heading size="md">運営チームからのお知らせ</Heading>
-          {isSawMore && (
-            <Link to="#" color="#009688" fontWeight="bold">
-              もっと見る
-            </Link>
-          )}
-          <Spacer />
-          {isEditable && (
-            <Button
-              background="#FF9800"
-              color="white"
-              boxShadow="md"
-              _hover={{ opacity: 0.6 }}
-            >
-              新規お知らせ登録
-            </Button>
-          )}
-        </Flex>
-
-        {annoucments.length > 0 && (
-          <Box w="1200px" border="1px solid #E2E8F0">
-            {annoucments.map((announcement, index) => {
-              const { id, status, contents, dataCreated } = announcement
-
-              return (
-                <AnnouncementListItem
-                  key={id}
-                  createdAt={dataCreated}
-                  background={index % 2 === 0 ? '#BDBDBD33' : 'white'}
-                  {...{ status, contents }}
-                />
-              )
-            })}
-          </Box>
+}: AnnouncementListProps) => (
+  <Center flexDirection="column">
+    <Box
+      p={6}
+      background="white"
+      boxShadow="xs"
+      border="1px solid #E2E8F0"
+      borderRadius="sm"
+      w="fit-content"
+    >
+      <Flex columnGap={4} align="center" mb={6}>
+        <Heading size="md">運営チームからのお知らせ</Heading>
+        {isSawMore && (
+          // TODO: お知らせ一覧画面へのパスを設定する
+          <Link to="/" color="#009688" fontWeight="bold">
+            もっと見る
+          </Link>
         )}
-      </Box>
+        <Spacer />
+        {isEditable && (
+          <Button
+            background="#FF9800"
+            color="white"
+            boxShadow="md"
+            _hover={{ opacity: 0.6 }}
+          >
+            新規お知らせ登録
+          </Button>
+        )}
+      </Flex>
 
-      {pagination && <Box mt={6}>{pagination}</Box>}
-    </Center>
-  )
-}
+      {annoucments.length > 0 && (
+        <Box w="1200px" border="1px solid #E2E8F0">
+          {annoucments.map((announcement, index) => {
+            const { id, status, contents, dataCreated } = announcement
+
+            return (
+              <AnnouncementListItem
+                key={id}
+                createdAt={dataCreated}
+                background={index % 2 === 0 ? '#BDBDBD33' : 'white'}
+                {...{ status, contents }}
+              />
+            )
+          })}
+        </Box>
+      )}
+    </Box>
+
+    {pagination && <Box mt={6}>{pagination}</Box>}
+  </Center>
+)
 
 if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest
-  const stories = await import('./AnnouncementList.stories')
+  const stories = await import('./AnnouncementList.stories') // eslint-disable-line import/no-cycle
   const { Default, Editable, ShowMore, WithPagination } =
     composeStories(stories)
 

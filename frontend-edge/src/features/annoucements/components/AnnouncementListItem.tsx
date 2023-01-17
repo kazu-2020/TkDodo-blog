@@ -1,13 +1,15 @@
-import { AnnoucementStatus } from '@/types/announcement'
-import { formatDateWithWeekday } from '@/utils/format'
-import { Box, Flex, IconButton, Text } from '@chakra-ui/react'
-import { DeleteIcon } from '@chakra-ui/icons'
 import { RiPencilLine } from 'react-icons/all'
 import { memo } from 'react'
-import { AnnouncementBadge } from './AnnouncementBadge'
-import { autoLink } from '@/utils/dom'
 import { render, screen } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
+import { Box, Flex, IconButton, Text } from '@chakra-ui/react'
+import { DeleteIcon } from '@chakra-ui/icons'
+
+import { formatDateWithWeekday } from '@/utils/format'
+import { autoLink } from '@/utils/dom'
+import { AnnoucementStatus } from '@/types/announcement'
+
+import { AnnouncementBadge } from './AnnouncementBadge'
 
 type AnnouncementListItemProps = {
   status: AnnoucementStatus
@@ -33,10 +35,12 @@ export const AnnouncementListItem = memo(
         ref={(element) => {
           if (!element) return
 
-          element.innerHTML = autoLink(contents)
+          const targetElement = element
+          targetElement.innerHTML = autoLink(contents)
           const aTags = element.getElementsByTagName('a')
           Array.from(aTags).forEach((aTag) => {
-            aTag.style.color = '#009688'
+            const el = aTag
+            el.style.color = '#009688'
           })
         }}
       />
@@ -60,7 +64,7 @@ export const AnnouncementListItem = memo(
 
 if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest
-  const stories = await import('./AnnouncementListItem.stories')
+  const stories = await import('./AnnouncementListItem.stories') // eslint-disable-line import/no-cycle
   const { Default, Editable } = composeStories(stories)
 
   describe('編集可の場合', () => {

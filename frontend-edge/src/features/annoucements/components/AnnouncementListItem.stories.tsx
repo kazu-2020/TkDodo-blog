@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-
-import { AnnouncementListItem } from './AnnouncementListItem'
 import { Box } from '@chakra-ui/react'
+
+import { AnnouncementListItem } from './AnnouncementListItem' // eslint-disable-line import/no-cycle
 
 export default {
   component: AnnouncementListItem
