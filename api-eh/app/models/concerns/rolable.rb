@@ -11,13 +11,6 @@ module Rolable
     add_role(:super_admin) if roles.blank? # seedを作成するまでsuper_adminを割り当てる
   end
 
-  def remove_system_roles
-    user.remove_role :admin
-    user.remove_role :resource_admin
-    user.remove_role :resource_user
-    user.remove_role :recommend_playlist_admin
-  end
-
   def grant_super_admin!
     add_role :super_admin
   end
