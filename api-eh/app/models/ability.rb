@@ -40,17 +40,23 @@ class Ability
       { action: :read, subject: Announcement }
     ]
   }.freeze
-  RECOMMEND_PLAYLIST_ABILITIES = {
-    manager: { action: MANAGER_ACTIONS, subject: Playlist },        # 代表承認者
-    approver: { action: APPROVER_ACTIONS, subject: Playlist },      # 承認者
-    editor: { action: EDITOR_ACTIONS, subject: Playlist },          # 入力者
-    reader: { action: READER_ACTION, subject: Playlist }            # 閲覧者
-  }.freeze
-  RECOMMEND_PLAYLIST_ITEM_ABILITIES = {
-    manager: { action: MANAGER_ACTIONS, subject: PlaylistItem },    # 代表承認者
-    approver: { action: APPROVER_ACTIONS, subject: PlaylistItem },  # 承認者
-    editor: { action: EDITOR_ACTIONS, subject: PlaylistItem },      # 入力者
-    reader: { action: READER_ACTION, subject: PlaylistItem }        # 閲覧者
+  RECOMMEND_PLAYLIST_ROLES = {
+    manager: [                                                      # 代表承認者
+      { action: MANAGER_ACTIONS, subject: Playlist },
+      { action: MANAGER_ACTIONS, subject: PlaylistItem }
+    ],
+    approver: [                                                     # 承認者
+      { action: APPROVER_ACTIONS, subject: Playlist },
+      { action: APPROVER_ACTIONS, subject: PlaylistItem }
+    ],
+    editor: [                                                       # 入力者
+      { action: EDITOR_ACTIONS, subject: Playlist },
+      { action: EDITOR_ACTIONS, subject: PlaylistItem }
+    ],
+    reader: [                                                       # 閲覧者
+      { action: READER_ACTION, subject: Playlist },
+      { action: READER_ACTION, subject: PlaylistItem }
+    ]
   }.freeze
 
   def initialize(user)
@@ -87,20 +93,16 @@ class Ability
   end
 
   def set_recommend_playlist_roles(user, abilities)
-    RECOMMEND_PLAYLIST_ABILITIES.each_key do |role|
-      abilities << RECOMMEND_PLAYLIST_ABILITIES[role] if Playlist.with_role(role, user).present?
+    RECOMMEND_PLAYLIST_ROLES.each_key do |role|
+      user_has_recommend_playlist_role?(user, role, abilities)
     end
-
-    set_recommend_playlist_items_roles(user, abilities)
-
-    abilities
   end
 
-  def set_recommend_playlist_items_roles(user, abilities)
-    RECOMMEND_PLAYLIST_ITEM_ABILITIES.each_key do |role|
-      abilities << RECOMMEND_PLAYLIST_ITEM_ABILITIES[role] if PlaylistItem.with_role(role, user).present?
-    end
+  def user_has_recommend_playlist_role?(user, role, abilities)
+    return unless Playlist.with_role(role, user).present? && PlaylistItem.with_role(role, user).present?
 
-    abilities
+    RECOMMEND_PLAYLIST_ROLES[role].each do |ability|
+      abilities << ability
+    end
   end
 end
