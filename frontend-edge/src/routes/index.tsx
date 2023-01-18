@@ -27,7 +27,6 @@ const AppRoutes = () => (
         !isTomigayaEnv() ? <Layout /> : <ProtectedRoute component={Layout} />
       }
     >
-      {/* <Route index element={<Home />} /> */}
       <Route index element={<HomePage />} />
       <Route path="playlists" element={<Outlet />}>
         <Route index element={<Playlists />} />
