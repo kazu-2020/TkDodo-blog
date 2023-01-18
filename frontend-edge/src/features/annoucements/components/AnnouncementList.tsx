@@ -1,77 +1,109 @@
-import { ReactNode } from 'react'
+import { useMemo } from 'react'
 import { render, screen } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
-import { Box, Button, Center, Flex, Heading, Spacer } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Heading,
+  Spacer,
+  Text
+} from '@chakra-ui/react'
 
-import { Annoucement } from '@/types/announcement'
+import type { Pagination as PaginationType } from '@/types/pagination'
+import { Announcement } from '@/types/announcement'
+import { Pagination } from '@/components/Pagination'
 import Link from '@/components/Link'
+
+import { useAnnouncements } from '../api/getAnnouncements'
 
 import { AnnouncementListItem } from './AnnouncementListItem'
 
 type AnnouncementListProps = {
-  annoucments: Annoucement[]
   isEditable?: boolean
   isSawMore?: boolean
-  pagination?: ReactNode
+  hasPagination?: boolean
+  displayedCount?: number
 }
 
 export const AnnouncementList = ({
-  annoucments,
-  isSawMore,
   isEditable,
-  pagination
-}: AnnouncementListProps) => (
-  <Center flexDirection="column">
-    <Box
-      p={6}
-      background="white"
-      boxShadow="xs"
-      border="1px solid #E2E8F0"
-      borderRadius="sm"
-      w="fit-content"
-    >
-      <Flex columnGap={4} align="center" mb={6}>
-        <Heading size="md">運営チームからのお知らせ</Heading>
-        {isSawMore && (
-          // TODO: お知らせ一覧画面へのパスを設定する
-          <Link to="/" color="#009688" fontWeight="bold">
-            もっと見る
-          </Link>
+  isSawMore,
+  hasPagination,
+  displayedCount = 50
+}: AnnouncementListProps) => {
+  const { data } = useAnnouncements({
+    params: { per: displayedCount },
+    config: { suspense: true }
+  })
+
+  const announcements = useMemo(() => data?.announcements ?? [], [data])
+
+  const announcementItem = (announcement: Announcement, index: number) => {
+    const { id, status, contents, dateCreated } = announcement
+
+    return (
+      <AnnouncementListItem
+        key={id}
+        createdAt={dateCreated}
+        background={index % 2 === 0 ? '#BDBDBD33' : 'white'}
+        {...{ status, contents }}
+      />
+    )
+  }
+
+  const paginate = (paginateData: PaginationType) => {
+    const { currentPage, totalPages } = paginateData
+
+    return <Pagination totalCount={totalPages} page={currentPage} />
+  }
+
+  return (
+    <Center flexDirection="column" rowGap={6}>
+      <Box
+        p={6}
+        background="white"
+        boxShadow="xs"
+        border="1px solid #E2E8F0"
+        borderRadius="sm"
+        minW="1200px"
+        w="fit-content"
+      >
+        <Flex columnGap={4} align="center" mb={6}>
+          <Heading size="md">運営チームからのお知らせ</Heading>
+          {isSawMore && (
+            // TODO: お知らせ一覧画面へのパスを設定する
+            <Link to="/" color="#009688" fontWeight="bold">
+              もっと見る
+            </Link>
+          )}
+          <Spacer />
+          {isEditable && (
+            <Button
+              background="#FF9800"
+              color="white"
+              boxShadow="md"
+              _hover={{ opacity: 0.6 }}
+            >
+              新規お知らせ登録
+            </Button>
+          )}
+        </Flex>
+
+        {announcements.length > 0 ? (
+          <Box w="1200px" border="1px solid #E2E8F0">
+            {announcements.map(announcementItem)}
+          </Box>
+        ) : (
+          <Text>お知らせはありません</Text>
         )}
-        <Spacer />
-        {isEditable && (
-          <Button
-            background="#FF9800"
-            color="white"
-            boxShadow="md"
-            _hover={{ opacity: 0.6 }}
-          >
-            新規お知らせ登録
-          </Button>
-        )}
-      </Flex>
+      </Box>
 
-      {annoucments.length > 0 && (
-        <Box w="1200px" border="1px solid #E2E8F0">
-          {annoucments.map((announcement, index) => {
-            const { id, status, contents, dataCreated } = announcement
-
-            return (
-              <AnnouncementListItem
-                key={id}
-                createdAt={dataCreated}
-                background={index % 2 === 0 ? '#BDBDBD33' : 'white'}
-                {...{ status, contents }}
-              />
-            )
-          })}
-        </Box>
-      )}
-    </Box>
-
-    {pagination && <Box mt={6}>{pagination}</Box>}
-  </Center>
-)
+      {hasPagination && data?.pagination && paginate(data.pagination)}
+    </Center>
+  )
+}
 
 if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest
@@ -115,8 +147,18 @@ if (import.meta.vitest) {
     })
   })
 
-  it('paginationが差し込まれた場合、ページネーションが表示されること', () => {
-    render(<WithPagination />)
-    expect(screen.getByRole('navigation')).toBeInTheDocument()
+  describe('hasPagination: trueの場合', () => {
+    it('ページネーションが表示されること', async () => {
+      render(<WithPagination />)
+      const pagination = await screen.findByRole('navigation')
+      expect(pagination).toBeInTheDocument()
+    })
+  })
+
+  describe('hasPagination: falseの場合', () => {
+    it('ページネーションが表示されないこと', () => {
+      render(<Default />)
+      expect(screen.queryByRole('navigation')).not.toBeInTheDocument()
+    })
   })
 }

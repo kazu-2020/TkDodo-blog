@@ -16,8 +16,8 @@ import {
 } from '@/features/recommend-decks'
 import { Playlist, Playlists, NewPlaylist } from '@/features/playlists'
 import NotFound from '@/features/misc/routes/NotFound'
+import { HomePage } from '@/features/home/routes'
 import Layout from '@/components/Layout'
-import Home from '@/components/Home'
 
 const AppRoutes = () => (
   <Routes>
@@ -27,7 +27,8 @@ const AppRoutes = () => (
         !isTomigayaEnv() ? <Layout /> : <ProtectedRoute component={Layout} />
       }
     >
-      <Route index element={<Home />} />
+      {/* <Route index element={<Home />} /> */}
+      <Route index element={<HomePage />} />
       <Route path="playlists" element={<Outlet />}>
         <Route index element={<Playlists />} />
         <Route path=":playlistUid" element={<Playlist />} />
