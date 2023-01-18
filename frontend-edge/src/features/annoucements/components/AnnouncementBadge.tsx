@@ -18,7 +18,7 @@ const badgeColor = (status: AnnouncementStatus) => {
     case 'attentive':
       return '#C02710'
     case 'emergency':
-      return '#FBC02D'
+      return '#C0A20C'
     default: {
       const invalidStatus: never = status
       throw new Error(`${invalidStatus}は不正な値です`)
