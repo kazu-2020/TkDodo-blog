@@ -7,7 +7,7 @@ class Ability
   APPROVER_ACTIONS = %i[read update publish].freeze                 # 承認者
   EDITOR_ACTIONS = %i[read update].freeze                           # 入力者
   READER_ACTION = %i[read].freeze                                   # 閲覧者
-  SYSTEM_ROLES_ABILITIES = {
+  SYSTEM_ROLES = {
     # システム管理者
     super_admin: [{ action: :manage, subject: :all }],
     # ユーザー管理者
@@ -79,7 +79,7 @@ class Ability
   private
 
   def set_system_roles(user, abilities)
-    SYSTEM_ROLES_ABILITIES.each_key do |role|
+    SYSTEM_ROLES.each_key do |role|
       user_has_role?(user, role, abilities)
     end
   end
@@ -87,7 +87,7 @@ class Ability
   def user_has_role?(user, role, abilities)
     return unless user.has_role?(role)
 
-    SYSTEM_ROLES_ABILITIES[role].each do |ability|
+    SYSTEM_ROLES[role].each do |ability|
       abilities << ability
     end
   end
