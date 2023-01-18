@@ -70,18 +70,24 @@ class Ability
   def build(user)
     abilities = []
 
-    set_system_roles(user, abilities)
+    assign_system_roles(user, abilities)
 
-    set_recommend_playlist_roles(user, abilities)
+    assign_recommend_playlist_roles(user, abilities)
 
     abilities
   end
 
   private
 
-  def set_system_roles(user, abilities)
+  def assign_system_roles(user, abilities)
     SYSTEM_ROLES.each_key do |role|
       user_has_role?(user, role, abilities)
+    end
+  end
+
+  def assign_recommend_playlist_roles(user, abilities)
+    RECOMMEND_PLAYLIST_ROLES.each_key do |role|
+      user_has_recommend_playlist_role?(user, role, abilities)
     end
   end
 
@@ -90,12 +96,6 @@ class Ability
 
     SYSTEM_ROLES[role].each do |ability|
       abilities << ability
-    end
-  end
-
-  def set_recommend_playlist_roles(user, abilities)
-    RECOMMEND_PLAYLIST_ROLES.each_key do |role|
-      user_has_recommend_playlist_role?(user, role, abilities)
     end
   end
 
