@@ -6,7 +6,8 @@ class Ability
   MANAGER_ACTIONS = %i[read update destroy assign publish].freeze   # 代表承認者
   APPROVER_ACTIONS = %i[read update publish].freeze                 # 承認者
   EDITOR_ACTIONS = %i[read update].freeze                           # 入力者
-  READER_ACTION = %i[read].freeze                                   # 閲覧者
+  READER_ACTIONS = %i[read].freeze                                  # 閲覧者
+
   SYSTEM_ROLES = {
     # システム管理者
     super_admin: [{ action: :manage, subject: :all }],
@@ -54,8 +55,8 @@ class Ability
       { action: EDITOR_ACTIONS, subject: PlaylistItem }
     ],
     reader: [                                                       # 閲覧者
-      { action: READER_ACTION, subject: Playlist },
-      { action: READER_ACTION, subject: PlaylistItem }
+      { action: READER_ACTIONS, subject: Playlist },
+      { action: READER_ACTIONS, subject: PlaylistItem }
     ]
   }.freeze
 
