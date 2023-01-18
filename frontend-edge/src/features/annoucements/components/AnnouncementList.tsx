@@ -34,8 +34,7 @@ export const AnnouncementList = ({
   displayedCount = 50
 }: AnnouncementListProps) => {
   const { data } = useAnnouncements({
-    params: { per: displayedCount },
-    config: { suspense: true }
+    params: { per: displayedCount }
   })
 
   const announcements = useMemo(() => data?.announcements ?? [], [data])
