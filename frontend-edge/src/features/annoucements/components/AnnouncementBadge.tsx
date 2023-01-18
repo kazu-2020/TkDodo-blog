@@ -1,13 +1,13 @@
 import { useMemo } from 'react'
 import { Badge } from '@chakra-ui/react'
 
-import { AnnoucementStatus } from '@/types/announcement'
+import { AnnouncementStatus } from '@/types/announcement'
 
 type AnnouncementBadgeProps = {
-  status: AnnoucementStatus
+  status: AnnouncementStatus
 }
 
-const badgeColor = (status: AnnoucementStatus) => {
+const badgeColor = (status: AnnouncementStatus) => {
   switch (status) {
     case 'general':
       return '#388E3C'
@@ -26,7 +26,7 @@ const badgeColor = (status: AnnoucementStatus) => {
   }
 }
 
-const badgeStatement = (status: AnnoucementStatus) => {
+const badgeStatement = (status: AnnouncementStatus) => {
   switch (status) {
     case 'general':
       return 'お知らせ'

@@ -7,12 +7,12 @@ import { DeleteIcon } from '@chakra-ui/icons'
 
 import { formatDateWithWeekday } from '@/utils/format'
 import { autoLink } from '@/utils/dom'
-import { AnnoucementStatus } from '@/types/announcement'
+import { AnnouncementStatus } from '@/types/announcement'
 
 import { AnnouncementBadge } from './AnnouncementBadge'
 
 type AnnouncementListItemProps = {
-  status: AnnoucementStatus
+  status: AnnouncementStatus
   contents: string
   createdAt: string
   isEditable?: boolean
