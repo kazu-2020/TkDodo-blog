@@ -10,7 +10,7 @@ export type AnnouncementStatus = typeof ANNOUNCEMENT_STATUS[number]
 
 export type Announcement = {
   id: number
-  status: AnnoucementStatus
+  status: AnnouncementStatus
   contents: string
   dateCreated: string
 }
