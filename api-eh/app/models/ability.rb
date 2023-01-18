@@ -3,10 +3,55 @@
 class Ability
   include CanCan::Ability
 
-  MANAGER_ACTIONS  = %i[read update destroy assign publish].freeze  # 代表承認者
+  MANAGER_ACTIONS = %i[read update destroy assign publish].freeze   # 代表承認者
   APPROVER_ACTIONS = %i[read update publish].freeze                 # 承認者
-  EDITOR_ACTIONS   = %i[read update].freeze                         # 入力者
-  READER_ACTION    = %i[read].freeze                                # 閲覧者
+  EDITOR_ACTIONS = %i[read update].freeze                           # 入力者
+  READER_ACTION = %i[read].freeze                                   # 閲覧者
+  SYSTEM_ROLES_ABILITIES = {
+    # システム管理者
+    super_admin: [{ action: :manage, subject: :all }],
+    # ユーザー管理者
+    user_admin: [
+      { action: :manage, subject: User },
+      { action: :manage, subject: Announcement }
+    ],
+    # プレイリスト管理者
+    playlist_admin: [
+      { action: :manage, subject: Playlist },
+      { action: :read, subject: PlaylistItem },
+      { action: :manage, subject: 'Episode' },
+      { action: :manage, subject: Announcement }
+    ],
+    # デッキ管理者
+    deck_admin: [
+      { action: :manage, subject: Deck },
+      { action: :manage, subject: SeriesDeck },
+      { action: %i[episodes search], subject: SeriesPlaylist },
+      { action: :manage, subject: Announcement }
+    ],
+    # 閲覧者
+    reader_user: [
+      { action: %i[read actors_and_contributors bundle_items], subject: Playlist },
+      { action: :read, subject: PlaylistItem },
+      { action: :read, subject: Deck },
+      { action: :read, subject: SeriesDeck },
+      { action: :episodes, subject: SeriesPlaylist },
+      { action: :bundle, subject: 'Episode' },
+      { action: :read, subject: Announcement }
+    ]
+  }.freeze
+  RECOMMEND_PLAYLIST_ABILITIES = {
+    manager: { action: MANAGER_ACTIONS, subject: Playlist },        # 代表承認者
+    approver: { action: APPROVER_ACTIONS, subject: Playlist },      # 承認者
+    editor: { action: EDITOR_ACTIONS, subject: Playlist },          # 入力者
+    reader: { action: READER_ACTION, subject: Playlist }            # 閲覧者
+  }.freeze
+  RECOMMEND_PLAYLIST_ITEM_ABILITIES = {
+    manager: { action: MANAGER_ACTIONS, subject: PlaylistItem },    # 代表承認者
+    approver: { action: APPROVER_ACTIONS, subject: PlaylistItem },  # 承認者
+    editor: { action: EDITOR_ACTIONS, subject: PlaylistItem },      # 入力者
+    reader: { action: READER_ACTION, subject: PlaylistItem }        # 閲覧者
+  }.freeze
 
   def initialize(user)
     abilities = build(user)
@@ -27,50 +72,23 @@ class Ability
 
   private
 
-  def set_system_roles(user, abilities) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    # システムロール
-    if user.has_role? :super_admin
-      abilities << { action: :manage, subject: :all }
-    elsif user.has_role? :user_admin # ユーザー管理者
-      abilities << { action: :manage, subject: User }
-      abilities << { action: :manage, subject: Announcement }
-    elsif user.has_role? :playlist_admin # プレイリスト管理者
-      abilities << { action: :manage, subject: Playlist }
-      abilities << { action: :read, subject: PlaylistItem }
-      abilities << { action: :manage, subject: 'Episode' } # NOTE: Episodeはmodelが存在しないためsubjectの定義方法が異なる
-      abilities << { action: :manage, subject: Announcement }
-    elsif user.has_role? :deck_admin # デッキ管理者
-      abilities << { action: :manage, subject: Deck }
-      abilities << { action: :manage, subject: SeriesDeck }
-      abilities << { action: %i[episodes search], subject: SeriesPlaylist }
-      abilities << { action: :manage, subject: Announcement }
-    elsif user.has_role? :reader_user # 閲覧者
-      abilities << { action: %i[read actors_and_contributors bundle_items], subject: Playlist }
-      abilities << { action: :read, subject: PlaylistItem }
-      abilities << { action: :read, subject: Deck }
-      abilities << { action: :read, subject: SeriesDeck }
-      abilities << { action: :episodes, subject: SeriesPlaylist }
-      abilities << { action: :bundle, subject: 'Episode' }
-      abilities << { action: :index, subject: Announcement }
+  def set_system_roles(user, abilities)
+    SYSTEM_ROLES_ABILITIES.each_key do |role|
+      user_has_role?(user, role, abilities)
     end
-
-    abilities
   end
 
-  def set_recommend_playlist_roles(user, abilities) # rubocop:disable Metrics/AbcSize
-    # レコメンドプレイリストロール
-    if Playlist.with_role(:manager, user).present? # 代表承認者
-      abilities << { action: MANAGER_ACTIONS, subject: Playlist,
-                     conditions: { string_id: Playlist.with_role(:manager, user).pluck(:string_id) } }
-    elsif Playlist.with_role(:approver, user).present? # 承認者
-      abilities << { action: APPROVER_ACTIONS, subject: Playlist,
-                     conditions: { string_id: Playlist.with_role(:approver, user).pluck(:string_id) } }
-    elsif Playlist.with_role(:editor, user).present? # 入力者
-      abilities << { action: EDITOR_ACTIONS, subject: Playlist,
-                     conditions: { string_id: Playlist.with_role(:editor, user).pluck(:string_id) } }
-    elsif Playlist.with_role(:reader, user).present? # 閲覧者
-      abilities << { action: READER_ACTION, subject: Playlist,
-                     conditions: { string_id: Playlist.with_role(:reader, user).pluck(:string_id) } }
+  def user_has_role?(user, role, abilities)
+    return unless user.has_role?(role)
+
+    SYSTEM_ROLES_ABILITIES[role].each do |ability|
+      abilities << ability
+    end
+  end
+
+  def set_recommend_playlist_roles(user, abilities)
+    RECOMMEND_PLAYLIST_ABILITIES.each_key do |role|
+      abilities << RECOMMEND_PLAYLIST_ABILITIES[role] if Playlist.with_role(role, user).present?
     end
 
     set_recommend_playlist_items_roles(user, abilities)
@@ -78,19 +96,9 @@ class Ability
     abilities
   end
 
-  def set_recommend_playlist_items_roles(user, abilities) # rubocop:disable Metrics/AbcSize
-    if PlaylistItem.with_role(:manager, user).present? # 代表承認者
-      abilities << { action: MANAGER_ACTIONS, subject: PlaylistItem,
-                     conditions: { playlist_id: PlaylistItem.with_role(:manager, user).pluck(:playlist_id) } }
-    elsif PlaylistItem.with_role(:approver, user).present? # 承認者
-      abilities << { action: APPROVER_ACTIONS, subject: PlaylistItem,
-                     conditions: { playlist_id: PlaylistItem.with_role(:approver, user).pluck(:playlist_id) } }
-    elsif PlaylistItem.with_role(:editor, user).present? # 入力者
-      abilities << { action: EDITOR_ACTIONS, subject: PlaylistItem,
-                     conditions: { playlist_id: PlaylistItem.with_role(:editor, user).pluck(:playlist_id) } }
-    elsif PlaylistItem.with_role(:reader, user).present? # 閲覧者
-      abilities << { action: READER_ACTION, subject: PlaylistItem,
-                     conditions: { playlist_id: PlaylistItem.with_role(:reader, user).pluck(:playlist_id) } }
+  def set_recommend_playlist_items_roles(user, abilities)
+    RECOMMEND_PLAYLIST_ITEM_ABILITIES.each_key do |role|
+      abilities << RECOMMEND_PLAYLIST_ITEM_ABILITIES[role] if PlaylistItem.with_role(role, user).present?
     end
 
     abilities
