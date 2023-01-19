@@ -47,7 +47,7 @@ export const AnnouncementList = ({
       <AnnouncementListItem
         key={id}
         createdAt={dateCreated}
-        background={index % 2 === 0 ? '#BDBDBD33' : 'white'}
+        bg={index % 2 === 0 ? '#BDBDBD33' : 'white'}
         {...{ status, contents }}
       />
     )
@@ -63,12 +63,11 @@ export const AnnouncementList = ({
     <Center flexDirection="column" rowGap={6}>
       <Box
         p={6}
-        background="white"
+        bg="white"
         boxShadow="xs"
         border="1px solid #E2E8F0"
         borderRadius="sm"
-        minW="1200px"
-        w="fit-content"
+        w="full"
       >
         <Flex columnGap={4} align="center" mb={6}>
           <Heading size="md">運営チームからのお知らせ</Heading>

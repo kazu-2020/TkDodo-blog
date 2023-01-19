@@ -7,6 +7,7 @@ import { announcementGenerator } from '@/test/data-generators'
 import { queryClient } from '@/lib/react-query'
 
 import { AnnouncementList } from './AnnouncementList' // eslint-disable-line import/no-cycle
+import { Container } from '@chakra-ui/react'
 
 export default {
   component: AnnouncementList
@@ -28,7 +29,9 @@ export const Default: ComponentStoryObj<typeof AnnouncementList> = {
 
       return (
         <QueryClientProvider client={queryClient}>
-          <Story />
+          <Container maxW="container.xl">
+            <Story />
+          </Container>
         </QueryClientProvider>
       )
     }
