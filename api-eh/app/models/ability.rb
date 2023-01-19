@@ -70,40 +70,17 @@ class Ability
   def build(user)
     abilities = []
 
-    assign_system_roles(user, abilities)
+    abilities.concat(SYSTEM_ROLES.flat_map { |role, ability| user.has_role?(role) ? ability : [] })
 
-    assign_recommend_playlist_roles(user, abilities)
-
+    abilities.concat(RECOMMEND_PLAYLIST_ROLES.flat_map do |role, ability|
+                       has_recommend_playlist_role?(role, user) ? ability : []
+                     end)
     abilities
   end
 
   private
 
-  def assign_system_roles(user, abilities)
-    SYSTEM_ROLES.each_key do |role|
-      user_has_role?(user, role, abilities)
-    end
-  end
-
-  def assign_recommend_playlist_roles(user, abilities)
-    RECOMMEND_PLAYLIST_ROLES.each_key do |role|
-      user_has_recommend_playlist_role?(user, role, abilities)
-    end
-  end
-
-  def user_has_role?(user, role, abilities)
-    return unless user.has_role?(role)
-
-    SYSTEM_ROLES[role].each do |ability|
-      abilities << ability
-    end
-  end
-
-  def user_has_recommend_playlist_role?(user, role, abilities)
-    return unless Playlist.with_role(role, user).present? && PlaylistItem.with_role(role, user).present?
-
-    RECOMMEND_PLAYLIST_ROLES[role].each do |ability|
-      abilities << ability
-    end
+  def has_recommend_playlist_role?(role, user)
+    Playlist.with_role(role, user).present?
   end
 end
