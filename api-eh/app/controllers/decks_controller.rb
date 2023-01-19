@@ -48,6 +48,7 @@ class DecksController < ApiBaseController
     render json: { deleted: true }
   end
 
+  # TODO: 社会実証2期後に削除する
   def playlists
     @deck = Deck.find_by(id: params[:id])
     page = (params[:page] || 1).to_i

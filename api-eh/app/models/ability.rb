@@ -3,10 +3,10 @@
 class Ability
   include CanCan::Ability
 
-  MANAGER_ACTIONS = %i[read update destroy assign publish].freeze   # 代表承認者
-  APPROVER_ACTIONS = %i[read update publish].freeze                 # 承認者
-  EDITOR_ACTIONS = %i[read update].freeze                           # 入力者
-  READER_ACTIONS = %i[read].freeze                                  # 閲覧者
+  MANAGER_ACTIONS = %i[read update destroy assign publish bulk_update].freeze   # 代表承認者
+  APPROVER_ACTIONS = %i[read update publish bulk_update].freeze                 # 承認者
+  EDITOR_ACTIONS = %i[read update bulk_update].freeze                           # 入力者
+  READER_ACTIONS = %i[read].freeze                                              # 閲覧者
 
   SYSTEM_ROLES = {
     # システム管理者
@@ -19,7 +19,7 @@ class Ability
     # プレイリスト管理者
     playlist_admin: [
       { action: :manage, subject: Playlist },
-      { action: :read, subject: PlaylistItem },
+      { action: :manage, subject: PlaylistItem },
       { action: :manage, subject: 'Episode' },
       { action: :manage, subject: Announcement }
     ],

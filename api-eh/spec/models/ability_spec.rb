@@ -36,7 +36,7 @@ describe 'Ability' do
         end
 
         it 'can read PlaylistItem' do
-          expect(ability).to be_can(:read, PlaylistItem)
+          expect(ability).to be_can(:manage, PlaylistItem)
         end
 
         it 'can manage Episode' do
@@ -123,7 +123,7 @@ describe 'Ability' do
         end
 
         it 'can read PlaylistItem' do
-          expect(ability).to be_can(:read, PlaylistItem)
+          expect(ability).to be_can(:manage, PlaylistItem)
         end
 
         it 'can manage Episode' do
@@ -183,7 +183,7 @@ describe 'Ability' do
         end
 
         it do
-          actions = %i[read update destroy assign publish]
+          actions = %i[read update destroy assign publish bulk_update]
 
           actions.each do |action|
             expect(ability).to be_can(action, Playlist)
@@ -203,7 +203,7 @@ describe 'Ability' do
         end
 
         it do
-          actions = %i[read update publish]
+          actions = %i[read update publish bulk_update]
 
           actions.each do |action|
             expect(ability).to be_can(action, Playlist)
@@ -223,7 +223,7 @@ describe 'Ability' do
         end
 
         it do
-          actions = %i[read update]
+          actions = %i[read update bulk_update]
 
           actions.each do |action|
             expect(ability).to be_can(action, Playlist)
