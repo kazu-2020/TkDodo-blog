@@ -23,8 +23,6 @@ const RecommendDeckList = () => {
   const recommendDecks = data?.recommendDecks
   const totalCount = data?.pagination?.count || 0
 
-  console.log('hi', totalCount)
-
   return (
     <Stack>
       <Grid templateColumns="repeat(12, 1fr)" gap={6}>

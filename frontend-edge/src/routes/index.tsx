@@ -17,8 +17,8 @@ import {
 import { Playlist, Playlists, NewPlaylist } from '@/features/playlists'
 import NotFound from '@/features/misc/routes/NotFound'
 import { HomePage } from '@/features/home/routes'
-import Layout from '@/components/Layout'
 import { AnnouncementsPage } from '@/features/annoucements/routes'
+import Layout from '@/components/Layout'
 
 const AppRoutes = () => (
   <Routes>
