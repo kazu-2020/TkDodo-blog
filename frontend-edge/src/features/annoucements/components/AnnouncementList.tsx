@@ -14,6 +14,7 @@ import {
 import type { Pagination as PaginationType } from '@/types/pagination'
 import { Announcement } from '@/types/announcement'
 import { Pagination } from '@/components/Pagination'
+import { ListScreenSkeleton } from '@/components/ListScreenSkeleton'
 import Link from '@/components/Link'
 
 import { useAnnouncements } from '../api/getAnnouncements'
@@ -33,7 +34,7 @@ export const AnnouncementList = ({
   hasPagination,
   displayedCount = 50
 }: AnnouncementListProps) => {
-  const { data } = useAnnouncements({
+  const { data, isLoading } = useAnnouncements({
     params: { per: displayedCount }
   })
 
@@ -90,11 +91,11 @@ export const AnnouncementList = ({
           )}
         </Flex>
 
-        {announcements.length > 0 ? (
-          <Box w="1200px" border="1px solid #E2E8F0">
-            {announcements.map(announcementItem)}
-          </Box>
-        ) : (
+        {isLoading && <ListScreenSkeleton size={displayedCount} />}
+        {!isLoading &&
+          announcements.length > 0 &&
+          announcements.map(announcementItem)}
+        {!isLoading && announcements.length === 0 && (
           <Text>お知らせはありません</Text>
         )}
       </Box>
