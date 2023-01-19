@@ -1,5 +1,6 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
+import { Container } from '@chakra-ui/react'
 
 import { handlers } from '@/test/server/handlers'
 import { db, resetDb } from '@/test/server/db'
@@ -7,7 +8,6 @@ import { announcementGenerator } from '@/test/data-generators'
 import { queryClient } from '@/lib/react-query'
 
 import { AnnouncementList } from './AnnouncementList' // eslint-disable-line import/no-cycle
-import { Container } from '@chakra-ui/react'
 
 export default {
   component: AnnouncementList
