@@ -18,6 +18,7 @@ import { Playlist, Playlists, NewPlaylist } from '@/features/playlists'
 import NotFound from '@/features/misc/routes/NotFound'
 import { HomePage } from '@/features/home/routes'
 import Layout from '@/components/Layout'
+import { AnnouncementsPage } from '@/features/annoucements/routes'
 
 const AppRoutes = () => (
   <Routes>
@@ -49,6 +50,7 @@ const AppRoutes = () => (
         </Route>
         <Route path="new" element={<NewSeriesDeck />} />
       </Route>
+      <Route path="announcements" element={<AnnouncementsPage />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   </Routes>

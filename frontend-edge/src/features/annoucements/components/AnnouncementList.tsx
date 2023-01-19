@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { render, screen } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
 import {
@@ -33,8 +33,13 @@ export const AnnouncementList = ({
   hasPagination,
   displayedCount = 50
 }: AnnouncementListProps) => {
+  const [page, setPage] = useState(1)
+
   const { data } = useAnnouncements({
-    params: { per: displayedCount }
+    params: {
+      page,
+      per: displayedCount
+    }
   })
 
   const announcements = useMemo(() => data?.announcements ?? [], [data])
@@ -53,9 +58,17 @@ export const AnnouncementList = ({
   }
 
   const paginate = (paginateData: PaginationType) => {
-    const { currentPage, totalPages } = paginateData
+    const { currentPage, totalPages, count } = paginateData
 
-    return <Pagination totalCount={totalPages} page={currentPage} />
+    return (
+      <Pagination
+        totalCount={count}
+        page={currentPage}
+        offset={displayedCount}
+        pageCount={totalPages}
+        onChangePage={setPage}
+      />
+    )
   }
 
   return (
@@ -72,8 +85,7 @@ export const AnnouncementList = ({
         <Flex columnGap={4} align="center" mb={6}>
           <Heading size="md">運営チームからのお知らせ</Heading>
           {isSawMore && (
-            // TODO: お知らせ一覧画面へのパスを設定する
-            <Link to="/" color="#009688" fontWeight="bold">
+            <Link to="/announcements" color="#009688" fontWeight="bold">
               もっと見る
             </Link>
           )}
