@@ -16,7 +16,7 @@ type AnnouncementListItemProps = {
   contents: string
   createdAt: string
   isEditable?: boolean
-  background?: string
+  bg?: string
 }
 
 export const AnnouncementListItem = memo(
@@ -25,9 +25,9 @@ export const AnnouncementListItem = memo(
     contents,
     createdAt,
     isEditable,
-    background = '#fff'
+    bg = '#fff'
   }: AnnouncementListItemProps) => (
-    <Flex align="center" px={2} minH={10} columnGap={6} {...{ background }}>
+    <Flex align="center" px={2} minH={10} columnGap={6} {...{ bg }}>
       <Text fontSize="sm">{formatDateWithWeekday(createdAt)}</Text>
       <AnnouncementBadge {...{ status }} />
       <Text

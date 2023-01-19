@@ -14,6 +14,7 @@ import {
 import type { Pagination as PaginationType } from '@/types/pagination'
 import { Announcement } from '@/types/announcement'
 import { Pagination } from '@/components/Pagination'
+import { ListScreenSkeleton } from '@/components/ListScreenSkeleton'
 import Link from '@/components/Link'
 
 import { useAnnouncements } from '../api/getAnnouncements'
@@ -35,7 +36,7 @@ export const AnnouncementList = ({
 }: AnnouncementListProps) => {
   const [page, setPage] = useState(1)
 
-  const { data } = useAnnouncements({
+  const { data, isLoading } = useAnnouncements({
     params: {
       page,
       per: displayedCount
@@ -51,7 +52,7 @@ export const AnnouncementList = ({
       <AnnouncementListItem
         key={id}
         createdAt={dateCreated}
-        background={index % 2 === 0 ? '#BDBDBD33' : 'white'}
+        bg={index % 2 === 0 ? '#BDBDBD33' : 'white'}
         {...{ status, contents }}
       />
     )
@@ -75,12 +76,11 @@ export const AnnouncementList = ({
     <Center flexDirection="column" rowGap={6}>
       <Box
         p={6}
-        background="white"
+        bg="white"
         boxShadow="xs"
         border="1px solid #E2E8F0"
         borderRadius="sm"
-        minW="1200px"
-        w="fit-content"
+        w="full"
       >
         <Flex columnGap={4} align="center" mb={6}>
           <Heading size="md">運営チームからのお知らせ</Heading>
@@ -102,11 +102,11 @@ export const AnnouncementList = ({
           )}
         </Flex>
 
-        {announcements.length > 0 ? (
-          <Box w="1200px" border="1px solid #E2E8F0">
-            {announcements.map(announcementItem)}
-          </Box>
-        ) : (
+        {isLoading && <ListScreenSkeleton size={displayedCount} />}
+        {!isLoading &&
+          announcements.length > 0 &&
+          announcements.map(announcementItem)}
+        {!isLoading && announcements.length === 0 && (
           <Text>お知らせはありません</Text>
         )}
       </Box>

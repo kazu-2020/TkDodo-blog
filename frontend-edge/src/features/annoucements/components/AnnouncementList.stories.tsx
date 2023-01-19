@@ -1,5 +1,6 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
+import { Container } from '@chakra-ui/react'
 
 import { handlers } from '@/test/server/handlers'
 import { db, resetDb } from '@/test/server/db'
@@ -28,7 +29,9 @@ export const Default: ComponentStoryObj<typeof AnnouncementList> = {
 
       return (
         <QueryClientProvider client={queryClient}>
-          <Story />
+          <Container maxW="container.xl">
+            <Story />
+          </Container>
         </QueryClientProvider>
       )
     }
