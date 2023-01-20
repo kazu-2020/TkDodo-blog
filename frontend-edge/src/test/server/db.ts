@@ -102,6 +102,12 @@ const models = {
     publishLevel: String,
     dateCreated: String,
     dateModified: String
+  },
+  announcement: {
+    id: primaryKey(Number),
+    status: String,
+    contents: String,
+    dateCreated: String
   }
 }
 
