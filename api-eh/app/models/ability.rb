@@ -2,11 +2,43 @@
 
 class Ability
   include CanCan::Ability
-
-  MANAGER_ACTIONS = %i[read update destroy assign publish bulk_update].freeze   # 代表承認者
-  APPROVER_ACTIONS = %i[read update publish bulk_update].freeze                 # 承認者
-  EDITOR_ACTIONS = %i[read update bulk_update].freeze                           # 入力者
-  READER_ACTIONS = %i[read].freeze                                              # 閲覧者
+  # 代表承認者
+  MANAGER_ACTIONS = %i[
+    read
+    update
+    destroy
+    assign
+    publish
+    bulk_update
+    upload_article_image_by_url
+    upload_article_image_by_file
+    actors_and_contributors
+    bundle_items
+  ].freeze
+  # 承認者
+  APPROVER_ACTIONS = %i[
+    read update publish
+    bulk_update upload_article_image_by_url
+    upload_article_image_by_file
+    actors_and_contributors
+    bundle_items
+  ].freeze
+  # 入力者
+  EDITOR_ACTIONS = %i[
+    read
+    update
+    bulk_update
+    upload_article_image_by_url
+    upload_article_image_by_file
+    actors_and_contributors
+    bundle_items
+  ].freeze
+  # 閲覧者
+  READER_ACTIONS = %i[
+    read
+    actors_and_contributors
+    bundle_items
+  ].freeze
 
   SYSTEM_ROLES = {
     # システム管理者
@@ -42,19 +74,19 @@ class Ability
     ]
   }.freeze
   RECOMMEND_PLAYLIST_ROLES = {
-    manager: [                                                      # 代表承認者
+    manager: [ # 代表承認者
       { action: MANAGER_ACTIONS, subject: Playlist },
       { action: MANAGER_ACTIONS, subject: PlaylistItem }
     ],
-    approver: [                                                     # 承認者
+    approver: [ # 承認者
       { action: APPROVER_ACTIONS, subject: Playlist },
       { action: APPROVER_ACTIONS, subject: PlaylistItem }
     ],
-    editor: [                                                       # 入力者
+    editor: [ # 入力者
       { action: EDITOR_ACTIONS, subject: Playlist },
       { action: EDITOR_ACTIONS, subject: PlaylistItem }
     ],
-    reader: [                                                       # 閲覧者
+    reader: [ # 閲覧者
       { action: READER_ACTIONS, subject: Playlist },
       { action: READER_ACTIONS, subject: PlaylistItem }
     ]
