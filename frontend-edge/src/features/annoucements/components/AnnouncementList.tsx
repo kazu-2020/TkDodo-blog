@@ -20,6 +20,7 @@ import Link from '@/components/Link'
 import { useAnnouncements } from '../api/getAnnouncements'
 
 import { AnnouncementListItem } from './AnnouncementListItem'
+import { useNavigate } from 'react-router-dom'
 
 type AnnouncementListProps = {
   isEditable?: boolean
@@ -35,6 +36,8 @@ export const AnnouncementList = ({
   displayedCount = 50
 }: AnnouncementListProps) => {
   const [page, setPage] = useState(1)
+
+  const navigate = useNavigate()
 
   const { data, isLoading } = useAnnouncements({
     params: {
@@ -72,6 +75,8 @@ export const AnnouncementList = ({
     )
   }
 
+  const goToNewPage = () => navigate('/announcements/new')
+
   return (
     <Center flexDirection="column" rowGap={6}>
       <Box
@@ -96,6 +101,7 @@ export const AnnouncementList = ({
               color="white"
               boxShadow="md"
               _hover={{ opacity: 0.6 }}
+              onClick={goToNewPage}
             >
               新規お知らせ登録
             </Button>
