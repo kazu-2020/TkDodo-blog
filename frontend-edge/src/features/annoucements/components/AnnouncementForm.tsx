@@ -49,14 +49,10 @@ export const AnnouncementForm = ({
         react-hook-formが動作するように「noValidate」を付与
       */}
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <FormFieldWrapper
-          id="status"
-          error={errors.status}
-          isRequired
-          label="種別"
-          mb={8}
-        >
-          <Select w="240px">{statusOption}</Select>
+        <FormFieldWrapper id="status" error={errors.status} label="種別" mb={8}>
+          <Select w="240px" {...register('status')}>
+            {statusOption}
+          </Select>
         </FormFieldWrapper>
 
         <FormFieldWrapper
