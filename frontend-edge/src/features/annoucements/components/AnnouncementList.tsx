@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import { render, screen } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
@@ -20,7 +21,6 @@ import Link from '@/components/Link'
 import { useAnnouncements } from '../api/getAnnouncements'
 
 import { AnnouncementListItem } from './AnnouncementListItem'
-import { useNavigate } from 'react-router-dom'
 
 type AnnouncementListProps = {
   isEditable?: boolean
