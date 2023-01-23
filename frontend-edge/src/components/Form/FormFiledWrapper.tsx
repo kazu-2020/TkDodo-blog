@@ -22,17 +22,13 @@ export const FormFieldWrapper = ({
   label,
   schemaName,
   ...formControl
-}: FormFieldWrapperProps) => {
-  console.log('error', error)
+}: FormFieldWrapperProps) => (
+  <FormControl isInvalid={!!error} {...formControl}>
+    <PropertyLabel {...{ label, schemaName }} />
 
-  return (
-    <FormControl isInvalid={!!error} {...formControl}>
-      <PropertyLabel {...{ label, schemaName }} />
+    {children}
 
-      {children}
-
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
-      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
-    </FormControl>
-  )
-}
+    {helperText && <FormHelperText>{helperText}</FormHelperText>}
+    {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
+  </FormControl>
+)
