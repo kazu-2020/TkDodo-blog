@@ -13,7 +13,7 @@ describe('お知らせ新規作成', () => {
   const createAnnouncement = () => {
     cy.visit('/announcements/new');
     cy.get('[data-testid="announcement-new-form"]').within(() => {
-      cy.get('#status').select('機能改善');
+      cy.get('#status').type('機能改善{enter}{enter}', { force: true });
       cy.get('#contents').type('機能改善のお知らせです');
       cy.contains('新規登録する').click();
     });
