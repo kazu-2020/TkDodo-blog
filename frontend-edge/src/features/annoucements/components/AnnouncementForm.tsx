@@ -49,7 +49,11 @@ export const AnnouncementForm = ({
         chakaraの「isRequired」とreact-hook-formの「required」 validationを同時に指定した場合、
         react-hook-formが動作するように「noValidate」を付与
       */}
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+        data-testid={`announcement-${isEdit ? 'edit' : 'new'}-form`}
+      >
         <FormFieldWrapper id="status" error={errors.status} label="種別" mb={8}>
           <Select w="240px" {...register('status')}>
             {statusOption}

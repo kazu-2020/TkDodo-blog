@@ -37,6 +37,7 @@ export const AnnouncementBadge = ({ status }: AnnouncementBadgeProps) => {
 
   return (
     <Badge
+      data-testid="announcement-badge"
       variant="solid"
       background={color}
       w={28}

@@ -78,7 +78,7 @@ export const AnnouncementList = ({
   const goToNewPage = () => navigate('/announcements/new')
 
   return (
-    <Center flexDirection="column" rowGap={6}>
+    <Center data-testid="announcement-list" flexDirection="column" rowGap={6}>
       <Box
         p={6}
         bg="white"
