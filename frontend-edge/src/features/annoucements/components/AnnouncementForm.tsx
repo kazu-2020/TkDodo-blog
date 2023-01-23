@@ -1,13 +1,20 @@
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { useMemo } from 'react'
+import { Select } from 'chakra-react-select'
 import { render, screen } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
-import { Box, Button, Select, Textarea } from '@chakra-ui/react'
+import { Box, Button, Textarea } from '@chakra-ui/react'
 
-import { ANNOUNCEMENT_STATUS, Announcement } from '@/types/announcement'
+import {
+  ANNOUNCEMENT_STATUS,
+  Announcement,
+  AnnouncementStatus
+} from '@/types/announcement'
 import { FormFieldWrapper } from '@/components/Form/FormFiledWrapper'
 
 import { convertAnnouncementStatus } from '../utils/convertAnnouncementStatus'
+
+type StatusOption = { label: string; value: AnnouncementStatus }
 
 type FormInput = Pick<Announcement, 'status' | 'contents'>
 
@@ -23,6 +30,7 @@ export const AnnouncementForm = ({
   contents
 }: AnnouncementFormProps) => {
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
@@ -33,13 +41,12 @@ export const AnnouncementForm = ({
     }
   })
 
-  const statusOption = useMemo(
+  const statusOption = useMemo<StatusOption[]>(
     () =>
-      ANNOUNCEMENT_STATUS.map((announcement_status) => (
-        <option key={announcement_status} value={announcement_status}>
-          {convertAnnouncementStatus(announcement_status)}
-        </option>
-      )),
+      ANNOUNCEMENT_STATUS.map((announcementStatus) => ({
+        label: convertAnnouncementStatus(announcementStatus),
+        value: announcementStatus
+      })),
     []
   )
 
@@ -54,11 +61,29 @@ export const AnnouncementForm = ({
         noValidate
         data-testid={`announcement-${isEdit ? 'edit' : 'new'}-form`}
       >
-        <FormFieldWrapper id="status" error={errors.status} label="種別" mb={8}>
-          <Select w="240px" {...register('status')}>
-            {statusOption}
-          </Select>
-        </FormFieldWrapper>
+        <Controller
+          name="status"
+          render={({ field: { onChange, value, ref } }) => (
+            <FormFieldWrapper
+              id="status"
+              error={errors.status}
+              label="種別"
+              mb={8}
+            >
+              <Select
+                options={statusOption}
+                value={statusOption.find((option) => option.value === value)}
+                onChange={(newValue) => {
+                  if (newValue?.value) {
+                    onChange(newValue.value)
+                  }
+                }}
+                {...{ ref }}
+              />
+            </FormFieldWrapper>
+          )}
+          {...{ control }}
+        />
 
         <FormFieldWrapper
           id="contents"
