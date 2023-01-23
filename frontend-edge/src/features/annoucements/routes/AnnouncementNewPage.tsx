@@ -1,8 +1,8 @@
-import { Box } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
+import { Box , useToast } from '@chakra-ui/react'
+
 import { AnnouncementForm } from '../components/AnnouncementForm'
 import { useCreateAnnouncement } from '../api/createAnnouncements'
-import { useNavigate } from 'react-router-dom'
-import { useToast } from '@chakra-ui/react'
 
 export const AnnouncementNewPage = () => {
   const navigate = useNavigate()

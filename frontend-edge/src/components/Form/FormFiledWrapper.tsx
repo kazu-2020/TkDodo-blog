@@ -1,12 +1,13 @@
+import { FieldError } from 'react-hook-form'
+import { ReactNode } from 'react'
 import {
   FormControl,
   FormErrorMessage,
   FormHelperText,
   FormControlProps
 } from '@chakra-ui/react'
+
 import { PropertyLabel, PropertyLabelProps } from './PropertyLabel'
-import { FieldError } from 'react-hook-form'
-import { ReactNode } from 'react'
 
 type FormFieldWrapperProps = {
   children: ReactNode

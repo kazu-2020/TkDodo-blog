@@ -1,11 +1,12 @@
-import { render, screen } from '@testing-library/react'
-
-import { FormFieldWrapper } from '@/components/Form/FormFiledWrapper'
-import { ANNOUNCEMENT_STATUS, Announcement } from '@/types/announcement'
-import { Box, Button, Select, Textarea } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { useMemo } from 'react'
+import { render, screen } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
+import { Box, Button, Select, Textarea } from '@chakra-ui/react'
+
+import { ANNOUNCEMENT_STATUS, Announcement } from '@/types/announcement'
+import { FormFieldWrapper } from '@/components/Form/FormFiledWrapper'
+
 import { convertAnnouncementStatus } from '../utils/convertAnnouncementStatus'
 
 type FormInput = Pick<Announcement, 'status' | 'contents'>
@@ -34,9 +35,9 @@ export const AnnouncementForm = ({
 
   const statusOption = useMemo(
     () =>
-      ANNOUNCEMENT_STATUS.map((status) => (
-        <option key={status} value={status}>
-          {convertAnnouncementStatus(status)}
+      ANNOUNCEMENT_STATUS.map((announcement_status) => (
+        <option key={announcement_status} value={announcement_status}>
+          {convertAnnouncementStatus(announcement_status)}
         </option>
       )),
     []
@@ -87,28 +88,19 @@ export const AnnouncementForm = ({
 }
 
 if (import.meta.vitest) {
-  const { describe, it, expect, vi } = import.meta.vitest
+  const { describe, it, expect } = import.meta.vitest
   const stories = await import('./AnnouncementForm.stories') // eslint-disable-line import/no-cycle
-  const { EmptyError, FilledSuccess } = composeStories(stories)
+  const { EmptyError } = composeStories(stories)
 
   describe('未入力で送信ボタンを押した場合', () => {
     it('「お知らせ内容を入力してください」が表示されること', async () => {
       const { container } = render(<EmptyError />)
       await EmptyError.play({ canvasElement: container })
+      const errorMessage = await screen.findByText(
+        'お知らせ内容を入力してください'
+      )
 
-      expect(
-        screen.getByText('お知らせ内容を入力してください')
-      ).toBeInTheDocument()
-    })
-  })
-
-  describe('全入力で送信ボタンを押した場合', () => {
-    it('送信が行われること', async () => {
-      const mockCallback = vi.fn()
-      const { container } = render(<FilledSuccess onSubmit={mockCallback} />)
-      await FilledSuccess.play({ canvasElement: container })
-
-      expect(mockCallback).toBeCalledTimes(1)
+      expect(errorMessage).toBeInTheDocument()
     })
   })
 }

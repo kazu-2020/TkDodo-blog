@@ -1,9 +1,8 @@
+import { userEvent, within } from '@storybook/testing-library'
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import userEvent from '@testing-library/user-event'
-import { within } from '@testing-library/react'
-
-import { AnnouncementForm } from './AnnouncementForm'
 import { Container } from '@chakra-ui/react'
+
+import { AnnouncementForm } from './AnnouncementForm' // eslint-disable-line import/no-cycle
 
 export default {
   component: AnnouncementForm
