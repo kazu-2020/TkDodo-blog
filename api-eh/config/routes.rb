@@ -56,7 +56,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :announcements, only: %i[index create update destroy], format: 'json'
+  resources :announcements, only: %i[index create show update destroy], format: 'json'
 
   namespace :embed do
     get 'ts/:series_id', to: 'series#show'
