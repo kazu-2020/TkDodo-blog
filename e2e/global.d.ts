@@ -10,6 +10,10 @@ declare global {
       deleteAllRecommendDeck: () => void;
       createSeriesDeck: (overrides?, addPlaylistCount?) => void;
       deleteAllSeriesDeck: () => void;
+      createAnnouncement: (props?: {
+        status?: string;
+        contents?: string;
+      }) => void;
     }
   }
 }
