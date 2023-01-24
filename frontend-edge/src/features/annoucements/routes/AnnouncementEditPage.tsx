@@ -46,7 +46,7 @@ export const AnnouncementEditPage = () => {
   const onSubmitForm = useCallback(
     (formData: FormInput) =>
       updateAnnouncement({ id: announcementId!, data: formData }),
-    []
+    [updateAnnouncement, announcementId]
   )
 
   return (
