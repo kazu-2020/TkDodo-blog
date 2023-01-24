@@ -1,1 +1,3 @@
-json.partial! 'announcements/announcement', announcement: @announcement
+json.announcement do
+  json.partial! 'announcements/announcement', announcement: @announcement
+end

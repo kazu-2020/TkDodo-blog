@@ -128,7 +128,7 @@ RSpec.describe 'Announcements' do
       it '更新されたお知らせを返すこと' do
         json = JSON.parse(response.body)
 
-        expect(json).to match({
+        expect(json.dig('announcement')).to match({
                                 'id' => announcement.id,
                                 'status' => 'improved',
                                 'contents' => '更新',
