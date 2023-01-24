@@ -31,6 +31,14 @@ export const BreadcrumbLabel = [
       { path: 'series-decks/:seriesDeckId/config', breadcrumb: ConfigTitle },
       { path: 'announcements', breadcrumb: 'お知らせ一覧' },
       { path: 'announcements/new', breadcrumb: '新規お知らせ登録' },
+      {
+        path: 'announcements/:announcementId',
+        breadcrumb: null
+      },
+      {
+        path: 'announcements/:announcementId/edit',
+        breadcrumb: 'お知らせ編集'
+      },
       { path: '*', breadcrumb: 'Page Not Found' }
     ]
   }

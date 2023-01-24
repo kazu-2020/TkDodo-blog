@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { RiPencilLine } from 'react-icons/all'
 import { memo } from 'react'
 import { render, screen } from '@testing-library/react'
@@ -12,6 +13,7 @@ import { AnnouncementStatus } from '@/types/announcement'
 import { AnnouncementBadge } from './AnnouncementBadge'
 
 type AnnouncementListItemProps = {
+  id: number
   status: AnnouncementStatus
   contents: string
   createdAt: string
@@ -21,52 +23,60 @@ type AnnouncementListItemProps = {
 
 export const AnnouncementListItem = memo(
   ({
+    id,
     status,
     contents,
     createdAt,
     isEditable,
     bg = '#fff'
-  }: AnnouncementListItemProps) => (
-    <Flex
-      data-testid="announcement-list-item"
-      align="center"
-      px={2}
-      minH={10}
-      columnGap={6}
-      {...{ bg }}
-    >
-      <Text fontSize="sm">{formatDateWithWeekday(createdAt)}</Text>
-      <AnnouncementBadge {...{ status }} />
-      <Text
-        flex={1}
-        ref={(element) => {
-          if (!element) return
+  }: AnnouncementListItemProps) => {
+    const navigate = useNavigate()
 
-          const targetElement = element
-          targetElement.innerHTML = autoLink(contents)
-          const aTags = element.getElementsByTagName('a')
-          Array.from(aTags).forEach((aTag) => {
-            const el = aTag
-            el.style.color = '#009688'
-          })
-        }}
-      />
-      {isEditable && (
-        <Box>
-          <IconButton
-            aria-label="Edit announcement"
-            icon={<RiPencilLine color="#009688" />}
-            variant="ghost"
-          />
-          <IconButton
-            aria-label="Delete announcement"
-            icon={<DeleteIcon color="#009688" />}
-            variant="ghost"
-          />
-        </Box>
-      )}
-    </Flex>
-  )
+    const onClickEditIcon = () => navigate(`/announcements/${id}/edit`)
+
+    return (
+      <Flex
+        data-testid="announcement-list-item"
+        align="center"
+        px={2}
+        minH={10}
+        columnGap={6}
+        {...{ bg }}
+      >
+        <Text fontSize="sm">{formatDateWithWeekday(createdAt)}</Text>
+        <AnnouncementBadge {...{ status }} />
+        <Text
+          flex={1}
+          ref={(element) => {
+            if (!element) return
+
+            const targetElement = element
+            targetElement.innerHTML = autoLink(contents)
+            const aTags = element.getElementsByTagName('a')
+            Array.from(aTags).forEach((aTag) => {
+              const el = aTag
+              el.style.color = '#009688'
+            })
+          }}
+        />
+        {isEditable && (
+          <Box>
+            <IconButton
+              aria-label="Edit announcement"
+              icon={<RiPencilLine color="#009688" />}
+              variant="ghost"
+              onClick={onClickEditIcon}
+            />
+            <IconButton
+              aria-label="Delete announcement"
+              icon={<DeleteIcon color="#009688" />}
+              variant="ghost"
+            />
+          </Box>
+        )}
+      </Flex>
+    )
+  }
 )
 
 if (import.meta.vitest) {
