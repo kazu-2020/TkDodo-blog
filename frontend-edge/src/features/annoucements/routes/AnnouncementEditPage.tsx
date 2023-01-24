@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom'
+import { useCallback } from 'react'
 import { Box, useToast } from '@chakra-ui/react'
 
-import { AnnouncementForm } from '../components/AnnouncementForm'
-import { useAnnouncement } from '../api/getAnnouncement'
+import { AnnouncementForm, FormInput } from '../components/AnnouncementForm'
 import { useUpdateAnnouncement } from '../api/updateAnnouncement'
+import { useAnnouncement } from '../api/getAnnouncement'
 
 export const AnnouncementEditPage = () => {
   const { announcementId } = useParams()
@@ -42,6 +43,12 @@ export const AnnouncementEditPage = () => {
     }
   })
 
+  const onSubmitForm = useCallback(
+    (formData: FormInput) =>
+      updateAnnouncement({ id: announcementId!, data: formData }),
+    []
+  )
+
   return (
     <Box p={4}>
       {!isLoading && (
@@ -49,7 +56,7 @@ export const AnnouncementEditPage = () => {
           isEdit
           status={data?.announcement?.status}
           contents={data?.announcement?.contents}
-          onSubmit={(data) => updateAnnouncement({ id: announcementId!, data })}
+          onSubmit={onSubmitForm}
         />
       )}
     </Box>
