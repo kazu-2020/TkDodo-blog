@@ -21,3 +21,54 @@ describe('編集ページへの導線', () => {
     });
   });
 });
+
+describe('お知らせ更新', () => {
+  const updateAnnouncement = () => {
+    cy.visit('/');
+    cy.get('[aria-label="Edit announcement"]').first().click();
+    cy.get('[data-testid="announcement-edit-form"]').within(() => {
+      cy.get('#status').type(`'お知らせ{enter}{enter}`, {
+        force: true,
+      });
+      cy.get('#contents').clear();
+      cy.get('#contents').type('お知らせを更新しました');
+      cy.contains('保存する').click();
+    });
+  };
+
+  context('正常系', () => {
+    before(() => {
+      cy.createAnnouncement({ status: '緊急', contents: '緊急のお知らせです' });
+      updateAnnouncement();
+    });
+
+    beforeEach(() => {});
+
+    it('「保存しました」トーストが表示されること', () => {
+      cy.get('#toast-update-announcement-success').within(() => {
+        cy.contains('保存しました。').should('exist');
+      });
+    });
+  });
+
+  context('異常系(サーバーエラー)', () => {
+    before(() => {
+      cy.intercept(
+        {
+          method: 'PATCH',
+          url: 'announcements/*',
+        },
+        {
+          statusCode: 500,
+        }
+      );
+      updateAnnouncement();
+    });
+
+    it('「保存に失敗しました。」トーストが表示されること', () => {
+      cy.get('#toast-update-announcement-error').within(() => {
+        cy.contains('保存に失敗しました。').should('exist');
+      });
+    });
+  });
+});
