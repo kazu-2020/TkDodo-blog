@@ -9,7 +9,7 @@ class JsonWebToken
   end
 
   def self.jwks_keys
-    okta_keys_url = "https://#{ENV.fetch('OKTA_DOMAIN', nil)}/oauth2/default/v1/keys"
+    okta_keys_url = "https://#{ENV.fetch('OKTA_DOMAIN', nil)}/oauth2/v1/keys"
     jwks_raw = Net::HTTP.get URI(okta_keys_url)
     Array(JSON.parse(jwks_raw)['keys'])
   end
