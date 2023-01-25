@@ -1,9 +1,15 @@
+require('dotenv').config()
+
 const { defineConfig } = require("cypress")
 
 export default defineConfig({
   experimentalInteractiveRunEvents: true,
   env: {
     API_URL: "http://localhost:8888",
+    AUTH_USERNAME: process.env.AUTH_USERNAME,
+    AUTH_PASSWORD: process.env.AUTH_PASSWORD,
+    OKTA_DOMAIN: process.env.REACT_APP_OKTA_DOMAIN,
+    OKTA_CLIENT_ID: process.env.REACT_APP_OKTA_CLIENTID,
   },
   e2e: {
     // We've imported your old cypress plugins here.

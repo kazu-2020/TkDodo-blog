@@ -52,7 +52,7 @@ class Ability
     playlist_admin: [
       { action: :manage, subject: Playlist },
       { action: :manage, subject: PlaylistItem },
-      { action: :manage, subject: 'Episode' },
+      { action: :manage, subject: Episode },
       { action: :manage, subject: Announcement }
     ],
     # デッキ管理者
@@ -69,7 +69,7 @@ class Ability
       { action: :read, subject: Deck },
       { action: :read, subject: SeriesDeck },
       { action: :episodes, subject: SeriesPlaylist },
-      { action: :bundle, subject: 'Episode' }
+      { action: :bundle, subject: Episode }
     ]
   }.freeze
   RECOMMEND_PLAYLIST_ROLES = {
@@ -97,7 +97,6 @@ class Ability
       can ability[:action], ability[:subject], ability[:conditions]
     end
   end
-
   def build(user)
     abilities = []
 

@@ -14,6 +14,7 @@ declare global {
         status?: string;
         contents?: string;
       }) => void;
+      loginByOktaApi: (password: string, username: string) => void;
     }
   }
 }
