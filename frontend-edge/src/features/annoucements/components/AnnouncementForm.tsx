@@ -13,6 +13,7 @@ import {
 import { FormFieldWrapper } from '@/components/Form/FormFiledWrapper'
 
 import { convertAnnouncementStatus } from '../utils/convertAnnouncementStatus'
+import { usePrompt } from '@/utils/form-guard'
 
 type StatusOption = { label: string; value: AnnouncementStatus }
 
@@ -33,7 +34,7 @@ export const AnnouncementForm = ({
     control,
     register,
     handleSubmit,
-    formState: { errors, isSubmitting }
+    formState: { errors, isDirty, isSubmitting }
   } = useForm<FormInput>({
     defaultValues: {
       status: status ?? 'general',
@@ -48,6 +49,11 @@ export const AnnouncementForm = ({
         value: announcementStatus
       })),
     []
+  )
+
+  usePrompt(
+    '編集中のデータがあります。ページを離れますか？',
+    isDirty && !isSubmitting
   )
 
   return (
