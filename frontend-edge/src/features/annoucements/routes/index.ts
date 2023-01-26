@@ -1,2 +1,2 @@
-export * from './AnnouncementsPage'
-export * from './AnnouncementNewPage'
+export * from './Announcements'
+export * from './NewAnnouncement'
