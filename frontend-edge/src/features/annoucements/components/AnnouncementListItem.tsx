@@ -21,6 +21,20 @@ type AnnouncementListItemProps = {
   bg?: string
 }
 
+const replaceURLStringsWithLinks = (contents: string): string => {
+  const temporary = document.createElement('div')
+  temporary.innerHTML = autoLink(contents)
+  const links = temporary.getElementsByTagName('a')
+  Array.from(links).forEach((link) => {
+    const target = link
+    target.style.color = '#009688'
+  })
+  const result = temporary.innerHTML
+  temporary.remove()
+
+  return result
+}
+
 export const AnnouncementListItem = memo(
   ({
     id,
@@ -49,14 +63,9 @@ export const AnnouncementListItem = memo(
           flex={1}
           ref={(element) => {
             if (!element) return
-
             const targetElement = element
-            targetElement.innerHTML = autoLink(contents)
-            const aTags = element.getElementsByTagName('a')
-            Array.from(aTags).forEach((aTag) => {
-              const el = aTag
-              el.style.color = '#009688'
-            })
+
+            targetElement.innerHTML = replaceURLStringsWithLinks(contents)
           }}
         />
         {isEditable && (
