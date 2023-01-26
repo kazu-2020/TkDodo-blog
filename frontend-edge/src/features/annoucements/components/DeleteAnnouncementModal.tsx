@@ -23,21 +23,11 @@ export const DeleteAnnouncementModal = ({
   const cancelRef = useRef<HTMLButtonElement>(null)
 
   return (
-    <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
-      onClose={onClose}
-      isCentered
-    >
+    <AlertDialog leastDestructiveRef={cancelRef} {...{ isOpen, onClose }}>
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader
-            fontSize="20px"
-            fontWeight="bold"
-            color="#757575"
-            p={4}
-          >
-            お知らせの削除
+          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+            お知らせを削除
           </AlertDialogHeader>
 
           <AlertDialogBody p={4}>
@@ -46,22 +36,11 @@ export const DeleteAnnouncementModal = ({
             本当に削除しますか？
           </AlertDialogBody>
 
-          <AlertDialogFooter columnGap={6} justifyContent="center" p={4}>
-            <Button
-              ref={cancelRef}
-              onClick={onClose}
-              px={8}
-              fontSize="sm"
-              variant="ghost"
-            >
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={onClose}>
               キャンセル
             </Button>
-            <Button
-              colorScheme="red"
-              onClick={onClickDeleteButton}
-              px={8}
-              fontSize="sm"
-            >
+            <Button colorScheme="red" onClick={onClickDeleteButton} ml={3}>
               削除する
             </Button>
           </AlertDialogFooter>
