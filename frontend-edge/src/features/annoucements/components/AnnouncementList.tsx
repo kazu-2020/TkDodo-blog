@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import { render, screen } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
@@ -36,6 +37,8 @@ export const AnnouncementList = ({
 }: AnnouncementListProps) => {
   const [page, setPage] = useState(1)
 
+  const navigate = useNavigate()
+
   const { data, isLoading } = useAnnouncements({
     params: {
       page,
@@ -72,8 +75,10 @@ export const AnnouncementList = ({
     )
   }
 
+  const goToNewPage = () => navigate('/announcements/new')
+
   return (
-    <Center flexDirection="column" rowGap={6}>
+    <Center data-testid="announcement-list" flexDirection="column" rowGap={6}>
       <Box
         p={6}
         bg="white"
@@ -96,6 +101,7 @@ export const AnnouncementList = ({
               color="white"
               boxShadow="md"
               _hover={{ opacity: 0.6 }}
+              onClick={goToNewPage}
             >
               新規お知らせ登録
             </Button>

@@ -27,7 +27,14 @@ export const AnnouncementListItem = memo(
     isEditable,
     bg = '#fff'
   }: AnnouncementListItemProps) => (
-    <Flex align="center" px={2} minH={10} columnGap={6} {...{ bg }}>
+    <Flex
+      data-testid="announcement-list-item"
+      align="center"
+      px={2}
+      minH={10}
+      columnGap={6}
+      {...{ bg }}
+    >
       <Text fontSize="sm">{formatDateWithWeekday(createdAt)}</Text>
       <AnnouncementBadge {...{ status }} />
       <Text
