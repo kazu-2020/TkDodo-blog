@@ -74,6 +74,7 @@ export const AnnouncementForm = ({
               id="status"
               error={errors.status}
               label="種別"
+              w="240px"
               mb={8}
             >
               <Select
