@@ -19,8 +19,8 @@ import NotFound from '@/features/misc/routes/NotFound'
 import { HomePage } from '@/features/home/routes'
 import {
   EditAnnouncement,
-  AnnouncementNewPage,
-  AnnouncementsPage
+  NewAnnouncement,
+  Announcements
 } from '@/features/annoucements/routes'
 import Layout from '@/components/Layout'
 
@@ -54,8 +54,8 @@ const AppRoutes = () => (
         </Route>
         <Route path="new" element={<NewSeriesDeck />} />
       </Route>
-      <Route path="announcements" element={<AnnouncementsPage />} />
-      <Route path="announcements/new" element={<AnnouncementNewPage />} />
+      <Route path="announcements" element={<Announcements />} />
+      <Route path="announcements/new" element={<NewAnnouncement />} />
       <Route
         path="announcements/:announcementId/edit"
         element={<EditAnnouncement />}
