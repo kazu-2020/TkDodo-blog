@@ -24,7 +24,7 @@ export const Pagination = ({
   }
 
   return (
-    <HStack spacing="10px" justify="center">
+    <HStack spacing="10px" justify="center" role="navigation">
       <Button
         size="sm"
         colorScheme="teal"

@@ -1,13 +1,12 @@
 import React from 'react'
 import { FormLabel, Text } from '@chakra-ui/react'
 
-export const PropertyLabel = ({
-  label,
-  schemaName
-}: {
+export type PropertyLabelProps = {
   label: string
   schemaName?: string
-}) => (
+}
+
+export const PropertyLabel = ({ label, schemaName }: PropertyLabelProps) => (
   <FormLabel>
     {label}
     {schemaName && (
