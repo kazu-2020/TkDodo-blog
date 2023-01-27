@@ -109,7 +109,7 @@ RSpec.describe 'Announcements' do
     it '対象のお知らせを返すこと' do
       json = JSON.parse(response.body)
 
-      expect(json.dig('announcement')).to eq(result)
+      expect(json['announcement']).to eq(result)
     end
   end
 
@@ -128,12 +128,12 @@ RSpec.describe 'Announcements' do
       it '更新されたお知らせを返すこと' do
         json = JSON.parse(response.body)
 
-        expect(json.dig('announcement')).to match({
-                                'id' => announcement.id,
-                                'status' => 'improved',
-                                'contents' => '更新',
-                                'dateCreated' => a_kind_of(String)
-                              })
+        expect(json['announcement']).to match({
+                                                'id' => announcement.id,
+                                                'status' => 'improved',
+                                                'contents' => '更新',
+                                                'dateCreated' => a_kind_of(String)
+                                              })
       end
     end
 
