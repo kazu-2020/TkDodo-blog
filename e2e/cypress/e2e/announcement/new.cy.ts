@@ -10,18 +10,9 @@ describe('新規作成ページへの導線', () => {
 });
 
 describe('お知らせ新規作成', () => {
-  const createAnnouncement = () => {
-    cy.visit('/announcements/new');
-    cy.get('[data-testid="announcement-new-form"]').within(() => {
-      cy.get('#status').type('機能改善{enter}{enter}', { force: true });
-      cy.get('#contents').type('機能改善のお知らせです');
-      cy.contains('新規登録する').click();
-    });
-  };
-
   context('正常系', () => {
     before(() => {
-      createAnnouncement();
+      cy.createAnnouncement();
     });
 
     it('お知らせ一覧ページへ遷移すること', () => {
@@ -59,7 +50,7 @@ describe('お知らせ新規作成', () => {
           statusCode: 500,
         }
       );
-      createAnnouncement();
+      cy.createAnnouncement();
     });
 
     it('「新規作成に失敗しました。」トーストが表示されること', () => {

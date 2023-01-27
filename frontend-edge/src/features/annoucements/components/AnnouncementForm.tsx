@@ -17,7 +17,7 @@ import { convertAnnouncementStatus } from '../utils/convertAnnouncementStatus'
 
 type StatusOption = { label: string; value: AnnouncementStatus }
 
-type FormInput = Pick<Announcement, 'status' | 'contents'>
+export type FormInput = Pick<Announcement, 'status' | 'contents'>
 
 type AnnouncementFormProps = {
   onSubmit: (data: FormInput) => void

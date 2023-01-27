@@ -56,7 +56,7 @@ export const AnnouncementList = ({
         key={id}
         createdAt={dateCreated}
         bg={index % 2 === 0 ? '#BDBDBD33' : 'white'}
-        {...{ status, contents }}
+        {...{ id, status, contents, isEditable }}
       />
     )
   }
