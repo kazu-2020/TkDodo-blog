@@ -71,4 +71,29 @@ describe('お知らせ更新', () => {
       });
     });
   });
+
+  context.only('編集中のデータがある場合にページ遷移したとき', () => {
+    before(() => {
+      cy.createAnnouncement();
+      cy.visit('/');
+      cy.get('[aria-label="Edit announcement"]').first().click();
+      cy.get('[data-testid="announcement-edit-form"]').within(() => {
+        cy.get('#status').type(`'お知らせ{enter}{enter}`, {
+          force: true,
+        });
+        cy.get('#contents').clear();
+        cy.get('#contents').type('お知らせを更新しました');
+      });
+    });
+
+    it('離脱アラートが表示されこと', () => {
+      cy.on('window:confirm', (confirmText) => {
+        expect(confirmText).to.eq(
+          '編集中のデータがあります。ページを離れますか？'
+        );
+      });
+
+      cy.contains('ホーム').click();
+    });
+  });
 });

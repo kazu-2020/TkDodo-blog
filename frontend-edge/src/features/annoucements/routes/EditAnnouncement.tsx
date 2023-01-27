@@ -6,7 +6,7 @@ import { AnnouncementForm, FormInput } from '../components/AnnouncementForm'
 import { useUpdateAnnouncement } from '../api/updateAnnouncement'
 import { useAnnouncement } from '../api/getAnnouncement'
 
-export const AnnouncementEditPage = () => {
+export const EditAnnouncement = () => {
   const { announcementId } = useParams()
   const toast = useToast()
 

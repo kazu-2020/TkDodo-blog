@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
 import { Box, Button, Textarea } from '@chakra-ui/react'
 
+import { usePrompt } from '@/utils/form-guard'
 import {
   ANNOUNCEMENT_STATUS,
   Announcement,
@@ -33,7 +34,7 @@ export const AnnouncementForm = ({
     control,
     register,
     handleSubmit,
-    formState: { errors, isSubmitting }
+    formState: { errors, isDirty, isSubmitting }
   } = useForm<FormInput>({
     defaultValues: {
       status: status ?? 'general',
@@ -48,6 +49,11 @@ export const AnnouncementForm = ({
         value: announcementStatus
       })),
     []
+  )
+
+  usePrompt(
+    '編集中のデータがあります。ページを離れますか？',
+    isDirty && !isSubmitting
   )
 
   return (
@@ -68,6 +74,7 @@ export const AnnouncementForm = ({
               id="status"
               error={errors.status}
               label="種別"
+              w="240px"
               mb={8}
             >
               <Select

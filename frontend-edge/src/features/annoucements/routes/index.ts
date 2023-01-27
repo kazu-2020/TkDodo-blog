@@ -1,3 +1,3 @@
-export * from './AnnouncementsPage'
-export * from './AnnouncementNewPage'
-export * from './AnnouncementEditPage'
+export * from './EditAnnouncement'
+export * from './Announcements'
+export * from './NewAnnouncement'
