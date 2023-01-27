@@ -21,7 +21,7 @@ describe('お知らせ新規作成', () => {
 
     it('正常にお知らせが作成されること', () => {
       cy.get('[data-testid="announcement-list"]').within(() => {
-        cy.get('[data-testid="announcement-list-item"]')
+        cy.get('[data-testid^="announcement-list-item-"]')
           .first()
           .within(() => {
             cy.get('[data-testid="announcement-badge"]').should(

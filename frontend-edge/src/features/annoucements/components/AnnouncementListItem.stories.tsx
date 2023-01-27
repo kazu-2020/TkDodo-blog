@@ -1,5 +1,8 @@
+import { QueryClientProvider } from '@tanstack/react-query'
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import { Box } from '@chakra-ui/react'
+import { Container } from '@chakra-ui/react'
+
+import { queryClient } from '@/lib/react-query'
 
 import { AnnouncementListItem } from './AnnouncementListItem' // eslint-disable-line import/no-cycle
 
@@ -8,16 +11,20 @@ export default {
 } as ComponentMeta<typeof AnnouncementListItem>
 
 export const Default: ComponentStoryObj<typeof AnnouncementListItem> = {
-  render: (args) => (
-    <Box w="1200px">
-      <AnnouncementListItem {...args} />
-    </Box>
-  ),
   args: {
     status: 'general',
     contents: 'マニュアルを更新しました  https://example.com',
     createdAt: '2023-01-12T10:04:03+09:00'
-  }
+  },
+  decorators: [
+    (Story) => (
+        <QueryClientProvider client={queryClient}>
+          <Container maxW="container.xl">
+            <Story />
+          </Container>
+        </QueryClientProvider>
+      )
+  ]
 }
 
 export const Editable = {
