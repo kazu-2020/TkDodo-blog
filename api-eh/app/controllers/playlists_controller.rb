@@ -2,6 +2,7 @@
 
 class PlaylistsController < ApiBaseController
   before_action :set_playlist, only: %i[update destroy actors_and_contributors]
+  authorize_resource
 
   def index # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     query = if params[:deck_id].present?
