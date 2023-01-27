@@ -34,6 +34,7 @@ export const AnnouncementForm = ({
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors, isDirty, isSubmitting }
   } = useForm<FormInput>({
     defaultValues: {
@@ -63,7 +64,10 @@ export const AnnouncementForm = ({
         react-hook-formが動作するように「noValidate」を付与
       */}
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit((data) => {
+          onSubmit(data)
+          reset(data)
+        })}
         noValidate
         data-testid={`announcement-${isEdit ? 'edit' : 'new'}-form`}
       >
