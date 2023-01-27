@@ -22,7 +22,8 @@
     "webstorm-integration": "vitest --watch --reporter=dot --reporter=json --outputFile=.vitest-result.json"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^1.11.0",
+    "@casl/ability": "^6.3.3",
+    "@casl/react": "^3.1.0",
     "@chakra-ui/icons": "^2.0.11",
     "@chakra-ui/react": "^2.2.9",
     "@codexteam/ajax": "^4.2.0",
@@ -39,6 +40,8 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@hookform/devtools": "^4.2.3",
+    "@okta/okta-auth-js": "^7.1.1",
+    "@okta/okta-react": "^6.7.0",
     "@storybook/react": "^6.5.13",
     "@tanstack/react-query": "^4.19.1",
     "@tanstack/react-query-devtools": "^4.19.1",
