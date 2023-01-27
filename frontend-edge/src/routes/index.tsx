@@ -20,9 +20,14 @@ import {
 } from '@/features/recommend-decks'
 import { Playlist, Playlists, NewPlaylist } from '@/features/playlists'
 import NotFound from '@/features/misc/routes/NotFound'
+import { HomePage } from '@/features/home/routes'
+import {
+  EditAnnouncement,
+  NewAnnouncement,
+  Announcements
+} from '@/features/annoucements/routes'
 import { OIDC_CONFIG } from '@/config'
 import Layout from '@/components/Layout'
-import Home from '@/components/Home'
 
 const oktaAuth = new OktaAuth(OIDC_CONFIG)
 
@@ -43,7 +48,7 @@ const AppRoutes = () => {
           element={!isTomigayaEnv() ? <Outlet /> : <RequiredAuth />}
         >
           <Route path="" element={<Layout />}>
-            <Route index element={<Home />} />
+            <Route index element={<HomePage />} />
             <Route path="playlists" element={<Outlet />}>
               <Route index element={<Playlists />} />
               <Route path=":playlistUid" element={<Playlist />} />
@@ -65,6 +70,13 @@ const AppRoutes = () => {
               </Route>
               <Route path="new" element={<NewSeriesDeck />} />
             </Route>
+            <Route path="announcements" element={<Announcements />} />
+            <Route path="announcements/new" element={<NewAnnouncement />} />
+            <Route
+              path="announcements/:announcementId/edit"
+              element={<EditAnnouncement />}
+            />
+
             <Route path="*" element={<NotFound />} />
           </Route>
         </Route>

@@ -91,6 +91,28 @@ RSpec.describe 'Announcements' do
     end
   end
 
+  describe 'GET #show' do
+    let!(:announcement) { create(:announcement) }
+    let(:result) {
+      {
+        'id' => announcement.id,
+        'status' => announcement.status,
+        'contents' => announcement.contents,
+        'dateCreated' => announcement.created_at.in_time_zone('Asia/Tokyo').strftime('%Y-%m-%dT%H:%M:%S+09:00')
+      }
+    }
+
+    before do
+      get "/announcements/#{announcement.id}"
+    end
+
+    it '対象のお知らせを返すこと' do
+      json = JSON.parse(response.body)
+
+      expect(json['announcement']).to eq(result)
+    end
+  end
+
   describe 'PATCH #update' do
     let!(:announcement) { create(:announcement) }
 
@@ -106,12 +128,12 @@ RSpec.describe 'Announcements' do
       it '更新されたお知らせを返すこと' do
         json = JSON.parse(response.body)
 
-        expect(json).to match({
-                                'id' => announcement.id,
-                                'status' => 'improved',
-                                'contents' => '更新',
-                                'dateCreated' => a_kind_of(String)
-                              })
+        expect(json['announcement']).to match({
+                                                'id' => announcement.id,
+                                                'status' => 'improved',
+                                                'contents' => '更新',
+                                                'dateCreated' => a_kind_of(String)
+                                              })
       end
     end
 

@@ -9,6 +9,7 @@ import { Playlist } from '@/types/playlist'
 import { Person } from '@/types/person'
 import { Organization } from '@/types/organization'
 import { EpisodeData, Genre } from '@/types/episode_data'
+import { ANNOUNCEMENT_STATUS, Announcement } from '@/types/announcement'
 
 type Overrides = Record<string, any>
 
@@ -334,5 +335,15 @@ export const videoGenerator = (overrides?: Overrides): any => ({
   expires: undefined,
   thumbnailUrl: undefined,
   broadcastEvent: undefined,
+  ...overrides
+})
+
+export const announcementGenerator = (
+  overrides?: Partial<Announcement>
+): Announcement => ({
+  id: faker.datatype.number(),
+  status: faker.helpers.arrayElement(ANNOUNCEMENT_STATUS),
+  contents: 'お知らせです。 https://example.com',
+  dateCreated: faker.date.past().toISOString(),
   ...overrides
 })

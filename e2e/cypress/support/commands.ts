@@ -403,3 +403,17 @@ Cypress.Commands.add("deleteAllSeriesDeck", () => {
     }
   })
 })
+
+/*
+ * お知らせを作成する
+ */
+Cypress.Commands.add('createAnnouncement', (props) => {
+  cy.visit('/announcements/new');
+  cy.get('[data-testid="announcement-new-form"]').within(() => {
+    cy.get('#status').type(`${props?.status ?? '機能改善'}{enter}{enter}`, {
+      force: true,
+    });
+    cy.get('#contents').type(props?.contents ?? '機能改善のお知らせです');
+    cy.contains('新規登録する').click();
+  });
+});
