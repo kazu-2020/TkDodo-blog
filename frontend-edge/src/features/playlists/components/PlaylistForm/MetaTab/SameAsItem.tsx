@@ -16,7 +16,6 @@ type Props = {
 export const SameAsItem = ({ register, errors, index, onRemove }: Props) => (
   <HStack w="100%" mb={2}>
     <PropertyInput
-      name={`sameAsAttributes.${index}.name`}
       label="名前"
       error={errors?.sameAsAttributes?.[index]?.name}
       register={register(`sameAsAttributes.${index}.name`, {
@@ -27,7 +26,6 @@ export const SameAsItem = ({ register, errors, index, onRemove }: Props) => (
     />
     <PropertyInput
       inputType="url"
-      name={`sameAsAttributes.${index}.url`}
       label="URL"
       error={errors?.sameAsAttributes?.[index]?.url}
       register={register(`sameAsAttributes.${index}.url`, {
