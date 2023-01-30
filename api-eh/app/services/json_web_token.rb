@@ -5,12 +5,6 @@ require 'uri'
 
 class JsonWebToken
   def self.verify(token)
-    JWT.decode(token, nil, true, { algorithms: ['RS256'], jwks: { keys: jwks_keys } })
-  end
-
-  def self.jwks_keys
-    okta_keys_url = "https://#{ENV.fetch('OKTA_DOMAIN', nil)}/oauth2/v1/keys"
-    jwks_raw = Net::HTTP.get URI(okta_keys_url)
-    Array(JSON.parse(jwks_raw)['keys'])
+    JWT.decode(token, nil, true, { algorithms: ['RS256'], jwks: { keys: OktaClient.new.jwks_keys } })
   end
 end

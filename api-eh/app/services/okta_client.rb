@@ -9,6 +9,15 @@ class OktaClient
     JSON.parse(res.body, symbolize_names: true)
   end
 
+  def jwks_keys
+    # development,test環境では開発用のOktaアカウントからjwksを取得する
+    okta_base_url = (Rails.env['development'] || Rails.env['test'] ? '/oauth2/default/v1' : '/oauth2/v1')
+    res =  client.get "#{okta_base_url}/keys"
+    return false unless res.status
+
+    Array(JSON.parse(res.body)['keys'])
+  end
+
   private
 
   def api_endpoint
