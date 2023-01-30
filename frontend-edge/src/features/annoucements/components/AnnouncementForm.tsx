@@ -24,6 +24,7 @@ type AnnouncementFormProps = {
   isEdit?: boolean
 } & Partial<FormInput>
 
+/* eslint-disable max-lines-per-function */
 export const AnnouncementForm = ({
   onSubmit,
   isEdit,
@@ -34,6 +35,7 @@ export const AnnouncementForm = ({
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors, isDirty, isSubmitting }
   } = useForm<FormInput>({
     defaultValues: {
@@ -51,6 +53,11 @@ export const AnnouncementForm = ({
     []
   )
 
+  const onSubmitForm = (inputData: FormInput) => {
+    onSubmit(inputData)
+    reset(inputData)
+  }
+
   usePrompt(
     '編集中のデータがあります。ページを離れますか？',
     isDirty && !isSubmitting
@@ -63,7 +70,7 @@ export const AnnouncementForm = ({
         react-hook-formが動作するように「noValidate」を付与
       */}
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmitForm)}
         noValidate
         data-testid={`announcement-${isEdit ? 'edit' : 'new'}-form`}
       >
