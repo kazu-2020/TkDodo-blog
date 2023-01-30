@@ -16,6 +16,7 @@ phases:
   build:
     commands:
       - export API_URL=$API_URL
+      - export NODE_OPTIONS="--max-old-space-size=2028"
       - pnpm build:$ENVIRONMENT
       - aws s3 sync ./dist s3://$S3_HOSTING_BUCKET_NAME/ --quiet
       - AWS_PAGER="" aws cloudfront create-invalidation --distribution-id $CF_DISTRIBUTION_ID --paths '/*'
