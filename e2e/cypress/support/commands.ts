@@ -427,10 +427,10 @@ Cypress.Commands.add('createAnnouncement', (props) => {
   })
 })
 
-/* Oktaの開発環境にログインしてアクセストークンを取得する
+/* Oktaのアクセストークンを全てのリクエストヘッダに付与する
  * https://docs.cypress.io/guides/end-to-end-testing/okta-authentication#Programmatic-Login を参考にした
  */
-Cypress.Commands.add('fetchOktaAccessToken', (username, password) => {
+Cypress.Commands.add('attachAccessTokenRequests', (username, password) => {
   cy.request({
     method: 'POST',
       url: `https://${Cypress.env('OKTA_DOMAIN')}/api/v1/authn`,
@@ -439,27 +439,22 @@ Cypress.Commands.add('fetchOktaAccessToken', (username, password) => {
         password,
       },
   }).then(({body}) => {
-    const user = body._embedded.user
     const config = {
       issuer: `https://${Cypress.env('OKTA_DOMAIN')}/oauth2/default`,
       clientId: Cypress.env('OKTA_CLIENT_ID'),
       redirectUri: 'http://localhost:5173/login/callback',
       scope: ['openid', 'email', 'profile'],
     }
-
     const authClient = new OktaAuth(config)
 
-    return authClient.token
+    authClient.token
       .getWithoutPrompt({sessionToken: body.sessionToken})
       .then(({tokens}) => {
         const accessToken = tokens.accessToken.accessToken
         window.localStorage.setItem('accessToken', accessToken)
       })
   })
-})
 
-/* 全てのリクエストヘッダにアクセストークンを設定する */
-Cypress.Commands.add('attachAccessTokenToHeader', () => {
   cy.server({
     onAnyRequest:   function (route,  proxy) {
       const accessToken = window.localStorage.getItem('accessToken')

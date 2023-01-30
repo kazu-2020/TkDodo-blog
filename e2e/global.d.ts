@@ -14,7 +14,7 @@ declare global {
         status?: string;
         contents?: string;
       }) => void;
-      loginByOktaApi: (password: string, username: string) => void;
+      attachAccessTokenRequests: (username: string, password: string) => void;
     }
   }
 }
