@@ -1,8 +1,12 @@
 describe("レコメンドデッキの検索", () => {
   before(() => {
-    cy.deleteAllRecommendDeck()
-    cy.createRecommendDeck({ name: "API公開中デッキ", apiState: true })
-    cy.createRecommendDeck({ name: "API非公開デッキ", apiState: false })
+    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+      () => {
+        cy.deleteAllRecommendDeck()
+        cy.createRecommendDeck({name: "API公開中デッキ", apiState: true})
+        cy.createRecommendDeck({name: "API非公開デッキ", apiState: false})
+      }
+    )
   })
 
   it("レコメンドデッキが検索できること", () => {

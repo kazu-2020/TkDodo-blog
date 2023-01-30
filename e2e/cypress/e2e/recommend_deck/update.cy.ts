@@ -1,10 +1,14 @@
 describe("レコメンドデッキ更新", () => {
   before(() => {
-    cy.deleteAllPlaylists()
-    cy.deleteAllRecommendDeck()
-    cy.createPlaylist()
-    cy.createPlaylist()
-    cy.createRecommendDeck({}, 2)
+    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+      () => {
+        cy.deleteAllPlaylists()
+        cy.deleteAllRecommendDeck()
+        cy.createPlaylist()
+        cy.createPlaylist()
+        cy.createRecommendDeck({}, 2)
+      }
+    )
   })
 
   it("レコメンドデッキを選択し、メタの更新をする", () => {
