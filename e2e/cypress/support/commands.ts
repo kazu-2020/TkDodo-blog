@@ -235,7 +235,7 @@ Cypress.Commands.add('deleteAllPlaylists', () => {
   cy.get('[data-testid="api-status-select"]').select('全て')
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(200) // これを入れないと安定しない
+  cy.wait(1000) // これを入れないと安定しない
 
   cy.get('body').then(($body) => {
     if ($body.find('[data-testid="playlist-list-item"]').length) {
