@@ -1,6 +1,10 @@
 describe("シリーズデッキ新規作成", () => {
   before(() => {
-    cy.deleteAllSeriesDeck()
+    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+      () => {
+        cy.deleteAllSeriesDeck()
+      }
+    )
   })
 
   it("シリーズデッキを新規作成し、メタの編集をする", () => {

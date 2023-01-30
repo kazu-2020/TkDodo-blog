@@ -1,7 +1,11 @@
 describe("シリーズデッキ管理設定", () => {
-  before(() => {
-    cy.createSeriesDeck()
-  })
+	before(() => {
+		cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+			() => {
+				cy.createSeriesDeck()
+			}
+		)
+	})
 
   it("管理メモが更新できること", () => {
     cy.visit("/")
