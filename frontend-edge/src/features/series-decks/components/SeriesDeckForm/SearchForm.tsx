@@ -13,14 +13,7 @@ export const SearchForm = ({
   <>
     <SearchTextInput placeholder="シリーズを検索する" onAction={onAction} />
 
-    <Select
-      variant="flushed"
-      w={52}
-      size="sm"
-      ml={2}
-      my={5}
-      onChange={onChange}
-    >
+    <Select w={52} size="sm" ml={2} my={5} onChange={onChange}>
       <option value="word">ワードから検索</option>
       <option value="keyword">キーワードから検索</option>
       <option value="concern">出演者から検索</option>
