@@ -1,5 +1,6 @@
 describe("プレイリストの検索", () => {
   before(() => {
+    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD"))
     cy.deleteAllPlaylists()
     cy.createPlaylist({ name: "API公開中プレイリスト", apiState: true })
     cy.createPlaylist({ name: "API非公開プレイリスト", apiState: false })
