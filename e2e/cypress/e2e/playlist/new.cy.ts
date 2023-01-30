@@ -2,8 +2,11 @@ import { playlistInput } from "../../fixtures/formInput"
 
 describe("プレイリスト新規作成", () => {
   before(() => {
-    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD"))
-    cy.deleteAllPlaylists()
+    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+      () => {
+        cy.deleteAllPlaylists()
+      }
+    )
   })
 
   context("全項目を入力した場合", () => {

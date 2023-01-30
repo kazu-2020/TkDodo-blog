@@ -1,7 +1,10 @@
 describe('プレイリスト削除', () => {
   before(() => {
-    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD"))
-    cy.createPlaylist({name: 'テストプレイリスト'})
+    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+      () => {
+        cy.createPlaylist({name: 'テストプレイリスト'})
+      }
+    )
   })
 
   it('プレイリストを削除する', () => {
