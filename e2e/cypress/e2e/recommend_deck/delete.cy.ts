@@ -1,14 +1,12 @@
 describe('レコメンドデッキ削除', () => {
   before(() => {
-    before(() => {
-      cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
-        () => {
-          cy.deleteAllRecommendDeck()
-          cy.createRecommendDeck()
-          cy.createRecommendDeck()
-        }
-      )
-    })
+    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+      () => {
+        cy.deleteAllRecommendDeck()
+        cy.createRecommendDeck()
+        cy.createRecommendDeck()
+      }
+    )
   })
 
   it('レコメンドデッキを削除する', () => {
