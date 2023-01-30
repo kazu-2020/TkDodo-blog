@@ -64,7 +64,6 @@ export const EditMetaTabContent = ({
       />
 
       <PropertyTextarea
-        name="detailedCatch"
         label="キャッチコピー"
         schemaName="DetailedCatch"
         error={errors?.detailedCatch}
@@ -73,7 +72,6 @@ export const EditMetaTabContent = ({
       />
 
       <PropertyTextarea
-        name="description"
         label="説明"
         schemaName="Description"
         error={errors?.description}

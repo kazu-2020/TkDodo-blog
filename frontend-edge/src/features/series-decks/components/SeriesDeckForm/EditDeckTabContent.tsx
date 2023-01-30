@@ -45,7 +45,6 @@ export const EditDeckTabContent = ({
       </HStack>
 
       <PropertyTextarea
-        name="description"
         label="説明"
         schemaName="Description"
         error={errors?.description}
