@@ -320,7 +320,7 @@ Cypress.Commands.add('deleteAllRecommendDeck', () => {
   cy.get('[data-testid="api-status-select"]').select('全て', { force: true })
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(200) // これを入れないと安定しない
+  cy.wait(1500) // これを入れないと安定しない
 
   cy.get('body').then(($body) => {
     if ($body.find('[data-testid="recommend-deck-list-item"]').length) {
@@ -393,7 +393,7 @@ Cypress.Commands.add('deleteAllSeriesDeck', () => {
   cy.get('[data-testid="api-status-select"]').select('全て', { force: true })
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(500) // これを入れないと安定しない
+  cy.wait(1000) // これを入れないと安定しない
 
   cy.get('body').then(($body) => {
     if ($body.find('[data-testid="series-deck-list-item"]').length) {
