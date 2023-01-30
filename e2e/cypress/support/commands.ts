@@ -431,13 +431,13 @@ Cypress.Commands.add('createAnnouncement', (props) => {
  * https://docs.cypress.io/guides/end-to-end-testing/okta-authentication#Programmatic-Login を参考にした
  */
 Cypress.Commands.add('attachAccessTokenRequests', (username, password) => {
-  cy.request({
+  return cy.request({
     method: 'POST',
-      url: `https://${Cypress.env('OKTA_DOMAIN')}/api/v1/authn`,
-      body: {
-        username,
-        password,
-      },
+    url: `https://${Cypress.env('OKTA_DOMAIN')}/api/v1/authn`,
+    body: {
+      username,
+      password,
+    },
   }).then(({body}) => {
     const config = {
       issuer: `https://${Cypress.env('OKTA_DOMAIN')}/oauth2/default`,
@@ -447,22 +447,21 @@ Cypress.Commands.add('attachAccessTokenRequests', (username, password) => {
     }
     const authClient = new OktaAuth(config)
 
-    authClient.token
+    return authClient.token
       .getWithoutPrompt({sessionToken: body.sessionToken})
       .then(({tokens}) => {
         const accessToken = tokens.accessToken.accessToken
         window.localStorage.setItem('accessToken', accessToken)
+        return cy.server({
+          onAnyRequest:   function (route,  proxy) {
+            const accessToken = window.localStorage.getItem('accessToken')
+            if(accessToken){
+              proxy.xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`)
+            } else {
+              proxy.xhr.setRequestHeader('Authorization', null)
+            }
+          }
+        })
       })
-  })
-
-  cy.server({
-    onAnyRequest:   function (route,  proxy) {
-      const accessToken = window.localStorage.getItem('accessToken')
-      if(accessToken){
-        proxy.xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`)
-      } else {
-        proxy.xhr.setRequestHeader('Authorization', null)
-      }
-    }
   })
 })
