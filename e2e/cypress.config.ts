@@ -6,10 +6,10 @@ export default defineConfig({
   experimentalInteractiveRunEvents: true,
   env: {
     API_URL: "http://localhost:8888",
-    AUTH_USERNAME: process.env.AUTH_USERNAME,
-    AUTH_PASSWORD: process.env.AUTH_PASSWORD,
-    OKTA_DOMAIN: process.env.REACT_APP_OKTA_DOMAIN,
-    OKTA_CLIENT_ID: process.env.REACT_APP_OKTA_CLIENTID,
+    OKTA_DOMAIN: "dev-75559375.okta.com",
+    OKTA_CLIENT_ID: process.env.OKTA_CLIENT_ID,
+    OKTA_USERNAME: process.env.OKTA_USERNAME,
+    OKTA_PASSWORD: process.env.OKTA_PASSWORD,
   },
   e2e: {
     // We've imported your old cypress plugins here.
