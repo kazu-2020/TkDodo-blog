@@ -1,16 +1,7 @@
-import { useController } from 'react-hook-form'
-import React from 'react'
-import { OptionBase, Select } from 'chakra-react-select'
-import { Box, FormControl } from '@chakra-ui/react'
 
-import { PropertyLabel } from '@/components/Form'
+import { PropertySelect, SelectOption } from '@/components/Form/PropertySelect'
 
-interface Option extends OptionBase {
-  label: string
-  value: string
-}
-
-const options: Option[] = [
+const options: SelectOption[] = [
   { value: '020', label: 'スポーツ全般' },
   { value: '070', label: '音楽全般' },
   { value: '092', label: '自然' },
@@ -19,36 +10,12 @@ const options: Option[] = [
   { value: '110', label: '福祉全般' }
 ]
 
-interface FormValues {
-  themeGenreCode: Option | null
-}
-
-export const ThemeGenreSelect = () => {
-  const {
-    field: { onChange, onBlur, value, ref }
-  } = useController<FormValues>({
-    name: 'themeGenreCode'
-  })
-
-  return (
-    <FormControl>
-      <PropertyLabel label="ジャンル(テーマ)" schemaName="Theme Genre" />
-      <Box data-testid="theme-genre-wrapper">
-        <Select
-          name="themeGenreCode"
-          ref={ref}
-          onChange={(newValue) => {
-            if (newValue?.value) {
-              onChange(newValue?.value)
-            }
-          }}
-          onBlur={onBlur}
-          value={options?.find((option) => option.value === value)}
-          options={options}
-          variant="flushed"
-          placeholder="選択して下さい"
-        />
-      </Box>
-    </FormControl>
+export const ThemeGenreSelect = () => (
+    <PropertySelect
+      name="themeGenreCode"
+      label="ジャンル(テーマ)"
+      schemaName="Theme Genre"
+      placeholder="選択して下さい"
+      {...{ options }}
+    />
   )
-}
