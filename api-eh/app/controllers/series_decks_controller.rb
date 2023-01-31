@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class SeriesDecksController < ApiBaseController
+  authorize_resource
+
+  before_action :set_pagination, only: [:index]
+
+  DEFAULT_PAGE = 1
+  DEFAULT_PER = 50
+
   def index
     query = params[:query] ? SeriesDeck.name_or_admin_memo_like(params[:query]) : SeriesDeck
     case params[:api_state]
