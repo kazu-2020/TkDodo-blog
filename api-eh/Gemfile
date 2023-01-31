@@ -33,6 +33,7 @@ gem 'kaminari'
 gem 'multi_json'
 gem 'redis', '~> 4.0' # NOTE: sidekiqを7に上げるまで固定
 gem 'request_store'
+gem 'scimitar'
 gem 'shrine'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'

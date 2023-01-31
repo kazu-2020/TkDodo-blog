@@ -444,6 +444,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    scimitar (2.4.0)
+      rails (~> 7.0)
     semantic_range (3.0.0)
     shrine (3.4.0)
       content_disposition (~> 1.0)
@@ -549,6 +551,7 @@ DEPENDENCIES
   rubocop
   rubocop-rspec
   sass-rails (>= 6)
+  scimitar
   shrine
   sidekiq
   sidekiq-scheduler
