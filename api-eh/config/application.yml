@@ -10,15 +10,12 @@ test:
 
 dev:
   OKTA_DOMAIN: nhk.okta.com
-  OKTA_API_TOKEN: 00Tgxpoz0PDPa1hzJ696
   OKTA_CLIENT_ID: 0oa3n9qvhk8B0xojY697
 
 stg:
   OKTA_DOMAIN: nhk.okta.com
-  OKTA_API_TOKEN: 00Tgxpnf031vYeF3b696
   OKTA_CLIENT_ID: 0oa3n9qvhk8B0xojY697
 
 prd:
   OKTA_DOMAIN: nhk.okta.com
-  OKTA_API_TOKEN: 00TgxplyuHwoLjsKI696
   OKTA_CLIENT_ID: 0oa3n9qvhk8B0xojY697
