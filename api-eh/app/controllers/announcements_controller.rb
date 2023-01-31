@@ -1,4 +1,6 @@
 class AnnouncementsController < ApiBaseController
+  authorize_resource
+
   def index
     page, per = set_pagination
     @announcements = Announcement.order(created_at: :desc).page(page).per(per)
