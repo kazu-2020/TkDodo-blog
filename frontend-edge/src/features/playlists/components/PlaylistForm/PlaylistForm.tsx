@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import React from 'react'
+import { useMemo } from 'react'
 import { DevTool } from '@hookform/devtools'
+import { useToast } from '@chakra-ui/react'
 
 import { usePrompt } from '@/utils/form-guard'
 import { Playlist } from '@/types/playlist'
+import { queryClient } from '@/lib/react-query'
 
 import {
   formValuesToCreateParams,
@@ -16,13 +19,101 @@ import { useCreatePlaylist } from '../../api/createPlaylist'
 
 import { ArrowStepContainer } from './ArrowStepContainer'
 
-const usePlaylistForm = (playlist: Playlist | undefined) => {
-  const defaultValues = playlistToDefaultValues(playlist)
+const useDispatchFormData = () => {
+  const toast = useToast()
+  const navigate = useNavigate()
 
-  return useForm<PlaylistFormInputs>({
-    defaultValues,
-    mode: 'onChange'
+  const { mutateAsync: createPlaylistAsync } = useCreatePlaylist({
+    config: {
+      onMutate: async (newPlaylist) => {
+        await queryClient.cancelQueries(['playlists'])
+
+        const previousPlaylists = queryClient.getQueryData<Playlist[]>([
+          'playlists'
+        ])
+
+        queryClient.setQueryData(
+          ['playlists'],
+          [...(previousPlaylists || []), newPlaylist.data]
+        )
+
+        return { previousPlaylists }
+      },
+      onError: (_, __, context: any) => {
+        if (context?.previousPlaylists) {
+          queryClient.setQueryData(['playlists'], context.previousPlaylists)
+        }
+        toast({
+          title: '新規作成に失敗しました。',
+          status: 'error',
+          isClosable: true,
+          position: 'top-right'
+        })
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries(['playlists'])
+        navigate(`/playlists`)
+        toast({
+          title: '作成しました。',
+          status: 'success',
+          isClosable: true,
+          position: 'top-right'
+        })
+      }
+    }
   })
+
+  const { mutateAsync: updatePlaylistAsync } = useUpdatePlaylist({
+    config: {
+      onMutate: async (updatingPlaylist) => {
+        await queryClient.cancelQueries([
+          'playlist',
+          updatingPlaylist?.playlistUid
+        ])
+
+        const previousPlaylist = queryClient.getQueryData<Playlist>([
+          'playlist',
+          updatingPlaylist?.playlistUid
+        ])
+
+        queryClient.setQueryData(['playlist', updatingPlaylist?.playlistUid], {
+          ...previousPlaylist,
+          ...updatingPlaylist.data,
+          playlistUid: updatingPlaylist?.playlistUid
+        })
+
+        return { previousPlaylist }
+      },
+      onError: (_, __, context: any) => {
+        if (context?.previousPlaylist) {
+          queryClient.setQueryData(
+            ['playlist', context.previousPlaylist.playlistUid],
+            context.previousPlaylist
+          )
+        }
+        toast({
+          title: '保存に失敗しました。',
+          status: 'error',
+          isClosable: true,
+          position: 'top-right'
+        })
+      },
+      onSuccess: (data) => {
+        queryClient.refetchQueries(['playlist', data.playlistUid])
+        toast({
+          title: '保存しました。',
+          status: 'success',
+          isClosable: true,
+          position: 'top-right'
+        })
+      }
+    }
+  })
+
+  return {
+    createPlaylistAsync,
+    updatePlaylistAsync
+  }
 }
 
 type Props = {
@@ -30,12 +121,23 @@ type Props = {
 }
 
 export const PlaylistForm = ({ playlist = undefined }: Props) => {
-  const formMethods = usePlaylistForm(playlist)
+  const defaultValues = useMemo(
+    () => playlistToDefaultValues(playlist),
+    [playlist]
+  )
+
+  const formMethods = useForm<PlaylistFormInputs>({
+    defaultValues,
+    mode: 'onChange'
+  })
+
+  const { createPlaylistAsync, updatePlaylistAsync } = useDispatchFormData()
+
   const {
-    control,
+    formState: { isDirty, isSubmitting, dirtyFields },
     handleSubmit,
-    reset,
-    formState: { dirtyFields, isDirty, isSubmitting }
+    control,
+    reset
   } = formMethods
 
   usePrompt(
@@ -43,17 +145,13 @@ export const PlaylistForm = ({ playlist = undefined }: Props) => {
     isDirty && !isSubmitting
   )
 
-  const createPlaylistMutation = useCreatePlaylist()
-  const updatePlaylistMutation = useUpdatePlaylist()
-
-  const onSubmit: SubmitHandler<PlaylistFormInputs> = async (values) => {
+  const onSubmitForm: SubmitHandler<PlaylistFormInputs> = async (values) => {
     if (playlist?.playlistUid === undefined) {
       const data = formValuesToCreateParams(values, dirtyFields)
-
-      await createPlaylistMutation.mutateAsync({ data })
+      await createPlaylistAsync({ data })
     } else {
       const data = formValuesToUpdateParams(values, dirtyFields)
-      await updatePlaylistMutation.mutateAsync({
+      await updatePlaylistAsync({
         data,
         playlistUid: playlist.playlistUid
       })
@@ -63,10 +161,10 @@ export const PlaylistForm = ({ playlist = undefined }: Props) => {
 
   return (
     <FormProvider {...formMethods}>
-      <form onSubmit={handleSubmit(onSubmit)} data-testid="playlistForm">
+      <form onSubmit={handleSubmit(onSubmitForm)} data-testid="playlistForm">
         <ArrowStepContainer />
       </form>
-      {import.meta.env.MODE === 'development' && <DevTool control={control} />}
+      {import.meta.env.MODE === 'development' && <DevTool {...{ control }} />}
     </FormProvider>
   )
 }
