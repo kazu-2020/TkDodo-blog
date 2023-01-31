@@ -40,7 +40,7 @@ describe 'Ability' do
         end
 
         it 'can manage Episode' do
-          expect(ability).to be_can(:manage, 'Episode')
+          expect(ability).to be_can(:manage, Episode)
         end
 
         it 'can manage Announcement' do
@@ -102,7 +102,7 @@ describe 'Ability' do
         end
 
         it 'can bundle Episode' do
-          expect(ability).to be_can(:bundle, 'Episode')
+          expect(ability).to be_can(:bundle, Episode)
         end
 
         it 'can read Announcement' do
@@ -127,7 +127,7 @@ describe 'Ability' do
         end
 
         it 'can manage Episode' do
-          expect(ability).to be_can(:manage, 'Episode')
+          expect(ability).to be_can(:manage, Episode)
         end
 
         it 'can manage Announcement' do
