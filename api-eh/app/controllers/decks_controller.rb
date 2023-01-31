@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class DecksController < ApiBaseController
+  authorize_resource
+
   def index
     query = params[:query].present? ? Deck.name_or_admin_memo_like(params[:query]) : Deck
     case params[:api_state]
