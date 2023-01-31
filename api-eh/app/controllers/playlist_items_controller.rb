@@ -2,6 +2,7 @@
 
 class PlaylistItemsController < ApiBaseController
   before_action :set_playlist
+  authorize_resource
 
   def index
     @playlist_items = @playlist.playlist_items.kept
