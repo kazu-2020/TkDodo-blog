@@ -1,6 +1,5 @@
 import snakecaseKeys from 'snakecase-keys'
 import { useMutation } from '@tanstack/react-query'
-import { useToast } from '@chakra-ui/react'
 
 import { SameAs } from '@/types/same_as'
 import { RecommendDeck } from '@/types/recommend_deck'
@@ -66,10 +65,8 @@ type UseUpdateRecommendDeckOptions = {
 
 export const useUpdateRecommendDeck = ({
   config
-}: UseUpdateRecommendDeckOptions = {}) => {
-  const toast = useToast()
-
-  return useMutation({
+}: UseUpdateRecommendDeckOptions = {}) =>
+  useMutation({
     onMutate: async (updatingRecommendDeck) => {
       await queryClient.cancelQueries([
         'recommend-deck',
@@ -99,23 +96,10 @@ export const useUpdateRecommendDeck = ({
           context.previousRecommendDeck
         )
       }
-      toast({
-        title: '保存に失敗しました。',
-        status: 'error',
-        isClosable: true,
-        position: 'top-right'
-      })
     },
     onSuccess: (data) => {
       queryClient.refetchQueries(['recommend-deck', data.id])
-      toast({
-        title: '保存しました。',
-        status: 'success',
-        isClosable: true,
-        position: 'top-right'
-      })
     },
-    ...config,
-    mutationFn: updateRecommendDeck
+    mutationFn: updateRecommendDeck,
+    ...config
   })
-}

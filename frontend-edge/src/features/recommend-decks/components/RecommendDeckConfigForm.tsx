@@ -9,7 +9,8 @@ import {
   Input,
   Spacer,
   Text,
-  VStack
+  VStack,
+  useToast
 } from '@chakra-ui/react'
 
 import { usePrompt } from '@/utils/form-guard'
@@ -29,6 +30,11 @@ const RecommendDeckConfigForm = ({
 }: {
   recommendDeck: RecommendDeck
 }) => {
+  const toast = useToast({
+    position: 'top-right',
+    isClosable: true
+  })
+
   const {
     control,
     register,
@@ -45,7 +51,7 @@ const RecommendDeckConfigForm = ({
     isDirty && !isSubmitting
   )
 
-  const updateRecommendDeckMutation = useUpdateRecommendDeck()
+  const { mutateAsync: updateRecommendDeckAsync } = useUpdateRecommendDeck()
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
     const onlyDirtyValues = dirtyValues(
@@ -53,10 +59,21 @@ const RecommendDeckConfigForm = ({
       values
     ) as RecommendDeckFormInputs
 
-    await updateRecommendDeckMutation.mutateAsync({
-      data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
-      recommendDeckId: recommendDeck.deckUid
-    })
+    try {
+      await updateRecommendDeckAsync({
+        data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
+        recommendDeckId: recommendDeck.deckUid
+      })
+      toast({
+        title: '保存しました。',
+        status: 'success'
+      })
+    } catch {
+      toast({
+        title: '保存に失敗しました。',
+        status: 'error'
+      })
+    }
   }
 
   return (
