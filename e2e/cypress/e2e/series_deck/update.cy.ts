@@ -1,6 +1,6 @@
 describe("シリーズデッキ更新", () => {
 	before(() => {
-		cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+		cy.attachAccessTokenRequests().then(
 			() => {
 				cy.deleteAllPlaylists()
 				cy.deleteAllSeriesDeck()

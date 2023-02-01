@@ -10,11 +10,11 @@ declare global {
       deleteAllRecommendDeck: () => void;
       createSeriesDeck: (overrides?, addPlaylistCount?) => void;
       deleteAllSeriesDeck: () => void;
+      attachAccessTokenRequests: () => Chainable;
       createAnnouncement: (props?: {
         status?: string;
         contents?: string;
       }) => void;
-      attachAccessTokenRequests: (username: string, password: string) => void;
     }
   }
 }

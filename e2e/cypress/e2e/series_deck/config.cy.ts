@@ -1,6 +1,6 @@
 describe("シリーズデッキ管理設定", () => {
 	before(() => {
-		cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+		cy.attachAccessTokenRequests().then(
 			() => {
 				cy.createSeriesDeck()
 			}

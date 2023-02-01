@@ -430,13 +430,13 @@ Cypress.Commands.add('createAnnouncement', (props) => {
 /* Oktaのアクセストークンを全てのリクエストヘッダに付与する
  * https://docs.cypress.io/guides/end-to-end-testing/okta-authentication#Programmatic-Login を参考にした
  */
-Cypress.Commands.add('attachAccessTokenRequests', (username, password) => {
+Cypress.Commands.add('attachAccessTokenRequests', () => {
   return cy.request({
     method: 'POST',
     url: `https://${Cypress.env('OKTA_DOMAIN')}/api/v1/authn`,
     body: {
-      username,
-      password,
+      username: Cypress.env("OKTA_USERNAME"),
+      password: Cypress.env("OKTA_PASSWORD"),
     },
   }).then(({body}) => {
     const config = {

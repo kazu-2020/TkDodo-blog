@@ -12,7 +12,7 @@ describe('お知らせ削除', () => {
 
   context('正常系', () => {
     before(() => {
-			cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+			cy.attachAccessTokenRequests().then(
 				() => {
 					cy.createAnnouncement()
 					deleteAnnouncement()
@@ -44,7 +44,7 @@ describe('お知らせ削除', () => {
           statusCode: 500,
         }
       )
-			cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+			cy.attachAccessTokenRequests().then(
 				() => {
 					cy.createAnnouncement()
 					deleteAnnouncement()

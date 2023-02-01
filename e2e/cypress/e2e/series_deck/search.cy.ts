@@ -1,6 +1,6 @@
 describe("シリーズデッキの検索", () => {
   before(() => {
-    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+    cy.attachAccessTokenRequests().then(
       () => {
         cy.deleteAllSeriesDeck()
         cy.createSeriesDeck({name: "API公開中デッキ", apiState: true})

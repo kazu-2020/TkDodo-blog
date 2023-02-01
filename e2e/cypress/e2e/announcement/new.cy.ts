@@ -1,6 +1,6 @@
 describe('新規作成ページへの導線', () => {
   it('お知らせ一覧から新規作成ページへ遷移できること', () => {
-    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+    cy.attachAccessTokenRequests().then(
       () => {
         cy.visit('/')
       }
@@ -15,7 +15,7 @@ describe('新規作成ページへの導線', () => {
 describe('お知らせ新規作成', () => {
   context('正常系', () => {
     before(() => {
-      cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+      cy.attachAccessTokenRequests().then(
         () => {
           cy.createAnnouncement()
         }
@@ -57,7 +57,7 @@ describe('お知らせ新規作成', () => {
           statusCode: 500,
         }
       )
-      cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+      cy.attachAccessTokenRequests().then(
         () => {
           cy.createAnnouncement()
         }
@@ -71,7 +71,7 @@ describe('お知らせ新規作成', () => {
 
   context('編集中のデータがある場合にページ遷移したとき', () => {
     before(() => {
-      cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+      cy.attachAccessTokenRequests().then(
         () => {
           cy.visit('/announcements/new')
           cy.get('[data-testid="announcement-new-form"]').within(() => {

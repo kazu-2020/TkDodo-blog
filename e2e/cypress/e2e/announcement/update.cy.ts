@@ -1,6 +1,6 @@
 describe('編集ページへの導線', () => {
   before(() => {
-    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+    cy.attachAccessTokenRequests().then(
       () => {
         cy.createAnnouncement({ status: '緊急', contents: '緊急のお知らせです' })
       }
@@ -8,7 +8,7 @@ describe('編集ページへの導線', () => {
   })
 
   beforeEach(() => {
-    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+    cy.attachAccessTokenRequests().then(
       () => {
         cy.visit('/')
       }
@@ -32,7 +32,7 @@ describe('編集ページへの導線', () => {
 
 describe('お知らせ更新', () => {
   const updateAnnouncement = () => {
-    cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+    cy.attachAccessTokenRequests().then(
       () => {
         cy.visit('/')
       }
@@ -50,7 +50,7 @@ describe('お知らせ更新', () => {
 
   context('正常系', () => {
     before(() => {
-      cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+      cy.attachAccessTokenRequests().then(
         () => {
           cy.createAnnouncement({ status: '緊急', contents: '緊急のお知らせです' })
           updateAnnouncement()
@@ -78,7 +78,7 @@ describe('お知らせ更新', () => {
           statusCode: 500,
         }
       )
-      cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+      cy.attachAccessTokenRequests().then(
         () => {
           updateAnnouncement()
         }
@@ -94,7 +94,7 @@ describe('お知らせ更新', () => {
 
   context.only('編集中のデータがある場合にページ遷移したとき', () => {
     before(() => {
-      cy.attachAccessTokenRequests(Cypress.env("OKTA_USERNAME"), Cypress.env("OKTA_PASSWORD")).then(
+      cy.attachAccessTokenRequests().then(
         () => {
           cy.createAnnouncement()
           cy.visit('/')
