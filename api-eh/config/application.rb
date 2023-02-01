@@ -54,11 +54,14 @@ module EditorialHandsAPI
 
     config.before_configuration do
       env_file = Rails.root.join('config', 'okta.yml')
-      raise 'Oktaの設定ファイルが存在しません' unless File.exist?(env_file)
 
-      yaml = YAML.safe_load(File.open(env_file))
-      yaml[Rails.env].each do |k, v|
-        ENV[k.to_s] = v
+      begin
+        yaml = YAML.safe_load(File.open(env_file))
+        yaml[Rails.env].each do |k, v|
+          ENV[k.to_s] = v
+        end
+      rescue => e
+        raise "Oktaの設定ファイルの読み込みに失敗しました: #{e.message}"
       end
     end
   end
