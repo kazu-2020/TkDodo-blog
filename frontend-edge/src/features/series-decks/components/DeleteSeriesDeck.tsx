@@ -1,5 +1,5 @@
 import { MdDelete } from 'react-icons/all'
-import React from 'react'
+import { useRef } from 'react'
 import {
   AlertDialog,
   AlertDialogBody,
@@ -8,7 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useDisclosure
+  useDisclosure,
+  useToast
 } from '@chakra-ui/react'
 
 import { useDeleteSeriesDeck } from '../api/deleteSeriesDeck'
@@ -22,9 +23,34 @@ const DeleteSeriesDeck = ({
   seriesDeckId,
   onDrawerClose
 }: DeleteSeriesDeckProps) => {
-  const deleteSeriesDeckMutation = useDeleteSeriesDeck()
+  const toast = useToast({
+    position: 'top-right',
+    isClosable: true
+  })
+
+  const { mutateAsync: deleteSeriesDeckAsync, isLoading } =
+    useDeleteSeriesDeck()
+
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef<HTMLButtonElement>(null)
+
+  const onClickDeleteButton = async () => {
+    try {
+      await deleteSeriesDeckAsync({ seriesDeckId })
+      toast({
+        title: '削除しました。',
+        status: 'success'
+      })
+      onClose()
+      onDrawerClose()
+    } catch {
+      toast({
+        title: '削除に失敗しました。',
+        status: 'error'
+      })
+    }
+  }
+
+  const cancelRef = useRef<HTMLButtonElement>(null)
 
   return (
     <>
@@ -39,11 +65,7 @@ const DeleteSeriesDeck = ({
         削除する
       </Button>
 
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-      >
+      <AlertDialog leastDestructiveRef={cancelRef} {...{ isOpen, onClose }}>
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
@@ -63,16 +85,10 @@ const DeleteSeriesDeck = ({
               <Button
                 data-testid="series-deck-alert-delete-button"
                 colorScheme="red"
-                isLoading={deleteSeriesDeckMutation.isLoading}
                 loadingText="送信中"
-                onClick={async () => {
-                  await deleteSeriesDeckMutation.mutateAsync({
-                    seriesDeckId
-                  })
-                  onClose()
-                  onDrawerClose()
-                }}
+                onClick={onClickDeleteButton}
                 ml={3}
+                {...{ isLoading }}
               >
                 削除する
               </Button>

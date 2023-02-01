@@ -9,7 +9,8 @@ import {
   Input,
   Spacer,
   Text,
-  VStack
+  VStack,
+  useToast
 } from '@chakra-ui/react'
 
 import { usePrompt } from '@/utils/form-guard'
@@ -36,12 +37,17 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
     }
   })
 
+  const toast = useToast({
+    isClosable: true,
+    position: 'top-right'
+  })
+
   usePrompt(
     '編集中のデータがあります。ページを離れますか？',
     isDirty && !isSubmitting
   )
 
-  const updateSeriesDeckMutation = useUpdateSeriesDeck()
+  const { mutateAsync: updateSeriesDeckAsync } = useUpdateSeriesDeck()
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
     const onlyDirtyValues = dirtyValues(
@@ -49,10 +55,21 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
       values
     ) as SeriesDeckFormInputs
 
-    await updateSeriesDeckMutation.mutateAsync({
-      data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
-      seriesDeckId: seriesDeck.deckUid
-    })
+    try {
+      await updateSeriesDeckAsync({
+        data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
+        seriesDeckId: seriesDeck.deckUid
+      })
+      toast({
+        title: '保存しました。',
+        status: 'success'
+      })
+    } catch {
+      toast({
+        title: '保存に失敗しました。',
+        status: 'error'
+      })
+    }
   }
 
   return (

@@ -1,6 +1,5 @@
 import snakecaseKeys from 'snakecase-keys'
 import { useMutation } from '@tanstack/react-query'
-import { useToast } from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
@@ -62,10 +61,8 @@ type UseUpdateSeriesDeckOptions = {
 
 export const useUpdateSeriesDeck = ({
   config
-}: UseUpdateSeriesDeckOptions = {}) => {
-  const toast = useToast()
-
-  return useMutation({
+}: UseUpdateSeriesDeckOptions = {}) =>
+  useMutation({
     onMutate: async (updatingSeriesDeck) => {
       await queryClient.cancelQueries([
         'series-deck',
@@ -95,23 +92,10 @@ export const useUpdateSeriesDeck = ({
           context.previousSeriesDeck
         )
       }
-      toast({
-        title: '保存に失敗しました。',
-        status: 'error',
-        isClosable: true,
-        position: 'top-right'
-      })
     },
     onSuccess: (data) => {
       queryClient.refetchQueries(['series-deck', data.id])
-      toast({
-        title: '保存しました。',
-        status: 'success',
-        isClosable: true,
-        position: 'top-right'
-      })
     },
-    ...config,
-    mutationFn: updateSeriesDeck
+    mutationFn: updateSeriesDeck,
+    ...config
   })
-}

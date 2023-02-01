@@ -1,7 +1,5 @@
 import snakecaseKeys from 'snakecase-keys'
-import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
-import { useToast } from '@chakra-ui/react'
 
 import { SeriesDeck } from '@/types/series_deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
@@ -45,11 +43,8 @@ type UseCreateSeriesDeckOptions = {
 
 export const useCreateSeriesDeck = ({
   config
-}: UseCreateSeriesDeckOptions = {}) => {
-  const navigate = useNavigate()
-  const toast = useToast()
-
-  return useMutation({
+}: UseCreateSeriesDeckOptions = {}) =>
+  useMutation({
     onMutate: async (newSeriesDeck) => {
       await queryClient.cancelQueries(['series-decks'])
 
@@ -68,24 +63,10 @@ export const useCreateSeriesDeck = ({
       if (context?.previousSeriesDecks) {
         queryClient.setQueryData(['series-decks'], context.previousSeriesDecks)
       }
-      toast({
-        title: '新規作成に失敗しました。',
-        status: 'error',
-        isClosable: true,
-        position: 'top-right'
-      })
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['series-decks'])
-      navigate(`/series-decks`)
-      toast({
-        title: '作成しました。',
-        status: 'success',
-        isClosable: true,
-        position: 'top-right'
-      })
     },
-    ...config,
-    mutationFn: createSeriesDeck
+    mutationFn: createSeriesDeck,
+    ...config
   })
-}
