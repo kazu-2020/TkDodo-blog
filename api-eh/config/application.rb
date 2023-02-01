@@ -53,7 +53,7 @@ module EditorialHandsAPI
     end
 
     config.before_configuration do
-      env_file = Rails.root.join('config', 'application.yml')
+      env_file = Rails.root.join('config', 'okta.yml')
       return unless File.exist?(env_file)
 
       yaml = YAML.safe_load(File.open(env_file))
