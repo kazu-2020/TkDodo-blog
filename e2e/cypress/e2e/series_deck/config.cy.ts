@@ -12,9 +12,9 @@ describe("シリーズデッキ管理設定", () => {
     cy.get('[data-testid="series-deck-list-item"]')
       .first()
       .click({ force: true })
-    cy.contains('管理設定').click({ force: true })
+    cy.contains("管理設定").click({ force: true })
 
-    cy.get('[data-testid="adminMemo"]').clear().type('管理メモメモ')
+    cy.get("#adminMemo").clear().type("管理メモメモ")
 
     cy.contains("保存する").click({ force: true })
     cy.contains("保存しました", { timeout: 10000 })
@@ -26,6 +26,6 @@ describe("シリーズデッキ管理設定", () => {
 
     cy.get('[data-testid="api-status-select"]').select("全て", { force: true })
 
-    cy.contains('管理メモメモ')
+    cy.contains("管理メモメモ")
   })
 })

@@ -5,10 +5,11 @@ import {
   Box,
   FormControl,
   FormErrorMessage,
-  FormHelperText, StyleProps
+  FormHelperText,
+  StyleProps
 } from '@chakra-ui/react'
 
-import { PropertyLabel } from './PropertyLabel'
+import { PropertyLabel, PropertyLabelProps } from './PropertyLabel'
 
 const components = {
   DropdownIndicator: null
@@ -26,9 +27,8 @@ const createOption = (label: string): Option => ({
 
 type MultiValueTextInputProps = UseControllerProps &
   Props &
-  StyleProps & {
-    label: string
-    schemaName: string
+  StyleProps &
+  PropertyLabelProps & {
     helperText?: string
   }
 
@@ -55,19 +55,13 @@ export const MultiValueTextInput = ({
 
   return (
     <FormControl isInvalid={!!error} id={name} {...styleProps}>
-      <PropertyLabel label={label} schemaName={schemaName} />
+      <PropertyLabel {...{ label, schemaName }} />
 
       <Box data-testid={`${name}-input-wrapper`}>
         <CreatableSelect
-          name={name}
-          ref={ref}
-          components={components}
-          inputValue={inputValue}
           isClearable
           isMulti
           menuIsOpen={false}
-          onChange={onChange}
-          onBlur={onBlur}
           onInputChange={(newValue: string) => {
             setInputValue(newValue)
           }}
@@ -84,8 +78,7 @@ export const MultiValueTextInput = ({
               event.preventDefault()
             }
           }}
-          variant="flushed"
-          value={value}
+          {...{ name, ref, components, inputValue, onChange, onBlur, value }}
           {...props}
         />
       </Box>
