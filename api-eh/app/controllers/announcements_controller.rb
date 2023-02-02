@@ -1,9 +1,14 @@
 class AnnouncementsController < ApiBaseController
   authorize_resource
+  skip_authorize_resource only: %i[index show] # 権限がなくてもお知らせの閲覧は可能
 
   def index
     page, per = set_pagination
     @announcements = Announcement.order(created_at: :desc).page(page).per(per)
+  end
+
+  def show
+    @announcement = Announcement.find(params[:id])
   end
 
   def create
@@ -11,10 +16,6 @@ class AnnouncementsController < ApiBaseController
     return if @announcement.save
 
     render json: { messages: @announcement.errors.full_messages }, status: :unprocessable_entity
-  end
-
-  def show
-    @announcement = Announcement.find(params[:id])
   end
 
   def update

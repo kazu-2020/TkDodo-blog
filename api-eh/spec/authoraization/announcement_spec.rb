@@ -109,5 +109,42 @@ describe 'Announcement', type: :request do
         expect(response).to have_http_status :forbidden
       end
     end
+
+    context '権限なし' do
+      before do
+        user = create(:user, :super_admin)
+        user.remove_role :super_admin
+        allow_any_instance_of(Secured).to receive(:authenticate_request!).and_return(user)
+        allow_any_instance_of(ApiBaseController).to receive(:current_user).and_return(user)
+      end
+
+      it 'index' do
+        get announcements_path
+        expect(response).to have_http_status :ok
+      end
+
+      it 'create' do
+        post announcements_path, params: { announcement: attributes_for(:announcement) }
+        expect(response).to have_http_status :forbidden
+      end
+
+      it 'show' do
+        announcement = create(:announcement)
+        get announcement_path(announcement)
+        expect(response).to have_http_status :ok
+      end
+
+      it 'update' do
+        announcement = create(:announcement)
+        patch announcement_path(announcement), params: { announcement: attributes_for(:announcement) }
+        expect(response).to have_http_status :forbidden
+      end
+
+      it 'destroy' do
+        announcement = create(:announcement)
+        delete announcement_path(announcement)
+        expect(response).to have_http_status :forbidden
+      end
+    end
   end
 end
