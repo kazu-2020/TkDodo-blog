@@ -10,16 +10,10 @@ type UpdateAnnouncementDTO = {
   data: Pick<Announcement, 'status' | 'contents'>
 }
 
-const updateAnnouncement = async ({
-  id,
-  data
-}: UpdateAnnouncementDTO): Promise<Announcement> => {
-  const res = await axios.patch(`/announcements/${id}`, {
+const updateAnnouncement = ({ id, data }: UpdateAnnouncementDTO) =>
+  axios.patch<Announcement>(`/announcements/${id}`, {
     announcement: snakecaseKeys(data)
   })
-
-  return res.data
-}
 
 type UseUpdateAnnouncementOptions = {
   config?: MutationConfig<typeof updateAnnouncement>
@@ -27,7 +21,7 @@ type UseUpdateAnnouncementOptions = {
 
 export const useUpdateAnnouncement = ({
   config
-}: UseUpdateAnnouncementOptions) =>
+}: UseUpdateAnnouncementOptions = {}) =>
   useMutation({
     mutationFn: updateAnnouncement,
     ...config
