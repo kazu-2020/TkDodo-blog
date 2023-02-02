@@ -55,13 +55,9 @@ module EditorialHandsAPI
     config.before_configuration do
       env_file = Rails.root.join('config', 'okta.yml')
 
-      begin
-        yaml = YAML.safe_load(File.open(env_file))
-        yaml[Rails.env].each do |k, v|
-          ENV[k.to_s] = v
-        end
-      rescue => e
-        raise "Oktaの設定ファイルの読み込みに失敗しました: #{e.message}"
+      yaml = YAML.safe_load(File.open(env_file))
+      yaml[Rails.env].each do |k, v|
+        ENV[k.to_s] = v
       end
     end
   end
