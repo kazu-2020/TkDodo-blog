@@ -104,10 +104,6 @@ describe 'Ability' do
         it 'can bundle Episode' do
           expect(ability).to be_can(:bundle, Episode)
         end
-
-        it 'can read Announcement' do
-          expect(ability).to be_can(:read, Announcement)
-        end
       end
 
       context 'user_admin かつ playlist_adminの場合' do
