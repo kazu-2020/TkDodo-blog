@@ -49,6 +49,7 @@ export const SearchFilter = ({ onChange, tabIndex }: Props) => {
   return (
     <HStack justify="space-between">
       <Select
+        variant="flushed"
         w={52}
         size="sm"
         ml={2}

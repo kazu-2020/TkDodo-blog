@@ -19,6 +19,7 @@ export const EditDeckTabContent = ({
   return (
     <ArrowStepContent index={contentIndex}>
       <PropertyInput
+        name="name"
         label="名前"
         schemaName="Name"
         error={errors?.name}
@@ -32,6 +33,7 @@ export const EditDeckTabContent = ({
       <HStack mb={10}>
         <Text>series-tv-for-</Text>
         <PropertyInput
+          name="interfix"
           label="中間接辞"
           schemaName="Interfix"
           error={errors?.interfix}
@@ -45,6 +47,7 @@ export const EditDeckTabContent = ({
       </HStack>
 
       <PropertyTextarea
+        name="description"
         label="説明"
         schemaName="Description"
         error={errors?.description}

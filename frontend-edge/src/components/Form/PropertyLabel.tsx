@@ -7,7 +7,7 @@ export type PropertyLabelProps = {
 }
 
 export const PropertyLabel = ({ label, schemaName }: PropertyLabelProps) => (
-  <FormLabel fontSize="11px" lineHeight="16px" fontWeight="bold" mb={0}>
+  <FormLabel>
     {label}
     {schemaName && (
       <Text as="span" color="gray">

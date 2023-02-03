@@ -1,5 +1,6 @@
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { useMemo } from 'react'
+import { Select } from 'chakra-react-select'
 import { render, screen } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
 import { Box, Button, Textarea } from '@chakra-ui/react'
@@ -10,7 +11,6 @@ import {
   Announcement,
   AnnouncementStatus
 } from '@/types/announcement'
-import { PropertySelect } from '@/components/Form/PropertySelect'
 import { FormFieldWrapper } from '@/components/Form/FormFiledWrapper'
 
 import { convertAnnouncementStatus } from '../utils/convertAnnouncementStatus'
@@ -24,6 +24,7 @@ type AnnouncementFormProps = {
   isEdit?: boolean
 } & Partial<FormInput>
 
+/* eslint-disable max-lines-per-function */
 export const AnnouncementForm = ({
   onSubmit,
   isEdit,
@@ -73,14 +74,28 @@ export const AnnouncementForm = ({
         noValidate
         data-testid={`announcement-${isEdit ? 'edit' : 'new'}-form`}
       >
-        <PropertySelect
+        <Controller
           name="status"
-          options={statusOption}
-          label="種別"
-          formProps={{
-            w: '240px',
-            mb: 8
-          }}
+          render={({ field: { onChange, value, ref } }) => (
+            <FormFieldWrapper
+              id="status"
+              error={errors.status}
+              label="種別"
+              w="240px"
+              mb={8}
+            >
+              <Select
+                options={statusOption}
+                value={statusOption.find((option) => option.value === value)}
+                onChange={(newValue) => {
+                  if (newValue?.value) {
+                    onChange(newValue.value)
+                  }
+                }}
+                {...{ ref }}
+              />
+            </FormFieldWrapper>
+          )}
           {...{ control }}
         />
 

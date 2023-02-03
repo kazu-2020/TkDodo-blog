@@ -1,4 +1,5 @@
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
+import React, { FC } from 'react'
 import {
   FormControl,
   FormControlProps,
@@ -8,20 +9,20 @@ import {
   Textarea
 } from '@chakra-ui/react'
 
-import {
-  PropertyLabel,
-  PropertyLabelProps
-} from '@/components/Form/PropertyLabel'
+import { PropertyLabel } from '@/components/Form/PropertyLabel'
 
-type PropertyTextareaProps = {
+type Props = {
+  name: string
+  label: string
+  schemaName: string
   placeholder?: string
   helperText?: string
   register: UseFormRegisterReturn
   error: FieldError | undefined
-} & PropertyLabelProps &
-  FormControlProps
+}
 
-export const PropertyTextarea = ({
+export const PropertyTextarea: FC<Props & FormControlProps> = ({
+  name,
   label,
   schemaName,
   placeholder,
@@ -29,11 +30,12 @@ export const PropertyTextarea = ({
   register,
   error,
   ...formControlProps
-}: PropertyTextareaProps) => (
-  <FormControl id={register.name} isInvalid={!!error} {...formControlProps}>
-    <PropertyLabel {...{ label, schemaName }} />
+}) => (
+  <FormControl id={name} isInvalid={!!error} {...formControlProps}>
+    <PropertyLabel label={label} schemaName={schemaName} />
     <Textarea
-      data-testid={register.name}
+      data-testid={name}
+      variant="flushed"
       placeholder={placeholder}
       {...register}
     />

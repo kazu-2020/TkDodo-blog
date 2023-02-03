@@ -45,6 +45,7 @@ export const EditMetaTabContent = ({
   return (
     <ArrowStepContent index={contentIndex}>
       <PropertyInput
+        name="name"
         label="名前"
         schemaName="Name"
         error={errors?.name}
@@ -56,6 +57,7 @@ export const EditMetaTabContent = ({
       />
 
       <PropertyInput
+        name="detailedNameRuby"
         label="ふりがな"
         schemaName="Detailed Name Ruby"
         error={errors?.detailedNameRuby}
@@ -64,6 +66,7 @@ export const EditMetaTabContent = ({
       />
 
       <PropertyTextarea
+        name="detailedCatch"
         label="キャッチコピー"
         schemaName="DetailedCatch"
         error={errors?.detailedCatch}
@@ -72,6 +75,7 @@ export const EditMetaTabContent = ({
       />
 
       <PropertyTextarea
+        name="description"
         label="説明"
         schemaName="Description"
         error={errors?.description}
@@ -131,6 +135,7 @@ export const EditMetaTabContent = ({
       />
 
       <PropertyInput
+        name="aliasId"
         label="短縮URL"
         schemaName="AliasId"
         helperText="半角英数字、「-」「_」が利用できます"
