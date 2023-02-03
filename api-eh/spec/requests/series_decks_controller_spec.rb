@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-describe SeriesDecksController, type: :request do
+describe SeriesDecksController do
   describe 'GET #index' do
-    let!(:series_deck) { create :series_deck }
-    let!(:series_deck_changed_name) { create :series_deck, name: '夏デッキ', admin_memo: '冬デッキ' }
+    let!(:series_deck) { create(:series_deck) }
+    let!(:series_deck_changed_name) { create(:series_deck, name: '夏デッキ', admin_memo: '冬デッキ') }
     let!(:expected_json) do
       {
         'id' => series_deck.id,
@@ -31,7 +31,7 @@ describe SeriesDecksController, type: :request do
       let(:params) { { query: '', with_subtype_item_count: '0' } }
 
       it 'データを全件取得できること' do
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         json = JSON.parse(response.body)
         expect(json['series_decks'].length).to eq 2
         expect(json['series_decks'][0]).to include(expected_json)
@@ -51,7 +51,7 @@ describe SeriesDecksController, type: :request do
       let(:params) { { query: 'デッキ' } }
 
       it '対象のデータを取得できること' do
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         json = JSON.parse(response.body)
         expect(json['series_decks'].length).to eq 1
         expect(json['series_decks'][0]).to include(expected_json_changed_name_and_admin_memo)
@@ -62,7 +62,7 @@ describe SeriesDecksController, type: :request do
       let(:params) { { query: '夏' } }
 
       it '対象のデータを取得できること' do
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         json = JSON.parse(response.body)
         expect(json['series_decks'].length).to eq 1
         expect(json['series_decks'][0]).to include(expected_json_changed_name_and_admin_memo)
@@ -73,7 +73,7 @@ describe SeriesDecksController, type: :request do
       let(:params) { { query: '冬' } }
 
       it '対象のデータを取得できること' do
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         json = JSON.parse(response.body)
         expect(json['series_decks'].length).to eq 1
         expect(json['series_decks'][0]).to include(expected_json_changed_name_and_admin_memo)
@@ -86,7 +86,7 @@ describe SeriesDecksController, type: :request do
         let(:api_state) { 'open' }
 
         it '公開ステータスがopenのデッキのみレスポンスで返ってくること' do
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
           json = JSON.parse(response.body)
           json['series_decks'].each do |d|
             expect(d['apiState']).to eq 'open'
@@ -99,7 +99,7 @@ describe SeriesDecksController, type: :request do
         let(:api_state) { 'close' }
 
         it '公開ステータスがcloseのデッキのみレスポンスで返ってくること' do
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
           json = JSON.parse(response.body)
           json['series_decks'].each do |d|
             expect(d['apiState']).to eq 'close'
@@ -110,8 +110,8 @@ describe SeriesDecksController, type: :request do
   end
 
   describe 'GET #show' do
-    let!(:series_playlist) { create :series_playlist, string_id: 'ts-M33W1P3PLZ', series_id: 'M33W1P3PLZ' }
-    let!(:series_deck) { create :series_deck, series_playlists: [series_playlist] }
+    let!(:series_playlist) { create(:series_playlist, string_id: 'ts-M33W1P3PLZ', series_id: 'M33W1P3PLZ') }
+    let!(:series_deck) { create(:series_deck, series_playlists: [series_playlist]) }
     let(:params) { { with_subtype_item_count: '1' } }
 
     before do
@@ -129,7 +129,7 @@ describe SeriesDecksController, type: :request do
     end
 
     it 'デッキの詳細情報が取得できること' do
-      expect(response.status).to eq 200
+      expect(response).to have_http_status :ok
       json = JSON.parse(response.body)
       expect(json['id']).to eq series_deck.id
       expect(json['name']).to eq series_deck.name
@@ -151,7 +151,7 @@ describe SeriesDecksController, type: :request do
         expect do
           post series_decks_path, params: { series_deck: { name: 'テストデッキ', interfix: 'test' } }
         end.to change(SeriesDeck, :count).by(1)
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         json = JSON.parse(response.body)
         expect(json['name']).to eq 'テストデッキ'
         expect(json['interfix']).to eq 'test'
@@ -163,7 +163,7 @@ describe SeriesDecksController, type: :request do
         expect do
           post series_decks_path, params: { series_deck: { name: '', interfix: '' } }
         end.not_to change(SeriesDeck, :count)
-        expect(response.status).to eq 422
+        expect(response).to have_http_status :unprocessable_entity
         json = JSON.parse(response.body)
         expect(json['messages']).to eq %w[Nameを入力してください Interfixを入力してください]
       end
@@ -171,12 +171,12 @@ describe SeriesDecksController, type: :request do
   end
 
   describe 'PATCH #update' do
-    let!(:series_deck) { create :series_deck }
+    let!(:series_deck) { create(:series_deck) }
 
     context '正常に更新された場合' do
       it 'デッキが更新できること' do
         patch series_deck_path(series_deck.id), params: { series_deck: { name: '更新デッキ' } }
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         json = JSON.parse(response.body)
         expect(json['name']).to eq '更新デッキ'
       end
@@ -185,7 +185,7 @@ describe SeriesDecksController, type: :request do
     context '更新に失敗した場合' do
       it 'デッキが更新できないこと' do
         patch series_deck_path(series_deck.id), params: { series_deck: { name: '', interfix: '' } }
-        expect(response.status).to eq 422
+        expect(response).to have_http_status :unprocessable_entity
         json = JSON.parse(response.body)
         expect(json['messages']).to eq %w[Nameを入力してください Interfixを入力してください]
       end
@@ -193,13 +193,13 @@ describe SeriesDecksController, type: :request do
   end
 
   describe 'DELETE #destroy' do
-    let!(:series_deck) { create :series_deck }
+    let!(:series_deck) { create(:series_deck) }
 
     it 'デッキが削除できること' do
       expect do
         delete series_deck_path(series_deck.id)
       end.to change(SeriesDeck, :count).by(-1)
-      expect(response.status).to eq 200
+      expect(response).to have_http_status :ok
     end
   end
 end

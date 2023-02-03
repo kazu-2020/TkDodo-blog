@@ -1,6 +1,6 @@
 import { Carousel } from 'react-responsive-carousel'
-import { UseInfiniteQueryResult } from 'react-query'
 import React, { useState } from 'react'
+import { UseInfiniteQueryResult } from '@tanstack/react-query'
 import { Box, useDisclosure } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'

@@ -4,20 +4,12 @@ import { CSSObject, Flex, Text } from '@chakra-ui/react'
 type Props = {
   title: string
   isCurrent?: boolean
-  isSuccess?: boolean
   hasError?: boolean
   onClick?: MouseEventHandler<HTMLElement>
 }
 
 const errorBadgeStyle = {
   color: '#ab0000',
-  fontSize: '0.5rem',
-  position: 'relative',
-  top: '-9px'
-}
-
-const successBadgeStyle = {
-  color: 'primary',
   fontSize: '0.5rem',
   position: 'relative',
   top: '-9px'
@@ -76,7 +68,6 @@ const currentStepAfterStyle: CSSObject = {
 export const ArrowStepItem = ({
   title = '',
   isCurrent = false,
-  isSuccess = false,
   hasError = false,
   onClick = undefined
 }: Props) => (
@@ -93,11 +84,6 @@ export const ArrowStepItem = ({
   >
     {hasError && (
       <Text sx={errorBadgeStyle} role="status" aria-label="error">
-        ●
-      </Text>
-    )}
-    {!hasError && isSuccess && (
-      <Text sx={successBadgeStyle} role="status" aria-label="success">
         ●
       </Text>
     )}

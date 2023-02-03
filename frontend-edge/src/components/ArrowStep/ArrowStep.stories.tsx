@@ -19,35 +19,29 @@ export const Default: ComponentStoryObj<typeof ArrowStep> = {
   ),
   args: {
     items: [
-      { title: 'リスト (NItemList)', isSuccess: true, hasError: false },
-      { title: '記事 (NArticle)', isSuccess: false, hasError: true },
-      { title: '基本情報(NSeries)', isSuccess: false, hasError: false }
+      { title: 'リスト (NItemList)', hasError: false },
+      { title: '記事 (NArticle)', hasError: true },
+      { title: '基本情報(NSeries)', hasError: false }
     ]
   }
 }
 
 export const ChangeContent: ComponentStoryObj<typeof ArrowStep> = {
   render: () => {
-    const [isSuccessList, setSuccessList] = useState(false)
     const [hasErrorList, setErrorList] = useState(false)
-    const [isSuccessArticle, setSuccessArticle] = useState(false)
     const [hasErrorArticle, setErrorArticle] = useState(false)
-    const [isSuccessSeries, setSuccessSeries] = useState(false)
     const [hasErrorSeries, setErrorSeries] = useState(false)
     const steps = [
       {
         title: 'Page1',
-        isSuccess: isSuccessList,
         hasError: hasErrorList
       },
       {
         title: 'Page2',
-        isSuccess: isSuccessArticle,
         hasError: hasErrorArticle
       },
       {
         title: 'Page3',
-        isSuccess: isSuccessSeries,
         hasError: hasErrorSeries
       }
     ]
@@ -60,15 +54,6 @@ export const ChangeContent: ComponentStoryObj<typeof ArrowStep> = {
             <Box py={5} px={5} bg="red.100">
               <h2>Page1</h2>
               <Box py={5}>
-                <Button
-                  mr={10}
-                  colorScheme="blue"
-                  variant="outline"
-                  bg="white"
-                  onClick={() => setSuccessList(!isSuccessList)}
-                >
-                  switch success badge
-                </Button>
                 <Button
                   colorScheme="blue"
                   variant="outline"
@@ -85,15 +70,6 @@ export const ChangeContent: ComponentStoryObj<typeof ArrowStep> = {
               <h2>Page2</h2>
               <Box py={5}>
                 <Button
-                  mr={10}
-                  colorScheme="blue"
-                  variant="outline"
-                  bg="white"
-                  onClick={() => setSuccessArticle(!isSuccessArticle)}
-                >
-                  switch success badge
-                </Button>
-                <Button
                   colorScheme="blue"
                   variant="outline"
                   bg="white"
@@ -108,15 +84,6 @@ export const ChangeContent: ComponentStoryObj<typeof ArrowStep> = {
             <Box py={5} px={5} bg="yellow.100">
               <h2>Page3</h2>
               <Box py={5}>
-                <Button
-                  mr={10}
-                  colorScheme="blue"
-                  variant="outline"
-                  bg="white"
-                  onClick={() => setSuccessSeries(!isSuccessSeries)}
-                >
-                  switch success badge
-                </Button>
                 <Button
                   mr={10}
                   colorScheme="blue"

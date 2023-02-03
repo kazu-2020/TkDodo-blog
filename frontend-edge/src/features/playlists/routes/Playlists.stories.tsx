@@ -1,4 +1,4 @@
-import { QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { ComponentMeta } from '@storybook/react'
 
 import { handlers } from '@/test/server/handlers'

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe PlaylistsController, type: :request do
+describe PlaylistsController do
   include StoredImageHelpers
 
   before do
@@ -50,7 +50,7 @@ describe PlaylistsController, type: :request do
       it '指定したdeck_idのデッキに紐づくプレイリストが取得できること' do
         get playlists_url, params: params
 
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         json = JSON.parse(response.body)
         expect(json['playlists'][0]).to include expected_json
       end
@@ -65,7 +65,7 @@ describe PlaylistsController, type: :request do
       it '指定したareaのデッキに紐づくプレイリストが取得できること' do
         get playlists_url, params: params
 
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         json = JSON.parse(response.body)
         expect(json['playlists'][0]['stringId']).to eq playlist.string_id
       end
@@ -79,7 +79,7 @@ describe PlaylistsController, type: :request do
         it '公開ステータスがopenのプレイリストが取得できること' do
           get playlists_url, params: params
 
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
           json = JSON.parse(response.body)
           expect(json['playlists'][0]['apiState']).to eq 'open'
         end
@@ -92,7 +92,7 @@ describe PlaylistsController, type: :request do
         it '公開ステータスがcloseのプレイリストが取得できること' do
           get playlists_url, params: params
 
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
           json = JSON.parse(response.body)
           expect(json['playlists'][0]['apiState']).to eq 'close'
         end
@@ -106,7 +106,7 @@ describe PlaylistsController, type: :request do
       it '検索ワードに部分一致するプレイリストが取得できること' do
         get playlists_url, params: params
 
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         json = JSON.parse(response.body)
         expect(json['playlists'][0]['name']).to eq 'オウサム ネーム'
       end
@@ -119,7 +119,7 @@ describe PlaylistsController, type: :request do
       it 'エピソード数が取得できること' do
         get playlists_url, params: params
 
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         json = JSON.parse(response.body)
         expect(json['playlists'][0]['playableItemsCount']).to eq 2
       end
@@ -174,7 +174,7 @@ describe PlaylistsController, type: :request do
       it 'returns success response' do
         post '/playlists', params: params
 
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
       end
     end
 
@@ -231,7 +231,7 @@ describe PlaylistsController, type: :request do
     it 'succeeds the request' do
       get playlist_path(playlist)
 
-      expect(response.status).to eq 200
+      expect(response).to have_http_status :ok
     end
 
     context 'with_episode_countが有効の場合' do
@@ -256,7 +256,7 @@ describe PlaylistsController, type: :request do
       it 'エピソード数が取得できること' do
         get playlists_url, params: params
 
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         json = JSON.parse(response.body)
         expect(json['playlists'][0]['playableItemsCount']).to eq 2
       end
@@ -300,7 +300,7 @@ describe PlaylistsController, type: :request do
       it 'updates playlist record' do
         patch playlist_path(playlist), params: params
 
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
         expect(playlist.reload.name).to eq(name)
       end
     end
@@ -492,7 +492,7 @@ describe PlaylistsController, type: :request do
     it 'リクエストが成功する' do
       post '/playlists/undefined/upload_article_image_by_url', params: params
 
-      expect(response.status).to eq 200
+      expect(response).to have_http_status :ok
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1
 
@@ -512,7 +512,7 @@ describe PlaylistsController, type: :request do
     it 'リクエストが成功する' do
       post '/playlists/undefined/upload_article_image_by_file'
 
-      expect(response.status).to eq 200
+      expect(response).to have_http_status :ok
       expect(ArticleImage.count).to eq(1)
       expect(JSON.parse(response.body)['success']).to eq 1
       # private_storeのみアップロードされる
@@ -538,7 +538,7 @@ describe PlaylistsController, type: :request do
     it '各Subtypeのカウントが取得できること' do
       VCR.use_cassette('requests/playlists_spec/bundle_items') do
         get bundle_items_playlist_path(playlist.string_uid)
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
         expect(JSON.parse(response.body)).to eq expected_json
       end
     end

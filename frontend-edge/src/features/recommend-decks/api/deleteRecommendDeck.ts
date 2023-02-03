@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useToast } from '@chakra-ui/react'
 
 import { Deck as RecommendDeck } from '@/types/deck'
@@ -19,16 +19,17 @@ export const useDeleteRecommendDeck = ({
   config
 }: UseDeleteRecommendDeckOptions = {}) => {
   const toast = useToast()
-  
+
   return useMutation({
     onMutate: async (deletedRecommendDeck) => {
-      await queryClient.cancelQueries('recommend-decks')
+      await queryClient.cancelQueries(['recommend-decks'])
 
-      const previousRecommendDecks =
-        queryClient.getQueryData<RecommendDeck[]>('recommend-decks')
+      const previousRecommendDecks = queryClient.getQueryData<RecommendDeck[]>([
+        'recommend-decks'
+      ])
 
       queryClient.setQueryData(
-        'recommend-decks',
+        ['recommend-decks'],
         previousRecommendDecks?.filter(
           (recommendDeck) =>
             recommendDeck.id !== deletedRecommendDeck.recommendDeckId
@@ -40,13 +41,13 @@ export const useDeleteRecommendDeck = ({
     onError: (_, __, context: any) => {
       if (context?.previousRecommendDecks) {
         queryClient.setQueryData(
-          'recommend-decks',
+          ['recommend-decks'],
           context.previousRecommendDecks
         )
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries('recommend-decks')
+      queryClient.invalidateQueries(['recommend-decks'])
       toast({
         title: '削除しました。',
         status: 'success',

@@ -12,7 +12,6 @@ export const Default: ComponentStoryObj<typeof ArrowStepItem> = {
   args: {
     title: 'ここにラベルがはいります',
     isCurrent: false,
-    isSuccess: false,
     hasError: false
   }
 }

@@ -1,10 +1,10 @@
+import { AxiosError } from 'axios'
 import {
   QueryClient,
   UseQueryOptions,
   UseMutationOptions,
   DefaultOptions
-} from 'react-query'
-import { AxiosError } from 'axios'
+} from '@tanstack/react-query'
 
 const queryConfig: DefaultOptions = {
   queries: {
@@ -20,8 +20,11 @@ export type ExtractFnReturnType<FnType extends (...args: any) => any> = Awaited<
   ReturnType<FnType>
 >
 
-export type QueryConfig<QueryFnType extends (...args: any) => any> = Omit<
-  UseQueryOptions<ExtractFnReturnType<QueryFnType>>,
+export type QueryConfig<
+  QueryFnType extends (...args: any) => any,
+  TError = undefined
+> = Omit<
+  UseQueryOptions<ExtractFnReturnType<QueryFnType>, TError>,
   'queryKey' | 'queryFn'
 >
 

@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_05_053614) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_10_024418) do
+  create_table "announcements", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "status", default: 0, null: false
+    t.text "contents", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "article_images", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "playlist_id", comment: "プレイリストID"
     t.text "image_data"

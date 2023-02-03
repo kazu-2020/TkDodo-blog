@@ -1,4 +1,4 @@
-import { QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { within, userEvent, waitFor, screen } from '@storybook/testing-library'
 import {
   ComponentMeta,

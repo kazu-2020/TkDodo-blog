@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe EpisodesController, type: :request do
+describe EpisodesController do
   describe 'GET #search' do
     let!(:search_params) { { contents_type: contents } }
 
@@ -22,7 +22,7 @@ describe EpisodesController, type: :request do
           get search_episodes_path, params: search_params
           json = JSON.parse(response.body)
           expect(json['items'][0]['type']).to eq 'TVEpisode'
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
       end
 
@@ -32,7 +32,7 @@ describe EpisodesController, type: :request do
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_episodes_paging') do
             get search_episodes_path, params: search_params.merge(offset)
-            expect(response.status).to eq 200
+            expect(response).to have_http_status :ok
           end
         end
       end
@@ -43,7 +43,7 @@ describe EpisodesController, type: :request do
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_episodes_service') do
             get search_episodes_path, params: search_params.merge(service)
-            expect(response.status).to eq 200
+            expect(response).to have_http_status :ok
           end
         end
       end
@@ -66,7 +66,7 @@ describe EpisodesController, type: :request do
           get search_episodes_path, params: search_params.merge(word)
           json = JSON.parse(response.body)
           expect(json['items'][0]['type']).to eq 'TVSeries'
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
       end
 
@@ -76,7 +76,7 @@ describe EpisodesController, type: :request do
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_series_paging') do
             get search_episodes_path, params: search_params.merge(offset)
-            expect(response.status).to eq 200
+            expect(response).to have_http_status :ok
           end
         end
       end
@@ -88,7 +88,7 @@ describe EpisodesController, type: :request do
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_episode_in_series_paging') do
             get search_episodes_path, params: search_params.merge(series_id, offset)
-            expect(response.status).to eq 200
+            expect(response).to have_http_status :ok
           end
         end
       end
@@ -99,7 +99,7 @@ describe EpisodesController, type: :request do
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_series_service') do
             get search_episodes_path, params: search_params.merge(word, service)
-            expect(response.status).to eq 200
+            expect(response).to have_http_status :ok
           end
         end
       end
@@ -114,7 +114,7 @@ describe EpisodesController, type: :request do
           get search_episodes_path, params: search_params.merge(word)
           json = JSON.parse(response.body)
           expect(json['items'][0]['type']).to eq 'NPlaylist'
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :ok
         end
       end
 
@@ -124,7 +124,7 @@ describe EpisodesController, type: :request do
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_playlists_paging') do
             get search_episodes_path, params: search_params.merge(word, offset)
-            expect(response.status).to eq 200
+            expect(response).to have_http_status :ok
           end
         end
       end
@@ -136,7 +136,7 @@ describe EpisodesController, type: :request do
         it '正常にレスポンスが返ってくること' do
           VCR.use_cassette('requests/episode_spec/search_episode_in_playlists_paging') do
             get search_episodes_path, params: search_params.merge(word, playlist_id, offset)
-            expect(response.status).to eq 200
+            expect(response).to have_http_status :ok
           end
         end
       end

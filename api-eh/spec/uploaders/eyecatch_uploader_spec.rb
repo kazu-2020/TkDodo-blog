@@ -19,10 +19,10 @@ RSpec.describe EyecatchUploader, type: :model do
   describe '#strip' do
     it do
       playlist.reload
-      expect(derivatives[:default]).to be_kind_of(Shrine::UploadedFile)
-      expect(derivatives[:small]).to be_kind_of(Shrine::UploadedFile)
-      expect(derivatives[:medium]).to be_kind_of(Shrine::UploadedFile)
-      expect(derivatives[:large]).to be_kind_of(Shrine::UploadedFile)
+      expect(derivatives[:default]).to be_a(Shrine::UploadedFile)
+      expect(derivatives[:small]).to be_a(Shrine::UploadedFile)
+      expect(derivatives[:medium]).to be_a(Shrine::UploadedFile)
+      expect(derivatives[:large]).to be_a(Shrine::UploadedFile)
 
       # exifが消えてるか確認
       path = File.expand_path("public/uploads/test/private/#{image.id}")

@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 class SeriesDecksController < ApiBaseController
-  before_action :set_pagination, only: [:index]
-
-  DEFAULT_PAGE = 1
-  DEFAULT_PER = 50
-
   def index
     query = params[:query] ? SeriesDeck.name_or_admin_memo_like(params[:query]) : SeriesDeck
     case params[:api_state]
@@ -14,7 +9,8 @@ class SeriesDecksController < ApiBaseController
     when 'close'
       query = query.api_state_close
     end
-    @series_decks = query.page(@page).per(@per)
+    page, per = set_pagination
+    @series_decks = query.page(page).per(per)
   end
 
   def show
@@ -58,11 +54,6 @@ class SeriesDecksController < ApiBaseController
 
   def series_deck_params
     params.require(:series_deck).permit(:name, :description, :interfix, :admin_memo, :api_state, playlists: [])
-  end
-
-  def set_pagination
-    @page = [params[:page].to_i, DEFAULT_PAGE].max
-    @per = (params[:per] || DEFAULT_PER).to_i
   end
 
   def playlist_series_ids
