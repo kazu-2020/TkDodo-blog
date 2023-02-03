@@ -5,7 +5,6 @@ import { Announcement } from '@/types/announcement'
 import { MutationConfig } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
-
 type CreateAnnouncementDTO = Pick<Announcement, 'status' | 'contents'>
 
 const createAnnouncement = (data: CreateAnnouncementDTO) =>
@@ -19,7 +18,7 @@ type UseCreateAnnouncementOptions = {
 
 export const useCreateAnnouncement = ({
   config
-}: UseCreateAnnouncementOptions) =>
+}: UseCreateAnnouncementOptions = {}) =>
   useMutation({
     mutationFn: createAnnouncement,
     ...config

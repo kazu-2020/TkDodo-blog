@@ -17,7 +17,7 @@ type UseDeleteAnnouncementOptions = {
 
 export const useDeleteAnnouncement = ({
   config
-}: UseDeleteAnnouncementOptions) =>
+}: UseDeleteAnnouncementOptions = {}) =>
   useMutation({
     onSuccess: () => {
       queryClient.invalidateQueries(['announcements'])
