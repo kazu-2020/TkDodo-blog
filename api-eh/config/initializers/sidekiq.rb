@@ -17,4 +17,7 @@ Sidekiq.configure_server do |config|
     # メモリ使用率が80%を超えた場合Workerをkill (1600 / 2048 ≒ 80%)
     chain.add Sidekiq::WorkerKiller, max_rss: 1600
   end
+
 end
+
+Sidekiq.strict_args!(:warn)
