@@ -1,5 +1,5 @@
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
-import React, { FC } from 'react'
+import { HTMLInputTypeAttribute } from 'react'
 import {
   FormControl,
   FormControlProps,
@@ -9,21 +9,21 @@ import {
   Spacer
 } from '@chakra-ui/react'
 
-import { PropertyLabel } from '@/components/Form/PropertyLabel'
+import {
+  PropertyLabel,
+  PropertyLabelProps
+} from '@/components/Form/PropertyLabel'
 
-type Props = {
-  name: string
-  label: string
-  schemaName?: string
+type PropertyInputProps = {
   placeholder?: string
   helperText?: string
   register: UseFormRegisterReturn
   error: FieldError | undefined
-  inputType?: string
-}
+  inputType?: HTMLInputTypeAttribute
+} & PropertyLabelProps &
+  FormControlProps
 
-export const PropertyInput: FC<Props & FormControlProps> = ({
-  name,
+export const PropertyInput = ({
   label,
   schemaName,
   placeholder,
@@ -32,14 +32,13 @@ export const PropertyInput: FC<Props & FormControlProps> = ({
   error,
   inputType = 'text',
   ...formControlProps
-}) => (
-  <FormControl id={name} isInvalid={!!error} {...formControlProps}>
-    <PropertyLabel label={label} schemaName={schemaName} />
+}: PropertyInputProps) => (
+  <FormControl id={register.name} isInvalid={!!error} {...formControlProps}>
+    <PropertyLabel {...{ label, schemaName }} />
     <Input
-      data-testid={name}
-      variant="flushed"
-      placeholder={placeholder}
+      data-testid={register.name}
       type={inputType}
+      {...{ placeholder }}
       {...register}
     />
     {!error && !helperText && <Spacer h="20px" mt="8px" />}

@@ -16,7 +16,6 @@ type Props = {
 export const CitationItem = ({ register, errors, index, onRemove }: Props) => (
   <HStack w="100%" mb={2}>
     <PropertyInput
-      name={`citationsAttributes.${index}.name`}
       label="名前"
       error={errors?.citationsAttributes?.[index]?.name}
       register={register(`citationsAttributes.${index}.name`, {
@@ -27,7 +26,6 @@ export const CitationItem = ({ register, errors, index, onRemove }: Props) => (
     />
     <PropertyInput
       inputType="url"
-      name={`citationsAttributes.${index}.url`}
       label="URL"
       error={errors?.citationsAttributes?.[index]?.url}
       register={register(`citationsAttributes.${index}.url`, {

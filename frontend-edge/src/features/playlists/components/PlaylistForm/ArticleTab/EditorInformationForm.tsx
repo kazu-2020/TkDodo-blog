@@ -81,7 +81,6 @@ export const EditorInformationForm = () => {
             <PersonOrganizationRadio inputName="authorType" />
           </FormControl>
           <PropertyInput
-            name="authorName"
             label="著者名"
             schemaName="Author Name"
             error={errors?.authorName}
@@ -101,7 +100,6 @@ export const EditorInformationForm = () => {
             <PersonOrganizationRadio inputName="publisherType" />
           </FormControl>
           <PropertyInput
-            name="publisherName"
             label="発行者名"
             schemaName="Publisher Name"
             error={errors?.publisherName}

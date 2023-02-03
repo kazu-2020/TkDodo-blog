@@ -1,12 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
-import React from 'react'
 import { DevTool } from '@hookform/devtools'
 import {
   Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
   Spacer,
   Text,
   VStack,
@@ -17,6 +12,7 @@ import { usePrompt } from '@/utils/form-guard'
 import { SeriesDeck } from '@/types/series_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
 import { SeriesDeckFormInputs } from '@/features/series-decks/types'
+import { PropertyInput } from '@/components/Form'
 import ApiStateBadge from '@/components/ApiStateBadge'
 
 import { useUpdateSeriesDeck } from '../api/updateSeriesDeck'
@@ -82,17 +78,11 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
           <Text>公開状態</Text>
           <ApiStateBadge apiState={seriesDeck.apiState} />
           <Spacer py={2} />
-          <FormControl id="adminMemo" isInvalid={!!errors?.adminMemo} mb={10}>
-            <FormLabel>管理メモ</FormLabel>
-            <Input
-              data-testid="adminMemo"
-              variant="flushed"
-              {...register('adminMemo')}
-            />
-            {errors?.adminMemo && (
-              <FormErrorMessage>{errors.adminMemo.message}</FormErrorMessage>
-            )}
-          </FormControl>
+          <PropertyInput
+            label="管理メモ"
+            register={register('adminMemo')}
+            error={errors.adminMemo}
+          />
         </VStack>
 
         <Button

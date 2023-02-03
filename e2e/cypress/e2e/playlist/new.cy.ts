@@ -123,10 +123,10 @@ describe("プレイリスト新規作成", () => {
         "#ハッシュタグ1"
       )
 
-      cy.get('[data-testid="format-genre-wrapper"]').contains(
+      cy.get('[data-testid="select-formatGenreCode"]').contains(
         inputData.formatGenre
       )
-      cy.get('[data-testid="theme-genre-wrapper"]').contains(
+      cy.get('[data-testid="select-themeGenreCode"]').contains(
         inputData.themeGenre
       )
       // 画像

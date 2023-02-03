@@ -105,10 +105,16 @@ describe("プレイリスト更新", () => {
         inputData.hashTags,
         { force: true }
       )
-      cy.get('[data-testid="format-genre-wrapper"]').click()
-      cy.contains(inputData.formatGenre).click({ force: true })
-      cy.get('[data-testid="theme-genre-wrapper"]').click()
-      cy.contains(inputData.themeGenre).click({ force: true })
+
+      cy.get("#formatGenreCode").type(
+        `${inputData.formatGenre}{enter}{enter}`,
+        {
+          force: true,
+        }
+      )
+      cy.get("#themeGenreCode").type(`${inputData.themeGenre}{enter}{enter}`, {
+        force: true,
+      })
       inputData.sameAs.forEach((sameAs, index) => {
         cy.get('[data-testid="add-same-as-button"]').click()
         cy.get(`[data-testid="sameAsAttributes.${index}.name"]`).type(
@@ -222,10 +228,10 @@ describe("プレイリスト更新", () => {
         "#ハッシュタグ2"
       )
 
-      cy.get('[data-testid="format-genre-wrapper"]').contains(
+      cy.get('[data-testid="select-formatGenreCode"]').contains(
         inputData.formatGenre
       )
-      cy.get('[data-testid="theme-genre-wrapper"]').contains(
+      cy.get('[data-testid="select-themeGenreCode"]').contains(
         inputData.themeGenre
       )
       // 画像
