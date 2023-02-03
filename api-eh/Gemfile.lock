@@ -165,7 +165,7 @@ GEM
       zeitwerk
     colormath (0.1.2)
     concurrent-ruby (1.2.0)
-    connection_pool (2.2.5)
+    connection_pool (2.3.0)
     content_disposition (1.0.0)
     counter_culture (3.3.0)
       activerecord (>= 4.2)
@@ -457,7 +457,7 @@ GEM
       rufus-scheduler (~> 3.2)
       sidekiq (>= 4)
       tilt (>= 1.4.0)
-    sidekiq-worker-killer (1.0.0)
+    sidekiq-worker-killer (1.1.0)
       get_process_mem (~> 0.2.1)
       sidekiq (>= 5)
     slack-incoming-webhooks (0.3.0)
