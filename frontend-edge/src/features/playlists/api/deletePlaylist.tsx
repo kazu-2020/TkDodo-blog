@@ -1,15 +1,16 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { MutationConfig } from '@/lib/react-query'
+import { Playlist } from '@/types/playlist'
+import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
 export const deletePlaylist = async ({
   playlistId
 }: {
   playlistId: string
-}) => {
-  await axios.delete(`/playlists/${playlistId}`)
-}
+}) =>
+  axios.delete(`/playlists/${playlistId}`)
+
 
 type UseDeletePlaylistOptions = {
   config?: MutationConfig<typeof deletePlaylist>
@@ -17,6 +18,30 @@ type UseDeletePlaylistOptions = {
 
 export const useDeletePlaylist = ({ config }: UseDeletePlaylistOptions = {}) =>
   useMutation({
+    onMutate: async (deletedPlaylist) => {
+      await queryClient.cancelQueries(['playlist'])
+
+      const previousPlaylists = queryClient.getQueryData<Playlist[]>([
+        'playlist'
+      ])
+
+      queryClient.setQueryData(
+        ['playlist'],
+        previousPlaylists?.filter(
+          (playlist) => playlist.playlistUid !== deletedPlaylist.playlistId
+        )
+      )
+
+      return { previousPlaylists }
+    },
+    onError: (_, __, context: any) => {
+      if (context?.previousPlaylists) {
+        queryClient.setQueryData(['playlist'], context.previousPlaylists)
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['playlist'])
+    },
     mutationFn: deletePlaylist,
     ...config
   })

@@ -1,5 +1,5 @@
 import { MdDelete } from 'react-icons/all'
-import React from 'react'
+import { useRef } from 'react'
 import {
   AlertDialog,
   AlertDialogBody,
@@ -12,62 +12,41 @@ import {
   useToast
 } from '@chakra-ui/react'
 
-import { Playlist } from '@/types/playlist'
-import { queryClient } from '@/lib/react-query'
 import { useDeletePlaylist } from '@/features/playlists/api/deletePlaylist'
 
-type Props = {
+type DeletePlaylistProps = {
   playlistId: string
   onDrawerClose: () => void
 }
 
 /* eslint-disable max-lines-per-function */
-export const DeletePlaylist = ({ playlistId, onDrawerClose }: Props) => {
+export const DeletePlaylist = ({
+  playlistId,
+  onDrawerClose
+}: DeletePlaylistProps) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast()
 
-  const deletePlaylistMutation = useDeletePlaylist({
-    config: {
-      onMutate: async (deletedPlaylist) => {
-        await queryClient.cancelQueries(['playlist'])
+  const { mutateAsync: deletePlaylistAsync, isLoading } = useDeletePlaylist()
 
-        const previousPlaylists = queryClient.getQueryData<Playlist[]>([
-          'playlist'
-        ])
-
-        queryClient.setQueryData(
-          ['playlist'],
-          previousPlaylists?.filter(
-            (playlist) => playlist.playlistUid !== deletedPlaylist.playlistId
-          )
-        )
-
-        return { previousPlaylists }
-      },
-      onError: (_, __, context: any) => {
-        if (context?.previousPlaylists) {
-          queryClient.setQueryData(['playlist'], context.previousPlaylists)
-        }
-        toast({
-          title: '削除に失敗しました。',
-          status: 'error',
-          isClosable: true,
-          position: 'top-right'
-        })
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries(['playlist'])
-        toast({
-          title: '削除しました。',
-          status: 'success',
-          isClosable: true,
-          position: 'top-right'
-        })
-      }
+  const onClickDeleteButton = async () => {
+    try {
+      await deletePlaylistAsync({ playlistId })
+      toast({
+        title: '削除しました。',
+        status: 'success'
+      })
+      onClose()
+      onDrawerClose()
+    } catch {
+      toast({
+        title: '削除に失敗しました。',
+        status: 'error'
+      })
     }
-  })
+  }
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef<HTMLButtonElement>(null)
+  const cancelRef = useRef<HTMLButtonElement>(null)
 
   return (
     <>
@@ -106,16 +85,10 @@ export const DeletePlaylist = ({ playlistId, onDrawerClose }: Props) => {
               <Button
                 data-testid="playlist-alert-delete-button"
                 colorScheme="red"
-                isLoading={deletePlaylistMutation.isLoading}
                 loadingText="送信中"
-                onClick={async () => {
-                  await deletePlaylistMutation.mutateAsync({
-                    playlistId
-                  })
-                  onClose()
-                  onDrawerClose()
-                }}
+                onClick={onClickDeleteButton}
                 ml={3}
+                {...{ isLoading }}
               >
                 削除する
               </Button>
