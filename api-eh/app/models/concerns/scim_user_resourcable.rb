@@ -11,6 +11,7 @@ module ScimUserResourcable
 
     # 最低限必要な情報(https://www.rfc-editor.org/rfc/rfc7643#section-8.1)を定義
     # NOTE: scimitarを利用してユーザー作成する際、このメソッドを用いて必要なカラムを参照するので、email, first_name, last_nameは必須
+    # rubocop:disable Metrics/MethodLength
     def scim_attributes_map
       {
         id: :id,
@@ -28,9 +29,10 @@ module ScimUserResourcable
               primary: true
             }
           }
-        ],
+        ]
       }
     end
+    # rubocop:enable Metrics/MethodLength
 
     def scim_mutable_attributes; end
 
