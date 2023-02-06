@@ -18,5 +18,3 @@ Sidekiq.configure_server do |config|
     chain.add Sidekiq::WorkerKiller, max_rss: 1600
   end
 end
-
-Sidekiq.strict_args!(:warn)
