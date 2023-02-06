@@ -74,4 +74,5 @@ Rails.application.configure do
   config.shrine_config = { default_url: default_url }
 
   config.hosts << 'web'
+  config.hosts << 'd753-101-1-104-182.jp.ngrok.io'
 end

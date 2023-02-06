@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  # NOTE: ScimUserResource の後にMixinをincludeすること
+  # https://www.rubydoc.info/gems/scimitar/Scimitar/Resources/Mixin
+  include ScimUserResourcable
+  include Scimitar::Resources::Mixin
+
   # @param [Object] payload decodeしたjwtのpayload
   # @return [User]
   def self.from_token_payload(payload)
