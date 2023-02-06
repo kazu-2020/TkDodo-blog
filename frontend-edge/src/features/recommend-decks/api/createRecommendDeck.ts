@@ -6,7 +6,7 @@ import { Deck as RecommendDeck } from '@/types/deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
-type RecommendDeckParams = {
+export type RecommendDeckParams = {
   name: string
   interfix: string
   description?: string

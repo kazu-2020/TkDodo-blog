@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
 import { useToast } from '@chakra-ui/react'
@@ -7,55 +8,36 @@ import { SeriesDeck } from '@/types/series_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
 
 import { SeriesDeckFormInputs } from '../../types'
-import { useUpdateSeriesDeck } from '../../api/updateSeriesDeck'
-import { useCreateSeriesDeck } from '../../api/createSeriesDeck'
+import {
+  useUpdateSeriesDeck,
+  SeriesDeckParams as UpdateSeriesDeckParams
+} from '../../api/updateSeriesDeck'
+import {
+  useCreateSeriesDeck,
+  SeriesDeckParams as CreateSeriesDeckParams
+} from '../../api/createSeriesDeck'
 
 import { ArrowStepContainer } from './ArrowStepContainer'
 
-type Props = {
+type SeriesDeckFormProps = {
   seriesDeck?: SeriesDeck | undefined
 }
 
-// eslint-disable-next-line max-lines-per-function
-export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
-  const formMethods = useForm<SeriesDeckFormInputs>({
-    defaultValues: {
-      name: seriesDeck?.name,
-      interfix: seriesDeck?.interfix,
-      description: seriesDeck?.description,
-      apiState: seriesDeck?.apiState === 'open',
-      playlists: seriesDeck?.playlists
-    },
-    mode: 'onChange'
-  })
-
+const useDispatchForm = () => {
   const toast = useToast({
     isClosable: true,
     position: 'top-right'
   })
 
+  const navigate = useNavigate()
+
   const { mutateAsync: createSeriesDeckAsync } = useCreateSeriesDeck()
   const { mutateAsync: updateSeriesDeckAsync } = useUpdateSeriesDeck()
 
-  const {
-    control,
-    getValues,
-    handleSubmit,
-    reset,
-    formState: { dirtyFields, isDirty, isSubmitting }
-  } = formMethods
-
-  const createSeriesDeck = async (inputData: SeriesDeckFormInputs) => {
-    const seriesIds =
-      getValues('playlists')?.map((playlist) => playlist.seriesId) || []
-
+  const createSeriesDeck = async (data: CreateSeriesDeckParams) => {
     try {
-      await createSeriesDeckAsync({
-        data: {
-          ...inputData,
-          playlists: seriesIds
-        }
-      })
+      await createSeriesDeckAsync({ data })
+      navigate(`/series-decks`)
       toast({
         title: '作成しました。',
         status: 'success'
@@ -69,18 +51,12 @@ export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
   }
 
   const updateSeriesDeck = async (
-    inputData: SeriesDeckFormInputs,
-    seriesDeckId: string
+    seriesDeckId: string,
+    data: UpdateSeriesDeckParams
   ) => {
-    const seriesIds =
-      getValues('playlists')?.map((playlist) => playlist.seriesId) || []
     try {
       await updateSeriesDeckAsync({
-        data: {
-          ...inputData,
-          playlists: seriesIds,
-          enableListUpdate: !!inputData.playlists
-        },
+        data,
         seriesDeckId
       })
       toast({
@@ -95,6 +71,36 @@ export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
     }
   }
 
+  return {
+    createSeriesDeck,
+    updateSeriesDeck
+  }
+}
+
+export const SeriesDeckForm = ({
+  seriesDeck = undefined
+}: SeriesDeckFormProps) => {
+  const formMethods = useForm<SeriesDeckFormInputs>({
+    defaultValues: {
+      name: seriesDeck?.name,
+      interfix: seriesDeck?.interfix,
+      description: seriesDeck?.description,
+      apiState: seriesDeck?.apiState === 'open',
+      playlists: seriesDeck?.playlists
+    },
+    mode: 'onChange'
+  })
+
+  const {
+    control,
+    getValues,
+    handleSubmit,
+    reset,
+    formState: { dirtyFields, isDirty, isSubmitting }
+  } = formMethods
+
+  const { createSeriesDeck, updateSeriesDeck } = useDispatchForm()
+
   usePrompt(
     '編集中のデータがあります。ページを離れますか？',
     isDirty && !isSubmitting
@@ -105,11 +111,17 @@ export const SeriesDeckForm = ({ seriesDeck = undefined }: Props) => {
       dirtyFields,
       values
     ) as SeriesDeckFormInputs
+    const seriesIds =
+      getValues('playlists')?.map((playlist) => playlist.seriesId) || []
 
-    if (seriesDeck === undefined) {
-      createSeriesDeck(values)
+    if (seriesDeck) {
+      updateSeriesDeck(seriesDeck.deckUid, {
+        ...onlyDirtyValues,
+        playlists: seriesIds,
+        enableListUpdate: !!onlyDirtyValues.playlists
+      })
     } else {
-      updateSeriesDeck(onlyDirtyValues, seriesDeck.deckUid)
+      createSeriesDeck({ ...onlyDirtyValues, playlists: seriesIds })
     }
     reset(values)
   }

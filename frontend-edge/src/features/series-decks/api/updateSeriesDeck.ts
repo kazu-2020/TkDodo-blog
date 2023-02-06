@@ -5,7 +5,7 @@ import { SeriesDeck } from '@/types/series_deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
-type SeriesDeckParams = {
+export type SeriesDeckParams = {
   name?: string
   interfix?: string
   description?: string

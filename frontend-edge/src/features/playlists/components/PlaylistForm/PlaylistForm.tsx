@@ -16,16 +16,11 @@ import { useCreatePlaylist } from '../../api/createPlaylist'
 
 import { ArrowStepContainer } from './ArrowStepContainer'
 
-type Props = {
-  playlist?: Playlist | undefined
+type PlaylistProps = {
+  playlist?: Playlist
 }
 
-export const PlaylistForm = ({ playlist = undefined }: Props) => {
-  const formMethods = useForm<PlaylistFormInputs>({
-    defaultValues: playlistToDefaultValues(playlist),
-    mode: 'onChange'
-  })
-
+const useDispatchFormData = () => {
   const toast = useToast({
     isClosable: true,
     position: 'top-right'
@@ -34,16 +29,10 @@ export const PlaylistForm = ({ playlist = undefined }: Props) => {
   const { mutateAsync: createPlaylistAsync } = useCreatePlaylist()
   const { mutateAsync: updatePlaylistAsync } = useUpdatePlaylist()
 
-  const {
-    formState: { isDirty, isSubmitting, dirtyFields },
-    handleSubmit,
-    control,
-    reset
-  } = formMethods
-
-  const createPlaylist = async (inputData: PlaylistFormInputs) => {
+  const createPlaylist = async (
+    data: ReturnType<typeof formValuesToCreateParams>
+  ) => {
     try {
-      const data = formValuesToCreateParams(inputData, dirtyFields)
       await createPlaylistAsync({ data })
       toast({
         title: '作成しました。',
@@ -58,11 +47,10 @@ export const PlaylistForm = ({ playlist = undefined }: Props) => {
   }
 
   const updatePlaylist = async (
-    inputData: PlaylistFormInputs,
-    playlistUid: string
+    playlistUid: string,
+    data: ReturnType<typeof formValuesToUpdateParams>
   ) => {
     try {
-      const data = formValuesToUpdateParams(inputData, dirtyFields)
       await updatePlaylistAsync({
         data,
         playlistUid
@@ -79,11 +67,33 @@ export const PlaylistForm = ({ playlist = undefined }: Props) => {
     }
   }
 
+  return {
+    createPlaylist,
+    updatePlaylist
+  }
+}
+
+export const PlaylistForm = ({ playlist = undefined }: PlaylistProps) => {
+  const formMethods = useForm<PlaylistFormInputs>({
+    defaultValues: playlistToDefaultValues(playlist),
+    mode: 'onChange'
+  })
+
+  const {
+    formState: { isDirty, isSubmitting, dirtyFields },
+    handleSubmit,
+    control,
+    reset
+  } = formMethods
+
+  const { createPlaylist, updatePlaylist } = useDispatchFormData()
+
   const onSubmitForm: SubmitHandler<PlaylistFormInputs> = (values) => {
+    const data = formValuesToCreateParams(values, dirtyFields)
     if (playlist?.playlistUid === undefined) {
-      createPlaylist(values)
+      createPlaylist(data)
     } else {
-      updatePlaylist(values, playlist.playlistUid)
+      updatePlaylist(playlist.playlistUid, data)
     }
     reset(values)
   }
