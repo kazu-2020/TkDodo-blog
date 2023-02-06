@@ -42,8 +42,6 @@ describe('お知らせ更新', () => {
       updateAnnouncement()
     })
 
-    beforeEach(() => {})
-
     it('「保存しました」トーストが表示されること', () => {
       cy.get('#toast-update-announcement-success').within(() => {
         cy.contains('保存しました').should('exist')
@@ -65,7 +63,7 @@ describe('お知らせ更新', () => {
       updateAnnouncement()
     })
 
-    it('「保存に失敗しました」トーストが表示されること', () => {
+    it('「保存に失敗しました。」トーストが表示されること', () => {
       cy.get('#toast-update-announcement-error').within(() => {
         cy.contains('保存に失敗しました').should('exist')
       })
