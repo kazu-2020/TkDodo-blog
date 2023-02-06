@@ -96,8 +96,9 @@ export const AnnouncementListItem = memo(
     return (
       <Flex
         data-testid={`announcement-list-item-${randId}`}
+        fontSize="14px"
         align="center"
-        px={2}
+        p={2}
         minH={10}
         columnGap={6}
         {...{ bg }}
