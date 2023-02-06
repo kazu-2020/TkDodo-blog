@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom'
-import { Box, useToast } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
+
+import { useToastForUpdation } from '@/hooks/useToast'
 
 import { AnnouncementForm, FormInput } from '../components/AnnouncementForm'
 import { useUpdateAnnouncement } from '../api/updateAnnouncement'
@@ -7,10 +9,7 @@ import { useAnnouncement } from '../api/getAnnouncement'
 
 export const EditAnnouncement = () => {
   const { announcementId } = useParams()
-  const toast = useToast({
-    isClosable: true,
-    position: 'top-right'
-  })
+  const toast = useToastForUpdation()
 
   const { data, isLoading } = useAnnouncement({
     params: {
@@ -23,15 +22,9 @@ export const EditAnnouncement = () => {
   const onSubmitForm = async (formData: FormInput) => {
     try {
       await updateAnnouncementAsync({ id: announcementId!, data: formData })
-      toast({
-        title: '保存しました。',
-        status: 'success'
-      })
+      toast.success()
     } catch {
-      toast({
-        title: '保存に失敗しました。',
-        status: 'error'
-      })
+      toast.fail()
     }
   }
 

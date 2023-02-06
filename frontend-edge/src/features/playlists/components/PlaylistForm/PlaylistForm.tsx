@@ -1,9 +1,9 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
-import { useToast } from '@chakra-ui/react'
 
 import { usePrompt } from '@/utils/form-guard'
 import { Playlist } from '@/types/playlist'
+import { useToastForCreation, useToastForUpdation } from '@/hooks/useToast'
 
 import {
   formValuesToCreateParams,
@@ -21,10 +21,8 @@ type PlaylistProps = {
 }
 
 const useDispatchFormData = () => {
-  const toast = useToast({
-    isClosable: true,
-    position: 'top-right'
-  })
+  const creationToast = useToastForCreation()
+  const updationToast = useToastForUpdation()
 
   const { mutateAsync: createPlaylistAsync } = useCreatePlaylist()
   const { mutateAsync: updatePlaylistAsync } = useUpdatePlaylist()
@@ -34,15 +32,9 @@ const useDispatchFormData = () => {
   ) => {
     try {
       await createPlaylistAsync({ data })
-      toast({
-        title: '作成しました。',
-        status: 'success'
-      })
+      creationToast.success()
     } catch {
-      toast({
-        title: '新規作成に失敗しました。',
-        status: 'error'
-      })
+      creationToast.fail()
     }
   }
 
@@ -55,15 +47,9 @@ const useDispatchFormData = () => {
         data,
         playlistUid
       })
-      toast({
-        title: '保存しました。',
-        status: 'success'
-      })
+      updationToast.success()
     } catch {
-      toast({
-        title: '保存に失敗しました。',
-        status: 'error'
-      })
+      updationToast.fail()
     }
   }
 

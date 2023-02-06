@@ -8,10 +8,10 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useDisclosure,
-  useToast
+  useDisclosure
 } from '@chakra-ui/react'
 
+import { useToastForDeletion } from '@/hooks/useToast'
 import { useDeletePlaylist } from '@/features/playlists/api/deletePlaylist'
 
 type DeletePlaylistProps = {
@@ -19,30 +19,23 @@ type DeletePlaylistProps = {
   onDrawerClose: () => void
 }
 
-/* eslint-disable max-lines-per-function */
 export const DeletePlaylist = ({
   playlistId,
   onDrawerClose
 }: DeletePlaylistProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const toast = useToast()
+  const toast = useToastForDeletion()
 
   const { mutateAsync: deletePlaylistAsync, isLoading } = useDeletePlaylist()
 
   const onClickDeleteButton = async () => {
     try {
       await deletePlaylistAsync({ playlistId })
-      toast({
-        title: '削除しました。',
-        status: 'success'
-      })
+      toast.success()
       onClose()
       onDrawerClose()
     } catch {
-      toast({
-        title: '削除に失敗しました。',
-        status: 'error'
-      })
+      toast.fail()
     }
   }
 

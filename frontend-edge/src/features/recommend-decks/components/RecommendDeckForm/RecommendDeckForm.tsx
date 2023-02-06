@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
-import { useToast } from '@chakra-ui/react'
 
 import { usePrompt } from '@/utils/form-guard'
 import { RecommendDeck } from '@/types/recommend_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
+import { useToastForCreation, useToastForUpdation } from '@/hooks/useToast'
 
 import { RecommendDeckFormInputs } from '../../types'
 import {
@@ -24,10 +24,8 @@ type RecommendDeckFormProps = {
 }
 
 const useDispatchFormData = () => {
-  const toast = useToast({
-    position: 'top-right',
-    isClosable: true
-  })
+  const creationToast = useToastForCreation()
+  const updataionToast = useToastForUpdation()
   const navigate = useNavigate()
 
   const { mutateAsync: createRecommendDeckAsync } = useCreateRecommendDeck()
@@ -37,15 +35,9 @@ const useDispatchFormData = () => {
     try {
       await createRecommendDeckAsync({ data })
       navigate('/recommend-decks')
-      toast({
-        title: '作成しました。',
-        status: 'success'
-      })
+      creationToast.success()
     } catch {
-      toast({
-        title: '新規作成に失敗しました。',
-        status: 'error'
-      })
+      creationToast.fail()
     }
   }
 
@@ -58,15 +50,9 @@ const useDispatchFormData = () => {
         data,
         recommendDeckId
       })
-      toast({
-        title: '保存しました。',
-        status: 'success'
-      })
+      updataionToast.success()
     } catch {
-      toast({
-        title: '保存に失敗しました。',
-        status: 'error'
-      })
+      updataionToast.fail()
     }
   }
 

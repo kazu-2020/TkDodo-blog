@@ -8,9 +8,10 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useDisclosure,
-  useToast
+  useDisclosure
 } from '@chakra-ui/react'
+
+import { useToastForDeletion } from '@/hooks/useToast'
 
 import { useDeleteRecommendDeck } from '../api/deleteRecommendDeck'
 
@@ -24,10 +25,7 @@ const DeleteRecommendDeck = ({
   onDrawerClose
 }: DeleteRecommendDeckProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const toast = useToast({
-    position: 'top-right',
-    isClosable: true
-  })
+  const toast = useToastForDeletion()
 
   const { mutateAsync: deleteRecommendDeckAsync, isLoading } =
     useDeleteRecommendDeck()
@@ -37,17 +35,11 @@ const DeleteRecommendDeck = ({
       await deleteRecommendDeckAsync({
         recommendDeckId
       })
-      toast({
-        title: '削除しました。',
-        status: 'success'
-      })
+      toast.success()
       onClose()
       onDrawerClose()
     } catch {
-      toast({
-        title: '削除に失敗しました。',
-        status: 'error'
-      })
+      toast.fail()
     }
   }
 

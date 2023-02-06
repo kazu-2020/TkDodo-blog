@@ -1,16 +1,11 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
-import {
-  Button,
-  Spacer,
-  Text,
-  VStack,
-  useToast
-} from '@chakra-ui/react'
+import { Button, Spacer, Text, VStack } from '@chakra-ui/react'
 
 import { usePrompt } from '@/utils/form-guard'
 import { RecommendDeck } from '@/types/recommend_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
+import { useToastForUpdation } from '@/hooks/useToast'
 import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
 import { PropertyInput } from '@/components/Form'
 import ApiStateBadge from '@/components/ApiStateBadge'
@@ -26,10 +21,7 @@ const RecommendDeckConfigForm = ({
 }: {
   recommendDeck: RecommendDeck
 }) => {
-  const toast = useToast({
-    position: 'top-right',
-    isClosable: true
-  })
+  const toast = useToastForUpdation()
 
   const {
     control,
@@ -60,15 +52,9 @@ const RecommendDeckConfigForm = ({
         data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
         recommendDeckId: recommendDeck.deckUid
       })
-      toast({
-        title: '保存しました。',
-        status: 'success'
-      })
+      toast.success()
     } catch {
-      toast({
-        title: '保存に失敗しました。',
-        status: 'error'
-      })
+      toast.fail()
     }
   }
 

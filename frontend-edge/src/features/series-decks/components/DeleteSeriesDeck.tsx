@@ -8,9 +8,10 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useDisclosure,
-  useToast
+  useDisclosure
 } from '@chakra-ui/react'
+
+import { useToastForDeletion } from '@/hooks/useToast'
 
 import { useDeleteSeriesDeck } from '../api/deleteSeriesDeck'
 
@@ -23,10 +24,7 @@ const DeleteSeriesDeck = ({
   seriesDeckId,
   onDrawerClose
 }: DeleteSeriesDeckProps) => {
-  const toast = useToast({
-    position: 'top-right',
-    isClosable: true
-  })
+  const toast = useToastForDeletion()
 
   const { mutateAsync: deleteSeriesDeckAsync, isLoading } =
     useDeleteSeriesDeck()
@@ -36,17 +34,11 @@ const DeleteSeriesDeck = ({
   const onClickDeleteButton = async () => {
     try {
       await deleteSeriesDeckAsync({ seriesDeckId })
-      toast({
-        title: '削除しました。',
-        status: 'success'
-      })
+      toast.success()
       onClose()
       onDrawerClose()
     } catch {
-      toast({
-        title: '削除に失敗しました。',
-        status: 'error'
-      })
+      toast.fail()
     }
   }
 

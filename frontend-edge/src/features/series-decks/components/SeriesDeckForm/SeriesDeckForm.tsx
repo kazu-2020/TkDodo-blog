@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
-import { useToast } from '@chakra-ui/react'
 
 import { usePrompt } from '@/utils/form-guard'
 import { SeriesDeck } from '@/types/series_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
+import { useToastForCreation, useToastForUpdation } from '@/hooks/useToast'
 
 import { SeriesDeckFormInputs } from '../../types'
 import {
@@ -24,10 +24,8 @@ type SeriesDeckFormProps = {
 }
 
 const useDispatchForm = () => {
-  const toast = useToast({
-    isClosable: true,
-    position: 'top-right'
-  })
+  const creationToast = useToastForCreation()
+  const updationToast = useToastForUpdation()
 
   const navigate = useNavigate()
 
@@ -38,15 +36,9 @@ const useDispatchForm = () => {
     try {
       await createSeriesDeckAsync({ data })
       navigate(`/series-decks`)
-      toast({
-        title: '作成しました。',
-        status: 'success'
-      })
+      creationToast.success()
     } catch {
-      toast({
-        title: '新規作成に失敗しました。',
-        status: 'error'
-      })
+      creationToast.fail()
     }
   }
 
@@ -59,15 +51,9 @@ const useDispatchForm = () => {
         data,
         seriesDeckId
       })
-      toast({
-        title: '保存しました。',
-        status: 'success'
-      })
+      updationToast.success()
     } catch {
-      toast({
-        title: '保存に失敗しました。',
-        status: 'error'
-      })
+      updationToast.fail()
     }
   }
 

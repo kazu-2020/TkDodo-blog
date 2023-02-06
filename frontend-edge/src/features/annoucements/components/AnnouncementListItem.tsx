@@ -3,19 +3,13 @@ import { RiPencilLine } from 'react-icons/all'
 import { memo, useId } from 'react'
 import { render, screen } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
-import {
-  Box,
-  Flex,
-  IconButton,
-  Text,
-  useDisclosure,
-  useToast
-} from '@chakra-ui/react'
+import { Box, Flex, IconButton, Text, useDisclosure } from '@chakra-ui/react'
 import { DeleteIcon } from '@chakra-ui/icons'
 
 import { formatDateWithWeekday } from '@/utils/format'
 import { autoLink } from '@/utils/dom'
 import { AnnouncementStatus } from '@/types/announcement'
+import { useToastForDeletion } from '@/hooks/useToast'
 
 import { useDeleteAnnouncement } from '../api/deleteAnnouncement'
 
@@ -55,10 +49,6 @@ export const AnnouncementListItem = memo(
     bg = '#fff'
   }: AnnouncementListItemProps) => {
     const navigate = useNavigate()
-    const toast = useToast({
-      isClosable: true,
-      position: 'top-right'
-    })
     const randId = useId()
 
     const {
@@ -69,19 +59,15 @@ export const AnnouncementListItem = memo(
 
     const { mutateAsync: onDeleteAnnouncementAsync } = useDeleteAnnouncement()
 
+    const toast = useToastForDeletion()
+
     const onClickEditIcon = () => navigate(`/announcements/${id}/edit`)
     const onClickDeleteButton = async () => {
       try {
         await onDeleteAnnouncementAsync({ id: `${id}` })
-        toast({
-          title: '削除しました。',
-          status: 'success'
-        })
+        toast.success()
       } catch {
-        toast({
-          title: '削除に失敗しました。',
-          status: 'error'
-        })
+        toast.fail()
       } finally {
         onCloseDeleteModal()
       }

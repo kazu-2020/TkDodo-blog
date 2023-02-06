@@ -1,16 +1,11 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
-import {
-  Button,
-  Spacer,
-  Text,
-  VStack,
-  useToast
-} from '@chakra-ui/react'
+import { Button, Spacer, Text, VStack } from '@chakra-ui/react'
 
 import { usePrompt } from '@/utils/form-guard'
 import { SeriesDeck } from '@/types/series_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
+import { useToastForUpdation } from '@/hooks/useToast'
 import { SeriesDeckFormInputs } from '@/features/series-decks/types'
 import { PropertyInput } from '@/components/Form'
 import ApiStateBadge from '@/components/ApiStateBadge'
@@ -33,10 +28,7 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
     }
   })
 
-  const toast = useToast({
-    isClosable: true,
-    position: 'top-right'
-  })
+  const toast = useToastForUpdation()
 
   usePrompt(
     '編集中のデータがあります。ページを離れますか？',
@@ -56,15 +48,9 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
         data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
         seriesDeckId: seriesDeck.deckUid
       })
-      toast({
-        title: '保存しました。',
-        status: 'success'
-      })
+      toast.success()
     } catch {
-      toast({
-        title: '保存に失敗しました。',
-        status: 'error'
-      })
+      toast.fail()
     }
   }
 
