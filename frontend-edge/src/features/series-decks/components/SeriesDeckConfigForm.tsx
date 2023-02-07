@@ -43,15 +43,20 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
       values
     ) as SeriesDeckFormInputs
 
-    try {
-      await updateSeriesDeckAsync({
+    updateSeriesDeckAsync(
+      {
         data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
         seriesDeckId: seriesDeck.deckUid
-      })
-      toast.success()
-    } catch {
-      toast.fail()
-    }
+      },
+      {
+        onSuccess: () => {
+          toast.success()
+        },
+        onError: () => {
+          toast.fail()
+        }
+      }
+    )
   }
 
   return (

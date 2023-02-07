@@ -41,21 +41,22 @@ const RecommendDeckConfigForm = ({
 
   const { mutateAsync: updateRecommendDeckAsync } = useUpdateRecommendDeck()
 
-  const onSubmit: SubmitHandler<Inputs> = async (values) => {
+  const onSubmit: SubmitHandler<Inputs> = (values) => {
     const onlyDirtyValues = dirtyValues(
       dirtyFields,
       values
     ) as RecommendDeckFormInputs
 
-    try {
-      await updateRecommendDeckAsync({
+    updateRecommendDeckAsync(
+      {
         data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
         recommendDeckId: recommendDeck.deckUid
-      })
-      toast.success()
-    } catch {
-      toast.fail()
-    }
+      },
+      {
+        onSuccess: () => toast.success(),
+        onError: () => toast.fail()
+      }
+    )
   }
 
   return (

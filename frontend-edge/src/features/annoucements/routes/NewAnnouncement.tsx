@@ -12,13 +12,15 @@ export const NewAnnouncement = () => {
   const { mutateAsync: createAnnouncementAsync } = useCreateAnnouncement()
 
   const onSubmit = async (formData: FormInput) => {
-    try {
-      await createAnnouncementAsync(formData)
-      navigate('/announcements')
-      toast.success()
-    } catch {
-      toast.fail()
-    }
+    await createAnnouncementAsync(formData, {
+      onSuccess: () => {
+        navigate('/announcements')
+        toast.success()
+      },
+      onError: () => {
+        toast.fail()
+      }
+    })
   }
 
   return (

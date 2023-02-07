@@ -30,17 +30,22 @@ const DeleteRecommendDeck = ({
   const { mutateAsync: deleteRecommendDeckAsync, isLoading } =
     useDeleteRecommendDeck()
 
-  const onClickDeleteButton = async () => {
-    try {
-      await deleteRecommendDeckAsync({
+  const onClickDeleteButton = () => {
+    deleteRecommendDeckAsync(
+      {
         recommendDeckId
-      })
-      toast.success()
-      onClose()
-      onDrawerClose()
-    } catch {
-      toast.fail()
-    }
+      },
+      {
+        onSuccess: () => {
+          toast.success()
+          onClose()
+          onDrawerClose()
+        },
+        onError: () => {
+          toast.fail()
+        }
+      }
+    )
   }
 
   const cancelRef = useRef<HTMLButtonElement>(null)

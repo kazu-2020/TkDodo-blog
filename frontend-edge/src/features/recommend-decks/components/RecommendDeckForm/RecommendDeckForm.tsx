@@ -31,29 +31,38 @@ const useDispatchFormData = () => {
   const { mutateAsync: createRecommendDeckAsync } = useCreateRecommendDeck()
   const { mutateAsync: updateRecommendDeckAsync } = useUpdateRecommendDeck()
 
-  const createRecommendDeck = async (data: CreateRecommendDeckParams) => {
-    try {
-      await createRecommendDeckAsync({ data })
-      navigate('/recommend-decks')
-      creationToast.success()
-    } catch {
-      creationToast.fail()
-    }
+  const createRecommendDeck = (data: CreateRecommendDeckParams) => {
+    createRecommendDeckAsync(
+      { data },
+      {
+        onSuccess: () => {
+          navigate('/recommend-decks')
+        },
+        onError: () => {
+          creationToast.fail()
+        }
+      }
+    )
   }
 
-  const updateRecommendDeck = async (
+  const updateRecommendDeck = (
     recommendDeckId: string,
     data: UpdateRecommendDeckParams
   ) => {
-    try {
-      await updateRecommendDeckAsync({
+    updateRecommendDeckAsync(
+      {
         data,
         recommendDeckId
-      })
-      updataionToast.success()
-    } catch {
-      updataionToast.fail()
-    }
+      },
+      {
+        onSuccess: () => {
+          updataionToast.success()
+        },
+        onError: () => {
+          updataionToast.fail()
+        }
+      }
+    )
   }
 
   return {

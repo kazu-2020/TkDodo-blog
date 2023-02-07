@@ -57,20 +57,24 @@ export const AnnouncementListItem = memo(
       onClose: onCloseDeleteModal
     } = useDisclosure()
 
-    const { mutateAsync: onDeleteAnnouncementAsync } = useDeleteAnnouncement()
+    const { mutateAsync: deleteAnnouncementAsync } = useDeleteAnnouncement()
 
     const toast = useToastForDeletion()
 
     const onClickEditIcon = () => navigate(`/announcements/${id}/edit`)
-    const onClickDeleteButton = async () => {
-      try {
-        await onDeleteAnnouncementAsync({ id: `${id}` })
-        toast.success()
-      } catch {
-        toast.fail()
-      } finally {
-        onCloseDeleteModal()
-      }
+    const onClickDeleteButton = () => {
+      deleteAnnouncementAsync(
+        { id: `${id}` },
+        {
+          onSuccess: () => {
+            toast.success()
+            onCloseDeleteModal()
+          },
+          onError: () => {
+            toast.fail()
+          }
+        }
+      )
     }
 
     return (

@@ -32,29 +32,39 @@ const useDispatchForm = () => {
   const { mutateAsync: createSeriesDeckAsync } = useCreateSeriesDeck()
   const { mutateAsync: updateSeriesDeckAsync } = useUpdateSeriesDeck()
 
-  const createSeriesDeck = async (data: CreateSeriesDeckParams) => {
-    try {
-      await createSeriesDeckAsync({ data })
-      navigate(`/series-decks`)
-      creationToast.success()
-    } catch {
-      creationToast.fail()
-    }
+  const createSeriesDeck = (data: CreateSeriesDeckParams) => {
+    createSeriesDeckAsync(
+      { data },
+      {
+        onSuccess: () => {
+          navigate(`/series-decks`)
+          creationToast.success()
+        },
+        onError: () => {
+          creationToast.fail()
+        }
+      }
+    )
   }
 
   const updateSeriesDeck = async (
     seriesDeckId: string,
     data: UpdateSeriesDeckParams
   ) => {
-    try {
-      await updateSeriesDeckAsync({
+    updateSeriesDeckAsync(
+      {
         data,
         seriesDeckId
-      })
-      updationToast.success()
-    } catch {
-      updationToast.fail()
-    }
+      },
+      {
+        onSuccess: () => {
+          updationToast.success()
+        },
+        onError: () => {
+          updationToast.fail()
+        }
+      }
+    )
   }
 
   return {

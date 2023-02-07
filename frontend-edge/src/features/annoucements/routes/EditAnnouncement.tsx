@@ -19,13 +19,18 @@ export const EditAnnouncement = () => {
 
   const { mutateAsync: updateAnnouncementAsync } = useUpdateAnnouncement()
 
-  const onSubmitForm = async (formData: FormInput) => {
-    try {
-      await updateAnnouncementAsync({ id: announcementId!, data: formData })
-      toast.success()
-    } catch {
-      toast.fail()
-    }
+  const onSubmitForm = (formData: FormInput) => {
+    updateAnnouncementAsync(
+      { id: announcementId!, data: formData },
+      {
+        onSuccess: () => {
+          toast.success()
+        },
+        onError: () => {
+          toast.fail()
+        }
+      }
+    )
   }
 
   return (

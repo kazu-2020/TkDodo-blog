@@ -28,15 +28,20 @@ export const DeletePlaylist = ({
 
   const { mutateAsync: deletePlaylistAsync, isLoading } = useDeletePlaylist()
 
-  const onClickDeleteButton = async () => {
-    try {
-      await deletePlaylistAsync({ playlistId })
-      toast.success()
-      onClose()
-      onDrawerClose()
-    } catch {
-      toast.fail()
-    }
+  const onClickDeleteButton = () => {
+    deletePlaylistAsync(
+      { playlistId },
+      {
+        onSuccess: () => {
+          toast.success()
+          onClose()
+          onDrawerClose()
+        },
+        onError: () => {
+          toast.fail()
+        }
+      }
+    )
   }
 
   const cancelRef = useRef<HTMLButtonElement>(null)

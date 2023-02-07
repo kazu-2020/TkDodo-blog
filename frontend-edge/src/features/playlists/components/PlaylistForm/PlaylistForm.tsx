@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
 
@@ -21,36 +22,48 @@ type PlaylistProps = {
 }
 
 const useDispatchFormData = () => {
+  const navigate = useNavigate()
   const creationToast = useToastForCreation()
   const updationToast = useToastForUpdation()
 
   const { mutateAsync: createPlaylistAsync } = useCreatePlaylist()
   const { mutateAsync: updatePlaylistAsync } = useUpdatePlaylist()
 
-  const createPlaylist = async (
+  const createPlaylist = (
     data: ReturnType<typeof formValuesToCreateParams>
   ) => {
-    try {
-      await createPlaylistAsync({ data })
-      creationToast.success()
-    } catch {
-      creationToast.fail()
-    }
+    createPlaylistAsync(
+      { data },
+      {
+        onSuccess: () => {
+          navigate(`/playlists`)
+          creationToast.success()
+        },
+        onError: () => {
+          creationToast.fail()
+        }
+      }
+    )
   }
 
-  const updatePlaylist = async (
+  const updatePlaylist = (
     playlistUid: string,
     data: ReturnType<typeof formValuesToUpdateParams>
   ) => {
-    try {
-      await updatePlaylistAsync({
+    updatePlaylistAsync(
+      {
         data,
         playlistUid
-      })
-      updationToast.success()
-    } catch {
-      updationToast.fail()
-    }
+      },
+      {
+        onSuccess: () => {
+          updationToast.success()
+        },
+        onError: () => {
+          updationToast.fail()
+        }
+      }
+    )
   }
 
   return {

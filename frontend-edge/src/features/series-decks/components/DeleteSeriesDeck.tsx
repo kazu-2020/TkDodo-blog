@@ -31,15 +31,20 @@ const DeleteSeriesDeck = ({
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const onClickDeleteButton = async () => {
-    try {
-      await deleteSeriesDeckAsync({ seriesDeckId })
-      toast.success()
-      onClose()
-      onDrawerClose()
-    } catch {
-      toast.fail()
-    }
+  const onClickDeleteButton = () => {
+    deleteSeriesDeckAsync(
+      { seriesDeckId },
+      {
+        onSuccess: () => {
+          toast.success()
+          onClose()
+          onDrawerClose()
+        },
+        onError: () => {
+          toast.fail()
+        }
+      }
+    )
   }
 
   const cancelRef = useRef<HTMLButtonElement>(null)
