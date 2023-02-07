@@ -97,6 +97,7 @@ class Ability
       can ability[:action], ability[:subject], ability[:conditions]
     end
   end
+
   def build(user)
     abilities = []
 
