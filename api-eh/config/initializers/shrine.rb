@@ -71,7 +71,7 @@ end
 # background job
 Shrine.plugin :backgrounding
 Shrine::Attacher.promote_block do
-  PromoteImageJob.perform_async(self.class.name, record.class.name, record.id, name, file_data)
+  PromoteImageJob.perform_async(self.class.name, record.class.name, record.id, name.to_s, file_data)
 end
 Shrine::Attacher.destroy_block do
   DestroyImageJob.perform_async(self.class.name, data)
