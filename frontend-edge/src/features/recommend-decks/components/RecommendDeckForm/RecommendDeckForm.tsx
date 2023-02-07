@@ -37,6 +37,7 @@ const useDispatchFormData = () => {
       {
         onSuccess: () => {
           navigate('/recommend-decks')
+          creationToast.success()
         },
         onError: () => {
           creationToast.fail()
