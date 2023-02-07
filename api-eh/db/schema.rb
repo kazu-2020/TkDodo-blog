@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_30_053627) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_07_020757) do
   create_table "announcements", charset: "utf8mb4", force: :cascade do |t|
     t.integer "status", default: 0, null: false
     t.text "contents", null: false
@@ -279,11 +279,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_30_053627) do
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
-    t.string "okta_uid", null: false
     t.string "man_number", comment: "マンナンバー"
     t.string "email", null: false
     t.string "first_name"
     t.string "last_name"
+    t.string "job_class"
+    t.string "job_type"
+    t.datetime "logged_in_at"
+    t.datetime "invited_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["man_number"], name: "index_users_on_man_number", unique: true
