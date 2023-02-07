@@ -72,6 +72,8 @@ Rails.application.routes.draw do
 
   resources :abilities, only: :index, format: 'json'
 
+  resources :users, only: %i[index], format: 'json'
+
   namespace :embed do
     get 'ts/:series_id', to: 'series#show'
     get 'pl/:playlist_id', to: 'playlists#show'
