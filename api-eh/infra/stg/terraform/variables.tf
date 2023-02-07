@@ -154,3 +154,12 @@ variable "resources_bucket" {
     "production.origin_path" = "production"
   }
 }
+
+# https://aws-plus.backlog.jp/view/NHK_NR_OPS-984#comment-1378227881
+variable "sns_logging_arn" {
+  default = {
+    dev        = ""
+    staging    = "arn:aws:iam::312328096018:role/tomigaya-stg-sns-logging"
+    production = ""
+  }
+}
