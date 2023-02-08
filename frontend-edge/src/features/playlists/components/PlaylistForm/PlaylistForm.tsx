@@ -1,9 +1,10 @@
+import { useNavigate } from 'react-router-dom'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import React from 'react'
 import { DevTool } from '@hookform/devtools'
 
 import { usePrompt } from '@/utils/form-guard'
 import { Playlist } from '@/types/playlist'
+import { useToastForCreation, useToastForUpdation } from '@/hooks/useToast'
 
 import {
   formValuesToCreateParams,
@@ -16,57 +17,97 @@ import { useCreatePlaylist } from '../../api/createPlaylist'
 
 import { ArrowStepContainer } from './ArrowStepContainer'
 
-const usePlaylistForm = (playlist: Playlist | undefined) => {
-  const defaultValues = playlistToDefaultValues(playlist)
+type PlaylistProps = {
+  playlist?: Playlist
+}
 
-  return useForm<PlaylistFormInputs>({
-    defaultValues,
+const useDispatchFormData = () => {
+  const navigate = useNavigate()
+  const creationToast = useToastForCreation()
+  const updationToast = useToastForUpdation()
+
+  const { mutateAsync: createPlaylistAsync } = useCreatePlaylist()
+  const { mutateAsync: updatePlaylistAsync } = useUpdatePlaylist()
+
+  const createPlaylist = (
+    data: ReturnType<typeof formValuesToCreateParams>
+  ) => {
+    createPlaylistAsync(
+      { data },
+      {
+        onSuccess: () => {
+          navigate(`/playlists`)
+          creationToast.success()
+        },
+        onError: () => {
+          creationToast.fail()
+        }
+      }
+    )
+  }
+
+  const updatePlaylist = (
+    playlistUid: string,
+    data: ReturnType<typeof formValuesToUpdateParams>
+  ) => {
+    updatePlaylistAsync(
+      {
+        data,
+        playlistUid
+      },
+      {
+        onSuccess: () => {
+          updationToast.success()
+        },
+        onError: () => {
+          updationToast.fail()
+        }
+      }
+    )
+  }
+
+  return {
+    createPlaylist,
+    updatePlaylist
+  }
+}
+
+export const PlaylistForm = ({ playlist = undefined }: PlaylistProps) => {
+  const formMethods = useForm<PlaylistFormInputs>({
+    defaultValues: playlistToDefaultValues(playlist),
     mode: 'onChange'
   })
-}
 
-type Props = {
-  playlist?: Playlist | undefined
-}
-
-export const PlaylistForm = ({ playlist = undefined }: Props) => {
-  const formMethods = usePlaylistForm(playlist)
   const {
-    control,
+    formState: { isDirty, isSubmitting, dirtyFields },
     handleSubmit,
-    reset,
-    formState: { dirtyFields, isDirty, isSubmitting }
+    control,
+    reset
   } = formMethods
+
+  const { createPlaylist, updatePlaylist } = useDispatchFormData()
+
+  const onSubmitForm: SubmitHandler<PlaylistFormInputs> = (values) => {
+    const data = formValuesToCreateParams(values, dirtyFields)
+    if (playlist?.playlistUid === undefined) {
+      createPlaylist(data)
+    } else {
+      updatePlaylist(playlist.playlistUid, data)
+    }
+    reset(values)
+  }
 
   usePrompt(
     '編集中のデータがあります。ページを離れますか？',
     isDirty && !isSubmitting
   )
 
-  const createPlaylistMutation = useCreatePlaylist()
-  const updatePlaylistMutation = useUpdatePlaylist()
-
-  const onSubmit: SubmitHandler<PlaylistFormInputs> = async (values) => {
-    if (playlist?.playlistUid === undefined) {
-      const data = formValuesToCreateParams(values, dirtyFields)
-
-      await createPlaylistMutation.mutateAsync({ data })
-    } else {
-      const data = formValuesToUpdateParams(values, dirtyFields)
-      await updatePlaylistMutation.mutateAsync({
-        data,
-        playlistUid: playlist.playlistUid
-      })
-    }
-    reset(values)
-  }
-
   return (
     <FormProvider {...formMethods}>
-      <form onSubmit={handleSubmit(onSubmit)} data-testid="playlistForm">
+      <form onSubmit={handleSubmit(onSubmitForm)} data-testid="playlistForm">
         <ArrowStepContainer />
       </form>
-      {import.meta.env.MODE === 'development' && <DevTool control={control} />}
+      {import.meta.env.MODE === 'development' && <DevTool {...{ control }} />}
     </FormProvider>
   )
 }

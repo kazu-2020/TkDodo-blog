@@ -1,15 +1,11 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
-import {
-  Button,
-  Spacer,
-  Text,
-  VStack
-} from '@chakra-ui/react'
+import { Button, Spacer, Text, VStack } from '@chakra-ui/react'
 
 import { usePrompt } from '@/utils/form-guard'
 import { RecommendDeck } from '@/types/recommend_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
+import { useToastForUpdation } from '@/hooks/useToast'
 import { RecommendDeckFormInputs } from '@/features/recommend-decks/types'
 import { PropertyInput } from '@/components/Form'
 import ApiStateBadge from '@/components/ApiStateBadge'
@@ -25,6 +21,8 @@ const RecommendDeckConfigForm = ({
 }: {
   recommendDeck: RecommendDeck
 }) => {
+  const toast = useToastForUpdation()
+
   const {
     control,
     register,
@@ -41,18 +39,24 @@ const RecommendDeckConfigForm = ({
     isDirty && !isSubmitting
   )
 
-  const updateRecommendDeckMutation = useUpdateRecommendDeck()
+  const { mutateAsync: updateRecommendDeckAsync } = useUpdateRecommendDeck()
 
-  const onSubmit: SubmitHandler<Inputs> = async (values) => {
+  const onSubmit: SubmitHandler<Inputs> = (values) => {
     const onlyDirtyValues = dirtyValues(
       dirtyFields,
       values
     ) as RecommendDeckFormInputs
 
-    await updateRecommendDeckMutation.mutateAsync({
-      data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
-      recommendDeckId: recommendDeck.deckUid
-    })
+    updateRecommendDeckAsync(
+      {
+        data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
+        recommendDeckId: recommendDeck.deckUid
+      },
+      {
+        onSuccess: () => toast.success(),
+        onError: () => toast.fail()
+      }
+    )
   }
 
   return (
