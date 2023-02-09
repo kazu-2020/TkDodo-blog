@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DecksController < ApiBaseController
-  authorize_resource
+  authorize_resource if Rails.env.test? #TODO: 権限結合時にif文を削除する
 
   def index
     query = params[:query].present? ? Deck.name_or_admin_memo_like(params[:query]) : Deck

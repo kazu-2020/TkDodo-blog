@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SeriesPlaylistsController < ApiBaseController
-  authorize_resource
+  authorize_resource if Rails.env.test? #TODO: 権限結合時にif文を削除する
 
   def episodes
     @series_playlist = SeriesPlaylist.find(params[:id])
