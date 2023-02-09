@@ -1,5 +1,5 @@
 class ApiBaseController < ApplicationController
-  include Secured if Rails.env.test? #TODO: 権限結合時にif文を削除する
+  include Secured if Rails.env.test? # TODO: 権限結合時にif文を削除する
 
   after_action :set_x_api_url_to_header
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SeriesDecksController < ApiBaseController
-  authorize_resource if Rails.env.test? #TODO: 権限結合時にif文を削除する
+  authorize_resource if Rails.env.test? # TODO: 権限結合時にif文を削除する
 
   def index
     query = params[:query] ? SeriesDeck.name_or_admin_memo_like(params[:query]) : SeriesDeck

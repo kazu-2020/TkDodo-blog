@@ -1,5 +1,5 @@
 class AnnouncementsController < ApiBaseController
-  authorize_resource if Rails.env.test? #TODO: 権限結合時にif文を削除する
+  authorize_resource if Rails.env.test? # TODO: 権限結合時にif文を削除する
   skip_authorize_resource only: %i[index show] # 権限がなくてもお知らせの閲覧は可能
 
   def index

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EpisodesController < ApiBaseController
-  authorize_resource if Rails.env.test? #TODO: 権限結合時にif文を削除する
+  authorize_resource if Rails.env.test? # TODO: 権限結合時にif文を削除する
 
   rescue_from DlabApiClient::NotFound do |exception|
     render json: { message: 'エピソードが見つかりませんでした', error: exception.message }, status: 404
