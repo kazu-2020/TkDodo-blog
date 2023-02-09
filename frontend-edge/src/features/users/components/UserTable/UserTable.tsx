@@ -88,7 +88,7 @@ export const UserTable = () => {
   const { data, isLoading } = useUsers({
     params: {
       page,
-      query: searchParameter
+      ...searchParameter
     }
   })
 

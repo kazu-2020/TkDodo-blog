@@ -11,10 +11,8 @@ type Response = {
 }
 
 type Params = {
-  query: {
-    keyword: string
-    role?: string
-  }
+  keyword: string
+  role?: string
   page?: number
 }
 
