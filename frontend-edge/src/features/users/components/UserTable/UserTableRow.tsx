@@ -23,7 +23,7 @@ export const UserTableRow = ({
 }: UserTableRowProps) => (
   <Tr fontSize="sm" px={2} py={4} background={isEven ? '#BDBDBD33' : 'white'}>
     <Td fontSize="md" lineHeight="base" px="inherit" py="inherit">
-      {/* TODO: プロフィールページへのpathに変更する */}
+      {/* TODO: ユーザー編集ページへのpathに変更する */}
       <Link to="/" color="#009688">
         {fullName}
       </Link>
