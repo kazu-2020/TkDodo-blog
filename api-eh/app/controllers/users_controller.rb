@@ -13,5 +13,7 @@ class UsersController < ApiBaseController
     query = User.all
     query = query.recent
     query.keyword_like(params[:keyword]) if params[:keyword]
+
+    query
   end
 end
