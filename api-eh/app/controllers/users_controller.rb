@@ -10,10 +10,9 @@ class UsersController < ApiBaseController
   private
 
   def set_users
-    query = User.all
+    query = User.includes(:roles)
     query = query.recent
-    query.keyword_like(params[:keyword]) if params[:keyword]
-
-    query
+    query = query.keyword_like(params[:keyword]) if params[:keyword]
+    query.where(roles: { name: "#{params[:role]}" }) if params[:role]
   end
 end
