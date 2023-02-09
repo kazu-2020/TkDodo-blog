@@ -7,10 +7,9 @@ class User < ApplicationRecord
 
   rolify
 
-  # @param [Object] payload decodeしたjwtのpayload
-  # @return [User]
-
   after_create :assign_default_role
+
+  has_and_belongs_to_many :roles, join_table: :users_roles
 
   scope :recent, -> { order(updated_at: :desc) }
   scope :keyword_like, lambda { |keyword|
