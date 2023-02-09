@@ -8,6 +8,7 @@ describe('新規作成ページへの導線', () => {
     cy.get('[data-testid="announcement-list"]').within(() => {
       cy.contains('新規お知らせ登録').click()
     })
+
     cy.location('pathname').should('eq', '/announcements/new')
   })
 })
@@ -41,8 +42,8 @@ describe('お知らせ新規作成', () => {
       })
     })
 
-    it('「作成しました。」トーストが表示されること', () => {
-      cy.contains('作成しました。').should('exist')
+    it('「作成しました」トーストが表示されること', () => {
+      cy.contains('作成しました').should('exist')
     })
   })
 
@@ -51,10 +52,10 @@ describe('お知らせ新規作成', () => {
       cy.intercept(
         {
           method: 'POST',
-          url: 'announcements',
+          url: 'announcements'
         },
         {
-          statusCode: 500,
+          statusCode: 500
         }
       )
       cy.attachAccessTokenRequests().then(
@@ -64,8 +65,8 @@ describe('お知らせ新規作成', () => {
       )
     })
 
-    it('「新規作成に失敗しました。」トーストが表示されること', () => {
-      cy.contains('新規作成に失敗しました。').should('exist')
+    it('「新規作成に失敗しました」トーストが表示されること', () => {
+      cy.contains('新規作成に失敗しました').should('exist')
     })
   })
 

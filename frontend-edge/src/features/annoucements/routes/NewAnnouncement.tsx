@@ -1,37 +1,31 @@
 import { useNavigate } from 'react-router-dom'
-import { Box, useToast } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 
-import { AnnouncementForm } from '../components/AnnouncementForm'
+import { useToastForCreation } from '@/hooks/useToast'
+
+import { AnnouncementForm, FormInput } from '../components/AnnouncementForm'
 import { useCreateAnnouncement } from '../api/createAnnouncements'
 
 export const NewAnnouncement = () => {
   const navigate = useNavigate()
-  const toast = useToast()
-  const { mutate: createAnnouncement } = useCreateAnnouncement({
-    config: {
+  const toast = useToastForCreation()
+  const { mutateAsync: createAnnouncementAsync } = useCreateAnnouncement()
+
+  const onSubmit = async (formData: FormInput) => {
+    await createAnnouncementAsync(formData, {
       onSuccess: () => {
         navigate('/announcements')
-        toast({
-          title: '作成しました。',
-          status: 'success',
-          isClosable: true,
-          position: 'top-right'
-        })
+        toast.success()
       },
       onError: () => {
-        toast({
-          title: '新規作成に失敗しました。',
-          status: 'error',
-          isClosable: true,
-          position: 'top-right'
-        })
+        toast.fail()
       }
-    }
-  })
+    })
+  }
 
   return (
     <Box p={4}>
-      <AnnouncementForm onSubmit={createAnnouncement} />
+      <AnnouncementForm {...{ onSubmit }} />
     </Box>
   )
 }

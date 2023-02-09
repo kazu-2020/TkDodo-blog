@@ -28,7 +28,7 @@ describe('お知らせ削除', () => {
 
       // トースト確認
       cy.get('[id^=toast-]').within(() => {
-        cy.contains('削除しました。').should('exist')
+        cy.contains('削除しました').should('exist')
       })
     })
   })
@@ -38,10 +38,10 @@ describe('お知らせ削除', () => {
       cy.intercept(
         {
           method: 'DELETE',
-          url: '/announcements/*',
+          url: '/announcements/*'
         },
         {
-          statusCode: 500,
+          statusCode: 500
         }
       )
 			cy.attachAccessTokenRequests().then(
@@ -52,9 +52,9 @@ describe('お知らせ削除', () => {
 			)
     })
 
-    it('「削除に失敗しました。」トーストが表示されること', () => {
+    it('「削除に失敗しました」トーストが表示されること', () => {
       cy.get('[id^=toast-]').within(() => {
-        cy.contains('削除に失敗しました。').should('exist')
+        cy.contains('削除に失敗しました').should('exist')
       })
     })
   })

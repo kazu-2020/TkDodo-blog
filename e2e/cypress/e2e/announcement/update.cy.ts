@@ -40,7 +40,7 @@ describe('お知らせ更新', () => {
     cy.get('[aria-label="Edit announcement"]').first().click()
     cy.get('[data-testid="announcement-edit-form"]').within(() => {
       cy.get('#status').type(`'お知らせ{enter}{enter}`, {
-        force: true,
+        force: true
       })
       cy.get('#contents').clear()
       cy.get('#contents').type('お知らせを更新しました')
@@ -62,7 +62,7 @@ describe('お知らせ更新', () => {
 
     it('「保存しました」トーストが表示されること', () => {
       cy.get('#toast-update-announcement-success').within(() => {
-        cy.contains('保存しました。').should('exist')
+        cy.contains('保存しました').should('exist')
       })
     })
   })
@@ -72,10 +72,10 @@ describe('お知らせ更新', () => {
       cy.intercept(
         {
           method: 'PATCH',
-          url: 'announcements/*',
+          url: 'announcements/*'
         },
         {
-          statusCode: 500,
+          statusCode: 500
         }
       )
       cy.attachAccessTokenRequests().then(
@@ -87,7 +87,7 @@ describe('お知らせ更新', () => {
 
     it('「保存に失敗しました。」トーストが表示されること', () => {
       cy.get('#toast-update-announcement-error').within(() => {
-        cy.contains('保存に失敗しました。').should('exist')
+        cy.contains('保存に失敗しました').should('exist')
       })
     })
   })
@@ -103,7 +103,7 @@ describe('お知らせ更新', () => {
       cy.get('[aria-label="Edit announcement"]').first().click()
       cy.get('[data-testid="announcement-edit-form"]').within(() => {
         cy.get('#status').type(`'お知らせ{enter}{enter}`, {
-          force: true,
+          force: true
         })
         cy.get('#contents').clear()
         cy.get('#contents').type('お知らせを更新しました')
