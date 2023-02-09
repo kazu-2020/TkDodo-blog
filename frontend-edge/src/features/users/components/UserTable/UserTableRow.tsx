@@ -10,7 +10,6 @@ type UserTableRowProps = {
   systemRole: string
   jobClass: JobClass
   loggedInAt?: string
-  isInviting?: boolean
   isEven?: boolean
 }
 
@@ -20,7 +19,6 @@ export const UserTableRow = ({
   systemRole,
   jobClass,
   loggedInAt,
-  isInviting = false,
   isEven = false
 }: UserTableRowProps) => (
   <Tr fontSize="sm" px={2} py={4} background={isEven ? '#BDBDBD33' : 'white'}>
@@ -29,7 +27,7 @@ export const UserTableRow = ({
       <Link to="/" color="#009688">
         {fullName}
       </Link>
-      {isInviting && (
+      {!loggedInAt && (
         <Badge
           fontSize="11px"
           lineHeight="1rem"
