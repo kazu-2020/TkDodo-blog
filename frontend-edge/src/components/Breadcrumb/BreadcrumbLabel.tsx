@@ -39,6 +39,10 @@ export const BreadcrumbLabel = [
         path: 'announcements/:announcementId/edit',
         breadcrumb: 'お知らせ編集'
       },
+      {
+        path: 'users',
+        breadcrumb: 'ユーザー管理'
+      },
       { path: '*', breadcrumb: 'Page Not Found' }
     ]
   }

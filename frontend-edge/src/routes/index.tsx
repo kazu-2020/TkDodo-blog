@@ -1,11 +1,11 @@
 import { Outlet, Route, Routes, useNavigate } from 'react-router-dom'
-import React from 'react'
 import { LoginCallback, Security } from '@okta/okta-react'
 import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js'
 
 import { isTomigayaEnv } from '@/utils/env'
 import { RequiredAuth } from '@/lib/okta/components/SecureRoute'
 import Loading from '@/lib/okta/components/Loading'
+import { Users } from '@/features/users'
 import {
   SeriesDecks,
   SeriesDeck,
@@ -76,7 +76,7 @@ const AppRoutes = () => {
               path="announcements/:announcementId/edit"
               element={<EditAnnouncement />}
             />
-
+            <Route path="users" element={<Users />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Route>
