@@ -3,7 +3,8 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  InputRightElement
+  InputRightElement,
+  InputGroupProps
 } from '@chakra-ui/react'
 import { CloseIcon, SearchIcon } from '@chakra-ui/icons'
 
@@ -14,19 +15,21 @@ const clearButtonStyle = {
 type Props = {
   placeholder?: string
   onAction?: (query: string) => void
-}
+} & InputGroupProps
 
 export const SearchTextInput = ({
   placeholder = '',
-  onAction = () => {}
+  onAction = () => {},
+  ...inputGroupProps
 }: Props) => {
   const [text, setText] = useState('')
   return (
-    <InputGroup>
-      <InputLeftElement pointerEvents="none">
+    <InputGroup h={10} {...inputGroupProps}>
+      <InputLeftElement h="full" pointerEvents="none">
         <SearchIcon color="gray.300" />
       </InputLeftElement>
       <Input
+        h="full"
         data-testid="search-text-input"
         bg="white"
         type="text"
@@ -44,6 +47,7 @@ export const SearchTextInput = ({
       />
       {text.length > 0 && (
         <InputRightElement
+          h="full"
           sx={clearButtonStyle}
           onClick={() => {
             setText('')
