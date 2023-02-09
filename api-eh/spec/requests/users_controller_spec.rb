@@ -74,43 +74,60 @@ describe 'UsersController' do
 
     context 'システムロールによる絞り込み' do
       before do
-        create(:user, :user_admin, :deck_admin)
+        create(:user, :user_admin, :playlist_admin)
         create(:user, :playlist_admin)
         create(:user, :deck_admin)
         create(:user, :reader_user)
       end
 
-      it 'システムロールがユーザー管理者のユーザーのデータを取得できること' do
-        get users_url, params: { role: 'user_admin' }
-        body = JSON.parse(response.body)
-        # p body['users'][0]['systemRoles'][0]
-        expect(body['users'].length).to eq 1
-        expect(body['users'][0]['systemRoles']).to eq ['userAdmin']
-        expect(response).to have_http_status :ok
+      context '検索フォームが空の場合' do
+        it 'システムロールがユーザー管理者のユーザーのデータを取得できること' do
+          get users_url, params: { role: 'user_admin' }
+          body = JSON.parse(response.body)
+          expect(body['users'].length).to eq 1
+          expect(body['users'][0]['systemRoles']).to eq %w[userAdmin playlistAdmin] # 複数システムロールを持つ場合の検証
+          expect(response).to have_http_status :ok
+        end
+
+        it 'システムロールがプレイリスト管理者のユーザーのデータを取得できること' do
+          get users_url, params: { role: 'playlist_admin' }
+          body = JSON.parse(response.body)
+          expect(body['users'].length).to eq 1
+          expect(body['users'][0]['systemRoles']).to eq ['playlistAdmin']
+          expect(response).to have_http_status :ok
+        end
+
+        it 'システムロールがデッキ管理者のユーザーのデータを取得できること' do
+          get users_url, params: { role: 'deck_admin' }
+          body = JSON.parse(response.body)
+          expect(body['users'].length).to eq 1
+          expect(body['users'][0]['systemRoles']).to eq ['deckAdmin']
+          expect(response).to have_http_status :ok
+        end
+
+        it 'システムロールが閲覧者のユーザーのデータを取得できること' do
+          get users_url, params: { role: 'reader_user' }
+          body = JSON.parse(response.body)
+          expect(body['users'].length).to eq 1
+          expect(body['users'][0]['systemRoles']).to eq ['readerUser']
+          expect(response).to have_http_status :ok
+        end
       end
 
-      it 'システムロールがプレイリスト管理者のユーザーのデータを取得できること' do
-        get users_url, params: { role: 'playlist_admin' }
-        body = JSON.parse(response.body)
-        expect(body['users'].length).to eq 1
-        expect(body['users'][0]['systemRole']).to eq 'playlist_admin'
-        expect(response).to have_http_status :ok
-      end
+      context '検索フォームに値が入力されている場合' do
+        let(:john_doe) { create(:user, first_name: 'John', last_name: 'Doe', email: 'test@example.com') }
 
-      it 'システムロールがデッキ管理者のユーザーのデータを取得できること' do
-        get users_url, params: { role: 'deck_admin' }
-        body = JSON.parse(response.body)
-        expect(body['users'].length).to eq 1
-        expect(body['users'][0]['systemRole']).to eq 'deck_admin'
-        expect(response).to have_http_status :ok
-      end
+        it 'システムロールがユーザー管理者かつ検索条件に該当するユーザーのデータを取得できること' do
+          john_doe.add_role :user_admin
 
-      it 'システムロールが閲覧者のユーザーのデータを取得できること' do
-        get users_url, params: { role: 'reader_user' }
-        body = JSON.parse(response.body)
-        expect(body['users'].length).to eq 1
-        expect(body['users'][0]['systemRole']).to eq 'reader_user'
-        expect(response).to have_http_status :ok
+          get users_url, params: { keyword: 'test', role: 'user_admin' }
+          body = JSON.parse(response.body)
+          expect(body['users'].length).to eq 1
+          expect(body['users'][0]['systemRoles']).to eq ['userAdmin']
+          expect(body['users'][0]['firstName']).to eq 'John'
+          expect(body['users'][0]['lastName']).to eq 'Doe'
+          expect(response).to have_http_status :ok
+        end
       end
     end
   end
