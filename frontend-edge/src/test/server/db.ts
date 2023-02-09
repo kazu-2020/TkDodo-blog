@@ -1,5 +1,5 @@
 import { ModelAPI } from '@mswjs/data/lib/glossary'
-import { factory, primaryKey } from '@mswjs/data'
+import { factory, nullable, primaryKey } from '@mswjs/data'
 
 const models = {
   seriesDeck: {
@@ -108,6 +108,16 @@ const models = {
     status: String,
     contents: String,
     dateCreated: String
+  },
+  user: {
+    id: primaryKey(Number),
+    firstName: nullable(String),
+    lastName: nullable(String),
+    email: String,
+    jobClass: nullable(String),
+    systemRoles: Array,
+    invitedAt: nullable(String),
+    loggedInAt: nullable(String)
   }
 }
 

@@ -38,6 +38,9 @@ export const formatDatetimeWithWeekday = (datetime: string): string =>
     locale: ja
   })
 
+export const camelToSnake = (word: string): string =>
+  word.replace(/[A-Z]/g, (r) => `_${r.toLowerCase()}`)
+
 if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest
   describe('formatDatetime', () => {
@@ -87,6 +90,12 @@ if (import.meta.vitest) {
       expect(formatDatetimeWithWeekday('2022-01-02 23:04:05')).toEqual(
         '2022年01月02日(日) 23:04'
       )
+    })
+  })
+
+  describe('camelToSnake', () => {
+    it('キャメルケースをスネークケースに変換すること', () => {
+      expect(camelToSnake('fooBarBaz')).toBe('foo_bar_baz')
     })
   })
 }

@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { faker } from '@faker-js/faker/locale/ja'
 
+import { SYSTEM_ROLE, User } from '@/types/user'
 import { SeriesPlaylist } from '@/types/series_playlist'
 import { SeriesDeck } from '@/types/series_deck'
 import { SeriesData } from '@/types/series_data'
@@ -345,5 +346,18 @@ export const announcementGenerator = (
   status: faker.helpers.arrayElement(ANNOUNCEMENT_STATUS),
   contents: 'お知らせです。 https://example.com',
   dateCreated: faker.date.past().toISOString(),
+  ...overrides
+})
+
+export const userGenerator = (overrides?: Partial<User>): User => ({
+  id: faker.datatype.number(),
+  firstName: faker.helpers.maybe(() => faker.name.findName()),
+  lastName: faker.helpers.maybe(() => faker.name.lastName()),
+  email: faker.internet.email(),
+  invitedAt: faker.helpers.maybe(() => faker.date.past().toISOString()),
+  loggedInAt: faker.helpers.maybe(() => faker.date.past().toISOString()),
+  jobClass: faker.helpers.arrayElement(['Admin', 'User', undefined]),
+  systemRoles:
+    faker.helpers.maybe(() => faker.helpers.arrayElements(SYSTEM_ROLE)) ?? [],
   ...overrides
 })

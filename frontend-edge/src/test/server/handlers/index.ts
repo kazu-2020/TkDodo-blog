@@ -1,6 +1,7 @@
 import { recommendDecksHandlers } from '@/test/server/handlers/recommendDecks'
 import { bundleItemsHandlers } from '@/test/server/handlers/bundleItems'
 
+import { usersHandlers } from './users'
 import { seriesPlaylistsHandlers } from './seriesPlaylists'
 import { seriesDecksHandlers } from './seriesDecks'
 import { playlistsHandlers } from './playlists'
@@ -12,5 +13,6 @@ export const handlers = [
   ...seriesDecksHandlers,
   ...recommendDecksHandlers,
   ...seriesPlaylistsHandlers,
-  ...announcementsHandlers
+  ...announcementsHandlers,
+  ...usersHandlers
 ]
