@@ -300,14 +300,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_07_020757) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  create_table "users_roles", id: false, charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "role_id"
-    t.index ["role_id"], name: "index_users_roles_on_role_id"
-    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
-    t.index ["user_id"], name: "index_users_roles_on_user_id"
-  end
-
   create_table "viaf_jsons", charset: "utf8mb4", force: :cascade do |t|
     t.string "viaf_id", null: false
     t.json "json", null: false
