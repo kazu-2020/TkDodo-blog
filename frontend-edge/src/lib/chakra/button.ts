@@ -6,7 +6,7 @@
 
 import { defineStyle, defineStyleConfig } from '@chakra-ui/react'
 
-const accentSolid = defineStyle({
+const accentSolid = defineStyle(() => ({
   fontSize: '14px',
   fontWeight: 'bold',
   lineHeight: '20px',
@@ -20,7 +20,7 @@ const accentSolid = defineStyle({
       bg: 'accent'
     }
   }
-})
+}))
 
 export const buttonTheme = defineStyleConfig({
   variants: { accentSolid }
