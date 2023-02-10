@@ -30,6 +30,6 @@ export default defineConfig({
   ssr: {
     // https://github.com/chakra-ui/chakra-ui/issues/6783
     // required while deps.fallbackCJS is required
-    noExternal: ['@chakra-ui/react']
+    // noExternal: ['@chakra-ui/react']
   }
 })
