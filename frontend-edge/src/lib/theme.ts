@@ -27,7 +27,6 @@ const theme = extendTheme({
     disabled: 'rgba(0,0,0,.38)'
   },
   components: {
-    Steps
     Steps,
     Button: buttonTheme
   }
