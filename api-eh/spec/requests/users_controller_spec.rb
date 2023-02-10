@@ -132,4 +132,32 @@ describe 'UsersController' do
       end
     end
   end
+
+  describe 'GET #show' do
+    context '該当するIDのユーザーが存在する場合' do
+      let(:user) {
+        create(:user, :user_admin, :reader_user, first_name: 'John', last_name: 'Doe', email: 'hoge@example.test.com',
+                                                 job_class: 'Admin')
+      }
+
+      it 'ユーザーが取得できること' do
+        get user_url(user.id)
+        body = JSON.parse(response.body)
+        expect(body['id']).to eq user.id
+        expect(body['firstName']).to eq 'John'
+        expect(body['lastName']).to eq 'Doe'
+        expect(body['email']).to eq 'hoge@example.test.com'
+        expect(body['jobClass']).to eq 'Admin'
+        expect(body['systemRoles']).to eq %w[userAdmin readerUser]
+        expect(response).to have_http_status :ok
+      end
+    end
+
+    context '該当するIDのユーザーが存在しない場合' do
+      it '404エラーが返ること' do
+        get user_url(999_999_999)
+        expect(response).to have_http_status :not_found
+      end
+    end
+  end
 end
