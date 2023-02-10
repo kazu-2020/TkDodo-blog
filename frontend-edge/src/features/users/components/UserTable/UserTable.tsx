@@ -112,17 +112,7 @@ export const UserTable = () => {
               }
             />
           </Box>
-          <Button
-            fontSize="14px"
-            lineHeight="20px"
-            background="#FF9800"
-            color="white"
-            boxShadow="md"
-            px="78px"
-            py="14px"
-            height="auto"
-            _hover={{ opacity: 0.6 }}
-          >
+          <Button variant="accentSolid" px="78px" isDisabled>
             ユーザー招待
           </Button>
         </Flex>

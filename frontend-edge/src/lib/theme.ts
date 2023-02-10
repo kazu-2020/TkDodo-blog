@@ -1,6 +1,8 @@
 import { StepsStyleConfig as Steps } from 'chakra-ui-steps'
 import { extendTheme } from '@chakra-ui/react'
 
+import { buttonTheme } from './chakra'
+
 // @see https://chakra-ui.com/docs/styled-system/customize-theme
 const theme = extendTheme({
   styles: {
@@ -13,11 +15,6 @@ const theme = extendTheme({
     }
   },
   colors: {
-    brand: {
-      900: '#1a365d',
-      800: '#153e75',
-      700: '#2a69ac'
-    },
     primary: '#009688',
     secondary: '#cddc39',
     accent: '#ff9800',
@@ -31,6 +28,8 @@ const theme = extendTheme({
   },
   components: {
     Steps
+    Steps,
+    Button: buttonTheme
   }
 })
 
