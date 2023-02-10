@@ -13,7 +13,8 @@ class User < ApplicationRecord
 
   scope :recent, -> { order(updated_at: :desc) }
   scope :keyword_like, lambda { |keyword|
-                         where('(first_name LIKE ? OR last_name LIKE ?) OR email LIKE ?', "%#{keyword}%", "%#{keyword}%", "%#{keyword}%")
+                         where('(first_name LIKE ? OR last_name LIKE ?) OR email LIKE ?',
+                               "%#{keyword}%", "%#{keyword}%", "%#{keyword}%")
                        }
 
   # @param [Object] payload decodeしたjwtのpayload

@@ -92,8 +92,9 @@ describe 'UsersController' do
         it 'システムロールがプレイリスト管理者のユーザーのデータを取得できること' do
           get users_url, params: { role: 'playlist_admin' }
           body = JSON.parse(response.body)
-          expect(body['users'].length).to eq 1
-          expect(body['users'][0]['systemRoles']).to eq ['playlistAdmin']
+          expect(body['users'].length).to eq 2
+          expect(body['users'][0]['systemRoles']).to eq %w[userAdmin playlistAdmin]
+          expect(body['users'][1]['systemRoles']).to eq %w[playlistAdmin]
           expect(response).to have_http_status :ok
         end
 
@@ -115,7 +116,7 @@ describe 'UsersController' do
       end
 
       context '検索フォームに値が入力されている場合' do
-        let(:john_doe) { create(:user, first_name: 'John', last_name: 'Doe', email: 'test@example.com') }
+        let(:john_doe) { create(:user, :user_admin, first_name: 'John', last_name: 'Doe', email: 'test@example.com') }
 
         it 'システムロールがユーザー管理者かつ検索条件に該当するユーザーのデータを取得できること' do
           john_doe.add_role :user_admin

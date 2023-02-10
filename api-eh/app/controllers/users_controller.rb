@@ -13,8 +13,8 @@ class UsersController < ApiBaseController
     query = User.includes(:roles).recent
     query = query.keyword_like(params[:keyword]) if params[:keyword]
     if params[:role]
-      query = query.where(roles: { name: "#{params[:role]}" })
-      query = User.includes(:roles).where(users: {id: query.ids})
+      query = query.where(roles: { name: params[:role].to_s })
+      query = User.includes(:roles).where(users: { id: query.ids })
     end
     query
   end
