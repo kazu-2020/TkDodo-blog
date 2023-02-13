@@ -6,6 +6,8 @@ class Deck < ApplicationRecord
 
   friendly_id :deck_uid
 
+  resourcify
+
   has_many :deck_playlists, -> { order(position: :asc) }, dependent: :destroy
   has_many :playlists, through: :deck_playlists
   accepts_nested_attributes_for :playlists

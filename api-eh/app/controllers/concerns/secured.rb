@@ -10,6 +10,10 @@ module Secured
     @user
   end
 
+  def ability
+    @ability ||= Ability.new(current_user)
+  end
+
   private
 
   def authenticate_request!

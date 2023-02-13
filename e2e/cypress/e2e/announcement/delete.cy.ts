@@ -12,8 +12,12 @@ describe('お知らせ削除', () => {
 
   context('正常系', () => {
     before(() => {
-      cy.createAnnouncement()
-      deleteAnnouncement()
+			cy.attachAccessTokenRequests().then(
+				() => {
+					cy.createAnnouncement()
+					deleteAnnouncement()
+				}
+			)
     })
 
     it('正常にお知らせが削除されること', () => {
@@ -40,8 +44,12 @@ describe('お知らせ削除', () => {
           statusCode: 500
         }
       )
-      cy.createAnnouncement()
-      deleteAnnouncement()
+			cy.attachAccessTokenRequests().then(
+				() => {
+					cy.createAnnouncement()
+					deleteAnnouncement()
+				}
+			)
     })
 
     it('「削除に失敗しました」トーストが表示されること', () => {

@@ -8,6 +8,8 @@ class PlaylistItem < ApplicationRecord
   extend FriendlyId
   friendly_id :episode_id
 
+  resourcify
+
   belongs_to :playlist, optional: true, touch: true
   acts_as_list scope: :playlist
 

@@ -33,7 +33,8 @@ import {
   playlistInput,
   recommendDeckInput,
   seriesDeckInput,
-} from '../fixtures/formInput'
+} from "../fixtures/formInput"
+import {OktaAuth} from '@okta/okta-auth-js'
 
 /*
  * プレイリストの画像を設定する
@@ -234,7 +235,7 @@ Cypress.Commands.add('deleteAllPlaylists', () => {
   cy.get('[data-testid="api-status-select"]').select('全て')
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(200) // これを入れないと安定しない
+  cy.wait(1000) // これを入れないと安定しない
 
   cy.get('body').then(($body) => {
     if ($body.find('[data-testid="playlist-list-item"]').length) {
@@ -319,7 +320,7 @@ Cypress.Commands.add('deleteAllRecommendDeck', () => {
   cy.get('[data-testid="api-status-select"]').select('全て', { force: true })
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(200) // これを入れないと安定しない
+  cy.wait(1500) // これを入れないと安定しない
 
   cy.get('body').then(($body) => {
     if ($body.find('[data-testid="recommend-deck-list-item"]').length) {
@@ -392,7 +393,7 @@ Cypress.Commands.add('deleteAllSeriesDeck', () => {
   cy.get('[data-testid="api-status-select"]').select('全て', { force: true })
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(500) // これを入れないと安定しない
+  cy.wait(1000) // これを入れないと安定しない
 
   cy.get('body').then(($body) => {
     if ($body.find('[data-testid="series-deck-list-item"]').length) {
@@ -423,5 +424,44 @@ Cypress.Commands.add('createAnnouncement', (props) => {
     })
     cy.get('#contents').type(props?.contents ?? '機能改善のお知らせです')
     cy.contains('新規登録する').click()
+  })
+})
+
+/* Oktaのアクセストークンを全てのリクエストヘッダに付与する
+ * https://docs.cypress.io/guides/end-to-end-testing/okta-authentication#Programmatic-Login を参考にした
+ */
+Cypress.Commands.add('attachAccessTokenRequests', () => {
+  return cy.request({
+    method: 'POST',
+    url: `https://${Cypress.env('OKTA_DOMAIN')}/api/v1/authn`,
+    body: {
+      username: Cypress.env("OKTA_USERNAME"),
+      password: Cypress.env("OKTA_PASSWORD"),
+    },
+  }).then(({body}) => {
+    const config = {
+      issuer: `https://${Cypress.env('OKTA_DOMAIN')}/oauth2/default`,
+      clientId: Cypress.env('OKTA_CLIENT_ID'),
+      redirectUri: 'http://localhost:5173/login/callback',
+      scope: ['openid', 'email', 'profile'],
+    }
+    const authClient = new OktaAuth(config)
+
+    return authClient.token
+      .getWithoutPrompt({sessionToken: body.sessionToken})
+      .then(({tokens}) => {
+        const accessToken = tokens.accessToken.accessToken
+        window.localStorage.setItem('accessToken', accessToken)
+        return cy.server({
+          onAnyRequest:   function (route,  proxy) {
+            const accessToken = window.localStorage.getItem('accessToken')
+            if(accessToken){
+              proxy.xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`)
+            } else {
+              proxy.xhr.setRequestHeader('Authorization', null)
+            }
+          }
+        })
+      })
   })
 })

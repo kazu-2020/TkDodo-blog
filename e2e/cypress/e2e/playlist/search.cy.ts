@@ -1,8 +1,12 @@
 describe("プレイリストの検索", () => {
   before(() => {
-    cy.deleteAllPlaylists()
-    cy.createPlaylist({ name: "API公開中プレイリスト", apiState: true })
-    cy.createPlaylist({ name: "API非公開プレイリスト", apiState: false })
+    cy.attachAccessTokenRequests().then(
+      () => {
+          cy.deleteAllPlaylists()
+          cy.createPlaylist({ name: "API公開中プレイリスト", apiState: true })
+          cy.createPlaylist({ name: "API非公開プレイリスト", apiState: false })
+      }
+    )
   })
 
   it("プレイリストが検索できること", () => {

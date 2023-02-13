@@ -10,6 +10,8 @@ class Playlist < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   friendly_id :string_uid
 
+  resourcify
+
   include LogoUploader::Attachment(:logo_image)
   include EyecatchUploader::Attachment(:eyecatch_image)
   include HeroUploader::Attachment(:hero_image)

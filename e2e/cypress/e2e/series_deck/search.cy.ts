@@ -1,8 +1,12 @@
 describe("シリーズデッキの検索", () => {
   before(() => {
-    cy.deleteAllSeriesDeck()
-    cy.createSeriesDeck({ name: "API公開中デッキ", apiState: true })
-    cy.createSeriesDeck({ name: "API非公開デッキ", apiState: false })
+    cy.attachAccessTokenRequests().then(
+      () => {
+        cy.deleteAllSeriesDeck()
+        cy.createSeriesDeck({name: "API公開中デッキ", apiState: true})
+        cy.createSeriesDeck({name: "API非公開デッキ", apiState: false})
+      }
+    )
   })
 
   it("シリーズデッキが検索できること", () => {

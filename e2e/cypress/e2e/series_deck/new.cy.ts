@@ -1,6 +1,10 @@
 describe("シリーズデッキ新規作成", () => {
   before(() => {
-    cy.deleteAllSeriesDeck()
+    cy.attachAccessTokenRequests().then(
+      () => {
+        cy.deleteAllSeriesDeck()
+      }
+    )
   })
 
   it("シリーズデッキを新規作成し、メタの編集をする", () => {

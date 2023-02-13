@@ -7,5 +7,7 @@ class Announcement < ApplicationRecord
     emergency: 4
   }
 
+  resourcify
+
   validates :contents, presence: true
 end

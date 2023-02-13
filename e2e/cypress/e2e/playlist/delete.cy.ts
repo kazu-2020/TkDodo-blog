@@ -1,6 +1,10 @@
 describe('プレイリスト削除', () => {
   before(() => {
-    cy.createPlaylist({name: 'テストプレイリスト'})
+    cy.attachAccessTokenRequests().then(
+      () => {
+        cy.createPlaylist({name: 'テストプレイリスト'})
+      }
+    )
   })
 
   it('プレイリストを削除する', () => {

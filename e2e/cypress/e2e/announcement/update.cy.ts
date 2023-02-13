@@ -1,10 +1,18 @@
 describe('編集ページへの導線', () => {
   before(() => {
-    cy.createAnnouncement({ status: '緊急', contents: '緊急のお知らせです' })
+    cy.attachAccessTokenRequests().then(
+      () => {
+        cy.createAnnouncement({ status: '緊急', contents: '緊急のお知らせです' })
+      }
+    )
   })
 
   beforeEach(() => {
-    cy.visit('/')
+    cy.attachAccessTokenRequests().then(
+      () => {
+        cy.visit('/')
+      }
+    )
   })
 
   it('お知らせ一覧からお知らせ編集ページへ遷移できること', () => {
@@ -24,7 +32,11 @@ describe('編集ページへの導線', () => {
 
 describe('お知らせ更新', () => {
   const updateAnnouncement = () => {
-    cy.visit('/')
+    cy.attachAccessTokenRequests().then(
+      () => {
+        cy.visit('/')
+      }
+    )
     cy.get('[aria-label="Edit announcement"]').first().click()
     cy.get('[data-testid="announcement-edit-form"]').within(() => {
       cy.get('#status').type(`'お知らせ{enter}{enter}`, {
@@ -38,9 +50,15 @@ describe('お知らせ更新', () => {
 
   context('正常系', () => {
     before(() => {
-      cy.createAnnouncement({ status: '緊急', contents: '緊急のお知らせです' })
-      updateAnnouncement()
+      cy.attachAccessTokenRequests().then(
+        () => {
+          cy.createAnnouncement({ status: '緊急', contents: '緊急のお知らせです' })
+          updateAnnouncement()
+        }
+      )
     })
+
+    beforeEach(() => {})
 
     it('「保存しました」トーストが表示されること', () => {
       cy.get('#toast-update-announcement-success').within(() => {
@@ -60,7 +78,11 @@ describe('お知らせ更新', () => {
           statusCode: 500
         }
       )
-      updateAnnouncement()
+      cy.attachAccessTokenRequests().then(
+        () => {
+          updateAnnouncement()
+        }
+      )
     })
 
     it('「保存に失敗しました。」トーストが表示されること', () => {
@@ -72,8 +94,12 @@ describe('お知らせ更新', () => {
 
   context.only('編集中のデータがある場合にページ遷移したとき', () => {
     before(() => {
-      cy.createAnnouncement()
-      cy.visit('/')
+      cy.attachAccessTokenRequests().then(
+        () => {
+          cy.createAnnouncement()
+          cy.visit('/')
+        }
+      )
       cy.get('[aria-label="Edit announcement"]').first().click()
       cy.get('[data-testid="announcement-edit-form"]').within(() => {
         cy.get('#status').type(`'お知らせ{enter}{enter}`, {

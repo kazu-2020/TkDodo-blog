@@ -2,7 +2,11 @@ import { playlistInput } from "../../fixtures/formInput"
 
 describe("プレイリスト新規作成", () => {
   before(() => {
-    cy.deleteAllPlaylists()
+    cy.attachAccessTokenRequests().then(
+      () => {
+        cy.deleteAllPlaylists()
+      }
+    )
   })
 
   context("全項目を入力した場合", () => {

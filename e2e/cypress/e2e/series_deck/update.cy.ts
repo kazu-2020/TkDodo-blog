@@ -1,11 +1,15 @@
 describe("シリーズデッキ更新", () => {
-  before(() => {
-    cy.deleteAllPlaylists()
-    cy.deleteAllSeriesDeck()
-    cy.createPlaylist()
-    cy.createPlaylist()
-    cy.createSeriesDeck({}, 2)
-  })
+	before(() => {
+		cy.attachAccessTokenRequests().then(
+			() => {
+				cy.deleteAllPlaylists()
+				cy.deleteAllSeriesDeck()
+				cy.createPlaylist()
+				cy.createPlaylist()
+				cy.createSeriesDeck({}, 2)
+			}
+		)
+	})
 
   it("シリーズデッキを選択し、メタの更新をする", () => {
     cy.visit("/")

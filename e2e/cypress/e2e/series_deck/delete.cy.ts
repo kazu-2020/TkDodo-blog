@@ -1,8 +1,12 @@
 describe('シリーズデッキ削除', () => {
   before(() => {
-    cy.deleteAllSeriesDeck()
-    cy.createSeriesDeck()
-    cy.createSeriesDeck()
+    cy.attachAccessTokenRequests().then(
+      () => {
+        cy.deleteAllSeriesDeck()
+        cy.createSeriesDeck()
+        cy.createSeriesDeck()
+      }
+    )
   })
 
   it('シリーズデッキを削除する', () => {

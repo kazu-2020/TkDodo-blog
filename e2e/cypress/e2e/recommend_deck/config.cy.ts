@@ -1,6 +1,10 @@
 describe("レコメンドデッキ管理設定", () => {
   before(() => {
-    cy.createRecommendDeck()
+		cy.attachAccessTokenRequests().then(
+			() => {
+				cy.createRecommendDeck()
+			}
+		)
   })
 
   it("管理メモが更新できること", () => {

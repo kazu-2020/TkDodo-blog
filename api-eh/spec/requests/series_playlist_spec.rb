@@ -3,6 +3,12 @@
 require 'rails_helper'
 
 describe SeriesPlaylist do
+  before do
+    user = create(:user, :super_admin)
+    allow_any_instance_of(Secured).to receive(:authenticate_request!).and_return(user)
+    allow_any_instance_of(ApiBaseController).to receive(:current_user).and_return(user)
+  end
+
   # 2022/04/25時点でエピソードが存在するseries_idで生成
   let!(:has_episodes) { create(:series_playlist, string_id: 'ts-11P91YWWL4', series_id: '11P91YWWL4') }
 

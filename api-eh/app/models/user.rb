@@ -3,18 +3,25 @@ class User < ApplicationRecord
   # https://www.rubydoc.info/gems/scimitar/Scimitar/Resources/Mixin
   include ScimUserResourcable
   include Scimitar::Resources::Mixin
+  include Rolable
+
+  rolify
+
+  # @param [Object] payload decodeしたjwtのpayload
+  # @return [User]
+
+  after_create :assign_default_role
 
   # @param [Object] payload decodeしたjwtのpayload
   # @return [User]
   def self.from_token_payload(payload)
-    # FIXME: EHでUserを作成するかどうか
-    # Payloadのsubにはemailが設定されている。oktaのuser_idはuidから取得可能
+    # Payloadのsubにはemailが, uidにoktaのuser_idが入ってくる
     find_by(email: payload['sub']) || create_by_token_payload!(payload)
   end
 
   def self.create_by_token_payload!(payload)
     res = OktaClient.new.user(payload['uid'])
-    return unless res
+    return false unless res
 
     create!(
       email: payload['sub'],

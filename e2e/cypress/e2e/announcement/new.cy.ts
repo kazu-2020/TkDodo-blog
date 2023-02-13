@@ -1,6 +1,10 @@
 describe('新規作成ページへの導線', () => {
   it('お知らせ一覧から新規作成ページへ遷移できること', () => {
-    cy.visit('/')
+    cy.attachAccessTokenRequests().then(
+      () => {
+        cy.visit('/')
+      }
+    )
     cy.get('[data-testid="announcement-list"]').within(() => {
       cy.contains('新規お知らせ登録').click()
     })
@@ -12,7 +16,11 @@ describe('新規作成ページへの導線', () => {
 describe('お知らせ新規作成', () => {
   context('正常系', () => {
     before(() => {
-      cy.createAnnouncement()
+      cy.attachAccessTokenRequests().then(
+        () => {
+          cy.createAnnouncement()
+        }
+      )
     })
 
     it('お知らせ一覧ページへ遷移すること', () => {
@@ -50,7 +58,11 @@ describe('お知らせ新規作成', () => {
           statusCode: 500
         }
       )
-      cy.createAnnouncement()
+      cy.attachAccessTokenRequests().then(
+        () => {
+          cy.createAnnouncement()
+        }
+      )
     })
 
     it('「新規作成に失敗しました」トーストが表示されること', () => {
@@ -60,11 +72,15 @@ describe('お知らせ新規作成', () => {
 
   context('編集中のデータがある場合にページ遷移したとき', () => {
     before(() => {
-      cy.visit('/announcements/new')
-      cy.get('[data-testid="announcement-new-form"]').within(() => {
-        cy.get('#status').type('機能改善{enter}{enter}', { force: true })
-        cy.get('#contents').type('機能改善のお知らせです')
-      })
+      cy.attachAccessTokenRequests().then(
+        () => {
+          cy.visit('/announcements/new')
+          cy.get('[data-testid="announcement-new-form"]').within(() => {
+            cy.get('#status').type('機能改善{enter}{enter}', { force: true })
+            cy.get('#contents').type('機能改善のお知らせです')
+          })
+        }
+      )
     })
 
     it('離脱アラートが表示されこと', () => {
