@@ -343,7 +343,7 @@ RSpec.describe 'Scim::V2::Users' do
           expect(User.find_by_id(user.id)).to be_nil
 
           expect(JSON.parse(response.body)).to include(
-            { 'userName' => nil,
+            { 'userName' => user.man_number,
               'name' => { 'givenName' => 'bbb', 'familyName' => 'aaa' },
               'emails' => [{ 'primary' => true, 'value' => 'hoge@example.com' }],
               'meta' =>
