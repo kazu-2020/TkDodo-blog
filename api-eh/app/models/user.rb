@@ -13,28 +13,39 @@ class User < ApplicationRecord
 
   scope :recent, -> { order(updated_at: :desc) }
   scope :keyword_like, lambda { |keyword|
-                         where('(first_name LIKE ? OR last_name LIKE ?) OR email LIKE ?',
-                               "%#{sanitize_sql_like(keyword)}%",
-                               "%#{sanitize_sql_like(keyword)}%",
-                               "%#{sanitize_sql_like(keyword)}%")
-                       }
+    where('(first_name LIKE ? OR last_name LIKE ?) OR email LIKE ?',
+          "%#{sanitize_sql_like(keyword)}%",
+          "%#{sanitize_sql_like(keyword)}%",
+          "%#{sanitize_sql_like(keyword)}%")
+  }
 
-  # @param [Object] payload decodeしたjwtのpayload
-  # @return [User]
-  def self.from_token_payload(payload)
-    # Payloadのsubにはemailが, uidにoktaのuser_idが入ってくる
-    find_by(email: payload['sub']) || create_by_token_payload!(payload)
-  end
+  class << self
+    # @param [Object] payload decodeしたjwtのpayload
+    # @return [User]
+    def from_token_payload(payload)
+      # Payloadのsubにはemailが, uidにoktaのuser_idが入ってくる
+      find_by(email: payload['sub']) || create_by_token_payload!(payload)
+    end
 
-  def self.create_by_token_payload!(payload)
-    res = OktaClient.new.user(payload['uid'])
-    return false unless res
+    def create_by_token_payload!(payload)
+      res = OktaClient.new.user(payload['uid'])
+      return false unless res
 
-    create!(
-      email: payload['sub'],
-      man_number: res.dig(:profile, :manNumber),
-      first_name: res.dig(:profile, :firstName),
-      last_name: res.dig(:profile, :lastName)
-    )
+      create!(
+        email: payload['sub'],
+        man_number: res.dig(:profile, :manNumber),
+        first_name: res.dig(:profile, :firstName),
+        last_name: res.dig(:profile, :lastName)
+      )
+    end
+
+    def search_by_role(users:, role:)
+      users = users.where(roles: { name: role }) # ロール名でUserを絞り込み
+      User.includes(:roles).where(users: { id: users.ids }) # 絞り込んだUserのidに紐づくロールを全て取得
+    end
+
+    def search_by_keyword(users:, keyword:)
+      users.keyword_like(keyword)
+    end
   end
 end
