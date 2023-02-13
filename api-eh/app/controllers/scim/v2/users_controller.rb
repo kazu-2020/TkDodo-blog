@@ -25,8 +25,6 @@ class Scim::V2::UsersController < Scimitar::ResourcesController
       user = find_user_by_email(scim_resource) || storage_class.new
 
       user.from_scim!(scim_hash: scim_resource.as_json)
-      # TODO: okta_uid と man_number の取扱が決まるまでの暫定対応
-      user.okta_uid = ''
       save!(user)
 
       logger.info "SCIM: User created or updated. #{user.to_json}"
