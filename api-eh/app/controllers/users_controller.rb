@@ -11,11 +11,9 @@ class UsersController < ApiBaseController
 
   def set_users
     users = User.includes(:roles).recent
-    users = users.keyword_like(params[:keyword]) if params[:keyword].present?
-    if params[:role].present?
-      users = users.where(roles: { name: params[:role].to_s })
-      users = User.includes(:roles).where(users: { id: users.ids })
-    end
+    users = users.keyword_like(users, params[:keyword]) if params[:keyword].present?
+    users = User.joins(:roles).where(roles: { name: params[:role].to_s }) if params[:role].present?
+
     users
   end
 end
