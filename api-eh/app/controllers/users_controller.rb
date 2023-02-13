@@ -13,10 +13,9 @@ class UsersController < ApiBaseController
     users = User.includes(:roles).recent
     users = users.keyword_like(params[:keyword]) if params[:keyword]
     if params[:role]
-      users = users.where(roles: { name: (params[:role]).to_s })
+      users = users.where(roles: { name: params[:role].to_s })
       users = User.includes(:roles).where(users: { id: users.ids })
     end
     users
   end
-
 end
