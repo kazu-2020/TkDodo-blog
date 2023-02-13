@@ -32,9 +32,9 @@ class User < ApplicationRecord
 
     create!(
       email: payload['sub'],
+      man_number: res.dig(:profile, :manNumber),
       first_name: res.dig(:profile, :firstName),
-      last_name: res.dig(:profile, :lastName),
-      okta_uid: payload['uid']
+      last_name: res.dig(:profile, :lastName)
     )
   end
 end
