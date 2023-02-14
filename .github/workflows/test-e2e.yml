@@ -5,6 +5,9 @@ on: [push]
 env:
   R6_API_ENDPOINT: http://localhost:4010
   R60_API_ENDPOINT: http://localhost:4011
+  OKTA_CLIENT_ID: ${{ secrets.OKTA_CLIENT_ID }}
+  OKTA_USERNAME: ${{ secrets.OKTA_USERNAME }}
+  OKTA_PASSWORD: ${{ secrets.OKTA_PASSWORD }}
 
 jobs:
   cypress-test:

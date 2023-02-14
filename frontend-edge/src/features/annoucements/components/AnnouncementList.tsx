@@ -87,10 +87,15 @@ export const AnnouncementList = ({
         borderRadius="sm"
         w="full"
       >
-        <Flex columnGap={4} align="center" mb={6}>
+        <Flex columnGap={4} align="end" mb={6}>
           <Heading size="md">運営チームからのお知らせ</Heading>
           {isSawMore && (
-            <Link to="/announcements" color="#009688" fontWeight="bold">
+            <Link
+              to="/announcements"
+              color="#009688"
+              fontWeight="bold"
+              fontSize="14px"
+            >
               もっと見る
             </Link>
           )}

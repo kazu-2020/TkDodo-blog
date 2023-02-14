@@ -1,8 +1,12 @@
 describe('レコメンドデッキ削除', () => {
   before(() => {
-    cy.deleteAllRecommendDeck()
-    cy.createRecommendDeck()
-    cy.createRecommendDeck()
+    cy.attachAccessTokenRequests().then(
+      () => {
+        cy.deleteAllRecommendDeck()
+        cy.createRecommendDeck()
+        cy.createRecommendDeck()
+      }
+    )
   })
 
   it('レコメンドデッキを削除する', () => {

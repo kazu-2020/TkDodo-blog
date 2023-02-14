@@ -2,8 +2,12 @@ import { playlistInput } from "../../fixtures/formInput"
 
 describe("プレイリスト更新", () => {
   before(() => {
-    cy.deleteAllPlaylists()
-    cy.createPlaylist({ name: "テストプレイリスト" }, 2)
+    cy.attachAccessTokenRequests().then(
+      () => {
+        cy.deleteAllPlaylists()
+        cy.createPlaylist({ name: "テストプレイリスト" }, 2)
+      }
+    )
   })
 
   context("全項目を更新した場合", () => {

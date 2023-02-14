@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
-import { useToast } from '@chakra-ui/react'
 
-import { Deck as RecommendDeck } from '@/types/deck'
+import { RecommendDeck } from '@/types/recommend_deck'
 import { MutationConfig, queryClient } from '@/lib/react-query'
 import axios from '@/lib/axios'
 
@@ -17,10 +16,8 @@ type UseDeleteRecommendDeckOptions = {
 
 export const useDeleteRecommendDeck = ({
   config
-}: UseDeleteRecommendDeckOptions = {}) => {
-  const toast = useToast()
-
-  return useMutation({
+}: UseDeleteRecommendDeckOptions = {}) =>
+  useMutation({
     onMutate: async (deletedRecommendDeck) => {
       await queryClient.cancelQueries(['recommend-decks'])
 
@@ -48,14 +45,7 @@ export const useDeleteRecommendDeck = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['recommend-decks'])
-      toast({
-        title: '削除しました。',
-        status: 'success',
-        isClosable: true,
-        position: 'top-right'
-      })
     },
-    ...config,
-    mutationFn: deleteRecommendDeck
+    mutationFn: deleteRecommendDeck,
+    ...config
   })
-}

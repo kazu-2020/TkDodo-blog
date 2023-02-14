@@ -3,6 +3,12 @@
 require 'rails_helper'
 
 describe SeriesDecksController do
+  before do
+    user = create(:user, :super_admin)
+    allow_any_instance_of(Secured).to receive(:authenticate_request!).and_return(user)
+    allow_any_instance_of(ApiBaseController).to receive(:current_user).and_return(user)
+  end
+
   describe 'GET #index' do
     let!(:series_deck) { create(:series_deck) }
     let!(:series_deck_changed_name) { create(:series_deck, name: '夏デッキ', admin_memo: '冬デッキ') }

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class DecksController < ApiBaseController
+  authorize_resource if Rails.env.test? # TODO: 権限結合時にif文を削除する
+
   def index
     query = params[:query].present? ? Deck.name_or_admin_memo_like(params[:query]) : Deck
     case params[:api_state]
@@ -48,6 +50,7 @@ class DecksController < ApiBaseController
     render json: { deleted: true }
   end
 
+  # TODO: 社会実証2期後に削除する
   def playlists
     @deck = Deck.find_by(id: params[:id])
     page = (params[:page] || 1).to_i

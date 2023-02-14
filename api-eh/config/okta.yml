@@ -1,0 +1,21 @@
+development:
+  OKTA_DOMAIN: dev-75559375.okta.com
+  OKTA_API_TOKEN: 00TuvqkxtHkvjqEyT5d6
+  OKTA_CLIENT_ID: 0oa7aq7wjhPENENlH5d7
+
+test:
+  OKTA_DOMAIN: dev-75559375.okta.com
+  OKTA_API_TOKEN: 00TuvqkxtHkvjqEyT5d6
+  OKTA_CLIENT_ID: 0oa7aq7wjhPENENlH5d7
+
+dev:
+  OKTA_DOMAIN: nhk.okta.com
+  OKTA_CLIENT_ID: 0oa3n9qvhk8B0xojY697
+
+stg:
+  OKTA_DOMAIN: nhk.okta.com
+  OKTA_CLIENT_ID: 0oa3n9qvhk8B0xojY697
+
+prd:
+  OKTA_DOMAIN: nhk.okta.com
+  OKTA_CLIENT_ID: 0oa3n9qvhk8B0xojY697

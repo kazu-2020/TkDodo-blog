@@ -1,6 +1,5 @@
 import snakecaseKeys from 'snakecase-keys'
 import { useMutation } from '@tanstack/react-query'
-import { useToast } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
 import { MutationConfig, queryClient } from '@/lib/react-query'
@@ -17,11 +16,8 @@ const requestParams = (data: UpdatePlaylistParams) => ({
   enable_list_update: data?.items ? 1 : 0
 })
 
-export const updatePlaylist = async ({
-  data,
-  playlistUid
-}: UpdatePlaylistDTO): Promise<Playlist> => {
-  const res = await axios.patch(
+const updatePlaylist = async ({ data, playlistUid }: UpdatePlaylistDTO) => {
+  const res = await axios.patch<Playlist>(
     `/playlists/${playlistUid}`,
     requestParams(data)
   )
@@ -36,12 +32,8 @@ type UseUpdatePlaylistOptions = {
   config?: MutationConfig<typeof updatePlaylist>
 }
 
-export const useUpdatePlaylist = ({
-  config
-}: UseUpdatePlaylistOptions = {}) => {
-  const toast = useToast()
-
-  return useMutation({
+export const useUpdatePlaylist = ({ config }: UseUpdatePlaylistOptions = {}) =>
+  useMutation({
     onMutate: async (updatingPlaylist) => {
       await queryClient.cancelQueries([
         'playlist',
@@ -68,23 +60,10 @@ export const useUpdatePlaylist = ({
           context.previousPlaylist
         )
       }
-      toast({
-        title: '保存に失敗しました。',
-        status: 'error',
-        isClosable: true,
-        position: 'top-right'
-      })
     },
     onSuccess: (data) => {
       queryClient.refetchQueries(['playlist', data.playlistUid])
-      toast({
-        title: '保存しました。',
-        status: 'success',
-        isClosable: true,
-        position: 'top-right'
-      })
     },
-    ...config,
-    mutationFn: updatePlaylist
+    mutationFn: updatePlaylist,
+    ...config
   })
-}

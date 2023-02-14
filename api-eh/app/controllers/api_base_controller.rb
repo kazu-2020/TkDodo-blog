@@ -1,4 +1,6 @@
 class ApiBaseController < ApplicationController
+  include Secured if Rails.env.test? # TODO: 権限結合時にif文を削除する
+
   after_action :set_x_api_url_to_header
 
   DEFAULT_PAGE = 1
@@ -13,6 +15,10 @@ class ApiBaseController < ApplicationController
   # 真偽値のフラグが数値で渡ってくることがあるので、それをbooleanに変換して返します
   def cast_boolean(value)
     ActiveRecord::Type::Boolean.new.cast(value)
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    render json: { message: exception.message }, status: 403
   end
 
   private

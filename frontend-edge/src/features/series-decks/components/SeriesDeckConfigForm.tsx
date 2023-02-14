@@ -1,15 +1,11 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
-import {
-  Button,
-  Spacer,
-  Text,
-  VStack
-} from '@chakra-ui/react'
+import { Button, Spacer, Text, VStack } from '@chakra-ui/react'
 
 import { usePrompt } from '@/utils/form-guard'
 import { SeriesDeck } from '@/types/series_deck'
 import { dirtyValues } from '@/lib/react-hook-form/utils'
+import { useToastForUpdation } from '@/hooks/useToast'
 import { SeriesDeckFormInputs } from '@/features/series-decks/types'
 import { PropertyInput } from '@/components/Form'
 import ApiStateBadge from '@/components/ApiStateBadge'
@@ -32,12 +28,14 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
     }
   })
 
+  const toast = useToastForUpdation()
+
   usePrompt(
     '編集中のデータがあります。ページを離れますか？',
     isDirty && !isSubmitting
   )
 
-  const updateSeriesDeckMutation = useUpdateSeriesDeck()
+  const { mutateAsync: updateSeriesDeckAsync } = useUpdateSeriesDeck()
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
     const onlyDirtyValues = dirtyValues(
@@ -45,10 +43,20 @@ const SeriesDeckConfigForm = ({ seriesDeck }: { seriesDeck: SeriesDeck }) => {
       values
     ) as SeriesDeckFormInputs
 
-    await updateSeriesDeckMutation.mutateAsync({
-      data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
-      seriesDeckId: seriesDeck.deckUid
-    })
+    updateSeriesDeckAsync(
+      {
+        data: { ...onlyDirtyValues, playlists: [], enableListUpdate: false },
+        seriesDeckId: seriesDeck.deckUid
+      },
+      {
+        onSuccess: () => {
+          toast.success()
+        },
+        onError: () => {
+          toast.fail()
+        }
+      }
+    )
   }
 
   return (

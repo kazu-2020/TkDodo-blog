@@ -1,9 +1,13 @@
 describe("レコメンドデッキ新規作成", () => {
   before(() => {
-    cy.deleteAllRecommendDeck()
-    cy.deleteAllPlaylists()
-    cy.createPlaylist()
-    cy.createPlaylist()
+    cy.attachAccessTokenRequests().then(
+      () => {
+        cy.deleteAllRecommendDeck()
+        cy.deleteAllPlaylists()
+        cy.createPlaylist()
+        cy.createPlaylist()
+      }
+    )
   })
 
   it("レコメンドデッキを新規作成し、メタの編集をする", () => {

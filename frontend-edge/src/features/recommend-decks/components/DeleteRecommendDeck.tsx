@@ -1,5 +1,5 @@
 import { MdDelete } from 'react-icons/all'
-import React from 'react'
+import { useRef } from 'react'
 import {
   AlertDialog,
   AlertDialogBody,
@@ -10,6 +10,8 @@ import {
   Button,
   useDisclosure
 } from '@chakra-ui/react'
+
+import { useToastForDeletion } from '@/hooks/useToast'
 
 import { useDeleteRecommendDeck } from '../api/deleteRecommendDeck'
 
@@ -22,9 +24,31 @@ const DeleteRecommendDeck = ({
   recommendDeckId,
   onDrawerClose
 }: DeleteRecommendDeckProps) => {
-  const deleteRecommendDeckMutation = useDeleteRecommendDeck()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef<HTMLButtonElement>(null)
+  const toast = useToastForDeletion()
+
+  const { mutateAsync: deleteRecommendDeckAsync, isLoading } =
+    useDeleteRecommendDeck()
+
+  const onClickDeleteButton = () => {
+    deleteRecommendDeckAsync(
+      {
+        recommendDeckId
+      },
+      {
+        onSuccess: () => {
+          toast.success()
+          onClose()
+          onDrawerClose()
+        },
+        onError: () => {
+          toast.fail()
+        }
+      }
+    )
+  }
+
+  const cancelRef = useRef<HTMLButtonElement>(null)
 
   return (
     <>
@@ -63,16 +87,10 @@ const DeleteRecommendDeck = ({
               <Button
                 data-testid="recommend-deck-alert-delete-button"
                 colorScheme="red"
-                isLoading={deleteRecommendDeckMutation.isLoading}
                 loadingText="送信中"
-                onClick={async () => {
-                  await deleteRecommendDeckMutation.mutateAsync({
-                    recommendDeckId
-                  })
-                  onClose()
-                  onDrawerClose()
-                }}
+                onClick={onClickDeleteButton}
                 ml={3}
+                {...{ isLoading }}
               >
                 削除する
               </Button>

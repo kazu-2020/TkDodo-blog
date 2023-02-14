@@ -1,7 +1,5 @@
 import snakecaseKeys from 'snakecase-keys'
-import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
-import { useToast } from '@chakra-ui/react'
 
 import { Playlist } from '@/types/playlist'
 import { MutationConfig, queryClient } from '@/lib/react-query'
@@ -17,22 +15,15 @@ const requestParams = (data: CreatePlaylistParams) => ({
   enable_list_update: data?.items ? 1 : 0
 })
 
-export const createPlaylist = ({
-  data
-}: CreatePlaylistDTO): Promise<Playlist> =>
-  axios.post(`/playlists`, requestParams(data))
+export const createPlaylist = ({ data }: CreatePlaylistDTO) =>
+  axios.post<Playlist>(`/playlists`, requestParams(data))
 
 type UseCreatePlaylistOptions = {
   config?: MutationConfig<typeof createPlaylist>
 }
 
-export const useCreatePlaylist = ({
-  config
-}: UseCreatePlaylistOptions = {}) => {
-  const navigate = useNavigate()
-  const toast = useToast()
-
-  return useMutation({
+export const useCreatePlaylist = ({ config }: UseCreatePlaylistOptions = {}) =>
+  useMutation({
     onMutate: async (newPlaylist) => {
       await queryClient.cancelQueries(['playlists'])
 
@@ -51,24 +42,10 @@ export const useCreatePlaylist = ({
       if (context?.previousPlaylists) {
         queryClient.setQueryData(['playlists'], context.previousPlaylists)
       }
-      toast({
-        title: '新規作成に失敗しました。',
-        status: 'error',
-        isClosable: true,
-        position: 'top-right'
-      })
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['playlists'])
-      navigate(`/playlists`)
-      toast({
-        title: '作成しました。',
-        status: 'success',
-        isClosable: true,
-        position: 'top-right'
-      })
     },
-    ...config,
-    mutationFn: createPlaylist
+    mutationFn: createPlaylist,
+    ...config
   })
-}

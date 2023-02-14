@@ -1,5 +1,5 @@
 import { MdDelete } from 'react-icons/all'
-import React from 'react'
+import { useRef } from 'react'
 import {
   AlertDialog,
   AlertDialogBody,
@@ -11,17 +11,40 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 
+import { useToastForDeletion } from '@/hooks/useToast'
 import { useDeletePlaylist } from '@/features/playlists/api/deletePlaylist'
 
-type Props = {
+type DeletePlaylistProps = {
   playlistId: string
   onDrawerClose: () => void
 }
 
-export const DeletePlaylist = ({ playlistId, onDrawerClose }: Props) => {
-  const deletePlaylistMutation = useDeletePlaylist()
+export const DeletePlaylist = ({
+  playlistId,
+  onDrawerClose
+}: DeletePlaylistProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef<HTMLButtonElement>(null)
+  const toast = useToastForDeletion()
+
+  const { mutateAsync: deletePlaylistAsync, isLoading } = useDeletePlaylist()
+
+  const onClickDeleteButton = () => {
+    deletePlaylistAsync(
+      { playlistId },
+      {
+        onSuccess: () => {
+          toast.success()
+          onClose()
+          onDrawerClose()
+        },
+        onError: () => {
+          toast.fail()
+        }
+      }
+    )
+  }
+
+  const cancelRef = useRef<HTMLButtonElement>(null)
 
   return (
     <>
@@ -60,16 +83,10 @@ export const DeletePlaylist = ({ playlistId, onDrawerClose }: Props) => {
               <Button
                 data-testid="playlist-alert-delete-button"
                 colorScheme="red"
-                isLoading={deletePlaylistMutation.isLoading}
                 loadingText="送信中"
-                onClick={async () => {
-                  await deletePlaylistMutation.mutateAsync({
-                    playlistId
-                  })
-                  onClose()
-                  onDrawerClose()
-                }}
+                onClick={onClickDeleteButton}
                 ml={3}
+                {...{ isLoading }}
               >
                 削除する
               </Button>
@@ -80,3 +97,4 @@ export const DeletePlaylist = ({ playlistId, onDrawerClose }: Props) => {
     </>
   )
 }
+/* eslint-enable max-lines-per-function */

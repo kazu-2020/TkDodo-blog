@@ -15,6 +15,10 @@ describe PlaylistsController do
     poc_client = instance_double(PocApiClient)
     allow(PocApiClient).to receive(:new).and_return(poc_client)
     allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return(json)
+
+    user = create(:user, :super_admin)
+    allow_any_instance_of(Secured).to receive(:authenticate_request!).and_return(user)
+    allow_any_instance_of(ApiBaseController).to receive(:current_user).and_return(user)
   end
 
   describe 'GET #index' do

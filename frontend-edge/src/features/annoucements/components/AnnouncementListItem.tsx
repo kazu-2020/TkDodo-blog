@@ -1,22 +1,15 @@
 import { useNavigate } from 'react-router-dom'
 import { RiPencilLine } from 'react-icons/all'
-import { memo, useCallback, useId } from 'react'
+import { memo, useId } from 'react'
 import { render, screen } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
-import {
-  Box,
-  Flex,
-  IconButton,
-  Text,
-  useDisclosure,
-  useToast
-} from '@chakra-ui/react'
+import { Box, Flex, IconButton, Text, useDisclosure } from '@chakra-ui/react'
 import { DeleteIcon } from '@chakra-ui/icons'
 
 import { formatDateWithWeekday } from '@/utils/format'
 import { autoLink } from '@/utils/dom'
 import { AnnouncementStatus } from '@/types/announcement'
-import { queryClient } from '@/lib/react-query'
+import { useToastForDeletion } from '@/hooks/useToast'
 
 import { useDeleteAnnouncement } from '../api/deleteAnnouncement'
 
@@ -56,7 +49,6 @@ export const AnnouncementListItem = memo(
     bg = '#fff'
   }: AnnouncementListItemProps) => {
     const navigate = useNavigate()
-    const toast = useToast()
     const randId = useId()
 
     const {
@@ -65,39 +57,32 @@ export const AnnouncementListItem = memo(
       onClose: onCloseDeleteModal
     } = useDisclosure()
 
-    const { mutateAsync: onDeleteAnnouncementAsync } = useDeleteAnnouncement({
-      config: {
-        onSuccess: () => {
-          toast({
-            title: '削除しました。',
-            status: 'success',
-            isClosable: true,
-            position: 'top-right'
-          })
-          queryClient.invalidateQueries(['announcements'])
-        },
-        onError: () => {
-          toast({
-            title: '削除に失敗しました。',
-            status: 'error',
-            isClosable: true,
-            position: 'top-right'
-          })
-        }
-      }
-    })
+    const { mutateAsync: deleteAnnouncementAsync } = useDeleteAnnouncement()
+
+    const toast = useToastForDeletion()
 
     const onClickEditIcon = () => navigate(`/announcements/${id}/edit`)
-    const onClickDeleteButton = useCallback(async () => {
-      await onDeleteAnnouncementAsync({ id: `${id}` })
-      onCloseDeleteModal()
-    }, [id, onCloseDeleteModal, onDeleteAnnouncementAsync])
+    const onClickDeleteButton = () => {
+      deleteAnnouncementAsync(
+        { id: `${id}` },
+        {
+          onSuccess: () => {
+            toast.success()
+            onCloseDeleteModal()
+          },
+          onError: () => {
+            toast.fail()
+          }
+        }
+      )
+    }
 
     return (
       <Flex
         data-testid={`announcement-list-item-${randId}`}
+        fontSize="14px"
         align="center"
-        px={2}
+        p={2}
         minH={10}
         columnGap={6}
         {...{ bg }}

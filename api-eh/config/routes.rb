@@ -58,6 +58,22 @@ Rails.application.routes.draw do
 
   resources :announcements, only: %i[index create show update destroy], format: 'json'
 
+  # Oktaとの連携用エンドポイント
+  namespace :scim do
+    namespace :v2 do
+      mount Scimitar::Engine, at: '/'
+
+      get    'Users',     to: 'users#index'
+      get    'Users/:id', to: 'users#show'
+      post   'Users',     to: 'users#create'
+      put    'Users/:id', to: 'users#replace'
+    end
+  end
+
+  resources :abilities, only: :index, format: 'json'
+
+  resources :users, only: %i[index], format: 'json'
+
   namespace :embed do
     get 'ts/:series_id', to: 'series#show'
     get 'pl/:playlist_id', to: 'playlists#show'
