@@ -2,18 +2,23 @@
 
 class UsersController < ApiBaseController
   def index
-    @users = set_users
+    @users = filtered_users
     page, per = set_pagination
     @users = @users.page(page).per(per)
   end
 
   private
 
-  def set_users
+  def filtered_users
     users = User.includes(:roles).recent
-    users = User.search_by_keyword(users: users, keyword: params[:keyword]) if params[:keyword].present?
-    users = User.search_by_role(users: users, role: params[:role]) if params[:role].present?
+    users = users.keyword_like(params[:keyword]) if params[:keyword].present?
+    users = filtered_by_role(users) if params[:role].present?
 
     users
+  end
+
+  def filtered_by_role(users)
+    users = users.with_role(params[:role], :any)
+    User.includes(:roles).where(users: { id: users.ids }) # Userに紐づくRoleを取得するために再度取得
   end
 end
