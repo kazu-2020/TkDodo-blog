@@ -10,15 +10,10 @@ class UsersController < ApiBaseController
   private
 
   def filtered_users
-    users = User.includes(:roles).recent
+    users = User.preload(:roles).recent
     users = users.keyword_like(params[:keyword]) if params[:keyword].present?
-    users = filtered_by_role(users) if params[:role].present?
+    users = users.with_role(params[:role], :any) if params[:role].present?
 
     users
-  end
-
-  def filtered_by_role(users)
-    users = users.with_role(params[:role], :any)
-    User.includes(:roles).where(users: { id: users.ids }) # Userに紐づくRoleを取得するために再度取得
   end
 end
