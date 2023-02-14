@@ -8,7 +8,7 @@ User.create_or_find_by(
   email: Faker::Internet.unique.email,
   first_name: Faker::Name.first_name,
   last_name: Faker::Name.last_name,
-  job_class: 1, # 1: Admin, 2: User
+  job_class: 0, # 0: Admin, 1: User
   logged_in_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
   invited_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
   created_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
@@ -22,7 +22,7 @@ User.create_or_find_by(
   email: Faker::Internet.unique.email,
   first_name: Faker::Name.first_name,
   last_name: Faker::Name.last_name,
-  job_class: 2, # 1: Admin, 2: User
+  job_class: 1, # 0: Admin, 1: User
   logged_in_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
   invited_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
   created_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
@@ -50,7 +50,7 @@ User.create_or_find_by(
   email: Faker::Internet.unique.email,
   first_name: Faker::Name.first_name,
   last_name: Faker::Name.last_name,
-  job_class: 2, # 1: Admin, 2: User
+  job_class: 1, # 0: Admin, 1: User
   logged_in_at: nil,
   invited_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
   created_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
