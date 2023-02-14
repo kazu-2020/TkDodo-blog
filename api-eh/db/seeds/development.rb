@@ -1,3 +1,1 @@
-Dir.glob(File.join(Rails.root, 'db', 'fixtures', '*.rb')).each do |file|
-  load(file)
-end
+load(Rails.root.join('db', 'fixtures', 'dummy_data_of_supervisor.rb'))
