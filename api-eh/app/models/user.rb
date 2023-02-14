@@ -18,6 +18,10 @@ class User < ApplicationRecord
           "%#{sanitize_sql_like(keyword)}%",
           "%#{sanitize_sql_like(keyword)}%")
   }
+  # 職位区分
+  # 0: Admin
+  # 1: User
+  enum job_class: { Admin: 0, User: 1 }
 
   class << self
     # @param [Object] payload decodeしたjwtのpayload
