@@ -38,14 +38,5 @@ class User < ApplicationRecord
         last_name: res.dig(:profile, :lastName)
       )
     end
-
-    def search_by_role(users:, role:)
-      users = users.where(roles: { name: role }) # ロール名でUserを絞り込み
-      User.includes(:roles).where(users: { id: users.ids }) # 絞り込んだUserのidに紐づくロールを全て取得
-    end
-
-    def search_by_keyword(users:, keyword:)
-      users.keyword_like(keyword)
-    end
   end
 end
