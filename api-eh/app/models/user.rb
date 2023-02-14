@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   has_and_belongs_to_many :roles, join_table: :users_roles
 
-  scope :recent, -> { order(updated_at: :desc) }
+  scope :recent, -> { order(created_at: :desc) }
   scope :keyword_like, lambda { |keyword|
     where('(first_name LIKE ? OR last_name LIKE ?) OR email LIKE ?',
           "%#{sanitize_sql_like(keyword)}%",
