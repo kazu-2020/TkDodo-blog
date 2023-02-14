@@ -74,8 +74,8 @@ describe 'UsersController' do
 
     context 'システムロールによる絞り込み' do
       before do
-        create(:user, :user_admin, :playlist_admin)
-        create(:user, :playlist_admin)
+        create(:user, :user_admin, :playlist_admin, created_at: Time.current)
+        create(:user, :playlist_admin, created_at: Time.current - 1.day)
         create(:user, :deck_admin)
         create(:user, :reader_user)
       end
