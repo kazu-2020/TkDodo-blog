@@ -7,6 +7,12 @@ class UsersController < ApiBaseController
     @users = @users.page(page).per(per)
   end
 
+  def show
+    @user = User.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { messages: "#{params[:id]}は見つかりませんでした" }, status: :not_found
+  end
+
   private
 
   def filtered_users
