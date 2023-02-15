@@ -65,7 +65,7 @@ jobs:
       - name: Setup backend
         run: |
           cd ../api-eh
-          bin/rails db:prepare
+          bin/rails db:prepare RAILS_ENV=test
           E2E_MODE=1 bin/rails server -b 0.0.0.0 -p 8888 -d -e test
       - name: Setup Sidekiq
         run: |
