@@ -2,8 +2,6 @@ import { SystemRole } from '@/types/user'
 
 export const changeSystemRoleToDisplayName = (role: SystemRole) => {
   switch (role) {
-    case 'superAdmin':
-      return 'システム管理者'
     case 'userAdmin':
       return 'ユーザー管理者'
     case 'playlistAdmin':

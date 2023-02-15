@@ -1,7 +1,6 @@
 export type JobClass = 'Admin' | 'User' | undefined
 
 export const SYSTEM_ROLE = [
-  'superAdmin',
   'userAdmin',
   'playlistAdmin',
   'deckAdmin',
