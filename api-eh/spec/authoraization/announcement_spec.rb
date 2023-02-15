@@ -34,16 +34,6 @@ describe 'Announcement', type: :request do
       end
     end
 
-    context 'super_admin' do
-      before do
-        user = create(:user, :super_admin)
-        allow_any_instance_of(Secured).to receive(:authenticate_request!).and_return(user)
-        allow_any_instance_of(ApiBaseController).to receive(:current_user).and_return(user)
-      end
-
-      it_behaves_like '全てのアクセスが認可されること'
-    end
-
     context 'user_admin' do
       before do
         user = create(:user, :user_admin)
@@ -112,8 +102,7 @@ describe 'Announcement', type: :request do
 
     context '権限なし' do
       before do
-        user = create(:user, :super_admin)
-        user.remove_role :super_admin
+        user = create(:user)
         allow_any_instance_of(Secured).to receive(:authenticate_request!).and_return(user)
         allow_any_instance_of(ApiBaseController).to receive(:current_user).and_return(user)
       end

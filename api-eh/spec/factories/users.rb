@@ -10,10 +10,6 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
   end
 
-  trait :super_admin do
-    before :create, &:grant_super_admin!
-  end
-
   trait :user_admin do
     before :create, &:grant_user_admin!
   end

@@ -4,14 +4,14 @@ require 'rails_helper'
 
 describe 'UsersController' do
   before do
-    user = create(:user, :super_admin)
+    user = create(:user, :user_admin)
     allow_any_instance_of(Secured).to receive(:authenticate_request!).and_return(user)
     allow_any_instance_of(ApiBaseController).to receive(:current_user).and_return(user)
-
-    create_list(:user, 60)
   end
 
   describe 'GET #index' do
+    before { create_list(:user, 60) }
+
     context '検索フォームに値が入力されていない場合' do
       it '50件取得できること' do
         get users_url
@@ -84,7 +84,7 @@ describe 'UsersController' do
         it 'システムロールがユーザー管理者のユーザーのデータを取得できること' do
           get users_url, params: { role: 'user_admin' }
           body = JSON.parse(response.body)
-          expect(body['users'].length).to eq 1
+          expect(body['users'].length).to eq 2 # 初期ユーザーと作成したユーザーの2件
           expect(body['users'][0]['systemRoles']).to eq %w[userAdmin playlistAdmin] # 複数システムロールを持つ場合の検証
           expect(response).to have_http_status :ok
         end
