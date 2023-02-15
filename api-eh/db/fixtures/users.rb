@@ -19,7 +19,7 @@ User.create_or_find_by(
 User.create_or_find_by(
   id: 2,
   man_number: "#{Faker::Alphanumeric.alpha(number: 10)}@example.com",
-  email: 'sata@example.com',
+  email: 'sato@example.com',
   first_name: '佐藤',
   job_class: 1, # 0: Admin, 1: User
   logged_in_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
