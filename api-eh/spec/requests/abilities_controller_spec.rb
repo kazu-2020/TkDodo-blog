@@ -5,23 +5,6 @@ require 'rails_helper'
 describe AbilitiesController do
   describe 'GET #index' do
     describe 'システムロール' do
-      context 'システム管理者' do
-        before do
-          user = create(:user, :super_admin)
-          allow_any_instance_of(Secured).to receive(:authenticate_request!).and_return(user)
-          allow_any_instance_of(ApiBaseController).to receive(:current_user).and_return(user)
-
-          get abilities_url
-        end
-
-        it do
-          json = JSON.parse(response.body)
-          expect(json.dig('abilities', 'rules')[0]['actions']).to eq ['manage']
-          expect(json.dig('abilities', 'rules')[0]['subjects']).to eq ['all']
-          expect(json.dig('abilities', 'rules')[0]['conditions']).to eq({})
-        end
-      end
-
       context 'ユーザー管理者' do
         before do
           user = create(:user, :user_admin)
@@ -134,8 +117,7 @@ describe AbilitiesController do
 
     describe 'レコメンドプレイリストロール' do
       let(:playlist) { create(:playlist, :with_playlist_items) }
-      let(:reader_actions) { %w[read] }
-      let(:user) { create(:user, :super_admin) }
+      let(:user) { create(:user) }
 
       before do
         poc_client = instance_double(PocApiClient)
@@ -162,15 +144,11 @@ describe AbilitiesController do
         it do
           json = JSON.parse(response.body)
 
-          expect(json.dig('abilities', 'rules')[0]['actions']).to eq ['manage']
-          expect(json.dig('abilities', 'rules')[0]['subjects']).to eq ['all']
-          expect(json.dig('abilities', 'rules')[0]['conditions']).to eq({})
+          expect(json.dig('abilities', 'rules')[0]['actions']).to eq manager_actions
+          expect(json.dig('abilities', 'rules')[0]['subjects']).to eq ['Playlist']
 
           expect(json.dig('abilities', 'rules')[1]['actions']).to eq manager_actions
-          expect(json.dig('abilities', 'rules')[1]['subjects']).to eq ['Playlist']
-
-          expect(json.dig('abilities', 'rules')[2]['actions']).to eq manager_actions
-          expect(json.dig('abilities', 'rules')[2]['subjects']).to eq ['PlaylistItem']
+          expect(json.dig('abilities', 'rules')[1]['subjects']).to eq ['PlaylistItem']
         end
       end
 
@@ -190,11 +168,11 @@ describe AbilitiesController do
         it do
           json = JSON.parse(response.body)
 
-          expect(json.dig('abilities', 'rules')[1]['actions']).to eq approver_actions
-          expect(json.dig('abilities', 'rules')[1]['subjects']).to eq ['Playlist']
+          expect(json.dig('abilities', 'rules')[0]['actions']).to eq approver_actions
+          expect(json.dig('abilities', 'rules')[0]['subjects']).to eq ['Playlist']
 
-          expect(json.dig('abilities', 'rules')[2]['actions']).to eq approver_actions
-          expect(json.dig('abilities', 'rules')[2]['subjects']).to eq ['PlaylistItem']
+          expect(json.dig('abilities', 'rules')[1]['actions']).to eq approver_actions
+          expect(json.dig('abilities', 'rules')[1]['subjects']).to eq ['PlaylistItem']
         end
       end
 
@@ -214,11 +192,11 @@ describe AbilitiesController do
         it do
           json = JSON.parse(response.body)
 
-          expect(json.dig('abilities', 'rules')[1]['actions']).to eq editor_actions
-          expect(json.dig('abilities', 'rules')[1]['subjects']).to eq ['Playlist']
+          expect(json.dig('abilities', 'rules')[0]['actions']).to eq editor_actions
+          expect(json.dig('abilities', 'rules')[0]['subjects']).to eq ['Playlist']
 
-          expect(json.dig('abilities', 'rules')[2]['actions']).to eq editor_actions
-          expect(json.dig('abilities', 'rules')[2]['subjects']).to eq ['PlaylistItem']
+          expect(json.dig('abilities', 'rules')[1]['actions']).to eq editor_actions
+          expect(json.dig('abilities', 'rules')[1]['subjects']).to eq ['PlaylistItem']
         end
       end
 
@@ -235,11 +213,11 @@ describe AbilitiesController do
         it do
           json = JSON.parse(response.body)
 
-          expect(json.dig('abilities', 'rules')[1]['actions']).to eq reader_actions
-          expect(json.dig('abilities', 'rules')[1]['subjects']).to eq ['Playlist']
+          expect(json.dig('abilities', 'rules')[0]['actions']).to eq reader_actions
+          expect(json.dig('abilities', 'rules')[0]['subjects']).to eq ['Playlist']
 
-          expect(json.dig('abilities', 'rules')[2]['actions']).to eq reader_actions
-          expect(json.dig('abilities', 'rules')[2]['subjects']).to eq ['PlaylistItem']
+          expect(json.dig('abilities', 'rules')[1]['actions']).to eq reader_actions
+          expect(json.dig('abilities', 'rules')[1]['subjects']).to eq ['PlaylistItem']
         end
       end
     end

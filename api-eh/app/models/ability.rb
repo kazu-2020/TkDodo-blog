@@ -41,8 +41,6 @@ class Ability
   ].freeze
 
   SYSTEM_ROLES = {
-    # システム管理者
-    super_admin: [{ action: :manage, subject: :all }],
     # ユーザー管理者
     user_admin: [
       { action: :manage, subject: User },

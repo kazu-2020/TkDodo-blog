@@ -5,15 +5,6 @@ require 'rails_helper'
 describe 'Ability' do
   describe '#initialize' do
     describe 'システムロール' do
-      context 'super_adminの場合' do
-        let(:user) { create(:user, :super_admin) }
-        let(:ability) { Ability.new(user) }
-
-        it 'can manage all subjects' do
-          expect(ability).to be_can(:manage, :all)
-        end
-      end
-
       context 'user_adminの場合' do
         let(:user) { create(:user, :user_admin) }
         let(:ability) { Ability.new(user) }

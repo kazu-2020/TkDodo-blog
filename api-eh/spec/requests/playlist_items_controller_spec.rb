@@ -25,7 +25,7 @@ describe PlaylistItemsController do
     allow(poc_client).to receive(:episode).with(episode_id: anything).and_return({})
     allow(poc_client).to receive(:playlist_ll_bundle).with(playlist_id: anything).and_return({})
 
-    user = create(:user, :super_admin)
+    user = create(:user, :playlist_admin)
     allow_any_instance_of(Secured).to receive(:authenticate_request!).and_return(user)
     allow_any_instance_of(ApiBaseController).to receive(:current_user).and_return(user)
   end
