@@ -25,7 +25,7 @@ export const UserTableRow = ({
     <Td fontSize="md" lineHeight="base" px="inherit" py="inherit">
       {/* TODO: ユーザー編集ページへのpathに変更する */}
       <Link to="/" color="#009688">
-        {fullName}
+        {fullName || '名前無し'}
       </Link>
       {!loggedInAt && (
         <Badge

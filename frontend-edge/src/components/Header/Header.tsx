@@ -1,3 +1,4 @@
+import { VscGear } from 'react-icons/vsc'
 import { MdOutlinePlaylistPlay, MdViewList } from 'react-icons/md'
 import {
   Box,
@@ -25,11 +26,13 @@ const LinkWithMenuItem = ({ to, text }: { to: string; text: string }) => (
   </Link>
 )
 
+// eslint-disable-next-line max-lines-per-function
 export const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <Box
+      as="header"
       bg="White"
       px={4}
       boxShadow="md"
@@ -107,6 +110,26 @@ export const Header = () => {
                     to="series-decks/new"
                     text="シリーズデッキ新規作成"
                   />
+                </MenuList>
+              </Menu>
+            </Box>
+            <Box ml={4}>
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  cursor="pointer"
+                  minW={0}
+                  color="#000000DE"
+                  bg="white"
+                  fontWeight="normal"
+                >
+                  <Center>
+                    <Icon as={VscGear} w={6} h={6} mr={1} />
+                    <Text>管理</Text>
+                  </Center>
+                </MenuButton>
+                <MenuList>
+                  <LinkWithMenuItem to="/users" text="ユーザー管理" />
                 </MenuList>
               </Menu>
             </Box>

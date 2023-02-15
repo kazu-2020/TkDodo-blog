@@ -5,9 +5,9 @@
 User.create_or_find_by(
   id: 1,
   man_number: "#{Faker::Alphanumeric.alpha(number: 10)}@example.com",
-  email: Faker::Internet.unique.email,
-  first_name: Faker::Name.first_name,
-  last_name: Faker::Name.last_name,
+  email: 'tanaka@example.com',
+  first_name: '田中',
+  last_name: '太郎',
   job_class: 0, # 0: Admin, 1: User
   logged_in_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
   invited_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
@@ -19,9 +19,8 @@ User.create_or_find_by(
 User.create_or_find_by(
   id: 2,
   man_number: "#{Faker::Alphanumeric.alpha(number: 10)}@example.com",
-  email: Faker::Internet.unique.email,
-  first_name: Faker::Name.first_name,
-  last_name: Faker::Name.last_name,
+  email: 'sata@example.com',
+  first_name: '佐藤',
   job_class: 1, # 0: Admin, 1: User
   logged_in_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
   invited_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
@@ -33,9 +32,8 @@ User.create_or_find_by(
 User.create_or_find_by(
   id: 3,
   man_number: "#{Faker::Alphanumeric.alpha(number: 10)}@example.com",
-  email: Faker::Internet.unique.email,
-  first_name: Faker::Name.first_name,
-  last_name: Faker::Name.last_name,
+  email: 'ichiro@example.com',
+  last_name: '一郎',
   job_class: nil,
   logged_in_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
   invited_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
@@ -47,9 +45,7 @@ User.create_or_find_by(
 User.create_or_find_by(
   id: 4,
   man_number: "#{Faker::Alphanumeric.alpha(number: 10)}@example.com",
-  email: Faker::Internet.unique.email,
-  first_name: Faker::Name.first_name,
-  last_name: Faker::Name.last_name,
+  email: 'nanashi@example.com',
   job_class: 1, # 0: Admin, 1: User
   logged_in_at: nil,
   invited_at: Faker::Time.between(from: 1.year.ago, to: Time.now),

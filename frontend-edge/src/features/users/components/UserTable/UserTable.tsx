@@ -122,6 +122,7 @@ export const UserTable = () => {
           </Text>
 
           <Select
+            id="system-role"
             w="280px"
             background="white"
             onChange={(e) =>
@@ -130,7 +131,6 @@ export const UserTable = () => {
                 payload: { role: e.target.value }
               })
             }
-            disabled // TODO: 認可の実装が取り込まれた後、解除する
           >
             {systemRoleOptions.map(({ label, value }) => (
               <option key={value} {...{ value }}>
@@ -182,7 +182,8 @@ export const UserTable = () => {
             ) : (
               users.map((user, index) => (
                 <MemoUserTableRow
-                  fullName={fullName(user.firstName, user.lastName)}
+                  key={user.id}
+                  fullName={fullName(user.firstName ?? '', user.lastName ?? '')}
                   email={user.email}
                   jobClass={user.jobClass}
                   systemRole={changeSystemRolesToDisplayName(user.systemRoles)}

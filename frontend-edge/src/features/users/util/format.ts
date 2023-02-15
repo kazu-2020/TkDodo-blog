@@ -2,6 +2,8 @@ import { SystemRole } from '@/types/user'
 
 export const changeSystemRoleToDisplayName = (role: SystemRole) => {
   switch (role) {
+    case 'superAdmin':
+      return 'システム管理者'
     case 'userAdmin':
       return 'ユーザー管理者'
     case 'playlistAdmin':
@@ -25,7 +27,7 @@ export const fullName = (firstName = '', lastName = '') => {
     return `${firstName} ${lastName}`
   }
 
-  return firstName + lastName
+  return firstName + lastName || ''
 }
 
 if (import.meta.vitest) {
