@@ -5,12 +5,6 @@ class User < ApplicationRecord
   include Scimitar::Resources::Mixin
   include Rolable
 
-  rolify
-
-  after_create :assign_default_role
-
-  has_and_belongs_to_many :roles, join_table: :users_roles
-
   scope :recent, -> { order(created_at: :desc) }
   scope :keyword_like, lambda { |keyword|
     where('(first_name LIKE ? OR last_name LIKE ?) OR email LIKE ?',
